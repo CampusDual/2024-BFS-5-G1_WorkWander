@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CoworkingsDetailComponent } from "./coworkings-detail/coworkings-detail.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: ":id", component: CoworkingsDetailComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoworkingsRoutingModule { }
+export class CoworkingsRoutingModule {}

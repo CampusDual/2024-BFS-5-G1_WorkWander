@@ -1,1 +1,58 @@
-<p>coworkings-detail works!</p>
+<o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" keys="usr_id"
+    keys-sql-types="integer" columns="usr_id;usr_name" header-position="bottom" layout-direction="row"
+    detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true">
+
+    <div fxLayout="row" fxLayoutGap="30px" fxFill>
+
+        <div id="container">
+
+            <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
+                <div fxLayout="row" fxLayoutGap="15px">
+                    <div fxLayout="column" fxFlex>
+
+                        <o-column title="Coworking-data-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
+                            layout-align="start stretch">
+
+                            <div fxLayout="row">
+                                <span>Nombre:</span>
+                                <o-text attr="name" fxFlex>Prueba </o-text>
+                            </div>
+
+                            <div fxLayout="row">
+                                <span>Descripcion:</span>
+                                <o-textarea attr="description" fxFlex>Lorem ipsum dolor sit amet consectetur,
+                                    adipisicing elit. Aut a, qui distinctio dolorem aperiam ipsa facere corporis debitis
+                                    maiores voluptates rem corrupti possimus sapiente facilis aspernatur id? Corrupti,
+                                    deleniti reiciendis.</o-textarea>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutGap="22px">
+                                <span>Direccion:</span>
+                                <o-text attr="address" fxFlex> Calle Falsa 123</o-text>
+
+                            </div>
+
+                            <div fxLayout="row">
+                                <span>Lugar:</span>
+                                <o-text attr="location" fxFlex>Narnia</o-text>
+                            </div>
+                            <div fxLayoutGap="22px">
+                                <span>Capacidad:</span>
+                                <o-integer attr="capacity" fxFlex>999</o-integer>
+                                <span>Precio Diario:</span>
+                                <o-real attr="daily_price" fxFlex>20</o-real>
+
+                            </div>
+
+
+                        </o-column>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</o-form>

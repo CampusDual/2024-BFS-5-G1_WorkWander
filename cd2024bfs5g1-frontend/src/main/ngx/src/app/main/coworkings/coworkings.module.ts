@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CoworkingsRoutingModule } from './coworkings-routing.module';
 import { CoworkingsDetailComponent } from './coworkings-detail/coworkings-detail.component';
+import { OntimizeWebModule } from 'ontimize-web-ngx';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CoworkingsDetailComponent } from './coworkings-detail/coworkings-detail
   ],
   imports: [
     CommonModule,
-    CoworkingsRoutingModule
+    CoworkingsRoutingModule,
+    OntimizeWebModule
   ]
 })
 export class CoworkingsModule { }

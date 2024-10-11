@@ -1,0 +1,43 @@
+<o-form attr="coworkingDetail" service="coworking" entity="coworking" keys="ID" header-actions="" show-header-navigation="no">
+      
+    <div fxLayout="row" fxLayoutGap="16px">
+      
+      <!-- Imagen -->
+      <div>
+        <o-image id="COWORKING_PHOTO" attr="PHOTO" empty-image="assets/images/no-image.png" sql-type="OTHER"></o-image>
+      </div>
+      
+      <!-- Información Personal -->
+      <o-column fxFlex title="Añadir Coworking">
+        
+        <!-- Nombre y Descripción -->
+        <div fxLayout="row" fxLayoutGap="16px">
+          <o-text-input fxFlex="50" attr="NAME" label="Nombre" required="yes"></o-text-input>
+          <o-text-input fxFlex="50" attr="DESCRIPTION" label="Descripción" required="yes" maxlength="250"></o-text-input>
+        </div>
+        
+        <!-- Dirección y Localidad -->
+        <div fxLayout="row" fxLayoutGap="16px">
+            <o-text-input fxFlex="50" attr="LOCATION" label="Localidad" required="yes"></o-text-input>
+          <o-text-input fxFlex="50" attr="ADDRESS" label="Dirección" required="yes"></o-text-input>
+          
+        </div>
+        
+
+        <!-- Capacidad y Precio Diario -->
+        <div fxLayout="row" fxLayoutGap="16px">
+            <o-integer-input fxFlex="50" attr="CAPACITY" label="Capacidad (Número de puestos)" required="yes"></o-integer-input>
+            <o-real-input fxFlex="50" attr="DAILY_PRICE" label="Precio por día (€)" required="yes" decimal-digits="2"></o-real-input>
+          </div>
+  
+        
+        <!-- Fecha de Inicio y Fecha Límite -->
+        <div fxLayout="row" fxLayoutGap="16px">
+          <o-date-input fxFlex="50" attr="START_DATE" label="Fecha de Inicio" required="yes"></o-date-input>
+          <o-date-input fxFlex="50" attr="END_DATE" label="Fecha Límite" required="yes"></o-date-input>
+        </div>
+        
+      </o-column>
+    </div>
+  
+  </o-form>  

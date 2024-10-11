@@ -75,5 +75,13 @@
   "VALIDATOR.HASSMALLCASE": "Debe tener al menos 1 minúscula",
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
-  "VIEW": "Vistas"
+  "VIEW": "Vistas",
+  "EVENTS": "Eventos",
+  "EVENT_INFORMATION": "Nuevo evento",
+  "name": "Nombre",
+  "date_event": "Fecha",
+  "address": "Dirección",
+  "locality": "Localidad",
+  "bookings": "Plazas",
+  "description": "Descripción"
 }

@@ -1,0 +1,17 @@
+<o-form attr="eventNew" service="events" entity="event" keys="id_event" header-actions="I"
+    show-header-navigation="no">
+    <div fxLayout="row">
+        <o-column fxFlex title="EVENT_INFORMATION">
+            <div fxLayout="row" fxLayoutGap="8px" class="row">
+                <o-text-input fxFlex="60" attr="name" required="yes"></o-text-input>
+                <o-time-input  attr="date_event" required="yes"></o-time-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="8px" class="row">
+                <o-text-input fxFlex="65" attr="address" required="yes"></o-text-input>
+                <o-text-input fxFlex="25" attr="locality" required="yes"></o-text-input>
+                <o-integer-input fxFlex="10" attr="bookings" min="0" step="1" thousand-separator="." required="yes"></o-integer-input>
+            </div>
+            <o-textarea-input attr="description" required="yes"></o-textarea-input>
+        </o-column>
+    </div>
+</o-form>

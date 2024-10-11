@@ -75,5 +75,13 @@
   "VALIDATOR.HASSMALLCASE": "Must contain at least 1 Letter in Small Case",
   "VALIDATOR.HASSPECIALCHARACTERS": "Must contain at least 1 Special Character",
   "VERSION": "Version",
-  "VIEW": "Views"
+  "VIEW": "Views",
+  "EVENTS": "Events",
+  "EVENT_INFORMATION": "New event",
+  "name": "Name",
+  "date_event": "Date",
+  "address": "Address",
+  "locality": "Locality",
+  "bookings": "Bookings",
+  "description": "Description"
 }

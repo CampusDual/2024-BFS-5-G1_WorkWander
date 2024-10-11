@@ -2,10 +2,13 @@ package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
+import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +27,15 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
+
+    @Override
+    public EntityResult myCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
+    }
+
 
     @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {

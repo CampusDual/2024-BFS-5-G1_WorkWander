@@ -9,54 +9,22 @@
         fxLayoutAlign="center center"
         class="register-inner-container"
       >
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
-          <div fxLayout="column" fxLayoutGap="10px">
-            <mat-form-field fxFill class="m-top-24">
-              <input
-                matInput
-                class="mat-input"
-                #user
-                placeholder="{{ 'USERNAME' | oTranslate }}"
-                id="username"
-                [formControl]="userCtrl"
-              />
-              <mat-error *ngIf="userCtrl.hasError('required')">
-                {{ "ERROR_USER_REQUIRED" | oTranslate }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field fxFill class="m-top-24">
-              <input
-                matInput
-                class="mat-input"
-                #password
-                placeholder="{{ 'PASSWORD' | oTranslate }}"
-                id="password"
-                type="password"
-                [formControl]="pwdCtrl"
-              />
-              <mat-error *ngIf="pwdCtrl.hasError('required')">
-                {{ "ERROR_PASS_REQUIRED" | oTranslate }}
-              </mat-error>
-            </mat-form-field>
-            <mat-form-field fxFill class="m-top-24">
-                <input
-                  matInput
-                  class="mat-input"
-                  #email
-                  placeholder="{{ 'EMAIL' | oTranslate }}"
-                  id="email"
-                  type="email"
-                  [formControl]="emailCtrl"
-                />
-                <mat-error *ngIf="emailCtrl.hasError('required')">
-                  {{ "ERROR_EMAIL_REQUIRED" | oTranslate }}
-                </mat-error>
-              </mat-form-field>
-              
-              <button mat-raised-button color="primary" type="submit">{{ 'REGISTER' | oTranslate }}</button>
-
-          </div>
-        </form>
+        <o-form
+          attr="userRegister"
+          service="userRegister"
+          entity="userRegister"
+          keys="USERID"
+          header-actions="U"
+          show-header-navigation="no"
+        >
+          <o-column fxFlex title="REGISTER_USER">
+            <o-text-input attr="name" label="Name" data="Jhon Doe"></o-text-input>
+            <o-email-input attr="email" label="Email" data="john.doe@ontimize.com" read-only="no" required="yes"></o-email-input>
+            <o-password-input attr="password" label="Password" data="password" read-only="no" required="yes"></o-password-input>
+            <o-password-input attr="password2" label="Repeat Password" data="password" read-only="no" required="yes"></o-password-input>
+            <o-button attr="Registrar" type="BASIC" label="Registrar" layout-padding color="primary"></o-button>
+          </o-column>
+        </o-form>
       </div>
     </div>
   </div>

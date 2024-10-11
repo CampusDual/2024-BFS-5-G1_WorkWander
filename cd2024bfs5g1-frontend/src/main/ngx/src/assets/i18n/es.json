@@ -76,5 +76,11 @@
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
   "VIEW": "Vistas",
-  "Coworking-data-section" : "Detalles Coworking"
+  "Coworking-data-section" : "Detalles Coworking",
+  "NAME": "Nombre",
+  "DESCRIPTION": "Descripción",
+  "ADDRESS": "Dirección",
+  "LOCATION": "Localidad",
+  "CAPACITY": "Capacidad",
+  "DAILY_PRICE": "Precio diario"
 }

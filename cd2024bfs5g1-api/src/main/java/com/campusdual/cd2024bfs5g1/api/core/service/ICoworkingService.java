@@ -8,6 +8,8 @@ import java.util.Map;
 public interface ICoworkingService {
     public EntityResult coworkingQuery(Map<String, Object> keyMap, List<String> attrList);
 
+    public EntityResult myCoworkingQuery(Map<String, Object> keyMap, List<String> attrList);
+
     public EntityResult coworkingInsert(Map<String, Object> attrMap);
 
     public EntityResult coworkingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);

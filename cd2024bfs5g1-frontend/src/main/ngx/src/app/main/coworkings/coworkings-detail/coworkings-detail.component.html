@@ -1,6 +1,6 @@
 <o-form #form attr="users_form_edit" service="users" entity="user" header-actions="R;U" keys="usr_id"
     keys-sql-types="integer" columns="usr_id;usr_name" header-position="bottom" layout-direction="row"
-    detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true">
+    detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true" editable-detail="no">
 
     <div fxLayout="row" fxLayoutGap="30px" fxFill>
 
@@ -14,33 +14,27 @@
                             layout-align="start stretch">
 
                             <div fxLayout="row">
-                                <span>Nombre:</span>
-                                <o-text attr="name" fxFlex>Prueba </o-text>
+                                <o-text-input attr="name" fxFlex label="NAME" data="John Doe" string-case="uppercase">Prueba </o-text-input>
                             </div>
 
                             <div fxLayout="row">
-                                <span>Descripcion:</span>
-                                <o-textarea attr="description" fxFlex>Lorem ipsum dolor sit amet consectetur,
+                                <o-textarea-input attr="description" fxFlex label="DESCRIPTION">Lorem ipsum dolor sit amet consectetur,
                                     adipisicing elit. Aut a, qui distinctio dolorem aperiam ipsa facere corporis debitis
                                     maiores voluptates rem corrupti possimus sapiente facilis aspernatur id? Corrupti,
-                                    deleniti reiciendis.</o-textarea>
+                                    deleniti reiciendis.</o-textarea-input>
                             </div>
 
                             <div fxLayout="row" fxLayoutGap="22px">
-                                <span>Direccion:</span>
-                                <o-text attr="address" fxFlex> Calle Falsa 123</o-text>
+                                <o-text-input attr="address" fxFlex label="ADDRESS"> Calle Falsa 123</o-text-input>
 
                             </div>
 
                             <div fxLayout="row">
-                                <span>Lugar:</span>
-                                <o-text attr="location" fxFlex>Narnia</o-text>
+                                <o-text-input attr="location" fxFlex label="LOCATION">Narnia</o-text-input>
                             </div>
                             <div fxLayoutGap="22px">
-                                <span>Capacidad:</span>
-                                <o-integer attr="capacity" fxFlex>999</o-integer>
-                                <span>Precio Diario:</span>
-                                <o-real attr="daily_price" fxFlex>20</o-real>
+                                <o-integer-input attr="capacity" fxFlex label="CAPACITY">999</o-integer-input>
+                                <o-real-input attr="daily_price" fxFlex label="DAILY_PRICE">20</o-real-input>
 
                             </div>
 

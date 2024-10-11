@@ -18,8 +18,9 @@
         
         <!-- Dirección y Localidad -->
         <div fxLayout="row" fxLayoutGap="16px">
+            <o-text-input fxFlex="50" attr="LOCATION" label="Localidad" required="yes"></o-text-input>
           <o-text-input fxFlex="50" attr="ADDRESS" label="Dirección" required="yes"></o-text-input>
-          <o-text-input fxFlex="50" attr="LOCATION" label="Localidad" required="yes"></o-text-input>
+          
         </div>
         
 
@@ -38,8 +39,5 @@
         
       </o-column>
     </div>
-    
-    <!-- Mensaje de error en caso de campos no rellenados -->
-    <div class="alert alert-danger" *ngIf="error">{{errorMessage}}</div>
   
   </o-form>  

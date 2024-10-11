@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CoworkingsNewComponent } from '../coworkings-new/coworkings-new.component';
+import { CoworkingsNewComponent } from './coworkings-new/coworkings-new.component';
 
 const routes: Routes = [{
   path:'',

@@ -1,14 +1,14 @@
 <o-form-layout-manager attr="myCoworkingsHome" title="{{'MYCOWORKINGS' | oTranslate }}" separator=" " mode="dialog"
     label-columns="name">
-    <o-table attr="myCoworkingsTable" service="coworkings" entity="coworking" keys="id"
+    <o-table attr="myCoworkingsTable" service="coworkings" entity="myCoworking" keys="id"
         columns="id;name;description;address;location;capacity;daily_price;start_date;end_date"
-        visible-columns="id;name;description;address;location;capacity;daily_price;start_date;end_date"
-        query-rows="15">
+        visible-columns="name;description;address;location;capacity;daily_price;start_date;end_date"
+        query-rows="15" horizontal-scroll="false" auto-adjust="false">
         <!--<o-table-column attr="EMPLOYEEPHOTO" title="EMPLOYEEPHOTO" orderable="no" searchable="no" type="image"
             avatar="no" empty-image="assets/images/no-image.png" image-type="base64" width="150px"></o-table-column>-->
         <o-table-column attr="start_date" title="start_date" type="date" format="LL"></o-table-column>
         <o-table-column attr="end_date" title="end_date" type="date" format="LL"></o-table-column>
-        <o-table-column attr="name" title="name" width="150px"></o-table-column>
-        <o-table-column attr="description" title="description" width="50px"></o-table-column>
+        <o-table-column attr="name" class="texto" title="name" width="150px"></o-table-column>
+        <o-table-column attr="description" class="texto" title="description" multiline="no" width="50px"></o-table-column>
     </o-table>
 </o-form-layout-manager>

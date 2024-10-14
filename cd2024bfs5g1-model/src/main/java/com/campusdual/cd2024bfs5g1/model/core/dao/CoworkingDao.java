@@ -17,7 +17,7 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport{
     public static final String CW_LOCATION    = "location";
     public static final String CW_CAPACITY    = "capacity";
     public static final String CW_DAILY_PRICE = "daily_price";
-    public static final String CW_USER_ID     = "user_id";
+    public static final String CW_USER_ID     = "company_id";
     public static final String CW_START_DATE  = "start_date";
     public static final String CW_END_DATE    = "end_date";
 }

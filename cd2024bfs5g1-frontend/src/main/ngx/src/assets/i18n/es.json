@@ -75,5 +75,15 @@
   "VALIDATOR.HASSMALLCASE": "Debe tener al menos 1 minúscula",
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
-  "VIEW": "Vistas"
+  "VIEW": "Vistas",
+  "MYCOWORKINGS": "Mis Coworkings",
+  "id": "Coworking Id.",
+  "name": "Nombre",
+  "address": "Dirección",
+  "description":"Descripción",
+  "location": "Localización",
+  "capacity": "Capacidad",
+  "daily_price": "Precio diario",
+  "start_date":"Fecha de inicio",
+  "end_date":"Fecha de fin"
 }

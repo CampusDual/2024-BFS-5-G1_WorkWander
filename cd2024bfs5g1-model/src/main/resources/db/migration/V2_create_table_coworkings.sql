@@ -6,7 +6,8 @@ CREATE TABLE coworking (
     location VARCHAR(100),
     capacity INT,
     daily_price DECIMAL(10, 2),
-    company_id INT,
+    usr_id INT,
     start_date DATE,
     end_date DATE
+CONSTRAINT usr_id_fk FOREIGN KEY (usr_id) REFERENCES usr_user(usr_id)
 );

@@ -18,8 +18,8 @@
           show-header-navigation="no"
         >
           <o-column fxFlex title="REGISTER_USER">
-            <o-text-input attr="name" label="Name" data="Jhon Doe"></o-text-input>
-            <o-email-input attr="email" label="Email" data="john.doe@ontimize.com" read-only="no" required="yes"></o-email-input>
+            <o-text-input attr="name" label="Name" data="Jhon Doe" (onBlur)="checkUserName($event)"></o-text-input>
+            <o-email-input attr="email" label="Email" data="john.doe@ontimize.com" read-only="no" required="yes" (onBlur)="checkEmail($event)" ></o-email-input>
             <o-password-input attr="password" label="Password" data="password" read-only="no" required="yes"></o-password-input>
             <o-password-input attr="password2" label="Repeat Password" data="password" read-only="no" required="yes"></o-password-input>
             <o-button attr="Registrar" type="BASIC" label="Registrar" layout-padding color="primary"></o-button>

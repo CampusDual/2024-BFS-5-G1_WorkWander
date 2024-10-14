@@ -1,4 +1,4 @@
-<o-form #form attr="coworking" service="coworkings" entity="coworking" header-actions="R;U" keys="id"
+<o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R" show-header-navigation="no" keys="id"
     keys-sql-types="integer" columns="id;name" header-position="bottom" layout-direction="row"
     detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true" editable-detail="no">
 
@@ -10,31 +10,29 @@
                 <div fxLayout="row" fxLayoutGap="15px">
                     <div fxLayout="column" fxFlex>
 
-                        <o-column title="Coworking-data-section" appearance="no" layout-gap="15px" fxFlex="1 1 100%"
+                        <o-column title="COWORKING_DATA_SECTION" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
                             layout-align="start stretch">
 
+
                             <div fxLayout="row">
-                                <o-text-input attr="name" fxFlex label="NAME"  string-case="uppercase">Prueba </o-text-input>
+                                <o-text-input type="text" attr="name" fxFlex label="NAME" string-case="uppercase"></o-text-input>
                             </div>
 
                             <div fxLayout="row">
-                                <o-textarea-input attr="description" fxFlex label="DESCRIPTION">Lorem ipsum dolor sit amet consectetur,
-                                    adipisicing elit. Aut a, qui distinctio dolorem aperiam ipsa facere corporis debitis
-                                    maiores voluptates rem corrupti possimus sapiente facilis aspernatur id? Corrupti,
-                                    deleniti reiciendis.</o-textarea-input>
+                                <o-textarea-input attr="description" fxFlex label="DESCRIPTION"></o-textarea-input>
                             </div>
 
                             <div fxLayout="row" fxLayoutGap="22px">
-                                <o-text-input attr="address" fxFlex label="ADDRESS"> Calle Falsa 123</o-text-input>
+                                <o-text-input attr="address" fxFlex label="ADDRESS"></o-text-input>
 
                             </div>
 
                             <div fxLayout="row">
-                                <o-text-input attr="location" fxFlex label="LOCATION">Narnia</o-text-input>
+                                <o-text-input attr="location" fxFlex label="LOCATION"></o-text-input>
                             </div>
                             <div fxLayoutGap="22px">
-                                <o-integer-input attr="capacity" fxFlex label="CAPACITY">999</o-integer-input>
-                                <o-real-input attr="daily_price" fxFlex label="DAILY_PRICE">20</o-real-input>
+                                <o-integer-input attr="capacity" fxFlex label="CAPACITY"></o-integer-input>
+                                <o-currency-input attr="daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
 
                             </div>
 

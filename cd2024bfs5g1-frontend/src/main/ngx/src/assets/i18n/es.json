@@ -82,5 +82,7 @@
   "ADDRESS": "Dirección",
   "LOCATION": "Localidad",
   "CAPACITY": "Capacidad",
-  "DAILY_PRICE": "Precio diario"
+  "DAILY_PRICE": "Precio diario",
+  "cw_name": "Nombre",
+  "cw_description": "Descripcion"
 }

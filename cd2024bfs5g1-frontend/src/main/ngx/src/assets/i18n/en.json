@@ -82,5 +82,7 @@
   "ADDRESS": "Address",
   "LOCATION": "Locarion",
   "CAPACITY": "Capacity",
-  "DAILY_PRICE": "Daily price"
+  "DAILY_PRICE": "Daily price",
+  "cw_name": "Name",
+  "cw_description": "Description"
 }

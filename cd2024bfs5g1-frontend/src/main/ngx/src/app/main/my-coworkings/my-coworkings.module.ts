@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MyCoworkingsRoutingModule } from './my-coworkings-routing.module';
-import { OntimizeWebModule } from 'ontimize-web-ngx';
+import { OntimizeWebModule, OPermissionsModule } from 'ontimize-web-ngx';
 import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-home.component';
 
 
@@ -14,6 +13,7 @@ import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-ho
     CommonModule,
     MyCoworkingsRoutingModule,
     OntimizeWebModule,
+    OPermissionsModule
   ]
 })
 export class MyCoworkingsModule { }

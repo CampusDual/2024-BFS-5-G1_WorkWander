@@ -3,7 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-home.component';
 
 const routes: Routes = [
-  { path: '', component: MyCoworkingsHomeComponent}
+  { path: '', component: MyCoworkingsHomeComponent,
+    data: {
+      oPermission:{
+        permissionId:"MyCoworkings",
+        redirectedPermissionsRedirect:403
+      }
+    }
+  }
 ];
 
 @NgModule({

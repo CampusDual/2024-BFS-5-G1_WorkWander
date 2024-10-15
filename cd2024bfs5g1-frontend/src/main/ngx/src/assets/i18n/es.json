@@ -77,13 +77,13 @@
   "VERSION": "Versión",
   "VIEW": "Vistas",
   "MYCOWORKINGS": "Mis Coworkings",
-  "id": "Coworking Id.",
-  "name": "Nombre",
-  "address": "Dirección",
-  "description":"Descripción",
-  "location": "Localización",
-  "capacity": "Capacidad",
-  "daily_price": "Precio diario",
-  "start_date":"Fecha de inicio",
-  "end_date":"Fecha de fin"
+  "cw_id": "Coworking Id.",
+  "cw_name": "Nombre",
+  "cw_address": "Dirección",
+  "cw_description":"Descripción",
+  "cw_location": "Localización",
+  "cw_capacity": "Capacidad",
+  "cw_daily_price": "Precio diario",
+  "cw_start_date":"Fecha de inicio",
+  "cw_end_date":"Fecha de fin"
 }

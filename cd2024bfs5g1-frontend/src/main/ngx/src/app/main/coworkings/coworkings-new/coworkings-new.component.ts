@@ -26,4 +26,6 @@ export class CoworkingsNewComponent {
     this.dialogService.info('Operación exitosa', 'El coworking se ha guardado correctamente');
   }
 
+  name: string
+
 }

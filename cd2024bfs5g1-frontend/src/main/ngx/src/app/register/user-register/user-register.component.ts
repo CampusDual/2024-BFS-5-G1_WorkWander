@@ -1,6 +1,7 @@
-import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Injector, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { OEmailInputComponent, OFormComponent, OntimizeService } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
+import { Router } from '@angular/router';
+import { AuthService, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
 
 @Component({
   selector: 'app-user-register',
@@ -11,13 +12,21 @@ import { OEmailInputComponent, OFormComponent, OntimizeService } from 'ontimize-
 export class UserRegisterComponent implements OnInit {
 
   @ViewChild('registerForm') public registerForm: OFormComponent;
-  public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
-  public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
-  @ViewChild('emailInput') public emailCtrl: OEmailInputComponent
+  @ViewChild('nameInput') public userCtrl: OTextInputComponent;
+  @ViewChild('emailInput') public emailCtrl: OEmailInputComponent;
+  @ViewChild('passInput')  public pwdCtrl: OPasswordInputComponent;
+
+  // @ViewChild('emailInput', {read: ElementRef}) public emailInputElement: ElementRef;
+
 
   protected service: OntimizeService;
+  private redirect = '/main';
 
-  constructor(protected injector: Injector) {
+
+  constructor(protected injector: Injector,
+    @Inject(AuthService) private authService: AuthService,
+    private router: Router) 
+    {
     this.service = this.injector.get(OntimizeService);
     this.configureService()
   }
@@ -47,34 +56,57 @@ export class UserRegisterComponent implements OnInit {
           const columns = ['usr_id'];
 
           this.service.query(filter, columns, 'user').subscribe(resp => {
-            if (resp.code === 0) {
+            if (resp.data && resp.data.length > 0) {
 
               // resp.data contains the data retrieved from the server
-              alert('Email existe');
+              
+              // this.emailInputElement.nativeElement.querySelector('input').focus();  // Establecer el focus
+              alert('Email ya existe')
 
             } else {
-              alert('Email no existe');
             }
           });
 
-     } else {
-
-      console.error('Must fill an email.');
-
-    }
+     }
 
   }
 
+
+logUser(){
+  const userName = this.userCtrl.getValue();
+  const password = this.pwdCtrl.getValue();
+  
+    const self = this;
+    this.authService.login(userName, password)
+      .subscribe(() => {
+        self.router.navigate([this.redirect]);
+      });
+  
+  
+}
+
+
   checkUserName() {
-    // const userName = this.registerForm.value.username;
-    // if (userName && userName.length > 0 ) {
+    const user = this.userCtrl.getValue();
 
+    console.error("This: -" + this.userCtrl.getValue()  + "-");
 
-    // }else {
+    if (user && user.length > 0 )
+      {
+          const filter = {'usr_email': user};
+          const columns = ['usr_id'];
 
-    //   console.error('Must fill an username.');
+          this.service.query(filter, columns, 'user').subscribe(resp => {
+            if (resp.data && resp.data.length > 0) {
 
-    // }
+              // resp.data contains the data retrieved from the server
+              alert('Usuario ya existe')
+
+            } else {
+            }
+          });
+
+     }
 
 
   }

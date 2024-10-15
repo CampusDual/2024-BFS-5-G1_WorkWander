@@ -4,7 +4,7 @@ import { CoworkingsNewComponent } from './coworkings-new/coworkings-new.componen
 
 
 const routes: Routes = [{
-  path:'new', // Importante para las operaciones CRUD 
+  path:'new', // Importante para las operaciones CRUD
   component: CoworkingsNewComponent
 }];
 

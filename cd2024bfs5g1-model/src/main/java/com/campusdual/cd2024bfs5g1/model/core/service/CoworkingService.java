@@ -48,6 +48,15 @@ public class CoworkingService implements ICoworkingService {
      * @return {@link EntityResult} con el resultado de la operación de inserción.
      */
     @Override
+    public EntityResult myCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
+    }
+
+
+    @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

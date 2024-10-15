@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { CoworkingsDetailComponent } from "./coworkings-detail/coworkings-detail.component";
 
 const routes: Routes = [
-  { path: ":id", component: CoworkingsDetailComponent },
+  { path: ":cw_id", component: CoworkingsDetailComponent },
 ];
 
 @NgModule({

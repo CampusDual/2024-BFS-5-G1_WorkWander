@@ -11,7 +11,7 @@ export const routes: Routes = [
     component: MainComponent,
     canActivate: [AuthGuardService],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '', redirectTo: 'coworkings', pathMatch: 'full' },
       { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'coworkings', loadChildren: () => import ('./coworkings/coworkings.module') .then(m =>m.CoworkingsModule)},

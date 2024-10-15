@@ -1,0 +1,20 @@
+<o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
+ #grid columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description"
+ quick-filter-columns="cw_name;cw_description"
+ grid-item-height="1:1"
+ grid-item-weight="1:1"
+  show-page-size="yes" page-size-options="24;32;64">
+  <o-grid-item *ngFor="let list of grid.dataArray">
+    <o-column layout-padding class="container-item">
+      <img [src]="list.thumbnailUrl" style="margin-top:8px">
+      <h4> {{list.cw_name}} </h4>
+      <div class="location">
+        <mat-icon>location_on</mat-icon><span>{{ list.cw_location }}</span></div>
+      <div class="daily_price">
+        <mat-icon>euro_symbol</mat-icon><span>{{ list.cw_daily_price }}</span></div>
+      <div class="body">
+        {{ list.body }}
+      </div>
+    </o-column>
+  </o-grid-item>
+</o-grid>

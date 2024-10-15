@@ -1,43 +1,35 @@
-<o-form attr="coworkingDetail" service="coworking" entity="coworking" keys="ID" header-actions="" show-header-navigation="no">
-      
-    <div fxLayout="row" fxLayoutGap="16px">
-      
-      <!-- Imagen -->
-      <div>
-        <o-image id="COWORKING_PHOTO" attr="PHOTO" empty-image="assets/images/no-image.png" sql-type="OTHER"></o-image>
-      </div>
-      
-      <!-- Información Personal -->
-      <o-column fxFlex title="Añadir Coworking">
-        
-        <!-- Nombre y Descripción -->
-        <div fxLayout="row" fxLayoutGap="16px">
-          <o-text-input fxFlex="50" attr="NAME" label="Nombre" required="yes"></o-text-input>
-          <o-text-input fxFlex="50" attr="DESCRIPTION" label="Descripción" required="yes" maxlength="250"></o-text-input>
-        </div>
-        
-        <!-- Dirección y Localidad -->
-        <div fxLayout="row" fxLayoutGap="16px">
-            <o-text-input fxFlex="50" attr="LOCATION" label="Localidad" required="yes"></o-text-input>
-          <o-text-input fxFlex="50" attr="ADDRESS" label="Dirección" required="yes"></o-text-input>
-          
-        </div>
-        
+  <o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id" header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="detail">
 
-        <!-- Capacidad y Precio Diario -->
-        <div fxLayout="row" fxLayoutGap="16px">
-            <o-integer-input fxFlex="50" attr="CAPACITY" label="Capacidad (Número de puestos)" required="yes"></o-integer-input>
-            <o-real-input fxFlex="50" attr="DAILY_PRICE" label="Precio por día (€)" required="yes" decimal-digits="2"></o-real-input>
-          </div>
-  
-        
-        <!-- Fecha de Inicio y Fecha Límite -->
-        <div fxLayout="row" fxLayoutGap="16px">
-          <o-date-input fxFlex="50" attr="START_DATE" label="Fecha de Inicio" required="yes"></o-date-input>
-          <o-date-input fxFlex="50" attr="END_DATE" label="Fecha Límite" required="yes"></o-date-input>
-        </div>
-        
-      </o-column>
-    </div>
-  
-  </o-form>  
+  <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
+
+    <!-- Información General -->
+    <o-column fxFlex="70" class="form-section" title="Añadir Coworking">
+
+      <!-- Nombre y -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-text-input fxFlex="50" attr="name" label="Nombre" required="yes" icon="business" placeholder="Nombre del coworking"></o-text-input>
+        <o-text-input fxFlex="50" attr="description" label="Descripción" required="yes" maxlength="250" icon="description" placeholder="Describe tu coworking"></o-text-input>
+      </div>
+
+      <!-- Dirección y Localidad -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-text-input fxFlex="50" attr="location" label="Localidad" required="yes" icon="location_city" placeholder="Ubicación"></o-text-input>
+        <o-text-input fxFlex="50" attr="address" label="Dirección" required="yes" icon="place" placeholder="Dirección completa"></o-text-input>
+      </div>
+
+      <!-- Capacidad y Precio Diario -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-integer-input fxFlex="50" attr="capacity" label="Capacidad (Número de puestos)" required="yes" icon="event_seat" placeholder="Ej. 10, 20" style="--field-hover-color: #6200ea;"></o-integer-input>
+        <o-real-input fxFlex="50" attr="daily_price" label="Precio por día (€)" required="yes" decimal-digits="2" icon="euro_symbol" placeholder="Ej. 20, 50" style="--field-hover-color: #6200ea;"></o-real-input>
+      </div>
+
+      <!-- Fecha de Inicio y Fecha Límite -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-date-input fxFlex="50" attr="start_date" label="Fecha de Inicio" required="yes" icon="event" placeholder="Seleccione una fecha"></o-date-input>
+        <o-date-input fxFlex="50" attr="end_date" label="Fecha Límite" required="yes" icon="event_busy" placeholder="Seleccione una fecha"></o-date-input>
+      </div>
+
+    </o-column>
+  </div>
+
+</o-form>

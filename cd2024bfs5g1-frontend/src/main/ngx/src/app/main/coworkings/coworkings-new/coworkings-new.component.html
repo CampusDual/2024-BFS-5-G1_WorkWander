@@ -1,3 +1,36 @@
+  <!--
+
+    Este archivo HTML define un formulario para añadir un nuevo espacio de coworking. El formulario está estructurado utilizando componentes de Angular y Flex Layout para un diseño responsivo.
+
+    Detalles del Formulario:
+    - Atributos del Formulario:
+      - class: "form-section"
+      - attr: "coworkingDetail"
+      - service: "coworkings"
+      - entity: "coworking"
+      - keys: "id"
+      - header-actions: "new"
+      - show-header-navigation: "no"
+      - (onInsert): "onInsertSuccess()"
+      - after-insert-mode: "detail"
+
+    - Secciones del Formulario:
+      - Información General:
+        - Nombre: Campo de texto requerido con icono "business"
+        - Descripción: Campo de texto requerido con icono "description" y un máximo de 250 caracteres
+
+      - Dirección y Localidad:
+        - Localidad: Campo de texto requerido con icono "location_city"
+        - Dirección: Campo de texto requerido con icono "place"
+
+      - Capacidad y Precio Diario:
+        - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
+        - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
+
+      - Fecha de Inicio y Fecha Límite:
+        - Fecha de Inicio: Campo de fecha requerido con icono "event"
+        - Fecha Límite: Campo de fecha requerido con icono "event_busy"
+  -->
   <o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id" header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="detail">
 
   <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">

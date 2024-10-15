@@ -16,16 +16,18 @@ export class CoworkingsNewComponent {
     private dialogService: DialogService
   ) {}
 
+  /**
+   * Método que se ejecuta cuando la inserción de un nuevo coworking es exitosa.
+   * 
+   * - Restablece el formulario a su estado inicial.
+   * - Muestra un mensaje de información indicando que la operación fue exitosa.
+   */
   public onInsertSuccess(): void {
-
+    // Restablece el formulario a su modo inicial
     this.coworkingForm.setInitialMode();
 
-    //const coworkingId = data.id;
-
-
+    // Muestra un mensaje de éxito al usuario
     this.dialogService.info('Operación exitosa', 'El coworking se ha guardado correctamente');
   }
-
-  name: string
 
 }

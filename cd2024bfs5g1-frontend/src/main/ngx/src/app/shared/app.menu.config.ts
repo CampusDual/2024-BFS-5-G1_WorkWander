@@ -10,6 +10,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
     ]
   },
   // Cuando se haga la funcionalidad de mostrar la tabla de eventos, habría que cambiar el route por '/main/events'.
-  { id: 'events', name: 'EVENTS', tooltip: 'EVENTS', route: '/main/events/new', icon: 'account_balance' },
+  { id: 'newEvents', name: 'NEW_EVENT', tooltip: 'NEW_EVENT', route: '/main/events/new', icon: 'event' },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' }
 ];

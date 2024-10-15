@@ -90,5 +90,6 @@
   "address": "Address",
   "locality": "Locality",
   "bookings": "Bookings",
-  "description": "Description"
+  "description": "Description",
+  "NEW_EVENT": "New event"
 }

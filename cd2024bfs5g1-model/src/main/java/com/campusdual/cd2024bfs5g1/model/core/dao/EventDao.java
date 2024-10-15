@@ -21,6 +21,7 @@ public class EventDao extends OntimizeJdbcDaoSupport {
     public static final String ADDRESS  = "address";
     public static final String LOCALITY  = "locality";
     public static final String BOOKINGS  = "bookings";
+    public static final String USR_ID  = "usr_id";
 
     public EventDao() {
         super();

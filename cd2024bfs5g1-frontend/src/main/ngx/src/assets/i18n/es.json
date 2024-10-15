@@ -76,6 +76,13 @@
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
   "VIEW": "Vistas",
+  "COWORKING_DATA_SECTION" : "Detalles Coworking",
+  "NAME": "Nombre",
+  "DESCRIPTION": "Descripción",
+  "ADDRESS": "Dirección",
+  "LOCATION": "Localidad",
+  "CAPACITY": "Capacidad",
+  "DAILY_PRICE": "Precio diario",
   "REGISTER": "Registrar",
   "REGISTER_TITLE": "Rellena tus datos para registrarte"
 }

@@ -100,6 +100,6 @@ export class LoginComponent implements OnInit {
     }
   }
   registerUser() {
-     this.router.navigate(['register/user']);
+     this.router.navigate(['register/user/new']);
     }
 }

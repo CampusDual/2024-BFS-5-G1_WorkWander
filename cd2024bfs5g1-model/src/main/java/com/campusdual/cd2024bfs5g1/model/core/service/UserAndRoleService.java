@@ -56,7 +56,6 @@ public class UserAndRoleService implements IUserAndRoleService {
 	 * (non-Javadoc)
 	 */
 	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult userQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
 
 		final EntityResult toRet = this.daoHelper.query(this.userDao, keysValues, attributes);

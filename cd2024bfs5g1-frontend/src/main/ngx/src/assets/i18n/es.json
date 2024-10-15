@@ -83,5 +83,6 @@
   "address": "Dirección",
   "locality": "Localidad",
   "bookings": "Plazas",
-  "description": "Descripción"
+  "description": "Descripción",
+  "NEW_EVENT": "Crear evento"
 }

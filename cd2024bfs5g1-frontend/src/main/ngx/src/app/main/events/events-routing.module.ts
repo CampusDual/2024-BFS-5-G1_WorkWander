@@ -5,7 +5,13 @@ import { EventsNewComponent } from './events-new/events-new.component';
 const routes: Routes = [
   {
     path: 'new',
-    component: EventsNewComponent
+    component: EventsNewComponent,
+    data: {
+      oPermission: {
+        permissionId: 'events-new-route',
+        restrictedPermissionsRedirect: '403'
+      }
+    }
   }
 ];
 

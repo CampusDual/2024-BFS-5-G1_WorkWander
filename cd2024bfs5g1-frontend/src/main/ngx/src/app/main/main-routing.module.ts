@@ -22,6 +22,7 @@ export const routes: Routes = [
         }
        },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+      { path: 'coworkings', loadChildren: () => import ('./coworkings/coworkings.module') .then(m =>m.CoworkingsModule)},
       { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent },
       { path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule) },

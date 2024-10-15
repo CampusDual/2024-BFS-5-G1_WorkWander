@@ -2,6 +2,7 @@ import { Component, ElementRef, Inject, Injector, OnInit, ViewChild } from '@ang
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
+import { ValidationErrors, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-user-register',
@@ -9,24 +10,22 @@ import { AuthService, OEmailInputComponent, OFormComponent, OntimizeService, OPa
   styleUrls: ['./user-register.component.css']
 })
 
-export class UserRegisterComponent implements OnInit {
+export class UserRegisterComponent {
 
   @ViewChild('registerForm') public registerForm: OFormComponent;
   @ViewChild('nameInput') public userCtrl: OTextInputComponent;
   @ViewChild('emailInput') public emailCtrl: OEmailInputComponent;
-  @ViewChild('passInput')  public pwdCtrl: OPasswordInputComponent;
-
-  // @ViewChild('emailInput', {read: ElementRef}) public emailInputElement: ElementRef;
+  @ViewChild('passInput') public pwdCtrl: OPasswordInputComponent;
 
 
   protected service: OntimizeService;
   private redirect = '/main';
-
+  private usernameExists = false;
+  private emailExists = false;
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
-    private router: Router) 
-    {
+    private router: Router) {
     this.service = this.injector.get(OntimizeService);
     this.configureService()
   }
@@ -36,82 +35,74 @@ export class UserRegisterComponent implements OnInit {
     this.service.configureService(conf);
   }
 
-  ngOnInit(): void {
-
-
-    // this.registerForm.addControl('LOGIN', this.userCtrl);
-    // this.registerForm.addControl('PASSWORD', this.pwdCtrl);
-    // this.registerForm.addControl('EMAIL', this.emailCtrl);
-
-  }
-
   checkEmail() {
     const email = this.emailCtrl.getValue();
 
-    console.error("This: -" + this.emailCtrl.getValue()  + "-");
+    if (email && email.length > 0) {
+      const filter = { 'usr_email': email };
+      const columns = ['usr_id'];
 
-    if (email && email.length > 0 )
-      {
-          const filter = {'usr_email': email};
-          const columns = ['usr_id'];
+      this.service.query(filter, columns, 'user').subscribe(resp => {
+        if (resp.data && resp.data.length > 0) {
+          alert('Email ya existe')
+          this.emailExists = true;
+        } else {
+          this.emailExists = false;
+        }
+      });
 
-          this.service.query(filter, columns, 'user').subscribe(resp => {
-            if (resp.data && resp.data.length > 0) {
-
-              // resp.data contains the data retrieved from the server
-              
-              // this.emailInputElement.nativeElement.querySelector('input').focus();  // Establecer el focus
-              alert('Email ya existe')
-
-            } else {
-            }
-          });
-
-     }
+    }
 
   }
-
-
-logUser(){
-  const userName = this.userCtrl.getValue();
-  const password = this.pwdCtrl.getValue();
-  
-    const self = this;
-    this.authService.login(userName, password)
-      .subscribe(() => {
-        self.router.navigate([this.redirect]);
-      });
-  
-  
-}
-
 
   checkUserName() {
     const user = this.userCtrl.getValue();
 
-    console.error("This: -" + this.userCtrl.getValue()  + "-");
+    if (user && user.length > 0) {
+      const filter = { 'usr_login': user };
+      const columns = ['usr_id'];
 
-    if (user && user.length > 0 )
-      {
-          const filter = {'usr_email': user};
-          const columns = ['usr_id'];
+      this.service.query(filter, columns, 'user').subscribe(resp => {
+        if (resp.data && resp.data.length > 0) {
 
-          this.service.query(filter, columns, 'user').subscribe(resp => {
-            if (resp.data && resp.data.length > 0) {
+          // resp.data contains the data retrieved from the server
+          alert('Usuario ya existe')
+          this.usernameExists = true;
+        }
+        else {
+          this.usernameExists = false;
+        }
+      });
 
-              // resp.data contains the data retrieved from the server
-              alert('Usuario ya existe')
-
-            } else {
-            }
-          });
-
-     }
+    }
 
 
   }
 
 
+
+  disableHeader() {
+
+    this.registerForm.showHeader = false;
+
+  }
+
+
+
+  logUser() {
+
+    if (!this.usernameExists && !this.emailExists) {
+      const userName = this.userCtrl.getValue();
+      const password = this.pwdCtrl.getValue();
+
+      const self = this;
+      this.authService.login(userName, password)
+        .subscribe(() => {
+          self.router.navigate([this.redirect]);
+        });
+    }
+
+  }
 
 
 }

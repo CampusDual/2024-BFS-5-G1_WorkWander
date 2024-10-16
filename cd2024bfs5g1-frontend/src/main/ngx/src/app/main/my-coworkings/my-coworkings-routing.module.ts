@@ -4,13 +4,13 @@ import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-ho
 
 const routes: Routes = [
   { path: '', component: MyCoworkingsHomeComponent,
-    data: {
-      oPermission:{
-        permissionId:"MyCoworkings",
-        redirectedPermissionsRedirect:403
+      data: {
+        oPermission:{
+          permissionId:"MyCoworkings",
+          redirectedPermissionsRedirect:403
+        }
       }
     }
-  }
 ];
 
 @NgModule({

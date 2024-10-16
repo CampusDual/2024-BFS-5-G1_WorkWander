@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { OFormComponent, DialogService } from 'ontimize-web-ngx';
+import { OFormComponent, DialogService, OTranslateService } from 'ontimize-web-ngx';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,6 +14,7 @@ export class CoworkingsNewComponent {
   constructor(
     private router: Router,
     private dialogService: DialogService,
+    private translate: OTranslateService
   ) {}
 
   /**
@@ -26,8 +27,12 @@ export class CoworkingsNewComponent {
     // Restablece el formulario a su modo inicial
     this.coworkingForm.setInitialMode();
 
+    
+    const successMessageTitle = this.translate.get('COWORKING_ADDED')
+    const successMessageBody = this.translate.get('COWORKING_ADDED2');
+
     // Muestra un mensaje de éxito al usuario
-    this.dialogService.info('Operación exitosa', 'El coworking se ha guardado correctamente');
+    this.dialogService.info(successMessageTitle, successMessageBody);
   }
 
 }

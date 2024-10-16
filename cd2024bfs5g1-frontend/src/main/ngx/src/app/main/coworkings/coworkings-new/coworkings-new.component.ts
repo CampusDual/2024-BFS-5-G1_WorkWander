@@ -13,7 +13,7 @@ export class CoworkingsNewComponent {
 
   constructor(
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {}
 
   /**

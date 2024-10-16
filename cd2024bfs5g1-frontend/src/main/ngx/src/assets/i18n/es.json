@@ -92,5 +92,14 @@
   "cw_capacity": "Capacidad",
   "cw_daily_price": "Precio diario",
   "cw_start_date":"Fecha de inicio",
-  "cw_end_date":"Fecha de fin"
+  "cw_end_date":"Fecha de fin",
+  "EVENTS": "Eventos",
+  "EVENT_INFORMATION": "Nuevo evento",
+  "name": "Nombre",
+  "date_event": "Fecha",
+  "address": "Dirección",
+  "locality": "Localidad",
+  "bookings": "Plazas",
+  "description": "Descripción",
+  "NEW_EVENT": "Crear evento"
 }

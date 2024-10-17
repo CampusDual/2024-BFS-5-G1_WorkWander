@@ -1,20 +1,20 @@
-<o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
-  #grid columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description" quick-filter-columns="cw_name;cw_description"
-  show-page-size="yes" page-size-options="24;32;64">
-  <o-grid-item *ngFor="let list of grid.dataArray">
-    <o-column layout-padding class="container-item coworkingCard">
-      <div fxLayout="column"  fxLayoutAlign="space-evenly center">
-        <h3> {{list.cw_name}} </h3>
+<div class="grid-container">
+  <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
+    columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description" quick-filter-columns="cw_name;cw_description"
+    pagination-controls="true" show-page-size="yes" page-size-options="12;16;20" query-rows="12">
+    <o-grid-item *ngFor="let data of coworkingsGrid.dataArray">
+      <div class="card" fxLayout="column" fxLayoutAlign="space-evenly center">
+        <div class="name">
+          <h3> {{data.cw_name}} </h3>
+        </div>
+        <hr _ngcontent-mth-c203>
         <div class="location">
-          <mat-icon>location_on</mat-icon><span>{{ list.cw_location }}</span>
+          <span fxLayout="row" fxLayoutAlign="space-evenly center"><mat-icon>location_on</mat-icon>{{ data.cw_location }}</span>
         </div>
         <div class="daily_price">
-          <mat-icon>euro_symbol</mat-icon><span>{{ list.cw_daily_price }}</span>
-        </div>
-        <div class="body">
-          {{ list.body }}
+          <span>{{ data.cw_daily_price }}<span>€</span></span>
         </div>
       </div>
-    </o-column>
-  </o-grid-item>
-</o-grid>
+    </o-grid-item>
+  </o-grid>
+</div>

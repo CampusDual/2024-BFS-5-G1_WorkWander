@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     canActivateChild: [PermissionsGuardService],
     children: [
-    
+
     { path: 'coworkings', loadChildren: () => import('src/app/main/coworkings/coworkings.module').then(m => m.CoworkingsModule) },
     { path: '', redirectTo: 'coworkings', pathMatch: 'full' },
     { path: '**', redirectTo: 'coworkings', pathMatch: 'full' }
@@ -22,4 +22,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class PublicRoutingModule { }
-

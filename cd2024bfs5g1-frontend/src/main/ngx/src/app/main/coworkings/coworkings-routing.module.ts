@@ -4,6 +4,7 @@ import { CoworkingsDetailComponent } from "./coworkings-detail/coworkings-detail
 import { CoworkingsHomeComponent } from "./coworkings-home/coworkings-home.component";
 
 const routes: Routes = [
+  { path: "", component: CoworkingsHomeComponent },
   { path: ":cw_id", component: CoworkingsDetailComponent },
 ];
 

@@ -83,6 +83,15 @@
   "LOCATION": "Locarion",
   "CAPACITY": "Capacity",
   "DAILY_PRICE": "Daily price",
+  "EVENTS": "Events",
+  "EVENT_INFORMATION": "New event",
+  "name": "Name",
+  "date_event": "Date",
+  "address": "Address",
+  "locality": "Locality",
+  "bookings": "Bookings",
+  "description": "Description",
+  "NEW_EVENT": "New event",
   "cw_name": "Name",
   "cw_description": "Description"
 }

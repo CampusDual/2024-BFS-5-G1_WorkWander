@@ -83,6 +83,15 @@
   "LOCATION": "Localidad",
   "CAPACITY": "Capacidad",
   "DAILY_PRICE": "Precio diario",
+  "EVENTS": "Eventos",
+  "EVENT_INFORMATION": "Nuevo evento",
+  "name": "Nombre",
+  "date_event": "Fecha",
+  "address": "Dirección",
+  "locality": "Localidad",
+  "bookings": "Plazas",
+  "description": "Descripción",
+  "NEW_EVENT": "Crear evento",
   "cw_name": "Nombre",
   "cw_description": "Descripcion"
 }

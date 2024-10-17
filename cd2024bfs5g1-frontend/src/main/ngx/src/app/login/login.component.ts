@@ -14,6 +14,12 @@ import { UserInfoService } from '../shared/services/user-info.service';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
+
+entradaSinLogin() {
+
+this.router.navigate([" "])
+
+}
   public loginForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);

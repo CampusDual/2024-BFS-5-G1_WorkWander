@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponentComponent } from './public-component/public-component.component';
 import { PermissionsGuardService } from 'ontimize-web-ngx';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     component: PublicComponentComponent,
     path: '',

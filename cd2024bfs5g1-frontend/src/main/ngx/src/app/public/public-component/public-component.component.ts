@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PermissionsService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-public-component',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./public-component.component.css']
 })
 export class PublicComponentComponent {
-
+  hasPermission = false;
+  constructor(
+    private permissionService: PermissionsService
+  ) {
+    this.permissionService.getUserPermissionsAsPromise().then(x => this.hasPermission = true);
+  }
 }

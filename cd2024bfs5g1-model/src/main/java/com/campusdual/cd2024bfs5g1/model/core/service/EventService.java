@@ -34,6 +34,7 @@ public class EventService implements IEventService {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         attributes.put(EventDao.USR_ID ,userId);
+
         return this.daoHelper.insert(this.eventDao, attributes);
     }
 }

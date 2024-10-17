@@ -15,11 +15,6 @@ import { UserInfoService } from '../shared/services/user-info.service';
 })
 export class LoginComponent implements OnInit {
 
-entradaSinLogin() {
-
-this.router.navigate([" "])
-
-}
   public loginForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
   public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
@@ -103,5 +98,9 @@ this.router.navigate([" "])
         break;
       default: break;
     }
+  }
+
+  entradaSinLogin() {
+    this.router.navigate([" "])
   }
 }

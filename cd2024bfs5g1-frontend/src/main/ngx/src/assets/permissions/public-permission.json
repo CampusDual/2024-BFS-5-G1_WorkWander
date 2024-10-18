@@ -21,6 +21,16 @@
         "attr": "logout",
         "visible": false,
         "enabled": false
+      },
+      {
+        "attr": "MyCoworkings",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "coworkings",
+        "visible": false,
+        "enabled": false
       }
     ],
     "routes": [
@@ -38,6 +48,14 @@
       },
       {
         "permissionId": "logout",
+        "enabled": false
+      },
+      {
+        "permissionId": "MyCoworkings",
+        "enabled": false
+      },
+      {
+        "permissionId": "coworkings",
         "enabled": false
       }
     ]

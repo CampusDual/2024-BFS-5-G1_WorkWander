@@ -11,7 +11,7 @@ import { CoworkingsNewComponent } from './coworkings-new/coworkings-new.componen
 @NgModule({
   declarations: [
     CoworkingsDetailComponent,
-    CoworkingsHomeComponent
+    CoworkingsHomeComponent,
     CoworkingsNewComponent
   ],
   imports: [

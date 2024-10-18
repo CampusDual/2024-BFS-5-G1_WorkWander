@@ -36,7 +36,6 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
-
     @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {
         return this.daoHelper.insert(this.coworkingDao, attrMap);

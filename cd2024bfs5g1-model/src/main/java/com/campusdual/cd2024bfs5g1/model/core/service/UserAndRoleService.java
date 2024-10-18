@@ -115,21 +115,19 @@ public class UserAndRoleService implements IUserAndRoleService {
 	 */
 	@Override
 	@Transactional(rollbackFor = Throwable.class)
-	public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-    EntityResult userResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
-    Map<String, Object> rolUser = new HashMap<>();
-    rolUser.put(UserRoleDao.USR_ID, userResult.get(UserDao.USR_ID));
-    if (keysValues.get("companyCheck").toString().equals("true")){
-       rolUser.put(UserRoleDao.ROL_ID, "3");
-    }
-    else{
-       rolUser.put(UserRoleDao.ROL_ID, "2");
-    }
-    this.daoHelper.insert(this.userRolesDao, rolUser);
-    return userResult;
-}
-
-
+		public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
+    	EntityResult userResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+   	 	Map<String, Object> rolUser = new HashMap<>();
+    	rolUser.put(UserRoleDao.USR_ID, userResult.get(UserDao.USR_ID));
+    	if (keysValues.get("companyCheck").toString().equals("true")){
+       		rolUser.put(UserRoleDao.ROL_ID, "3");
+    	}
+		else{
+		   rolUser.put(UserRoleDao.ROL_ID, "2");
+		}
+		this.daoHelper.insert(this.userRolesDao, rolUser);
+		return userResult;
+		}
 
 	/*
 	 * (non-Javadoc)

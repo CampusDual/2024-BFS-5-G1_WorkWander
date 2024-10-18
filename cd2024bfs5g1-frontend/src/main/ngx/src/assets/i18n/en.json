@@ -103,5 +103,6 @@
   "description": "Description",
   "NEW_EVENT": "New event",
   "REGISTER": "Register",
-  "REGISTER_TITLE": "Fill in your details to register"
+  "REGISTER_TITLE": "Fill in your details to register",
+  "COMPANYCB": "I`m a company"
 }

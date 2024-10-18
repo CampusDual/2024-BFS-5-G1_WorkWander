@@ -103,5 +103,6 @@
   "description": "Descripción",
   "NEW_EVENT": "Crear evento",
   "REGISTER": "Registrar",
-  "REGISTER_TITLE": "Rellena tus datos para registrarte"
+  "REGISTER_TITLE": "Rellena tus datos para registrarte",
+  "COMPANYCB": "Soy una empresa"
 }

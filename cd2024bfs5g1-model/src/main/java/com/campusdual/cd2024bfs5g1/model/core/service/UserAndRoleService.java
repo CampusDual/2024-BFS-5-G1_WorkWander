@@ -120,10 +120,10 @@ public class UserAndRoleService implements IUserAndRoleService {
 		Map<String, Object> roleUser = new HashMap<>();
 		roleUser.put(UserRoleDao.USR_ID, userResult.get(UserDao.USR_ID));
 		if (keysValues.get("companyCheck").toString().equals("true")){
-			roleUser.put(UserRoleDao.ROL_ID, "3");
+			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.COMPANY_ROLE_ID);
 		}
 		else{
-			roleUser.put(UserRoleDao.ROL_ID, "2");
+			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.USER_ROLE_ID);
 		}
 		this.daoHelper.insert(this.userRolesDao, roleUser);
 		return userResult;

@@ -6,11 +6,13 @@
       <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container" >
 
         <o-form #registerForm (onInsert)="logUser()" (onBeforeInsert)="disableHeader()" attr="userRegister" service="users" entity="user" keys="usr_id" header-actions="I" show-header-navigation="no">
-          <o-column fxFlex title="REGISTER_USER">
-            <o-text-input #nameInput attr="usr_login" label="Name" data="" (onBlur)="checkUserName()"></o-text-input>
-            <o-email-input #emailInput attr="usr_email" label="Email" data="" read-only="no" required="yes" (onBlur)="checkEmail()"></o-email-input>
-            <o-password-input #passInput attr="usr_password" label="Password" data="" read-only="no" required="yes"></o-password-input>
-            <o-checkbox attr="companyCheck" label="I'm a company"></o-checkbox>
+          <o-column fxFlex > {{"REGISTER_TITLE" | oTranslate }}
+            <div fxLayout="column" fxLayoutGap="10px">
+              <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}" data="" (onBlur)="checkUserName()"></o-text-input>
+              <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}" data="" read-only="no" required="yes" (onBlur)="checkEmail()"></o-email-input>
+              <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data="" read-only="no" required="yes"></o-password-input>
+              <o-checkbox attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
+            </div>
           </o-column>
         </o-form>
       </div>

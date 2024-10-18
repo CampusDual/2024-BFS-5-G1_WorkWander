@@ -55,7 +55,6 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
-
     @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {
         // Obtener el usuario autenticado

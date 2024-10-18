@@ -84,6 +84,16 @@
   "LOCATION": "Localidad",
   "CAPACITY": "Capacidad",
   "DAILY_PRICE": "Precio diario",
+  "MYCOWORKINGS": "Mis Coworkings",
+  "cw_id": "Coworking Id.",
+  "cw_name": "Nombre",
+  "cw_address": "Dirección",
+  "cw_description":"Descripción",
+  "cw_location": "Localización",
+  "cw_capacity": "Capacidad",
+  "cw_daily_price": "Precio diario",
+  "cw_start_date":"Fecha de inicio",
+  "cw_end_date":"Fecha de fin",
   "EVENTS": "Eventos",
   "EVENT_INFORMATION": "Nuevo evento",
   "name": "Nombre",
@@ -93,6 +103,6 @@
   "bookings": "Plazas",
   "description": "Descripción",
   "NEW_EVENT": "Crear evento",
-  "cw_name": "Nombre",
-  "cw_description": "Descripcion"
+  "REGISTER": "Registrar",
+  "REGISTER_TITLE": "Rellena tus datos para registrarte"
 }

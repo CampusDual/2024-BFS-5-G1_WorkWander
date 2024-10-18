@@ -103,4 +103,7 @@ export class LoginComponent implements OnInit {
   entradaSinLogin() {
     this.router.navigate([" "])
   }
+  registerUser() {
+     this.router.navigate(['register/user/new']);
+    }
 }

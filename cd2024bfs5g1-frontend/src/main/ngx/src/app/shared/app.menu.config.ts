@@ -3,8 +3,8 @@ import { MenuRootItem } from 'ontimize-web-ngx';
 export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'coworkingsHome', name: 'COWORKINGS', icon: 'home', route: '/main/coworkings' },
   { id: 'coworkingsPublic', name: 'COWORKINGS', icon: 'home', route: '/coworkings' },
-  {
-    id: 'admin', name: 'ADMIN', tooltip: 'ADMIN', icon: 'admin_panel_settings',
+  { id: 'coworkings', name: 'ADD_COWORKING', icon: 'people', route: '/main/coworkings/new'},
+    {id: 'admin', name: 'ADMIN', tooltip: 'ADMIN', icon: 'admin_panel_settings',
     items: [
       { id: 'roles', name: 'ROLES', tooltip: 'ROLES', route: '/main/admin/roles', icon: 'supervisor_account' },
       { id: 'users', name: 'USERS', tooltip: 'USERS', route: '/main/admin/users', icon: 'person' },

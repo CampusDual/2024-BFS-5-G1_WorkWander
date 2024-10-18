@@ -99,6 +99,10 @@ export class LoginComponent implements OnInit {
       default: break;
     }
   }
+
+  entradaSinLogin() {
+    this.router.navigate([" "])
+  }
   registerUser() {
      this.router.navigate(['register/user/new']);
     }

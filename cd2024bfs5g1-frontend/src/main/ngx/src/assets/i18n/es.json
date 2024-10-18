@@ -87,5 +87,10 @@
   "START_DATE":"Fecha de Inicio",
   "END_DATE":"Fecha de Final",
   "COWORKING_ADDED":"Operación exitosa",
-  "COWORKING_ADDED2":"El coworking se ha guardado correctamente"
+  "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
+  "SELECT_DATE":"Seleccione una fecha",
+  "COWORKINGS_NAME":"Nombre del Coworking",
+  "COWORKINGS_DESCRIPTION": " del Coworking",
+  "COWORKINGS_UBICATION": "",
+  "COWORKINGS_FULL_ADDRESS": " completa"
 }

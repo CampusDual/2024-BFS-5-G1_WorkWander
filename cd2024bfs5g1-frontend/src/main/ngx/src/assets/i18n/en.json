@@ -89,5 +89,10 @@
   "START_DATE":"Start Date",
   "END_DATE":"End Date",
   "COWORKING_ADDED":"Operation Success",
-  "COWORKING_ADDED2":"The coworking was added"
+  "COWORKING_ADDED2":"The coworking was added",
+  "SELECT_DATE":"Select a date",
+  "COWORKINGS_NAME":"Coworking's name",
+  "COWORKINGS_DESCRIPTION": "Coworking's description",
+  "COWORKINGS_UBICATION": "Ubication",
+  "COWORKINGS_FULL_ADDRESS": "Full address"
 }

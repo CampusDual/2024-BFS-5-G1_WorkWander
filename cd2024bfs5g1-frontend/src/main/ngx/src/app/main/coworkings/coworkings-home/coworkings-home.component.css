@@ -1,0 +1,21 @@
+.card {
+  width: 80%;
+  height: 80%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+h3 {
+  margin: 0;
+}
+
+hr {
+  height: 1px;
+  width: 20%;
+  background-color: black;
+}
+
+.daily_price {
+  align-self: end;
+}

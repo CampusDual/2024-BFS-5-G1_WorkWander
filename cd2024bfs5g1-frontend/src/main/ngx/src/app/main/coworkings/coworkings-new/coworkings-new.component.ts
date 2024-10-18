@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 })
 /**
  * Component responsible for handling the creation of new coworking spaces.
- * 
+ *
  * This component provides functionality to:
  * - Reset the form to its initial state upon successful insertion.
  * - Display a success message upon successful insertion.
  * - Filter start dates to allow only dates equal to or later than today.
  * - Update the filter for the end date input component based on the selected start date.
- * 
+ *
  * @implements {AfterViewInit}
  */
 export class CoworkingsNewComponent implements AfterViewInit{
@@ -47,10 +47,10 @@ export class CoworkingsNewComponent implements AfterViewInit{
   public onInsertSuccess(): void {
     // Reset the form to its initial state
     this.coworkingForm.setInitialMode();
-   
+
     const successMessageTitle = this.translate.get('COWORKING_ADDED')
     const successMessageBody = this.translate.get('COWORKING_ADDED2');
- 
+
     this.dialogService.info(successMessageTitle, successMessageBody);
   }
 

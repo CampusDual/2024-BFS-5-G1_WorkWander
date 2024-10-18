@@ -113,5 +113,5 @@
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
-  "COWORKINGS_FULL_ADDRESS": "Full address"
+  "COWORKINGS_ADDRESS": "Full address"
 }

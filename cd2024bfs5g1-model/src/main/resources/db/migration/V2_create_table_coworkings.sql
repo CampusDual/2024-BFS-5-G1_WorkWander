@@ -7,7 +7,7 @@ CREATE TABLE coworking (
     cw_capacity INT,
     cw_daily_price DECIMAL(10, 2),
     cw_usr_id INT,
-    cw_start_date DATE,
+    cw_start_date DATE TIMESTAMP,
     cw_end_date DATE
 CONSTRAINT cw_usr_id_fk FOREIGN KEY (cw_usr_id) REFERENCES usr_user(usr_id)
 );

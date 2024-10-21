@@ -26,10 +26,6 @@
       - Capacidad y Precio Diario:
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
-
-      - Fecha de Inicio y Fecha Límite:
-        - Fecha de Inicio: Campo de fecha requerido con icono "event"
-        - Fecha Límite: Campo de fecha requerido con icono "event_busy"
   -->
 <o-form
   class="form-section"
@@ -127,41 +123,6 @@
           placeholder="Ej. 20, 50"
           style="--field-hover-color: #6200ea"
         ></o-real-input>
-      </div>
-
-      <!-- Fecha de Inicio y Fecha Límite -->
-      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-date-input
-          [filter-date]="filterStartDates"
-          #startDate
-          fxFlex="50"
-          attr="cw_start_date"
-          label="START_DATE"
-          required="yes"
-          icon="event"
-          value-type="date"
-          format="DD/MM/YYYY"
-          locale="es"
-          fxFlex
-          placeholder="SELECT_DATE"
-        >
-        </o-date-input>
-
-        <o-date-input
-          [filter-date]="filterStartDates"
-          #endDate
-          fxFlex="50"
-          attr="cw_end_date"
-          fxFlex
-          label="END_DATE"
-          required="yes"
-          icon="event_busy"
-          value-type="date"
-          format="DD/MM/YYYY"
-          locale="es"
-          fxFlex
-          placeholder="SELECT_DATE"
-        ></o-date-input>
       </div>
     </o-column>
   </div>

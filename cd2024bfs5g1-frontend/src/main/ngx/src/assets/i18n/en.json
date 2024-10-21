@@ -97,6 +97,7 @@
   "EVENT_INFORMATION": "New event",
   "name": "Name",
   "date_event": "Date",
+  "hour_event": "Hour",
   "address": "Address",
   "locality": "Locality",
   "bookings": "Bookings",

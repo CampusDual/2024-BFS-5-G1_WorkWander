@@ -21,19 +21,6 @@ export class EventsNewComponent {
   // Estas funciones están en desarrollo, están pensadas para comprobar que la fecha sea una fecha posterior al dia de hoy
   // y que no se meta un evento repetido
 
-  // checkCurrentDate() {
-  //   const currentTime = Date.now();
-  //   const time = this.timeCtrl.getValue();
-  //   if (time > currentTime) {
-  //     this.validateEvent();
-  //   } else {
-  //     if (time !== undefined) {
-  //       this.formCtrl.showHeader = false;
-  //       alert("La fecha debe ser posterior");
-  //     }
-  //   }
-  // }
-
   // validateEvent() {
   //   const name = this.nameCtrl.getValue();
   //   const time = this.timeCtrl.getValue();
@@ -56,6 +43,10 @@ export class EventsNewComponent {
   //     });
   //   }
   // }
+
+  currentDate() {
+    return new Date();
+  }
 
   createEvent() {
     this.router.navigate(['/main/home']);

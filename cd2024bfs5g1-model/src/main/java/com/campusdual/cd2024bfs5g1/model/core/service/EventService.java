@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Lazy
@@ -30,10 +31,18 @@ public class EventService implements IEventService {
     @Override
     @Secured({ PermissionsProviderSecured.SECURED })
     @Transactional(rollbackFor = Exception.class)
+    public EntityResult eventQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(this.eventDao, keyMap, attrList);
+    }
+
+    @Override
+    @Secured({ PermissionsProviderSecured.SECURED })
+    @Transactional(rollbackFor = Exception.class)
     public EntityResult eventInsert(Map<String, Object> attributes) throws OntimizeJEERuntimeException {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         attributes.put(EventDao.USR_ID ,userId);
+
         return this.daoHelper.insert(this.eventDao, attributes);
     }
 }

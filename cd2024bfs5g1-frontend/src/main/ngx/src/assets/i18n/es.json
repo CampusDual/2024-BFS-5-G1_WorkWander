@@ -98,6 +98,7 @@
   "EVENT_INFORMATION": "Nuevo evento",
   "name": "Nombre",
   "date_event": "Fecha",
+  "hour_event": "Hora",
   "address": "Dirección",
   "locality": "Localidad",
   "bookings": "Plazas",
@@ -112,9 +113,9 @@
   "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
   "SELECT_DATE":"Seleccione una fecha",
   "COWORKINGS_NAME":"Nombre del Coworking",
-  "COWORKINGS_DESCRIPTION": " del Coworking",
-  "COWORKINGS_UBICATION": "",
-  "COWORKINGS_FULL_ADDRESS": " completa",
+  "COWORKINGS_DESCRIPTION": "Descripción del Coworking",
+  "COWORKINGS_UBICATION": "Ubicación",
+  "COWORKINGS_ADDRESS": "Dirección completa",
   "REGISTER_TITLE": "Rellena tus datos para registrarte",
   "COMPANYCB": "Soy una empresa"
 }

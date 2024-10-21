@@ -55,7 +55,7 @@
         "enabled": false
       },
       {
-        "permissionId": "coworkings",
+        "permissionId": "coworkings-new-route",
         "enabled": false
       }
     ]

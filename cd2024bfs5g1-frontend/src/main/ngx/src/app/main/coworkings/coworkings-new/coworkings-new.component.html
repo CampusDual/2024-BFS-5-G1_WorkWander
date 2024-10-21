@@ -40,8 +40,8 @@
   keys="id"
   header-actions="new"
   show-header-navigation="no"
-  (onInsert)="onInsertSuccess()"
-  after-insert-mode="detail"
+  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
+  ignore-default-navigation="yes"
 >
   <div
     class="form-section"

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { OFormComponent, DialogService, ODateInputComponent, OTranslateService, } from 'ontimize-web-ngx';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-coworking-new',
@@ -29,7 +29,7 @@ export class CoworkingsNewComponent implements AfterViewInit{
   constructor(
     private router: Router,
     private dialogService: DialogService,
-    private translate: OTranslateService
+    private translate: OTranslateService    
   ) {}
   ngAfterViewInit(): void {
 
@@ -52,6 +52,7 @@ export class CoworkingsNewComponent implements AfterViewInit{
     const successMessageBody = this.translate.get('COWORKING_ADDED2');
  
     this.dialogService.info(successMessageTitle, successMessageBody);
+    this.router.navigateByUrl("/main/mycoworkings")
   }
 
   /**

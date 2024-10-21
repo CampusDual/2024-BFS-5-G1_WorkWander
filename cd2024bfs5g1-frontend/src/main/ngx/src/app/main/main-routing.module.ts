@@ -12,7 +12,7 @@ export const routes: Routes = [
     canActivate: [AuthGuardService],
     canActivateChild: [PermissionsGuardService],
     children: [
-      { path: '', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+      { path: '', redirectTo: 'coworkings', pathMatch: 'full' },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'coworkings', loadChildren: () => import ('./coworkings/coworkings.module') .then(m =>m.CoworkingsModule)},
       { path: 'mycoworkings', loadChildren: () => import('./my-coworkings/my-coworkings.module').then(m => m.MyCoworkingsModule) },

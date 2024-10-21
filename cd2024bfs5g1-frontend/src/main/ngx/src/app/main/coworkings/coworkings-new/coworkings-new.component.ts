@@ -25,5 +25,6 @@ export class CoworkingsNewComponent {
 
   public onInsertSuccess(): void {
     this.coworkingForm.setInitialMode();
+    this.router.navigateByUrl("/main/mycoworkings")
   }
 }

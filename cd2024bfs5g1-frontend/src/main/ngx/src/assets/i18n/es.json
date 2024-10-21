@@ -111,7 +111,7 @@
   "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
   "SELECT_DATE":"Seleccione una fecha",
   "COWORKINGS_NAME":"Nombre del Coworking",
-  "COWORKINGS_DESCRIPTION": " del Coworking",
-  "COWORKINGS_UBICATION": "",
-  "COWORKINGS_ADDRESS": " completa"
+  "COWORKINGS_DESCRIPTION": "Descripción del Coworking",
+  "COWORKINGS_UBICATION": "Ubicación",
+  "COWORKINGS_ADDRESS": "Dirección completa"
 }

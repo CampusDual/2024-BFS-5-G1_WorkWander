@@ -7,6 +7,12 @@ const routes: Routes = [
   {
     path: "new",
     component: CoworkingsNewComponent,
+    data: {
+      oPermission: {
+        permissionId: "coworkings-new-route",
+        restrictedPermissionsRedirect: "403",
+      },
+    },
   },
   {
     path: "cw_id",

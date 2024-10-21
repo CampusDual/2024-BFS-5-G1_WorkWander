@@ -18,8 +18,6 @@ export class UserRegisterComponent {
 
   protected service: OntimizeService;
   private redirect = '/main';
-  private usernameExists = false;
-  private emailExists = false;
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
@@ -41,9 +39,7 @@ export class UserRegisterComponent {
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
           alert('Email ya existe')
-          this.emailExists = true;
-        } else {
-          this.emailExists = false;
+          this.emailCtrl.setValue('');
         }
       });
     }
@@ -57,10 +53,7 @@ export class UserRegisterComponent {
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
           alert('Usuario ya existe')
-          this.usernameExists = true;
-        }
-        else {
-          this.usernameExists = false;
+          this.userCtrl.setValue('');
         }
       });
     }
@@ -71,7 +64,6 @@ export class UserRegisterComponent {
   }
 
   logUser() {
-    if (!this.usernameExists && !this.emailExists) {
       const userName = this.userCtrl.getValue();
       const password = this.pwdCtrl.getValue();
       const self = this;
@@ -79,6 +71,5 @@ export class UserRegisterComponent {
         .subscribe(() => {
           self.router.navigate([this.redirect]);
         });
-    }
   }
 }

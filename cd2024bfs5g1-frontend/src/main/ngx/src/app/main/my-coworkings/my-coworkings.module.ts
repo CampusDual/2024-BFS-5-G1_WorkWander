@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MyCoworkingsRoutingModule } from './my-coworkings-routing.module';
 import { OntimizeWebModule, OPermissionsModule } from 'ontimize-web-ngx';
 import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-home.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-ho
     CommonModule,
     MyCoworkingsRoutingModule,
     OntimizeWebModule,
-    OPermissionsModule
+    OPermissionsModule,
+    SharedModule
   ]
 })
 export class MyCoworkingsModule { }

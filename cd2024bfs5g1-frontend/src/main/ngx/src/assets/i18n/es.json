@@ -76,6 +76,7 @@
   "VALIDATOR.HASSPECIALCHARACTERS": "Debe tener al menos un caracter especial",
   "VERSION": "Versión",
   "VIEW": "Vistas",
+  "COWORKINGS": "Coworkings",
   "COWORKING_DATA_SECTION" : "Detalles Coworking",
   "NAME": "Nombre",
   "DESCRIPTION": "Descripción",
@@ -113,5 +114,7 @@
   "COWORKINGS_NAME":"Nombre del Coworking",
   "COWORKINGS_DESCRIPTION": "Descripción del Coworking",
   "COWORKINGS_UBICATION": "Ubicación",
-  "COWORKINGS_ADDRESS": "Dirección completa"
+  "COWORKINGS_ADDRESS": "Dirección completa",
+  "REGISTER_TITLE": "Rellena tus datos para registrarte",
+  "COMPANYCB": "Soy una empresa"
 }

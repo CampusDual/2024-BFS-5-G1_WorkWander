@@ -5,7 +5,6 @@ import {
   OTranslateService,
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
-import { OFormMessageService } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-coworking-new",
@@ -22,15 +21,9 @@ export class CoworkingsNewComponent {
   constructor(
     private router: Router,
     private translate: OTranslateService,
-    private messageService: OFormMessageService
   ) {}
 
   public onInsertSuccess(): void {
     this.coworkingForm.setInitialMode();
-
-    const successMessageTitle = this.translate.get("COWORKING_ADDED");
-    const successMessageBody = this.translate.get("COWORKING_ADDED2");
-
-    //this.messageService.info(successMessageTitle, successMessageBody);  }
   }
 }

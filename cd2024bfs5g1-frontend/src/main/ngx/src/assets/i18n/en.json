@@ -76,7 +76,8 @@
   "VALIDATOR.HASSPECIALCHARACTERS": "Must contain at least 1 Special Character",
   "VERSION": "Version",
   "VIEW": "Views",
-  "COWORKING_DATA_SECTION" : "Coworking Details",
+  "COWORKINGS": "Coworkings",
+  "COWORKING_DATA_SECTION": "Coworking Details",
   "NAME": "Name",
   "DESCRIPTION": "Description",
   "ADDRESS": "Address",
@@ -113,5 +114,7 @@
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
+  "REGISTER_TITLE": "Fill in your details to register",
+  "COMPANYCB": "I`m a company"
   "COWORKINGS_ADDRESS": "Full address"
 }

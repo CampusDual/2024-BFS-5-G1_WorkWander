@@ -5,8 +5,8 @@ export const SERVICE_CONFIG: Object = {
   coworkings: {
     path: "/coworkings",
   },
-  'events': {
-    'path': '/events'
+  events: {
+    path: '/events'
   },
   permissions: {
     path: "/permissions",

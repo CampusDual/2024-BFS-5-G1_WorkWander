@@ -1,0 +1,63 @@
+{
+  "code": 0,
+  "data": {
+    "menu": [
+      {
+        "attr": "coworkingsHome",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "admin",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "newEvents",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "logout",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "MyCoworkings",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "coworkings",
+        "visible": false,
+        "enabled": false
+      }
+    ],
+    "routes": [
+      {
+        "permissionId": "coworkingsHome",
+        "enabled": false
+      },
+      {
+        "permissionId": "admin",
+        "enabled": false
+      },
+      {
+        "permissionId": "events",
+        "enabled": false
+      },
+      {
+        "permissionId": "logout",
+        "enabled": false
+      },
+      {
+        "permissionId": "MyCoworkings",
+        "enabled": false
+      },
+      {
+        "permissionId": "coworkings-new-route",
+        "enabled": false
+      }
+    ]
+  }
+}

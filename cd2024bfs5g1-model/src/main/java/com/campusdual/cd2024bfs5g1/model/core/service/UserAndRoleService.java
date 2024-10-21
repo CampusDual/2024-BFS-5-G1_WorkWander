@@ -56,7 +56,6 @@ public class UserAndRoleService implements IUserAndRoleService {
 	 * (non-Javadoc)
 	 */
 	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
 	public EntityResult userQuery(final Map<?, ?> keysValues, final List<?> attributes) throws OntimizeJEERuntimeException {
 
 		final EntityResult toRet = this.daoHelper.query(this.userDao, keysValues, attributes);
@@ -115,12 +114,20 @@ public class UserAndRoleService implements IUserAndRoleService {
 	 * (non-Javadoc)
 	 */
 	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
 	@Transactional(rollbackFor = Throwable.class)
 	public EntityResult userInsert(final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
-		return this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+		EntityResult userResult = this.daoHelper.insert(this.userDao, this.encryptPassword(keysValues));
+		Map<String, Object> roleUser = new HashMap<>();
+		roleUser.put(UserRoleDao.USR_ID, userResult.get(UserDao.USR_ID));
+		if (keysValues.get("companyCheck").toString().equals("true")){
+			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.COMPANY_ROLE_ID);
+		}
+		else{
+			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.USER_ROLE_ID);
+		}
+		this.daoHelper.insert(this.userRolesDao, roleUser);
+		return userResult;
 	}
-
 	/*
 	 * (non-Javadoc)
 	 */
@@ -144,8 +151,8 @@ public class UserAndRoleService implements IUserAndRoleService {
 	 * (non-Javadoc)
 	 */
 	@Override
-	@Secured({ PermissionsProviderSecured.SECURED })
-	@Transactional(rollbackFor = Throwable.class)
+	// @Secured({ PermissionsProviderSecured.SECURED })
+	@Transactional(rollbackFor = Throwable.class) //
 	public EntityResult roleUpdate(final Map<?, ?> attributesValues, final Map<?, ?> keysValues) throws OntimizeJEERuntimeException {
 		try {
 			return this.daoHelper.update(this.roleDao, attributesValues, keysValues);

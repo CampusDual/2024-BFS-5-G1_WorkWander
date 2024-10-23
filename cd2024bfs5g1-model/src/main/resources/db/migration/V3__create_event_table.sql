@@ -8,8 +8,8 @@ CREATE TABLE event (
 	locality text NOT NULL,
 	bookings int4 NOT NULL,
 	usr_id int4 NOT NULL,
-	CONSTRAINT fk_usr_id FOREIGN KEY usr_id REFERENCES usr_user(usr_id),
-	CONSTRAINT pk_id_event PRIMARY KEY (id_event)
+	CONSTRAINT fk_usr_id FOREIGN KEY(usr_id) REFERENCES usr_user(usr_id),
+	CONSTRAINT pk_id_event PRIMARY KEY(id_event)
 );
 
 insert into usr_role(rol_name, rol_xml_client_permission, rol_json_client_permission, rol_notes) values (

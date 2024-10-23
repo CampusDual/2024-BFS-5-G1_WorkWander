@@ -1,0 +1,198 @@
+.coworking-card {
+  // Estilo general de la tarjeta de coworking
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f9f1e7;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+  width: 100%;
+
+  .image-container {
+    // Contenedor de la imagen
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    .coworking-image {
+      // Estilo de la imagen de coworking
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+  }
+
+  .info {
+    // Contenedor de la información
+    width: 70%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .coworking-name {
+      // Estilo del nombre del coworking
+      font-size: 20px;
+      font-weight: bold;
+      color: #8b5e3c;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: inline-block; // Necesario para que el efecto funcione correctamente
+    
+      &:hover {
+        animation: wave 0.5s ease-in-out infinite;
+      }
+    }
+    
+    // Animación de onda
+    @keyframes wave {
+      0% {
+        transform: translateY(0);
+      }
+      25% {
+        transform: translateY(-2px);
+      }
+      50% {
+        transform: translateY(2px);
+      }
+      75% {
+        transform: translateY(-2px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+
+    .stars {
+      // Contenedor de las estrellas de calificación
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      color: #8b5e3c;
+
+      mat-icon {
+        // Estilo de los iconos de estrellas
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .rating {
+        // Estilo del texto de calificación
+        margin-left: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .location, .capacity {
+      // Estilo de la ubicación y capacidad
+      color: #8b5e3c;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .services {
+      // Contenedor de los servicios
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      transition: transform 0.2s;
+
+      &:hover {
+        // Efecto hover para los servicios
+        transform: scale(1.5);
+      }
+
+      .service-icon {
+        // Estilo de los iconos de servicios
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #8b5e3c;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .price-container {
+    // Contenedor del precio
+    width: 15%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: #e6d5c3;
+    min-height: 100%;
+
+    .price {
+      // Estilo del precio
+      font-size: 24px;
+      font-weight: bold;
+      color: #8b5e3c;
+    }
+  }
+
+  .capacity-container {
+    // Contenedor de la capacidad
+    width: 15%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: #e6d5c3;
+    min-height: 100%;
+
+    .capacity {
+      // Estilo de la capacidad
+      font-size: 24px;
+      font-weight: bold;
+      color: #8b5e3c;
+    }
+  }
+}
+
+// Media Query para dispositivos móviles (max-width: 768px)
+@media (max-width: 768px) {
+  .coworking-card {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: auto;
+
+    .image-container {
+      width: 100%;
+      height: 200px;
+      padding: 0;
+    }
+
+    .info {
+      width: 100%;
+      padding: 12px;
+    }
+
+    .price-container {
+      width: 100%;
+      justify-content: center;
+      padding: 12px;
+      background-color: #e6d5c3;
+    }
+
+    .capacity-container {
+      width: 100%;
+      justify-content: center;
+      padding: 12px;
+      background-color: #e6d5c3;
+    }
+  }
+}

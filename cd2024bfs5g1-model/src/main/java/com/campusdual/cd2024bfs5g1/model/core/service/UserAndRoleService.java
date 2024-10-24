@@ -121,9 +121,11 @@ public class UserAndRoleService implements IUserAndRoleService {
 		roleUser.put(UserRoleDao.USR_ID, userResult.get(UserDao.USR_ID));
 		if (keysValues.get("companyCheck").toString().equals("true")){
 			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.COMPANY_ROLE_ID);
+			roleUser.put(UserRoleDao.USR_CIF, keysValues.get(UserRoleDao.USR_CIF)); // CIF
 		}
 		else{
 			roleUser.put(UserRoleDao.ROL_ID, UserRoleDao.USER_ROLE_ID);
+			roleUser.put(UserRoleDao.USR_CIF, null);							// CIF
 		}
 		this.daoHelper.insert(this.userRolesDao, roleUser);
 		return userResult;

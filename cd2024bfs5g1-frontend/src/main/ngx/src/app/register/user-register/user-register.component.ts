@@ -1,8 +1,6 @@
-import { Component, ElementRef, Inject, Injector, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OButtonComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
-import { ValidationErrors, FormControl } from '@angular/forms';
+import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-user-register',
@@ -11,14 +9,18 @@ import { ValidationErrors, FormControl } from '@angular/forms';
 })
 
 export class UserRegisterComponent {
+
   @ViewChild('registerForm') public registerForm: OFormComponent;
   @ViewChild('nameInput') public userCtrl: OTextInputComponent;
   @ViewChild('emailInput') public emailCtrl: OEmailInputComponent;
   @ViewChild('passInput') public pwdCtrl: OPasswordInputComponent;
   @ViewChild('submitButton') public submitButton: OButtonComponent;
+  @ViewChild('companyInput') public companyInput: OTextInputComponent;
+  @ViewChild('checkBoxCompany') public checkBoxCompany: OCheckboxComponent;
 
   protected service: OntimizeService;
   private redirect = '/main';
+  onCompanyCheckChange: any;
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
@@ -60,21 +62,25 @@ export class UserRegisterComponent {
     }
   }
 
-  disableButton(){
-    this.submitButton.enabled=false
+  disableButton() {
+    this.submitButton.enabled = false
   }
 
   logUser() {
-      const userName = this.userCtrl.getValue();
-      const password = this.pwdCtrl.getValue();
-      const self = this;
-      this.authService.login(userName, password)
-        .subscribe(() => {
-          self.router.navigate([this.redirect]);
-        });
+    const userName = this.userCtrl.getValue();
+    const password = this.pwdCtrl.getValue();
+    const self = this;
+    this.authService.login(userName, password)
+      .subscribe(() => {
+        self.router.navigate([this.redirect]);
+      });
   }
 
-  goBack(){
+  checkCompany() {
+    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
+  }
+
+  goBack() {
     this.router.navigate(["/login"])
   }
 }

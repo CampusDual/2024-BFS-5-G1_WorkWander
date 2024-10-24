@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, Injector, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
+import { AuthService, OButtonComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
 import { ValidationErrors, FormControl } from '@angular/forms';
 
 @Component({
@@ -15,6 +15,7 @@ export class UserRegisterComponent {
   @ViewChild('nameInput') public userCtrl: OTextInputComponent;
   @ViewChild('emailInput') public emailCtrl: OEmailInputComponent;
   @ViewChild('passInput') public pwdCtrl: OPasswordInputComponent;
+  @ViewChild('submitButton') public submitButton: OButtonComponent;
 
   protected service: OntimizeService;
   private redirect = '/main';
@@ -59,8 +60,8 @@ export class UserRegisterComponent {
     }
   }
 
-  disableHeader() {
-    this.registerForm.showHeader = false;
+  disableButton(){
+    this.submitButton.enabled=false
   }
 
   logUser() {
@@ -71,5 +72,9 @@ export class UserRegisterComponent {
         .subscribe(() => {
           self.router.navigate([this.redirect]);
         });
+  }
+
+  goBack(){
+    this.router.navigate(["/login"])
   }
 }

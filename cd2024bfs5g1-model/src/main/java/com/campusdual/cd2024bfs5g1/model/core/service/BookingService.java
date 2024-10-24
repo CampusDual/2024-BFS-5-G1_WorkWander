@@ -27,6 +27,11 @@ public class BookingService implements IBookingService {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList);    }
 
     @Override
+    public EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.TOTAL_BOOKINGS_DATE_QUERY);
+    }
+
+    @Override
     public EntityResult myBookingQuery(Map<String, Object> keyMap, List<String> attrList) {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);

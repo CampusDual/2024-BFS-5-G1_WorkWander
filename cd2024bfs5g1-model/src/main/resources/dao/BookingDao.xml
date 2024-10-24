@@ -10,4 +10,14 @@
         <Column>bk_id</Column>
     </UpdateKeys>
     <GeneratedKey>bk_id</GeneratedKey>
+    <Queries>
+        <Query id="totalBookingsByDate">
+            <Sentence>
+                <![CDATA[
+                SELECT COUNT(*) as plazasocupadas FROM ${mainschema}.booking #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+
 </JdbcEntitySetup>

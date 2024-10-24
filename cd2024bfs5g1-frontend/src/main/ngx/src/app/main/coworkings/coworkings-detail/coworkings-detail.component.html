@@ -33,22 +33,28 @@
                                 <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
                             </div>
                             <div fxLayoutGap="22px">
-                                <o-integer-input attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
+                                <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
                                 <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
 
                             </div>
 
-                            <o-form editable-detail="no" show-header="no" >
+                            <o-form editable-detail="no" show-header="no">
                                 <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
                                 <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
-                                    value-type="date"></o-date-input>
-                                
+                                    (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
+
                             </o-form>
-
-
                             <div>
-                                <button (click)="checkCapacity()"> {{'RESERVAR' | oTranslate }}</button>
+                                <o-integer-input editable-detail="no" #realCapacity></o-integer-input>
                             </div>
+
+                           
+
+                           <div>
+                            <o-button #bookingButton label="{{'RESERVAR' | oTranslate }}" type="raised" color="primary" > 
+
+                            </o-button>
+                           </div>
 
                         </o-column>
 

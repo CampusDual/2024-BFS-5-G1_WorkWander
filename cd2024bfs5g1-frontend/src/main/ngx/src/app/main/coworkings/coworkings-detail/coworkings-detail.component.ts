@@ -1,9 +1,12 @@
 import { Component, ViewChild } from "@angular/core";
+import { MatButton } from "@angular/material/button";
 import { ActivatedRoute, Router } from "@angular/router";
 import moment from "moment";
 import {
+  OButtonComponent,
   ODateInputComponent,
   OFormComponent,
+  OIntegerInputComponent,
   OntimizeService,
 } from "ontimize-web-ngx";
 
@@ -18,13 +21,14 @@ export class CoworkingsDetailComponent {
     private activeRoute: ActivatedRoute
   ) {}
 
-  //Estan añadidos los elementos del html formulario general con #form para tomar el dato de coworking id
-  // y el form especifici
-  @ViewChild("form") coworkingDetailForm: OFormComponent;
+ 
+  @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("date") bookingDate: ODateInputComponent;
+  @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
+  @ViewChild("bookingButton") bookingButton: OButtonComponent;
 
-  dateSelected: Date;
-  realCapacity: number = 100;
+  
+  plazasOcupadas: number;
 
   currentDate() {
     return new Date();
@@ -44,12 +48,21 @@ export class CoworkingsDetailComponent {
     this.service.configureService(conf);
     const columns = ["bk_id"];
     this.service
-      .query(filter, columns, "booking", sqltypes)
+      .query(filter, columns, "totalBookingsByDate", sqltypes)
       .subscribe((resp) => {
         if (resp.code === 0) {
-          console.log("Llego algo");
+          //this.plazasOcupadas = resp.data.length ? resp.data.length : 0;
+          this.plazasOcupadas = resp.data[0]["plazasocupadas"];
+          this.realCapacity.setValue(
+            this.coworkingsSites.getValue() - this.plazasOcupadas
+          );
+          if (this.realCapacity.getValue() < 1) {
+            this.bookingButton.visible = false;
+          } else {
+            this.bookingButton.visible = true;
+          }
         } else {
-          console.log("NO Llego ");
+          alert("NO hay plazas")
         }
       });
   }

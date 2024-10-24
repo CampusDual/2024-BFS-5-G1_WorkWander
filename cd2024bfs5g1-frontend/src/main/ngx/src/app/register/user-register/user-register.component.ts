@@ -111,13 +111,23 @@ export class UserRegisterComponent {
     return false;
   }
 
-  checkCif(){
+checkCif(){
     const cif = this.companyInput.getValue();
+
     if (!this.validateCIF(cif)) {
-    console.log("CIF no válido");
       alert('CIF no válido');
       this.companyInput.setValue('');
     }
-
+    if (cif.length > 0) {
+      const filter = { 'usr_cif': cif};
+      const columns = ['usr_id'];
+      this.service.query(filter, columns, 'user').subscribe(resp => {
+        if (resp.data && resp.data.length > 0) {
+          alert('CIF ya existe')
+          this.companyInput.setValue('');
+        }
+      });
+    }
   }
+
 }

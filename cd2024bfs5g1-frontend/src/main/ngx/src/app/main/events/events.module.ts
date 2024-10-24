@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { EventsRoutingModule } from './events-routing.module';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { EventsNewComponent } from './events-new/events-new.component';
+import { MyEventsComponent } from './my-events/my-events.component';
 
 
 @NgModule({
   declarations: [
-    EventsNewComponent
+    EventsNewComponent,
+    MyEventsComponent
   ],
   imports: [
     CommonModule,

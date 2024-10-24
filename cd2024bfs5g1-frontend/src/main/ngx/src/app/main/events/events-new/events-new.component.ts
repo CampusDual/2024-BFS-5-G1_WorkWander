@@ -11,7 +11,7 @@ import { OFormComponent, OntimizeService, OTextInputComponent, OTimeInputCompone
 export class EventsNewComponent {
   @ViewChild('nameInput') public nameCtrl: OTextInputComponent;
   @ViewChild('timeInput') public timeCtrl: OTimeInputComponent;
-  @ViewChild('form') public formCtrl: OFormComponent;
+  @ViewChild('form') public formCtrl: OFormComponent; 
 
   constructor(private router: Router, private service: OntimizeService ) {
     const conf = this.service.getDefaultServiceConfiguration('events');

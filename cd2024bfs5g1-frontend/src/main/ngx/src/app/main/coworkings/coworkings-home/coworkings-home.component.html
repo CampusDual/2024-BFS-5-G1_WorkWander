@@ -1,6 +1,6 @@
 <div class="grid-container">
   <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description" quick-filter-columns="cw_name;cw_description"
+    columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
     pagination-controls="true" page-size-options="12;16;20" query-rows="12">
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray">
       <div class="card" fxLayout="column" fxLayoutAlign="space-evenly center">
@@ -13,6 +13,9 @@
         </div>
         <div class="daily_price">
           <span>{{ data.cw_daily_price }}<span>€</span></span>
+        </div>
+        <div>
+          <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
         </div>
       </div>
     </o-grid-item>

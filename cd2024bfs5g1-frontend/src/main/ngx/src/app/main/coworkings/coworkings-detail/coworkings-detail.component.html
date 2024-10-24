@@ -13,6 +13,10 @@
                         <o-column title="COWORKING_DATA_SECTION" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
                             layout-align="start stretch">
 
+                            <div fxLayout="row">
+                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
+                                <!-- <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}"> -->
+                            </div>
 
                             <div fxLayout="row">
                                 <o-text-input type="text" attr="cw_name" fxFlex label="NAME" string-case="uppercase"></o-text-input>

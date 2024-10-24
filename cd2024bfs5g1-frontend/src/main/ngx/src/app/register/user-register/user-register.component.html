@@ -14,16 +14,13 @@
                 required="yes" (onBlur)="checkEmail()"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data=""
                 read-only="no" required="yes"></o-password-input>
-
-                <o-text-input *ngIf="checkCompany()" #companyInput attr="usr_cif" required="yes"
+              <o-text-input *ngIf="checkCompany()" #companyInput attr="usr_cif" required="yes"
                 label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
-
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
-
               <button #submitButton type="submit" (click)="registerForm.insert()">Registrar</button>
-             <div class="text-center">
-              <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">Ya estoy registrado</a>
-            </div>
+              <div class="text-center">
+                <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">I'm registered</a>
+              </div>
             </div>
           </o-column>
         </o-form>

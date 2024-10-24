@@ -83,12 +83,17 @@ export class UserRegisterComponent {
   goBack() {
     this.router.navigate(["/login"])
   }
-  validateCIF(cif: string): boolean {
-    if (cif.length !== 9) return false;
 
+  validateCIF(cif: string): boolean {
     const numero = cif.substring(1, 8);
     const totalPares = parseInt(numero[1], 10) + parseInt(numero[3], 10) + parseInt(numero[5], 10);
+    const total = totalPares + totalImpares;
+    const digitoControl = 10 - (total % 10);
+    const caracterFinalControl = String.fromCharCode(64 + digitoControl);
+
     let totalImpares = 0;
+
+    if (cif.length !== 9) return false;
 
     for (let i = 0; i < 7; i += 2) {
       const impar = parseInt(numero[i], 10) * 2;
@@ -98,20 +103,15 @@ export class UserRegisterComponent {
         totalImpares += parseInt(imparStr[1], 10);
       }
     }
-
-    const total = totalPares + totalImpares;
-    const digitoControl = 10 - (total % 10);
-    const caracterFinalControl = String.fromCharCode(64 + digitoControl);
-
     if (caracterFinalControl === cif[8]) return true;
+
     if (cif[0] !== 'X' && cif[0] !== 'P') {
       if (digitoControl.toString() === cif[8]) return true;
     }
-
     return false;
   }
 
-checkCif(){
+  checkCif(){
     const cif = this.companyInput.getValue();
 
     if (!this.validateCIF(cif)) {
@@ -129,5 +129,4 @@ checkCif(){
       });
     }
   }
-
 }

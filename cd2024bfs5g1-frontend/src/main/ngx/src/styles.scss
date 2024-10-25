@@ -1,3 +1,26 @@
+@use "sass:map";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+$typography: "Noto Sans";
+
+$primary: #8b5e3c;
+$accent: #e6d5c3;
+$blanco: #f8f6f4;
+$primaryClaro: $primary;
+$accentClaro: $blanco;
+
+$colorDegradadoFuerte: $primary;
+$colorDegradadoSuave: $accent;
+
+h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
+  font-family: $typography !important;
+}
+
+$linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientRL: linear-gradient(270deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+
 /* You can add global styles to this file, and also import other style files */
 .o-form-layout-manager {
   .o-form {
@@ -37,4 +60,75 @@
       bottom: -42px;
     }
   }
+}
+
+
+/* Colores personalizados */
+a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
+  border-left: 8px solid $primary;
+}
+
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container .o-app-header,
+o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container .o-app-header {
+  background-image: $linear-gradientLR;
+}
+.navMenu {
+  background-image: $linear-gradientRL;
+}
+
+.o-app-sidenav .o-app-sidenav-sidenav {
+  background-image: $linear-gradientRL;
+  background-color: $primary;
+}
+.o-app-sidenav .o-app-sidenav-sidenav .sidenav-toggle {
+ color: $accentClaro;
+}
+
+.o-app-sidenav .o-app-sidenav-sidenav li a {
+  color: $accentClaro;
+}
+
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+  color: $primary;
+  background-color: $accentClaro;
+  border-left: 8px solid $primary;
+}
+
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+  background-color: $accentClaro;
+  border-left: 8px solid $accentClaro;
+}
+
+div.sidenav-toggle-container.ng-star-inserted{
+  place-content: center flex-end;
+  justify-content: space-between;
+}
+
+.o-app-header .o-user-info {
+  color: $accentClaro;
+}
+button .mat-mdc-button:not(:disabled) {
+  color: $accentClaro;
+}
+
+o-column.form-section.o-column,
+.card.ng-star-inserted {
+  -webkit-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  box-shadow: -1px -1px 9px 4px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+o-column.form-section.o-column:hover,
+.card.ng-star-inserted:hover {
+  box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -webkit-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+.form-section:hover{
+  transform: none!important;
+}
+
+.o-app-header.o-app-header-medium+.header-layout {
+  background: $blanco;
 }

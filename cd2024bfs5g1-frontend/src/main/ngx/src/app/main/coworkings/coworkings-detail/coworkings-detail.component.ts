@@ -69,9 +69,9 @@ export class CoworkingsDetailComponent {
             this.coworkingsSites.getValue() - this.plazasOcupadas
           );
           if (this.realCapacity.getValue() < 1) {
-            this.bookingButton.visible = false;
+            this.bookingButton.enabled = false;
           } else {
-            this.bookingButton.visible = true;
+            this.bookingButton.enabled = true;
           }
         } else {
           alert("NO hay plazas");

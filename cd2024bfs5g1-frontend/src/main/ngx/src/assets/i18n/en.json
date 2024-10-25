@@ -116,5 +116,7 @@
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
   "COMPANYCB": "I`m a company",
-  "COWORKINGS_ADDRESS": "Full address"
+  "COWORKINGS_ADDRESS": "Full address",
+  "MYEVENTS":"My Events"
+
 }

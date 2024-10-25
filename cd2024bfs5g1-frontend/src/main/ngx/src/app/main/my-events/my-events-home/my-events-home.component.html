@@ -4,31 +4,27 @@
         columns="id_event;name;description;date_event;hour_event;address;locality;bookings;usr_id"
         visible-columns="name;description;date_event;hour_event;address;locality;bookings"
         query-rows="15" auto-adjust="false"  >
-        
+
         <!-- Columna para mostrar la fecha del evento -->
-        <o-table-column attr="date_event" title="Date Event" type="date" format="LL"></o-table-column>
-        
+        <o-table-column attr="date_event" fxFlex title="date_event" type="date" format="LL"></o-table-column>
+
         <!-- Columna para mostrar la hora del evento -->
-        <o-table-column attr="hour_event" title="Hour Event" width="100px" format="LT"></o-table-column>
+        <o-table-column attr="hour_event" fxFlex title="hour_event" width="100px" format="LT"></o-table-column>
 
         <!-- Columna para mostrar el nombre del evento -->
-        <o-table-column attr="name" title="Event Name" width="150px"></o-table-column>
+        <o-table-column attr="name" fxFlex title="name" width="150px"></o-table-column>
 
         <!-- Columna para la descripción del evento -->
-        <o-table-column attr="description" title="Event Description" multiline="no" width="300px"></o-table-column>
-        
+        <o-table-column attr="description" fxFlex title="description" multiline="no" width="300px"></o-table-column>
+
         <!-- Columna para la dirección del evento -->
-        <o-table-column attr="address" title="Address" width="200px"></o-table-column>
+        <o-table-column attr="address" fxFlex title="address" width="200px"></o-table-column>
 
         <!-- Columna para la localidad del evento -->
-        <o-table-column attr="locality" title="Locality" width="150px"></o-table-column>
+        <o-table-column attr="locality" fxFlex title="locality" width="150px"></o-table-column>
 
         <!-- Columna para mostrar el número de reservas -->
-        <o-table-column attr="bookings" title="Bookings" width="100px"></o-table-column>
-
-        <!-- Columna para mostrar el id del usuario que creó el evento -->
-        <o-table-column attr="usr_id" title="User ID" width="100px"></o-table-column>
-        
+        <o-table-column attr="bookings" fxFlex title="bookings" width="100px"></o-table-column>
     </o-table>
 </o-form-layout-manager>
-	
+

@@ -3,6 +3,7 @@ import { MatButton } from "@angular/material/button";
 import { ActivatedRoute, Router } from "@angular/router";
 import moment from "moment";
 import {
+  DialogService,
   OButtonComponent,
   ODateInputComponent,
   OFormComponent,
@@ -18,7 +19,8 @@ import {
 export class CoworkingsDetailComponent {
   constructor(
     private service: OntimizeService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    protected dialogService: DialogService
   ) {}
 
 
@@ -66,5 +68,20 @@ export class CoworkingsDetailComponent {
           alert("NO hay plazas")
         }
       });
+  }
+
+  showConfirm(evt: any) {
+    if (this.dialogService) {
+      this.dialogService.confirm('Confirm dialog title', 'Do you really want to accept?');
+      this.dialogService.dialogRef.afterClosed().subscribe( result => {
+        if(result) {
+          // Actions on confirmation
+          console.log('Confirmado')
+        } else {
+          // Actions on cancellation
+          console.log('No confirmado')
+        }
+      })
+    }
   }
 }

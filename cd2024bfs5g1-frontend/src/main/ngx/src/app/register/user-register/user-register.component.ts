@@ -85,13 +85,12 @@ export class UserRegisterComponent {
   }
 
   validateCIF(cif: string): boolean {
+    let totalImpares = 0;
     const numero = cif.substring(1, 8);
     const totalPares = parseInt(numero[1], 10) + parseInt(numero[3], 10) + parseInt(numero[5], 10);
     const total = totalPares + totalImpares;
     const digitoControl = 10 - (total % 10);
     const caracterFinalControl = String.fromCharCode(64 + digitoControl);
-
-    let totalImpares = 0;
 
     if (cif.length !== 9) return false;
 

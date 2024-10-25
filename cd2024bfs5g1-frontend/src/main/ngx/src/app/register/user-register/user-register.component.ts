@@ -77,6 +77,11 @@ export class UserRegisterComponent {
   }
 
   checkCompany() {
+    // if (this.checkBoxCompany.getValue() === false && this.companyInput.getValue().length > 0) {
+    //   this.companyInput.setValue('');
+      
+    // }
+
     return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
   }
 
@@ -85,6 +90,9 @@ export class UserRegisterComponent {
   }
 
   validateCIF(cif: string): boolean {
+
+    if (!cif || cif.trim().length !== 9) return false;
+
     let totalImpares = 0;
     const numero = cif.substring(1, 8);
     const totalPares = parseInt(numero[1], 10) + parseInt(numero[3], 10) + parseInt(numero[5], 10);
@@ -92,7 +100,7 @@ export class UserRegisterComponent {
     const digitoControl = 10 - (total % 10);
     const caracterFinalControl = String.fromCharCode(64 + digitoControl);
 
-    if (cif.length !== 9) return false;
+    // if (cif.length !== 9) return false;
 
     for (let i = 0; i < 7; i += 2) {
       const impar = parseInt(numero[i], 10) * 2;
@@ -110,15 +118,16 @@ export class UserRegisterComponent {
     return false;
   }
 
-  checkCif(){
+  checkCif() {
     const cif = this.companyInput.getValue();
 
     if (!this.validateCIF(cif)) {
       alert('CIF no válido');
       this.companyInput.setValue('');
+      return;
     }
     if (cif.length > 0) {
-      const filter = { 'usr_cif': cif};
+      const filter = { 'usr_cif': cif };
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
@@ -128,4 +137,13 @@ export class UserRegisterComponent {
       });
     }
   }
+
+// utilizar el servicio de ontimiz inserte el form 
+
+  // insertUser() {
+
+  //   if ()
+  //   this.service.insert(this.registerForm.
+  //   }
+
 }

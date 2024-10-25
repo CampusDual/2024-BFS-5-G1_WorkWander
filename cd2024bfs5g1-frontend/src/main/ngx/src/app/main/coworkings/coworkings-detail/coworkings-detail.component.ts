@@ -9,6 +9,7 @@ import {
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
+  OTextInputComponent,
 } from "ontimize-web-ngx";
 
 @Component({
@@ -28,6 +29,7 @@ export class CoworkingsDetailComponent {
   @ViewChild("date") bookingDate: ODateInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
+  @ViewChild("name") coworkingName: OTextInputComponent;
 
 
   plazasOcupadas: number;
@@ -70,9 +72,15 @@ export class CoworkingsDetailComponent {
       });
   }
 
+
+
   showConfirm(evt: any) {
+
+    const rawDate = new Date(this.bookingDate.getValue())
+    const date = rawDate.toLocaleDateString()
+
     if (this.dialogService) {
-      this.dialogService.confirm('Confirm dialog title', 'Do you really want to accept?');
+      this.dialogService.confirm('Reserva',`Está seguro de reservar el día ${(date)} en ${this.coworkingName.getValue()}?`);
       this.dialogService.dialogRef.afterClosed().subscribe( result => {
         if(result) {
           // Actions on confirmation
@@ -84,4 +92,5 @@ export class CoworkingsDetailComponent {
       })
     }
   }
+
 }

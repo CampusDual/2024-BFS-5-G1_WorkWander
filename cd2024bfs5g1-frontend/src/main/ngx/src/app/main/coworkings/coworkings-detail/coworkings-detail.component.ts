@@ -21,13 +21,13 @@ export class CoworkingsDetailComponent {
     private activeRoute: ActivatedRoute
   ) {}
 
- 
+
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("date") bookingDate: ODateInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
 
-  
+
   plazasOcupadas: number;
 
   currentDate() {
@@ -38,6 +38,7 @@ export class CoworkingsDetailComponent {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
       bk_date: this.bookingDate.getValue(),
+      bk_state: true,
     };
 
     const sqltypes = {

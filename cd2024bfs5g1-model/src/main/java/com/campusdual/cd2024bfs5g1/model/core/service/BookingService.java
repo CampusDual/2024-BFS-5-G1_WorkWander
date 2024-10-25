@@ -44,11 +44,9 @@ public class BookingService implements IBookingService {
         // Obtener el usuario autenticado
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-//        int cwId = (int) ((UserInformation) user).getOtherData().get(CoworkingDao.CW_ID);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(BookingDao.BK_USR_ID, userId);
-//        attrMap.put(BookingDao.BK_CW_ID, cwId);
 
         // Ejecutar el insert usando el daoHelper
         return this.daoHelper.insert(this.bookingDao, attrMap);

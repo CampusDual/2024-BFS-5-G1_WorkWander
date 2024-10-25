@@ -118,5 +118,9 @@
   "COWORKINGS_ADDRESS": "Dirección completa",
   "REGISTER_TITLE": "Rellena tus datos para registrarte",
   "COMPANYCB": "Soy una empresa",
-  "BOOKING": "Reservar"
+  "BOOKING": "Reservar",
+  "BOOKINGS_INSERT": "Reservar",
+  "BOOKINGS_INSERT2": "Estás seguro de reservar el día ",
+  "BOOKINGS_NO_LOGED": "Error al reservar",
+  "BOOKINGS_NO_LOGED2": "Usuario no autenticado, quieres hacer login?"
 }

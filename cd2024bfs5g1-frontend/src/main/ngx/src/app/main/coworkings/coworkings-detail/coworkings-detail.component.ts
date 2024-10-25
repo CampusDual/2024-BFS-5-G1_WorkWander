@@ -13,6 +13,7 @@ import {
   OntimizeService,
   OSnackBarConfig,
   OTextInputComponent,
+  OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
 
@@ -28,7 +29,8 @@ export class CoworkingsDetailComponent {
     private router: Router,
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
-    @Inject(AuthService) private authService: AuthService
+    @Inject(AuthService) private authService: AuthService,
+    private translate: OTranslateService
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -81,11 +83,16 @@ export class CoworkingsDetailComponent {
     const rawDate = new Date(this.bookingDate.getValue());
     const date = rawDate.toLocaleDateString();
 
+    const confirmMessageTitle = this.translate.get('BOOKINGS_INSERT');
+    const confirmMessageBody = this.translate.get('BOOKINGS_INSERT2');
+    const nologedMessageTitle = this.translate.get('BOOKINGS_NO_LOGED');
+    const nologedMessageBody = this.translate.get('BOOKINGS_NO_LOGED2');
+
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
         this.dialogService.confirm(
-          "Reserva",
-          `Está seguro de reservar el día ${date} en ${this.coworkingName.getValue()}?`
+          confirmMessageTitle,
+          `${confirmMessageBody}  ${date},  ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
@@ -99,10 +106,10 @@ export class CoworkingsDetailComponent {
       }
     } else {
       this.dialogService.confirm(
-        "Error al reservar",
-        `Usuario no autentificado, desea hacer login?`,// No añade el boton cancelar al dialogo, o cambia el icono de alerta
-        
-        
+        nologedMessageTitle,
+        nologedMessageBody,// No añade el boton cancelar al dialogo, o cambia el icono de alerta
+
+
       );
 
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {

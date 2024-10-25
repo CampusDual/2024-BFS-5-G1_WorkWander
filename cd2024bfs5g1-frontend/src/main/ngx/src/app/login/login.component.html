@@ -35,8 +35,9 @@
           </div>
 
           <button mat-raised-button color="primary" type="submit">{{ 'LOGIN' | oTranslate }}</button>
-          <button mat-raised-button color="warn" (click)="entradaSinLogin()" >Entrar sin Autenticar</button>
           <button mat-raised-button color="secondary" (click)="registerUser()">{{ 'REGISTER' | oTranslate }}</button>
+
+          <a class="noLogin" href="#" (click)="entradaSinLogin(); $event.preventDefault();" >{{ 'WITHOUT_LOGIN' | oTranslate }}</a>
         </form>
       </div>
 

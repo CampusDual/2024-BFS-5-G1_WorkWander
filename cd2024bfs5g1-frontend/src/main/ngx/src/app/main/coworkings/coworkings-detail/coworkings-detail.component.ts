@@ -1,11 +1,13 @@
-import { Component, ViewChild } from "@angular/core";
+import { Component, Inject, ViewChild } from "@angular/core";
 
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
+  AuthService,
   DialogService,
   OButtonComponent,
   ODateInputComponent,
+  ODialogConfig,
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
@@ -23,9 +25,10 @@ export class CoworkingsDetailComponent {
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
-    private router : Router,
+    private router: Router,
     protected dialogService: DialogService,
-    protected snackBarService: SnackBarService
+    protected snackBarService: SnackBarService,
+    @Inject(AuthService) private authService: AuthService
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -78,15 +81,34 @@ export class CoworkingsDetailComponent {
     const rawDate = new Date(this.bookingDate.getValue());
     const date = rawDate.toLocaleDateString();
 
-    if (this.dialogService) {
+    if (this.authService.isLoggedIn()) {
+      if (this.dialogService) {
+        this.dialogService.confirm(
+          "Reserva",
+          `Está seguro de reservar el día ${date} en ${this.coworkingName.getValue()}?`
+        );
+        this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+          if (result) {
+            // Actions on confirmation
+            this.createBooking();
+          } else {
+            // Actions on cancellation
+            console.log("No confirmado");
+          }
+        });
+      }
+    } else {
       this.dialogService.confirm(
-        "Reserva",
-        `Está seguro de reservar el día ${date} en ${this.coworkingName.getValue()}?`
+        "Error al reservar",
+        `Usuario no autentificado, desea hacer login?`,// No añade el boton cancelar al dialogo, o cambia el icono de alerta
+        
+        
       );
+
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           // Actions on confirmation
-          this.createBooking();
+          this.router.navigate(["/login"]);
         } else {
           // Actions on cancellation
           console.log("No confirmado");
@@ -115,7 +137,7 @@ export class CoworkingsDetailComponent {
         this.checkCapacity();
         this.showToastMessage();
       } else {
-        console.log("Error")
+        console.log("Error");
       }
     });
   }
@@ -123,13 +145,12 @@ export class CoworkingsDetailComponent {
   showToastMessage() {
     // SnackBar configuration
     const configuration: OSnackBarConfig = {
-     
       milliseconds: 2000,
       icon: "check_circle",
       iconPosition: "left",
     };
 
     // Simple message with icon on the left and action
-   this.snackBarService.open("Reserva confirmada", configuration);
+    this.snackBarService.open("Reserva confirmada", configuration);
   }
 }

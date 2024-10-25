@@ -20,7 +20,7 @@
   "EXAMPLE_LOGIN_INFO": "Usuario y contraseña de ejemplo",
   "FILTER_PROFILES": "Filtrar roles: ",
   "FILTER_USERS": "Filtrar usuarios: ",
-  "FOOTER_CREATED_BY": "Creado por Imatia Innovation",
+  "FOOTER_CREATED_BY": "WorkWander",
   "FOOTER_RIGHTS": "Todos los derechos reservados",
   "FORGOT_MY_PASSWORD": "Olvidé mi contraseña",
   "HOME": "Inicio",
@@ -116,6 +116,8 @@
   "COWORKINGS_DESCRIPTION": "Descripción del Coworking",
   "COWORKINGS_UBICATION": "Ubicación",
   "COWORKINGS_ADDRESS": "Dirección completa",
+  "CIF_COMPANY": "Introduzca su CIF",
+  "WITHOUT_LOGIN": "Entrar sin logear",
   "COMPANYCB": "Soy una empresa",
   "MYEVENTS": "Mis Eventos"
 }

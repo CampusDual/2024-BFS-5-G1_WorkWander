@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @ConfigurationFile(configurationFile = "dao/ServiceDao.xml",
         configurationFilePlaceholder = "dao/placeholders.properties")
 public class ServiceDao extends OntimizeJdbcDaoSupport{
-    public static final String SRW_ID          = "srw_id";
-    public static final String SRW_NAME        = "srw_name";
+    public static final String SRV_ID          = "srv_id";
+    public static final String SRV_NAME        = "srv_name";
 }

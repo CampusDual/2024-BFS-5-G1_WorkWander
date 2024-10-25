@@ -18,22 +18,6 @@ export class CoworkingsNewComponent {
   ) {}
 
   /**
-   * Método que se ejecuta antes de guardar un nuevo coworking.
-   *
-   * - Añade la fecha actual como `start_date`.
-   */
-  public beforeInsert(): void {
-    // Obtener la fecha actual
-    const currentDate = new Date().toISOString();
-
-    // Añadir la fecha de alta (start_date) a los valores del formulario
-    this.coworkingForm.formData['start_date'] = currentDate;
-
-    // Continuar con el proceso de guardado
-    this.coworkingForm.insert();
-  }
-
-  /**
    * Método que se ejecuta cuando la inserción de un nuevo coworking es exitosa.
    *
    * - Restablece el formulario a su estado inicial.

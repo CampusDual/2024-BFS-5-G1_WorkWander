@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { MyEventsHomeComponent } from './my-events-home/my-events-home.component';
 import { EventsNewComponent } from '../events/events-new/events-new.component';
 
-
 const routes: Routes = [
   { path: '', component: MyEventsHomeComponent,
       data: {
@@ -17,6 +16,7 @@ const routes: Routes = [
       path: "new",
       component: EventsNewComponent,
     }
+  //TODO
  // { path: ":cw_id", component: CoworkingsDetailComponent },
 ];
 

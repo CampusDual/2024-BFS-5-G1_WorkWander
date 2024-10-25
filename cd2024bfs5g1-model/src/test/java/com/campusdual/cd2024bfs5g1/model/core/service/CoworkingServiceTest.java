@@ -74,7 +74,7 @@ public class CoworkingServiceTest {
         EntityResult result = coworkingService.coworkingQuery(keyMap, attrList);
 
         // Verificar resultados
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result, "El resultado devuelto por coworkingQuery debería coincidir con el resultado esperado");
         verify(daoHelper).query(coworkingDao, keyMap, attrList);
     }
 
@@ -94,11 +94,11 @@ public class CoworkingServiceTest {
         EntityResult result = coworkingService.myCoworkingQuery(keyMap, attrList);
 
         // Verificar que se añadió el ID del usuario al keyMap
-        assertTrue(keyMap.containsKey(CoworkingDao.CW_USER_ID));
-        assertEquals(1, keyMap.get(CoworkingDao.CW_USER_ID));
+        assertTrue(keyMap.containsKey(CoworkingDao.CW_USER_ID), "El ID del usuario debería haberse añadido a keyMap");
+        assertEquals(1, keyMap.get(CoworkingDao.CW_USER_ID),"El valor del ID de usuario en attrMap debería ser 1");
 
         // Verificar resultados
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result, "El resultado devuelto por el método debería coincidir con el resultado esperado");
         verify(daoHelper).query(eq(coworkingDao), eq(keyMap), eq(attrList));
     }
 
@@ -117,11 +117,11 @@ public class CoworkingServiceTest {
         EntityResult result = coworkingService.coworkingInsert(attrMap);
 
         // Verificar que se añadió el ID del usuario al attrMap
-        assertTrue(attrMap.containsKey(CoworkingDao.CW_USER_ID));
-        assertEquals(1, attrMap.get(CoworkingDao.CW_USER_ID));
+        assertTrue(attrMap.containsKey(CoworkingDao.CW_USER_ID),"El ID del usuario debería estar presente en attrMap tras la inserción");
+        assertEquals(1, attrMap.get(CoworkingDao.CW_USER_ID),"El valor del ID de usuario en attrMap debería ser 1");
 
         // Verificar resultados
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result,"El resultado devuelto por el método debería coincidir con el resultado esperado");
         verify(daoHelper).insert(coworkingDao, attrMap);
     }
 

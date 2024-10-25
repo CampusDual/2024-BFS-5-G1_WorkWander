@@ -6,11 +6,15 @@ $typography: "Noto Sans";
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
-$primaryClaro: $primary;
-$accentClaro: $blanco;
+$primaryClaro: rgba($primary, 0.4);
+$accentClaro: rgba($accent, 0.8);
 
 $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;
+
+$borderRadius: 25px 5px 25px 5px;
+$borderRadiusButton: 25px 5px 25px 25px ;
+$borderRadiusNav: 0px 0px 25px 0px;
 
 h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
   font-family: $typography !important;
@@ -27,7 +31,23 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
     form {
       height: 100%;
     }
+
+    .o-form-toolbar-header {
+      box-shadow: 0 3px 6px $accent;
+      background-color: $blanco;
+    }
   }
+}
+
+.o-form .o-form-toolbar .o-form-toolbar-header .mat-toolbar-tools .o-form-toolbar-button, .o-form .o-form-toolbar .o-form-toolbar-header .mat-toolbar-tools .o-form-toolbar-button[disabled] {
+  border-radius: $borderRadiusButton;
+}
+
+o-text-input:hover, 
+o-integer-input:hover, 
+o-real-input:hover, 
+o-date-input:hover {
+  border-color: $primary !important;
 }
 
 /* Form toolbar background color */
@@ -35,10 +55,65 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   background-color: transparent;
 }
 
-
 .o-column > div.o-container .o-container-scroll.o-container-gap,
 .o-row > div.o-container .o-container-scroll.o-container-gap {
   padding: 15px;
+}
+
+
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-accent:hover {
+  color: $primary;
+  background-color: $accent;
+  border-color: transparent;
+}
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
+  color: $primary;
+  background-color: $accent;
+  border-color: transparent;
+}
+
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary:hover {
+  color: $primary;
+  background-color: $blanco;
+  border-color: $primaryClaro;
+}
+
+
+.o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+  background-color: #f9f1e7;
+  padding: 25px;
+  border-radius: 0 25px 0 0;
+}
+
+.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
+  background-color: $accent;
 }
 
 .avatar.o-image {
@@ -107,6 +182,52 @@ div.sidenav-toggle-container.ng-star-inserted{
 .o-app-header .o-user-info {
   color: $accentClaro;
 }
+
+.o-app-header.o-app-header-medium+.header-layout {
+  background: $blanco;
+}
+
+a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+    border-radius: $borderRadius;
+}
+
+.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
+  border-radius: $borderRadius;
+}
+
+a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
+  border-radius: $borderRadiusNav;
+}
+
+.o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
+  background-color: $accent;
+  position: absolute;
+  border-radius: 25px;
+  margin: 0px 5px 0 5px;
+  transition: all 0.2s;
+  top:unset;
+  bottom: 25px;
+  right: 0;
+
+
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-menu-item a {
+    margin: 0px 5px 0 5px;
+    color: $primary;
+  }
+
+  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+    border-radius: $borderRadiusButton;
+    transition: all 0.2s;
+    margin: unset;
+    border-left: unset;
+  }
+}
+mat-toolbar.mat-toolbar.o-form-toolbar-header.mat-toolbar-single-row {
+  border-radius: $borderRadiusButton;
+}
+
+
 button .mat-mdc-button:not(:disabled) {
   color: $accentClaro;
 }
@@ -129,19 +250,13 @@ o-column.form-section.o-column:hover,
   transform: none!important;
 }
 
-.o-app-header.o-app-header-medium+.header-layout {
-  background: $blanco;
-}
-
-
-
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
   flex-direction: row;
   align-items: center;
   background-color: #f9f1e7;
-  border-radius: 24px;
+  border-radius: $borderRadius;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   min-height: 200px;
@@ -162,7 +277,7 @@ o-column.form-section.o-column:hover,
       height: auto;
       object-fit: cover;
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: $borderRadius;
     }
   }
 
@@ -242,10 +357,13 @@ o-column.form-section.o-column:hover,
       gap: 8px;
       margin-top: 8px;
       transition: transform 0.2s;
+      translate: 20px;
 
       &:hover {
         // Efecto hover para los servicios
         transform: scale(1.5);
+        translate: 70px;
+        transition: transform 0.2s;
       }
 
       .service-icon {
@@ -265,17 +383,17 @@ o-column.form-section.o-column:hover,
 
   .price-container {
     // Contenedor del precio
-    width: 15%;
     padding: 16px;
     display: flex;
     align-items: center;
     justify-content: end;
     background-color: $accent;
     min-height: 100%;
+    border-radius: $borderRadius;
 
     .price {
       // Estilo del precio
-      font-size: 24px;
+      font-size: 34px;
       font-weight: bold;
       color: $primary;
     }

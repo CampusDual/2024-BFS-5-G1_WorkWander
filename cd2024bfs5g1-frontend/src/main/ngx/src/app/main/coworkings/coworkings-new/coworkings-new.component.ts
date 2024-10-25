@@ -50,7 +50,7 @@ export class CoworkingsNewComponent implements AfterViewInit{
    
     const successMessageTitle = this.translate.get('COWORKING_ADDED')
     const successMessageBody = this.translate.get('COWORKING_ADDED2');
- 
+    
     this.dialogService.info(successMessageTitle, successMessageBody);
   }
 

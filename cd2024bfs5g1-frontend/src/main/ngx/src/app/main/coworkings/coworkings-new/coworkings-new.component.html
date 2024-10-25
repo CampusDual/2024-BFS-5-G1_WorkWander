@@ -37,15 +37,13 @@
   header-actions="new"
   show-header-navigation="no"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  ignore-default-navigation="yes"
->
+  ignore-default-navigation="yes">
   <div
     class="form-section"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="center start"
-    class="form-container"
-  >
+    class="form-container">
     <!-- Información General -->
     <o-column fxFlex="70" class="form-section" flFlex title="ADD_COWORKING">
       <!-- Nombre y -->
@@ -58,8 +56,7 @@
           required="yes"
           icon="business"
           fxFlex
-          placeholder="COWORKINGS_NAME"
-        ></o-text-input>
+          placeholder="COWORKINGS_NAME"></o-text-input>
         <o-text-input
           fxFlex="50"
           attr="cw_description"
@@ -69,8 +66,7 @@
           maxlength="250"
           icon="description"
           fxFlex
-          placeholder="COWORKINGS_DESCRIPTION"
-        ></o-text-input>
+          placeholder="COWORKINGS_DESCRIPTION"></o-text-input>
       </div>
 
       <!-- Dirección y Localidad -->
@@ -83,8 +79,7 @@
           required="yes"
           icon="location_city"
           fxFlex
-          placeholder="COWORKINGS_UBICATION"
-        ></o-text-input>
+          placeholder="COWORKINGS_UBICATION"></o-text-input>
         <o-text-input
           fxFlex="50"
           attr="cw_address"
@@ -93,8 +88,7 @@
           required="yes"
           icon="place"
           fxFlex
-          placeholder="COWORKINGS_ADDRESS"
-        ></o-text-input>
+          placeholder="COWORKINGS_ADDRESS"></o-text-input>
       </div>
 
       <!-- Capacidad y Precio Diario -->
@@ -109,8 +103,7 @@
           icon="event_seat"
           fxFlex
           placeholder="Ej. 10, 20"
-          style="--field-hover-color: #6200ea"
-        ></o-integer-input>
+          style="--field-hover-color: #6200ea"></o-integer-input>
         <o-real-input
           [min]="0"
           fxFlex="50"
@@ -121,8 +114,7 @@
           decimal-digits="2"
           icon="euro_symbol"
           placeholder="Ej. 20, 50"
-          style="--field-hover-color: #6200ea"
-        ></o-real-input>
+          style="--field-hover-color: #6200ea"></o-real-input>
       </div>
     </o-column>
   </div>
@@ -130,8 +122,25 @@
 
   </div>
   <div>
-    <o-grid #servicesGrid columns="srv_id;srv_name">
+    <o-grid attr="services" service="services" entity="service" cols="6"
+      #servicesGrid columns="srv_id;srv_name" keys="srv_id"
+      quick-filter="no" fixed-header="no"
+      controls="false"
+      refresh-button="false" show-page-size="true" pagination-controls="true"
+      show-buttons-text="no"
+      gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="3:3">
+
+      <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
+        <div (click)="selectService(dato.srv_id, dato.srv_name)">
+
+        <o-column class="service">                   
+          <div>{{ dato.srv_name }}</div>
+        </o-column>
+
+        </div>
+      </o-grid-item>
 
     </o-grid>
+
   </div>
 </o-form>

@@ -198,3 +198,22 @@ to {
     transform: translateY(0); /* Regresa a la posición original */
 }
 }
+
+.service{
+  cursor:pointer;
+  background-color:#834333;
+  color:whitesmoke;
+  padding: 5px;
+  border-radius: 5px;
+  border-box: 1px solid black;
+  box-shadow: 5px 10px #888888;
+  width: 200px;
+  height: 50px;
+  transition: width 2s, height 2s;
+  text-align:center;
+}
+
+.service:hover{
+  width: 225px;
+  height: 55px;
+}

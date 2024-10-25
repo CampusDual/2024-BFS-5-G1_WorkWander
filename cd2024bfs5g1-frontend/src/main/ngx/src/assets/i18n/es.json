@@ -116,7 +116,8 @@
   "COWORKINGS_DESCRIPTION": "Descripción del Coworking",
   "COWORKINGS_UBICATION": "Ubicación",
   "COWORKINGS_ADDRESS": "Dirección completa",
-  "COMPANYCB": "Soy una empresa",
   "CIF_COMPANY": "Introduzca su CIF",
-  "WITHOUT_LOGIN": "Entrar sin logear"
+  "WITHOUT_LOGIN": "Entrar sin logear",
+  "COMPANYCB": "Soy una empresa",
+  "MYEVENTS": "Mis Eventos"
 }

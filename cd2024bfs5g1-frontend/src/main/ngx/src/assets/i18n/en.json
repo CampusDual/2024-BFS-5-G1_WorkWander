@@ -115,8 +115,10 @@
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
-  "COMPANYCB": "I'm a company",
-  "COWORKINGS_ADDRESS": "Full address",
   "CIF_COMPANY": "Enter your CIF",
-  "WITHOUT_LOGIN": "Enter without login"
+  "WITHOUT_LOGIN": "Enter without login",
+  "COMPANYCB": "I`m a company",
+  "COWORKINGS_ADDRESS": "Full address",
+  "MYEVENTS":"My Events"
+
 }

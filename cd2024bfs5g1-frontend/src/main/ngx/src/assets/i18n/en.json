@@ -105,7 +105,7 @@
   "description": "Description",
   "NEW_EVENT": "New Event",
   "REGISTER": "Register",
-  "REGISTER_TITLE": "Fill in your details to register",
+  "REGISTER_TITLE": "Register",
   "ADD_COWORKING":"Add Coworking",
   "START_DATE":"Start Date",
   "END_DATE":"End Date",
@@ -115,7 +115,7 @@
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
-  "COMPANYCB": "I`m a company",
-  "COWORKINGS_ADDRESS": "Full address", 
+  "COMPANYCB": "I'm a company",
+  "COWORKINGS_ADDRESS": "Full address",
   "CIF_COMPANY": "Enter your CIF"
 }

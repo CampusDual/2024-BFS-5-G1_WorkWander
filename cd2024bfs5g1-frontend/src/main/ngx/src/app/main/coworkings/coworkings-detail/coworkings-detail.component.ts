@@ -1,7 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
-import { MatButton } from "@angular/material/button";
+
 import { ActivatedRoute, Router } from "@angular/router";
-import moment from "moment";
+
 import {
   DialogService,
   OButtonComponent,
@@ -9,7 +9,9 @@ import {
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
+  OSnackBarConfig,
   OTextInputComponent,
+  SnackBarService,
 } from "ontimize-web-ngx";
 
 @Component({
@@ -21,16 +23,16 @@ export class CoworkingsDetailComponent {
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
-    protected dialogService: DialogService
+    private router : Router,
+    protected dialogService: DialogService,
+    protected snackBarService: SnackBarService
   ) {}
-
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("date") bookingDate: ODateInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
-
 
   plazasOcupadas: number;
 
@@ -67,30 +69,67 @@ export class CoworkingsDetailComponent {
             this.bookingButton.visible = true;
           }
         } else {
-          alert("NO hay plazas")
+          alert("NO hay plazas");
         }
       });
   }
 
-
-
   showConfirm(evt: any) {
-
-    const rawDate = new Date(this.bookingDate.getValue())
-    const date = rawDate.toLocaleDateString()
+    const rawDate = new Date(this.bookingDate.getValue());
+    const date = rawDate.toLocaleDateString();
 
     if (this.dialogService) {
-      this.dialogService.confirm('Reserva',`Está seguro de reservar el día ${(date)} en ${this.coworkingName.getValue()}?`);
-      this.dialogService.dialogRef.afterClosed().subscribe( result => {
-        if(result) {
+      this.dialogService.confirm(
+        "Reserva",
+        `Está seguro de reservar el día ${date} en ${this.coworkingName.getValue()}?`
+      );
+      this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
           // Actions on confirmation
-          console.log('Confirmado')
+          this.createBooking();
         } else {
           // Actions on cancellation
-          console.log('No confirmado')
+          console.log("No confirmado");
         }
-      })
+      });
     }
   }
 
+  createBooking() {
+    const filter = {
+      bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
+      bk_date: this.bookingDate.getValue(),
+      bk_state: true,
+    };
+
+    const sqltypes = {
+      bk_date: 91,
+    };
+
+    //Llaman al servicio del enpoint /bookings
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+
+    this.service.insert(filter, "booking", sqltypes).subscribe((resp) => {
+      if (resp.code === 0) {
+        this.checkCapacity();
+        this.showToastMessage();
+      } else {
+        console.log("Error")
+      }
+    });
+  }
+
+  showToastMessage() {
+    // SnackBar configuration
+    const configuration: OSnackBarConfig = {
+     
+      milliseconds: 2000,
+      icon: "check_circle",
+      iconPosition: "left",
+    };
+
+    // Simple message with icon on the left and action
+   this.snackBarService.open("Reserva confirmada", configuration);
+  }
 }

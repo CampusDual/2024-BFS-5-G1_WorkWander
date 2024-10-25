@@ -7,7 +7,6 @@ import { EventsNewComponent } from './events-new/events-new.component';
 @NgModule({
   declarations: [
     EventsNewComponent
-    
   ],
   imports: [
     CommonModule,

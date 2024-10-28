@@ -1,8 +1,18 @@
 #container {
     width: 80%;
     margin: auto;
+    background-color: white;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.book {
+  margin-top: 70px;
 }
 
 o-button {
     margin-top: 22px;
+}
+input#cw_daily_price {
+  font-size: 2em;
 }

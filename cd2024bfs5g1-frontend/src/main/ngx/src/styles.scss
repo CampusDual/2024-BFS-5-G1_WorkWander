@@ -26,12 +26,32 @@ $linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegr
 $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 
 /* You can add global styles to this file, and also import other style files */
+#background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.footer-container{
+  background-color: $primary;
+  color: $accent;
+}
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: $primary;
+  color: $accent;
+}
+
 .o-form-layout-manager {
   .o-form {
     form {
       height: 100%;
     }
-
     .o-form-toolbar-header {
       box-shadow: 0 3px 6px $accent;
       background-color: $blanco;

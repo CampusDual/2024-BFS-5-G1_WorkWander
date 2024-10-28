@@ -1,10 +1,12 @@
 <div class="grid-container">
+  <!-- Grid que muestra los datos de los coworkings -->
   <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
     columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
     pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="2.5:1" [cols]="gridCols" gutter-size="20px">
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
         <div class="image-container">
+          <!-- Mostramos la imagen del coworking en las cards -->
           <img class="coworking-image" [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
         </div>
 
@@ -35,8 +37,3 @@
     </o-grid-item>
   </o-grid>
 </div>
-
-<!-- 
-<div class="image-container">
-  <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
-</div> -->

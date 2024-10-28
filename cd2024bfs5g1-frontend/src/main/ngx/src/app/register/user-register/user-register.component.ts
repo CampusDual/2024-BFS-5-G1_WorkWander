@@ -66,9 +66,7 @@ export class UserRegisterComponent {
     this.submitButton.enabled = false
   }
 
-  logUser() {
-    const userName = this.userCtrl.getValue();
-    const password = this.pwdCtrl.getValue();
+  logUser(userName,password) {
     const self = this;
     this.authService.login(userName, password)
       .subscribe(() => {
@@ -85,30 +83,46 @@ export class UserRegisterComponent {
   }
 
   validateCIF(cif: string): boolean {
-    let totalImpares = 0;
-    const numero = cif.substring(1, 8);
-    const totalPares = parseInt(numero[1], 10) + parseInt(numero[3], 10) + parseInt(numero[5], 10);
-    const total = totalPares + totalImpares;
-    const digitoControl = 10 - (total % 10);
-    const caracterFinalControl = String.fromCharCode(64 + digitoControl);
-
     if (cif.length !== 9) return false;
-
-    for (let i = 0; i < 7; i += 2) {
-      const impar = parseInt(numero[i], 10) * 2;
-      const imparStr = impar.toString();
-      totalImpares += parseInt(imparStr[0], 10);
-      if (imparStr.length === 2) {
-        totalImpares += parseInt(imparStr[1], 10);
-      }
+  
+    const letraInicial = cif[0].toUpperCase();
+    const numero = cif.substring(1, 8);
+    const digitoControl = cif[8];
+  
+    // Suma de los dígitos pares
+    let totalPares = 0;
+    for (let i = 1; i < numero.length; i += 2) {
+      totalPares += parseInt(numero[i], 10);
     }
-    if (caracterFinalControl === cif[8]) return true;
-
-    if (cif[0] !== 'X' && cif[0] !== 'P') {
-      if (digitoControl.toString() === cif[8]) return true;
+  
+    // Suma de los dígitos impares multiplicados por 2
+    let totalImpares = 0;
+    for (let i = 0; i < numero.length; i += 2) {
+      let impar = parseInt(numero[i], 10) * 2;
+      totalImpares += Math.floor(impar / 10) + (impar % 10);
     }
-    return false;
+  
+    // Suma total
+    const total = totalPares + totalImpares;
+    const unidades = total % 10;
+    const digitoCalculado = (unidades === 0) ? 0 : 10 - unidades;
+  
+    // Determinación del carácter de control esperado
+    const caracteresControl = "JABCDEFGHI";
+    let caracterEsperado = "";
+  
+    if (letraInicial === 'X' || letraInicial === 'Y' || letraInicial === 'Z') {
+      caracterEsperado = caracteresControl[digitoCalculado];
+    } else if ('ABEH'.includes(letraInicial)) {
+      caracterEsperado = digitoCalculado.toString();
+    } else {
+      caracterEsperado = caracteresControl[digitoCalculado];
+    }
+  
+    // Comprobación del carácter de control
+    return caracterEsperado === digitoControl;
   }
+  
 
   checkCif(){
     const cif = this.companyInput.getValue();
@@ -127,5 +141,53 @@ export class UserRegisterComponent {
         }
       });
     }
+
   }
-}
+
+  insertUser() {
+    const userName = this.userCtrl.getValue();
+    const email = this.emailCtrl.getValue();
+    const password = this.pwdCtrl.getValue();
+    let  cif = "0";
+    let checkBoxCompany = "false";
+
+    if(this.checkCompany()){
+      cif = this.companyInput.getValue();
+      checkBoxCompany = "true";
+    }
+
+    // Validaciones antes de la inserción
+    if (!userName || !email || !password || (this.checkCompany() && !this.validateCIF(cif))) {
+      alert('Todos los campos son obligatorios y el CIF debe ser válido si la empresa está marcada.');
+      return;
+    }
+   // Verificar que el CIF es obligatorio si la empresa está marcada
+      if (this.checkCompany() && (!cif || !this.validateCIF(cif))) {
+        alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
+        return;
+      }
+    // Datos del usuario para insertar
+    const userData = {
+      'usr_login': userName,
+      'usr_email': email,
+      'usr_password': password,
+      'usr_cif': cif,
+      'companyCheck': checkBoxCompany
+    };
+  
+    this.service.insert(userData, 'user').subscribe(resp => {
+      if (resp.code === 0) {
+        this.registerForm.setFormMode(1);
+        this.logUser(userName,password);
+      } else {
+        alert('Error al registrar usuario');
+      }
+    }, error => {
+      console.error('Error al insertar el usuario', error);
+      alert('Error en la inserción');
+    });
+  }
+  }
+
+
+

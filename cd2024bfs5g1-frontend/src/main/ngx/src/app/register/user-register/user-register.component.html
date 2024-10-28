@@ -4,7 +4,7 @@
 
     <div class="wrapp-register">
       <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container">
-        <o-form #registerForm fxLayoutAlign="center" (onBeforeInsert)="disableButton()" (onInsert)="logUser()"
+        <o-form #registerForm fxLayoutAlign="center" 
           show-header="no" attr="userRegister" service="users" entity="user" keys="usr_id">
           <o-column fxFlex appearance="outline"> {{"REGISTER_TITLE" | oTranslate }}
             <div fxLayout="column" fxLayoutGap="10px">
@@ -14,10 +14,10 @@
                 required="yes" (onBlur)="checkEmail()"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data=""
                 read-only="no" required="yes"></o-password-input>
-              <o-text-input *ngIf="checkCompany()" #companyInput attr="usr_cif" required="yes"
+              <o-text-input *ngIf="checkCompany()" #companyInput attr="usr_cif"
                 label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
-              <button #submitButton type="submit" (click)="registerForm.insert()">Registrar</button>
+              <button #submitButton (click)="insertUser(); $event.preventDefault();">Registrar</button>
               <div class="text-center">
                 <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">I'm registered</a>
               </div>

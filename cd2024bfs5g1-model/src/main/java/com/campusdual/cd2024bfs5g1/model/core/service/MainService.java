@@ -27,7 +27,6 @@ public class MainService implements IMainService {
 				this.mainUrl = ((tls == null) ? "http://" : "https://") + host;
 			}
 		}
-
 		return this.mainUrl;
 	}
 }

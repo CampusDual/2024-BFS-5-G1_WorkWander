@@ -11,10 +11,12 @@ import {
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
+  OPermissions,
   OSnackBarConfig,
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
+  Util,
 } from "ontimize-web-ngx";
 
 @Component({
@@ -38,6 +40,7 @@ export class CoworkingsDetailComponent {
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
+  @ViewChild("form") form: OFormComponent;
 
   plazasOcupadas: number;
 
@@ -160,5 +163,23 @@ export class CoworkingsDetailComponent {
 
     // Simple message with icon on the left and action
     this.snackBarService.open(confirmedMessage, configuration);
+  }
+
+
+  checkAuthStatus(){
+    return !this.authService.isLoggedIn()
+  }
+  parsePermissions(attr: string): boolean {
+
+    // if oattr in form, it can have permissions
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return;
+    }
+      const permissions: OPermissions = this.form.getFormComponentPermissions(attr)
+
+      if (!Util.isDefined(permissions)) {
+        return true
+      }
+      return permissions.visible
   }
 }

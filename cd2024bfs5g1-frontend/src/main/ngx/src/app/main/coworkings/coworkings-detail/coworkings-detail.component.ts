@@ -41,6 +41,10 @@ export class CoworkingsDetailComponent {
 
   plazasOcupadas: number;
 
+  getName() {
+    return this.coworkingName ? this.coworkingName.getValue() : "";
+  }
+
   currentDate() {
     return new Date();
   }

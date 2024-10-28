@@ -6,11 +6,12 @@ import { CoworkingsDetailComponent } from './coworkings-detail/coworkings-detail
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { CoworkingsHomeComponent } from './coworkings-home/coworkings-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { CoworkingsNewComponent } from './coworkings-new/coworkings-new.component';
 
 
 @NgModule({
   declarations: [
-    CoworkingsHomeComponent,    
+    CoworkingsHomeComponent,
   ],
   imports: [
     CommonModule,

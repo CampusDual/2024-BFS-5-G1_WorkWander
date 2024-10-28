@@ -12,7 +12,6 @@ import { CoworkingsNewComponent } from './coworkings-new/coworkings-new.componen
 @NgModule({
   declarations: [
     CoworkingsHomeComponent,
-  
   ],
   imports: [
     CommonModule,

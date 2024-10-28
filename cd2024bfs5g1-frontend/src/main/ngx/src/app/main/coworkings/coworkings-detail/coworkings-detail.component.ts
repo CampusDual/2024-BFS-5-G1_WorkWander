@@ -108,8 +108,6 @@ export class CoworkingsDetailComponent {
       this.dialogService.confirm(
         nologedMessageTitle,
         nologedMessageBody,// No añade el boton cancelar al dialogo, o cambia el icono de alerta
-
-
       );
 
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {

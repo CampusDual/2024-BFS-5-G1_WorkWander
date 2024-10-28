@@ -115,8 +115,12 @@
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
-  "COMPANYCB": "I'm a company",
-  "COWORKINGS_ADDRESS": "Full address",
   "CIF_COMPANY": "Enter your CIF",
-  "WITHOUT_LOGIN": "Enter without login"
+  "WITHOUT_LOGIN": "Enter without login",
+  "BOOKING": "Booking",
+  "BOOKINGS_INSERT": "Booking",
+  "BOOKINGS_INSERT2": "Are you sure you want to book for the",
+  "BOOKINGS_NO_LOGED": "Booking error",
+  "BOOKINGS_NO_LOGED2": "User not authenticated, would you like to log in?"
+  "MYEVENTS":"My Events"
 }

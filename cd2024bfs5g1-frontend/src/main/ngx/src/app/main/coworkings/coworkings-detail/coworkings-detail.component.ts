@@ -148,6 +148,9 @@ export class CoworkingsDetailComponent {
   }
 
   showToastMessage() {
+
+    const confirmedMessage = this.translate.get('BOOKINGS_CONFIRMED');
+
     // SnackBar configuration
     const configuration: OSnackBarConfig = {
       milliseconds: 2000,
@@ -156,6 +159,6 @@ export class CoworkingsDetailComponent {
     };
 
     // Simple message with icon on the left and action
-    this.snackBarService.open("Reserva confirmada", configuration);
+    this.snackBarService.open(confirmedMessage, configuration);
   }
 }

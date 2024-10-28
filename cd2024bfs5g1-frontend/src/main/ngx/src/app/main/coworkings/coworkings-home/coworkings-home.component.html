@@ -1,23 +1,42 @@
 <div class="grid-container">
   <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
-    pagination-controls="true" page-size-options="12;16;20" query-rows="12">
-    <o-grid-item *ngFor="let data of coworkingsGrid.dataArray">
-      <div class="card" fxLayout="column" fxLayoutAlign="space-evenly center">
-        <div class="name">
-          <h3> {{data.cw_name}} </h3>
+    columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
+    pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="2.5:1" [cols]="gridCols" gutter-size="20px">
+    <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
+      <div class="coworking-card">
+        <div class="image-container">
+          <img class="coworking-image" [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
         </div>
-        <hr _ngcontent-mth-c203>
-        <div class="location">
-          <span fxLayout="row" fxLayoutAlign="space-evenly center"><mat-icon>location_on</mat-icon>{{ data.cw_location }}</span>
+
+        <div class="info">
+          <h2 class="coworking-name">{{ data.cw_name }}</h2>
+          <div class="stars">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
+            </ng-container>
+            <span class="rating">(4.9/5)</span>
+          </div>
+          <p class="location">{{ data.cw_location }}</p>
+          <div class="services">
+            <mat-icon fontIcon="wifi" class="service-icon"></mat-icon>
+            <mat-icon fontIcon="local_cafe" class="service-icon"></mat-icon>
+            <mat-icon fontIcon="desktop_windows" class="service-icon"></mat-icon>
+            <mat-icon fontIcon="spa" class="service-icon"></mat-icon>
+            <mat-icon fontIcon="fitness_center" class="service-icon"></mat-icon>
+          </div>
         </div>
-        <div class="daily_price">
-          <span>{{ data.cw_daily_price }}<span>€</span></span>
-        </div>
-        <div>
-          <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
+
+        <div class="capacity-price-container">
+          <div class="price-container">
+            <span class="price">{{ data.cw_daily_price }}€</span>
+          </div>
         </div>
       </div>
     </o-grid-item>
   </o-grid>
 </div>
+
+<!-- 
+<div class="image-container">
+  <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
+</div> -->

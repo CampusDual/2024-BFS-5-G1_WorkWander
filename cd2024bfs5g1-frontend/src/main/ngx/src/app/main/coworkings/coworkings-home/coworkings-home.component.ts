@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,8 +14,19 @@ export class CoworkingsHomeComponent implements OnInit{
     protected sanitizer: DomSanitizer
   ) {}
 
-  ngOnInit() {
+  public gridCols: number = 2;
 
+  ngOnInit() {
+    this.setGridCols(window.innerWidth);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.setGridCols((event.target as Window).innerWidth);
+  }
+
+  setGridCols(width: number) {
+    this.gridCols = width < 1000 ? 1 : 2;
   }
 
   public getImageSrc(base64: any): any {

@@ -1,11 +1,8 @@
 <o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R" show-header-navigation="no" keys="cw_id"
     keys-sql-types="integer" columns="cw_id;cw_name" header-position="top" layout-direction="row"
     detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true" editable-detail="no">
-
     <div fxLayout="row" fxLayoutGap="30px" fxFill>
-
         <div id="container">
-
             <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
                 <div fxLayout="row" fxLayoutGap="15px">
                     <div fxLayout="column" fxFlex>
@@ -15,7 +12,6 @@
 
                             <div fxLayout="row">
                                 <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
-                                <!-- <img [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}"> -->
                             </div>
 
                             <div fxLayout="row">
@@ -26,29 +22,23 @@
                                 <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
                             </div>
 
-                            <div fxLayout="row" fxLayoutGap="22px">
+                            <div fxLayout="row" fxLayoutGap="12px">
                                 <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-
                             </div>
 
                             <div fxLayout="row">
                                 <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
                             </div>
+
                             <div fxLayoutGap="22px">
                                 <o-integer-input attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
                                 <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
-
                             </div>
-
 
                         </o-column>
                     </div>
-
                 </div>
-
             </div>
         </div>
-
-
     </div>
 </o-form>

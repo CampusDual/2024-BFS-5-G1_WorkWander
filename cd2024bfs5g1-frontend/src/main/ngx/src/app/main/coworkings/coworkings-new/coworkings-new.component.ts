@@ -5,7 +5,8 @@ import {
   OTranslateService,
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
-import { OntimizeService } from 'ontimize-web-ngx';
+import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
+
 
 @Component({
   selector: "app-coworking-new",
@@ -28,7 +29,8 @@ export class CoworkingsNewComponent implements OnInit{
   constructor(
     private router: Router,
     private translate: OTranslateService,
-    protected injector:Injector
+    protected injector:Injector,
+    protected snackBarService: SnackBarService
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -105,7 +107,7 @@ export class CoworkingsNewComponent implements OnInit{
       cw_capacity:this.coworkingForm.getFieldValue('cw_capacity'),
       cw_daily_price:this.coworkingForm.getFieldValue('cw_daily_price'),
       services:this.arrayServices
-    }
+    }    
     this.insert(coworking);
     this.coworkingForm.clearData();
     this.router.navigateByUrl("/main/mycoworkings");
@@ -114,6 +116,7 @@ export class CoworkingsNewComponent implements OnInit{
   public insert(coworking:any){
     this.service.insert(coworking, 'coworking').subscribe(data => {
       console.log(data);
+      this.showConfigured();
     });
   }
 
@@ -122,6 +125,32 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   isInvalidForm(): boolean {
-    return true
+    //this.coworkingForm.
+    let name = this.coworkingForm?.getFieldValue('cw_name');
+    let description = this.coworkingForm?.getFieldValue('cw_description');
+    let address = this.coworkingForm?.getFieldValue('cw_address');
+    let location = this.coworkingForm?.getFieldValue('cw_location');
+    let capacity = this.coworkingForm?.getFieldValue('cw_capacity');
+    let dailyPrice = this.coworkingForm?.getFieldValue('cw_daily_price');
+    if ((name && name.length) && (description && description.length) && 
+        (address && address.length) && (location && location.length) &&
+        (capacity && capacity != 0) && (dailyPrice && dailyPrice != 0)) {
+      return false;  
+    }else{
+      return true;
+    }    
   }
+
+  public showConfigured() {
+    // SnackBar configuration
+    const configuration: OSnackBarConfig = {
+        action: '¡Coworking creado!',
+        milliseconds: 5000,
+        icon: 'check_circle',
+        iconPosition: 'left'
+    };
+
+    // Simple message with icon on the left and action
+    this.snackBarService.open('¡Coworking creado!', configuration);
+}
 }

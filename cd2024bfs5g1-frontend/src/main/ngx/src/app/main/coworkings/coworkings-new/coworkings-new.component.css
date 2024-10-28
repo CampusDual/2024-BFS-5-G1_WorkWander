@@ -38,25 +38,18 @@
   box-sizing: border-box;
 }
 .form-container {
-  padding: 40px;
+  padding: 10px;
   background: #f5f5f5;
 }
 
 .form-section {
   border-radius: 12px;
-  background-color: white;
-  padding: 40px;
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.form-section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.15);
+  background-color: white;  
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.1);  
 }
 
 .form-row {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 o-text-input, o-integer-input, o-real-input, o-date-input {

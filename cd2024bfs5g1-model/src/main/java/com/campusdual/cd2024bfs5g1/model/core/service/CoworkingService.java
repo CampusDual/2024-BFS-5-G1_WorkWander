@@ -70,7 +70,10 @@ public class CoworkingService implements ICoworkingService {
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
         // Recuperación de los servicios
-        ArrayList<Integer> services = (ArrayList<Integer>)attrMap.remove("services");
+
+
+        // Recuperación de los servicios
+        ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>)attrMap.remove("services");
 
         // Ejecutar el insert usando el daoHelper
         EntityResult cwResult = this.daoHelper.insert(this.coworkingDao, attrMap);
@@ -81,7 +84,7 @@ public class CoworkingService implements ICoworkingService {
         for (int i = 0; i < services.size(); i++) {
             Map<String, Object> map = new HashMap<>();
             map.put(CwServiceDao.CW_ID, cwId);
-            map.put(CwServiceDao.SRV_ID, services.get(i));
+            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
             cwServiceService.cwServiceInsert(map);
         }
         return cwResult;

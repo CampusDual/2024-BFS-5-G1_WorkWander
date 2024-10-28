@@ -27,6 +27,7 @@
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
   -->
+<!--show-header="no" No se visualizan los botones de New, etc...-->
 <o-form
   class="form-section"
   #coworkingForm
@@ -35,6 +36,7 @@
   entity="coworking"
   keys="id"
   header-actions="new"
+  show-header="no"
   show-header-navigation="no"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
   ignore-default-navigation="yes">
@@ -116,31 +118,31 @@
           placeholder="Ej. 20, 50"
           style="--field-hover-color: #6200ea"></o-real-input>
       </div>
-    </o-column>
-  </div>
-  <div id="tagServices">
-
-  </div>
-  <div>
-    <o-grid attr="services" service="services" entity="service" cols="6"
-      #servicesGrid columns="srv_id;srv_name" keys="srv_id"
-      quick-filter="no" fixed-header="no"
-      controls="false"
-      refresh-button="false" show-page-size="true" pagination-controls="true"
-      show-buttons-text="no"
-      gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="3:3">
-
-      <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-        <div (click)="selectService(dato.srv_id, dato.srv_name)">
-
-        <o-column class="service">                   
-          <div>{{ dato.srv_name }}</div>
-        </o-column>
-
+      <!--Servicios-->
+      <div fxLayout="column" fxLayoutGap="24px" class="form-row">
+        <h4><mat-icon svgIcon="ontimize:check_circle"></mat-icon>Selected services {{ selectedServices }} / 6</h4>
+        <div id="tagServices"></div>
+        <h4><mat-icon svgIcon="ontimize:add"></mat-icon>Available services {{ availableServices }} / 6</h4>
+          <o-grid attr="services" service="services" entity="service" cols="6"
+            #servicesGrid columns="srv_id;srv_name" keys="srv_id"
+            quick-filter="no" fixed-header="no"
+            controls="false"
+            refresh-button="false" show-page-size="false" pagination-controls="false"
+            show-buttons-text="no"
+            gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
+            <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
+              <div (click)="selectService(dato.srv_id, dato.srv_name)" >
+                <o-column id="{{'srv'+dato.srv_id}}" class="service">{{ dato.srv_name }}</o-column>
+            </div>
+            </o-grid-item>
+          </o-grid>
+      </div>
+      <div fxLayout="column" fxLayoutGap="24px" class="form-row">
+        <div class="buttons">
+          <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">Save</button>
+          <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
         </div>
-      </o-grid-item>
-
-    </o-grid>
-
+      </div>
+    </o-column>
   </div>
 </o-form>

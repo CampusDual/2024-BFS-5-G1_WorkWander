@@ -38,3 +38,18 @@
     }
   }
 }
+
+.o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
+  position: absolute;
+  border-radius: 25px;
+  margin: 0px 5px 0 5px;
+  transition: all 0.2s;
+  top:unset;
+  bottom: 25px;
+  right: 0;
+
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-nav-menu-item a {
+    margin: 0px 5px 0 5px;
+  }
+}

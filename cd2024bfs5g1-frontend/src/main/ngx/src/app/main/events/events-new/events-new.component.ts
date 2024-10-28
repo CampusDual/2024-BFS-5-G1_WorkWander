@@ -49,6 +49,6 @@ export class EventsNewComponent {
   }
 
   createEvent() {
-    this.router.navigate(['/main/home']);
+    this.router.navigate(['/main/myevents']);
   }
 }

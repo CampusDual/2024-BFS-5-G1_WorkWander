@@ -1,6 +1,6 @@
 <o-form #form attr="eventNew" service="events" entity="event" keys="id_event"
     header-actions="new"
-    show-header-navigation="no" (onInsert)="createEvent()" class="form-section">
+    show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section" ignore-default-navigation="yes">
     <div fxLayout="row" class="form-section" class="form-container" fxLayoutGap="24px" fxLayoutAlign="center start">
         <!-- Información General -->
         <o-column fxFlex="70" title="EVENT_INFORMATION" class="form-section">

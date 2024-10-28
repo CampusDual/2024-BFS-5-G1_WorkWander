@@ -1,9 +1,10 @@
 #container {
-    width: 80%;
+    width: fit-content;
     margin: auto;
     background-color: white;
     border-radius: 16px;
     padding: 16px;
+
 }
 
 .book {

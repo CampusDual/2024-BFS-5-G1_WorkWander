@@ -7,7 +7,10 @@
       <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
         <div fxLayout="row" fxLayoutGap="15px">
           <div fxLayout="row" fxFlex fxLayoutGap="15px">
-            <o-image></o-image>
+
+            <o-image attr="cw_image" title="PHOTO" orderable="no" searchable="no" type="image"
+            empty-image="assets/images/no-image.png" image-type="base64" show-controls="no"></o-image>
+
             <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
               layout-align="start stretch">
               <div fxLayout="row">
@@ -15,11 +18,12 @@
                   string-case="uppercase"></o-text-input>
               </div>
 
-
               <div fxLayout="row" fxLayoutGap="22px">
                 <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
                 <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
               </div>
+
+              <!-- TODO: insertar grid de servicios -->
 
               <div fxLayout="row">
                 <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>

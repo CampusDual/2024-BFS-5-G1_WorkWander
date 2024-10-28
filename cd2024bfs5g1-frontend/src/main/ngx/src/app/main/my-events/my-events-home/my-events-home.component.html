@@ -1,4 +1,4 @@
-<o-form-layout-manager attr="myEventsHome" title="{{'MYEVENTS' | oTranslate }}" separator=" " mode="tab"
+<o-form-layout-manager attr="myEvents" title="{{'MYEVENTS' | oTranslate }}" separator=" " mode="tab"
     label-columns="name">
     <o-table attr="myEventsTable" service="events" entity="myEvent" keys="id_event"
         columns="id_event;name;description;date_event;hour_event;address;locality;bookings;usr_id"
@@ -18,4 +18,3 @@
         <o-table-column attr="locality" fxFlex title="locality" width="150px"></o-table-column>
     </o-table>
 </o-form-layout-manager>
-

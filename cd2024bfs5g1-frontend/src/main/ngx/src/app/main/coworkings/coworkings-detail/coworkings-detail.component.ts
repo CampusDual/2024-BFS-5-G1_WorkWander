@@ -55,7 +55,7 @@ export class CoworkingsDetailComponent {
   checkCapacity() {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue(),
+      bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };
 
@@ -136,7 +136,7 @@ export class CoworkingsDetailComponent {
   createBooking() {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue(),
+      bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };
 

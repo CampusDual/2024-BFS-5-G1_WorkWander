@@ -1,7 +1,6 @@
-<o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R"
-    show-header-navigation="no" keys="cw_id" keys-sql-types="integer" columns="cw_id;cw_name" header-position="top"
-    layout-direction="row" detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true"
-    editable-detail="no">
+<o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R" show-header-navigation="no" keys="cw_id"
+    keys-sql-types="integer" columns="cw_id;cw_name" header-position="top" layout-direction="row"
+    detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true" editable-detail="no">
 
     <div fxLayout="row" fxLayoutGap="30px" fxFill>
 
@@ -15,6 +14,11 @@
                             layout-align="start stretch">
 
                             <div fxLayout="row">
+                                <!-- Campo para mostrar la imagen de coworking -->
+                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
+                            </div>
+
+                            <div fxLayout="row">
                                 <o-text-input #name type="text" attr="cw_name" fxFlex label="NAME"
                                     string-case="uppercase"></o-text-input>
                             </div>
@@ -23,14 +27,14 @@
                                 <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
                             </div>
 
-                            <div fxLayout="row" fxLayoutGap="22px">
+                            <div fxLayout="row" fxLayoutGap="12px">
                                 <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-
                             </div>
 
                             <div fxLayout="row">
                                 <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
                             </div>
+
                             <div fxLayoutGap="22px">
                                 <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
                                 <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>

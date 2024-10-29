@@ -6,7 +6,7 @@ import {
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
 import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
-
+import { OTranslatePipe } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-coworking-new",
@@ -107,7 +107,7 @@ export class CoworkingsNewComponent implements OnInit{
       cw_capacity:this.coworkingForm.getFieldValue('cw_capacity'),
       cw_daily_price:this.coworkingForm.getFieldValue('cw_daily_price'),
       services:this.arrayServices
-    }    
+    }
     this.insert(coworking);
     this.coworkingForm.clearData();
     this.router.navigateByUrl("/main/mycoworkings");
@@ -132,13 +132,13 @@ export class CoworkingsNewComponent implements OnInit{
     let location = this.coworkingForm?.getFieldValue('cw_location');
     let capacity = this.coworkingForm?.getFieldValue('cw_capacity');
     let dailyPrice = this.coworkingForm?.getFieldValue('cw_daily_price');
-    if ((name && name.length) && (description && description.length) && 
+    if ((name && name.length) && (description && description.length) &&
         (address && address.length) && (location && location.length) &&
         (capacity && capacity != 0) && (dailyPrice && dailyPrice != 0)) {
-      return false;  
+      return false;
     }else{
       return true;
-    }    
+    }
   }
 
   public showConfigured() {

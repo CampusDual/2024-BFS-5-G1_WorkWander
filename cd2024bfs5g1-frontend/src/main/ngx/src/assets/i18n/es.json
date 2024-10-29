@@ -117,5 +117,15 @@
   "COWORKINGS_UBICATION": "Ubicación",
   "COWORKINGS_ADDRESS": "Dirección completa",
   "REGISTER_TITLE": "Rellena tus datos para registrarte",
-  "COMPANYCB": "Soy una empresa"
+  "COMPANYCB": "Soy una empresa",
+  "selected_services":"Servicios seleccionados",
+  "available_services":"Servicios disponibles",
+  "save":"Guardar",
+  "cancel":"Cancelar",
+  "additional_screen":"Pantalla adicional",
+  "vending_machine":"Máquina expendedora",
+  "coffee_shop":"Cafetería",
+  "water_machine":"Máquina de agua",
+  "ergonomic_chair":"Silla ergonómica",
+  "parking":"Parking"
 }

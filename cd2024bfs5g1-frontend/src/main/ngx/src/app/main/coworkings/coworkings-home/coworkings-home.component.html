@@ -12,8 +12,20 @@
           <span fxLayout="row" fxLayoutAlign="space-evenly center"><mat-icon>location_on</mat-icon>{{ data.cw_location }}</span>
         </div>
         <div class="daily_price">
-          <span>{{ data.cw_daily_price }}<span>€</span></span>
+          <span>{{ data.cw_daily_price | currency:'EUR'}}</span>
         </div>
+
+        <div>
+          <ng-container *ngFor="let dato of serviceList(data.cw_id)">
+            <ng-container *ngIf="dato.srv_id==1">{{ dato.srv_id }}</ng-container>
+            <ng-container *ngIf="dato.srv_id==2">{{ dato.srv_id }}</ng-container>
+            <ng-container *ngIf="dato.srv_id==3">{{ dato.srv_id }}</ng-container>
+            <ng-container *ngIf="dato.srv_id==4">{{ dato.srv_id }}</ng-container>
+            <ng-container *ngIf="dato.srv_id==5">{{ dato.srv_id }}</ng-container>
+            <ng-container *ngIf="dato.srv_id==6">{{ dato.srv_id }}</ng-container>
+        </ng-container>
+        </div>
+
       </div>
     </o-grid-item>
   </o-grid>

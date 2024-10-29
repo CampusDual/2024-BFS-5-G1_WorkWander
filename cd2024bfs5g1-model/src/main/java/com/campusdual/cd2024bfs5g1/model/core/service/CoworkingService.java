@@ -61,6 +61,20 @@ public class CoworkingService implements ICoworkingService {
     }
 
     @Override
+    public EntityResult serviceCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        if(keyMap.size()>0){
+            Map<String, Object> newKeyMap = new HashMap<>();
+            int cwId = (Integer)keyMap.get("cw_id");
+            newKeyMap.put("cw_id", cwId);
+            ArrayList<String> newList = new ArrayList<>();
+            newList.add("srv_id");
+            return cwServiceService.cwServiceQuery(newKeyMap, newList);
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

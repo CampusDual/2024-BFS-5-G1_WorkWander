@@ -116,5 +116,17 @@
   "COWORKINGS_DESCRIPTION": "Coworking's description",
   "COWORKINGS_UBICATION": "Ubication",
   "COMPANYCB": "I`m a company",
-  "COWORKINGS_ADDRESS": "Full address"
+  "COWORKINGS_ADDRESS": "Full address",
+  "REGISTER_TITLE": "Fill your personal data for register",
+  "COMPANYCB": "I'm a company",
+  "selected_services":"Selected services",
+  "available_services":"Available services",
+  "save":"Save",
+  "cancel":"Cancel",
+  "additional_screen":"Additional screen",
+  "vending_machine":"Vending machine",
+  "coffee_shop":"Coffee shop",
+  "water_machine":"Water machine",
+  "ergonomic_chair":"Ergonomic chair",
+  "parking":"Parking"
 }

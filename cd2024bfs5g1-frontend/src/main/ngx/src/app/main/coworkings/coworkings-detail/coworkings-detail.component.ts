@@ -66,7 +66,6 @@ export class CoworkingsDetailComponent {
       .query(filter, columns, "totalBookingsByDate", sqltypes)
       .subscribe((resp) => {
         if (resp.code === 0) {
-          //this.plazasOcupadas = resp.data.length ? resp.data.length : 0;
           this.plazasOcupadas = resp.data[0]["plazasocupadas"];
           this.realCapacity.setValue(
             this.coworkingsSites.getValue() - this.plazasOcupadas
@@ -99,12 +98,8 @@ export class CoworkingsDetailComponent {
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
-            // Actions on confirmation
             this.createBooking();
-          } else {
-            // Actions on cancellation
-            console.log("No confirmado");
-          }
+          } 
         });
       }
     } else {
@@ -115,12 +110,8 @@ export class CoworkingsDetailComponent {
 
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          // Actions on confirmation
           this.router.navigate(["/login"]);
-        } else {
-          // Actions on cancellation
-          console.log("No confirmado");
-        }
+        } 
       });
     }
   }
@@ -144,9 +135,7 @@ export class CoworkingsDetailComponent {
       if (resp.code === 0) {
         this.checkCapacity();
         this.showToastMessage();
-      } else {
-        console.log("Error");
-      }
+      } 
     });
   }
 
@@ -183,5 +172,3 @@ export class CoworkingsDetailComponent {
     return permissions.visible
   }
 }
-
-

@@ -123,5 +123,6 @@
   "BOOKINGS_NO_LOGED": "Booking error",
   "BOOKINGS_NO_LOGED2": "User not authenticated, would you like to log in?",
   "MYEVENTS":"My Events",
-  "BOOKINGS_CONFIRMED": "Booking confirmed"
+  "BOOKINGS_CONFIRMED": "Booking confirmed",
+  "REAL_CAPACITY": "Available places"
 }

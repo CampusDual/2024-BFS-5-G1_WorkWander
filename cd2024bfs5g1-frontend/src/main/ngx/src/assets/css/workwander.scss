@@ -1,8 +1,10 @@
 @use "sass:map";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+/* Tipografía*/
 $typography: "Noto Sans";
 
+/* Colores personalizados */
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
@@ -16,6 +18,9 @@ $colorDegradadoSuave: $accent;
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px ;
 $borderRadiusNav: 0px 0px 25px 0px;
+
+$padding: 25px 35px  45px 35px;
+$paddingInterno: 12px 16px;
 
 h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
   font-family: $typography !important;
@@ -38,22 +43,24 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   bottom: 0;
   z-index: -1;
 }
-.full-page .login-outer-container .wrapp-login {
-  z-index: 2;
-}
 
-.full-page .login-outer-container .wrapp-login {
-  width: 640px;
-  min-height: unset;
-}
-login .login-outer-container .wrapp-login .login-inner-container,
-login .login-outer-container .wrapp-login {
-  background-color: unset;
-}
-login .footer-container,
-.footer-container{
-  background-color: $primary;
-  color: $accent;
+login {
+  .full-page .login-outer-container .wrapp-login {
+    width: 100vw;
+    min-height: unset;
+    z-index: 2;
+  }
+
+  .login-outer-container .wrapp-login .login-inner-container,
+  .login-outer-container .wrapp-login {
+    background-color: unset;
+  }
+  
+  .footer-container,
+  .footer-container{
+    background-color: $primary;
+    color: $accent;
+  }
 }
 .mat-mdc-raised-button:not(:disabled) {
   background-color: $primary;
@@ -104,19 +111,22 @@ login .footer-container,
   border-color: $primaryClaro;
 }
 
+.o-column.o-appearance-outline .o-container-outline .o-container-outline-end, 
+.o-column.o-appearance-outline .o-container-outline .o-container-outline-start,
+.o-column.o-appearance-outline .o-container-outline .o-container-outline-gap{
+  border-width: none;
+}
 
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
-  padding: 25px;
-  border-radius: 0 25px 0 0;
+  padding: $padding;
+  border-radius: $borderRadiusButton;
 }
 
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
   background-color: $accent;
 }
 
-
-/* Colores personalizados */
 a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
   border-left: 8px solid $primary;
 }
@@ -180,7 +190,7 @@ a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:ho
 .o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
   background-color: $accent;
   position: absolute;
-  border-radius: 25px;
+  border-radius: $borderRadius;
   margin: 0px 5px 0 5px;
   transition: all 0.2s;
   top:unset;
@@ -204,7 +214,6 @@ a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:ho
 mat-toolbar.mat-toolbar.o-form-toolbar-header.mat-toolbar-single-row {
   border-radius: $borderRadiusButton;
 }
-
 
 button .mat-mdc-button:not(:disabled) {
   color: $accentClaro;
@@ -230,8 +239,8 @@ o-column.form-section.o-column:hover,
 
 .full-page .login-outer-container .wrapp-login .login-inner-container form.ng-untouched.ng-pristine.ng-invalid {
   background-color: rgba($blanco, 0.4);
-  border-radius: 25px;
-  padding: 25px 35px  45px 35px;
+  border-radius: $borderRadius;
+  padding: $padding;
   min-height: unset;
   min-width: unset;
 }
@@ -240,6 +249,12 @@ o-column.form-section.o-column:hover,
 }
 .full-page .login-outer-container .wrapp-login .login-inner-container form .login-title-container {
   margin-top: unset;
+}
+
+o-form.o-form o-column.o-column.o-appearance-outline {
+  border-radius: $borderRadius;
+  background-color: rgba($blanco, 0.4);
+  padding: $padding;
 }
 
 .coworking-card {
@@ -314,14 +329,14 @@ o-column.form-section.o-column:hover,
       }
     }
     .form-container {
-      padding: 40px;
+      padding: $padding;
       background: #f5f5f5;
     }
      
     .form-section {
-      border-radius: 12px;
+      border-radius: $borderRadius;
       background-color: $blanco;
-      padding: 40px;
+      padding: $padding;
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
@@ -341,7 +356,7 @@ o-column.form-section.o-column:hover,
       font-size: 16px;
       background-color: $blanco;
       border: 1px solid $accent;
-      border-radius: 8px;
+      border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
      
@@ -381,7 +396,7 @@ o-column.form-section.o-column:hover,
     /* Estilo para los campos de formulario */
     .mat-form-field {
     width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: 12px; /* Bordes redondeados */
+    border-radius: $borderRadius; /* Bordes redondeados */
     background: $blanco; /* Fondo blanco */
     box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
@@ -409,7 +424,7 @@ o-column.form-section.o-column:hover,
     input.mat-input-element {
     border: 1px solid $blanco; /* Borde de los inputs */
     border-radius: 12px; /* Bordes redondeados en los inputs */
-    padding: 12px 16px; /* Espaciado interno */
+    padding: $paddingInterno; /* Espaciado interno */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     }
      
@@ -428,7 +443,7 @@ o-column.form-section.o-column:hover,
     /* Estilo para el calendario del datepicker */
     .mat-datepicker-content {
     background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: 12px; /* Bordes redondeados en el datepicker */
+    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
     box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
     }
      
@@ -443,18 +458,17 @@ o-column.form-section.o-column:hover,
     }
      
     .form-container {
-      padding: 40px;
+      padding: $padding;
       background: $blanco;
     }
   
     .form-section {
-      border-radius: 12px;
+      border-radius: $borderRadius;
       background-color: $blanco;
-      padding: 40px;
+      padding: $padding;
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
-  
   
     .form-row {
       margin-bottom: 24px;
@@ -471,7 +485,7 @@ o-column.form-section.o-column:hover,
       font-size: 16px;
       background-color: $blanco;
       border: 1px solid $accent;
-      border-radius: 8px;
+      border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
   
@@ -510,7 +524,7 @@ o-column.form-section.o-column:hover,
     /* Estilo para los campos de formulario */
     .mat-form-field {
     width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: 12px; /* Bordes redondeados */
+    border-radius: $borderRadius; /* Bordes redondeados */
     background: $blanco; /* Fondo blanco */
     box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
@@ -537,8 +551,8 @@ o-column.form-section.o-column:hover,
     /* Estilo de los inputs */
     input.mat-input-element {
     border: 1px solid $blanco; /* Borde de los inputs */
-    border-radius: 12px; /* Bordes redondeados en los inputs */
-    padding: 12px 16px; /* Espaciado interno */
+    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
+    padding: $paddingInterno; /* Espaciado interno */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     }
   
@@ -557,8 +571,8 @@ o-column.form-section.o-column:hover,
     /* Estilo para el calendario del datepicker */
     .mat-datepicker-content {
     background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: 12px; /* Bordes redondeados en el datepicker */
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); /* Sombra más profunda */
+    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
+    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
     }
   
     /* Estilo para el calendario dentro del datepicker */
@@ -577,14 +591,14 @@ o-column.form-section.o-column:hover,
     }
     
     .form-container {
-      padding: 40px;
+      padding: $padding;
       background: $accent;
     }
   
     .form-section {
-      border-radius: 12px;
+      border-radius: $borderRadius;
       background-color: $blanco;
-      padding: 40px;
+      padding: $padding;
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
@@ -605,7 +619,7 @@ o-column.form-section.o-column:hover,
       font-size: 16px;
       background-color: $blanco;
       border: 1px solid $accent;
-      border-radius: 8px;
+      border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
   
@@ -644,7 +658,7 @@ o-column.form-section.o-column:hover,
     /* Estilo para los campos de formulario */
     .mat-form-field {
     width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: 12px; /* Bordes redondeados */
+    border-radius: $borderRadius; /* Bordes redondeados */
     background: $blanco; /* Fondo blanco */
     box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
@@ -671,7 +685,7 @@ o-column.form-section.o-column:hover,
     /* Estilo de los inputs */
     input.mat-input-element {
     border: 1px solid $blanco; /* Borde de los inputs */
-    border-radius: 12px; /* Bordes redondeados en los inputs */
+    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
     padding: 12px 16px; /* Espaciado interno */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     }
@@ -691,7 +705,7 @@ o-column.form-section.o-column:hover,
     /* Estilo para el calendario del datepicker */
     .mat-datepicker-content {
     background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: 12px; /* Bordes redondeados en el datepicker */
+    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
     box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
     }
   
@@ -760,7 +774,7 @@ o-column.form-section.o-column:hover,
         justify-content: center;
         background-color: $primary;
         color: $blanco;
-        border-radius: 50%;
+        border-radius: $borderRadiusButton;
         font-size: 12px;
       }
     }
@@ -768,7 +782,7 @@ o-column.form-section.o-column:hover,
 
   .price-container {
     // Contenedor del precio
-    padding: 16px;
+    padding: $paddingInterno;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -787,7 +801,7 @@ o-column.form-section.o-column:hover,
   .capacity-container {
     // Contenedor de la capacidad
     width: 15%;
-    padding: 16px;
+    padding: $paddingInterno;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -803,6 +817,12 @@ o-column.form-section.o-column:hover,
   }
 }
 
+form.inner-form.form-no-toolbar.ng-untouched.ng-pristine.ng-invalid {
+  min-height: 100vh;
+  justify-content: center;
+}
+
+
 .m-top-24 {
   margin-top: 24px;
 }
@@ -814,6 +834,10 @@ o-column.form-section.o-column:hover,
   position: relative;
   overflow: hidden;
 
+  .login-inner-container{
+    min-height: 100vh;
+  }
+
   .register-outer-container {
       width: 100%;
       height: 100%;
@@ -823,8 +847,8 @@ o-column.form-section.o-column:hover,
       display: -ms-flexbox;
       display: flex;
       flex-wrap: wrap;
-      align-items: stretch;
       overflow: auto;
+      justify-content: center;
   }
   .register-bg-container {
       background-image: unset;
@@ -857,7 +881,7 @@ o-column.form-section.o-column:hover,
           width: 100%;
       }
       form {
-          padding: 16px;
+          padding: $paddingInterno;
           min-height: 600px;
           min-width: 368px;
         }
@@ -881,20 +905,20 @@ o-column.form-section.o-column:hover,
 
     .info {
       width: 100%;
-      padding: 12px;
+      padding: $paddingInterno;
     }
 
     .price-container {
       width: 100%;
       justify-content: center;
-      padding: 12px;
+      padding: $paddingInterno;
       background-color: $accent;
     }
 
     .capacity-container {
       width: 100%;
       justify-content: center;
-      padding: 12px;
+      padding: $paddingInterno;
       background-color: $accent;
     }
   }

@@ -3,6 +3,7 @@ import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
+  AppConfig,
   AuthService,
   DialogService,
   OButtonComponent,
@@ -11,11 +12,14 @@ import {
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
+  OPermissions,
   OSnackBarConfig,
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
+  Util,
 } from "ontimize-web-ngx";
+import { SettingsAppearanceComponent } from "../../settings/appearance/appearance.component";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -38,8 +42,11 @@ export class CoworkingsDetailComponent {
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
+  @ViewChild("form") form: OFormComponent;
 
   plazasOcupadas: number;
+  public idiomaActual: string;
+  public idioma: string;
 
   currentDate() {
     return new Date();
@@ -48,7 +55,7 @@ export class CoworkingsDetailComponent {
   checkCapacity() {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: new Date(this.bookingDate.getValue()).toISOString(),
+      bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };
 
@@ -63,7 +70,7 @@ export class CoworkingsDetailComponent {
       .query(filter, columns, "totalBookingsByDate", sqltypes)
       .subscribe((resp) => {
         if (resp.code === 0) {
-          //this.plazasOcupadas = resp.data.length ? resp.data.length : 0;
+
           this.plazasOcupadas = resp.data[0]["plazasocupadas"];
           this.realCapacity.setValue(
             this.coworkingsSites.getValue() - this.plazasOcupadas
@@ -79,44 +86,49 @@ export class CoworkingsDetailComponent {
       });
   }
 
-  showConfirm(evt: any) {
-    const rawDate = new Date(this.bookingDate.getValue());
-    const date = rawDate.toISOString();
+  changeFormatDate(milis: number, idioma: string) {
+    const fecha = new Date(milis);
 
-    const confirmMessageTitle = this.translate.get('BOOKINGS_INSERT');
-    const confirmMessageBody = this.translate.get('BOOKINGS_INSERT2');
-    const nologedMessageTitle = this.translate.get('BOOKINGS_NO_LOGED');
-    const nologedMessageBody = this.translate.get('BOOKINGS_NO_LOGED2');
+    let fechaFormateada;
+
+    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
+
+    return fechaFormateada;
+  }
+
+  showConfirm(evt: any) {
+    const rawDate = this.bookingDate.getValue();
+
+    this.idiomaActual = this.translate.getCurrentLang();
+    this.idiomaActual === "es" ? (this.idioma = "es-ES") : (this.idioma = "en-US");
+    const fechaBien = this.changeFormatDate(rawDate, this.idioma);
+
+    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+    const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+    const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
+    const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
 
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
         this.dialogService.confirm(
           confirmMessageTitle,
-          `${confirmMessageBody}  ${date},  ${this.coworkingName.getValue()} ?`
+          `${confirmMessageBody}  ${fechaBien},  ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
-            // Actions on confirmation
             this.createBooking();
-          } else {
-            // Actions on cancellation
-            console.log("No confirmado");
           }
         });
       }
     } else {
       this.dialogService.confirm(
         nologedMessageTitle,
-        nologedMessageBody,// No añade el boton cancelar al dialogo, o cambia el icono de alerta
+        nologedMessageBody // No añade el boton cancelar al dialogo, o cambia el icono de alerta
       );
 
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {
         if (result) {
-          // Actions on confirmation
           this.router.navigate(["/login"]);
-        } else {
-          // Actions on cancellation
-          console.log("No confirmado");
         }
       });
     }
@@ -125,7 +137,7 @@ export class CoworkingsDetailComponent {
   createBooking() {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue(),
+      bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };
 
@@ -141,8 +153,6 @@ export class CoworkingsDetailComponent {
       if (resp.code === 0) {
         this.checkCapacity();
         this.showToastMessage();
-      } else {
-        console.log("Error");
       }
     });
   }
@@ -160,5 +170,22 @@ export class CoworkingsDetailComponent {
 
     // Simple message with icon on the left and action
     this.snackBarService.open(confirmedMessage, configuration);
+  }
+
+  checkAuthStatus() {
+    return !this.authService.isLoggedIn();
+  }
+  parsePermissions(attr: string): boolean {
+    // if oattr in form, it can have permissions
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return;
+    }
+    const permissions: OPermissions =
+      this.form.getFormComponentPermissions(attr);
+
+    if (!Util.isDefined(permissions)) {
+      return true;
+    }
+    return permissions.visible;
   }
 }

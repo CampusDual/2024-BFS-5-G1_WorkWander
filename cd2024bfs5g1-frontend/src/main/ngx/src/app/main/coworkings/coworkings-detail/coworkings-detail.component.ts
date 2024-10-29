@@ -48,7 +48,7 @@ export class CoworkingsDetailComponent {
   checkCapacity() {
     const filter = {
       bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue(),
+      bk_date: new Date(this.bookingDate.getValue()).toISOString(),
       bk_state: true,
     };
 
@@ -81,7 +81,7 @@ export class CoworkingsDetailComponent {
 
   showConfirm(evt: any) {
     const rawDate = new Date(this.bookingDate.getValue());
-    const date = rawDate.toLocaleDateString();
+    const date = rawDate.toISOString();
 
     const confirmMessageTitle = this.translate.get('BOOKINGS_INSERT');
     const confirmMessageBody = this.translate.get('BOOKINGS_INSERT2');
@@ -148,6 +148,9 @@ export class CoworkingsDetailComponent {
   }
 
   showToastMessage() {
+
+    const confirmedMessage = this.translate.get('BOOKINGS_CONFIRMED');
+
     // SnackBar configuration
     const configuration: OSnackBarConfig = {
       milliseconds: 2000,
@@ -156,6 +159,6 @@ export class CoworkingsDetailComponent {
     };
 
     // Simple message with icon on the left and action
-    this.snackBarService.open("Reserva confirmada", configuration);
+    this.snackBarService.open(confirmedMessage, configuration);
   }
 }

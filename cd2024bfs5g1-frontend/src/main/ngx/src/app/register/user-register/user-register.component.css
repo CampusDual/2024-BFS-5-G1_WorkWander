@@ -76,27 +76,22 @@
           p, .form-text {
               margin-bottom: 8px;  /* Añade espacio entre párrafos de texto */
           }
-
-          .m-top-24 {
-              margin-top: 24px;     /* Añadir espacio superior */
-          }
-
           button {
               margin-top: 14px;     /* Espacio adicional antes del botón */
               padding: 10px 20px;   /* Tamaño del botón */
           }
           .text-center {
-            display: flex;           
-            justify-content: center; 
-            align-items: center;     
-            height: 100%;            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
         }
           .link-text {
             color: blue;          /* Color del texto del enlace */
-            text-decoration: underline; 
-            cursor: pointer;      
+            text-decoration: underline;
+            cursor: pointer;
         }
-        
+
         .link-text:hover {
             color: rgb(15, 163, 72);      /* Cambia el color al pasar el cursor sobre el enlace */
         }

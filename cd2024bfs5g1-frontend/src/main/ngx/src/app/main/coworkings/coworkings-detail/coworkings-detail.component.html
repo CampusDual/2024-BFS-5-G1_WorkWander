@@ -48,11 +48,11 @@
 
                             </o-form>
                             <div>
-                                <o-integer-input editable-detail="no" #realCapacity></o-integer-input>
+                                <o-integer-input editable-detail="no" #realCapacity label="REAL_CAPACITY"></o-integer-input>
                             </div>
 
-                           <div>
-                            <o-button #bookingButton label="{{'BOOKING' | oTranslate }}" type="raised" color="primary" (click)="showConfirm($event)"
+                           <div *ngIf="parsePermissions('bookingButton')">
+                            <o-button #bookingButton attr="bookingButton" label="{{'BOOKING' | oTranslate }}" type="raised" color="primary" (click)="showConfirm($event)"
                             enabled="false"></o-button>
                            </div>
 
@@ -67,3 +67,4 @@
 
     </div>
 </o-form>
+

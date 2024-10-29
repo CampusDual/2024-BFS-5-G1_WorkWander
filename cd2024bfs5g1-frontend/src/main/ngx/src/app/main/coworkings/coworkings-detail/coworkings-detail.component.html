@@ -13,31 +13,51 @@
                         <o-column title="COWORKING_DATA_SECTION" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
                             layout-align="start stretch">
 
+                            <div fxLayout="row">
+                                <!-- Campo para mostrar la imagen de coworking -->
+                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
+                            </div>
 
                             <div fxLayout="row">
-                                <o-text-input type="text" attr="cw_name" fxFlex label="NAME" string-case="uppercase"></o-text-input>
+                                <o-text-input #name type="text" attr="cw_name" fxFlex label="NAME"
+                                    string-case="uppercase"></o-text-input>
                             </div>
 
                             <div fxLayout="row">
                                 <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
                             </div>
 
-                            <div fxLayout="row" fxLayoutGap="22px">
+                            <div fxLayout="row" fxLayoutGap="12px">
                                 <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-
                             </div>
 
                             <div fxLayout="row">
                                 <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
                             </div>
+
                             <div fxLayoutGap="22px">
-                                <o-integer-input attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
+                                <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
                                 <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
 
                             </div>
 
+                            <o-form editable-detail="no" show-header="no">
+                                <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+                                <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
+                                    (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
+
+                            </o-form>
+                            <div>
+                                <o-integer-input editable-detail="no" #realCapacity label="REAL_CAPACITY"></o-integer-input>
+                            </div>
+
+                           <div *ngIf="parsePermissions('bookingButton')">
+                            <o-button #bookingButton attr="bookingButton" label="{{'BOOKING' | oTranslate }}" type="raised" color="primary" (click)="showConfirm($event)"
+                            enabled="false"></o-button>
+                           </div>
 
                         </o-column>
+
                     </div>
 
                 </div>
@@ -45,6 +65,6 @@
             </div>
         </div>
 
-
     </div>
 </o-form>
+

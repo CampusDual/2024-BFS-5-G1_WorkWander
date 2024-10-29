@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.IEventService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Lazy
@@ -30,10 +32,27 @@ public class EventService implements IEventService {
     @Override
     @Secured({ PermissionsProviderSecured.SECURED })
     @Transactional(rollbackFor = Exception.class)
+    public EntityResult eventQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(this.eventDao, keyMap, attrList);
+    }
+
+    @Override
+    @Secured({ PermissionsProviderSecured.SECURED })
+    @Transactional(rollbackFor = Exception.class)
     public EntityResult eventInsert(Map<String, Object> attributes) throws OntimizeJEERuntimeException {
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         attributes.put(EventDao.USR_ID ,userId);
+
         return this.daoHelper.insert(this.eventDao, attributes);
     }
+
+    @Override
+    public EntityResult myEventQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(EventDao.USR_ID, userId);
+        return this.daoHelper.query(this.eventDao, keyMap, attrList);
+    }
+
 }

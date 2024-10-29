@@ -210,7 +210,7 @@ export class UserRegisterComponent {
 
     this.service.insert(userData, 'user').subscribe(resp => {
       if (resp.code === 0) {
-        this.registerForm.setFormMode(2);
+        this.registerForm.setFormMode(1);
         this.logUser(userName,password);
       } else {
         alert('Error al registrar usuario');

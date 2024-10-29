@@ -70,6 +70,7 @@ export class CoworkingsDetailComponent {
       .query(filter, columns, "totalBookingsByDate", sqltypes)
       .subscribe((resp) => {
         if (resp.code === 0) {
+
           this.plazasOcupadas = resp.data[0]["plazasocupadas"];
           this.realCapacity.setValue(
             this.coworkingsSites.getValue() - this.plazasOcupadas
@@ -157,7 +158,8 @@ export class CoworkingsDetailComponent {
   }
 
   showToastMessage() {
-    const confirmedMessage = this.translate.get("BOOKINGS_CONFIRMED");
+
+    const confirmedMessage = this.translate.get('BOOKINGS_CONFIRMED');
 
     // SnackBar configuration
     const configuration: OSnackBarConfig = {

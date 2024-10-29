@@ -1,36 +1,33 @@
-import { Component, ViewChild } from '@angular/core';
-import { OFormComponent, DialogService, OTranslateService } from 'ontimize-web-ngx';
-import { Router } from '@angular/router';
+import { Component, ViewChild } from "@angular/core";
+import {
+  OFormComponent,
+  ODateInputComponent,
+  OValidators,
+} from "ontimize-web-ngx";
+import { Router } from "@angular/router";
+import { ValidatorFn } from "@angular/forms";
 
 @Component({
-  selector: 'app-coworking-new',
-  templateUrl: './coworkings-new.component.html',
-  styleUrls: ['./coworkings-new.component.css']
+  selector: "app-coworking-new",
+  templateUrl: "./coworkings-new.component.html",
+  styleUrls: ["./coworkings-new.component.css"],
 })
 export class CoworkingsNewComponent {
+  public today: string = new Date().toLocaleDateString();
 
-  @ViewChild('coworkingForm') coworkingForm: OFormComponent;
+  @ViewChild("coworkingForm") coworkingForm: OFormComponent;
+  @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
+  @ViewChild("endDate") coworkingEndDate: ODateInputComponent;
 
-  constructor(
-    private router: Router,
-    private dialogService: DialogService,
-    private translate: OTranslateService
-  ) {}
+  // Validadores personalizados para nombre y descripción
+  public validatorsArray: ValidatorFn[] = [
+    OValidators.patternValidator(/^[a-zA-Z0-9 ]*$/, "noSpecialCharacters"),
+  ];
 
-  /**
-   * Método que se ejecuta cuando la inserción de un nuevo coworking es exitosa.
-   *
-   * - Restablece el formulario a su estado inicial.
-   * - Muestra un mensaje de información indicando que la operación fue exitosa.
-   */
+  constructor(private router: Router) {}
+
   public onInsertSuccess(): void {
-    // Restablece el formulario a su modo inicial
     this.coworkingForm.setInitialMode();
-
-    const successMessageTitle = this.translate.get('COWORKING_ADDED');
-    const successMessageBody = this.translate.get('COWORKING_ADDED2');
-
-    // Muestra un mensaje de éxito al usuario
-    this.dialogService.info(successMessageTitle, successMessageBody);
+    this.router.navigateByUrl("/main/mycoworkings");
   }
 }

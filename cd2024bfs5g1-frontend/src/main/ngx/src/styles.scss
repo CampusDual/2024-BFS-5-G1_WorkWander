@@ -43,9 +43,9 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   border-radius: $borderRadiusButton;
 }
 
-o-text-input:hover, 
-o-integer-input:hover, 
-o-real-input:hover, 
+o-text-input:hover,
+o-integer-input:hover,
+o-real-input:hover,
 o-date-input:hover {
   border-color: $primary !important;
 }
@@ -61,44 +61,44 @@ o-date-input:hover {
   padding: 15px;
 }
 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-accent:hover {
   color: $primary;
   background-color: $accent;
   border-color: transparent;
 }
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
   color: $primary;
   background-color: $accent;
   border-color: transparent;
 }
 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary:hover {
   color: $primary;
   background-color: $blanco;
@@ -276,7 +276,7 @@ o-column.form-section.o-column:hover,
       // Estilo de la imagen de coworking
       width: 100%;
       height: auto;
-      
+
       object-fit:cover;
       cursor: pointer;
       border-radius: $borderRadius;
@@ -301,12 +301,12 @@ o-column.form-section.o-column:hover,
       cursor: pointer;
       margin-bottom: 8px;
       display: inline-block; // Necesario para que el efecto funcione correctamente
-    
+
       &:hover {
         animation: wave 1.5s ease-in-out ;
       }
     }
-    
+
     // Animación de onda
     @keyframes wave {
       0% {
@@ -325,7 +325,7 @@ o-column.form-section.o-column:hover,
         transform: translateY(0);
       }
     }
-    
+
 
     .stars {
       // Contenedor de las estrellas de calificación

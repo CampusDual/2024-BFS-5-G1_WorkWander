@@ -126,5 +126,9 @@
   "BOOKINGS_INSERT2": "Are you sure you want to book for the",
   "BOOKINGS_NO_LOGED": "Booking error",
   "BOOKINGS_NO_LOGED2": "User not authenticated, would you like to log in?",
-  "MYEVENTS":"My Events"
+  "MYEVENTS":"My Events",
+  "REAL_CAPACITY": "Available places",
+  "COMPANYCB": "I'm a company",
+  "BOOKINGS_CONFIRMED": "Booking confirmed",
+  "IM_REGISTERED": "I'm registered"
 }

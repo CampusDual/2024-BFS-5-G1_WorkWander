@@ -1,7 +1,5 @@
 <!--
-
     Este archivo HTML define un formulario para añadir un nuevo espacio de coworking. El formulario está estructurado utilizando componentes de Angular y Flex Layout para un diseño responsivo.
-
     Detalles del Formulario:
     - Atributos del Formulario:
       - class: "form-section"
@@ -13,116 +11,52 @@
       - show-header-navigation: "no"
       - (onInsert): "onInsertSuccess()"
       - after-insert-mode: "detail"
-
     - Secciones del Formulario:
       - Información General:
         - Nombre: Campo de texto requerido con icono "business"
         - Descripción: Campo de texto requerido con icono "description" y un máximo de 250 caracteres
-
       - Dirección y Localidad:
         - Localidad: Campo de texto requerido con icono "location_city"
         - Dirección: Campo de texto requerido con icono "place"
-
       - Capacidad y Precio Diario:
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
-  -->
-<o-form
-  class="form-section"
-  #coworkingForm
-  attr="coworkingDetail"
-  service="coworkings"
-  entity="coworking"
-  keys="id"
-  header-actions="new"
-  show-header-navigation="no"
-  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  ignore-default-navigation="yes"
->
-  <div
-    class="form-section"
-    fxLayout="row"
-    fxLayoutGap="24px"
-    fxLayoutAlign="center start"
-    class="form-container"
-  >
+-->
+
+<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id"
+  header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="coworkings">
+  <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
     <!-- Información General -->
     <o-column fxFlex="70" class="form-section" flFlex title="ADD_COWORKING">
-      <!-- Nombre y -->
-      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-text-input
-          fxFlex="50"
-          attr="cw_name"
-          fxFlex
-          label="NAME"
-          required="yes"
-          icon="business"
-          fxFlex
-          placeholder="COWORKINGS_NAME"
-        ></o-text-input>
-        <o-text-input
-          fxFlex="50"
-          attr="cw_description"
-          fxFlex
-          label="DESCRIPTION"
-          required="yes"
-          maxlength="250"
-          icon="description"
-          fxFlex
-          placeholder="COWORKINGS_DESCRIPTION"
-        ></o-text-input>
-      </div>
 
+      <!-- Nombre y Descripcion -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-text-input fxFlex="50" attr="cw_name" fxFlex label="NAME" required="yes" icon="business" fxFlex
+          placeholder="{{'COWORKINGS_NAME' | oTranslate }}"></o-text-input>
+        <o-text-input fxFlex="50" attr="cw_description" fxFlex label="DESCRIPTION" required="yes" maxlength="250"
+          icon="description" fxFlex placeholder="{{'COWORKINGS_DESCRIPTION' | oTranslate }}"></o-text-input>
+      </div>
       <!-- Dirección y Localidad -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-text-input
-          fxFlex="50"
-          attr="cw_location"
-          fxFlex
-          label="LOCATION"
-          required="yes"
-          icon="location_city"
-          fxFlex
-          placeholder="COWORKINGS_UBICATION"
-        ></o-text-input>
-        <o-text-input
-          fxFlex="50"
-          attr="cw_address"
-          fxFlex
-          label="ADDRESS"
-          required="yes"
-          icon="place"
-          fxFlex
-          placeholder="COWORKINGS_ADDRESS"
-        ></o-text-input>
-      </div>
+        <o-text-input fxFlex="50" attr="cw_location" fxFlex label="LOCATION" required="yes" icon="location_city" fxFlex
 
+          placeholder="{{'COWORKINGS_UBICATION' | oTranslate }}"></o-text-input>
+        <o-text-input fxFlex="50" attr="cw_address" fxFlex label="ADDRESS" required="yes" icon="place" fxFlex
+          placeholder="{{'COWORKINGS_ADDRESS' | oTranslate }}"></o-text-input>
+
+      </div>
       <!-- Capacidad y Precio Diario -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-integer-input
-          [min]="0"
-          fxFlex="50"
-          attr="cw_capacity"
-          fxFlex
-          label="CAPACITY"
-          required="yes"
-          icon="event_seat"
-          fxFlex
-          placeholder="Ej. 10, 20"
-          style="--field-hover-color: #6200ea"
-        ></o-integer-input>
-        <o-real-input
-          [min]="0"
-          fxFlex="50"
-          attr="cw_daily_price"
-          fxFlex
-          label="DAILY_PRICE"
-          required="yes"
-          decimal-digits="2"
-          icon="euro_symbol"
-          placeholder="Ej. 20, 50"
-          style="--field-hover-color: #6200ea"
-        ></o-real-input>
+        <o-integer-input [min]="0" fxFlex="50" attr="cw_capacity" fxFlex label="CAPACITY" required="yes"
+          icon="event_seat" fxFlex placeholder="{{'COWORKINGS_CAPACITY' | oTranslate }}" style="--field-hover-color: #6200ea"></o-integer-input>
+        <o-real-input [min]="0" fxFlex="50" attr="cw_daily_price" fxFlex label="DAILY_PRICE" required="yes"
+          decimal-digits="2" icon="euro_symbol" placeholder="{{'COWORKINGS_PRICE' | oTranslate }}"
+          style="--field-hover-color: #6200ea"></o-real-input>
+      </div>
+
+      <!-- Imagen -->
+      <div fxLayout="row" class="form-row">
+        <o-image attr="cw_image" sql-type="OTHER" ></o-image>
       </div>
     </o-column>
   </div>

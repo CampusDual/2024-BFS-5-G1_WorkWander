@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.IEventService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -45,4 +46,13 @@ public class EventService implements IEventService {
 
         return this.daoHelper.insert(this.eventDao, attributes);
     }
+
+    @Override
+    public EntityResult myEventQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException {
+        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(EventDao.USR_ID, userId);
+        return this.daoHelper.query(this.eventDao, keyMap, attrList);
+    }
+
 }

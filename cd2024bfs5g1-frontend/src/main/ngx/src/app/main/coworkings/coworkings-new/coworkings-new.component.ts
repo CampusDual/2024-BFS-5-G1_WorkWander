@@ -1,9 +1,5 @@
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
-import {
-  OFormComponent,
-  ODateInputComponent,
-  OTranslateService,
-} from "ontimize-web-ngx";
+import { Component, ViewChild } from "@angular/core";
+import { OFormComponent, ODateInputComponent, } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
 
 @Component({
@@ -20,7 +16,6 @@ export class CoworkingsNewComponent {
 
   constructor(
     private router: Router,
-    private translate: OTranslateService,
   ) {}
 
   public onInsertSuccess(): void {

@@ -34,41 +34,70 @@ export class UserRegisterComponent {
     this.service.configureService(conf);
   }
 
+  validateEmail(email: string): boolean {
+    if (!email) return false;
+  
+    // Expresión regular para validar el email sin caracteres especiales
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isValid = emailRegex.test(email);
+  
+    if (!isValid) {
+      alert('El correo electrónico contiene caracteres no permitidos.');
+    }
+  
+    return isValid;
+  }
+  validateUserName(userName: string): boolean {
+    if (!userName) return false;
+  
+    // Expresión regular para validar el nombre de usuario sin caracteres especiales
+    const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
+    const isValid = userNameRegex.test(userName);
+  
+    if (!isValid) {
+      alert('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
+    }
+  
+    return isValid;
+  }
   checkEmail() {
     const email = this.emailCtrl.getValue();
-    if (email && email.length > 0) {
-      const filter = { 'usr_email': email };
-      const columns = ['usr_id'];
-      this.service.query(filter, columns, 'user').subscribe(resp => {
-        if (resp.data && resp.data.length > 0) {
-          alert('Email ya existe')
-          this.emailCtrl.setValue('');
-        }
-      });
+    if (email && !this.validateEmail(email)) {
+      this.emailCtrl.setValue('');
+      return;
     }
+    
+    const filter = { 'usr_email': email };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Email ya existe');
+        this.emailCtrl.setValue('');
+      }
+    });
   }
-
   checkUserName() {
     const user = this.userCtrl.getValue();
-    if (user && user.length > 0) {
-      const filter = { 'usr_login': user };
-      const columns = ['usr_id'];
-      this.service.query(filter, columns, 'user').subscribe(resp => {
-        if (resp.data && resp.data.length > 0) {
-          alert('Usuario ya existe')
-          this.userCtrl.setValue('');
-        }
-      });
+    if (user && !this.validateUserName(user)) {
+      this.userCtrl.setValue('');
+      return;
     }
+  
+    const filter = { 'usr_login': user };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Usuario ya existe');
+        this.userCtrl.setValue('');
+      }
+    });
   }
 
   disableButton() {
     this.submitButton.enabled = false
   }
 
-  logUser() {
-    const userName = this.userCtrl.getValue();
-    const password = this.pwdCtrl.getValue();
+  logUser(userName,password) {
     const self = this;
     this.authService.login(userName, password)
       .subscribe(() => {
@@ -84,31 +113,49 @@ export class UserRegisterComponent {
     this.router.navigate(["/login"])
   }
 
+  //Link para generar CIFs
+  //https://testingdatagenerator.com/doi.html 
   validateCIF(cif: string): boolean {
-    let totalImpares = 0;
-    const numero = cif.substring(1, 8);
-    const totalPares = parseInt(numero[1], 10) + parseInt(numero[3], 10) + parseInt(numero[5], 10);
-    const total = totalPares + totalImpares;
-    const digitoControl = 10 - (total % 10);
-    const caracterFinalControl = String.fromCharCode(64 + digitoControl);
-
     if (cif.length !== 9) return false;
-
-    for (let i = 0; i < 7; i += 2) {
-      const impar = parseInt(numero[i], 10) * 2;
-      const imparStr = impar.toString();
-      totalImpares += parseInt(imparStr[0], 10);
-      if (imparStr.length === 2) {
-        totalImpares += parseInt(imparStr[1], 10);
-      }
+  
+    const letraInicial = cif[0].toUpperCase();
+    const numero = cif.substring(1, 8);
+    const digitoControl = cif[8];
+  
+    let totalPares = 0;
+    for (let i = 1; i < numero.length; i += 2) {
+      totalPares += parseInt(numero[i], 10);
     }
-    if (caracterFinalControl === cif[8]) return true;
-
-    if (cif[0] !== 'X' && cif[0] !== 'P') {
-      if (digitoControl.toString() === cif[8]) return true;
+  
+    let totalImpares = 0;
+    for (let i = 0; i < numero.length; i += 2) {
+      let impar = parseInt(numero[i], 10) * 2;
+      totalImpares += Math.floor(impar / 10) + (impar % 10);
     }
-    return false;
+  
+    const total = totalPares + totalImpares;
+    const unidades = total % 10;
+    const digitoCalculado = (unidades === 0) ? 0 : 10 - unidades;
+  
+    // Tabla de letras para el control alfabético
+    const caracteresControl = "JABCDEFGHI";
+    let caracterEsperado: string;
+  
+    // Letras iniciales específicas para control numérico
+    if ('ABEH'.includes(letraInicial)) {
+      caracterEsperado = digitoCalculado.toString();
+    } else if ('NPSU'.includes(letraInicial)) { 
+      // Letras para control alfabético y otras entidades como UTEs
+      caracterEsperado = caracteresControl[digitoCalculado];
+    } else {
+      // Si no es un caso específico, asumimos que puede ser numérico o alfabético
+      caracterEsperado = caracteresControl[digitoCalculado];
+    }
+  
+    // Comprobación final del carácter de control (puede ser numérico o alfabético según la letra inicial)
+    return caracterEsperado === digitoControl || digitoCalculado.toString() === digitoControl;
   }
+
 
   checkCif(){
     const cif = this.companyInput.getValue();
@@ -127,5 +174,53 @@ export class UserRegisterComponent {
         }
       });
     }
+
   }
-}
+
+  insertUser() {
+    const userName = this.userCtrl.getValue();
+    const email = this.emailCtrl.getValue();
+    const password = this.pwdCtrl.getValue();
+    let  cif = null;
+    let checkBoxCompany = "false";
+
+    if(this.checkCompany()){
+      cif = this.companyInput.getValue();
+      checkBoxCompany = "true";
+    }
+
+    // Validaciones antes de la inserción
+    if (!userName || !email || !password || (this.checkCompany() && !this.validateCIF(cif))) {
+      alert('Todos los campos son obligatorios y el CIF debe ser válido si la empresa está marcada.');
+      return;
+    }
+   // Verificar que el CIF es obligatorio si la empresa está marcada
+      if (this.checkCompany() && (!cif || !this.validateCIF(cif))) {
+        alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
+        return;
+      }
+    // Datos del usuario para insertar
+    const userData = {
+      'usr_login': userName,
+      'usr_email': email,
+      'usr_password': password,
+      'usr_cif': cif,
+      'companyCheck': checkBoxCompany
+    };
+
+    this.service.insert(userData, 'user').subscribe(resp => {
+      if (resp.code === 0) {
+        this.registerForm.setFormMode(2);
+        this.logUser(userName,password);
+      } else {
+        alert('Error al registrar usuario');
+      }
+    }, error => {
+      console.error('Error al insertar el usuario', error);
+      alert('Error en la inserción');
+    });
+  }
+  }
+
+
+

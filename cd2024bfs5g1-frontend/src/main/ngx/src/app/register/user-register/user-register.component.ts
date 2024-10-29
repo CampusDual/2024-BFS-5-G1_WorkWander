@@ -62,7 +62,7 @@ export class UserRegisterComponent {
   }
   checkEmail() {
     const email = this.emailCtrl.getValue();
-    if (email && !this.validateEmail(email)) {
+    if (!this.validateEmail(email)) {
       this.emailCtrl.setValue('');
       return;
     }
@@ -78,7 +78,7 @@ export class UserRegisterComponent {
   }
   checkUserName() {
     const user = this.userCtrl.getValue();
-    if (user && !this.validateUserName(user)) {
+    if (!this.validateUserName(user)) {
       this.userCtrl.setValue('');
       return;
     }

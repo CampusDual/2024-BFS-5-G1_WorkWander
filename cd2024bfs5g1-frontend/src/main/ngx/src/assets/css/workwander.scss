@@ -6,6 +6,7 @@ $typography: "Noto Sans";
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
+$verdeBoton: #5F6F65;
 $primaryClaro: rgba($primary, 0.4);
 $accentClaro: rgba($accent, 0.8);
 
@@ -83,8 +84,8 @@ login .footer-container,
 .o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary, 
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
-  color: $primary;
-  background-color: $accent;
+  color: $blanco;
+  background-color: $verdeBoton;
   border-color: transparent;
 }
 
@@ -139,11 +140,11 @@ o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container .o-app-header
 .o-app-sidenav .o-app-sidenav-sidenav li a {
   color: $accentClaro;
 }
-
-.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-  color: $primary;
-  background-color: $accentClaro;
-  border-left: 8px solid $primary;
+ .o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover
+ .o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+  color: $primary !important;
+  background-color: $accentClaro !important;
+  border-left: 8px solid $primary !important;
 }
 
 .o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
@@ -227,6 +228,20 @@ o-column.form-section.o-column:hover,
   transform: none!important;
 }
 
+.full-page .login-outer-container .wrapp-login .login-inner-container form.ng-untouched.ng-pristine.ng-invalid {
+  background-color: rgba(248, 246, 244, 0.4);
+  border-radius: 25px;
+  padding: 25px 35px  45px 35px;
+  min-height: unset;
+  min-width: unset;
+}
+.full-page .login-outer-container {
+  justify-content: center;
+}
+.full-page .login-outer-container .wrapp-login .login-inner-container form .login-title-container {
+  margin-top: unset;
+}
+
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
@@ -299,7 +314,6 @@ o-column.form-section.o-column:hover,
       }
     }
     
-
     .stars {
       // Contenedor de las estrellas de calificación
       display: flex;
@@ -388,6 +402,68 @@ o-column.form-section.o-column:hover,
   }
 }
 
+.m-top-24 {
+  margin-top: 24px;
+}
+
+.full-page {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  .register-outer-container {
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      overflow: auto;
+  }
+  .register-bg-container {
+      background-image: url('^assets/images/login_bg.png');
+      width: calc(100% - 640px);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      z-index: 1;
+  }
+
+    .register-bg-container::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, .1);
+      opacity: .8;
+    }
+    .wrapp-register {
+      width: 640px;
+      min-height: 100%;
+
+      .register-inner-container{
+          width: 100%;
+      }
+      form {
+          padding: 16px;
+          min-height: 600px;
+          min-width: 368px;
+        }
+
+    }
+}
+
+
 // Media Query para dispositivos móviles (max-width: 768px)
 @media (max-width: 768px) {
   .coworking-card {
@@ -418,6 +494,17 @@ o-column.form-section.o-column:hover,
       justify-content: center;
       padding: 12px;
       background-color: $accent;
+    }
+  }
+}
+@media(max-width:576px) {
+  .full-page {
+
+    .footer-container {
+      div {
+        margin: 0 auto;
+        place-content: center !important;
+      }
     }
   }
 }

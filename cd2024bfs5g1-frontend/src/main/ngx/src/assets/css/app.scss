@@ -1,9 +1,7 @@
 // Define your custom theme or choose predefined theme
 @use 'ontimize-web-ngx/theming/themes/ontimize.scss' as theme;
 @use 'ontimize-web-ngx/theming/ontimize-style.scss';
-
-@use './workwonder.scss';
-
+@use './workwander.scss';
 @use '../../app/login/login.theme.scss' as login;
 
 // Include ontimize styles
@@ -17,3 +15,5 @@
 .o-dark {
   @include ontimize-style.ontimize-theme-all-component-color(theme.$dark-theme);
 }
+
+

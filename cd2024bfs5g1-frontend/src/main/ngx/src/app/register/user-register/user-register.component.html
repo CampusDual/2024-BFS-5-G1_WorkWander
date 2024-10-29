@@ -17,9 +17,9 @@
               <o-text-input *ngIf="checkCompany()" #companyInput attr="usr_cif"
                 label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
-              <button #submitButton (click)="insertUser(); $event.preventDefault();">Registrar</button>
+              <button #submitButton (click)="insertUser(); $event.preventDefault();">{{"REGISTER" | oTranslate }}</button>
               <div class="text-center">
-                <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">I'm registered</a>
+                <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">{{"IM_REGISTERED" | oTranslate }}</a>
               </div>
             </div>
           </o-column>

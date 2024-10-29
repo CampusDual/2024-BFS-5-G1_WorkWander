@@ -118,5 +118,6 @@
   "COWORKINGS_ADDRESS": "Dirección completa",
   "COMPANYCB": "Soy una empresa",
   "CIF_COMPANY": "Introduzca su CIF",
-  "WITHOUT_LOGIN": "Entrar sin logear"
+  "WITHOUT_LOGIN": "Entrar sin logear",
+  "IM_REGISTERED": "Ya estoy registrado"
 }

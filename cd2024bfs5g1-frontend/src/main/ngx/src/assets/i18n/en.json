@@ -118,5 +118,6 @@
   "COMPANYCB": "I'm a company",
   "COWORKINGS_ADDRESS": "Full address",
   "CIF_COMPANY": "Enter your CIF",
-  "WITHOUT_LOGIN": "Enter without login"
+  "WITHOUT_LOGIN": "Enter without login",
+  "IM_REGISTERED": "I'm registered"
 }

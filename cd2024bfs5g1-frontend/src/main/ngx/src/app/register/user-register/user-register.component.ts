@@ -34,32 +34,63 @@ export class UserRegisterComponent {
     this.service.configureService(conf);
   }
 
+  validateEmail(email: string): boolean {
+    if (!email) return false;
+  
+    // Expresión regular para validar el email sin caracteres especiales
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isValid = emailRegex.test(email);
+  
+    if (!isValid) {
+      alert('El correo electrónico contiene caracteres no permitidos.');
+    }
+  
+    return isValid;
+  }
+  validateUserName(userName: string): boolean {
+    if (!userName) return false;
+  
+    // Expresión regular para validar el nombre de usuario sin caracteres especiales
+    const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
+    const isValid = userNameRegex.test(userName);
+  
+    if (!isValid) {
+      alert('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
+    }
+  
+    return isValid;
+  }
   checkEmail() {
     const email = this.emailCtrl.getValue();
-    if (email && email.length > 0) {
-      const filter = { 'usr_email': email };
-      const columns = ['usr_id'];
-      this.service.query(filter, columns, 'user').subscribe(resp => {
-        if (resp.data && resp.data.length > 0) {
-          alert('Email ya existe')
-          this.emailCtrl.setValue('');
-        }
-      });
+    if (email && !this.validateEmail(email)) {
+      this.emailCtrl.setValue('');
+      return;
     }
+    
+    const filter = { 'usr_email': email };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Email ya existe');
+        this.emailCtrl.setValue('');
+      }
+    });
   }
-
   checkUserName() {
     const user = this.userCtrl.getValue();
-    if (user && user.length > 0) {
-      const filter = { 'usr_login': user };
-      const columns = ['usr_id'];
-      this.service.query(filter, columns, 'user').subscribe(resp => {
-        if (resp.data && resp.data.length > 0) {
-          alert('Usuario ya existe')
-          this.userCtrl.setValue('');
-        }
-      });
+    if (user && !this.validateUserName(user)) {
+      this.userCtrl.setValue('');
+      return;
     }
+  
+    const filter = { 'usr_login': user };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Usuario ya existe');
+        this.userCtrl.setValue('');
+      }
+    });
   }
 
   disableButton() {

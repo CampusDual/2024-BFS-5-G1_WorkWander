@@ -1,0 +1,1 @@
+ALTER TABLE public.coworking ADD cw_image varchar NULL;

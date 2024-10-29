@@ -50,13 +50,15 @@ If the validation fails, it will display the error message "No se permiten carac
       <!-- Direcction and Locality -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
         <o-text-input fxFlex="50" attr="cw_location" fxFlex label="LOCATION" required="yes" icon="location_city" fxFlex
-                      placeholder="{{'COWORKINGS_UBICATION' | oTranslate }}"></o-text-input>
-        <o-validator error-name="noSpecialCharacters"
-                     error-text="No se permiten caracteres especiales"></o-validator></o-text-input>
-        <o-text-input fxFlex="50" attr="cw_address" fxFlex label="ADDRESS" required="yes" icon="place" fxFlex
-          placeholder="{{'COWORKINGS_ADDRESS' | oTranslate }}"></o-text-input>
-        <o-validator error-name="noSpecialCharacters"
-                     error-text="No se permiten caracteres especiales"></o-validator></o-text-input>
+          placeholder="{{'COWORKINGS_UBICATION' | oTranslate }}">
+          <o-validator error-name="noSpecialCharacters" error-text="No se permiten caracteres especiales"></o-validator>
+          <o-text-input fxFlex="50" attr="cw_address" fxFlex label="ADDRESS" required="yes" icon="place" fxFlex
+            placeholder="{{'COWORKINGS_ADDRESS' | oTranslate }}">
+            <o-validator error-name="noSpecialCharacters"
+              error-text="No se permiten caracteres especiales"></o-validator>
+          </o-text-input>
+          <o-validator error-name="noSpecialCharacters"
+            error-text="No se permiten caracteres especiales"></o-validator></o-text-input>
       </div>
       <!-- Capacity and Price -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
@@ -68,7 +70,7 @@ If the validation fails, it will display the error message "No se permiten carac
 
       <!-- Imagen -->
       <div fxLayout="row" class="form-row">
-        <o-image attr="cw_image" sql-type="OTHER" ></o-image>
+        <o-image attr="cw_image" sql-type="OTHER"></o-image>
       </div>
     </o-column>
   </div>

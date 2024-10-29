@@ -5,52 +5,48 @@
   <div fxLayout="row" fxLayoutGap="30px" fxFill>
     <div id="container">
       <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
-
-        <div>
-          <o-image attr="cw_image" title="PHOTO" orderable="no" searchable="no" type="image"
-            empty-image="assets/images/no_image.webp" image-type="base64" show-controls="no" height="500px"
-            width="900px"></o-image>
-        </div>
-
         <div fxLayout="row" fxLayoutGap="15px">
+          <div fxLayout="row" fxFlex fxLayoutGap="15px">
 
+            <o-image attr="cw_image" title="PHOTO" orderable="no" searchable="no" type="image"
+            empty-image="assets/images/no-image.png" image-type="base64" show-controls="no"></o-image>
 
-          <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
-            layout-align="start stretch">
-
-            <div fxLayout="row">
-              <o-text-input #name type="text" hidden="yes" attr="cw_name" fxFlex label="NAME"
-                string-case="uppercase"></o-text-input>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="22px">
-              <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
-              <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-            </div>
-
-            <!-- TODO: insertar grid de servicios -->
-
-            <div fxLayout="row">
-              <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
-            </div>
-
-            <div fxLayoutGap="22px">
-              <div fxLayout="column" fxLayoutGap="22px">
-                <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
-                <o-integer-input label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
+            <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
+              layout-align="start stretch">
+              <div fxLayout="row">
+                <o-text-input #name type="text" hidden="yes" attr="cw_name" fxFlex label="NAME"
+                  string-case="uppercase"></o-text-input>
               </div>
-              <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
-            </div>
-          </o-column>
 
-          <div class="book">
-            <o-form editable-detail="no" show-header="no">
-              <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-              <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
-                (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
-            </o-form>
-            <o-button #bookingButton label="{{ 'BOOKING' | oTranslate }}" type="raised" color="primary"
-              (click)="showConfirm($event)" enabled="false"></o-button>
+              <div fxLayout="row" fxLayoutGap="22px">
+                <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
+                <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
+              </div>
+
+              <!-- TODO: insertar grid de servicios -->
+
+              <div fxLayout="row">
+                <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
+              </div>
+
+              <div fxLayoutGap="22px">
+                <div fxLayout="column" fxLayoutGap="22px">
+                  <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
+                  <o-integer-input label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
+                </div>
+                <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
+              </div>
+            </o-column>
+
+            <div class="book">
+              <o-form editable-detail="no" show-header="no">
+                <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+                <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
+                  (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
+              </o-form>
+              <o-button #bookingButton label="{{ 'BOOKING' | oTranslate }}" type="raised" color="primary"
+                (click)="showConfirm($event)" enabled="false"></o-button>
+            </div>
           </div>
         </div>
       </div>

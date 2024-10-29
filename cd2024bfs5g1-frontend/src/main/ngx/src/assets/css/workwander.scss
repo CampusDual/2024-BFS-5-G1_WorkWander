@@ -6,7 +6,7 @@ $typography: "Noto Sans";
 
 /* Colores personalizados */
 $primary: #8b5e3c;
-$accent: #e6d5c3;
+$accent: #e6d5c3; //#e6d5c3;
 $blanco: #f8f6f4;
 $verdeBoton: #5F6F65;
 $primaryClaro: rgba($primary, 0.4);
@@ -24,6 +24,12 @@ $paddingInterno: 12px 16px;
 
 h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
   font-family: $typography !important;
+}
+
+h1, h2, h3, h4, h5, h6{
+  &:hover {
+    animation: wave 1.5s ease-in-out ;
+  }
 }
 
 $linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
@@ -62,6 +68,254 @@ login {
     color: $accent;
   }
 }
+
+.m-top-24 {
+  margin-top: 24px;
+}
+
+.full-page {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  
+  .registerForm form.inner-form.form-no-toolbar {
+    min-height: 100vh;
+    justify-content: center;
+
+    button{
+      height: 46px;
+      border: unset;
+    }
+
+    div.text-center{
+      text-align: center;
+    }
+  }
+
+  .login-inner-container form {
+    background-color: rgba($blanco, 0.4);
+    border-radius: $borderRadius;
+    padding: $padding;
+    justify-content: center;
+    min-height: unset !important;
+  }
+
+  .login-outer-container {
+    justify-content: center;
+    
+    .wrapp-login .login-inner-container form .login-title-container {
+      margin-top: unset;
+    }
+  
+  }
+  .register-outer-container {
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      justify-content: center;
+  }
+  
+  .register-bg-container {
+      background-image: unset;
+      width: unset;
+      background-repeat: no-repeat;
+      background-size: unset;
+      background-position: unset;
+      position: unset;
+      z-index: 1;
+  }
+
+    .register-bg-container::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba($primary, .1);
+      opacity: .8;
+    }
+    .wrapp-register {
+      width: 640px;
+      min-height: 100%;
+      z-index: 2;
+
+      .register-inner-container{
+          width: 100%;
+      }
+
+      form {
+        padding: $paddingInterno;
+        min-height: 600px;
+        min-width: 368px;
+      }
+    }
+}
+
+o-form.o-form o-column.o-column.o-appearance-outline {
+  border-radius: $borderRadius;
+  background-color: rgba($blanco, 0.4);
+  padding: $padding;
+}
+
+.o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+  background-color: $blanco;
+  padding: $padding;
+  border-radius: $borderRadiusButton;
+}
+
+.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
+  background-color: $accent;
+}
+
+.o-app-header .o-user-info {
+  color: $accentClaro;
+}
+
+.o-app-header.o-app-header-medium.header-layout {
+  background: $blanco;
+}
+
+.o-column.o-appearance-outline .o-container-outline {
+    .o-container-outline-end, 
+    .o-container-outline-start,
+    .o-container-outline-gap{
+      border-width: none;
+    }
+}
+.o-column.form-section.o-column,
+.card.ng-star-inserted {
+  -webkit-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  box-shadow: -1px -1px 9px 4px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+.o-column.form-section.o-column:hover,
+.card.ng-star-inserted:hover {
+  box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -webkit-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+
+
+/*  Barra de navegación lateral  */
+.navMenu {
+  background-image: $linear-gradientBT;
+}
+
+.o-app-sidenav {
+
+  .o-app-sidenav-container .o-app-header{
+    background-image: $linear-gradientRL;
+  }
+
+  .ng-star-inserted{
+    place-content: center flex-end;
+    justify-content: space-between;
+  }
+
+  nav.ng-star-inserted:nth-last-child(2) {
+    background-color: $accent;
+    position: absolute;
+    border-radius: $borderRadius;
+    margin: 0px 5px 0 5px;
+    transition: all 0.2s;
+    top:unset;
+    bottom: 25px;
+    right: 0;
+  }
+  
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-menu-item a {
+    margin: 0px 5px 0 5px;
+    color: $primary;
+  }
+
+  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+    border-radius: $borderRadius;
+    transition: all 0.2s;
+    margin: unset;
+    border-left: unset;
+  }
+
+  .o-app-sidenav-sidenav {
+    background-image: $linear-gradientBT;
+    background-color: $primary;
+
+    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
+      border-radius: $borderRadius;
+    }
+    .sidenav-toggle {
+      color: $primary !important;
+
+      :hover{
+        color: rgba($primary, 0.5) !important;
+        transition: all 0.5s ease-in;
+      }
+    }
+
+    li a{
+      color: $primary !important;
+    }
+  }
+
+  .o-app-sidenav-menu-group:not([disabled=true]) a:hover
+  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+    color: $primary !important;
+    background-color: $accentClaro !important;
+    border-left: 8px solid $primary !important;
+  }
+ 
+  .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+    background-color: $accentClaro;
+    color: $primary;
+    border-left: 8px solid $accentClaro;
+  }
+
+}
+
+/* Estilo para los campos de formulario */
+.mat-form-field {
+  width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
+  border-radius: $borderRadius; /* Bordes redondeados */
+  background: $blanco; /* Fondo blanco */
+  box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+        
+/* Estilo de las etiquetas */
+.mat-label {
+  font-weight: 600; /* Etiquetas en negrita */
+  color: $verdeBoton; /* Color gris oscuro */
+  transition: color 0.3s ease; /* Transición suave para el color */
+}
+  
+/* Color de los botones */
+.mat-button {
+  color: $primary; /* Color de los botones */
+}
+
+/* Color de los iconos */
+.mat-icon {
+  color: $primary; /* Color azul moderno para iconos */
+}
+   
+/* Estilo para el toggle del datepicker */
+.mat-datepicker-toggle {
+  color: $primary; /* Color para el toggle del datepicker */
+}
+/* Estilo de los MAT */   
 .mat-mdc-raised-button:not(:disabled) {
   background-color: $primary;
   color: $accent;
@@ -111,107 +365,15 @@ login {
   border-color: $primaryClaro;
 }
 
-.o-column.o-appearance-outline .o-container-outline .o-container-outline-end, 
-.o-column.o-appearance-outline .o-container-outline .o-container-outline-start,
-.o-column.o-appearance-outline .o-container-outline .o-container-outline-gap{
-  border-width: none;
-}
-
-.o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-  background-color: $blanco;
-  padding: $padding;
-  border-radius: $borderRadiusButton;
-}
-
-.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
-  background-color: $accent;
-}
-
-a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
-  border-left: 8px solid $primary;
-}
-
-o-app-sidenav.o-app-sidenav .o-app-sidenav-container .o-app-header,
-o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container .o-app-header {
-  background-image: $linear-gradientRL;
-}
-.navMenu {
-  background-image: $linear-gradientBT;
-}
-
-.o-app-sidenav .o-app-sidenav-sidenav {
-  background-image: $linear-gradientBT;
-  background-color: $primary;
-}
-.o-app-sidenav .o-app-sidenav-sidenav .sidenav-toggle {
- color: $accentClaro;
-}
-
- .o-app-sidenav .o-app-sidenav-menu-group:not([disabled=true]) a:hover
- .o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-  color: $primary !important;
-  background-color: $accentClaro !important;
-  border-left: 8px solid $primary !important;
-}
-
-.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-  background-color: $accentClaro;
-  color: $primary;
-  border-left: 8px solid $accentClaro;
-}
-.o-app-sidenav .o-app-sidenav-sidenav li a{
-  color: $primary !important;
-}
-
-div.sidenav-toggle-container.ng-star-inserted{
-  place-content: center flex-end;
-  justify-content: space-between;
-}
-
-.o-app-header .o-user-info {
-  color: $accentClaro;
-}
-
-.o-app-header.o-app-header-medium+.header-layout {
-  background: $blanco;
-}
-
-a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
-    border-radius: $borderRadius;
-}
-
-.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
-  border-radius: $borderRadius;
-}
-
 a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
   border-radius: $borderRadiusNav;
 }
 
-.o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $accent;
-  position: absolute;
-  border-radius: $borderRadius;
-  margin: 0px 5px 0 5px;
-  transition: all 0.2s;
-  top:unset;
-  bottom: 25px;
-  right: 0;
-
-
-  .o-app-sidenav-menu-group a,
-  .o-app-sidenav-menu-item a {
-    margin: 0px 5px 0 5px;
-    color: $primary;
-  }
-
-  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-    border-radius: $borderRadius;
-    transition: all 0.2s;
-    margin: unset;
-    border-left: unset;
-  }
+a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
+  border-left: 8px solid $primary;
+  border-radius: $borderRadiusNav;
 }
+
 mat-toolbar.mat-toolbar.o-form-toolbar-header.mat-toolbar-single-row {
   border-radius: $borderRadiusButton;
 }
@@ -220,43 +382,40 @@ button .mat-mdc-button:not(:disabled) {
   color: $accentClaro;
 }
 
-o-column.form-section.o-column,
-.card.ng-star-inserted {
-  -webkit-box-shadow: -1px -1px 9px 4px $primaryClaro;
-  -moz-box-shadow: -1px -1px 9px 4px $primaryClaro;
-  box-shadow: -1px -1px 9px 4px $primaryClaro;
-  transition: all 0.5s ease-in-out;
+/* Estilo de los inputs */
+
+input.mat-input-element {
+  border: 1px solid $blanco; /* Borde de los inputs */
+  border-radius: 12px; /* Bordes redondeados en los inputs */
+  padding: $paddingInterno; /* Espaciado interno */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
 }
-o-column.form-section.o-column:hover,
-.card.ng-star-inserted:hover {
-  box-shadow: -1px -1px 9px 9px $primaryClaro;
-  -webkit-box-shadow: -1px -1px 9px 9px $primaryClaro;
-  -moz-box-shadow: -1px -1px 9px 9px $primaryClaro;
-  transition: all 0.5s ease-in-out;
+  
+/* Efecto al enfocar el input */
+input.mat-input-element:focus {
+  border-color: $primary; /* Color del borde al enfocar el input */
+  box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
 }
-.form-section:hover{
-  transform: none!important;
+  
+/* Estilo para inputs deshabilitados */
+input.mat-input-element:disabled {
+  background-color: $blanco; /* Color de fondo para inputs deshabilitados */
+  opacity: 0.7; /* Reduce la opacidad */
+}
+  
+/* Estilo para el calendario del datepicker */
+.mat-datepicker-content {
+  background: $blanco; /* Fondo blanco para el datepicker */
+  border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
+  box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
+}
+  
+/* Estilo para el calendario dentro del datepicker */
+.mat-datepicker-calendar {
+  background: $accent; /* Color de fondo moderno */
 }
 
-.full-page .login-outer-container .wrapp-login .login-inner-container form.ng-untouched.ng-pristine.ng-invalid {
-  background-color: rgba($blanco, 0.4);
-  border-radius: $borderRadius;
-  padding: $padding;
-  min-height: unset;
-}
-.full-page .login-outer-container {
-  justify-content: center;
-}
-.full-page .login-outer-container .wrapp-login .login-inner-container form .login-title-container {
-  margin-top: unset;
-}
-
-o-form.o-form o-column.o-column.o-appearance-outline {
-  border-radius: $borderRadius;
-  background-color: rgba($blanco, 0.4);
-  padding: $padding;
-}
-
+/*  Coworking */
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
@@ -305,29 +464,8 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       margin-bottom: 8px;
       display: inline-block; // Necesario para que el efecto funcione correctamente
     
-      &:hover {
-        animation: wave 1.5s ease-in-out ;
-      }
     }
     
-    // Animación de onda
-    @keyframes wave {
-      0% {
-        transform: translateY(0);
-      }
-      25% {
-        transform: translateY(-2px);
-      }
-      50% {
-        transform: translateY(2px);
-      }
-      75% {
-        transform: translateY(-2px);
-      }
-      100% {
-        transform: translateY(0);
-      }
-    }
     .form-container {
       padding: $padding;
       background: #f5f5f5;
@@ -339,6 +477,11 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       padding: $padding;
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
+
+      :hover{
+        transform: none!important;
+      }
+      
     }
      
     .form-row {
@@ -360,11 +503,19 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       transition: all 0.3s ease;
     }
      
-    o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-image[icon]:hover {
+    o-text-input[icon]:hover, 
+    o-integer-input[icon]:hover, 
+    o-real-input[icon]:hover, 
+    o-date-input[icon]:hover, 
+    o-image[icon]:hover {
       border-color: $primary;
     }
      
-    o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-image[icon]::before {
+    o-text-input[icon]::before, 
+    o-integer-input[icon]::before, 
+    o-real-input[icon]::before, 
+    o-date-input[icon]::before, 
+    o-image[icon]::before {
       content: attr(icon);
       font-family: 'Material Icons';
       position: absolute;
@@ -376,87 +527,28 @@ o-form.o-form o-column.o-column.o-appearance-outline {
     }
      
      
-    o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-image input::placeholder {
+    o-text-input input::placeholder, 
+    o-integer-input input::placeholder, 
+    o-real-input input::placeholder, 
+    o-date-input input::placeholder, 
+    o-image input::placeholder {
       color: $accent;
       opacity: 0.8;
     }
      
     /* Botones e interacción */
-    .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-image:hover {
+    .form-section o-text-input:hover, 
+    .form-section o-integer-input:hover, 
+    .form-section o-real-input:hover, 
+    .form-section o-date-input:hover, 
+    .form-section o-image:hover {
       background-color: $blanco;
     }
      
-     
-     
     /* Estilos generales para la fila del formulario */
     .form-row {
-    margin: 24px 0; /* Espaciado vertical */
+      margin: 24px 0; /* Espaciado vertical */
     }
-     
-    /* Estilo para los campos de formulario */
-    .mat-form-field {
-    width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: $borderRadius; /* Bordes redondeados */
-    background: $blanco; /* Fondo blanco */
-    box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
-    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-    }
-     
-     
-    /* Estilo de las etiquetas */
-    .mat-label {
-    font-weight: 600; /* Etiquetas en negrita */
-    color: $verdeBoton; /* Color gris oscuro */
-    transition: color 0.3s ease; /* Transición suave para el color */
-    }
-     
-    /* Color de los iconos */
-    .mat-icon {
-    color: $primary; /* Color azul moderno para iconos */
-    }
-     
-    /* Estilo para el toggle del datepicker */
-    .mat-datepicker-toggle {
-    color: $primary; /* Color para el toggle del datepicker */
-    }
-     
-    /* Estilo de los inputs */
-    input.mat-input-element {
-    border: 1px solid $blanco; /* Borde de los inputs */
-    border-radius: 12px; /* Bordes redondeados en los inputs */
-    padding: $paddingInterno; /* Espaciado interno */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-    }
-     
-    /* Efecto al enfocar el input */
-    input.mat-input-element:focus {
-    border-color: $primary; /* Color del borde al enfocar el input */
-    box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
-    }
-     
-    /* Estilo para inputs deshabilitados */
-    input.mat-input-element:disabled {
-    background-color: $blanco; /* Color de fondo para inputs deshabilitados */
-    opacity: 0.7; /* Reduce la opacidad */
-    }
-     
-    /* Estilo para el calendario del datepicker */
-    .mat-datepicker-content {
-    background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
-    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
-    }
-     
-    /* Estilo para el calendario dentro del datepicker */
-    .mat-datepicker-calendar {
-    background: $accent; /* Color de fondo moderno */
-    }
-     
-    /* Color de los botones */
-    .mat-button {
-    color: $primary; /* Color de los botones */
-    }
-     
     .form-container {
       padding: $padding;
       background: $blanco;
@@ -469,11 +561,7 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
-  
-    .form-row {
-      margin-bottom: 24px;
-    }
-  
+    
     o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
       position: relative;
       display: inline-block;
@@ -504,8 +592,6 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       font-size: 20px;
     }
   
-  
-  
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
       color: $accent;
       opacity: 0.8;
@@ -518,7 +604,7 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   
     /* Estilos generales para la fila del formulario */
     .form-row {
-    margin: 24px 0; /* Espaciado vertical */
+      margin: 24px 0; /* Espaciado vertical */
     }
   
     /* Estilo para los campos de formulario */
@@ -603,7 +689,6 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       transition: all 0.3s ease;
     }
   
-  
     .form-row {
       margin-bottom: 24px;
     }
@@ -637,8 +722,6 @@ o-form.o-form o-column.o-column.o-appearance-outline {
       color: $accent;
       font-size: 20px;
     }
-  
-  
   
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
       color: $accent;
@@ -817,78 +900,36 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   }
 }
 
-form.inner-form.form-no-toolbar.ng-untouched.ng-pristine.ng-invalid {
-  min-height: 100vh;
-  justify-content: center;
+/*  Filtros de página   */
+o-search-input.o-search-input.ng-star-inserted {
+  position: absolute;
+  left: 70px;
 }
 
-
-.m-top-24 {
-  margin-top: 24px;
+mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+    position: absolute;
+    right: 25px;
+    background-color: transparent;
 }
 
-.full-page {
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-
-  .login-inner-container{
-    min-height: 100vh;
+// Animación de onda
+@keyframes wave {
+  0% {
+    transform: translateY(0);
   }
-
-  .register-outer-container {
-      width: 100%;
-      height: 100%;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: flex;
-      flex-wrap: wrap;
-      overflow: auto;
-      justify-content: center;
+  25% {
+    transform: translateY(-2px);
   }
-  .register-bg-container {
-      background-image: unset;
-      width: unset;
-      background-repeat: no-repeat;
-      background-size: unset;
-      background-position: unset;
-      position: unset;
-      z-index: 1;
+  50% {
+    transform: translateY(2px);
   }
-
-    .register-bg-container::before {
-      content: "";
-      display: block;
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: rgba($primary, .1);
-      opacity: .8;
-    }
-    .wrapp-register {
-      width: 640px;
-      min-height: 100%;
-      z-index: 2;
-
-      .register-inner-container{
-          width: 100%;
-      }
-      form {
-          padding: $paddingInterno;
-          min-height: 600px;
-          min-width: 368px;
-        }
-
-    }
+  75% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
-
 
 // Media Query para dispositivos móviles (max-width: 768px)
 @media (max-width: 768px) {

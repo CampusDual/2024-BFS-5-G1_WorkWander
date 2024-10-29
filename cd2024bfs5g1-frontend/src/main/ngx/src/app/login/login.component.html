@@ -1,10 +1,12 @@
 <div class="full-page">
   <div class="login-outer-container">
-    <div class="login-bg-container"></div>    
-
-
+    <div class="login-bg-container">
+      <video id="background-video" autoplay muted loop>
+        <source src="assets/video/home_video_fondo.mp4" type="video/mp4">
+      </video>
+    </div>    
     <div class="wrapp-login">
-      <div fxFill fxLayout="column" fxLayoutAlign="center center" class="login-inner-container">
+      <div  fxLayout="row" fxLayoutAlign="center center" class="login-inner-container">
         <form [formGroup]="loginForm" (ngSubmit)="login()">
 
           <div class="login-title-container" fxLayout="column">

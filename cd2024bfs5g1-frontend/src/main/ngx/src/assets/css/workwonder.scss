@@ -1,0 +1,423 @@
+@use "sass:map";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+$typography: "Noto Sans";
+
+$primary: #8b5e3c;
+$accent: #e6d5c3;
+$blanco: #f8f6f4;
+$primaryClaro: rgba($primary, 0.4);
+$accentClaro: rgba($accent, 0.8);
+
+$colorDegradadoFuerte: $primary;
+$colorDegradadoSuave: $accent;
+
+$borderRadius: 25px 5px 25px 5px;
+$borderRadiusButton: 25px 5px 25px 25px ;
+$borderRadiusNav: 0px 0px 25px 0px;
+
+h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
+  font-family: $typography !important;
+}
+
+$linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientRL: linear-gradient(270deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+
+/*   Video home page  */
+#background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.full-page .login-outer-container .wrapp-login {
+  z-index: 2;
+}
+
+.full-page .login-outer-container .wrapp-login {
+  width: 640px;
+  min-height: unset;
+}
+login .login-outer-container .wrapp-login .login-inner-container,
+login .login-outer-container .wrapp-login {
+  background-color: unset;
+}
+login .footer-container,
+.footer-container{
+  background-color: $primary;
+  color: $accent;
+}
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: $primary;
+  color: $accent;
+}
+
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-accent:hover {
+  color: $primary;
+  background-color: $accent;
+  border-color: transparent;
+}
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
+  color: $primary;
+  background-color: $accent;
+  border-color: transparent;
+}
+
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover, 
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary:hover {
+  color: $primary;
+  background-color: $blanco;
+  border-color: $primaryClaro;
+}
+
+
+.o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+  background-color: #f9f1e7;
+  padding: 25px;
+  border-radius: 0 25px 0 0;
+}
+
+.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
+  background-color: $accent;
+}
+
+
+/* Colores personalizados */
+a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
+  border-left: 8px solid $primary;
+}
+
+o-app-sidenav.o-app-sidenav .o-app-sidenav-container .o-app-header,
+o-app-sidenav.o-app-sidenav.header-layout .o-app-sidenav-container .o-app-header {
+  background-image: $linear-gradientRL;
+}
+.navMenu {
+  background-image: $linear-gradientBT;
+}
+
+.o-app-sidenav .o-app-sidenav-sidenav {
+  background-image: $linear-gradientBT;
+  background-color: $primary;
+}
+.o-app-sidenav .o-app-sidenav-sidenav .sidenav-toggle {
+ color: $accentClaro;
+}
+
+.o-app-sidenav .o-app-sidenav-sidenav li a {
+  color: $accentClaro;
+}
+
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+  color: $primary;
+  background-color: $accentClaro;
+  border-left: 8px solid $primary;
+}
+
+.o-app-sidenav .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+  background-color: $accentClaro;
+  border-left: 8px solid $accentClaro;
+}
+
+div.sidenav-toggle-container.ng-star-inserted{
+  place-content: center flex-end;
+  justify-content: space-between;
+}
+
+.o-app-header .o-user-info {
+  color: $accentClaro;
+}
+
+.o-app-header.o-app-header-medium+.header-layout {
+  background: $blanco;
+}
+
+a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+    border-radius: $borderRadius;
+}
+
+.o-app-sidenav .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
+  border-radius: $borderRadius;
+}
+
+a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
+  border-radius: $borderRadiusNav;
+}
+
+.o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
+  background-color: $accent;
+  position: absolute;
+  border-radius: 25px;
+  margin: 0px 5px 0 5px;
+  transition: all 0.2s;
+  top:unset;
+  bottom: 25px;
+  right: 0;
+
+
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-menu-item a {
+    margin: 0px 5px 0 5px;
+    color: $primary;
+  }
+
+  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+    border-radius: $borderRadiusButton;
+    transition: all 0.2s;
+    margin: unset;
+    border-left: unset;
+  }
+}
+mat-toolbar.mat-toolbar.o-form-toolbar-header.mat-toolbar-single-row {
+  border-radius: $borderRadiusButton;
+}
+
+
+button .mat-mdc-button:not(:disabled) {
+  color: $accentClaro;
+}
+
+o-column.form-section.o-column,
+.card.ng-star-inserted {
+  -webkit-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 4px $primaryClaro;
+  box-shadow: -1px -1px 9px 4px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+o-column.form-section.o-column:hover,
+.card.ng-star-inserted:hover {
+  box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -webkit-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  -moz-box-shadow: -1px -1px 9px 9px $primaryClaro;
+  transition: all 0.5s ease-in-out;
+}
+.form-section:hover{
+  transform: none!important;
+}
+
+.coworking-card {
+  // Estilo general de la tarjeta de coworking
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f9f1e7;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+  width: 100%;
+
+  .image-container {
+    // Contenedor de la imagen
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    .coworking-image {
+      // Estilo de la imagen de coworking
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: $borderRadius;
+    }
+  }
+
+  .info {
+    // Contenedor de la información
+    width: 70%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .coworking-name {
+      // Estilo del nombre del coworking
+      font-size: 20px;
+      font-weight: bold;
+      color: $primary;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: inline-block; // Necesario para que el efecto funcione correctamente
+    
+      &:hover {
+        animation: wave 1.5s ease-in-out ;
+      }
+    }
+    
+    // Animación de onda
+    @keyframes wave {
+      0% {
+        transform: translateY(0);
+      }
+      25% {
+        transform: translateY(-2px);
+      }
+      50% {
+        transform: translateY(2px);
+      }
+      75% {
+        transform: translateY(-2px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+
+    .stars {
+      // Contenedor de las estrellas de calificación
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      color: $primary;
+
+      mat-icon {
+        // Estilo de los iconos de estrellas
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+
+      .rating {
+        // Estilo del texto de calificación
+        margin-left: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .location, .capacity {
+      // Estilo de la ubicación y capacidad
+      color: $primary;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .services {
+      // Contenedor de los servicios
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      transition: transform 0.2s;
+      translate: 20px;
+      
+      .service-icon {
+        // Estilo de los iconos de servicios
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary;
+        color: #fff;
+        border-radius: 50%;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .price-container {
+    // Contenedor del precio
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: $accent;
+    min-height: 100%;
+    border-radius: $borderRadius;
+
+    .price {
+      // Estilo del precio
+      font-size: 34px;
+      font-weight: bold;
+      color: $primary;
+    }
+  }
+
+  .capacity-container {
+    // Contenedor de la capacidad
+    width: 15%;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: $accent;
+    min-height: 100%;
+
+    .capacity {
+      // Estilo de la capacidad
+      font-size: 24px;
+      font-weight: bold;
+      color: $primary;
+    }
+  }
+}
+
+// Media Query para dispositivos móviles (max-width: 768px)
+@media (max-width: 768px) {
+  .coworking-card {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: auto;
+
+    .image-container {
+      width: 100%;
+      height: 200px;
+      padding: 0;
+    }
+
+    .info {
+      width: 100%;
+      padding: 12px;
+    }
+
+    .price-container {
+      width: 100%;
+      justify-content: center;
+      padding: 12px;
+      background-color: $accent;
+    }
+
+    .capacity-container {
+      width: 100%;
+      justify-content: center;
+      padding: 12px;
+      background-color: $accent;
+    }
+  }
+}

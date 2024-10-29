@@ -33,7 +33,7 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService
-  ) {}
+  ) { }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("date") bookingDate: ODateInputComponent;
@@ -166,7 +166,7 @@ export class CoworkingsDetailComponent {
   }
 
 
-  checkAuthStatus(){
+  checkAuthStatus() {
     return !this.authService.isLoggedIn()
   }
   parsePermissions(attr: string): boolean {
@@ -175,11 +175,13 @@ export class CoworkingsDetailComponent {
     if (!this.form || !Util.isDefined(this.form.oattr)) {
       return;
     }
-      const permissions: OPermissions = this.form.getFormComponentPermissions(attr)
+    const permissions: OPermissions = this.form.getFormComponentPermissions(attr)
 
-      if (!Util.isDefined(permissions)) {
-        return true
-      }
-      return permissions.visible
+    if (!Util.isDefined(permissions)) {
+      return true
+    }
+    return permissions.visible
   }
 }
+
+

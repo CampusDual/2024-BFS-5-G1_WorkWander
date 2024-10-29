@@ -14,7 +14,6 @@
 
         <div fxLayout="row" fxLayoutGap="15px">
 
-
           <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
             layout-align="start stretch">
 
@@ -56,4 +55,29 @@
       </div>
     </div>
   </div>
+                            <o-form editable-detail="no" show-header="no">
+                                <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+                                <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
+                                    (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
+
+                            </o-form>
+                            <div>
+                                <o-integer-input editable-detail="no" #realCapacity label="REAL_CAPACITY"></o-integer-input>
+                            </div>
+
+                           <div *ngIf="parsePermissions('bookingButton')">
+                            <o-button #bookingButton attr="bookingButton" label="{{'BOOKING' | oTranslate }}" type="raised" color="primary" (click)="showConfirm($event)"
+                            enabled="false"></o-button>
+                           </div>
+
+                        </o-column>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </o-form>

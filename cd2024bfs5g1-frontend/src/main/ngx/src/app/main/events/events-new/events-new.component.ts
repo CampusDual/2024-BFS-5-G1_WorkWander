@@ -1,22 +1,32 @@
-import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { OFormComponent, OntimizeService, OTextInputComponent, OTimeInputComponent } from 'ontimize-web-ngx';
+import { Component, ViewChild } from "@angular/core";
+import { ValidatorFn } from "@angular/forms";
+import { Router } from "@angular/router";
+import {
+  OFormComponent,
+  OntimizeService,
+  OTextInputComponent,
+  OTimeInputComponent,
+  OValidators,
+} from "ontimize-web-ngx";
 
 @Component({
-  selector: 'app-events-new',
-  templateUrl: './events-new.component.html',
-  styleUrls: ['./events-new.component.css']
+  selector: "app-events-new",
+  templateUrl: "./events-new.component.html",
+  styleUrls: ["./events-new.component.css"],
 })
-
 export class EventsNewComponent {
-  @ViewChild('nameInput') public nameCtrl: OTextInputComponent;
-  @ViewChild('timeInput') public timeCtrl: OTimeInputComponent;
-  @ViewChild('form') public formCtrl: OFormComponent;
+  @ViewChild("nameInput") public nameCtrl: OTextInputComponent;
+  @ViewChild("timeInput") public timeCtrl: OTimeInputComponent;
+  @ViewChild("form") public formCtrl: OFormComponent;
 
-  constructor(private router: Router, private service: OntimizeService ) {
-    const conf = this.service.getDefaultServiceConfiguration('events');
+  constructor(private router: Router, private service: OntimizeService) {
+    const conf = this.service.getDefaultServiceConfiguration("events");
     this.service.configureService(conf);
   }
+  // Validadores para restringir caracteres especiales
+  public validatorsArray: ValidatorFn[] = [
+    OValidators.patternValidator(/^[a-zA-Z0-9 ]*$/, "noSpecialCharacters"),
+  ];
 
   // Estas funciones están en desarrollo, están pensadas para comprobar que la fecha sea una fecha posterior al dia de hoy
   // y que no se meta un evento repetido
@@ -49,6 +59,6 @@ export class EventsNewComponent {
   }
 
   createEvent() {
-    this.router.navigate(['/main/home']);
+    this.router.navigate(["/main/myevents"]);
   }
 }

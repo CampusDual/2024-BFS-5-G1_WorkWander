@@ -15,7 +15,15 @@
 
                             <div fxLayout="row">
                                 <!-- Campo para mostrar la imagen de coworking -->
-                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
+                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no" read-only="yes" ></o-image>
+
+                                <!-- Las lineas comentadas a continuación forman parte de una posible solución al mostrar la imagen por defecto de coworkings (en desarrollo) -->
+
+                                <!-- <img *ngIf="cw_image; else defaultImage" src="cw_image" alt="Imagen coworking" /> -->
+
+                                <!-- <ng-template #defaultImage>
+                                    <img src="assets/images/coworking-default.jfif" alt="Imagen predeterminada" />
+                                </ng-template> -->
                             </div>
 
                             <div fxLayout="row">

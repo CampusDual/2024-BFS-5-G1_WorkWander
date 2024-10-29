@@ -7,14 +7,12 @@ import {
   DialogService,
   OButtonComponent,
   ODateInputComponent,
-  ODialogConfig,
-  OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
   OSnackBarConfig,
   OTextInputComponent,
   OTranslateService,
-  SnackBarService,
+  SnackBarService
 } from "ontimize-web-ngx";
 
 @Component({
@@ -30,7 +28,8 @@ export class CoworkingsDetailComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
-    private translate: OTranslateService
+    private translate: OTranslateService,
+    // protected sanitizer: DomSanitizer,
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -38,6 +37,7 @@ export class CoworkingsDetailComponent {
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
+  // @ViewChild("form") formData: OFormComponent;
 
   plazasOcupadas: number;
 
@@ -158,4 +158,11 @@ export class CoworkingsDetailComponent {
     // Simple message with icon on the left and action
     this.snackBarService.open("Reserva confirmada", configuration);
   }
+  
+  // Función para convertir la imagen desde la base de datos, comentado para una posible solución al formato de la imagen por defecto de coworkings (en desarrollo)
+
+  // public getImageSrc(base64: any): any {
+  //   return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jfif';
+  // }
+
 }

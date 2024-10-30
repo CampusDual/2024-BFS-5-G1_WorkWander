@@ -102,6 +102,7 @@ export class CoworkingsDetailComponent {
 
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+    const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
     const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
     const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
 
@@ -109,7 +110,7 @@ export class CoworkingsDetailComponent {
       if (this.dialogService) {
         this.dialogService.confirm(
           confirmMessageTitle,
-          `${confirmMessageBody}  ${fechaBien},  ${this.coworkingName.getValue()} ?`
+          `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {

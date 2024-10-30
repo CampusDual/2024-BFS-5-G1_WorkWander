@@ -135,10 +135,12 @@
   "MYEVENTS": "Mis Eventos",
   "BOOKING": "Reservar",
   "BOOKINGS_INSERT": "Reservar",
-  "BOOKINGS_INSERT2": "Estás seguro de reservar el día ",
+  "BOOKINGS_INSERT2": "¿Estás seguro de reservar el día ",
+  "BOOKINGS_INSERT3": "en ",
   "BOOKINGS_NO_LOGED": "Error al reservar",
   "BOOKINGS_NO_LOGED2": "Usuario no autenticado, ¿quieres hacer login?",
   "REAL_CAPACITY": "Plazas disponibles",
   "BOOKINGS_CONFIRMED": "Reserva confirmada",
-  "IM_REGISTERED": "Ya estoy registrado"
+  "IM_REGISTERED": "Ya estoy registrado",
+  "DATE": "Fecha"
 }

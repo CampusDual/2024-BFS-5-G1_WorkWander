@@ -6,12 +6,21 @@ import { AuthService, NavigationService, ServiceResponse, OUserInfoService } fro
 import { Observable } from 'rxjs';
 import { MainService } from '../shared/services/main.service';
 import { UserInfoService } from '../shared/services/user-info.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'login',
   styleUrls: ['./login.component.scss'],
   templateUrl: './login.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition('void <=> *', [
+        animate(500)
+      ]),
+    ])
+  ]
 })
 export class LoginComponent implements OnInit {
 
@@ -22,6 +31,7 @@ export class LoginComponent implements OnInit {
   public sessionExpired = false;
   private redirect = '/main';
   public showLogin = false;
+  public fadeState: string = 'void';
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -103,6 +113,7 @@ export class LoginComponent implements OnInit {
 
   toggleLogin(): void {
     this.showLogin = !this.showLogin;
+    this.fadeState = this.showLogin ? '*' : 'void';
   }
   entradaSinLogin() {
     this.router.navigate([" "])

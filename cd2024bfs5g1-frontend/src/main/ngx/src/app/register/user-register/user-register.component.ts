@@ -37,7 +37,6 @@ export class UserRegisterComponent {
   validateEmail(email: string): boolean {
     if (!email) return false;
   
-    // Expresión regular para validar el email sin caracteres especiales
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isValid = emailRegex.test(email);
   
@@ -50,7 +49,6 @@ export class UserRegisterComponent {
   validateUserName(userName: string): boolean {
     if (!userName) return false;
   
-    // Expresión regular para validar el nombre de usuario sin caracteres especiales
     const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
     const isValid = userNameRegex.test(userName);
   
@@ -109,6 +107,10 @@ export class UserRegisterComponent {
     return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
   }
 
+  showCIF() {
+    return this.checkBoxCompany ? !this.checkBoxCompany.getValue() : true;
+  }
+
   goBack() {
     this.router.navigate(["/login"])
   }
@@ -116,6 +118,7 @@ export class UserRegisterComponent {
   //Link para generar CIFs
   //https://testingdatagenerator.com/doi.html 
   validateCIF(cif: string): boolean {
+    if(!cif) return false;
     if (cif.length !== 9) return false;
   
     const letraInicial = cif[0].toUpperCase();
@@ -156,25 +159,23 @@ export class UserRegisterComponent {
     return caracterEsperado === digitoControl || digitoCalculado.toString() === digitoControl;
   }
 
-
   checkCif(){
-    const cif = this.companyInput.getValue();
-
+    let cif = this.companyInput.getValue();
+    if(!cif) return;
     if (!this.validateCIF(cif)) {
       alert('CIF no válido');
       this.companyInput.setValue('');
+      return
     }
-    if (cif.length > 0) {
       const filter = { 'usr_cif': cif};
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
           alert('CIF ya existe')
           this.companyInput.setValue('');
+          return
         }
       });
-    }
-
   }
 
   insertUser() {
@@ -190,12 +191,12 @@ export class UserRegisterComponent {
     }
 
     // Validaciones antes de la inserción
-    if (!userName || !email || !password || (this.checkCompany() && !this.validateCIF(cif))) {
-      alert('Todos los campos son obligatorios y el CIF debe ser válido si la empresa está marcada.');
+    if (!userName || !email || !password || (this.checkCompany() && !cif)) {
+      alert('Todos los campos son obligatorios.');
       return;
     }
    // Verificar que el CIF es obligatorio si la empresa está marcada
-      if (this.checkCompany() && (!cif || !this.validateCIF(cif))) {
+      if (this.checkCompany() && !this.validateCIF(cif)) {
         alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;
       }
@@ -220,6 +221,7 @@ export class UserRegisterComponent {
       alert('Error en la inserción');
     });
   }
+  
   }
 
 

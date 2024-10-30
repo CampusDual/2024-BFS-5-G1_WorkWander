@@ -34,6 +34,14 @@
 
             <!-- TODO: insertar grid de servicios -->
 
+            <div *ngFor="let service of serviceList">
+              <p>
+                {{
+                  service.servicios
+                }}
+              </p>
+            </div>
+
             <div fxLayout="row">
               <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
             </div>

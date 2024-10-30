@@ -47,12 +47,14 @@ export class CoworkingsDetailComponent {
   public idiomaActual: string;
   public idioma: string;
 
+  public serviceList = []
+
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
   }
 
-  getImage(){
-    return this.image;
+  ngOnInit(){
+    this.showServices()
   }
 
   currentDate() {
@@ -195,6 +197,21 @@ export class CoworkingsDetailComponent {
       return true;
     }
     return permissions.visible;
+  }
+
+  showServices():any{
+    const filter = {
+      cw_id: +this.activeRoute.snapshot.params["cw_id"],
+    }
+    const conf = this.service.getDefaultServiceConfiguration("cw_services");
+    this.service.configureService(conf);
+    const columns = ["srv_name"];
+    return this.service
+      .query(filter, columns, "servicePerCoworking")
+      .subscribe((resp) =>{
+        this.serviceList = resp.data
+      });
+
   }
 
 }

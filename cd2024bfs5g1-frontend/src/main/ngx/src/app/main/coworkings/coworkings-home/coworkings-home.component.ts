@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -11,7 +10,7 @@ export class CoworkingsHomeComponent implements OnInit{
 
   // Creamos constructor
   constructor(
-    protected dialog: MatDialog,
+    
     protected sanitizer: DomSanitizer
   ) {}
 

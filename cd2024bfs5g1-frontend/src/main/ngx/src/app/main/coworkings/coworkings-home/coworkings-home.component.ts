@@ -1,6 +1,5 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { OntimizeService } from 'ontimize-web-ngx';
-import { Component, HostListener, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -13,7 +12,7 @@ export class CoworkingsHomeComponent implements OnInit{
   protected service: OntimizeService;
   // Creamos constructor
   constructor(
-    protected injector:Injector
+    protected injector:Injector,
     protected sanitizer: DomSanitizer
   ) {this.service = this.injector.get(OntimizeService);}
 

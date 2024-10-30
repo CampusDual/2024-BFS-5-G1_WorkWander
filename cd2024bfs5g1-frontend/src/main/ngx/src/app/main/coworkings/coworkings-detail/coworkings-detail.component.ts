@@ -3,12 +3,10 @@ import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
-  AppConfig,
   AuthService,
   DialogService,
   OButtonComponent,
   ODateInputComponent,
-  ODialogConfig,
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
@@ -17,9 +15,8 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util,
+  Util
 } from "ontimize-web-ngx";
-import { SettingsAppearanceComponent } from "../../settings/appearance/appearance.component";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -35,7 +32,6 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-    // protected sanitizer: DomSanitizer,
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -189,11 +185,5 @@ export class CoworkingsDetailComponent {
     }
     return permissions.visible;
   }
-
-  // Función para convertir la imagen desde la base de datos, comentado para una posible solución al formato de la imagen por defecto de coworkings (en desarrollo)
-
-  // public getImageSrc(base64: any): any {
-  //   return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jfif';
-  // }
 
 }

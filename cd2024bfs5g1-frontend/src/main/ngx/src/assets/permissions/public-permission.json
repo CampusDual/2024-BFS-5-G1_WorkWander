@@ -66,6 +66,18 @@
       {
         "permissionId":"MyEvents",
         "enabled": false
+      },
+      {
+        "permissionId":"profile",
+        "enabled":false
+      },
+      {
+        "permissionId":"account",
+        "enabled":false
+      },
+      {
+        "permissionId":"appearance",
+        "enabled":false
       }
     ]
   }

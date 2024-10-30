@@ -1,7 +1,5 @@
 <!--
-
     Este archivo HTML define un formulario para añadir un nuevo espacio de coworking. El formulario está estructurado utilizando componentes de Angular y Flex Layout para un diseño responsivo.
-
     Detalles del Formulario:
     - Atributos del Formulario:
       - class: "form-section"
@@ -13,129 +11,68 @@
       - show-header-navigation: "no"
       - (onInsert): "onInsertSuccess()"
       - after-insert-mode: "detail"
-
     - Secciones del Formulario:
       - Información General:
         - Nombre: Campo de texto requerido con icono "business"
         - Descripción: Campo de texto requerido con icono "description" y un máximo de 250 caracteres
-
       - Dirección y Localidad:
         - Localidad: Campo de texto requerido con icono "location_city"
         - Dirección: Campo de texto requerido con icono "place"
-
       - Capacidad y Precio Diario:
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
   -->
-<!--show-header="no" No se visualizan los botones de New, etc...-->
-<o-form
-  class="form-section"
-  #coworkingForm
-  attr="coworkingDetail"
-  service="coworkings"
-  entity="coworking"
-  keys="id"
-  header-actions="new"
-  show-header="no"
-  show-header-navigation="no"
-  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  ignore-default-navigation="yes">
-  <div
-    class="form-section"
-    fxLayout="row"
-    fxLayoutGap="24px"
-    fxLayoutAlign="center start"
-    class="form-container">
-    <!-- Información General -->
-    <o-column fxFlex="70" class="form-section" flFlex title="ADD_COWORKING">
-      <!-- Nombre y -->
+<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id"
+  header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="coworkings">
+  <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
+    <!-- General Information -->
+    <o-column fxFlex="70" class="form-section" title="ADD_COWORKING">
+      <!-- Name and Description-->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-text-input
-          fxFlex="50"
-          attr="cw_name"
-          fxFlex
-          label="NAME"
-          required="yes"
-          icon="business"
-          fxFlex
-          placeholder="COWORKINGS_NAME"></o-text-input>
-        <o-text-input
-          fxFlex="50"
-          attr="cw_description"
-          fxFlex
-          label="DESCRIPTION"
-          required="yes"
-          maxlength="250"
-          icon="description"
-          fxFlex
-          placeholder="COWORKINGS_DESCRIPTION"></o-text-input>
+        <o-text-input fxFlex="50" attr="cw_name" fxFlex label="NAME" required="yes" icon="business" fxFlex
+          placeholder="{{'COWORKINGS_NAME' | oTranslate }}"></o-text-input>
+        <o-text-input fxFlex="50" attr="cw_description" fxFlex label="DESCRIPTION" required="yes" maxlength="250"
+          icon="description" fxFlex placeholder="{{'COWORKINGS_DESCRIPTION' | oTranslate }}"></o-text-input>
       </div>
-
-      <!-- Dirección y Localidad -->
+      <!-- Direction and Locality -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-text-input
-          fxFlex="50"
-          attr="cw_location"
-          fxFlex
-          label="LOCATION"
-          required="yes"
-          icon="location_city"
-          fxFlex
-          placeholder="COWORKINGS_UBICATION"></o-text-input>
-        <o-text-input
-          fxFlex="50"
-          attr="cw_address"
-          fxFlex
-          label="ADDRESS"
-          required="yes"
-          icon="place"
-          fxFlex
-          placeholder="COWORKINGS_ADDRESS"></o-text-input>
+        <o-text-input fxFlex="50" attr="cw_location" fxFlex label="LOCATION" required="yes" icon="location_city" fxFlex
+          placeholder="{{'COWORKINGS_UBICATION' | oTranslate }}"></o-text-input>
+
+        <o-text-input fxFlex="50" attr="cw_address" fxFlex label="ADDRESS" required="yes" icon="place" fxFlex
+          placeholder="{{'COWORKINGS_ADDRESS' | oTranslate }}"></o-text-input>
+
       </div>
-
-      <!-- Capacidad y Precio Diario -->
+      <!-- Capacity and Price -->
       <div fxLayout="row" fxLayoutGap="24px" class="form-row">
-        <o-integer-input
-          [min]="0"
-          fxFlex="50"
-          attr="cw_capacity"
-          fxFlex
-          label="CAPACITY"
-          required="yes"
-          icon="event_seat"
-          fxFlex
-          placeholder="Ej. 10, 20"
-          style="--field-hover-color: #6200ea"></o-integer-input>
-        <o-real-input
-          [min]="0"
-          fxFlex="50"
-          attr="cw_daily_price"
-          fxFlex
-          label="DAILY_PRICE"
-          required="yes"
-          decimal-digits="2"
-          icon="euro_symbol"
-          placeholder="Ej. 20, 50"
+        <o-integer-input [min]="0" fxFlex="50" attr="cw_capacity" label="CAPACITY" required="yes" icon="event_seat"
+          placeholder="{{'COWORKINGS_CAPACITY' | oTranslate }}" style="--field-hover-color: #6200ea"></o-integer-input>
+        <o-real-input [min]="0" fxFlex="50" attr="cw_daily_price" label="DAILY_PRICE" required="yes" decimal-digits="2"
+          icon="euro_symbol" placeholder="{{'COWORKINGS_PRICE' | oTranslate }}"
           style="--field-hover-color: #6200ea"></o-real-input>
+      </div>
+      <!-- Imagen -->
+      <div fxLayout="row" class="form-row">
+        <o-image attr="cw_image" sql-type="OTHER" max-file-size=1048576></o-image>
       </div>
       <!--Servicios-->
       <div fxLayout="column" fxLayoutGap="24px" class="form-row">
         <h4><mat-icon svgIcon="ontimize:check_circle"></mat-icon>{{ 'selected_services' | oTranslate}} {{ selectedServices }} / 6</h4>
         <div id="tagServices"></div>
         <h4><mat-icon svgIcon="ontimize:add"></mat-icon>{{ 'available_services' | oTranslate}} {{ availableServices }} / 6</h4>
-          <o-grid attr="services" service="services" entity="service" cols="6"
-            #servicesGrid columns="srv_id;srv_name" keys="srv_id"
-            quick-filter="no" fixed-header="no"
-            controls="false"
-            refresh-button="false" show-page-size="false" pagination-controls="false"
-            show-buttons-text="no"
-            gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
-            <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-              <div (click)="selectService(dato.srv_id, dato.srv_name)" >
-                <o-column id="{{'srv'+dato.srv_id}}" class="service">{{ dato.srv_name | oTranslate}}</o-column>
+        <o-grid attr="services" service="services" entity="service" cols="6"
+                #servicesGrid columns="srv_id;srv_name" keys="srv_id"
+                quick-filter="no" fixed-header="no"
+                controls="false"
+                refresh-button="false" show-page-size="false" pagination-controls="false"
+                show-buttons-text="no"
+                gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
+          <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
+            <div (click)="selectService(dato.srv_id, dato.srv_name)" >
+              <o-column id="{{'srv'+dato.srv_id}}" class="service">{{ dato.srv_name | oTranslate}}</o-column>
             </div>
-            </o-grid-item>
-          </o-grid>
+          </o-grid-item>
+        </o-grid>
       </div>
       <div fxLayout="column" fxLayoutGap="24px" class="form-row">
         <div class="buttons">

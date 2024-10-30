@@ -1,3 +1,4 @@
+@use '../../assets/css/workwander.scss' as *;
 .m-top-24 {
   margin-top: 24px;
 }
@@ -157,6 +158,39 @@
         margin: 0 auto;
         place-content: center !important;
       }
+    }
+  }
+}
+
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: rgba($primary, 0.6); // Difuminado sin color de fondo
+  backdrop-filter: blur(10px); // Efecto de difuminado
+  -webkit-backdrop-filter: blur(10px); // Efecto de difuminado para Safari
+  border-radius: $borderRadiusButton;
+  margin-top: 20px; // Separación desde el top
+  margin-left: 20px; // Separación desde los laterales
+  margin-right: 20px; // Separación desde los laterales
+
+  .logo img {
+    height: 40px;
+  }
+
+  button {
+    margin-left: auto;
+    background-color: $accent;
+    color: $primary;
+    border-radius: $borderRadiusButton;
+    padding: $paddingInterno;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $verdeBoton;
+      color: $accent;
     }
   }
 }

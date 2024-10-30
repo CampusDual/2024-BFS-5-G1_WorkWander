@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   public sessionExpired = false;
   private redirect = '/main';
+  public showLogin = false;
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -100,10 +101,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  toggleLogin(): void {
+    this.showLogin = !this.showLogin;
+  }
   entradaSinLogin() {
     this.router.navigate([" "])
   }
   registerUser() {
-     this.router.navigate(['register/user/new']);
+    this.router.navigate(['register/user/new']);
     }
 }

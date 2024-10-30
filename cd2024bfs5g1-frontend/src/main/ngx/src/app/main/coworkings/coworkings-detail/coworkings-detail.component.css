@@ -22,3 +22,7 @@ o-button {
 .hidden {
   display: none; /* Oculta el div que envuelve o-image */
 }
+
+.hidden {
+    display: none; /* Oculta el div que envuelve o-image */
+}

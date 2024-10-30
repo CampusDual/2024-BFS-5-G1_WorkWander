@@ -9,7 +9,8 @@ import { SettingsComponent } from './settings.component';
 const routes: Routes = [
   {
     path: '', component: SettingsComponent, children: [
-      { path: '', redirectTo:'profile' },
+      //TODO
+      /**{ path: '', redirectTo:'profile' },
       { path: 'profile', component: SettingsProfileComponent,
         data: {
           oPermission: {
@@ -33,7 +34,7 @@ const routes: Routes = [
             restrictedPermissionsRedirect: "403",
           },
         },
-       }
+       }*/
     ]
   }
 ];

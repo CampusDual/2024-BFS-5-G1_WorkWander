@@ -5,8 +5,8 @@
 $typography: "Noto Sans";
 
 /* Colores personalizados */
-$primary: #8b5e3c;
-$accent: #e6d5c3; //#e6d5c3;
+$primary: #8b5e3c; 
+$accent: #e6d5c3;
 $blanco: #f8f6f4;
 $verdeBoton: #5F6F65;
 $primaryClaro: rgba($primary, 0.4);
@@ -16,10 +16,11 @@ $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;
 
 $borderRadius: 25px 5px 25px 5px;
-$borderRadiusButton: 25px 5px 25px 25px ;
+$borderRadiusButton: 25px 5px 25px 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
+$borderRadiusEqual: 25px;
 
-$padding: 25px 25px 45px 25px;
+$padding: 25px 25px 25px 25px;
 $paddingInterno: 12px 16px;
 
 h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
@@ -32,6 +33,28 @@ h1, h2, h3, h4, h5, h6{
   }
 }
 
+// Tamaños de tipografías
+$fontSize12: 12px;
+$fontSize14: 14px;
+$fontSize16: 16px;
+$fontSize18: 18px;
+$fontSize20: 20px;
+$fontSize24: 24px;
+$fontSize45: 45px;
+
+// Grosores de tipografías
+$fontLightThin: 100;
+$fontThin: 200;
+$fontLight: 300;
+$fontRegular: 400;
+$fontMedium: 500;
+$fontSemiBold: 600;
+$fontBold: 700;
+$fontBlack: 800;
+$fontHeavyBlack: 900;
+
+
+// Gradientes de colores
 $linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 $linear-gradientRL: linear-gradient(270deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 $linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
@@ -82,7 +105,7 @@ login {
     margin-right: 50px;
 
     span {
-      font-size: 12px;
+      font-size: $fontSize12;
       padding-right: 4px;
     }
   }
@@ -102,7 +125,7 @@ login {
   
 
   .title_text {
-    font-size: 14px;
+    font-size: $fontSize14;
     font-weight: 600;
   }
   
@@ -115,7 +138,7 @@ login {
       width: 100%;
       margin: 32px 0 0;
       height: 42px;
-      font-size: 16px;
+      font-size: $fontSize16;
       border: unset;
     }
 
@@ -203,6 +226,7 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   background-color: $blanco;
   padding: $padding;
   border-radius: $borderRadiusButton;
+  margin-bottom: 25px;
 }
 
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
@@ -254,17 +278,23 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   .ng-star-inserted{
     place-content: center flex-end;
     justify-content: space-between;
+    //background-color: $accent;
   }
 
   nav.ng-star-inserted:nth-last-child(2) {
     background-color: $accent;
     position: absolute;
-    border-radius: $borderRadius;
+    border-radius: 25px;
     margin: 0px 5px 0 5px;
     transition: all 0.2s;
     top:unset;
     bottom: 25px;
     right: 0;
+
+    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+      border-radius: 25px !important;
+      border-left: none;
+    }
   }
   
   .o-app-sidenav-menu-group a,
@@ -459,11 +489,10 @@ input.mat-input-element:disabled {
   box-shadow: 0 4px 6px rgba($primary, 0.1);
   min-height: 200px;
   width: 100%;
+  padding: 0 15px 0 4px;
 
   .image-container {
     // Contenedor de la imagen
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -471,15 +500,14 @@ input.mat-input-element:disabled {
 
     .coworking-image {
       // Estilo de la imagen de coworking
-      width: 100%;
-      height: auto;
+      width: 160px;
+      height: 160px;
       object-fit: cover;
       cursor: pointer;
       border-radius: $borderRadius;
     }
   }
-
-  .info {
+    .info {
     // Contenedor de la información
     width: 70%;
     padding: 16px;
@@ -489,18 +517,19 @@ input.mat-input-element:disabled {
 
     .coworking-name {
       // Estilo del nombre del coworking
-      font-size: 20px;
+      font-size: $fontSize24;
       font-weight: bold;
       color: $primary;
       cursor: pointer;
       margin-bottom: 8px;
+      margin-top: 0;
       display: inline-block; // Necesario para que el efecto funcione correctamente
     
     }
     
     .form-container {
       padding: $padding;
-      background: #f5f5f5;
+      background: $blanco;
     }
      
     .form-section {
@@ -528,18 +557,18 @@ input.mat-input-element:disabled {
      
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-image[icon] {
       padding-left: 40px;
-      font-size: 16px;
+      font-size: $fontSize16;
       background-color: $blanco;
       border: 1px solid $accent;
       border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
-     
     o-text-input[icon]:hover, 
     o-integer-input[icon]:hover, 
     o-real-input[icon]:hover, 
     o-date-input[icon]:hover, 
-    o-image[icon]:hover {
+    o-image[icon]:hover,
+    o-textarea-input [icon]:hover{
       border-color: $primary;
     }
      
@@ -555,7 +584,7 @@ input.mat-input-element:disabled {
       top: 50%;
       transform: translateY(-50%);
       color: $accent;
-      font-size: 20px;
+      font-size: $fontSize20;
     }
      
      
@@ -602,7 +631,7 @@ input.mat-input-element:disabled {
   
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
       padding-left: 40px;
-      font-size: 16px;
+      font-size: $fontSize16;
       background-color: $blanco;
       border: 1px solid $accent;
       border-radius: $borderRadius;
@@ -621,7 +650,7 @@ input.mat-input-element:disabled {
       top: 50%;
       transform: translateY(-50%);
       color: $accent;
-      font-size: 20px;
+      font-size: $fontSize20;
     }
   
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
@@ -733,7 +762,7 @@ input.mat-input-element:disabled {
   
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
       padding-left: 40px;
-      font-size: 16px;
+      font-size: $fontSize16;
       background-color: $blanco;
       border: 1px solid $accent;
       border-radius: $borderRadius;
@@ -752,7 +781,7 @@ input.mat-input-element:disabled {
       top: 50%;
       transform: translateY(-50%);
       color: $accent;
-      font-size: 20px;
+      font-size: $fontSize20;
     }
   
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
@@ -853,7 +882,7 @@ input.mat-input-element:disabled {
 
       mat-icon {
         // Estilo de los iconos de estrellas
-        font-size: 16px;
+        font-size: $fontSize12;
         width: 16px;
         height: 16px;
       }
@@ -861,17 +890,26 @@ input.mat-input-element:disabled {
       .rating {
         // Estilo del texto de calificación
         margin-left: 8px;
-        font-size: 14px;
+        font-size: $fontSize14;
       }
     }
-
-    .location, .capacity {
+    .location{
+      // Estilo de la ubicación
+      color: $primary;
+      margin: 0 0 8px 0;
+      font-size: $fontSize18;
+    }
+    .capacity {
       // Estilo de la ubicación y capacidad
       color: $primary;
-      margin-bottom: 8px;
-      font-size: 14px;
+      margin: 0;
+      font-size: $fontSize12;
+      font-weight: $fontBlack;
+      border-radius: $borderRadiusEqual;
+      background-color: $accentClaro;
+      padding: 2px;
+      text-align: center;
     }
-
     .services {
       // Contenedor de los servicios
       display: flex;
@@ -890,26 +928,29 @@ input.mat-input-element:disabled {
         background-color: $primary;
         color: $blanco;
         border-radius: $borderRadiusButton;
-        font-size: 12px;
+        font-size: $fontSize12;
       }
     }
   }
-
+  .capacity-price-container {
+    border-left: solid 5px $primary;
+    padding: 0px 0 0 17px;
+  }
   .price-container {
     // Contenedor del precio
     padding: $paddingInterno;
     display: flex;
     align-items: center;
     justify-content: end;
-    background-color: $accent;
+    background-color: $verdeBoton;
     min-height: 100%;
     border-radius: $borderRadius;
 
     .price {
       // Estilo del precio
-      font-size: 34px;
+      font-size: $fontSize45;
       font-weight: bold;
-      color: $primary;
+      color: $blanco;
     }
   }
 
@@ -925,7 +966,7 @@ input.mat-input-element:disabled {
 
     .capacity {
       // Estilo de la capacidad
-      font-size: 24px;
+      font-size: $fontSize24;
       font-weight: bold;
       color: $primary;
     }
@@ -937,6 +978,11 @@ o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
   left: 70px;
 }
+
+button.o-grid-button.no-text.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
+  background-color: transparent;
+  border: none;
+  }
 
 mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
@@ -961,6 +1007,18 @@ mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
   100% {
     transform: translateY(0);
   }
+}
+// Media para 1400px
+@media(max-width: 1400px){
+  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+    position: absolute;
+    background-color: transparent;
+    left: 14px;
+    top: 39px;
+  }
+  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+    padding: 25px 25px 85px 25px;
+ }
 }
 
 // Media Query para dispositivos móviles (max-width: 768px)

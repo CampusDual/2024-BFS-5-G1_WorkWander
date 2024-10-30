@@ -1,8 +1,8 @@
 <div class="grid-container">
   <!-- Grid que muestra los datos de los coworkings -->
-  <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
+  <o-grid #coworkingsGrid attr="coworkingsGrid" title="" service="coworkings" entity="coworking" keys="cw_id"
     columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
-    pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="2.5:1" [cols]="gridCols" gutter-size="20px">
+    pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="3.5:1" [cols]="gridCols" gutter-size="35px">
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
         <div class="image-container">
@@ -14,11 +14,12 @@
           <h2 class="coworking-name">{{ data.cw_name }}</h2>
           <div class="stars">
             <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
+              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true">⭐⭐⭐⭐⭐</mat-icon>
             </ng-container>
             <span class="rating">(4.9/5)</span>
           </div>
           <p class="location">{{ data.cw_location }}</p>
+          <p class="capacity">Aforo {{ data.cw_capacity }} plazas</p>
           <div class="services">
             <mat-icon fontIcon="wifi" class="service-icon"></mat-icon>
             <mat-icon fontIcon="local_cafe" class="service-icon"></mat-icon>

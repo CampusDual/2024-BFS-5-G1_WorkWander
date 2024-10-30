@@ -37,7 +37,6 @@ export class UserRegisterComponent {
   validateEmail(email: string): boolean {
     if (!email) return false;
   
-    // Expresión regular para validar el email sin caracteres especiales
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isValid = emailRegex.test(email);
   
@@ -50,7 +49,6 @@ export class UserRegisterComponent {
   validateUserName(userName: string): boolean {
     if (!userName) return false;
   
-    // Expresión regular para validar el nombre de usuario sin caracteres especiales
     const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
     const isValid = userNameRegex.test(userName);
   
@@ -106,7 +104,11 @@ export class UserRegisterComponent {
   }
 
   checkCompany() {
-    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : true;
+    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
+  }
+
+  showCIF() {
+    return this.checkBoxCompany ? !this.checkBoxCompany.getValue() : true;
   }
 
   goBack() {
@@ -116,6 +118,7 @@ export class UserRegisterComponent {
   //Link para generar CIFs
   //https://testingdatagenerator.com/doi.html 
   validateCIF(cif: string): boolean {
+    if(!cif) return false;
     if (cif.length !== 9) return false;
   
     const letraInicial = cif[0].toUpperCase();
@@ -156,7 +159,6 @@ export class UserRegisterComponent {
     return caracterEsperado === digitoControl || digitoCalculado.toString() === digitoControl;
   }
 
-
   checkCif(){
     let cif = this.companyInput.getValue();
     if(!cif) return;
@@ -174,8 +176,6 @@ export class UserRegisterComponent {
           return
         }
       });
-    
-
   }
 
   insertUser() {
@@ -196,7 +196,7 @@ export class UserRegisterComponent {
       return;
     }
    // Verificar que el CIF es obligatorio si la empresa está marcada
-      if (!this.validateCIF(cif)) {
+      if (this.checkCompany() && !this.validateCIF(cif)) {
         alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;
       }
@@ -221,6 +221,7 @@ export class UserRegisterComponent {
       alert('Error en la inserción');
     });
   }
+  
   }
 
 

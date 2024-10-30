@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 @ConfigurationFile(configurationFile = "dao/CwServiceDao.xml",
         configurationFilePlaceholder = "dao/placeholders.properties")
 public class CwServiceDao extends OntimizeJdbcDaoSupport{
-    public static final String CSER_ID          = "cser_id";
-    public static final String CW_ID        = "cw_id";
-    public static final String SRV_ID        = "srv_id";
+    public static final String CSER_ID = "cser_id";
+    public static final String CW_ID = "cw_id";
+    public static final String SRV_ID = "srv_id";
+    public static final String SERVICES_PER_COWORKING = "servicePerCoworking";
 }

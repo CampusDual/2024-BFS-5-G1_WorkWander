@@ -131,5 +131,6 @@
   "REAL_CAPACITY": "Available places",
   "COMPANYCB": "I'm a company",
   "BOOKINGS_CONFIRMED": "Booking confirmed",
-  "IM_REGISTERED": "I'm registered"
+  "IM_REGISTERED": "I'm registered",
+  "DATE": "Date"
 }

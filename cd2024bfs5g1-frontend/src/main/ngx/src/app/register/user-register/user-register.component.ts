@@ -106,7 +106,7 @@ export class UserRegisterComponent {
   }
 
   checkCompany() {
-    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
+    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : true;
   }
 
   goBack() {
@@ -158,22 +158,23 @@ export class UserRegisterComponent {
 
 
   checkCif(){
-    const cif = this.companyInput.getValue();
-
+    let cif = this.companyInput.getValue();
+    if(!cif) return;
     if (!this.validateCIF(cif)) {
       alert('CIF no válido');
       this.companyInput.setValue('');
+      return
     }
-    if (cif.length > 0) {
       const filter = { 'usr_cif': cif};
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
           alert('CIF ya existe')
           this.companyInput.setValue('');
+          return
         }
       });
-    }
+    
 
   }
 
@@ -190,12 +191,12 @@ export class UserRegisterComponent {
     }
 
     // Validaciones antes de la inserción
-    if (!userName || !email || !password || (this.checkCompany() && !this.validateCIF(cif))) {
-      alert('Todos los campos son obligatorios y el CIF debe ser válido si la empresa está marcada.');
+    if (!userName || !email || !password || (this.checkCompany() && !cif)) {
+      alert('Todos los campos son obligatorios.');
       return;
     }
    // Verificar que el CIF es obligatorio si la empresa está marcada
-      if (this.checkCompany() && (!cif || !this.validateCIF(cif))) {
+      if (!this.validateCIF(cif)) {
         alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;
       }

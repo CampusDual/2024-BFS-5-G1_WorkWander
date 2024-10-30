@@ -7,6 +7,10 @@
 
 }
 
+.image-container{
+  justify-content: center;
+}
+
 .book {
   margin-top: 70px;
 }
@@ -15,4 +19,6 @@ o-button {
     margin-top: 22px;
 }
 
-
+.hidden {
+  display: none; /* Oculta el div que envuelve o-image */
+}

@@ -10,6 +10,7 @@ import {
   ODateInputComponent,
   ODialogConfig,
   OFormComponent,
+  OImageComponent,
   OIntegerInputComponent,
   OntimizeService,
   OPermissions,
@@ -43,6 +44,7 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("image") image: OImageComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -50,6 +52,10 @@ export class CoworkingsDetailComponent {
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
+  }
+
+  getImage(){
+    return this.image;
   }
 
   currentDate() {

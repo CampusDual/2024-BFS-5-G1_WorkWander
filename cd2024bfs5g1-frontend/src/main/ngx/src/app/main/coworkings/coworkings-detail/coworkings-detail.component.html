@@ -6,10 +6,15 @@
     <div id="container">
       <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
 
-        <div>
-          <o-image attr="cw_image" title="PHOTO" orderable="no" searchable="no" type="image"
-            empty-image="assets/images/no-image.png" image-type="base64" show-controls="no" height="500px"
-            width="900px"></o-image>
+        <div fxLayout="row" class="image-container">
+          <!-- Campo para mostrar la imagen de coworking -->
+          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}"> <!-- Ocultaremos el div cuando no exista "cw_image" -->
+            <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
+            <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
+          </div>
+          <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
+          <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/coworking-default.jfif"
+            alt="Imagen predeterminada" height="500px" width="900px" />
         </div>
 
         <div fxLayout="row" fxLayoutGap="15px">

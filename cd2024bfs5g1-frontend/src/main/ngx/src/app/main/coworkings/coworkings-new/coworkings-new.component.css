@@ -46,8 +46,6 @@
   transition: all 0.3s ease;
 }
 
-
-
 .form-row {
   margin-bottom: 24px;
 }
@@ -82,7 +80,6 @@ o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::b
   font-size: 20px;
 }
 
-
 o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-image input::placeholder, o-textarea-input::placeholder {
   color: #9e9e9e;
   opacity: 0.8;
@@ -92,8 +89,6 @@ o-text-input input::placeholder, o-integer-input input::placeholder, o-real-inpu
 .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-image:hover {
   background-color: #f0f0f0;
 }
-
-
 
 /* Estilos generales para la fila del formulario */
 .form-row {
@@ -109,7 +104,6 @@ background: #ffffff; /* Fondo blanco */
 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra sutil */
 transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
 }
-
 
 /* Estilo de las etiquetas */
 .mat-label {

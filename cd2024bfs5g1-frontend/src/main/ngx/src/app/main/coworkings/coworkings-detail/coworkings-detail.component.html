@@ -15,7 +15,15 @@
 
                             <div fxLayout="row">
                                 <!-- Campo para mostrar la imagen de coworking -->
-                                <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no"></o-image>
+                                <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}"> <!-- Ocultaremos el div cuando no exista "cw_image" -->
+                                    <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
+                                    <o-image attr="cw_image" empty-image="assets/images/coworking-default.jfif" show-controls="no" read-only="yes"></o-image>
+                                </div>
+                                <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
+                                <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/coworking-default.jfif" alt="Imagen predeterminada" />
+
+                                <!-- <p>{{form.formData | json}}</p> --><!-- con esto no mostraba cw_image, por lo que no existia ese campo,
+                                con el "| json" nos imprime los datos en formato json, ya que sin esto, solo imprime "object Object"-->
                             </div>
 
                             <div fxLayout="row">

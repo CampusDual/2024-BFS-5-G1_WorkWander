@@ -3,12 +3,10 @@ import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
-  AppConfig,
   AuthService,
   DialogService,
   OButtonComponent,
   ODateInputComponent,
-  ODialogConfig,
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
@@ -17,9 +15,8 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util,
+  Util
 } from "ontimize-web-ngx";
-import { SettingsAppearanceComponent } from "../../settings/appearance/appearance.component";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -34,7 +31,7 @@ export class CoworkingsDetailComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
-    private translate: OTranslateService
+    private translate: OTranslateService,
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -189,4 +186,5 @@ export class CoworkingsDetailComponent {
     }
     return permissions.visible;
   }
+
 }

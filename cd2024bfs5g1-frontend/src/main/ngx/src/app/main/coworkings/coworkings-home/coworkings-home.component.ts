@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -11,7 +10,7 @@ export class CoworkingsHomeComponent implements OnInit{
 
   // Creamos constructor
   constructor(
-    protected dialog: MatDialog,
+    
     protected sanitizer: DomSanitizer
   ) {}
 
@@ -36,7 +35,6 @@ export class CoworkingsHomeComponent implements OnInit{
 
   // Función para convertir la imagen desde la base de datos
   public getImageSrc(base64: any): any {
-    console.log(base64);
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jfif';
   }
 

@@ -106,6 +106,7 @@ export class CoworkingsNewComponent implements OnInit{
       cw_location:this.coworkingForm.getFieldValue('cw_location'),
       cw_capacity:this.coworkingForm.getFieldValue('cw_capacity'),
       cw_daily_price:this.coworkingForm.getFieldValue('cw_daily_price'),
+      cw_image:this.coworkingForm.getFieldValue('cw_image'),
       services:this.arrayServices
     }
     this.insert(coworking);

@@ -114,7 +114,7 @@
   "SELECT_DATE":"Select a date",
   "COWORKINGS_NAME":"Coworking's name",
   "COWORKINGS_DESCRIPTION": "Coworking's description",
-  "REGISTER_TITLE": "Fill your personal data for register",
+  "REGISTER_TITLE": "Register:",
   "selected_services":"Selected services",
   "available_services":"Available services",
   "save":"Save",

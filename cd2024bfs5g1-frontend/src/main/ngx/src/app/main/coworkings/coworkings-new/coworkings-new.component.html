@@ -22,8 +22,8 @@
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
   -->
-<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id"
-  header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="coworkings">
+<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id" header-actions="new" show-header="no" show-header-navigation="no"
+(onInsert)="onInsertSuccess(); $event.stopPropagation()" ignore-default-navigation="yes">
   <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
     <!-- General Information -->
     <o-column fxFlex="70" class="form-section" title="ADD_COWORKING">

@@ -49,51 +49,35 @@ export class CoworkingsNewComponent implements OnInit{
     this.router.navigateByUrl("/main/mycoworkings")
   }
 
-  public selectService(id:number, name:string):void{
+  public selectService(id:number, sel:string, serv:string):void{
     this.exist = false;
     for (let i = 0; i < this.arrayServices.length; i++) {
       if(this.arrayServices[i].id === id){
         this.exist = true;
-        this.deleteService(i, id, "srv"+id);
+        this.deleteService(i, id, sel, serv);
       }
     }
     if (!this.exist) {
-      this.appendService(id, name);
+      this.appendService(id, sel, serv);
     }
   }
 
-  public appendService(id:number, name:string):void{
+  public appendService(id:number, idsel:string, serv:string):void{
     this.arrayServices.push({id:id});
-    let selectService = document.getElementById("tagServices");
-    let service = document.createElement("span");
-    service.setAttribute("id",id+"")
-    service.innerHTML = `<div style="${this.styleAppendService()}">${name}</div> `;
-    selectService.appendChild(service);
-    this.styleSelectedService("srv"+id);
+    document.getElementById(idsel).style.backgroundColor = "whitesmoke";
+    document.getElementById(idsel).style.color = "black";
+    document.getElementById(serv).style.backgroundColor = "#e6d5c3";
+    document.getElementById(serv).style.color = "black;";
     this.selectedServices ++;
     this.availableServices --;
   }
 
-  public styleAppendService():string{
-    return "cursor:pointer; background-color:#834333;\
-    color:whitesmoke; padding: 5px; font-size: 12px;\
-    border-radius: 5px; border-box: 1px solid black;\
-    box-shadow: 2px 5px #888888; width: 147px;\
-    height: 40px; transition: width 2s, height 2s;\
-    text-align:center;  margin: 0 auto; border-bottom: 0.5px solid  #888888;"
-  }
-
-  public styleSelectedService(id:string):void{
-    document.getElementById(id).style.backgroundColor = "whitesmoke";
-    document.getElementById(id).style.color="black";
-  }
-
-  public deleteService(index:number, id:number, srvId:string):void{
+  public deleteService(index:number, id:number, sel:string, serv:string):void{
     this.arrayServices.splice(index, 1)
-    let element = document.getElementById(id+"");
-    element.remove();
-    document.getElementById(srvId).style.backgroundColor ="#834333";
-    document.getElementById(srvId).style.color ="whitesmoke";
+    document.getElementById(serv).style.backgroundColor = "whitesmoke";
+    document.getElementById(serv).style.color ="black";
+    document.getElementById(sel).style.backgroundColor = "#e6d5c3";
+    document.getElementById(sel).style.color ="black";
     this.selectedServices --;
     this.availableServices ++;
   }
@@ -126,7 +110,6 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   isInvalidForm(): boolean {
-    //this.coworkingForm.
     let name = this.coworkingForm?.getFieldValue('cw_name');
     let description = this.coworkingForm?.getFieldValue('cw_description');
     let address = this.coworkingForm?.getFieldValue('cw_address');

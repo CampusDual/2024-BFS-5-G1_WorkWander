@@ -8,6 +8,7 @@ import {
   OButtonComponent,
   ODateInputComponent,
   OFormComponent,
+  OImageComponent,
   OIntegerInputComponent,
   OntimizeService,
   OPermissions,
@@ -40,10 +41,21 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("image") image: OImageComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
+  public serviceList = []
+ 
+
+  getName() {
+    return this.coworkingName ? this.coworkingName.getValue() : "";
+  }
+
+  ngOnInit(){
+    this.showServices();
+  }
 
   currentDate() {
     return new Date();
@@ -176,6 +188,21 @@ export class CoworkingsDetailComponent {
       return true;
     }
     return permissions.visible;
+  }
+
+  showServices():any{
+    const filter = {
+      cw_id: +this.activeRoute.snapshot.params["cw_id"],
+    }
+    const conf = this.service.getDefaultServiceConfiguration("cw_services");
+    this.service.configureService(conf);
+    const columns = ["srv_name"];
+    return this.service
+      .query(filter, columns, "servicePerCoworking")
+      .subscribe((resp) =>{
+        this.serviceList = resp.data
+      });
+
   }
 
 }

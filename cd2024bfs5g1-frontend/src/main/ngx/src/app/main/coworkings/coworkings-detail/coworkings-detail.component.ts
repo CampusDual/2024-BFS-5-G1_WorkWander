@@ -3,12 +3,10 @@ import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
-  AppConfig,
   AuthService,
   DialogService,
   OButtonComponent,
   ODateInputComponent,
-  ODialogConfig,
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
@@ -17,9 +15,8 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util,
+  Util
 } from "ontimize-web-ngx";
-import { SettingsAppearanceComponent } from "../../settings/appearance/appearance.component";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -34,7 +31,7 @@ export class CoworkingsDetailComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
-    private translate: OTranslateService
+    private translate: OTranslateService,
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -105,6 +102,7 @@ export class CoworkingsDetailComponent {
 
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+    const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
     const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
     const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
 
@@ -112,7 +110,7 @@ export class CoworkingsDetailComponent {
       if (this.dialogService) {
         this.dialogService.confirm(
           confirmMessageTitle,
-          `${confirmMessageBody}  ${fechaBien},  ${this.coworkingName.getValue()} ?`
+          `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
@@ -188,4 +186,5 @@ export class CoworkingsDetailComponent {
     }
     return permissions.visible;
   }
+
 }

@@ -1,8 +1,20 @@
 <div class="grid-container">
   <!-- Grid que muestra los datos de los coworkings -->
-  <o-grid #coworkingsGrid attr="coworkingsGrid" title="" service="coworkings" entity="coworking" keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image" quick-filter-columns="cw_name;cw_description"
-    pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="3.5:1" [cols]="gridCols" gutter-size="35px">
+  <o-grid
+    #coworkingsGrid
+    attr="coworkingsGrid"
+    title=""
+    service="coworkings"
+    entity="coworking"
+    keys="cw_id"
+    columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image"
+    quick-filter-columns="cw_name;cw_description"
+    pagination-controls="true"
+    page-size-options="12;16;20"
+    query-rows="12"
+    grid-item-height="3.5:1"
+    [cols]="gridCols"
+    gutter-size="35px">
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
         <div class="image-container">
@@ -21,11 +33,11 @@
           <p class="location">{{ data.cw_location }}</p>
           <p class="capacity">Aforo {{ data.cw_capacity }} plazas</p>
           <div class="services">
-            <mat-icon fontIcon="wifi" class="service-icon"></mat-icon>
-            <mat-icon fontIcon="local_cafe" class="service-icon"></mat-icon>
-            <mat-icon fontIcon="desktop_windows" class="service-icon"></mat-icon>
-            <mat-icon fontIcon="spa" class="service-icon"></mat-icon>
-            <mat-icon fontIcon="fitness_center" class="service-icon"></mat-icon>
+            <mat-icon fontIcon="wifi" class="service-icon" aria-label="Wi-Fi"></mat-icon>
+            <mat-icon fontIcon="local_cafe" class="service-icon" aria-label="Café"></mat-icon>
+            <mat-icon fontIcon="desktop_windows" class="service-icon" aria-label="Escritorios"></mat-icon>
+            <mat-icon fontIcon="spa" class="service-icon" aria-label="Spa"></mat-icon>
+            <mat-icon fontIcon="fitness_center" class="service-icon" aria-label="Gimnasio"></mat-icon>
           </div>
         </div>
 
@@ -33,7 +45,8 @@
           <div class="price-container">
             <span class="price">{{ data.cw_daily_price }}€</span>
           </div>
-        </div>
+        </div> <!-- Cerradura corregida aquí -->
+
       </div>
     </o-grid-item>
   </o-grid>

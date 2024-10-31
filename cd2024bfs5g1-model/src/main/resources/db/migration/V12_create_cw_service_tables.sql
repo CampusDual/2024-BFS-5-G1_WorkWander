@@ -12,5 +12,5 @@ insert into service(srv_name) values('additional_screen');
 insert into service(srv_name) values ('vending_machine');
 insert into service(srv_name) values('coffee_bar');
 insert into service(srv_name) values('water_dispenser');
-insert into service(srv_name) values('ergonomic_chairs');
-insert into service(srv_name) values('parking_lot');
+insert into service(srv_name) values('ergonomic_chair');
+insert into service(srv_name) values('parking');

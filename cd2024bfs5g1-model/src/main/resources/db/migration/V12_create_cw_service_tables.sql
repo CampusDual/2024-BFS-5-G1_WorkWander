@@ -8,9 +8,9 @@ create table cw_service(
 		constraint cwsw_cw_fk foreign key (cw_id) references coworking(cw_id),
 		constraint cwsw_srv_fk foreign key (srv_id) references service(srv_id)
 	);
-insert into service(srv_name) values('Pantalla adicional');
-insert into service(srv_name) values ('Máquina expendedora');
-insert into service(srv_name) values('Cafetería');
-insert into service(srv_name) values('Máquina de agua');
-insert into service(srv_name) values('Silla ergonómica');
-insert into service(srv_name) values('Parking');
+insert into service(srv_name) values('additional_screen');
+insert into service(srv_name) values ('vending_machine');
+insert into service(srv_name) values('coffee_bar');
+insert into service(srv_name) values('water_dispenser');
+insert into service(srv_name) values('ergonomic_chairs');
+insert into service(srv_name) values('parking_lot');

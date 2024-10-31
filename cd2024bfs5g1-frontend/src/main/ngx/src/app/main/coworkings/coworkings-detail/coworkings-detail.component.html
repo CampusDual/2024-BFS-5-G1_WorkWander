@@ -41,7 +41,7 @@
 
             <div fxLayoutAlign="start center" fxLayoutGap="8px">
               <ng-container *ngFor="let service of serviceList">
-                <span class="coworking-service">{{ service.servicios }}</span>
+                <span class="coworking-service">{{ service.servicios | oTranslate}}</span>
               </ng-container>
             </div>
 

@@ -46,7 +46,6 @@ export class CoworkingsDetailComponent {
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
-
   public serviceList = []
 
   getName() {
@@ -54,7 +53,7 @@ export class CoworkingsDetailComponent {
   }
 
   ngOnInit(){
-    this.showServices()
+    this.showServices();
   }
 
   currentDate() {

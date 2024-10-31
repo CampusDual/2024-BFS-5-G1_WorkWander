@@ -1,3 +1,4 @@
+@use '../../assets/css/workwander.scss' as *;
 .m-top-24 {
   margin-top: 24px;
 }
@@ -159,4 +160,62 @@
       }
     }
   }
+}
+
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: rgba($primary, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: $borderRadiusButton;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  .logo img {
+    height: 50px;
+  }
+  .company-name {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    color: $blanco;
+    margin-left: 20px;
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  button {
+    margin-left: auto;
+    background-color: $accent;
+    color: $primary;
+    border-radius: $borderRadiusButton;
+    padding: $paddingInterno;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    align-items: center;
+
+
+    mat-icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      background-color: $verdeBoton;
+      color: $accent;
+    }
+  }
+}
+.company-name {
+  font-family: 'Arial', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  color: $blanco;
+  margin-left: 20px;
+  flex-grow: 1;
+  text-align: center;
 }

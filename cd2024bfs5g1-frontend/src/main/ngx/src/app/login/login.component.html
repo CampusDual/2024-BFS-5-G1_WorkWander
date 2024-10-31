@@ -1,12 +1,27 @@
 <div class="full-page">
+
+  <header class="header">
+    <div class="logo">
+      <img src="assets/images/sidenav-closed.svg" alt="Logo de la empresa">
+      <span class="company-name">Work Wander</span>
+    </div>
+    <button (click)="toggleLogin()">
+      <mat-icon>login</mat-icon> Acceder
+    </button>
+  </header>
+
+
   <div class="login-outer-container">
     <div class="login-bg-container">
       <video id="background-video" autoplay muted loop>
-        <source src="assets/video/home_video_fondo.mp4" type="video/mp4">
+        <source src="assets/video/home_video_fondo_renew.mp4" type="video/mp4">
       </video>
-    </div>    
-    <div class="wrapp-login">
+    </div>
+
+    <div *ngIf="showLogin" class="wrapp-login" [@fadeInOut]="fadeState">
+
       <div  fxLayout="row" fxLayoutAlign="center center" class="login-inner-container">
+
         <form [formGroup]="loginForm" (ngSubmit)="login()">
 
           <div class="login-title-container" fxLayout="column">
@@ -15,28 +30,32 @@
           </div>
 
           <div fxLayout="column" fxLayoutGap="10px">
+
             <mat-form-field fxFill class="m-top-24">
-              <input matInput class="mat-input" #user placeholder="{{ 'USERNAME' | oTranslate }}" id="username" [formControl]="userCtrl">
+              <input matInput class="mat-input" #user placeholder="{{ 'USERNAME' | oTranslate }}" id="username"
+                [formControl]="userCtrl">
               <mat-error *ngIf="userCtrl.hasError('required')">
                 {{ 'ERROR_USER_REQUIRED' | oTranslate }}
               </mat-error>
             </mat-form-field>
+
             <mat-form-field fxFill class="m-top-24">
-              <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password" type="password"
-                [formControl]="pwdCtrl">
+              <input matInput class="mat-input" #password placeholder="{{ 'PASSWORD' | oTranslate }}" id="password"
+                type="password" [formControl]="pwdCtrl">
               <mat-error *ngIf="pwdCtrl.hasError('required')">
                 {{ 'ERROR_PASS_REQUIRED' | oTranslate }}
               </mat-error>
             </mat-form-field>
+
           </div>
 
           <button mat-raised-button color="primary" type="submit">{{ 'LOGIN' | oTranslate }}</button>
           <button mat-raised-button color="secondary" (click)="registerUser()">{{ 'REGISTER' | oTranslate }}</button>
 
-          <a class="noLogin" href="#" (click)="entradaSinLogin(); $event.preventDefault();" >{{ 'WITHOUT_LOGIN' | oTranslate }}</a>
+          <a class="noLogin" href="#" (click)="entradaSinLogin(); $event.preventDefault();">{{ 'WITHOUT_LOGIN' | oTranslate }}"</a>
+
         </form>
       </div>
-
     </div>
   </div>
 
@@ -47,5 +66,4 @@
       <span>{{ 'FOOTER_RIGHTS' | oTranslate }}</span>
     </div>
   </div>
-
 </div>

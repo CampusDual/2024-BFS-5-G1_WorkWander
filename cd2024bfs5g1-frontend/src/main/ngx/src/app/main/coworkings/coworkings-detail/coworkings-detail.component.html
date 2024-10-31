@@ -8,13 +8,14 @@
 
         <div fxLayout="row" class="image-container">
           <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}"> <!-- Ocultaremos el div cuando no exista "cw_image" -->
+          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">
+            <!-- Ocultaremos el div cuando no exista "cw_image" -->
             <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
             <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
           </div>
           <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
-          <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg"
-            alt="Imagen predeterminada" height="500px" width="900px" />
+          <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
+            height="500px" width="900px" />
         </div>
 
         <div fxLayout="row" fxLayoutGap="15px">
@@ -34,12 +35,14 @@
 
             <!-- TODO: insertar grid de servicios -->
 
-            <div *ngFor="let service of serviceList">
-              <p>
-                {{
-                  service.servicios
-                }}
-              </p>
+            <!-- <div *ngFor="let service of serviceList">
+              <span class="coworking-service">{{ service.servicios }}</span>
+            </div> -->
+
+            <div fxLayoutAlign="start center" fxLayoutGap="8px">
+              <ng-container *ngFor="let service of serviceList">
+                <span class="coworking-service">{{ service.servicios }}</span>
+              </ng-container>
             </div>
 
             <div fxLayout="row">
@@ -72,4 +75,3 @@
     </div>
   </div>
 </o-form>
-

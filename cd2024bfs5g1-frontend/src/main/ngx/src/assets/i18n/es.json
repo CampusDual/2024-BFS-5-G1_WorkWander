@@ -119,8 +119,8 @@
   "cancel":"Cancelar",
   "additional_screen":"Pantalla adicional",
   "vending_machine":"Máquina expendedora",
-  "coffee_shop":"Cafetería",
-  "water_machine":"Máquina de agua",
+  "coffee_bar":"Cafetería",
+  "water_dispenser":"Máquina de agua",
   "ergonomic_chair":"Silla ergonómica",
   "parking":"Parking",
   "COWORKINGS_NAME":"Nombre del coworking",
@@ -142,5 +142,6 @@
   "REAL_CAPACITY": "Plazas disponibles",
   "BOOKINGS_CONFIRMED": "Reserva confirmada",
   "IM_REGISTERED": "Ya estoy registrado",
-  "DATE": "Fecha"
+  "DATE": "Fecha",
+  "NO_SERVICES" : " Sin servicios adicionales"
 }

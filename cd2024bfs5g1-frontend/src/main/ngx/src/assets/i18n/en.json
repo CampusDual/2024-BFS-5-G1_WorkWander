@@ -121,8 +121,8 @@
   "cancel":"Cancel",
   "additional_screen":"Additional screen",
   "vending_machine":"Vending machine",
-  "coffee_shop":"Coffee shop",
-  "water_machine":"Water machine",
+  "coffee_bar":"Coffee shop",
+  "water_dispenser":"Water machine",
   "ergonomic_chair":"Ergonomic chair",
   "parking":"Parking",
   "COWORKINGS_UBICATION": "Coworking's ubication",
@@ -142,5 +142,6 @@
   "COMPANYCB": "I'm a company",
   "BOOKINGS_CONFIRMED": "Booking confirmed",
   "IM_REGISTERED": "I'm registered",
-  "DATE": "Date"
+  "DATE": "Date",
+  "NO_SERVICES" : "No additional services"
 }

@@ -1,13 +1,13 @@
 #container {
-    width: fit-content;
-    margin: auto;
-    background-color: white;
-    border-radius: 16px;
-    padding: 16px;
+  width: fit-content;
+  margin: auto;
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
 
 }
 
-.image-container{
+.image-container {
   justify-content: center;
 }
 
@@ -30,9 +30,14 @@
 }
 
 o-button {
-    margin-top: 22px;
+  margin-top: 22px;
 }
 
 .hidden {
-  display: none; /* Oculta el div que envuelve o-image */
+  display: none;
+  /* Oculta el div que envuelve o-image */
+}
+
+:host ::ng-deep .o-grid-no-results {
+  display: none !important;
 }

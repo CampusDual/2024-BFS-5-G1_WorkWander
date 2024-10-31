@@ -22,8 +22,8 @@
         - Capacidad: Campo de número entero requerido con icono "event_seat" y color de hover personalizado
         - Precio Diario: Campo de número real requerido con icono "euro_symbol", 2 dígitos decimales, y color de hover personalizado
   -->
-<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id"
-  header-actions="new" show-header-navigation="no" (onInsert)="onInsertSuccess()" after-insert-mode="coworkings">
+<o-form class="form-section" #coworkingForm attr="coworkingDetail" service="coworkings" entity="coworking" keys="id" header-actions="new" show-header="no" show-header-navigation="no"
+(onInsert)="onInsertSuccess(); $event.stopPropagation()" ignore-default-navigation="yes">
   <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
     <!-- General Information -->
     <o-column fxFlex="70" class="form-section" title="ADD_COWORKING">
@@ -59,7 +59,20 @@
       <!--Servicios-->
       <div fxLayout="column" fxLayoutGap="24px" class="form-row">
         <h4><mat-icon svgIcon="ontimize:check_circle"></mat-icon>{{ 'selected_services' | oTranslate}} {{ selectedServices }} / 6</h4>
-        <div id="tagServices"></div>
+        <o-grid attr="services" service="services" entity="service" cols="6"
+                #servicesGrid columns="srv_id;srv_name" keys="srv_id"
+                quick-filter="no" fixed-header="no"
+                controls="false"
+                refresh-button="false" show-page-size="false" pagination-controls="false"
+                show-buttons-text="no"
+                gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
+          <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
+            <div (click)="selectService(dato.srv_id, 'srv'+dato.srv_id, 'sel'+dato.srv_id)" >
+              <o-column id="{{'sel'+dato.srv_id}}" class="serviceDisable">{{ dato.srv_name | oTranslate}}</o-column>
+            </div>
+          </o-grid-item>
+        </o-grid>
+        <!--<div id="tagServices"></div>-->
         <h4><mat-icon svgIcon="ontimize:add"></mat-icon>{{ 'available_services' | oTranslate}} {{ availableServices }} / 6</h4>
         <o-grid attr="services" service="services" entity="service" cols="6"
                 #servicesGrid columns="srv_id;srv_name" keys="srv_id"
@@ -69,8 +82,8 @@
                 show-buttons-text="no"
                 gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
           <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-            <div (click)="selectService(dato.srv_id, dato.srv_name)" >
-              <o-column id="{{'srv'+dato.srv_id}}" class="service">{{ dato.srv_name | oTranslate}}</o-column>
+            <div (click)="selectService(dato.srv_id,'srv'+dato.srv_id, 'sel'+dato.srv_id)" >
+              <o-column id="{{'srv'+dato.srv_id}}" class="serviceAvailable">{{ dato.srv_name | oTranslate}}</o-column>
             </div>
           </o-grid-item>
         </o-grid>

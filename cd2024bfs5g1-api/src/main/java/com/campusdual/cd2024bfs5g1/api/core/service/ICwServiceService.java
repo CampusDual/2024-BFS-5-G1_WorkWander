@@ -13,4 +13,6 @@ public interface ICwServiceService {
     public EntityResult cwServiceUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
 
     public EntityResult cwServiceDelete(Map<String, Object> keyMap);
+
+    public EntityResult servicePerCoworkingQuery(Map<String, Object> keyMap, List<String> attrList);
 }

@@ -142,5 +142,6 @@
   "REAL_CAPACITY": "Plazas disponibles",
   "BOOKINGS_CONFIRMED": "Reserva confirmada",
   "IM_REGISTERED": "Ya estoy registrado",
-  "DATE": "Fecha"
+  "DATE": "Fecha",
+  "NO_SERVICES" : " Sin servicios adicionales"
 }

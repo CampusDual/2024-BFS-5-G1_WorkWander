@@ -142,5 +142,6 @@
   "COMPANYCB": "I'm a company",
   "BOOKINGS_CONFIRMED": "Booking confirmed",
   "IM_REGISTERED": "I'm registered",
-  "DATE": "Date"
+  "DATE": "Date",
+  "NO_SERVICES" : "No additional services"
 }

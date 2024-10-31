@@ -36,26 +36,26 @@ export class UserRegisterComponent {
 
   validateEmail(email: string): boolean {
     if (!email) return false;
-  
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const isValid = emailRegex.test(email);
-  
+
     if (!isValid) {
       alert('El correo electrónico contiene caracteres no permitidos.');
     }
-  
+
     return isValid;
   }
   validateUserName(userName: string): boolean {
     if (!userName) return false;
-  
+
     const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
     const isValid = userNameRegex.test(userName);
-  
+
     if (!isValid) {
       alert('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
     }
-  
+
     return isValid;
   }
   checkEmail() {
@@ -64,7 +64,7 @@ export class UserRegisterComponent {
       this.emailCtrl.setValue('');
       return;
     }
-    
+
     const filter = { 'usr_email': email };
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
@@ -80,7 +80,7 @@ export class UserRegisterComponent {
       this.userCtrl.setValue('');
       return;
     }
-  
+
     const filter = { 'usr_login': user };
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
@@ -116,45 +116,45 @@ export class UserRegisterComponent {
   }
 
   //Link para generar CIFs
-  //https://testingdatagenerator.com/doi.html 
+  //https://testingdatagenerator.com/doi.html
   validateCIF(cif: string): boolean {
     if(!cif) return false;
     if (cif.length !== 9) return false;
-  
+
     const letraInicial = cif[0].toUpperCase();
     const numero = cif.substring(1, 8);
     const digitoControl = cif[8];
-  
+
     let totalPares = 0;
     for (let i = 1; i < numero.length; i += 2) {
       totalPares += parseInt(numero[i], 10);
     }
-  
+
     let totalImpares = 0;
     for (let i = 0; i < numero.length; i += 2) {
       let impar = parseInt(numero[i], 10) * 2;
       totalImpares += Math.floor(impar / 10) + (impar % 10);
     }
-  
+
     const total = totalPares + totalImpares;
     const unidades = total % 10;
     const digitoCalculado = (unidades === 0) ? 0 : 10 - unidades;
-  
+
     // Tabla de letras para el control alfabético
     const caracteresControl = "JABCDEFGHI";
     let caracterEsperado: string;
-  
+
     // Letras iniciales específicas para control numérico
     if ('ABEH'.includes(letraInicial)) {
       caracterEsperado = digitoCalculado.toString();
-    } else if ('NPSU'.includes(letraInicial)) { 
+    } else if ('NPSU'.includes(letraInicial)) {
       // Letras para control alfabético y otras entidades como UTEs
       caracterEsperado = caracteresControl[digitoCalculado];
     } else {
       // Si no es un caso específico, asumimos que puede ser numérico o alfabético
       caracterEsperado = caracteresControl[digitoCalculado];
     }
-  
+
     // Comprobación final del carácter de control (puede ser numérico o alfabético según la letra inicial)
     return caracterEsperado === digitoControl || digitoCalculado.toString() === digitoControl;
   }
@@ -221,7 +221,7 @@ export class UserRegisterComponent {
       alert('Error en la inserción');
     });
   }
-  
+
   }
 
 

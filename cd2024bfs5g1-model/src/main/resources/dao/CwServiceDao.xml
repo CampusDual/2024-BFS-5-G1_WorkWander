@@ -10,4 +10,11 @@
         <Column>cser_id</Column>
     </UpdateKeys>
     <GeneratedKey>cser_id</GeneratedKey>
+    <Queries>
+        <Query id="servicePerCoworking">
+            <Sentence>
+                <![CDATA[SELECT srv_name as servicios FROM ${mainschema}.cw_service as cws JOIN ${mainschema}.service as s ON cws.srv_id = s.srv_id #WHERE# ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>

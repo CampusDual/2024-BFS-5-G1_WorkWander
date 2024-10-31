@@ -42,12 +42,13 @@ export class CoworkingsDetailComponent {
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("image") image: OImageComponent;
+  @ViewChild("id") idCoworking: OIntegerInputComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
   public serviceList = []
- 
+
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
@@ -63,7 +64,7 @@ export class CoworkingsDetailComponent {
 
   checkCapacity() {
     const filter = {
-      bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
+      bk_cw_id: +this.idCoworking.getValue(),
       bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };
@@ -146,7 +147,7 @@ export class CoworkingsDetailComponent {
 
   createBooking() {
     const filter = {
-      bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
+      bk_cw_id: +this.idCoworking.getValue(),
       bk_date: this.bookingDate.getValue()+3600000,
       bk_state: true,
     };

@@ -47,6 +47,7 @@ export class CoworkingsDetailComponent {
   public idiomaActual: string;
   public idioma: string;
   public serviceList = []
+ 
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";

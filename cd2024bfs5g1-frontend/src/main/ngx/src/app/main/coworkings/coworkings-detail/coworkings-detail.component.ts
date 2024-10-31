@@ -119,16 +119,7 @@ export class CoworkingsDetailComponent {
         });
       }
     } else {
-      this.dialogService.confirm(
-        nologedMessageTitle,
-        nologedMessageBody // No añade el boton cancelar al dialogo, o cambia el icono de alerta
-      );
-
-      this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.router.navigate(["/login"]);
-        }
-      });
+      this.router.navigate(["/login"]);
     }
   }
 

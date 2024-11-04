@@ -50,8 +50,6 @@
   transition: all 0.3s ease;
 }
 
-
-
 .form-row {
   margin-bottom: 14px;
 }
@@ -100,8 +98,6 @@ o-text-input input::placeholder, o-integer-input input::placeholder, o-real-inpu
 .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-image:hover {
   background-color: #f0f0f0;
 }
-
-
 
 
 /* Estilos generales para la fila del formulario */

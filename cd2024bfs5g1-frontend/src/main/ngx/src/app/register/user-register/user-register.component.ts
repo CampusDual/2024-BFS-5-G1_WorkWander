@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 
@@ -8,7 +8,8 @@ import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent
   styleUrls: ['./user-register.component.css']
 })
 
-export class UserRegisterComponent {
+
+export class UserRegisterComponent implements AfterViewInit{
 
   @ViewChild('registerForm') public registerForm: OFormComponent;
   @ViewChild('nameInput') public userCtrl: OTextInputComponent;
@@ -222,7 +223,29 @@ export class UserRegisterComponent {
     });
   }
 
+  ngAfterViewInit(): void {
+    this.setupVideoPlayback();
   }
+ 
+  setupVideoPlayback(): void {
+    const videoElement = document.getElementById('background-video') as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.muted = true; // Asegúrate de que el video esté silenciado
+      videoElement.currentTime = 0; // Reinicia el video
+      videoElement.play().catch(error => {
+        console.log('Video playback failed:', error);
+      });
+ 
+      document.addEventListener('click', () => {
+        videoElement.play().catch(error => {
+          console.log('Video playback failed:', error);
+        });
+      }, { once: true });
+    }
+  }
+
+
+}
 
 
 

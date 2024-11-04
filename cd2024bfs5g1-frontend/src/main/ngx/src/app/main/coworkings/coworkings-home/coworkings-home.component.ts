@@ -14,7 +14,8 @@ export class CoworkingsHomeComponent implements OnInit{
   constructor(
     protected injector:Injector,
     protected sanitizer: DomSanitizer
-  ) {this.service = this.injector.get(OntimizeService);}
+  ) {this.service = this.injector.get(OntimizeService);
+  }
 
   // Creamos una variable para pasarle al html el número de columnas, por defecto 2
   public gridCols: number = 2;
@@ -46,15 +47,12 @@ export class CoworkingsHomeComponent implements OnInit{
     this.service.configureService(conf);
   }
 
-  public serviceList(cwId:any):void{
-    const filter = {
-      "cw_id":cwId
+  public serviceList(services:string){
+    if(services!=undefined){
+      return services.split(',')
+    }else{
+      return null;
     }
-    const columns = ["cw_id"];
-    console.log(cwId);
-    /*this.service.query(filter, columns, 'serviceCoworking').subscribe(data => {
-      console.log(data);
-    });*/
 
   }
 }

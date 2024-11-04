@@ -236,7 +236,6 @@ export class UserRegisterComponent implements AfterViewInit{
         console.log('Video playback failed:', error);
       });
  
-      // Agrega un evento de interacción del usuario para asegurar la reproducción
       document.addEventListener('click', () => {
         videoElement.play().catch(error => {
           console.log('Video playback failed:', error);
@@ -246,7 +245,7 @@ export class UserRegisterComponent implements AfterViewInit{
   }
 
 
-  }
+}
 
 
 

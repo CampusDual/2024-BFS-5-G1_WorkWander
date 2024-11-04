@@ -119,7 +119,6 @@ export class LoginComponent implements OnInit, AfterViewInit{
         console.log('Video playback failed:', error);
       });
  
-      // Agrega un evento de interacción del usuario para asegurar la reproducción
       document.addEventListener('click', () => {
         videoElement.play().catch(error => {
           console.log('Video playback failed:', error);

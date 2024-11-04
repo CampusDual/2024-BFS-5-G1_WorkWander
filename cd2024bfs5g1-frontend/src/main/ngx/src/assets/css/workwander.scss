@@ -445,7 +445,10 @@ button .mat-mdc-button:not(:disabled) {
 }
 
 /* Estilo de los inputs */
-
+#precioDetalle .mat-mdc-input-element{
+  font-size: 4em;
+  text-align: end;
+}
 input.mat-input-element {
   border: 1px solid $blanco; /* Borde de los inputs */
   border-radius: 12px; /* Bordes redondeados en los inputs */

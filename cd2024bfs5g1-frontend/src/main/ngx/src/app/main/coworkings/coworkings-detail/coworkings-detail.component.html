@@ -10,8 +10,7 @@
 
         <div fxLayout="row" class="image-container">
           <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">
-            <!-- Ocultaremos el div cuando no exista "cw_image" -->
+          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  <!-- Ocultaremos el div cuando no exista "cw_image" -->
             <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
             <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
           </div>
@@ -41,7 +40,7 @@
               refresh-button="false" show-page-size="false" pagination-controls="false" show-buttons-text="no"
               gutter-size="8px" detail-mode="none" show-footer="no" grid-item-height="60px" grid-item-pa>
               <o-grid-item *ngFor="let dato of coworkingsGrid.dataArray">
-                <span class="coworking-service">{{ dato.servicios | oTranslate}}</span>
+                <span class="coworking-service">{{ dato.servicios | oTranslate }}</span>
               </o-grid-item>
             </o-grid>
             <ng-container *ngIf="coworkingsGrid.dataArray.length === 0">
@@ -54,16 +53,16 @@
               <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
             </div>
 
-            <div fxLayoutGap="22px">
+            <div fxLayoutGap="22px" >
               <div fxLayout="column" fxLayoutGap="22px">
                 <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
-                <o-integer-input label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
+                <o-integer-input  *ngIf="parsePermissions('realCapacity')" label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
               </div>
               <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
             </div>
           </o-column>
 
-          <div class="book">
+          <div class="book" *ngIf="parsePermissions('date')">
             <o-form editable-detail="no" show-header="no">
               <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
               <o-date-input #date attr="date" label="DATE" read-only="no" [min]="currentDate()"

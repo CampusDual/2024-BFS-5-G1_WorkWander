@@ -13,3 +13,9 @@ h3 {
 .daily_price {
   align-self: end;
 }
+
+.services{
+  display:flex;
+  flex-direction:row;
+  justify-items:space-evenly;
+}

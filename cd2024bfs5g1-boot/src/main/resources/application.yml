@@ -31,7 +31,8 @@ ontimize:
   security:
     mode: default
     ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,
-    /coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search'
+    /coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search,
+    /cw_services/servicePerCoworking/search,/coworkings/serviceCoworking/search'
     jwt:
       password: cd2024bfs5g1-kGn.#76%W@1
     role-information-service:

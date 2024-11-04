@@ -282,6 +282,11 @@ o-column.form-section.o-column:hover,
       border-radius: $borderRadius;
       max-height: 250px;
     }
+
+    .srv{
+      display:flex;
+      flex-direction:row;
+    }
   }
 
   .info {
@@ -358,6 +363,7 @@ o-column.form-section.o-column:hover,
     .services {
       // Contenedor de los servicios
       display: flex;
+      flex-direction: row;
       gap: 8px;
       margin-top: 8px;
       margin-left: -20px;

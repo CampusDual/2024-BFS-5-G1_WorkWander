@@ -11,6 +11,7 @@ import { MainService } from './shared/services/main.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomPermissionsService } from './shared/services/custom-permissions.service';
+import { MatIconModule } from '@angular/material/icon';
 
 // Standard providers...
 // Defining custom providers (if needed)...
@@ -27,7 +28,8 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OntimizeWebModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    MatIconModule
   ],
   declarations: [
     AppComponent

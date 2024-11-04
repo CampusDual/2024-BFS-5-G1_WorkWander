@@ -110,31 +110,16 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   isInvalidForm(): boolean {
-    let name = this.coworkingForm?.getFieldValue('cw_name');
-    let description = this.coworkingForm?.getFieldValue('cw_description');
-    let address = this.coworkingForm?.getFieldValue('cw_address');
-    let location = this.coworkingForm?.getFieldValue('cw_location');
-    let capacity = this.coworkingForm?.getFieldValue('cw_capacity');
-    let dailyPrice = this.coworkingForm?.getFieldValue('cw_daily_price');
-    if ((name && name.length) && (description && description.length) &&
-        (address && address.length) && (location && location.length) &&
-        (capacity && capacity != 0) && (dailyPrice && dailyPrice != 0)) {
-      return false;
-    }else{
-      return true;
-    }
+    return !this.coworkingForm || this.coworkingForm.formGroup.invalid;
   }
 
   public showConfigured() {
-    // SnackBar configuration
     const configuration: OSnackBarConfig = {
         action: '¡Coworking creado!',
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'
     };
-
-    // Simple message with icon on the left and action
     this.snackBarService.open('¡Coworking creado!', configuration);
-}
+  }
 }

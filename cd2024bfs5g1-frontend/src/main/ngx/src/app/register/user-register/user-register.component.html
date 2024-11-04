@@ -1,28 +1,32 @@
 <div class="full-page">
   <div class="register-outer-container">
-    <div class="register-bg-container"></div>
-
+    <div class="register-bg-container">
+      <video id="background-video" autoplay muted loop>
+        <source src="assets/video/home_video_fondo.mp4" type="video/mp4">
+      </video>
+    </div>
     <div class="wrapp-register">
-      <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container">
+      <div fxFill fxLayout="column" fxLayoutAlign="center center" class="register-inner-container registerForm">
         <o-form #registerForm fxLayoutAlign="center"
           show-header="no" attr="userRegister" service="users" entity="user" keys="usr_id">
-          <o-column fxFlex appearance="outline"> {{"REGISTER_TITLE" | oTranslate }}
-            <div fxLayout="column" fxLayoutGap="10px">
+          <div class="login-title-container" fxLayout="column">
+            <span class="title_text">{{ 'REGISTER_TITLE' | oTranslate }}:</span>
+          </div>
+            <div fxLayout="column" fxLayoutGap="15px">
               <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}" data=""
-                required="true" (onBlur)="checkUserName()"></o-text-input>
+                            required="true" (onBlur)="checkUserName()" class="m-top-24"></o-text-input>
               <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}" data="" read-only="no"
-                required="yes" (onBlur)="checkEmail()"></o-email-input>
+                required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data=""
-                required="yes"></o-password-input>
+                required="yes" class="m-top-24"></o-password-input>
               <o-text-input [hidden]="showCIF()" #companyInput attr="usr_cif"
                 label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
-              <button #submitButton (click)="insertUser(); $event.preventDefault();">{{"REGISTER" | oTranslate }}</button>
+              <button #submitButton  mat-raised-button color="secondary" (click)="insertUser(); $event.preventDefault();" class="m-top-24">{{"REGISTER" | oTranslate }}</button>
               <div class="text-center">
                 <a href="#" (click)="goBack(); $event.preventDefault();" class="link-text">{{"IM_REGISTERED" | oTranslate }}</a>
               </div>
             </div>
-          </o-column>
         </o-form>
       </div>
     </div>

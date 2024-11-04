@@ -1,5 +1,5 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
@@ -13,7 +13,7 @@ import { UserInfoService } from '../shared/services/user-info.service';
   templateUrl: './login.component.html',
   encapsulation: ViewEncapsulation.None
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit{
 
   public loginForm: UntypedFormGroup = new UntypedFormGroup({});
   public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
@@ -104,6 +104,27 @@ export class LoginComponent implements OnInit {
     this.router.navigate([" "])
   }
   registerUser() {
-     this.router.navigate(['register/user/new']);
+    this.router.navigate(['register/user/new']);
+  }
+  ngAfterViewInit(): void {
+    this.setupVideoPlayback();
+  }
+ 
+  setupVideoPlayback(): void {
+    const videoElement = document.getElementById('background-video') as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.muted = true; // Asegúrate de que el video esté silenciado
+      videoElement.currentTime = 0; // Reinicia el video
+      videoElement.play().catch(error => {
+        console.log('Video playback failed:', error);
+      });
+ 
+      // Agrega un evento de interacción del usuario para asegurar la reproducción
+      document.addEventListener('click', () => {
+        videoElement.play().catch(error => {
+          console.log('Video playback failed:', error);
+        });
+      }, { once: true });
     }
+  }
 }

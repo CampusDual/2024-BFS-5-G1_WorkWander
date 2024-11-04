@@ -90,8 +90,8 @@
       </div>
       <div fxLayout="column" fxLayoutGap="24px" class="form-row">
         <div class="buttons">
-          <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save' | oTranslate }}</button>
           <button mat-raised-button color="warn" (click)="cancel()">{{ 'cancel' | oTranslate }}</button>
+          <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save' | oTranslate }}</button>
         </div>
       </div>
     </o-column>

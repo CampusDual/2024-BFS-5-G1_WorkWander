@@ -6,6 +6,8 @@
     <div id="container">
       <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
 
+        <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+
         <div fxLayout="row" class="image-container">
           <!-- Campo para mostrar la imagen de coworking -->
           <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">
@@ -33,22 +35,20 @@
               <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
             </div>
 
-            <!-- TODO: insertar grid de servicios -->
 
-            <!-- <div *ngFor="let service of serviceList">
-              <span class="coworking-service">{{ service.servicios }}</span>
-            </div> -->
+            <o-grid #coworkingsGrid attr="coworkingsGrid" service="cw_services" entity="servicePerCoworking"
+              keys="cw_id" columns="servicios" parent-keys="cw_id" quick-filter="no" fixed-header="no" controls="false"
+              refresh-button="false" show-page-size="false" pagination-controls="false" show-buttons-text="no"
+              gutter-size="8px" detail-mode="none" show-footer="no" grid-item-height="60px" grid-item-pa>
+              <o-grid-item *ngFor="let dato of coworkingsGrid.dataArray">
+                <span class="coworking-service">{{ dato.servicios | oTranslate}}</span>
+              </o-grid-item>
+            </o-grid>
+            <ng-container *ngIf="coworkingsGrid.dataArray.length === 0">
+              <span class="coworking-service">{{"NO_SERVICES"| oTranslate }}</span>
+            </ng-container>
 
-            <div fxLayoutAlign="start center" fxLayoutGap="8px">
-              <ng-container *ngIf="serviceList.length>0 ; else noServices">
-                <ng-container *ngFor="let service of serviceList">
-                  <span class="coworking-service">{{ service.servicios | oTranslate}}</span>
-                </ng-container>
-              </ng-container>
-              <ng-template #noServices >
-                <span class="coworking-service">{{"NO_SERVICES" | oTranslate}}</span>
-              </ng-template>
-            </div>
+
 
             <div fxLayout="row">
               <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
@@ -66,7 +66,7 @@
           <div class="book">
             <o-form editable-detail="no" show-header="no">
               <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-              <o-date-input #date attr="date" label="Date" read-only="no" [min]="currentDate()"
+              <o-date-input #date attr="date" label="DATE" read-only="no" [min]="currentDate()"
                 (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
             </o-form>
 

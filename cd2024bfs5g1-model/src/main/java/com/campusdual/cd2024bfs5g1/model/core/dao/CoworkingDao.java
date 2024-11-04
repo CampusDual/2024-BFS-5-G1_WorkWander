@@ -21,4 +21,5 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport{
     public static final String CW_START_DATE  = "cw_start_date";
     public static final String CW_END_DATE    = "cw_end_date";
     public static final String CW_IMAGE       = "cw_image";
+    public static final String CW_QUERY_SERVICES = "coworkingServices";
 }

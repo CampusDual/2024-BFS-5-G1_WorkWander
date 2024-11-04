@@ -62,16 +62,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public EntityResult serviceCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        if(keyMap.size()>0){
-            Map<String, Object> newKeyMap = new HashMap<>();
-            int cwId = (Integer)keyMap.get("cw_id");
-            newKeyMap.put("cw_id", cwId);
-            ArrayList<String> newList = new ArrayList<>();
-            newList.add("srv_id");
-            return cwServiceService.cwServiceQuery(newKeyMap, newList);
-        }else{
-            return null;
-        }
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
     }
 
     @Override

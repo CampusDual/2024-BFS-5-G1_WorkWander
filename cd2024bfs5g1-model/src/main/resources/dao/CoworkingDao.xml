@@ -11,7 +11,7 @@
     </UpdateKeys>
     <GeneratedKey>cw_id</GeneratedKey>
     <Queries>
-        <Query id="coworkingServices">
+        <Query id="serviceCoworking">
             <Sentence>
                 <![CDATA[
                 SELECT

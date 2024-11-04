@@ -3,13 +3,12 @@ import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import {
-  AppConfig,
   AuthService,
   DialogService,
   OButtonComponent,
   ODateInputComponent,
-  ODialogConfig,
   OFormComponent,
+  OImageComponent,
   OIntegerInputComponent,
   OntimizeService,
   OPermissions,
@@ -17,9 +16,8 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util,
+  Util
 } from "ontimize-web-ngx";
-import { SettingsAppearanceComponent } from "../../settings/appearance/appearance.component";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -35,7 +33,6 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-    // protected sanitizer: DomSanitizer,
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -44,10 +41,21 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("image") image: OImageComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
+  public serviceList = []
+ 
+
+  getName() {
+    return this.coworkingName ? this.coworkingName.getValue() : "";
+  }
+
+  ngOnInit(){
+    this.showServices();
+  }
 
   currentDate() {
     return new Date();
@@ -106,6 +114,7 @@ export class CoworkingsDetailComponent {
 
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+    const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
     const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
     const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
 
@@ -113,7 +122,7 @@ export class CoworkingsDetailComponent {
       if (this.dialogService) {
         this.dialogService.confirm(
           confirmMessageTitle,
-          `${confirmMessageBody}  ${fechaBien},  ${this.coworkingName.getValue()} ?`
+          `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
@@ -122,16 +131,7 @@ export class CoworkingsDetailComponent {
         });
       }
     } else {
-      this.dialogService.confirm(
-        nologedMessageTitle,
-        nologedMessageBody // No añade el boton cancelar al dialogo, o cambia el icono de alerta
-      );
-
-      this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.router.navigate(["/login"]);
-        }
-      });
+      this.router.navigate(["/login"]);
     }
   }
 
@@ -190,10 +190,19 @@ export class CoworkingsDetailComponent {
     return permissions.visible;
   }
 
-  // Función para convertir la imagen desde la base de datos, comentado para una posible solución al formato de la imagen por defecto de coworkings (en desarrollo)
+  showServices():any{
+    const filter = {
+      cw_id: +this.activeRoute.snapshot.params["cw_id"],
+    }
+    const conf = this.service.getDefaultServiceConfiguration("cw_services");
+    this.service.configureService(conf);
+    const columns = ["srv_name"];
+    return this.service
+      .query(filter, columns, "servicePerCoworking")
+      .subscribe((resp) =>{
+        this.serviceList = resp.data
+      });
 
-  // public getImageSrc(base64: any): any {
-  //   return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jfif';
-  // }
+  }
 
 }

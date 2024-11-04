@@ -31,6 +31,11 @@
         "attr": "coworkings",
         "visible": false,
         "enabled": false
+      },
+      {
+        "attr": "myEvents",
+        "visible": false,
+        "enabled": false
       }
     ],
     "routes": [
@@ -57,6 +62,22 @@
       {
         "permissionId": "coworkings-new-route",
         "enabled": false
+      },
+      {
+        "permissionId":"MyEvents",
+        "enabled": false
+      },
+      {
+        "permissionId":"profile",
+        "enabled":false
+      },
+      {
+        "permissionId":"account",
+        "enabled":false
+      },
+      {
+        "permissionId":"appearance",
+        "enabled":false
       }
     ]
   }

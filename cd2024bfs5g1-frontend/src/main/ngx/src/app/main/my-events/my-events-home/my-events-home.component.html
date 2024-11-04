@@ -1,0 +1,20 @@
+<o-form-layout-manager attr="myEvents" title="{{'MYEVENTS' | oTranslate }}" separator=" " mode="tab"
+    label-columns="name" show-header="yes" show-header-navigation="no">
+    <o-table delete-button="no" insert-button="no" refresh-button="yes" attr="myEventsTable" service="events" entity="myEvent" keys="id_event" detail-mode="none"
+        columns="id_event;name;description;date_event;hour_event;address;locality;bookings;usr_id"
+        visible-columns="name;date_event;hour_event;locality"
+        query-rows="15" auto-adjust="true">
+
+        <!-- Columna para mostrar la fecha del evento -->
+        <o-table-column attr="date_event" fxFlex title="date_event" type="date" format="LL"></o-table-column>
+
+        <!-- Columna para mostrar la hora del evento -->
+        <o-table-column attr="hour_event" fxFlex title="hour_event" width="100px" format="LT"></o-table-column>
+
+        <!-- Columna para mostrar el nombre del evento -->
+        <o-table-column attr="name" fxFlex title="name" width="150px"></o-table-column>
+
+        <!-- Columna para la localidad del evento -->
+        <o-table-column attr="locality" fxFlex title="locality" width="150px"></o-table-column>
+    </o-table>
+</o-form-layout-manager>

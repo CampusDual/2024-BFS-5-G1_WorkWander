@@ -1,19 +1,57 @@
 <div class="grid-container">
-  <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="coworking" keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_daily_price;cw_description" quick-filter-columns="cw_name;cw_description"
-    pagination-controls="true" page-size-options="12;16;20" query-rows="12">
-    <o-grid-item *ngFor="let data of coworkingsGrid.dataArray">
-      <div class="card" fxLayout="column" fxLayoutAlign="space-evenly center">
-        <div class="name">
-          <h3> {{data.cw_name}} </h3>
+  <!-- Grid que muestra los datos de los coworkings -->
+  <o-grid
+    #coworkingsGrid
+    attr="coworkingsGrid"
+    title="COWORKINGS"
+    service="coworkings"
+    entity="serviceCoworking"
+    keys="cw_id"
+    columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image;services"
+    quick-filter-columns="cw_name;cw_description"
+    pagination-controls="true"
+    page-size-options="12;16;20"
+    query-rows="12"
+    grid-item-height="2.5:1"
+    [cols]="gridCols"
+    gutter-size="20px">
+
+    <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
+      <div class="coworking-card">
+        <div class="image-container">
+          <!-- Mostramos la imagen del coworking en las cards -->
+          <img class="coworking-image" [src]="getImageSrc(data.cw_image)" alt="{{data.cw_name}}">
         </div>
-        <hr _ngcontent-mth-c203>
-        <div class="location">
-          <span fxLayout="row" fxLayoutAlign="space-evenly center"><mat-icon>location_on</mat-icon>{{ data.cw_location }}</span>
+
+        <div class="info">
+          <h2 class="coworking-name">{{ data.cw_name }}</h2>
+
+          <section class="services">
+            <article *ngFor="let service of serviceList(data.services)">
+              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
+              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
+              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café" aria-label="Café"></article>
+              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
+              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica" aria-label="Silla ergonómica"/></article>
+              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking" aria-label="Parking"></article>
+            </article>
+          </section>
+          <!--<div class="stars">
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
+            </ng-container>
+          </div>-->
+          <p class="location">{{ data.cw_location }}</p>
         </div>
-        <div class="daily_price">
-          <span>{{ data.cw_daily_price }}<span>€</span></span>
-        </div>
+
+
+
+        <div class="capacity-price-container">
+          <div class="price-container">
+            <span class="price">{{ data.cw_daily_price }}€</span>
+          </div>
+        </div> <!-- Cerradura corregida aquí -->
+
       </div>
     </o-grid-item>
   </o-grid>

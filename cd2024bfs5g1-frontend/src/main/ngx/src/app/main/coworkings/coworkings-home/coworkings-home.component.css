@@ -10,12 +10,12 @@ h3 {
   margin: 0;
 }
 
-hr {
-  height: 1px;
-  width: 20%;
-  background-color: black;
-}
-
 .daily_price {
   align-self: end;
+}
+
+.services{
+  display:flex;
+  flex-direction:row;
+  justify-items:space-evenly;
 }

@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
+import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.services.user.UserInformation;
@@ -11,6 +12,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +31,8 @@ public class CoworkingService implements ICoworkingService {
     @Autowired
     private CoworkingDao coworkingDao;
 
+    @Autowired
+    private CwServiceService cwServiceService;
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
      *
@@ -44,7 +49,7 @@ public class CoworkingService implements ICoworkingService {
      * Inserta un nuevo registro de coworking en la base de datos.
      * Añade automáticamente el ID del usuario autenticado al registro.
      *
-     * @param attrMap Mapa de atributos del coworking a insertar.
+     * @param keyMap Mapa de atributos del coworking a insertar.
      * @return {@link EntityResult} con el resultado de la operación de inserción.
      */
     @Override
@@ -56,6 +61,11 @@ public class CoworkingService implements ICoworkingService {
     }
 
     @Override
+    public EntityResult serviceCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
+    }
+
+    @Override
     public EntityResult coworkingInsert(Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
         Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -64,8 +74,25 @@ public class CoworkingService implements ICoworkingService {
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
+        // Recuperación de los servicios
+
+
+        // Recuperación de los servicios
+        ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>)attrMap.remove("services");
+
         // Ejecutar el insert usando el daoHelper
-        return this.daoHelper.insert(this.coworkingDao, attrMap);
+        EntityResult cwResult = this.daoHelper.insert(this.coworkingDao, attrMap);
+
+        int cwId = (int)cwResult.get(CoworkingDao.CW_ID);
+
+        // Bucle for para alta en la tabla pivote
+        for (int i = 0; i < services.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put(CwServiceDao.CW_ID, cwId);
+            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
+            cwServiceService.cwServiceInsert(map);
+        }
+        return cwResult;
     }
 
     /**

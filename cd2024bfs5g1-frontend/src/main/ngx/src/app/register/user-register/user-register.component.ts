@@ -1,8 +1,6 @@
-import { Component, ElementRef, Inject, Injector, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx'; // Servicio para que se pueda usar en el TS las funciones de Ontimize
-import { ValidationErrors, FormControl } from '@angular/forms';
+import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-user-register',
@@ -11,13 +9,18 @@ import { ValidationErrors, FormControl } from '@angular/forms';
 })
 
 export class UserRegisterComponent {
+
   @ViewChild('registerForm') public registerForm: OFormComponent;
   @ViewChild('nameInput') public userCtrl: OTextInputComponent;
   @ViewChild('emailInput') public emailCtrl: OEmailInputComponent;
   @ViewChild('passInput') public pwdCtrl: OPasswordInputComponent;
+  @ViewChild('submitButton') public submitButton: OButtonComponent;
+  @ViewChild('companyInput') public companyInput: OTextInputComponent;
+  @ViewChild('checkBoxCompany') public checkBoxCompany: OCheckboxComponent;
 
   protected service: OntimizeService;
   private redirect = '/main';
+  onCompanyCheckChange: any;
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
@@ -31,45 +34,195 @@ export class UserRegisterComponent {
     this.service.configureService(conf);
   }
 
+  validateEmail(email: string): boolean {
+    if (!email) return false;
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isValid = emailRegex.test(email);
+
+    if (!isValid) {
+      alert('El correo electrónico contiene caracteres no permitidos.');
+    }
+
+    return isValid;
+  }
+  validateUserName(userName: string): boolean {
+    if (!userName) return false;
+
+    const userNameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
+    const isValid = userNameRegex.test(userName);
+
+    if (!isValid) {
+      alert('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
+    }
+
+    return isValid;
+  }
   checkEmail() {
     const email = this.emailCtrl.getValue();
-    if (email && email.length > 0) {
-      const filter = { 'usr_email': email };
-      const columns = ['usr_id'];
-      this.service.query(filter, columns, 'user').subscribe(resp => {
-        if (resp.data && resp.data.length > 0) {
-          alert('Email ya existe')
-          this.emailCtrl.setValue('');
-        }
-      });
+    if (!this.validateEmail(email)) {
+      this.emailCtrl.setValue('');
+      return;
     }
-  }
 
+    const filter = { 'usr_email': email };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Email ya existe');
+        this.emailCtrl.setValue('');
+      }
+    });
+  }
   checkUserName() {
     const user = this.userCtrl.getValue();
-    if (user && user.length > 0) {
-      const filter = { 'usr_login': user };
+    if (!this.validateUserName(user)) {
+      this.userCtrl.setValue('');
+      return;
+    }
+
+    const filter = { 'usr_login': user };
+    const columns = ['usr_id'];
+    this.service.query(filter, columns, 'user').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        alert('Usuario ya existe');
+        this.userCtrl.setValue('');
+      }
+    });
+  }
+
+  disableButton() {
+    this.submitButton.enabled = false
+  }
+
+  logUser(userName,password) {
+    const self = this;
+    this.authService.login(userName, password)
+      .subscribe(() => {
+        self.router.navigate([this.redirect]);
+      });
+  }
+
+  checkCompany() {
+    return this.checkBoxCompany ? this.checkBoxCompany.getValue() : false;
+  }
+
+  showCIF() {
+    return this.checkBoxCompany ? !this.checkBoxCompany.getValue() : true;
+  }
+
+  goBack() {
+    this.router.navigate(["/login"])
+  }
+
+  //Link para generar CIFs
+  //https://testingdatagenerator.com/doi.html
+  validateCIF(cif: string): boolean {
+    if(!cif) return false;
+    if (cif.length !== 9) return false;
+
+    const letraInicial = cif[0].toUpperCase();
+    const numero = cif.substring(1, 8);
+    const digitoControl = cif[8];
+
+    let totalPares = 0;
+    for (let i = 1; i < numero.length; i += 2) {
+      totalPares += parseInt(numero[i], 10);
+    }
+
+    let totalImpares = 0;
+    for (let i = 0; i < numero.length; i += 2) {
+      let impar = parseInt(numero[i], 10) * 2;
+      totalImpares += Math.floor(impar / 10) + (impar % 10);
+    }
+
+    const total = totalPares + totalImpares;
+    const unidades = total % 10;
+    const digitoCalculado = (unidades === 0) ? 0 : 10 - unidades;
+
+    // Tabla de letras para el control alfabético
+    const caracteresControl = "JABCDEFGHI";
+    let caracterEsperado: string;
+
+    // Letras iniciales específicas para control numérico
+    if ('ABEH'.includes(letraInicial)) {
+      caracterEsperado = digitoCalculado.toString();
+    } else if ('NPSU'.includes(letraInicial)) {
+      // Letras para control alfabético y otras entidades como UTEs
+      caracterEsperado = caracteresControl[digitoCalculado];
+    } else {
+      // Si no es un caso específico, asumimos que puede ser numérico o alfabético
+      caracterEsperado = caracteresControl[digitoCalculado];
+    }
+
+    // Comprobación final del carácter de control (puede ser numérico o alfabético según la letra inicial)
+    return caracterEsperado === digitoControl || digitoCalculado.toString() === digitoControl;
+  }
+
+  checkCif(){
+    let cif = this.companyInput.getValue();
+    if(!cif) return;
+    if (!this.validateCIF(cif)) {
+      alert('CIF no válido');
+      this.companyInput.setValue('');
+      return
+    }
+      const filter = { 'usr_cif': cif};
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
-          alert('Usuario ya existe')
-          this.userCtrl.setValue('');
+          alert('CIF ya existe')
+          this.companyInput.setValue('');
+          return
         }
       });
+  }
+
+  insertUser() {
+    const userName = this.userCtrl.getValue();
+    const email = this.emailCtrl.getValue();
+    const password = this.pwdCtrl.getValue();
+    let  cif = null;
+    let checkBoxCompany = "false";
+
+    if(this.checkCompany()){
+      cif = this.companyInput.getValue();
+      checkBoxCompany = "true";
     }
+
+    // Validaciones antes de la inserción
+    if (!userName || !email || !password || (this.checkCompany() && !cif)) {
+      alert('Todos los campos son obligatorios.');
+      return;
+    }
+   // Verificar que el CIF es obligatorio si la empresa está marcada
+      if (this.checkCompany() && !this.validateCIF(cif)) {
+        alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
+        return;
+      }
+    // Datos del usuario para insertar
+    const userData = {
+      'usr_login': userName,
+      'usr_email': email,
+      'usr_password': password,
+      'usr_cif': cif,
+      'companyCheck': checkBoxCompany
+    };
+
+    this.service.insert(userData, 'user').subscribe(resp => {
+      if (resp.code === 0) {
+        this.registerForm.setFormMode(1);
+        this.logUser(userName,password);
+      } else {
+        alert('Error al registrar usuario');
+      }
+    }, error => {
+      console.error('Error al insertar el usuario', error);
+      alert('Error en la inserción');
+    });
   }
 
-  disableHeader() {
-    this.registerForm.showHeader = false;
   }
 
-  logUser() {
-      const userName = this.userCtrl.getValue();
-      const password = this.pwdCtrl.getValue();
-      const self = this;
-      this.authService.login(userName, password)
-        .subscribe(() => {
-          self.router.navigate([this.redirect]);
-        });
-  }
-}
+
+

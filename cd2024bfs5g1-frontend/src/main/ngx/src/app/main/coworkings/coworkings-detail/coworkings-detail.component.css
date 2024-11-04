@@ -1,4 +1,44 @@
 #container {
-    width: 80%;
-    margin: auto;
+  width: fit-content;
+  margin: auto;
+  background-color: white;
+  border-radius: 16px;
+  padding: 16px;
+
+}
+
+.image-container {
+  justify-content: center;
+  max-width: 900px;
+  max-height: 500px;
+
+}
+
+.coworking-service {
+  padding: 5px 15px 5px 15px;
+  background-color: #e6d5c3;
+  border-radius: 8px;
+  width: 120px;
+  height: 35px;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+}
+
+.book {
+  margin-top: 70px;
+}
+
+o-button {
+  margin-top: 22px;
+}
+
+.hidden {
+  display: none;
+  /* Oculta el div que envuelve o-image */
+}
+
+:host ::ng-deep .o-grid-no-results {
+  display: none !important;
 }

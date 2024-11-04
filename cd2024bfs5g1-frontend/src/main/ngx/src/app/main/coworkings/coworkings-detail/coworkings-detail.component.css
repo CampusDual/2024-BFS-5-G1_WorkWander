@@ -1,4 +1,30 @@
 #container {
-    width: 80%;
+    width: fit-content;
     margin: auto;
+    background-color: white;
+    border-radius: 16px;
+    padding: 16px;
+
+}
+
+.image-container{
+  justify-content: center;
+}
+
+.coworking-service {
+  padding: 5px 15px 5px 15px;
+  background-color: #e6d5c3;
+  border-radius: 8px;
+}
+
+.book {
+  margin-top: 70px;
+}
+
+o-button {
+    margin-top: 22px;
+}
+
+.hidden {
+  display: none; /* Oculta el div que envuelve o-image */
 }

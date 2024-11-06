@@ -58,7 +58,7 @@
       </div>
       <!--Servicios-->
       <div fxLayout="column" fxLayoutGap="24px" class="form-row">
-        <h4><mat-icon svgIcon="ontimize:check_circle"></mat-icon>{{ 'selected_services' | oTranslate}} {{ selectedServices }} / 6</h4>
+        <span>{{ 'selected_services' | oTranslate}} {{ selectedServices }} / 6</span>
         <o-grid attr="services" service="services" entity="service" cols="6"
                 #servicesGrid columns="srv_id;srv_name" keys="srv_id"
                 quick-filter="no" fixed-header="no"
@@ -67,22 +67,8 @@
                 show-buttons-text="no"
                 gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
           <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-            <div (click)="selectService(dato.srv_id, 'srv'+dato.srv_id, 'sel'+dato.srv_id)" >
+            <div (click)="selectService(dato.srv_id, 'sel'+dato.srv_id)" >
               <o-column id="{{'sel'+dato.srv_id}}" class="serviceDisable">{{ dato.srv_name | oTranslate}}</o-column>
-            </div>
-          </o-grid-item>
-        </o-grid>
-        <h4><mat-icon svgIcon="ontimize:add"></mat-icon>{{ 'available_services' | oTranslate}} {{ availableServices }} / 6</h4>
-        <o-grid attr="services" service="services" entity="service" cols="6"
-                #servicesGrid columns="srv_id;srv_name" keys="srv_id"
-                quick-filter="no" fixed-header="no"
-                controls="false"
-                refresh-button="false" show-page-size="false" pagination-controls="false"
-                show-buttons-text="no"
-                gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
-          <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-            <div (click)="selectService(dato.srv_id,'srv'+dato.srv_id, 'sel'+dato.srv_id)" >
-              <o-column id="{{'srv'+dato.srv_id}}" class="serviceAvailable">{{ dato.srv_name | oTranslate}}</o-column>
             </div>
           </o-grid-item>
         </o-grid>

@@ -92,18 +92,6 @@ export class UserRegisterComponent implements AfterViewInit{
     });
   }
 
-  checkPassword(){
-    const password = this.pwdCtrl.getValue();
-    if (password.length <= 8){
-      alert('Longitud de la contraseña debe ser mayor de 8 caracteres.');
-      this.pwdCtrl.setValue('');
-    } 
-    if (password.length >= 16){
-      alert('Longitud de la contraseña debe ser menor de 16 caracteres.');
-      this.pwdCtrl.setValue('');
-    } 
-  }
-
   disableButton() {
     this.submitButton.enabled = false
   }
@@ -208,7 +196,17 @@ export class UserRegisterComponent implements AfterViewInit{
       alert('Todos los campos son obligatorios.');
       return;
     }
-   // Verificar que el CIF es obligatorio si la empresa está marcada
+
+    //Verificar que la contraseña tiene entre 8 y 16 caracteres
+    if (password.length < 8){
+      alert('La contraseña tiene que contener como mínimo 8 caracteres.');
+      return;
+    } 
+    if (password.length > 16){
+      alert('La contraseña tiene que contener como máximo 16 caracteres.');
+      return;
+    }
+    // Verificar que el CIF es obligatorio si la empresa está marcada
       if (this.checkCompany() && !this.validateCIF(cif)) {
         alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;

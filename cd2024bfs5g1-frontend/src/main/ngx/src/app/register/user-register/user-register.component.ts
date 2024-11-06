@@ -94,8 +94,12 @@ export class UserRegisterComponent implements AfterViewInit{
 
   checkPassword(){
     const password = this.pwdCtrl.getValue();
-    if (password.length <= 8 || password.length >= 16){
-      alert('Longitud de la contraseña es incorrecta.');
+    if (password.length <= 8){
+      alert('Longitud de la contraseña debe ser mayor de 8 caracteres.');
+      this.pwdCtrl.setValue('');
+    } 
+    if (password.length >= 16){
+      alert('Longitud de la contraseña debe ser menor de 16 caracteres.');
       this.pwdCtrl.setValue('');
     } 
   }

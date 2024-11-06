@@ -92,6 +92,17 @@ export class UserRegisterComponent implements AfterViewInit{
     });
   }
 
+  checkPassword(){
+    const password = this.pwdCtrl.getValue();
+    if(!password){
+      alert('Longitud de la contraseña es incorrecta.');
+      this.pwdCtrl.setValue('');
+    } else if (password.length <= 8 || password.length >= 16){
+      alert('Longitud de la contraseña es incorrecta.');
+      this.pwdCtrl.setValue('');
+    } 
+  }
+
   disableButton() {
     this.submitButton.enabled = false
   }

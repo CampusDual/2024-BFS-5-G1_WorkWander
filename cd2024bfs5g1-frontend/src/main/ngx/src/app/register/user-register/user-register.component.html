@@ -18,7 +18,7 @@
               <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}" data="" read-only="no"
                 required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data=""
-                required="yes" class="m-top-24"></o-password-input>
+                required="yes" class="m-top-24" min-length="8" max-length="16" (onBlur)="checkPassword()"></o-password-input>
               <o-text-input [hidden]="showCIF()" #companyInput attr="usr_cif"
                 label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>

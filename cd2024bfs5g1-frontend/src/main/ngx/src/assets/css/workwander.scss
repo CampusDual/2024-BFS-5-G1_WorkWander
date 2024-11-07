@@ -89,9 +89,41 @@ login {
   }
   
 }
+
+.cdk-overlay-container .cdk-global-overlay-wrapper {
+  align-items: flex-start !important;
+  margin-top: 25px;
+  margin-left: -7px;
+
+  .mdc-snackbar__surface {
+    background-color: $primary;
+    padding: 15px 25px;
+    border-radius: $borderRadius;
+  }
+  .mdc-snackbar__label {
+    color: $accent;
+    font-size: $fontSize14;
+    padding:0;
+  }
+  span.mdc-button__label {
+    color: $verdeBoton;
+    font: $fontSize12;
+  }
+  .mat-mdc-snack-bar-actions.mdc-snackbar__actions.ng-star-inserted{
+    background-color: $accent;
+    border-radius: 15px;
+  }
+  button.mat-simple-snackbar-action.ng-star-inserted {
+    border-radius: 15px;
+    padding: 5px 15px;
+    background-color: $accent;
+    border-color: $accent;
+  }
+}
+
 #footer{
-  background-color: #8b5e3c;
-  color: #e6d5c3;
+  background-color: $primary;
+  color: $accent;
   position: absolute;
   left: 0;
   right: 0;

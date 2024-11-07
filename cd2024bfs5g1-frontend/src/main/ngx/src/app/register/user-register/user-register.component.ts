@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Inject, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
+import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
+import { MatSnackBar, } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-register',
@@ -25,7 +26,7 @@ export class UserRegisterComponent implements AfterViewInit{
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
-    private router: Router) {
+    private router: Router, protected snackBarService: SnackBarService) {
     this.service = this.injector.get(OntimizeService);
     this.configureService()
   }
@@ -42,7 +43,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const isValid = emailRegex.test(email);
 
     if (!isValid) {
-      alert('El correo electrónico contiene caracteres no permitidos.');
+      this.showConfigured('El correo electrónico contiene caracteres no permitidos.');
     }
 
     return isValid;
@@ -54,7 +55,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const isValid = userNameRegex.test(userName);
 
     if (!isValid) {
-      alert('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
+      this.showConfigured('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
     }
 
     return isValid;
@@ -70,7 +71,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
       if (resp.data && resp.data.length > 0) {
-        alert('Email ya existe');
+        this.showConfigured('Email ya existe');
         this.emailCtrl.setValue('');
       }
     });
@@ -86,12 +87,32 @@ export class UserRegisterComponent implements AfterViewInit{
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
       if (resp.data && resp.data.length > 0) {
-        alert('Usuario ya existe');
+        this.showConfigured('Usuario ya existe');
         this.userCtrl.setValue('');
       }
     });
   }
 
+  checkPassword(){
+    const password = this.pwdCtrl.getValue();
+    if (password.length <= 8){
+      this.showConfigured('Longitud de la contraseña debe ser mayor de 8 caracteres.');
+      this.pwdCtrl.setValue('');
+    }
+    if (password.length >= 16){
+      this.showConfigured('Longitud de la contraseña debe ser menor de 16 caracteres.');
+      this.pwdCtrl.setValue('');
+    }
+  }
+  showConfigured(message: string) {
+    // SnackBar configuration
+    const configuration: OSnackBarConfig = {
+        action: 'Done',
+        milliseconds: 7500
+    };
+    this.snackBarService.open(message, configuration);
+  }
+  
   disableButton() {
     this.submitButton.enabled = false
   }
@@ -164,7 +185,7 @@ export class UserRegisterComponent implements AfterViewInit{
     let cif = this.companyInput.getValue();
     if(!cif) return;
     if (!this.validateCIF(cif)) {
-      alert('CIF no válido');
+      this.showConfigured('CIF no válido');
       this.companyInput.setValue('');
       return
     }
@@ -172,7 +193,7 @@ export class UserRegisterComponent implements AfterViewInit{
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
-          alert('CIF ya existe')
+          this.showConfigured('CIF ya existe')
           this.companyInput.setValue('');
           return
         }
@@ -193,12 +214,22 @@ export class UserRegisterComponent implements AfterViewInit{
 
     // Validaciones antes de la inserción
     if (!userName || !email || !password || (this.checkCompany() && !cif)) {
-      alert('Todos los campos son obligatorios.');
+      this.showConfigured('Todos los campos son obligatorios.');
       return;
     }
-   // Verificar que el CIF es obligatorio si la empresa está marcada
+
+    //Verificar que la contraseña tiene entre 8 y 16 caracteres
+    if (password.length < 8){
+      this.showConfigured('La contraseña tiene que contener como mínimo 8 caracteres.');
+      return;
+    }
+    if (password.length > 16){
+      this.showConfigured('La contraseña tiene que contener como máximo 16 caracteres.');
+      return;
+    }
+    // Verificar que el CIF es obligatorio si la empresa está marcada
       if (this.checkCompany() && !this.validateCIF(cif)) {
-        alert('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
+        this.showConfigured('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;
       }
     // Datos del usuario para insertar
@@ -215,18 +246,18 @@ export class UserRegisterComponent implements AfterViewInit{
         this.registerForm.setFormMode(1);
         this.logUser(userName,password);
       } else {
-        alert('Error al registrar usuario');
+        this.showConfigured('Error al registrar usuario');
       }
     }, error => {
       console.error('Error al insertar el usuario', error);
-      alert('Error en la inserción');
+      this.showConfigured('Error en la inserción');
     });
   }
 
   ngAfterViewInit(): void {
     this.setupVideoPlayback();
   }
- 
+
   setupVideoPlayback(): void {
     const videoElement = document.getElementById('background-video') as HTMLVideoElement;
     if (videoElement) {
@@ -235,7 +266,7 @@ export class UserRegisterComponent implements AfterViewInit{
       videoElement.play().catch(error => {
         console.log('Video playback failed:', error);
       });
- 
+
       document.addEventListener('click', () => {
         videoElement.play().catch(error => {
           console.log('Video playback failed:', error);

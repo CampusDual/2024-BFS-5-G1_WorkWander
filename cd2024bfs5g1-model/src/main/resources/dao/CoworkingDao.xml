@@ -2,7 +2,8 @@
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="coworking" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+                 catalog="" schema="${mainschema}" table="coworking" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>cw_id</Column>
     </DeleteKeys>
@@ -14,20 +15,25 @@
         <Query id="serviceCoworking">
             <Sentence>
                 <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.coworking.cw_id as cw_id,
+                        public.coworking.cw_name as cw_name,
+                        public.coworking.cw_description as cw_description,
+                        public.coworking.cw_address as cw_address,
+                        public.coworking.cw_location as cw_location,
+                        public.coworking.cw_daily_price as cw_daily_price,
+                        public.coworking.cw_image as cw_image,
+                        STRING_AGG(service.srv_name, ',') as services
+                    FROM coworking
+                    LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
+                    LEFT JOIN service on service.srv_id = cw_service.srv_id
+                    #WHERE#
+                    GROUP BY public.coworking.cw_id)
                 SELECT
-                    public.coworking.cw_id as cw_id,
-                    public.coworking.cw_name as cw_name,
-                    public.coworking.cw_description as cw_description,
-                    public.coworking.cw_address as cw_address,
-                    public.coworking.cw_location as cw_location,
-                    public.coworking.cw_daily_price as cw_daily_price,
-                    public.coworking.cw_image as cw_image,
-                    STRING_AGG(service.srv_name, ',') as services
-                FROM coworking
-                LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
-                LEFT JOIN service on service.srv_id = cw_service.srv_id
-                #WHERE#
-                GROUP BY public.coworking.cw_id;
+                    #COLUMNS#
+                    FROM
+                        temp_table
                 ]]>
             </Sentence>
         </Query>

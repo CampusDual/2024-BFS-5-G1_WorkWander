@@ -28,12 +28,18 @@
 
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
-              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
-              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
-              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café" aria-label="Café"></article>
-              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
-              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica" aria-label="Silla ergonómica"/></article>
-              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking" aria-label="Parking"></article>
+              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="Pantalla adicional" aria-label="Pantalla adicional" 
+                title="{{'additional_screen' | oTranslate}}"></article>
+              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="Máquina expendedora" aria-label="Máquina expendedora"
+                title="{{'vending_machine'| oTranslate}}"></article>
+              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café" aria-label="Café"
+                title="{{'coffee_bar' | oTranslate}}"></article>
+              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="Dispensador de agua" aria-label="Dispensador de agua"
+                title="{{'water_dispenser' | oTranslate}}"></article>
+              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica" aria-label="Silla ergonómica"
+                title="{{'ergonomic_chair' | oTranslate}}"></article>
+              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking" aria-label="Parking"
+                title="{{'parking' | oTranslate}}"></article>
             </article>
           </section>
           <!--<div class="stars">

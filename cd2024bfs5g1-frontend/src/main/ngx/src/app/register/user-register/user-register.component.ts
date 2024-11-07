@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject, Injector, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent } from 'ontimize-web-ngx';
+import { AuthService, OButtonComponent, OCheckboxComponent, OEmailInputComponent, OFormComponent, OntimizeService, OPasswordInputComponent, OTextInputComponent, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
 import { MatSnackBar, } from '@angular/material/snack-bar';
 
 @Component({
@@ -26,7 +26,7 @@ export class UserRegisterComponent implements AfterViewInit{
 
   constructor(protected injector: Injector,
     @Inject(AuthService) private authService: AuthService,
-    private router: Router, private snackBar: MatSnackBar) {
+    private router: Router, protected snackBarService: SnackBarService) {
     this.service = this.injector.get(OntimizeService);
     this.configureService()
   }
@@ -43,7 +43,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const isValid = emailRegex.test(email);
 
     if (!isValid) {
-      this.showToast('El correo electrónico contiene caracteres no permitidos.');
+      this.showConfigured('El correo electrónico contiene caracteres no permitidos.');
     }
 
     return isValid;
@@ -55,7 +55,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const isValid = userNameRegex.test(userName);
 
     if (!isValid) {
-      this.showToast('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
+      this.showConfigured('El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres.');
     }
 
     return isValid;
@@ -71,7 +71,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
       if (resp.data && resp.data.length > 0) {
-        this.showToast('Email ya existe');
+        this.showConfigured('Email ya existe');
         this.emailCtrl.setValue('');
       }
     });
@@ -87,7 +87,7 @@ export class UserRegisterComponent implements AfterViewInit{
     const columns = ['usr_id'];
     this.service.query(filter, columns, 'user').subscribe(resp => {
       if (resp.data && resp.data.length > 0) {
-        this.showToast('Usuario ya existe');
+        this.showConfigured('Usuario ya existe');
         this.userCtrl.setValue('');
       }
     });
@@ -96,22 +96,29 @@ export class UserRegisterComponent implements AfterViewInit{
   checkPassword(){
     const password = this.pwdCtrl.getValue();
     if (password.length <= 8){
-      this.showToast('Longitud de la contraseña debe ser mayor de 8 caracteres.');
+      this.showConfigured('Longitud de la contraseña debe ser mayor de 8 caracteres.');
       this.pwdCtrl.setValue('');
     }
     if (password.length >= 16){
-      this.showToast('Longitud de la contraseña debe ser menor de 16 caracteres.');
+      this.showConfigured('Longitud de la contraseña debe ser menor de 16 caracteres.');
       this.pwdCtrl.setValue('');
     }
   }
-  showToast(message: string) {
-    this.snackBar.open(message, 'Cerrar', {
-      duration: 7500,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-      panelClass: 'customSnackbar',
-    });
-  }
+  showSimple() {
+    this.snackBarService.open('Snackbar message');
+    };
+    showConfigured(message: string) {
+      // SnackBar configuration
+      const configuration: OSnackBarConfig = {
+          action: 'Done',
+          milliseconds: 5000,
+          icon: 'check_circle',
+          iconPosition: 'left'
+      };
+      this.snackBarService.open('Snackbar text', configuration);
+    }
+
+  
 
 
   disableButton() {
@@ -186,7 +193,7 @@ export class UserRegisterComponent implements AfterViewInit{
     let cif = this.companyInput.getValue();
     if(!cif) return;
     if (!this.validateCIF(cif)) {
-      this.showToast('CIF no válido');
+      this.showConfigured('CIF no válido');
       this.companyInput.setValue('');
       return
     }
@@ -194,7 +201,7 @@ export class UserRegisterComponent implements AfterViewInit{
       const columns = ['usr_id'];
       this.service.query(filter, columns, 'user').subscribe(resp => {
         if (resp.data && resp.data.length > 0) {
-          this.showToast('CIF ya existe')
+          this.showConfigured('CIF ya existe')
           this.companyInput.setValue('');
           return
         }
@@ -215,22 +222,22 @@ export class UserRegisterComponent implements AfterViewInit{
 
     // Validaciones antes de la inserción
     if (!userName || !email || !password || (this.checkCompany() && !cif)) {
-      this.showToast('Todos los campos son obligatorios.');
+      this.showConfigured('Todos los campos son obligatorios.');
       return;
     }
 
     //Verificar que la contraseña tiene entre 8 y 16 caracteres
     if (password.length < 8){
-      this.showToast('La contraseña tiene que contener como mínimo 8 caracteres.');
+      this.showConfigured('La contraseña tiene que contener como mínimo 8 caracteres.');
       return;
     }
     if (password.length > 16){
-      this.showToast('La contraseña tiene que contener como máximo 16 caracteres.');
+      this.showConfigured('La contraseña tiene que contener como máximo 16 caracteres.');
       return;
     }
     // Verificar que el CIF es obligatorio si la empresa está marcada
       if (this.checkCompany() && !this.validateCIF(cif)) {
-        this.showToast('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
+        this.showConfigured('El CIF es obligatorio y debe ser válido si la empresa está marcada.');
         return;
       }
     // Datos del usuario para insertar
@@ -247,11 +254,11 @@ export class UserRegisterComponent implements AfterViewInit{
         this.registerForm.setFormMode(1);
         this.logUser(userName,password);
       } else {
-        this.showToast('Error al registrar usuario');
+        this.showConfigured('Error al registrar usuario');
       }
     }, error => {
       console.error('Error al insertar el usuario', error);
-      this.showToast('Error en la inserción');
+      this.showConfigured('Error en la inserción');
     });
   }
 

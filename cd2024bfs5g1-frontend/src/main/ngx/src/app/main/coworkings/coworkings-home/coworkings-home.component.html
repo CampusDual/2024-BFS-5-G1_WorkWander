@@ -7,14 +7,15 @@
     service="coworkings"
     entity="serviceCoworking"
     keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_capacity;cw_daily_price;cw_description;cw_image;services"
+    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services"
     quick-filter-columns="cw_name;cw_description"
     pagination-controls="true"
     page-size-options="12;16;20"
     query-rows="12"
     grid-item-height="3.5:1"
     [cols]="gridCols"
-    gutter-size="40px">
+    gutter-size="40px"
+    pageable="yes">
 
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">

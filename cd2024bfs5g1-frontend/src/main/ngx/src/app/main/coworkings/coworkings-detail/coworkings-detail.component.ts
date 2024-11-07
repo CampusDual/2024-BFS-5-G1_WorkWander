@@ -6,7 +6,6 @@ import {
   AuthService,
   DialogService,
   OButtonComponent,
-  ODateInputComponent,
   OFormComponent,
   OImageComponent,
   OIntegerInputComponent,
@@ -16,7 +15,8 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util
+  Util,
+  ODateRangeInputComponent
 } from "ontimize-web-ngx";
 
 @Component({
@@ -36,7 +36,7 @@ export class CoworkingsDetailComponent {
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
-  @ViewChild("date") bookingDate: ODateInputComponent;
+  @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
@@ -48,6 +48,7 @@ export class CoworkingsDetailComponent {
   public idiomaActual: string;
   public idioma: string;
   public serviceList = []
+  public dateArray = []
 
 
   getName() {
@@ -60,6 +61,20 @@ export class CoworkingsDetailComponent {
 
   currentDate() {
     return new Date();
+  }
+
+  getDateRangeArray(startDate: Date, endDate: Date): Date[] {
+    const dateArray: Date[] = [];
+    let currentDate = new Date(startDate);
+
+    // Iteramos hasta que la fecha actual supera la fecha final
+    while (currentDate <= endDate) {
+      // Agregamos una copia de la fecha actual para evitar referencias a la misma instancia
+      dateArray.push(new Date(currentDate));
+      // Avanzamos al siguiente día
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dateArray;
   }
 
   checkCapacity() {
@@ -205,6 +220,5 @@ export class CoworkingsDetailComponent {
       });
 
   }
-  
 
 }

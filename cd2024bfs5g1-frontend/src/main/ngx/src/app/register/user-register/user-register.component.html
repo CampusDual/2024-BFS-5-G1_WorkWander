@@ -14,7 +14,8 @@
           </div>
             <div fxLayout="column" fxLayoutGap="15px">
               <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}"
-                required="yes" (onBlur)="checkUserName()" class="m-top-24"></o-text-input>
+                required="yes" (onBlur)="checkUserName()" class="m-top-24">
+              </o-text-input>
               <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}"read-only="no"
                 required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" 

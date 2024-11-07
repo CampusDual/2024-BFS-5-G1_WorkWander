@@ -108,7 +108,8 @@ export class UserRegisterComponent implements AfterViewInit{
     this.snackBar.open(message, 'Cerrar', {
       duration: 3000,
       horizontalPosition: 'center',
-      verticalPosition: 'bottom',
+      verticalPosition: 'top',
+      panelClass: 'customSnackbar',
     });
   }
 

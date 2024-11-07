@@ -19,10 +19,10 @@
               <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}"read-only="no"
                 required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" 
-                required="yes" min-length="8" max-length="16" class="m-top-24">
+                required="yes" min-length="8" max-length="16" (onBlur)="checkPassword()" class="m-top-24">
               </o-password-input>
               <o-text-input [hidden]="showCIF()" #companyInput attr="usr_cif"
-                label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
+                label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()" class="m-top-24"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
               <button #submitButton  mat-raised-button color="secondary" (click)="insertUser(); $event.preventDefault();" class="m-top-24">{{"REGISTER" | oTranslate }}</button>
               <div class="text-center">

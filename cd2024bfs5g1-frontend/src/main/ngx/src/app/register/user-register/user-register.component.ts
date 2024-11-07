@@ -106,7 +106,7 @@ export class UserRegisterComponent implements AfterViewInit{
   }
   showToast(message: string) {
     this.snackBar.open(message, 'Cerrar', {
-      duration: 3000,
+      duration: 7500,
       horizontalPosition: 'center',
       verticalPosition: 'top',
       panelClass: 'customSnackbar',

@@ -63,6 +63,7 @@
   "usr_creation_date": "Fecha de creación",
   "usr_down_date": "Fecha de baja",
   "usr_email": "Correo",
+  "USR_EMAIL": "Email",
   "usr_login": "Nombre de acceso",
   "usr_name": "Nombre de usuario",
   "usr_notes": "Notas",
@@ -155,6 +156,7 @@
   "USER_ALREADY_EXIST": "Usuario ya existe",
   "EMAIL_EXIST": "Email ya existe",
   "VALIDATE_USERNAME": "El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres",
-  "VALIDATE_EMAIL": "El correo electrónico contiene caracteres no permitidos"
-
+  "VALIDATE_EMAIL": "El correo electrónico contiene caracteres no permitidos",
+  "CIF_ERROR": "El CIF es obligatorio y debe ser válido si la empresa está marcada.",
+  "DONE": "Aceptar"
 }

@@ -117,7 +117,7 @@ login {
     border-radius: 15px;
     padding: 5px 15px;
     background-color: $accent;
-    border-color: $accent;
+    border: 0 solid $accent;
   }
 }
 

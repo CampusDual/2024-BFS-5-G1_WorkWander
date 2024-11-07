@@ -106,8 +106,9 @@ export class UserRegisterComponent implements AfterViewInit{
   }
   showConfigured(message: string) {
     // SnackBar configuration
+    const buttonAction = this.translate.get('DONE');
     const configuration: OSnackBarConfig = {
-        action: 'Done',
+        action: buttonAction,
         milliseconds: 7500
     };
     this.snackBarService.open(message, configuration);
@@ -229,7 +230,7 @@ export class UserRegisterComponent implements AfterViewInit{
     }
     // Verificar que el CIF es obligatorio si la empresa está marcada
       if (this.checkCompany() && !this.validateCIF(cif)) {
-        this.showConfigured(this.translate.get('El CIF es obligatorio y debe ser válido si la empresa está marcada.'));
+        this.showConfigured(this.translate.get('CIF_ERROR'));
         return;
       }
     // Datos del usuario para insertar
@@ -264,12 +265,10 @@ export class UserRegisterComponent implements AfterViewInit{
       videoElement.muted = true; // Asegúrate de que el video esté silenciado
       videoElement.currentTime = 0; // Reinicia el video
       videoElement.play().catch(error => {
-        console.log('Video playback failed:', error);
       });
 
       document.addEventListener('click', () => {
         videoElement.play().catch(error => {
-          console.log('Video playback failed:', error);
         });
       }, { once: true });
     }

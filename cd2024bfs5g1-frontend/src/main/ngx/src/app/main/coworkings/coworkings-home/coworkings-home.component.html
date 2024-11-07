@@ -1,20 +1,32 @@
+<o-form class="form" attr="coworkingHomeForm" editable-detail="yes" show-header="no">
+
+  <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'FILTERS_COWORKING' | oTranslate }}"
+    icon="filter_list" expanded="no">
+    <div class="collapsible-container-items">
+      <o-combo #nameField appearance="outline" label="name" id="cw_name" null-selection="no" attr="cw_name"
+        service="coworkings" entity="coworking" keys="cw_name" value-column="cw_id" columns="cw_name" searchable="true"
+        visible-columns="cw_name" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
+      </o-combo>
+      <o-combo #descriptionField appearance="outline" label="description" id="cw_description" null-selection="no"
+        attr="cw_description" service="coworkings" entity="coworking" keys="cw_description" value-column="cw_id"
+        columns="cw_description" searchable="true" visible-columns="cw_description" multiple="yes" translate="yes"
+        fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
+      </o-combo>
+      <o-combo #locationField appearance="outline" label="location" id="cw_location" null-selection="no"
+        attr="cw_location" service="coworkings" entity="coworking" keys="cw_location" value-column="cw_location"
+        columns="cw_location" searchable="true" visible-columns="cw_location" multiple="yes" translate="yes"
+        fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
+      </o-combo>
+    </div>
+  </o-column-collapsible>
+</o-form>
+
 <div class="grid-container">
   <!-- Grid que muestra los datos de los coworkings -->
-  <o-grid
-    #coworkingsGrid
-    attr="coworkingsGrid"
-    title="COWORKINGS"
-    service="coworkings"
-    entity="serviceCoworking"
-    keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services"
-    quick-filter-columns="cw_name;cw_description"
-    pagination-controls="true"
-    page-size-options="12;16;20"
-    query-rows="12"
-    grid-item-height="2.5:1"
-    [cols]="gridCols"
-    gutter-size="20px" pageable="yes">
+  <o-grid #coworkingsGrid attr="coworkingsGrid" title="COWORKINGS" service="coworkings" entity="serviceCoworking"
+    keys="cw_id" columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services"
+    quick-filter="no" pagination-controls="true" page-size-options="12;16;20" query-rows="12" grid-item-height="2.5:1"
+    [cols]="gridCols" gutter-size="20px" pageable="yes">
 
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
@@ -28,12 +40,18 @@
 
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
-              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
-              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
-              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café" aria-label="Café"></article>
-              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
-              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica" aria-label="Silla ergonómica"/></article>
-              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking" aria-label="Parking"></article>
+              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png"
+                  alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
+              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png"
+                  alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
+              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café"
+                  aria-label="Café"></article>
+              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png"
+                  alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
+              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica"
+                  aria-label="Silla ergonómica" /></article>
+              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking"
+                  aria-label="Parking"></article>
             </article>
           </section>
           <!--<div class="stars">

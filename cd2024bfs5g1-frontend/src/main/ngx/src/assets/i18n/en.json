@@ -143,6 +143,6 @@
   "BOOKINGS_CONFIRMED": "Booking confirmed",
   "IM_REGISTERED": "I'm registered",
   "DATE": "Date",
-  "NO_SERVICES" : "No additional services"
-
+  "NO_SERVICES" : "No additional services",
+  "location": "Location"
 }

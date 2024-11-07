@@ -104,23 +104,15 @@ export class UserRegisterComponent implements AfterViewInit{
       this.pwdCtrl.setValue('');
     }
   }
-  showSimple() {
-    this.snackBarService.open('Snackbar message');
+  showConfigured(message: string) {
+    // SnackBar configuration
+    const configuration: OSnackBarConfig = {
+        action: 'Done',
+        milliseconds: 7500
     };
-    showConfigured(message: string) {
-      // SnackBar configuration
-      const configuration: OSnackBarConfig = {
-          action: 'Done',
-          milliseconds: 5000,
-          icon: 'check_circle',
-          iconPosition: 'left'
-      };
-      this.snackBarService.open('Snackbar text', configuration);
-    }
-
+    this.snackBarService.open(message, configuration);
+  }
   
-
-
   disableButton() {
     this.submitButton.enabled = false
   }

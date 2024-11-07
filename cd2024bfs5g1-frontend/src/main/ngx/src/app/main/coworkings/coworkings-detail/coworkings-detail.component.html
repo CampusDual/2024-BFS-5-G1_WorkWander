@@ -1,4 +1,4 @@
-<o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R"
+ <!-- <o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R"
   show-header-navigation="no" keys="cw_id" keys-sql-types="integer" columns="cw_id;cw_name" header-position="top"
   layout-direction="row" detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true"
   editable-detail="no">
@@ -6,15 +6,15 @@
     <div id="container">
       <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
 
-        <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
-
+   
         <div fxLayout="row" class="image-container">
-          <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  <!-- Ocultaremos el div cuando no exista "cw_image" -->
-            <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
+
+          
+          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  
+   
             <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
           </div>
-          <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
+      
           <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
             height="500px" width="900px" />
         </div>
@@ -64,7 +64,7 @@
 
           <div class="book" *ngIf="parsePermissions('date')">
             <o-form editable-detail="no" show-header="no">
-              <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+             Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas 
               <o-date-input #date attr="date" label="DATE" read-only="no" [min]="currentDate()"
                 (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
             </o-form>
@@ -79,3 +79,42 @@
     </div>
   </div>
 </o-form>
+
+ -->
+
+ <div>
+ <mat-card *ngIf="coworking" class="coworking-card">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img [src]="coworking.cw_image" alt="{{coworking.cw_name}}" />
+    </div>
+    <mat-card-title>{{ coworking.cw_name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="info-container">
+      <p><strong>Ubicación:</strong> {{ coworking.cw_location }}</p>
+      <p><strong>Capacidad:</strong> {{ coworking.cw_capacity }}</p>
+      <p><strong>Descripción:</strong> {{ coworking.cw_description }}</p>
+      <section class="services">
+        <article *ngFor="let service of serviceList">
+          <article *ngIf="service.srv_name=='additional_screen'"><img src="assets/icons/desktop-computer.png"
+              alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
+          <article *ngIf="service.srv_name=='vending_machine'"><img src="assets/icons/vending-machine.png"
+              alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
+          <article *ngIf="service.srv_name=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café"
+              aria-label="Café"></article>
+          <article *ngIf="service.srv_name=='water_dispenser'"><img src="assets/icons/water-dispenser.png"
+              alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
+          <article *ngIf="service.srv_name=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica"
+              aria-label="Silla ergonómica" /></article>
+          <article *ngIf="service.srv_name=='parking'"><img src="assets/icons/parking.png" alt="Parking"
+              aria-label="Parking"></article>
+        </article>
+      </section>
+    </div>
+    <div class="price-container">
+      <span class="price">{{ coworking.cw_daily_price }}€</span>
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

@@ -28,28 +28,16 @@
 
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
-              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="{{'additional_screen' | oTranslate}}"
-                title="{{'additional_screen' | oTranslate}}"></article>
-              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="{{'vending_machine'| oTranslate}}"
-                title="{{'vending_machine'| oTranslate}}"></article>
-              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="{{'coffee_bar' | oTranslate}}"
-                title="{{'coffee_bar' | oTranslate}}"></article>
-              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="{{'water_dispenser' | oTranslate}}"
-                title="{{'water_dispenser' | oTranslate}}"></article>
-              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="{{'ergonomic_chair' | oTranslate}}"
-                title="{{'ergonomic_chair' | oTranslate}}"></article>
-              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="{{'parking' | oTranslate}}" title="{{'parking' | oTranslate}}"></article>
+              <article *ngIf="service=='additional_screen'"><mat-icon title="{{'additional_screen' | oTranslate}}">desktop_windows</mat-icon></article>
+              <article *ngIf="service=='vending_machine'"><mat-icon title="{{'vending_machine' | oTranslate}}">kitchen</mat-icon></article>
+              <article *ngIf="service=='coffee_bar'"><mat-icon title="{{'coffee_bar' | oTranslate}}">local_cafe</mat-icon></article>
+              <article *ngIf="service=='water_dispenser'"><mat-icon title="{{'water_dispenser' | oTranslate}}">local_drink</mat-icon></article>
+              <article *ngIf="service=='ergonomic_chair'"><mat-icon title="{{'ergonomic_chair' | oTranslate}}">event_seat</mat-icon></article>
+              <article *ngIf="service=='parking'"><mat-icon title="{{'parking' | oTranslate}}">local_parking</mat-icon></article>
             </article>
           </section>
-          <!--<div class="stars">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
-            </ng-container>
-          </div>-->
           <p class="location">{{ data.cw_location }}</p>
         </div>
-
-
 
         <div class="capacity-price-container">
           <div class="price-container">

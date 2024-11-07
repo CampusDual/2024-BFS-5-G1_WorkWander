@@ -1,6 +1,6 @@
 import { Component, HostListener, Injector, OnInit } from '@angular/core';
 import { OntimizeService } from 'ontimize-web-ngx';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-coworkings-home',
@@ -10,6 +10,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class CoworkingsHomeComponent implements OnInit{
   public arrayServices:any=[];
   protected service: OntimizeService;
+  //Variable para formatear el precio
+  //public formatPrice: SafeHtml;
+
   // Creamos constructor
   constructor(
     protected injector:Injector,
@@ -24,6 +27,7 @@ export class CoworkingsHomeComponent implements OnInit{
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
+    //this.setFormatPrice();
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -47,12 +51,17 @@ export class CoworkingsHomeComponent implements OnInit{
     this.service.configureService(conf);
   }
 
-  public serviceList(services:string){
-    if(services!=undefined){
+  public serviceList(services:string) {
+    if (services != undefined) {
       return services.split(',')
-    }else{
+    } else {
       return null;
     }
-
   }
+
+  public formatPrice(price: number): string {
+    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
+
 }

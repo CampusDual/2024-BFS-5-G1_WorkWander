@@ -1,5 +1,5 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
-import { OntimizeService } from 'ontimize-web-ngx';
+import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
+import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OFilterBuilderValues, OntimizeService } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -8,6 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./coworkings-home.component.css']
 })
 export class CoworkingsHomeComponent implements OnInit{
+  @ViewChild('filterBuilder', { static: true }) filterBuilder!: OFilterBuilderComponent;
+
   public arrayServices:any=[];
   protected service: OntimizeService;
   // Creamos constructor
@@ -55,4 +57,53 @@ export class CoworkingsHomeComponent implements OnInit{
     }
 
   }
+  createFilter(values: Array<{ attr, value }>): Expression {
+    // Prepare simple expressions from the filter components values
+    let filters: Array<Expression> = [];
+    values.forEach(fil => {
+      if (fil.value) {
+        if (fil.attr === 'SERVICES') {
+          filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
+        }
+        // if (fil.attr === 'EMPLOYEETYPEID') {
+        //   filters.push(FilterExpressionUtils.buildExpressionEquals(fil.attr, fil.value));
+        // }
+      }
+    });
+
+    // Build complex expression
+    if (filters.length > 0) {
+      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
+    } else {
+      return null;
+    }
+  }  onServiceFilterChange(selectedService: string) {
+    if (this.filterBuilder) {
+      const filters: OFilterBuilderValues[] = [
+        {
+          attr: 'services',       // Nombre de la columna en la base de datos o servicio
+          value: selectedService  // Valor del filtro basado en el servicio seleccionado
+        }
+      ];
+      this.filterBuilder.setFilterValues(filters);
+    }
+  }
+  searchReceivedParams() {
+    this.actRoute.queryParams.subscribe((params) => {
+      const category: any = params["category"] || null;
+      const keyword: any = params["keyword"] || null;
+      if (category != undefined) {
+        let arrayNuevo = [];
+        arrayNuevo.push(category);
+        this.categoryField.setValue(arrayNuevo);
+      }
+      if (keyword != undefined) {
+        this.searcher.setValue(keyword);
+      }else{
+        this.searcher.setValue('');
+      }
+      this.toyGrid.reloadData();
+    });
+  }
+
 }

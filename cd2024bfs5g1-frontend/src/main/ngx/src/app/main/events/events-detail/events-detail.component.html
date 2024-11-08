@@ -1,0 +1,33 @@
+<o-form #form attr="eventNew" service="events" entity="event" keys="id_event" header-actions="R"
+    show-header-navigation="no" class="form-section" ignore-default-navigation="yes" editable-detail="no" columns="id_event;name" header-position="top"
+    stay-in-record-after-insert="true">
+    <div fxLayout="row" class="form-section" class="form-container" fxLayoutGap="24px" fxLayoutAlign="center start">
+        <!-- Información General -->
+        <o-column fxFlex="70" title="EVENT_INFORMATION" class="form-section">
+            <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+                <!-- Nombre -->
+                <o-integer-input oHidden #id attr="id_event"></o-integer-input>
+                <o-text-input #nameInput fxFlex="50" attr="name" icon="business"></o-text-input>
+                <!-- Plazas -->
+                <o-integer-input fxFlex="50" attr="bookings" min="0" step="1" icon="event_seat" thousand-separator="."></o-integer-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+                <!-- Fecha -->
+                <o-date-input #dateInput fxFlex="50" attr="date_event" value-type="date"
+                    icon="event"></o-date-input>
+                <!-- Hora -->
+                <o-hour-input fxFlex="50" attr="hour_event" icon="schedule"></o-hour-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+                <!-- Localidad -->
+                <o-text-input fxFlex="50" attr="locality" icon="location_city"></o-text-input>
+                <!-- Dirección -->
+                <o-text-input fxFlex="50" attr="address" icon="place"></o-text-input>
+            </div>
+            <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+                <!-- Descripción -->
+                <o-textarea-input fxFlex="100" attr="description" icon="description" maxlength="250"></o-textarea-input>
+            </div>
+        </o-column>
+    </div>
+</o-form>

@@ -5,7 +5,7 @@
 $typography: "Noto Sans";
 
 /* Colores personalizados */
-$primary: #8b5e3c; 
+$primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
 $verdeBoton: #5F6F65;
@@ -87,7 +87,7 @@ login {
   .full-page .login-outer-container .wrapp-login .login-inner-container form{
     padding: $padding;
   }
-  
+
 }
 
 .cdk-overlay-container .cdk-global-overlay-wrapper {
@@ -154,13 +154,13 @@ login {
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  
+
 
   .title_text {
     font-size: $fontSize14;
     font-weight: 600;
   }
-  
+
   .registerForm form.inner-form.form-no-toolbar {
     min-height: 100vh;
     justify-content: center;
@@ -190,11 +190,11 @@ login {
 
   .login-outer-container {
     justify-content: center;
-    
+
     .wrapp-login .login-inner-container form .login-title-container {
       margin-top: unset;
     }
-  
+
   }
   .register-outer-container {
       width: 100%;
@@ -208,7 +208,7 @@ login {
       overflow: auto;
       justify-content: center;
   }
-  
+
   .register-bg-container {
       background-image: unset;
       width: unset;
@@ -274,7 +274,7 @@ o-form.o-form o-column.o-column.o-appearance-outline {
 }
 
 .o-column.o-appearance-outline .o-container-outline {
-    .o-container-outline-end, 
+    .o-container-outline-end,
     .o-container-outline-start,
     .o-container-outline-gap{
       border-width: 0;
@@ -303,10 +303,6 @@ o-form.o-form o-column.o-column.o-appearance-outline {
 
 .o-app-sidenav {
 
-  .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
-    padding-bottom: 0px !important;
-  }
-
   .o-app-sidenav-container .o-app-header{
     background-image: $linear-gradientRL;
   }
@@ -314,6 +310,23 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   .ng-star-inserted{
     place-content: center flex-end;
     justify-content: space-between;
+    //background-color: $accent;
+  }
+
+  nav.ng-star-inserted:nth-last-child(2) {
+    background-color: $accent;
+    position: absolute;
+    border-radius: 25px;
+    margin: 0px 5px 0 5px;
+    transition: all 0.2s;
+    top:unset;
+    bottom: 25px;
+    right: 0;
+
+    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+      border-radius: 25px !important;
+      border-left: none;
+    }
   }
 
   .o-app-sidenav-menu-group a,
@@ -326,8 +339,7 @@ o-form.o-form o-column.o-column.o-appearance-outline {
     border-radius: $borderRadius;
     transition: all 0.2s;
     margin: unset;
-    border-left: 8px solid $primary !important;
-    padding: 0;
+    border-left: unset;
   }
 
   .o-app-sidenav-sidenav {
@@ -349,52 +361,19 @@ o-form.o-form o-column.o-column.o-appearance-outline {
     li a{
       color: $primary !important;
     }
-
-  nav.ng-star-inserted:nth-last-child(1), 
-  nav.ng-star-inserted:nth-last-child(2) {
-    background-color: $accent;
-    position: absolute;
-    border-radius: 25px;
-    border-left: 0px solid $accent !important;
-    margin: 0px 5px 0 5px;
-    transition: all 0.2s;
-    top:unset;
-    bottom: 25px;
-    right: 0;
-    width: 96%;
-    
-    :hover{
-      border-left: 0px solid $accent !important;
-    }
-    .mdc-button__label > div{
-      justify-content: center !important;
-    }
-
-    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-      border-radius: 25px !important;
-      border-left: 0px solid $accent;
-      transition: none;
-    }
-    .mat-mdc-button>.mat-icon {
-      margin-left: 0;
-      margin-right: 0px;
-    }
   }
-  
 
+  .o-app-sidenav-menu-group:not([disabled=true]) a:hover
+  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+    color: $primary !important;
+    background-color: $accentClaro !important;
+    border-left: 8px solid $primary !important;
+  }
 
-    .o-app-sidenav-menu-group:not([disabled=true]) a:hover
-    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-      color: $primary !important;
-      background-color: $accentClaro !important;
-      border-left: 8px solid $primary !important;
-    }
-  
-    .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-      background-color: $accentClaro;
-      color: $primary;
-      border-left: 8px solid $accentClaro;
-    }
+  .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+    background-color: $accentClaro;
+    color: $primary;
+    border-left: 8px solid $accentClaro;
   }
 
 }
@@ -407,14 +386,14 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
   transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
 }
-        
+
 /* Estilo de las etiquetas */
 .mat-label {
   font-weight: 600; /* Etiquetas en negrita */
   color: $verdeBoton; /* Color gris oscuro */
   transition: color 0.3s ease; /* Transición suave para el color */
 }
-  
+
 /* Color de los botones */
 .mat-button {
   color: $primary; /* Color de los botones */
@@ -425,55 +404,55 @@ o-form.o-form o-column.o-column.o-appearance-outline {
 .mat-icon {
   color: $primary; /* Color azul moderno para iconos */
 }
-   
+
 /* Estilo para el toggle del datepicker */
 .mat-datepicker-toggle {
   color: $primary; /* Color para el toggle del datepicker */
 }
-/* Estilo de los MAT */   
+/* Estilo de los MAT */
 .mat-mdc-raised-button:not(:disabled):not(.mat-secondary) {
   background-color: $primary !important;
   color: $accent !important;
 }
 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-accent:hover {
   color: $primary;
   background-color: $accent;
   border-color: transparent;
 }
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
   color: $blanco;
   background-color: $verdeBoton;
   border-color: transparent;
 }
 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover, 
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover, 
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover, 
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover,
+.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
+.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
+.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
 .ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary:hover {
   color: $primary;
   background-color: $blanco;
@@ -508,26 +487,26 @@ input.mat-input-element {
   padding: $paddingInterno; /* Espaciado interno */
   transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
 }
-  
+
 /* Efecto al enfocar el input */
 input.mat-input-element:focus {
   border-color: $primary; /* Color del borde al enfocar el input */
   box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
 }
-  
+
 /* Estilo para inputs deshabilitados */
 input.mat-input-element:disabled {
   background-color: $blanco; /* Color de fondo para inputs deshabilitados */
   opacity: 0.7; /* Reduce la opacidad */
 }
-  
+
 /* Estilo para el calendario del datepicker */
 .mat-datepicker-content {
   background: $blanco; /* Fondo blanco para el datepicker */
   border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
   box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
 }
-  
+
 /* Estilo para el calendario dentro del datepicker */
 .mat-datepicker-calendar {
   background: $accent; /* Color de fondo moderno */
@@ -580,14 +559,14 @@ input.mat-input-element:disabled {
       margin-bottom: 8px;
       margin-top: 0;
       display: inline-block; // Necesario para que el efecto funcione correctamente
-    
+
     }
-    
+
     .form-container {
       padding: $padding;
       background: $blanco;
     }
-     
+
     .form-section {
       border-radius: $borderRadius;
       background-color: $blanco;
@@ -598,19 +577,19 @@ input.mat-input-element:disabled {
       :hover{
         transform: none!important;
       }
-      
+
     }
-     
+
     .form-row {
       margin-bottom: 24px;
     }
-     
+
     o-text-input, o-integer-input, o-real-input, o-date-input, o-image {
       position: relative;
       display: inline-block;
       width: 100%;
     }
-     
+
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-image[icon] {
       padding-left: 40px;
       font-size: $fontSize16;
@@ -619,19 +598,19 @@ input.mat-input-element:disabled {
       border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
-    o-text-input[icon]:hover, 
-    o-integer-input[icon]:hover, 
-    o-real-input[icon]:hover, 
-    o-date-input[icon]:hover, 
+    o-text-input[icon]:hover,
+    o-integer-input[icon]:hover,
+    o-real-input[icon]:hover,
+    o-date-input[icon]:hover,
     o-image[icon]:hover,
     o-textarea-input [icon]:hover{
       border-color: $primary;
     }
-     
-    o-text-input[icon]::before, 
-    o-integer-input[icon]::before, 
-    o-real-input[icon]::before, 
-    o-date-input[icon]::before, 
+
+    o-text-input[icon]::before,
+    o-integer-input[icon]::before,
+    o-real-input[icon]::before,
+    o-date-input[icon]::before,
     o-image[icon]::before {
       content: attr(icon);
       font-family: 'Material Icons';
@@ -642,26 +621,26 @@ input.mat-input-element:disabled {
       color: $accent;
       font-size: $fontSize20;
     }
-     
-     
-    o-text-input input::placeholder, 
-    o-integer-input input::placeholder, 
-    o-real-input input::placeholder, 
-    o-date-input input::placeholder, 
+
+
+    o-text-input input::placeholder,
+    o-integer-input input::placeholder,
+    o-real-input input::placeholder,
+    o-date-input input::placeholder,
     o-image input::placeholder {
       color: $accent;
       opacity: 0.8;
     }
-     
+
     /* Botones e interacción */
-    .form-section o-text-input:hover, 
-    .form-section o-integer-input:hover, 
-    .form-section o-real-input:hover, 
-    .form-section o-date-input:hover, 
+    .form-section o-text-input:hover,
+    .form-section o-integer-input:hover,
+    .form-section o-real-input:hover,
+    .form-section o-date-input:hover,
     .form-section o-image:hover {
       background-color: $blanco;
     }
-     
+
     /* Estilos generales para la fila del formulario */
     .form-row {
       margin: 24px 0; /* Espaciado vertical */
@@ -670,7 +649,7 @@ input.mat-input-element:disabled {
       padding: $padding;
       background: $blanco;
     }
-  
+
     .form-section {
       border-radius: $borderRadius;
       background-color: $blanco;
@@ -678,13 +657,13 @@ input.mat-input-element:disabled {
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
-    
+
     o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
       position: relative;
       display: inline-block;
       width: 100%;
     }
-  
+
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
       padding-left: 40px;
       font-size: $fontSize16;
@@ -693,11 +672,11 @@ input.mat-input-element:disabled {
       border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
-  
+
     o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
       border-color: $primary;
     }
-  
+
     o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
       content: attr(icon);
       font-family: 'Material Icons';
@@ -708,22 +687,22 @@ input.mat-input-element:disabled {
       color: $accent;
       font-size: $fontSize20;
     }
-  
+
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
       color: $accent;
       opacity: 0.8;
     }
-  
+
     /* Botones e interacción */
     .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
       background-color: $blanco;
     }
-  
+
     /* Estilos generales para la fila del formulario */
     .form-row {
       margin: 24px 0; /* Espaciado vertical */
     }
-  
+
     /* Estilo para los campos de formulario */
     .mat-form-field {
     width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
@@ -732,25 +711,25 @@ input.mat-input-element:disabled {
     box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
     }
-  
-  
+
+
     /* Estilo de las etiquetas */
     .mat-label {
     font-weight: 600; /* Etiquetas en negrita */
     color: $accent; /* Color gris oscuro */
     transition: color 0.3s ease; /* Transición suave para el color */
     }
-  
+
     /* Color de los iconos */
     .mat-icon {
     color: $primary /* Color azul moderno para iconos */
     }
-  
+
     /* Estilo para el toggle del datepicker */
     .mat-datepicker-toggle {
     color: $primary; /* Color para el toggle del datepicker */
     }
-  
+
     /* Estilo de los inputs */
     input.mat-input-element {
     border: 1px solid $blanco; /* Borde de los inputs */
@@ -758,46 +737,46 @@ input.mat-input-element:disabled {
     padding: $paddingInterno; /* Espaciado interno */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     }
-  
+
     /* Efecto al enfocar el input */
     input.mat-input-element:focus {
     border-color: $primary; /* Color del borde al enfocar el input */
     box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
     }
-  
+
     /* Estilo para inputs deshabilitados */
     input.mat-input-element:disabled {
     background-color: $accent; /* Color de fondo para inputs deshabilitados */
     opacity: 0.7; /* Reduce la opacidad */
     }
-  
+
     /* Estilo para el calendario del datepicker */
     .mat-datepicker-content {
     background: $blanco; /* Fondo blanco para el datepicker */
     border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
     box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
     }
-  
+
     /* Estilo para el calendario dentro del datepicker */
     .mat-datepicker-calendar {
     background: $accent; /* Color de fondo moderno */
     }
-  
+
     /* Color de los botones */
     .mat-button {
     color: $primary; /* Color de los botones */
     }
-  
+
     /* Efecto hover en botones */
     .mat-button:hover {
     background-color: rgba($primary, 0.1); /* Color de fondo en hover */
     }
-    
+
     .form-container {
       padding: $padding;
       background: $accent;
     }
-  
+
     .form-section {
       border-radius: $borderRadius;
       background-color: $blanco;
@@ -805,17 +784,17 @@ input.mat-input-element:disabled {
       box-shadow: 0px 8px 30px rgba($primary, 0.1);
       transition: all 0.3s ease;
     }
-  
+
     .form-row {
       margin-bottom: 24px;
     }
-  
+
     o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
       position: relative;
       display: inline-block;
       width: 100%;
     }
-  
+
     o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
       padding-left: 40px;
       font-size: $fontSize16;
@@ -824,11 +803,11 @@ input.mat-input-element:disabled {
       border-radius: $borderRadius;
       transition: all 0.3s ease;
     }
-  
+
     o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
       border-color: $primary;
     }
-  
+
     o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
       content: attr(icon);
       font-family: 'Material Icons';
@@ -839,22 +818,22 @@ input.mat-input-element:disabled {
       color: $accent;
       font-size: $fontSize20;
     }
-  
+
     o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
       color: $accent;
       opacity: 0.8;
     }
-  
+
     /* Botones e interacción */
     .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
       background-color: $blanco;
     }
-    
+
     /* Estilos generales para la fila del formulario */
     .form-row {
       margin: 24px 0; /* Espaciado vertical */
     }
-  
+
     /* Estilo para los campos de formulario */
     .mat-form-field {
     width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
@@ -863,25 +842,25 @@ input.mat-input-element:disabled {
     box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
     transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
     }
-  
-  
+
+
     /* Estilo de las etiquetas */
     .mat-label {
     font-weight: 600; /* Etiquetas en negrita */
     color: $primary; /* Color gris oscuro */
     transition: color 0.3s ease; /* Transición suave para el color */
     }
-  
+
     /* Color de los iconos */
     .mat-icon {
     color: $primary; /* Color azul moderno para iconos */
     }
-  
+
     /* Estilo para el toggle del datepicker */
     .mat-datepicker-toggle {
     color: $primary; /* Color para el toggle del datepicker */
     }
-  
+
     /* Estilo de los inputs */
     input.mat-input-element {
     border: 1px solid $blanco; /* Borde de los inputs */
@@ -889,41 +868,41 @@ input.mat-input-element:disabled {
     padding: 12px 16px; /* Espaciado interno */
     transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
     }
-  
+
     /* Efecto al enfocar el input */
     input.mat-input-element:focus {
     border-color: $primary; /* Color del borde al enfocar el input */
     box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
     }
-  
+
     /* Estilo para inputs deshabilitados */
     input.mat-input-element:disabled {
     background-color: $accent; /* Color de fondo para inputs deshabilitados */
     opacity: 0.7; /* Reduce la opacidad */
     }
-  
+
     /* Estilo para el calendario del datepicker */
     .mat-datepicker-content {
     background: $blanco; /* Fondo blanco para el datepicker */
     border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
     box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
     }
-  
+
     /* Estilo para el calendario dentro del datepicker */
     .mat-datepicker-calendar {
     background: $accent; /* Color de fondo moderno */
     }
-  
+
     /* Color de los botones */
     .mat-button {
     color: $primary; /* Color de los botones */
     }
-  
+
     /* Efecto hover en botones */
     .mat-button:hover {
     background-color: rgba($primary, 0.1); /* Color de fondo en hover */
     }
-  
+
 
     /* Efecto hover en botones */
     .mat-button:hover {
@@ -973,7 +952,7 @@ input.mat-input-element:disabled {
       margin-top: 8px;
       transition: transform 0.2s;
       //translate: 20px;
-      
+
       .service-icon {
         // Estilo de los iconos de servicios
         width: 24px;
@@ -991,13 +970,14 @@ input.mat-input-element:disabled {
   .capacity-price-container {
     border-left: solid 5px $primary;
     padding: 0px 0 0 17px;
+    min-width: 190px;
   }
   .price-container {
     // Contenedor del precio
     padding: $paddingInterno;
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: center;
     background-color: $verdeBoton;
     min-height: 100%;
     border-radius: $borderRadius;
@@ -1007,6 +987,11 @@ input.mat-input-element:disabled {
       font-size: $fontSize45;
       font-weight: bold;
       color: $blanco;
+    }
+
+    .price .decimal {
+      font-size: 24px; /* Tamaño reducido para decimales */
+      //vertical-align: super; /* Opcional: sube un poco los decimales */
     }
   }
 
@@ -1108,10 +1093,6 @@ mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
       padding: $paddingInterno;
       background-color: $accent;
     }
-  }
-  .o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
-    margin: 0;
-    border-radius: 5px;
   }
 }
 @media(max-width:576px) {

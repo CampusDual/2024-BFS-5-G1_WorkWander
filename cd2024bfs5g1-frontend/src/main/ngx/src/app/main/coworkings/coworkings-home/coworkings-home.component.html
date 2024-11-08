@@ -12,9 +12,10 @@
     pagination-controls="true"
     page-size-options="12;16;20"
     query-rows="12"
-    grid-item-height="2.5:1"
+    grid-item-height="3.5:1"
     [cols]="gridCols"
-    gutter-size="20px" pageable="yes">
+    gutter-size="40px"
+    pageable="yes">
 
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
@@ -28,27 +29,21 @@
 
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
-              <article *ngIf="service=='additional_screen'"><img src="assets/icons/desktop-computer.png" alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
-              <article *ngIf="service=='vending_machine'"><img src="assets/icons/vending-machine.png" alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
-              <article *ngIf="service=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café" aria-label="Café"></article>
-              <article *ngIf="service=='water_dispenser'"><img src="assets/icons/water-dispenser.png" alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
-              <article *ngIf="service=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica" aria-label="Silla ergonómica"/></article>
-              <article *ngIf="service=='parking'"><img src="assets/icons/parking.png" alt="Parking" aria-label="Parking"></article>
+              <article *ngIf="service=='additional_screen'"><mat-icon title="{{'additional_screen' | oTranslate}}">desktop_windows</mat-icon></article>
+              <article *ngIf="service=='vending_machine'"><mat-icon title="{{'vending_machine' | oTranslate}}">kitchen</mat-icon></article>
+              <article *ngIf="service=='coffee_bar'"><mat-icon title="{{'coffee_bar' | oTranslate}}">local_cafe</mat-icon></article>
+              <article *ngIf="service=='water_dispenser'"><mat-icon title="{{'water_dispenser' | oTranslate}}">local_drink</mat-icon></article>
+              <article *ngIf="service=='ergonomic_chair'"><mat-icon title="{{'ergonomic_chair' | oTranslate}}">event_seat</mat-icon></article>
+              <article *ngIf="service=='parking'"><mat-icon title="{{'parking' | oTranslate}}">local_parking</mat-icon></article>
             </article>
           </section>
-          <!--<div class="stars">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
-            </ng-container>
-          </div>-->
           <p class="location">{{ data.cw_location }}</p>
         </div>
 
-
-
         <div class="capacity-price-container">
           <div class="price-container">
-            <span class="price">{{ data.cw_daily_price }}€</span>
+            <!-- <span class="price">{{ data.cw_daily_price | number:'1.2-2'}}€</span> -->
+            <div class="price" [innerHTML]="formatPrice(data.cw_daily_price)"></div>
           </div>
         </div> <!-- Cerradura corregida aquí -->
 

@@ -3,15 +3,7 @@
   <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'FILTERS_COWORKING' | oTranslate }}"
     icon="filter_list" expanded="no">
     <div class="collapsible-container-items">
-      <o-combo #nameField appearance="outline" label="name" id="cw_name" null-selection="no" attr="cw_name"
-        service="coworkings" entity="coworking" keys="cw_name" value-column="cw_id" columns="cw_name" searchable="true"
-        visible-columns="cw_name" multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
-      </o-combo>
-      <o-combo #descriptionField appearance="outline" label="description" id="cw_description" null-selection="no"
-        attr="cw_description" service="coworkings" entity="coworking" keys="cw_description" value-column="cw_id"
-        columns="cw_description" searchable="true" visible-columns="cw_description" multiple="yes" translate="yes"
-        fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
-      </o-combo>
+      <o-text-input #searcher attr="name"></o-text-input>
       <o-combo #locationField appearance="outline" label="location" id="cw_location" null-selection="no"
         attr="cw_location" service="coworkings" entity="coworking" keys="cw_location" value-column="cw_location"
         columns="cw_location" searchable="true" visible-columns="cw_location" multiple="yes" translate="yes"
@@ -28,11 +20,10 @@
         class="button btn-outline-light custom-button" matTooltip="{{ 'Clear' | oTranslate }}">
         <mat-icon class="material-icons">clear</mat-icon>
       </button>
-      <o-text-input #searcher attr="name" hidden></o-text-input>
     </o-row>
 
-    <o-filter-builder #filterBuilder attr="thefilter" filters="" [target]="coworkingsGrid" query-on-change="no"
-      query-on-change-delay="500" [expression-builder]="">
+    <o-filter-builder #filterBuilder attr="thefilter" filters="cw_name:name;cw_description:name" [target]="coworkingsGrid" query-on-change="no"
+      query-on-change-delay="500" [expression-builder]="createFilter">
     </o-filter-builder>
   </o-column-collapsible>
 </o-form>

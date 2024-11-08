@@ -1,5 +1,5 @@
 CREATE TABLE city (
-    id_city serial NOT NULL,
+    id_city serial primary key NOT NULL,
     city	VARCHAR(512)
 );
 

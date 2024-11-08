@@ -16,7 +16,7 @@
               <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}"
                 required="yes" (onBlur)="checkUserName()" class="m-top-24">
               </o-text-input>
-              <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}"read-only="no"
+              <o-email-input #emailInput attr="usr_email" label="{{ 'USR_EMAIL' | oTranslate }}"read-only="no"
                 required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
               <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" 
                 required="yes" min-length="8" max-length="16" (onBlur)="checkPassword()" class="m-top-24">

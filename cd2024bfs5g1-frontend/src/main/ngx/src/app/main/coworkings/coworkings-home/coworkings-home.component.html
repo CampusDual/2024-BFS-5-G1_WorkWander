@@ -1,6 +1,6 @@
 <o-form class="form" attr="servicesForm" editable-detail="yes" show-header="no">
-<!-- <o-column class="collapsible-container" attr="container" title="{{ 'SERVICES' | oTranslate }}" -->
-    <!-- icon="filter_list" expanded="no"> -->
+<!-- <o-column class="collapsible-container" attr="container" title="{{ 'SERVICES' | oTranslate }}"
+    icon="filter_list" expanded="no"> -->
   <div class="filter-container">
     <o-combo
       #categoryField
@@ -11,8 +11,8 @@
       attr="srv_name"
       service="services"
       entity="service"
-      keys="srv_name"
-      value-column="srv_id"
+      keys="srv_id"
+      value-column="srv_name"
       columns="srv_name"
       searchable="true"
       visible-columns="srv_name"
@@ -25,34 +25,42 @@
     </o-combo>
   </div>
   <!-- </o-column> -->
-</o-form>
-    <!-- <o-button
+
+<o-row class="btn-container">
+    <o-button
       attr="filter"
       [oFilterBuilderQuery]="filterBuilder"
       type="RAISED"
       label="Filter"
       class="filter-button"
-    ></o-button>
+    >
+    <mat-icon class="material-icons">search</mat-icon>
+  </o-button>
     <o-button
       attr="clear"
       [oFilterBuilderClear]="filterBuilder"
       type="RAISED"
       label="Clear"
       class="filter-button"
-    ></o-button>
+      (click)="clearFilters()"
+    >
+    <mat-icon class="material-icons">clear</mat-icon>
+  </o-button> 
 
-    <o-text-input #searcher attr="services" hidden></o-text-input>
-
+  </o-row>
+  <o-row>
     <o-filter-builder
-      #filterBuilder
-      attr="thefilter"
-      filters="SERVICES:services"
+    #filterBuilder
+    attr="thefilter"
+      filters="services:srv_name"
       [target]="coworkingsGrid"
       query-on-change="no"
       query-on-change-delay="500"
       [expression-builder]="createFilter"
     >
-    </o-filter-builder>-->
+  </o-filter-builder> 
+</o-row>
+</o-form>
   <!-- Grid que muestra los datos de los coworkings -->
   <div class="grid-container">
   <o-grid

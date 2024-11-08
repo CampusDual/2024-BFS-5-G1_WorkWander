@@ -1,5 +1,5 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OFilterBuilderValues, OntimizeService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OFilterBuilderValues, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -7,16 +7,18 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './coworkings-home.component.html',
   styleUrls: ['./coworkings-home.component.css']
 })
-export class CoworkingsHomeComponent implements OnInit{
+export class CoworkingsHomeComponent implements OnInit {
   @ViewChild('filterBuilder', { static: true }) filterBuilder!: OFilterBuilderComponent;
+  @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
 
-  public arrayServices:any=[];
+  public arrayServices: any = [];
   protected service: OntimizeService;
   // Creamos constructor
   constructor(
-    protected injector:Injector,
+    protected injector: Injector,
     protected sanitizer: DomSanitizer
-  ) {this.service = this.injector.get(OntimizeService);
+  ) {
+    this.service = this.injector.get(OntimizeService);
   }
 
   // Creamos una variable para pasarle al html el número de columnas, por defecto 2
@@ -44,66 +46,65 @@ export class CoworkingsHomeComponent implements OnInit{
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/image-default.jpg';
   }
 
-  protected configureService(){
+  protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
   }
 
-  public serviceList(services:string){
-    if(services!=undefined){
+  public serviceList(services: string) {
+    if (services != undefined) {
       return services.split(',')
-    }else{
-      return null;
-    }
-
-  }
-  createFilter(values: Array<{ attr, value }>): Expression {
-    // Prepare simple expressions from the filter components values
-    let filters: Array<Expression> = [];
-    values.forEach(fil => {
-      if (fil.value) {
-        if (fil.attr === 'SERVICES') {
-          filters.push(FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value));
-        }
-        // if (fil.attr === 'EMPLOYEETYPEID') {
-        //   filters.push(FilterExpressionUtils.buildExpressionEquals(fil.attr, fil.value));
-        // }
-      }
-    });
-
-    // Build complex expression
-    if (filters.length > 0) {
-      return filters.reduce((exp1, exp2) => FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND));
     } else {
       return null;
     }
-  }  onServiceFilterChange(selectedService: string) {
-    if (this.filterBuilder) {
-      const filters: OFilterBuilderValues[] = [
-        {
-          attr: 'services',       // Nombre de la columna en la base de datos o servicio
-          value: selectedService  // Valor del filtro basado en el servicio seleccionado
-        }
-      ];
-      this.filterBuilder.setFilterValues(filters);
-    }
+
   }
-  searchReceivedParams() {
-    this.actRoute.queryParams.subscribe((params) => {
-      const category: any = params["category"] || null;
-      const keyword: any = params["keyword"] || null;
-      if (category != undefined) {
-        let arrayNuevo = [];
-        arrayNuevo.push(category);
-        this.categoryField.setValue(arrayNuevo);
+  createFilter(values: Array<{ attr: string, value: any }>): Expression {
+    let serviceExpressions: Array<Expression> = [];
+    
+    console.log("values", values)
+    console.log("values.length", values.length);
+    
+    values.forEach(fil => {
+      if (!fil.value) return;
+      
+      console.log("fil.value", fil.value);
+      console.log("fil.attr", fil.attr);
+      if (fil.attr == 'services') { 
+      // if (fil.attr === 'srv_name') {
+      // if (fil.attr === 'service') {
+        console.log("fil.attr", fil.attr);
+       if (Array.isArray(fil.value)) {
+          fil.value.forEach((val) => {
+            console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
+            serviceExpressions.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+            );
+          });
+        } else {
+          serviceExpressions.push(
+            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+          );
+          // }
+        }
       }
-      if (keyword != undefined) {
-        this.searcher.setValue(keyword);
-      }else{
-        this.searcher.setValue('');
-      }
-      this.toyGrid.reloadData();
     });
+    // Construir expresión OR para SERVICES
+    let serviceExpression: Expression = null;
+    if (serviceExpressions.length > 0) {
+      serviceExpression = serviceExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          // FilterExpressionUtils.OP_AND
+          FilterExpressionUtils.OP_OR
+        )
+      );
+    }
+    return serviceExpression;
   }
 
+  clearFilters(): void {
+    this.coworkingsGrid.reloadData();
+  }
 }

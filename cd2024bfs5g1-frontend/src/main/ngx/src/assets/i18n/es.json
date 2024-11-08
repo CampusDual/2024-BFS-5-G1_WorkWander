@@ -63,6 +63,7 @@
   "usr_creation_date": "Fecha de creación",
   "usr_down_date": "Fecha de baja",
   "usr_email": "Correo",
+  "USR_EMAIL": "Email",
   "usr_login": "Nombre de acceso",
   "usr_name": "Nombre de usuario",
   "usr_notes": "Notas",
@@ -143,6 +144,19 @@
   "BOOKINGS_CONFIRMED": "Reserva confirmada",
   "IM_REGISTERED": "Ya estoy registrado",
   "DATE": "Fecha",
-  "NO_SERVICES" : " Sin servicios adicionales"
-
+  "NO_SERVICES" : " Sin servicios adicionales",
+    "PASSWORD_MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres.",
+  "PASSWORD_MAX_LENGTH": "La contraseña debe tener como máximo 16 caracteres.",
+  "UNVALID_CIF": "CIF no valido",
+  "CIF_ALREADY_EXIST": "El CIF ya existe",
+  "ALL_FIELDS_ARE_REQUIRED": "Todos los campos son obligatorios",
+  "VALID_CIF": "El CIF es obligatorio y debe ser válido si la empresa está marcada",
+  "ERROR_REGISTERING_USER": "Error al registrar usuario",
+  "INSERTION_ERROR": "Error en la inserción",
+  "USER_ALREADY_EXIST": "Usuario ya existe",
+  "EMAIL_EXIST": "Email ya existe",
+  "VALIDATE_USERNAME": "El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres",
+  "VALIDATE_EMAIL": "El correo electrónico contiene caracteres no permitidos",
+  "CIF_ERROR": "El CIF es obligatorio y debe ser válido si la empresa está marcada.",
+  "DONE": "Aceptar"
 }

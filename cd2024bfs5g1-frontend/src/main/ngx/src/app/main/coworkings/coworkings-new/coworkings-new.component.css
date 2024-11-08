@@ -229,3 +229,10 @@ to {
   margin-right:unset;
   margin-left: unset;
 }
+
+.location-combo-icon {
+  align-content: center;
+  margin: 0 !important;
+  padding-right: 8px;
+  background-color: #fafafa;
+}

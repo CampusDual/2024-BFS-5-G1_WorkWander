@@ -205,6 +205,5 @@ export class CoworkingsDetailComponent {
       });
 
   }
-  
-
+ 
 }

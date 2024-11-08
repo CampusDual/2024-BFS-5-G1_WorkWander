@@ -13,13 +13,13 @@ export class CoworkingsDetailComponent implements OnInit {
   coworking: any;
   serviceList = [];
 
-  serviceIcons: { [key: string]: string } = {
-    'additional_screen': 'assets/icons/desktop-computer.png',
-    'vending_machine': 'assets/icons/vending-machine.png',
-    'coffee_bar': 'assets/icons/coffee-shop.png',
-    'water_dispenser': 'assets/icons/water-dispenser.png',
-    'ergonomic_chair': 'assets/icons/chair.png',
-    'parking': 'assets/icons/parking.png'
+  serviceIcons = {
+    additional_screen: 'desktop_windows',
+    vending_machine: 'kitchen',
+    coffee_bar: 'local_cafe',
+    water_dispenser: 'local_drink',
+    ergonomic_chair: 'event_seat',
+    parking: 'local_parking'
   };
 
   constructor(

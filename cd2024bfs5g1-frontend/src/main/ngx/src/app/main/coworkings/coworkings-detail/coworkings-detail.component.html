@@ -7,9 +7,9 @@
     <mat-card-header>
       <div mat-card-image>
         <o-image [ngClass]="{'hidden': !coworking.cw_image}" attr="cw_image" [data]=coworking.cw_image
-          show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
+          show-controls="no" read-only="yes" ></o-image>
         <img *ngIf="!coworking.cw_image" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
-          height="500px" width="900px" />
+           />
       </div>
     </mat-card-header>
     <mat-card-title>{{ coworking.cw_name }}</mat-card-title>
@@ -28,8 +28,9 @@
         <p><strong>Servicios:</strong></p>
         <div *ngIf="serviceList.length > 0; else noServices">
           <div *ngFor="let service of serviceList">
-            <img *ngIf="serviceIcons[service.servicios]" [src]="serviceIcons[service.servicios]" [alt]="service.service"
-              class="service-icon" aria-label="service">
+            <mat-icon *ngIf="serviceIcons[service.servicios]"  [title]="service.service | oTranslate ">
+              {{ serviceIcons[service.servicios] }}
+            </mat-icon>
           </div>
         </div>
         <ng-template #noServices>

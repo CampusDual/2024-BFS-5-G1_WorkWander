@@ -65,8 +65,8 @@
           <div class="book" *ngIf="parsePermissions('date')">
             <o-form editable-detail="no" show-header="no">
               <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-              <o-daterange-input attr="daterange2" label="Date range" read-only="no"  required="yes" [min]="currentDate()"
-                (onValueChange)="checkCapacity()" value-type="date"></o-daterange-input>
+              <o-daterange-input attr="daterange" #daterange label="Date range" read-only="no"  required="yes" [min]="currentDate()"
+                (onValueChange)="setDates()" value-type="date"></o-daterange-input>
             </o-form>
 
             <div *ngIf="parsePermissions('bookingButton')">

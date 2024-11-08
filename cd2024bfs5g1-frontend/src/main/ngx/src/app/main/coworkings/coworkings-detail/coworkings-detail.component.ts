@@ -16,7 +16,7 @@ import {
   OTranslateService,
   SnackBarService,
   Util,
-  ODateRangeInputComponent
+  ODateRangeInputComponent,
 } from "ontimize-web-ngx";
 
 @Component({
@@ -32,7 +32,7 @@ export class CoworkingsDetailComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
-    private translate: OTranslateService,
+    private translate: OTranslateService
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -47,15 +47,14 @@ export class CoworkingsDetailComponent {
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
-  public serviceList = []
-  public dateArray = []
-
+  public serviceList = [];
+  public dateArray = [];
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.showServices();
   }
 
@@ -63,52 +62,63 @@ export class CoworkingsDetailComponent {
     return new Date();
   }
 
-  getDateRangeArray(startDate: Date, endDate: Date): Date[] {
-    const dateArray: Date[] = [];
-    let currentDate = new Date(startDate);
+  setDates() {
+    const startDate = new Date((this.bookingDate as any).value.value.startDate);
+    const endDate = new Date((this.bookingDate as any).value.value.endDate);
 
-    // Iteramos hasta que la fecha actual supera la fecha final
-    while (currentDate <= endDate) {
-      // Agregamos una copia de la fecha actual para evitar referencias a la misma instancia
-      dateArray.push(new Date(currentDate));
-      // Avanzamos al siguiente día
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-    return dateArray;
+    this.dateArray[0] = startDate;
+    this.dateArray[1] = endDate;
+
+    this.checkCapacity()
+      .then((funciona) => {
+        if (funciona) {
+          this.bookingButton.enabled = true;
+        } else {
+          this.bookingButton.enabled = false;
+        }
+      })
+      .catch((error) => {
+        console.error("Error al consultar capacidad:", error);
+      });
   }
 
-  checkCapacity() {
-    const filter = {
-      bk_cw_id: +this.idCoworking.getValue(),
-      bk_date: this.bookingDate.getValue()+3600000,
-      bk_state: true,
-    };
+  checkCapacity(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const filter = {
+        bk_cw_id: +this.idCoworking.getValue(),
+        bk_date: this.dateArray,
+        bk_state: true,
+      };
 
-    const sqltypes = {
-      bk_date: 91,
-    };
+      const sqltypes = {
+        bk_date: 91,
+      };
 
-    const conf = this.service.getDefaultServiceConfiguration("bookings");
-    this.service.configureService(conf);
-    const columns = ["bk_id"];
-    this.service
-      .query(filter, columns, "totalBookingsByDate", sqltypes)
-      .subscribe((resp) => {
-        if (resp.code === 0) {
+      const conf = this.service.getDefaultServiceConfiguration("bookings");
+      this.service.configureService(conf);
+      const columns = ["bk_id"];
 
-          this.plazasOcupadas = resp.data[0]["plazasocupadas"];
-          this.realCapacity.setValue(
-            this.coworkingsSites.getValue() - this.plazasOcupadas
-          );
-          if (this.realCapacity.getValue() < 1) {
-            this.bookingButton.enabled = false;
-          } else {
-            this.bookingButton.enabled = true;
+      this.service
+        .query(filter, columns, "totalBookingsByDate", sqltypes)
+        .subscribe(
+          (resp) => {
+            if (resp.code === 0) {
+              this.plazasOcupadas = resp.data[0]["plazasocupadas"];
+              this.realCapacity.setValue(
+                this.coworkingsSites.getValue() - this.plazasOcupadas
+              );
+              resolve(this.realCapacity.getValue() >= 1);
+            } else {
+              alert("NO hay plazas");
+              resolve(false);
+            }
+          },
+          (error) => {
+            console.error("Error al consultar capacidad:", error);
+            reject(error);
           }
-        } else {
-          alert("NO hay plazas");
-        }
-      });
+        );
+    });
   }
 
   changeFormatDate(milis: number, idioma: string) {
@@ -122,39 +132,42 @@ export class CoworkingsDetailComponent {
   }
 
   showConfirm(evt: any) {
-    const rawDate = this.bookingDate.getValue();
-
     this.idiomaActual = this.translate.getCurrentLang();
-    this.idiomaActual === "es" ? (this.idioma = "es-ES") : (this.idioma = "en-US");
-    const fechaBien = this.changeFormatDate(rawDate, this.idioma);
+    this.idiomaActual === "es"
+      ? (this.idioma = "es-ES")
+      : (this.idioma = "en-US");
+    for (const date of this.dateArray) {
+      this.bookingDate = date;
+      const rawDate = this.bookingDate.getValue();
+      const fechaBien = this.changeFormatDate(rawDate, this.idioma);
+      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+      const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
+      const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
+      const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
 
-    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
-    const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
-    const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
-    const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
-    const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
-
-    if (this.authService.isLoggedIn()) {
-      if (this.dialogService) {
-        this.dialogService.confirm(
-          confirmMessageTitle,
-          `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
-        );
-        this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-          if (result) {
-            this.createBooking();
-          }
-        });
+      if (this.authService.isLoggedIn()) {
+        if (this.dialogService) {
+          this.dialogService.confirm(
+            confirmMessageTitle,
+            `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+          );
+          this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+              this.createBooking();
+            }
+          });
+        }
+      } else {
+        this.router.navigate(["/login"]);
       }
-    } else {
-      this.router.navigate(["/login"]);
     }
   }
 
   createBooking() {
     const filter = {
       bk_cw_id: +this.idCoworking.getValue(),
-      bk_date: this.bookingDate.getValue()+3600000,
+      bk_date: this.bookingDate.getValue() + 3600000,
       bk_state: true,
     };
 
@@ -175,8 +188,7 @@ export class CoworkingsDetailComponent {
   }
 
   showToastMessage() {
-
-    const confirmedMessage = this.translate.get('BOOKINGS_CONFIRMED');
+    const confirmedMessage = this.translate.get("BOOKINGS_CONFIRMED");
 
     // SnackBar configuration
     const configuration: OSnackBarConfig = {
@@ -206,19 +218,17 @@ export class CoworkingsDetailComponent {
     return permissions.visible;
   }
 
-  showServices():any{
+  showServices(): any {
     const filter = {
       cw_id: +this.activeRoute.snapshot.params["cw_id"],
-    }
+    };
     const conf = this.service.getDefaultServiceConfiguration("cw_services");
     this.service.configureService(conf);
     const columns = ["srv_name"];
     return this.service
       .query(filter, columns, "servicePerCoworking")
-      .subscribe((resp) =>{
-        this.serviceList = resp.data
+      .subscribe((resp) => {
+        this.serviceList = resp.data;
       });
-
   }
-
 }

@@ -96,12 +96,12 @@
 
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
-              <article *ngIf="service=='additional_screen'"><mat-icon title="{{'additional_screen' | oTranslate}}">desktop_windows</mat-icon></article>
-              <article *ngIf="service=='vending_machine'"><mat-icon title="{{'vending_machine' | oTranslate}}">kitchen</mat-icon></article>
-              <article *ngIf="service=='coffee_bar'"><mat-icon title="{{'coffee_bar' | oTranslate}}">local_cafe</mat-icon></article>
-              <article *ngIf="service=='water_dispenser'"><mat-icon title="{{'water_dispenser' | oTranslate}}">local_drink</mat-icon></article>
-              <article *ngIf="service=='ergonomic_chair'"><mat-icon title="{{'ergonomic_chair' | oTranslate}}">event_seat</mat-icon></article>
-              <article *ngIf="service=='parking'"><mat-icon title="{{'parking' | oTranslate}}">local_parking</mat-icon></article>
+              <article *ngIf="service=='additional_screen'"><mat-icon style="vertical-align:middle;" title="{{'additional_screen' | oTranslate}}">desktop_windows</mat-icon></article>
+              <article *ngIf="service=='vending_machine'"><mat-icon style="vertical-align:middle;" title="{{'vending_machine' | oTranslate}}">kitchen</mat-icon></article>
+              <article *ngIf="service=='coffee_bar'"><mat-icon style="vertical-align:middle;" title="{{'coffee_bar' | oTranslate}}">local_cafe</mat-icon></article>
+              <article *ngIf="service=='water_dispenser'"><mat-icon style="vertical-align:middle;" title="{{'water_dispenser' | oTranslate}}">local_drink</mat-icon></article>
+              <article *ngIf="service=='ergonomic_chair'"><mat-icon style="vertical-align:middle;" title="{{'ergonomic_chair' | oTranslate}}">event_seat</mat-icon></article>
+              <article *ngIf="service=='parking'"><mat-icon style="vertical-align:middle;" title="{{'parking' | oTranslate}}">local_parking</mat-icon></article>
             </article>
           </section>
           <p class="location">{{ data.cw_location }}</p>

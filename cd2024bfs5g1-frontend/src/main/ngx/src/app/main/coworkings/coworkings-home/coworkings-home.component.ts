@@ -1,5 +1,5 @@
-import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OFilterBuilderValues, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { Component, HostListener, Injector, OnInit } from '@angular/core';
+import { OntimizeService } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -61,16 +61,16 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
     let serviceExpressions: Array<Expression> = [];
-    
+
     console.log("values", values)
     console.log("values.length", values.length);
-    
+
     values.forEach(fil => {
       if (!fil.value) return;
-      
+
       console.log("fil.value", fil.value);
       console.log("fil.attr", fil.attr);
-      if (fil.attr == 'services') { 
+      if (fil.attr == 'services') {
       // if (fil.attr === 'srv_name') {
       // if (fil.attr === 'service') {
         console.log("fil.attr", fil.attr);
@@ -107,4 +107,8 @@ export class CoworkingsHomeComponent implements OnInit {
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
   }
+  public formatPrice(price: number): string {
+      const [integerPart, decimalPart] = price.toFixed(2).split('.');
+      return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+    }
 }

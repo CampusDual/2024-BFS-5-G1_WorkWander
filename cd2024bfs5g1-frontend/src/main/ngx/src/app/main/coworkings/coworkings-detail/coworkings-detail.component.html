@@ -1,120 +1,41 @@
- <!-- <o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R"
-  show-header-navigation="no" keys="cw_id" keys-sql-types="integer" columns="cw_id;cw_name" header-position="top"
-  layout-direction="row" detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true"
-  editable-detail="no">
-  <div fxLayout="row" fxLayoutGap="30px" fxFill>
-    <div id="container">
-      <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
-
-   
-        <div fxLayout="row" class="image-container">
-
-          
-          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  
-   
-            <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
-          </div>
-      
-          <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
-            height="500px" width="900px" />
-        </div>
-
-        <div fxLayout="row" fxLayoutGap="15px">
-
-          <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
-            layout-align="start stretch">
-
-            <div fxLayout="row">
-              <o-text-input #name type="text" hidden="yes" attr="cw_name" fxFlex label="NAME"
-                string-case="uppercase"></o-text-input>
-            </div>
-
-            <div fxLayout="row" fxLayoutGap="22px">
-              <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
-              <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-            </div>
-
-
-            <o-grid #coworkingsGrid attr="coworkingsGrid" service="cw_services" entity="servicePerCoworking"
-              keys="cw_id" columns="servicios" parent-keys="cw_id" quick-filter="no" fixed-header="no" controls="false"
-              refresh-button="false" show-page-size="false" pagination-controls="false" show-buttons-text="no"
-              gutter-size="8px" cols="6" detail-mode="none" show-footer="no" grid-item-height="40px">
-              <o-grid-item *ngFor="let dato of coworkingsGrid.dataArray">
-                <span class="coworking-service">{{ dato.servicios | oTranslate }}</span>
-              </o-grid-item>
-            </o-grid>
-            <ng-container *ngIf="coworkingsGrid.dataArray.length === 0">
-              <span class="coworking-service">{{"NO_SERVICES"| oTranslate }}</span>
-            </ng-container>
-
-
-
-            <div fxLayout="row">
-              <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
-            </div>
-
-            <div fxLayoutGap="22px" >
-              <div fxLayout="column" fxLayoutGap="22px">
-                <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
-                <o-integer-input  *ngIf="parsePermissions('realCapacity')" label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
-              </div>
-              <o-currency-input id="precioDetalle" attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
-            </div>
-          </o-column>
-
-          <div class="book" *ngIf="parsePermissions('date')">
-            <o-form editable-detail="no" show-header="no">
-             Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas 
-              <o-date-input #date attr="date" label="DATE" read-only="no" [min]="currentDate()"
-                (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
-            </o-form>
-
-            <div *ngIf="parsePermissions('bookingButton')">
-              <o-button #bookingButton attr="bookingButton" label="{{'BOOKING' | oTranslate }}" type="raised"
-                color="primary" (click)="showConfirm($event)" enabled="false"></o-button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</o-form>
-
- -->
-
- <div>
- <mat-card *ngIf="coworking" class="coworking-card">
-  <mat-card-header>
-    <div mat-card-avatar>
-      <img [src]="coworking.cw_image" alt="{{coworking.cw_name}}" />
-    </div>
+<div>
+  <o-button attr="iconposition3" icon="arrow_back_ios" (click)="goBack()"></o-button>
+</div>
+<div>
+  <mat-card *ngIf="coworking" class="coworking-card">
     <mat-card-title>{{ coworking.cw_name }}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="info-container">
-      <p><strong>Ubicación:</strong> {{ coworking.cw_location }}</p>
-      <p><strong>Capacidad:</strong> {{ coworking.cw_capacity }}</p>
-      <p><strong>Descripción:</strong> {{ coworking.cw_description }}</p>
+    <mat-card-header>
+      <div mat-card-image>
+        <o-image [ngClass]="{'hidden': !coworking.cw_image}" attr="cw_image" [data]=coworking.cw_image
+          show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
+        <img *ngIf="!coworking.cw_image" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
+          height="500px" width="900px" />
+      </div>
+    </mat-card-header>
+    <mat-card-title>{{ coworking.cw_name }}</mat-card-title>
+    <mat-card-content>
+      <div class="info-container">
+        <p><strong>Ubicación:</strong> {{ coworking.cw_location }}</p>
+        <p><strong>Capacidad:</strong> {{ coworking.cw_capacity }}</p>
+        <p><strong>Descripción:</strong> {{ coworking.cw_description }}</p>
+      </div>
+      <div class="price-container">
+        <span class="price">{{ coworking.cw_daily_price }}€</span>
+      </div>
+    </mat-card-content>
+    <div>
       <section class="services">
-        <article *ngFor="let service of serviceList">
-          <article *ngIf="service.srv_name=='additional_screen'"><img src="assets/icons/desktop-computer.png"
-              alt="Pantalla adicional" aria-label="Pantalla adicional"></article>
-          <article *ngIf="service.srv_name=='vending_machine'"><img src="assets/icons/vending-machine.png"
-              alt="Máquina expendedora" aria-label="Máquina expendedora"></article>
-          <article *ngIf="service.srv_name=='coffee_bar'"><img src="assets/icons/coffee-shop.png" alt="Café"
-              aria-label="Café"></article>
-          <article *ngIf="service.srv_name=='water_dispenser'"><img src="assets/icons/water-dispenser.png"
-              alt="Dispensador de agua" aria-label="Dispensador de agua"></article>
-          <article *ngIf="service.srv_name=='ergonomic_chair'"><img src="assets/icons/chair.png" alt="Silla ergonómica"
-              aria-label="Silla ergonómica" /></article>
-          <article *ngIf="service.srv_name=='parking'"><img src="assets/icons/parking.png" alt="Parking"
-              aria-label="Parking"></article>
-        </article>
+        <p><strong>Servicios:</strong></p>
+        <div *ngIf="serviceList.length > 0; else noServices">
+          <div *ngFor="let service of serviceList">
+            <img *ngIf="serviceIcons[service.servicios]" [src]="serviceIcons[service.servicios]" [alt]="service.service"
+              class="service-icon" aria-label="service">
+          </div>
+        </div>
+        <ng-template #noServices>
+          <p>Sin servicios</p>
+        </ng-template>
       </section>
     </div>
-    <div class="price-container">
-      <span class="price">{{ coworking.cw_daily_price }}€</span>
-    </div>
-  </mat-card-content>
-</mat-card>
+  </mat-card>
 </div>

@@ -12,6 +12,9 @@ import { filter } from 'rxjs';
 export class CoworkingsHomeComponent implements OnInit {
   public arrayServices: any = [];
   protected service: OntimizeService;
+  //Variable para formatear el precio
+  //public formatPrice: SafeHtml;
+
 
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent
 
@@ -31,7 +34,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-
+    //this.setFormatPrice();
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -87,5 +90,10 @@ export class CoworkingsHomeComponent implements OnInit {
     } else {
       return null;
     }
+  }
+
+  public formatPrice(price: number): string {
+    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
 }

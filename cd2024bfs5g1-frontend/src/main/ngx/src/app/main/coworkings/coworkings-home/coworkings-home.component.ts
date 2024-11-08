@@ -1,5 +1,5 @@
-import { Component, HostListener, Injector, OnInit } from '@angular/core';
-import { OntimizeService } from 'ontimize-web-ngx';
+import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
+import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -89,15 +89,15 @@ export class CoworkingsHomeComponent implements OnInit {
         }
       }
     });
-    // Construir expresión OR para SERVICES
+    // Construir expresión AND para SERVICES
     let serviceExpression: Expression = null;
     if (serviceExpressions.length > 0) {
       serviceExpression = serviceExpressions.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(
           exp1,
           exp2,
-          // FilterExpressionUtils.OP_AND
-          FilterExpressionUtils.OP_OR
+          FilterExpressionUtils.OP_AND
+          // FilterExpressionUtils.OP_OR
         )
       );
     }

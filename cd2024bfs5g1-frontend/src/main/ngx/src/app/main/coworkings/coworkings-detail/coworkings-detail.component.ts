@@ -34,32 +34,11 @@ export class CoworkingsDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   // this.loadCoworkingDetails();
     this.showServices();
   }
 
   goBack(): void {
     this.location.back();
-  }
-
-  loadCoworkingDetails(): void {
-    
-    const filter = {
-      cw_id: +this.activeRoute.snapshot.params["cw_id"],
-    };
-    console.log('filter', filter);
-
-    this.service.query(filter, ['cw_id', 'cw_name', 'cw_location', 'cw_capacity', 'cw_daily_price', 'cw_description', 'cw_image'], 'coworking').subscribe(
-      response => {
-        if (response.data && response.data.length > 0) {
-          this.coworking = response.data[0];
-        }
-      },
-      error => {
-        console.error('Error loading coworking details', error);
-      }
-    );
-    
   }
 
   showServices(): void {

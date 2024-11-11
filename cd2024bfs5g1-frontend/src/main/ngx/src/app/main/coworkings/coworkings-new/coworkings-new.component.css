@@ -211,10 +211,10 @@ to {
   border-radius: 8px;
   border-box: 1px solid black;
   width: 120px;
-  height: 40px;
   transition: width 2s, height 2s;
   text-align:center;
   margin: 0 auto;
+  padding: 15px 10px 10px 10px;
 }
 
 .buttons{

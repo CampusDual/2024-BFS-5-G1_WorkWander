@@ -109,7 +109,7 @@
   "name": "Name",
   "date_event": "Date",
   "hour_event": "Hour",
-  "duration" : "Duration",
+  "duration" : "Duration (minutes)",
   "address": "Address",
   "locality": "Locality",
   "bookings": "Bookings",

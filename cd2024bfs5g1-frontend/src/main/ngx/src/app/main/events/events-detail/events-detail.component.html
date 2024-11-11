@@ -17,7 +17,7 @@
             <p><strong>{{ 'BOOKINGS' | oTranslate }}:</strong> {{ form.getFieldValue('bookings') }}</p>
             <o-text-input oHidden attr="bookings"></o-text-input>
             <!--date_event-->
-            <p><strong>{{ 'DATE_EVENT' | oTranslate }}:</strong> {{ form.getFieldValue('date_event')|date:"dd-MM-yyyy"}}</p>
+            <p><strong>{{ 'DATE_EVENT' | oTranslate }}:</strong> {{ form.getFieldValue('date_event')|date: 'd MMMM yyyy'}}</p>
             <o-text-input oHidden attr="date_event"></o-text-input>
             <!--hour_event-->
             <p><strong>{{ 'HOUR_EVENT' | oTranslate }}:</strong> {{ form.getFieldValue('hour_event') }}</p>

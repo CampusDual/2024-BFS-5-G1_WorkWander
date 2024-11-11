@@ -5,6 +5,7 @@ import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
 import { CoworkingsDetailComponent } from '../main/coworkings/coworkings-detail/coworkings-detail.component';
 import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/coworkings-new.component';
+import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/cowork
     FilterComponent,
     HomeToolbarComponent,
     CoworkingsDetailComponent,
-    CoworkingsNewComponent
+    CoworkingsNewComponent,
+    EventsDetailComponent
   ],
   exports: [
     CommonModule,

@@ -59,24 +59,16 @@ export class CoworkingsHomeComponent implements OnInit {
     }
 
   }
+  // Filtra los servicios en función a los valores seleccionados en el desplegable de servicios del html
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
     let serviceExpressions: Array<Expression> = [];
-
-    console.log("values", values)
-    console.log("values.length", values.length);
 
     values.forEach(fil => {
       if (!fil.value) return;
 
-      console.log("fil.value", fil.value);
-      console.log("fil.attr", fil.attr);
       if (fil.attr == 'services') {
-      // if (fil.attr === 'srv_name') {
-      // if (fil.attr === 'service') {
-        console.log("fil.attr", fil.attr);
-       if (Array.isArray(fil.value)) {
+        if (Array.isArray(fil.value)) {
           fil.value.forEach((val) => {
-            console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
             serviceExpressions.push(
               FilterExpressionUtils.buildExpressionLike(fil.attr, val)
             );
@@ -85,7 +77,6 @@ export class CoworkingsHomeComponent implements OnInit {
           serviceExpressions.push(
             FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
           );
-          // }
         }
       }
     });
@@ -103,12 +94,13 @@ export class CoworkingsHomeComponent implements OnInit {
     }
     return serviceExpression;
   }
-
+  //Reinicia los valores de los filtros 
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
   }
+  // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: number): string {
-      const [integerPart, decimalPart] = price.toFixed(2).split('.');
-      return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
-    }
+    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
 }

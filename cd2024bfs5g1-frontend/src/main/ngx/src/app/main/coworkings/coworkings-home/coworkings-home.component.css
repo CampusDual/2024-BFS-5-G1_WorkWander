@@ -14,8 +14,30 @@ h3 {
   align-self: end;
 }
 
-.services{
-  display:flex;
-  flex-direction:row;
-  justify-items:space-evenly;
+.services {
+  display: flex;
+  flex-direction: row;
+  justify-items: space-evenly;
+}
+.form {
+  display: flex;
+  margin-bottom: 10px;
+}
+.services-container button {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+  vertical-align: middle;
+  background-color: #f9f6f6;
+  border: 1px solid #999698;
+  border-radius: 2px;
+}
+.services-container {
+  background-color: #e5e5e8;
+}
+o-combo {
+  background-color: #f9f6f6;
+}
+.material-icons {
+  color: #727074;
 }

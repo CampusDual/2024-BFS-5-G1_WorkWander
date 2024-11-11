@@ -117,7 +117,7 @@ login {
     min-height: unset;
     z-index: 2;
     background-color: unset;
-    
+
     .login-inner-container form{
       padding: $padding;
       justify-content: center;
@@ -216,7 +216,7 @@ nav.ng-star-inserted:nth-last-child(2) {
   }
 
   .o-app-sidenav-container {
-    
+
     .o-app-header{
       background-image: $linear-gradientRL;
     }
@@ -230,16 +230,16 @@ nav.ng-star-inserted:nth-last-child(2) {
       transition: all 0.2s;
       margin: unset;
       border-left: unset;
-      
+
       a:hover{
         border-radius: $borderRadiusNav;
         background-color: $accent;
         color: $primary;
         border-left: 8px solid $primary;
       }
-  
+
     }
-  
+
   }
 
 }
@@ -250,7 +250,7 @@ nav.ng-star-inserted:nth-last-child(2) {
   column-gap: 25px;
 
 
-  o-column.o-column, 
+  o-column.o-column,
   o-row.o-row {
     background: transparent;
     box-shadow: none;
@@ -273,7 +273,7 @@ nav.ng-star-inserted:nth-last-child(2) {
 
   .image-container {
     margin-right: 25px;
-    
+
     img {
       width: 400px;
       height: 480px;

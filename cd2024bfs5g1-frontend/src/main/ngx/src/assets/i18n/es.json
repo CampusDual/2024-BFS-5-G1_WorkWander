@@ -101,6 +101,7 @@
   "name": "Nombre",
   "date_event": "Fecha",
   "hour_event": "Hora",
+  "duration" : "Duración",
   "address": "Dirección",
   "locality": "Localidad",
   "bookings": "Plazas",

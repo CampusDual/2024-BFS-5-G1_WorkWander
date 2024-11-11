@@ -34,7 +34,7 @@ export class CoworkingsDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadCoworkingDetails();
+   // this.loadCoworkingDetails();
     this.showServices();
   }
 
@@ -43,6 +43,7 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   loadCoworkingDetails(): void {
+    
     const filter = {
       cw_id: +this.activeRoute.snapshot.params["cw_id"],
     };
@@ -58,6 +59,7 @@ export class CoworkingsDetailComponent implements OnInit {
         console.error('Error loading coworking details', error);
       }
     );
+    
   }
 
   showServices(): void {

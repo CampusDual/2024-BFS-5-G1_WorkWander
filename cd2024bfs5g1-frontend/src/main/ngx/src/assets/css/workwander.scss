@@ -250,11 +250,11 @@ nav.ng-star-inserted:nth-last-child(2) {
   gap: 25px;
   flex-wrap: wrap;
 
+  o-form,
   o-column.o-column,
   o-row.o-row {
     background: transparent;
     box-shadow: none;
-    width: calc(100% - 140px);
     margin: 0;
 
     div.o-container-gap{
@@ -267,6 +267,9 @@ nav.ng-star-inserted:nth-last-child(2) {
     div.info-container{
       width: 100%;
       max-width: 400px;
+    }
+    div.detail-container{
+      flex-direction: column;
     }
     
   }

@@ -72,11 +72,6 @@ export class CoworkingsHomeComponent implements OnInit {
     let filters: Array<Expression> = [];
     values.forEach((fil) => {
       if (fil.value) {
-//        if (fil.attr === "cw_name" || fil.attr === "cw_description") {
-//          filters.push(
-//            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
-//          );
-//        }else
         if(fil.attr === "cw_location"){
           if (Array.isArray(fil.value)) {
             fil.value.forEach((val) => {
@@ -104,14 +99,6 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
     return locationsExpression;
-
-//   if (filters.length > 0) {
-//     return filters.reduce((exp1, exp2) =>
-//       FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
-//     );
-//   } else {
-//     return null;
-//   }
   }
 
   public formatPrice(price: number): string {

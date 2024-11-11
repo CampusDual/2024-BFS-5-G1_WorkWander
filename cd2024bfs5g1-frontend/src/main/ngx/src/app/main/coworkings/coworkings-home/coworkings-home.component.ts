@@ -1,5 +1,5 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OComboComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, OComboComponent, OGridComponent, OntimizeService, OTextInputComponent } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -17,6 +17,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
 
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent
+  @ViewChild("coworkingsSearch") protected coworkingsSearch: OTextInputComponent
 
   // Creamos constructor
   constructor(
@@ -79,21 +80,50 @@ export class CoworkingsHomeComponent implements OnInit {
           filters.push(
             FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
           )
+        } else if(fil.attr === "cw_location"){
+          if (Array.isArray(fil.value)) {
+            fil.value.forEach((val) => {
+              console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
+              filters.push(
+                FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+              );
+            });
+          } else {
+            filters.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+            );
+          }
         }
       }
     });
-
+    let locationsExpression: Expression = null;
     if (filters.length > 0) {
-      return filters.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_OR)
+      locationsExpression = filters.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+          // FilterExpressionUtils.OP_OR
+        )
       );
-    } else {
-      return null;
     }
+    return locationsExpression;
+
+//   if (filters.length > 0) {
+//     return filters.reduce((exp1, exp2) =>
+//       FilterExpressionUtils.buildComplexExpression(exp1, exp2, FilterExpressionUtils.OP_AND)
+//     );
+//   } else {
+//     return null;
+//   }
   }
 
   public formatPrice(price: number): string {
     const [integerPart, decimalPart] = price.toFixed(2).split('.');
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
+
+  clearFilters(): void {
+    this.coworkingsGrid.reloadData()
   }
 }

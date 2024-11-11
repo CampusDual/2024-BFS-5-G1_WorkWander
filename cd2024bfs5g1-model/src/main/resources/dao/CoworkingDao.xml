@@ -35,6 +35,7 @@
                     #COLUMNS#
                     FROM
                         temp_table
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>

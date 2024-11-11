@@ -245,11 +245,48 @@ nav.ng-star-inserted:nth-last-child(2) {
 }
 
 /* Contenedores fichas detalle */
-div.application-layout-content-wrapper header-layout .ng-star-inserted {
+.card-detalle {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  column-gap: 25px;
+
+
+  o-column.o-column, 
+  o-row.o-row {
+    background: transparent;
+    box-shadow: none;
+    width: calc(75vw);
+    margin: 0;
+
+    div.o-container-gap{
+      padding: unset !important;
+    }
+  }
+
+  o-button.o-button button {
+    padding: 25px 35px;
+    border-radius: $borderRadiusButton;
+    border: none;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+    -moz-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+    box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+  }
+
+  .image-container {
+    margin-right: 25px;
+    
+    img {
+      width: 400px;
+      height: 480px;
+      object-fit: cover;
+      border-radius: $borderRadiusButton;
+      display: block;
+      -webkit-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+      -moz-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+      box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+    }
+  }
 }
+
 
 @media(max-width:576px) {
   .full-page {

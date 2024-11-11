@@ -52,6 +52,11 @@ export class EventsNewComponent {
     return new Date();
   }
 
+  getValue() {
+    //Obtiene la hora actual del sistema en la zona horaria local del usuario.
+    return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+  }
+
   createEvent() {
     this.router.navigate(["/main/myevents"]);
   }

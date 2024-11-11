@@ -17,7 +17,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
 
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent
-  @ViewChild("coworkingsSearch") protected coworkingsSearch: OTextInputComponent
+
 
   // Creamos constructor
   constructor(
@@ -72,15 +72,12 @@ export class CoworkingsHomeComponent implements OnInit {
     let filters: Array<Expression> = [];
     values.forEach((fil) => {
       if (fil.value) {
-        if (fil.attr === "cw_name") {
-          filters.push(
-            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
-          );
-        } else if (fil.attr === 'cw_description') {
-          filters.push(
-            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
-          )
-        } else if(fil.attr === "cw_location"){
+//        if (fil.attr === "cw_name" || fil.attr === "cw_description") {
+//          filters.push(
+//            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+//          );
+//        }else
+        if(fil.attr === "cw_location"){
           if (Array.isArray(fil.value)) {
             fil.value.forEach((val) => {
               console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
@@ -102,8 +99,7 @@ export class CoworkingsHomeComponent implements OnInit {
         FilterExpressionUtils.buildComplexExpression(
           exp1,
           exp2,
-          FilterExpressionUtils.OP_AND
-          // FilterExpressionUtils.OP_OR
+          FilterExpressionUtils.OP_OR
         )
       );
     }

@@ -29,7 +29,6 @@
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
                     LEFT JOIN service on service.srv_id = cw_service.srv_id
                     LEFT JOIN city on city.id_city = coworking.cw_location
-                    #WHERE#
                     GROUP BY public.coworking.cw_id, public.city.city)
                 SELECT
                     #COLUMNS#

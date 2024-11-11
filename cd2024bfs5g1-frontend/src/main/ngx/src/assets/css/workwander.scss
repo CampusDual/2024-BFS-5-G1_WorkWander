@@ -250,7 +250,6 @@ nav.ng-star-inserted:nth-last-child(2) {
   gap: 25px;
   flex-wrap: wrap;
 
-  o-form,
   o-column.o-column,
   o-row.o-row {
     background: transparent;
@@ -271,7 +270,9 @@ nav.ng-star-inserted:nth-last-child(2) {
     div.detail-container{
       flex-direction: column;
     }
-    
+  }
+  o-form .inner-form .o-form-content-wrapper{
+    flex-flow: wrap;
   }
 
   o-button.o-button button {

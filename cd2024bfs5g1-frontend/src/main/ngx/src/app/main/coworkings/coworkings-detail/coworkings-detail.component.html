@@ -1,5 +1,5 @@
 <div class="card-detalle">
-  <div>
+  <div class="button-back">
     <o-button attr="iconposition3" icon="arrow_back_ios" (click)="goBack()"></o-button>
   </div>
   <o-row attr="container" title="" icon="" layout-align="start stretch" elevation="1" appearance="none">
@@ -8,9 +8,9 @@
         show-controls="no" read-only="yes" height="200px" width="200px" auto-fit="no"></o-image>
       <img *ngIf="!coworking.cw_image" src="assets/images/image-default.jpg" alt="Imagen predeterminada"/>
     </div>
-    <div>
+    <div class="info-container">
       <div><h1>{{ coworking.cw_name }}</h1></div>
-      <div class="info-container">
+      <div class="detail-container">
         <p><strong>Localización:</strong> {{ coworking.cw_location }}</p>
         <p><strong>Descripción:</strong> {{ coworking.cw_description }}</p>
       </div>

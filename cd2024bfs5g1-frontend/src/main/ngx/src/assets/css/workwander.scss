@@ -247,19 +247,28 @@ nav.ng-star-inserted:nth-last-child(2) {
 /* Contenedores fichas detalle */
 .card-detalle {
   display: flex;
-  column-gap: 25px;
-
+  gap: 25px;
+  flex-wrap: wrap;
 
   o-column.o-column, 
   o-row.o-row {
     background: transparent;
     box-shadow: none;
-    width: calc(75vw);
+    width: calc(100% - 140px);
     margin: 0;
 
     div.o-container-gap{
       padding: unset !important;
+      >div{
+        flex-wrap: wrap;
+      }
     }
+
+    div.info-container{
+      width: 100%;
+      max-width: 400px;
+    }
+    
   }
 
   o-button.o-button button {
@@ -287,10 +296,22 @@ nav.ng-star-inserted:nth-last-child(2) {
   }
 }
 
-
+@media(max-width:850px){
+  .button-back{
+    display: none;
+  }
+  .card-detalle .image-container img {
+    height: 220px;
+  }
+  .card-detalle {
+    o-column.o-column, 
+    o-row.o-row {
+      width: 100%;
+    }
+  }
+}
 @media(max-width:576px) {
   .full-page {
-
     .footer-container {
       div {
         margin: 0 auto;

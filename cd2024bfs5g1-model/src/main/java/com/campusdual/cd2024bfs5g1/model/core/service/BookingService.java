@@ -2,7 +2,6 @@ package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
-import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.security.PermissionsProviderSecured;
@@ -24,29 +23,39 @@ public class BookingService implements IBookingService {
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
     private BookingDao bookingDao;
-    @Override
-    public EntityResult bookingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        return this.daoHelper.query(this.bookingDao, keyMap, attrList);    }
 
     @Override
-    public EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult bookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult totalBookingsByDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.TOTAL_BOOKINGS_DATE_QUERY);
     }
 
     @Override
-    public EntityResult myBookingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+    public EntityResult myBookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingDao.BK_USR_ID, userId);
         return this.daoHelper.query(this.bookingDao, keyMap, attrList);
     }
 
     @Override
-    @Secured({ PermissionsProviderSecured.SECURED })
-    public EntityResult bookingInsert(Map<String, Object> attrMap) {
+    public EntityResult datesByBookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(BookingDao.BK_USR_ID, userId);
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.DATES_BY_BOOKING_QUERY);
+    }
+
+    @Override
+    @Secured({PermissionsProviderSecured.SECURED})
+    public EntityResult bookingInsert(final Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(BookingDao.BK_USR_ID, userId);
@@ -56,12 +65,12 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public EntityResult bookingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
+    public EntityResult bookingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         return this.daoHelper.update(this.bookingDao, attrMap, keyMap);
     }
 
     @Override
-    public EntityResult bookingDelete(Map<String, Object> keyMap) {
+    public EntityResult bookingDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.bookingDao, keyMap);
     }
 }

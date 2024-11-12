@@ -1,13 +1,13 @@
-<o-form-layout-manager attr="myCoworkingsHome" title="{{'MYCOWORKINGS' | oTranslate }}" separator=" " mode="tab"
-    label-columns="cw_name">
-    <o-table delete-button="no" insert-button="no" attr="myCoworkingsTable" service="coworkings" entity="myCoworking" keys="cw_id"
-        columns="cw_id;cw_name;cw_address;cw_location;cw_capacity;cw_daily_price"
-        visible-columns="cw_name;cw_address;cw_location;cw_capacity;cw_daily_price"
+<o-form-layout-manager attr="myBookingsHome" title="{{'MYBOOKINGS' | oTranslate }}" separator=" " mode="tab"
+    label-columns="bk_id">
+    <o-table delete-button="no" insert-button="no" attr="myCoworkingsTable" service="bookings" entity="datesByBooking" keys="bk_id"
+        columns="bk_id;bk_usr_id;bk_cw_id;bk_state;dates"
+        visible-columns="bk_id;bk_usr_id;bk_cw_id;bk_state;dates"
         query-rows="15" auto-adjust="true">
-        <o-table-column attr="cw_name" title="cw_name" width="30%"></o-table-column>
-        <o-table-column attr="cw_address" title="cw_address" width="35%"></o-table-column>
-        <o-table-column attr="cw_location" title="cw_location" width="15%"></o-table-column>
-        <o-table-column attr="cw_capacity" title="cw_capacity" width="10%" content-align="end"></o-table-column>
-        <o-table-column attr="cw_daily_price" title="cw_daily_price" type="currency" currency-symbol-position="right" currency-symbol="€" decimal-digits="2" width="10%"></o-table-column>
+        <o-table-column attr="bk_id" title="bk_id" width="30%"></o-table-column>
+        <o-table-column attr="bk_usr_id" title="bk_usr_id" width="35%"></o-table-column>
+        <o-table-column attr="bk_cw_id" title="cw_id" width="15%"></o-table-column>
+        <o-table-column attr="bk_state" title="bk_state" width="10%" content-align="end"></o-table-column>
+        <o-table-column attr="dates" title="dates" width="10%"></o-table-column>
     </o-table>
 </o-form-layout-manager>

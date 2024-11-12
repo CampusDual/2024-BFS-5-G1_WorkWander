@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', component: BookingsHomeComponent,
     data: {
       oPermission:{
-        permissionId:"myBookings",
+        permissionId:"Bookings",
         redirectedPermissionsRedirect:403
       }
     }

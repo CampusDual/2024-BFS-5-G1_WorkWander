@@ -303,6 +303,10 @@ o-form.o-form o-column.o-column.o-appearance-outline {
 
 .o-app-sidenav {
 
+  .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
+    padding-bottom: 0px !important;
+  }
+
   .o-app-sidenav-container .o-app-header{
     background-image: $linear-gradientRL;
   }
@@ -310,23 +314,6 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   .ng-star-inserted{
     place-content: center flex-end;
     justify-content: space-between;
-    //background-color: $accent;
-  }
-
-  nav.ng-star-inserted:nth-last-child(2) {
-    background-color: $accent;
-    position: absolute;
-    border-radius: 25px;
-    margin: 0px 5px 0 5px;
-    transition: all 0.2s;
-    top:unset;
-    bottom: 25px;
-    right: 0;
-
-    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-      border-radius: 25px !important;
-      border-left: none;
-    }
   }
 
   .o-app-sidenav-menu-group a,
@@ -339,7 +326,8 @@ o-form.o-form o-column.o-column.o-appearance-outline {
     border-radius: $borderRadius;
     transition: all 0.2s;
     margin: unset;
-    border-left: unset;
+    border-left: 8px solid $primary !important;
+    padding: 0;
   }
 
   .o-app-sidenav-sidenav {
@@ -361,19 +349,52 @@ o-form.o-form o-column.o-column.o-appearance-outline {
     li a{
       color: $primary !important;
     }
+
+  nav.ng-star-inserted:nth-last-child(1),
+  nav.ng-star-inserted:nth-last-child(2) {
+    background-color: $accent;
+    position: absolute;
+    border-radius: 25px;
+    border-left: 0px solid $accent !important;
+    margin: 0px 5px 0 5px;
+    transition: all 0.2s;
+    top:unset;
+    bottom: 25px;
+    right: 0;
+    width: 96%;
+
+    :hover{
+      border-left: 0px solid $accent !important;
+    }
+    .mdc-button__label > div{
+      justify-content: center !important;
+    }
+
+    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+      border-radius: 25px !important;
+      border-left: 0px solid $accent;
+      transition: none;
+    }
+    .mat-mdc-button>.mat-icon {
+      margin-left: 0;
+      margin-right: 0px;
+    }
   }
 
-  .o-app-sidenav-menu-group:not([disabled=true]) a:hover
-  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-    color: $primary !important;
-    background-color: $accentClaro !important;
-    border-left: 8px solid $primary !important;
-  }
 
-  .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-    background-color: $accentClaro;
-    color: $primary;
-    border-left: 8px solid $accentClaro;
+
+    .o-app-sidenav-menu-group:not([disabled=true]) a:hover
+    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+      color: $primary !important;
+      background-color: $accentClaro !important;
+      border-left: 8px solid $primary !important;
+    }
+
+    .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
+      background-color: $accentClaro;
+      color: $primary;
+      border-left: 8px solid $accentClaro;
+    }
   }
 
 }
@@ -1093,6 +1114,10 @@ mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
       padding: $paddingInterno;
       background-color: $accent;
     }
+  }
+  .o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
+    margin: 0;
+    border-radius: 5px;
   }
 }
 @media(max-width:576px) {

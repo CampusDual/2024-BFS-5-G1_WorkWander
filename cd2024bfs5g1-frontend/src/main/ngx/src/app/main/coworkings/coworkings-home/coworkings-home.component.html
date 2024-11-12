@@ -1,6 +1,6 @@
 <div class="grid-container">
 <o-form show-header="no">
-  <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'FILTERS_COWORKING' | oTranslate }}"
+  <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'ADVANCED_SEARCH' | oTranslate }}"
   icon="filter_list" expanded="no">
     <div class="collapsible-container-items">
       <o-combo #locationField appearance="outline" label="LOCATION" id="cw_location" null-selection="no"
@@ -22,7 +22,7 @@
         [target]="coworkingsGrid" query-on-change="no" query-on-change-delay="500"
         [expression-builder]="createFilter">
       </o-filter-builder>
-  
+
     </div>
   </o-column-collapsible>
 </o-form>

@@ -23,14 +23,16 @@
             <Sentence>
                 <![CDATA[
                     SELECT booking.bk_id,
-                        booking.bk_usr_id,
-                        booking.bk_cw_id,
-                        booking.bk_state,
-                    ARRAY_AGG (date ORDER BY date ASC) AS dates
-                    FROM ${mainschema}.booking
-                    JOIN ${mainschema}.booking_date ON booking.bk_id = booking_date.bk_id
-                    #WHERE#
-                    GROUP BY booking.bk_id;
+booking.bk_usr_id,
+booking.bk_cw_id,
+booking.bk_state,
+coworking.cw_name,
+ARRAY_AGG (date ORDER BY date ASC) AS dates
+FROM  ${mainschema}.booking
+JOIN  ${mainschema}.booking_date ON booking.bk_id = booking_date.bk_id
+JOIN  ${mainschema}.coworking ON booking.bk_cw_id = coworking.cw_id
+#WHERE#
+GROUP BY booking.bk_id, coworking.cw_name;
                 ]]>
             </Sentence>
         </Query>

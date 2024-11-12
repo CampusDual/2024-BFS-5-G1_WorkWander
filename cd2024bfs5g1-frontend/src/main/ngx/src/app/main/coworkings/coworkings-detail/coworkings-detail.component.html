@@ -10,7 +10,7 @@
         <!-- Campo para mostrar la imagen de coworking -->
         <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  <!-- Ocultaremos el div cuando no exista "cw_image" -->
           <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
-          <o-image  [ngClass]="{'hidden': !form.getFieldValue('cw_image')}" attr="cw_image" 
+          <o-image  [ngClass]="{'hidden': !form.getFieldValue('cw_image')}" attr="cw_image"
             show-controls="no" read-only="yes" height="480px" width="450px" auto-fit="no"></o-image>
         </div>
           <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg" alt="Imagen predeterminada"/>
@@ -24,27 +24,33 @@
           <o-column class="detail-container">
             <o-text-input #location type="text" hidden="yes" attr="cw_location" fxFlex label="LOCATION" string-case="uppercase"></o-text-input>
             <p><strong>Localización:</strong> {{form.getFieldValue("cw_location")}}</p>
-          
+
             <o-text-input #description type="text" hidden="yes" attr="cw_description" fxFlex label="DESCRIPTION" string-case="uppercase"></o-text-input>
             <p><strong>Descripción:</strong>  {{form.getFieldValue("cw_description")}}</p>
           </o-column>
+
         <div>
           <section class="services">
+
             <p><strong>Servicios:</strong></p>
-            <div *ngIf="serviceList.length > 0; else noServices">
-              <o-row>
-              <div *ngFor="let service of serviceList">
-                <mat-icon *ngIf="serviceIcons[service.servicios]"  [title]="service.service | oTranslate ">
+
+            <o-grid #coworkingsGrid attr="coworkingsGrid" service="cw_services" entity="servicePerCoworking" keys="cw_id"
+                    columns="servicios" parent-keys="cw_id" quick-filter="no" fixed-header="no" controls="false"
+                    refresh-button="false" show-page-size="false" pagination-controls="false" show-buttons-text="no"
+                    gutter-size="8px" rows="1" detail-mode="none" show-footer="no" grid-item-height="40px">
+              <o-grid-item *ngFor="let service of coworkingsGrid.dataArray">
+                <mat-icon *ngIf="serviceIcons[service.servicios]"  [svgIcon]="service.service ">
                   {{ serviceIcons[service.servicios] }}
                 </mat-icon>
-              </div>
-            </o-row>
-            </div>
-            <ng-template #noServices>
-              <p>Sin servicios</p>
-            </ng-template>
+                <ng-template #noServices>
+                  <p>Sin servicios</p>
+                </ng-template>
+              </o-grid-item>
+            </o-grid>
+
           </section>
         </div>
+
         <o-column  class="price-container">
           <o-text-input #capacity type="text" hidden="yes" attr="cw_capacity" fxFlex label="CAPACITY" string-case="uppercase"></o-text-input>
           <p><strong>Capacidad:</strong> {{form.getFieldValue("cw_capacity")}}</p>

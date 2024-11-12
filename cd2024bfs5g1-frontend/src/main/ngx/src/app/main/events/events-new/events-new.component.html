@@ -14,11 +14,11 @@ This HTML file defines the structure of the "New Event" form component in an Ang
 - **Layout**: Utilizes Angular Flex Layout directives (`fxLayout`, `fxFlex`, `fxLayoutGap`, `fxLayoutAlign`) to arrange the form elements responsively.
 -->
 <o-form #form attr="eventNew" service="events" entity="event" keys="id_event" header-actions="new"
-    show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section"
-    ignore-default-navigation="yes">
-    <div fxLayout="row" class="form-section" class="form-container" fxLayoutGap="24px" fxLayoutAlign="center start">
+    show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section form-new-event"
+    ignore-default-navigation="yes" >
+    <div fxLayout="row" class="form-section" class="form-container" fxLayoutGap="24px" fxLayoutAlign="left start">
         <!-- Información General -->
-        <o-column fxFlex="70" title="EVENT_INFORMATION" class="form-section">
+        <o-column fxFlex="70" title="EVENT_INFORMATION" class="form-section form-new-event">
             <div fxLayout="row" fxLayoutGap="24px" class="form-row">
                 <!-- Nombre -->
                 <o-text-input #nameInput fxFlex="50" attr="name" icon="business" required="yes"></o-text-input>

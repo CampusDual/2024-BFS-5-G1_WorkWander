@@ -110,6 +110,7 @@
   "ADD_COWORKING":"Añadir coworking",
   "START_DATE":"Fecha de Inicio",
   "END_DATE":"Fecha de Final",
+  "BOOKING_STATE": "Estado de reserva",
   "COWORKING_ADDED":"Operación exitosa",
   "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
   "SELECT_DATE":"Seleccione una fecha",

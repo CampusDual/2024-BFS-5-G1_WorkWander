@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.security.PermissionsProviderSecured;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -39,7 +40,7 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public Map<Date, Boolean> getDatesDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+    public EntityResult getDatesDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object datesObj = keyMap.get("bk_date");
         final List<Date> dates = new ArrayList<>();
 
@@ -60,7 +61,7 @@ public class BookingService implements IBookingService {
                 }
             }
         }
-        
+
         //Sacamos las fechas intermedias
         final Date startDate = dates.get(0);
         final Date finalDate = dates.get(1);
@@ -92,7 +93,10 @@ public class BookingService implements IBookingService {
 
             fechas.put(date, capacidadDisponible - plazas > 0);
         }
-        return fechas;
+        final EntityResult r = new EntityResultMapImpl();
+        r.setCode(0);
+        r.put("data", fechas);
+        return r;
     }
 
     @Override

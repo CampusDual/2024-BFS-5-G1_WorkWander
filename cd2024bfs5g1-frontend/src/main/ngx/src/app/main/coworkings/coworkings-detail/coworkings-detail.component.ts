@@ -99,13 +99,8 @@ export class CoworkingsDetailComponent {
       this.service
         .query(filter, columns, "getDatesDisponibility")
         .subscribe(
-          (resp) => {
-            if (resp === true) {
-              resolve(true);
-            } else {
-              alert("NO hay plazas");
-              resolve(false);
-            }
+          (resp) =>{
+            console.log("patata")
           },
           (error) => {
             console.error("Error al consultar capacidad:", error);

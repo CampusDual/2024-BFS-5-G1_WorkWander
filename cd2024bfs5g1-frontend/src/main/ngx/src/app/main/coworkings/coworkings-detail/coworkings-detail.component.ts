@@ -8,10 +8,7 @@ import { AuthService, DialogService, OntimizeService, OTranslateService, SnackBa
   templateUrl: './coworkings-detail.component.html',
   styleUrls: ['./coworkings-detail.component.css'],
 })
-export class CoworkingsDetailComponent implements OnInit {
-
-  coworking: any;
-  serviceList = [];
+export class CoworkingsDetailComponent  {
 
   serviceIcons = {
     additional_screen: 'desktop_windows',
@@ -33,30 +30,7 @@ export class CoworkingsDetailComponent implements OnInit {
     private location: Location
   ) { }
 
-  ngOnInit(): void {
-    this.showServices();
-  }
-
   goBack(): void {
     this.location.back();
-  }
-
-  showServices(): void {
-    const filter = {
-      cw_id: +this.activeRoute.snapshot.params["cw_id"],
-    };
-    console.log('filter', filter);
-
-    const conf = this.service.getDefaultServiceConfiguration("cw_services");
-    this.service.configureService(conf);
-    const columns = ["srv_name"];
-    this.service.query(filter, columns, "servicePerCoworking").subscribe(
-      resp => {
-        this.serviceList = resp.data;
-      },
-      error => {
-        console.error('Error loading services', error);
-      }
-    );
   }
 }

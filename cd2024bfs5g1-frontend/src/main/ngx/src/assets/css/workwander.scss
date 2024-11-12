@@ -119,6 +119,7 @@ o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
   top: 1px;
   right: 0;
+  z-index: -1;
 }
 
 /* Pantalla login */
@@ -260,6 +261,7 @@ nav.ng-star-inserted:nth-last-child(2) {
   display: flex;
   gap: 25px;
   flex-wrap: wrap;
+  flex-direction: column;
 
   o-column.o-column,
   o-row.o-row {
@@ -299,7 +301,7 @@ nav.ng-star-inserted:nth-last-child(2) {
     margin-right: 25px;
 
     img {
-      width: 400px;
+      width: 800px;
       height: 480px;
       object-fit: cover;
       border-radius: $borderRadiusButton;
@@ -309,6 +311,11 @@ nav.ng-star-inserted:nth-last-child(2) {
       box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
     }
   }
+}
+
+o-form-layout-tabgroup .card-detalle div.button-back{
+  display: none;
+  visibility: hidden;
 }
 
 @media(max-width:850px){
@@ -338,7 +345,7 @@ nav.ng-star-inserted:nth-last-child(2) {
 
 //Codigo Conjunto//
 o-column.o-column, o-row.o-row {
-    background: transparent;
+    background: transparent !important;
 }
 o-column{
   background: transparent;
@@ -346,11 +353,12 @@ o-column{
 .o-container{
     background: transparent;
 }
-o-text-input,o-textarea-input,o-password-input,o-email-input,o-date-input,o-hour-input,o-integer-input{
-  margin-top: 24px;
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: $accentClaro !important;
 }
-.form-row{
+.form-row {
   margin-top: 24px;
+  align-items: flex-end;
 }
 .form-container{
   width: 100vw;
@@ -853,38 +861,43 @@ o-form.form-new-event{
       color: $primary;
     }
   }
-/*
+.ontimize-table.o-table,
+.mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {
+    background: transparent !important;
+}
+
 .serviceAvailable{
   cursor:pointer;
   color:black;
   font-size: 12px;
-  border-box: 1px solid black;
-  box-shadow: 2px 5px #888888;
-  width: 147px;
+  border-box: 1px solid $primary;
+  box-shadow: 2px 5px $primary;
+  width: 40px;
   height: 40px;
-  transition: width 2s, height 2s;
+  //transition: width 2s, height 2s;
   text-align:center;
   margin: 0 auto;
-  border-bottom: 0.5px solid  #888888;
+  border-bottom: 0.5px solid $primary;
   padding: 5px 15px 5px 15px;
-  background-color: #e6d5c3;
+  background-color: $accent;
   border-radius: 8px;
 }
 
 .serviceDisable{
   cursor:pointer;
-  background-color:whitesmoke;
+  background-color:$blanco;
   color:black;
   padding: 5px 15px 5px 15px;
   font-size: 12px;
   border-radius: 8px;
-  border-box: 1px solid black;
-  box-shadow: 2px 5px #888888;
-  width: 147px;
+  border-box: 1px solid $primary;
+  box-shadow: 2px 5px $primary;
+  width: 40px;
   height: 40px;
-  transition: width 2s, height 2s;
+  //transition: width 2s, height 2s;
   text-align:center;
   margin: 0 auto;
-  border-bottom: 0.5px solid  #888888;
+  border-bottom: 0.5px solid  $primary;
 }
-*/
+
+

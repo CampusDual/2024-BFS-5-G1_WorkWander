@@ -2,7 +2,8 @@
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="booking" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+                 catalog="" schema="${mainschema}" table="booking" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>bk_id</Column>
     </DeleteKeys>
@@ -11,13 +12,16 @@
     </UpdateKeys>
     <GeneratedKey>bk_id</GeneratedKey>
     <Queries>
-        <Query id="totalBookingsByDate">
+        <Query id="totalBookingsByDateAndCoworking">
             <Sentence>
                 <![CDATA[
-                SELECT COUNT(*) as plazasocupadas FROM ${mainschema}.booking #WHERE#
+                    SELECT COUNT(b.bk_id) as "plazasOcupadas"
+                    FROM ${mainschema}.booking b
+                    join ${mainschema}.booking_date bd
+                    on b.bk_id=bd.bk_id
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>
     </Queries>
-
 </JdbcEntitySetup>

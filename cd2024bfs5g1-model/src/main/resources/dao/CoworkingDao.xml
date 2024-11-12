@@ -2,7 +2,8 @@
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
-                 catalog="" schema="${mainschema}" table="coworking" datasource="mainDataSource" sqlhandler="dbSQLStatementHandler">
+                 catalog="" schema="${mainschema}" table="coworking" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
     <DeleteKeys>
         <Column>cw_id</Column>
     </DeleteKeys>
@@ -28,6 +29,17 @@
                 LEFT JOIN service on service.srv_id = cw_service.srv_id
                 #WHERE#
                 GROUP BY public.coworking.cw_id;
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coworkingCapacity">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    c.cw_capacity
+                FROM
+                    ${mainschema}.coworking c
+                #WHERE#
                 ]]>
             </Sentence>
         </Query>

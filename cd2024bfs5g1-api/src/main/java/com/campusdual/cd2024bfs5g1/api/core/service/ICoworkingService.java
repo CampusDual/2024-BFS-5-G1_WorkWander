@@ -17,4 +17,6 @@ public interface ICoworkingService {
     public EntityResult coworkingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
 
     public EntityResult coworkingDelete(Map<String, Object> keyMap);
+
+    public EntityResult coworkingCapacityQuery(Map<String, Object> keyMap, List<String> attrList);
 }

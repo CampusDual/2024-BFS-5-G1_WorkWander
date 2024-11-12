@@ -85,29 +85,23 @@ export class CoworkingsDetailComponent {
   checkCapacity(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const filter = {
-        bk_cw_id: +this.idCoworking.getValue(),
+        bk_cw_id: this.idCoworking.getValue(),
         bk_date: this.dateArray,
         bk_state: true,
       };
-
-      const sqltypes = {
-        bk_date: 91,
+      const sqltypes={
+        bk_date:91
       };
-
       const conf = this.service.getDefaultServiceConfiguration("bookings");
       this.service.configureService(conf);
       const columns = ["bk_id"];
 
       this.service
-        .query(filter, columns, "totalBookingsByDate", sqltypes)
+        .query(filter, columns, "getDatesDisponibility")
         .subscribe(
           (resp) => {
-            if (resp.code === 0) {
-              this.plazasOcupadas = resp.data[0]["plazasocupadas"];
-              this.realCapacity.setValue(
-                this.coworkingsSites.getValue() - this.plazasOcupadas
-              );
-              resolve(this.realCapacity.getValue() >= 1);
+            if (resp === true) {
+              resolve(true);
             } else {
               alert("NO hay plazas");
               resolve(false);

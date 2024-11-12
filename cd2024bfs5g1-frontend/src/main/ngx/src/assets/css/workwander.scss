@@ -110,6 +110,17 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   }
 }
 
+o-search-input.o-search-input.ng-star-inserted {
+  position: absolute;
+  left: 45px;
+}
+
+.mat-mdc-paginator-container {
+  position: absolute;
+  top: 1px;
+  right: 0;
+}
+
 /* Pantalla login */
 login {
   .full-page .login-outer-container .wrapp-login {
@@ -324,3 +335,105 @@ nav.ng-star-inserted:nth-last-child(2) {
     }
   }
 }
+
+//Codigo Conjunto//
+o-column.o-column, o-row.o-row {
+    background: transparent;
+}
+o-column{
+  background: transparent;
+}
+.o-container{
+    background: transparent;
+}
+o-text-input,o-textarea-input,o-password-input,o-email-input,o-date-input,o-hour-input,o-integer-input{
+  margin-top: 24px;
+}
+.form-row{
+  margin-top: 24px;
+}
+.form-container{
+  width: 100vw;
+  }
+o-column.o-column.form-new-event{
+  background-color: transparent;
+}
+o-form.form-new-event{
+  align-items: flex-start;
+  align-content: flex-start;
+  }
+
+.application-layout-content-wrapper.header-layout {
+    background-image: url("/assets/images/fondo_workwander.jpg");
+    background-position-y: bottom;
+    background-position-x: right;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+/*  Coworking */
+.coworking-card {
+  // Estilo general de la tarjeta de coworking
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: $blanco;
+  border-radius: $borderRadius;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba($primary, 0.1);
+  min-height: 200px;
+  width: 100%;
+  padding: 0 15px 0 4px;
+
+  .image-container {
+    // Contenedor de la imagen
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    .coworking-image {
+      // Estilo de la imagen de coworking
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: $borderRadius;
+    }
+  }
+}
+
+/*
+.serviceAvailable{
+  cursor:pointer;
+  color:black;
+  font-size: 12px;
+  border-box: 1px solid black;
+  box-shadow: 2px 5px #888888;
+  width: 147px;
+  height: 40px;
+  transition: width 2s, height 2s;
+  text-align:center;
+  margin: 0 auto;
+  border-bottom: 0.5px solid  #888888;
+  padding: 5px 15px 5px 15px;
+  background-color: #e6d5c3;
+  border-radius: 8px;
+}
+
+.serviceDisable{
+  cursor:pointer;
+  background-color:whitesmoke;
+  color:black;
+  padding: 5px 15px 5px 15px;
+  font-size: 12px;
+  border-radius: 8px;
+  border-box: 1px solid black;
+  box-shadow: 2px 5px #888888;
+  width: 147px;
+  height: 40px;
+  transition: width 2s, height 2s;
+  text-align:center;
+  margin: 0 auto;
+  border-bottom: 0.5px solid  #888888;
+}
+*/

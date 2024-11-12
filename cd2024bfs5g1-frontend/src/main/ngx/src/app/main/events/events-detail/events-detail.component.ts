@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-events-detail',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class EventsDetailComponent {
 
+  constructor(private utils:UtilsService){}
+
+  formatDate(rawDate:number):string{
+    return this.utils.formatDate(rawDate);
+  }
 }

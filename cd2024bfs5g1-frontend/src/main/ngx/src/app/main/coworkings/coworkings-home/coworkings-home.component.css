@@ -14,18 +14,24 @@ h3 {
   align-self: end;
 }
 
-.services {
+.collapsible-container-items {
   display: flex;
   flex-direction: row;
   justify-items: space-evenly;
+  gap: 10px;
+  margin-bottom: 10px;
 }
 .form {
   display: flex;
   margin-bottom: 10px;
 }
-.services-container button {
+.btn-container {
+  background-color: #e5e5e8;
+  gap: 10px;
+}
+.collapsible-container-items button {
   display: flex;
-  margin-left: 10px;
+  margin-right: 10px;
   align-items: center;
   vertical-align: middle;
   background-color: #f9f6f6;

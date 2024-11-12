@@ -1,5 +1,5 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OComboComponent, OGridComponent, OntimizeService, OTextInputComponent } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OGridComponent, OntimizeService, OTextInputComponent } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs';
@@ -10,13 +10,11 @@ import { filter } from 'rxjs';
   styleUrls: ['./coworkings-home.component.css']
 })
 export class CoworkingsHomeComponent implements OnInit {
-  @ViewChild('filterBuilder', { static: true }) filterBuilder!: OFilterBuilderComponent;
+  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
-  //Variable para formatear el precio
-  //public formatPrice: SafeHtml;
 
   // Creamos constructor
   constructor(
@@ -53,12 +51,12 @@ export class CoworkingsHomeComponent implements OnInit {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/image-default.jpg';
   }
 
-  protected configureService(){
+  protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
   }
 
-  public serviceList(services:string) {
+  public serviceList(services: string) {
     if (services != undefined) {
       return services.split(',')
     } else {
@@ -66,30 +64,44 @@ export class CoworkingsHomeComponent implements OnInit {
     }
 
   }
-
+  // Función para crear los filtros de busqueda avanzada
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
-    let filters: Array<Expression> = [];
+    let filtersOR: Array<Expression> = [];
+    let locationExpressions: Array<Expression> = [];
+    let serviceExpressions: Array<Expression> = [];
     values.forEach((fil) => {
       if (fil.value) {
-        if(fil.attr === "cw_location"){
+        if (fil.attr === "cw_location") {
           if (Array.isArray(fil.value)) {
             fil.value.forEach((val) => {
-              console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
-              filters.push(
+              locationExpressions.push(
                 FilterExpressionUtils.buildExpressionLike(fil.attr, val)
               );
             });
           } else {
-            filters.push(
+            locationExpressions.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+            );
+          }
+        } else if (fil.attr === "services") {
+          if (Array.isArray(fil.value)) {
+            fil.value.forEach((val) => {
+              serviceExpressions.push(
+                FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+              );
+            });
+          } else {
+            serviceExpressions.push(
               FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
             );
           }
         }
       }
     });
-    let locationsExpression: Expression = null;
-    if (filters.length > 0) {
-      locationsExpression = filters.reduce((exp1, exp2) =>
+    // Construir expresión OR para locations
+    let locationExpression: Expression = null;
+    if (locationExpressions.length > 0) {
+      locationExpression = locationExpressions.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(
           exp1,
           exp2,
@@ -97,30 +109,7 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
-    return locationsExpression;
-  }
-  // Filtra los servicios en función a los valores seleccionados en el desplegable de servicios del html
-  createFilter(values: Array<{ attr: string, value: any }>): Expression {
-    let serviceExpressions: Array<Expression> = [];
-
-    values.forEach(fil => {
-      if (!fil.value) return;
-
-      if (fil.attr == 'services') {
-        if (Array.isArray(fil.value)) {
-          fil.value.forEach((val) => {
-            serviceExpressions.push(
-              FilterExpressionUtils.buildExpressionLike(fil.attr, val)
-            );
-          });
-        } else {
-          serviceExpressions.push(
-            FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
-          );
-        }
-      }
-    });
-    // Construir expresión AND para SERVICES
+    // Construir expresión AND para services
     let serviceExpression: Expression = null;
     if (serviceExpressions.length > 0) {
       serviceExpression = serviceExpressions.reduce((exp1, exp2) =>
@@ -128,11 +117,25 @@ export class CoworkingsHomeComponent implements OnInit {
           exp1,
           exp2,
           FilterExpressionUtils.OP_AND
-          // FilterExpressionUtils.OP_OR
         )
       );
     }
-    return serviceExpression;
+    // Construir expresión para combinar filtros avanzados
+    const expressionsToCombine = [
+      locationExpression,
+      serviceExpression
+    ].filter((exp) => exp !== null);
+    let combinedExpression: Expression = null;
+    if (expressionsToCombine.length > 0) {
+      combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
+      );
+    }
+    return combinedExpression;
   }
   //Reinicia los valores de los filtros
   clearFilters(): void {

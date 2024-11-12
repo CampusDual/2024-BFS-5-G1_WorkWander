@@ -158,6 +158,7 @@
   "VALIDATE_EMAIL": "The email contains illegal characters",
   "CIF_ERROR": "The CIF is mandatory and must be valid if the company is marked",
   "DONE": "Done",
+  "ADVANCED_SEARCH" : "Advanced search"
   "SERVICES": "Services",
   "FILTER": "Filter",
   "CLEAR": "Clear"

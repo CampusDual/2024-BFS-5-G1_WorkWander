@@ -158,6 +158,7 @@
   "VALIDATE_EMAIL": "El correo electrónico contiene caracteres no permitidos",
   "CIF_ERROR": "El CIF es obligatorio y debe ser válido si la empresa está marcada.",
   "DONE": "Aceptar",
+  "ADVANCED_SEARCH" : "Búsqueda avanzada"
   "SERVICES": "Servicios",
   "FILTER": "Filtrar",
   "CLEAR": "Limpiar"

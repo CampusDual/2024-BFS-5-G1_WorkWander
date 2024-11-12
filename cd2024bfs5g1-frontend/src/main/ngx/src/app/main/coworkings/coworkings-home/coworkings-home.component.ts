@@ -1,6 +1,8 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, OComboComponent, OGridComponent, OntimizeService, OTextInputComponent } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-coworkings-home',
@@ -13,10 +15,14 @@ export class CoworkingsHomeComponent implements OnInit {
 
   public arrayServices: any = [];
   protected service: OntimizeService;
+  //Variable para formatear el precio
+  //public formatPrice: SafeHtml;
+
   // Creamos constructor
   constructor(
     protected injector: Injector,
-    protected sanitizer: DomSanitizer
+    protected sanitizer: DomSanitizer,
+    protected router: Router
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -28,6 +34,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
+    //this.setFormatPrice();
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -46,18 +53,51 @@ export class CoworkingsHomeComponent implements OnInit {
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/image-default.jpg';
   }
 
-  protected configureService() {
+  protected configureService(){
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
   }
 
-  public serviceList(services: string) {
+  public serviceList(services:string) {
     if (services != undefined) {
       return services.split(',')
     } else {
       return null;
     }
 
+  }
+
+  createFilter(values: Array<{ attr: string; value: any }>): Expression {
+    let filters: Array<Expression> = [];
+    values.forEach((fil) => {
+      if (fil.value) {
+        if(fil.attr === "cw_location"){
+          if (Array.isArray(fil.value)) {
+            fil.value.forEach((val) => {
+              console.log("fil.value, fil.attr, val", fil.value, fil.attr, val);
+              filters.push(
+                FilterExpressionUtils.buildExpressionLike(fil.attr, val)
+              );
+            });
+          } else {
+            filters.push(
+              FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
+            );
+          }
+        }
+      }
+    });
+    let locationsExpression: Expression = null;
+    if (filters.length > 0) {
+      locationsExpression = filters.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
+      );
+    }
+    return locationsExpression;
   }
   // Filtra los servicios en función a los valores seleccionados en el desplegable de servicios del html
   createFilter(values: Array<{ attr: string, value: any }>): Expression {
@@ -94,7 +134,7 @@ export class CoworkingsHomeComponent implements OnInit {
     }
     return serviceExpression;
   }
-  //Reinicia los valores de los filtros 
+  //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
   }
@@ -103,4 +143,5 @@ export class CoworkingsHomeComponent implements OnInit {
     const [integerPart, decimalPart] = price.toFixed(2).split('.');
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
+
 }

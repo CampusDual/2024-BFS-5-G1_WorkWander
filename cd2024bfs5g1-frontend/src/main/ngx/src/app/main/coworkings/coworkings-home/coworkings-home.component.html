@@ -42,8 +42,8 @@
     query-rows="12"
     grid-item-height="3.5:1"
     [cols]="gridCols"
-    gutter-size="40px"
-    pageable="yes">
+    gutter-size="20px" pageable="yes">
+
 
     <o-grid-item *ngFor="let data of coworkingsGrid.dataArray" class="responsive-grid">
       <div class="coworking-card">
@@ -69,15 +69,15 @@
 
             </article>
           </section>
-
           <p class="location">{{ data.cw_location }}</p>
         </div>
-
         <div class="capacity-price-container">
           <div class="price-container">
-            <span class="price">{{ data.cw_daily_price }}€</span>
+            <!-- <span class="price">{{ data.cw_daily_price | number:'1.2-2'}}€</span> -->
+            <div class="price" [innerHTML]="formatPrice(data.cw_daily_price)"></div>
           </div>
         </div> <!-- Cerradura corregida aquí -->
+
 
       </div>
     </o-grid-item>

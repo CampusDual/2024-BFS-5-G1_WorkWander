@@ -319,7 +319,7 @@ nav.ng-star-inserted:nth-last-child(2) {
     height: 220px;
   }
   .card-detalle {
-    o-column.o-column, 
+    o-column.o-column,
     o-row.o-row {
       width: 100%;
     }
@@ -376,10 +376,10 @@ o-form.form-new-event{
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: $blanco;
+  background-color: rgba($accent, 0.5);
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba($primary, 0.1);
+  box-shadow: 0 4px 6px rgba($primary, 0.4);
   min-height: 200px;
   width: 100%;
   padding: 0 15px 0 4px;
@@ -401,7 +401,458 @@ o-form.form-new-event{
     }
   }
 }
+.info {
+    // Contenedor de la información
+    width: 70%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
+    .coworking-name {
+      // Estilo del nombre del coworking
+      font-size: $fontSize24;
+      font-weight: bold;
+      color: $primary;
+      cursor: pointer;
+      margin-bottom: 8px;
+      margin-top: 0;
+      display: inline-block; // Necesario para que el efecto funcione correctamente
+
+    }
+
+    .form-container {
+      padding: $padding;
+      background: $blanco;
+    }
+
+    .form-section {
+      border-radius: $borderRadius;
+      background-color: $blanco;
+      padding: $padding;
+      box-shadow: 0px 8px 30px rgba($primary, 0.1);
+      transition: all 0.3s ease;
+
+      :hover{
+        transform: none!important;
+      }
+
+    }
+
+    .form-row {
+      margin-bottom: 24px;
+    }
+
+    o-text-input, o-integer-input, o-real-input, o-date-input, o-image {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-image[icon] {
+      padding-left: 40px;
+      font-size: $fontSize16;
+      background-color: $blanco;
+      border: 1px solid $accent;
+      border-radius: $borderRadius;
+      transition: all 0.3s ease;
+    }
+    o-text-input[icon]:hover,
+    o-integer-input[icon]:hover,
+    o-real-input[icon]:hover,
+    o-date-input[icon]:hover,
+    o-image[icon]:hover,
+    o-textarea-input [icon]:hover{
+      border-color: $primary;
+    }
+
+    o-text-input[icon]::before,
+    o-integer-input[icon]::before,
+    o-real-input[icon]::before,
+    o-date-input[icon]::before,
+    o-image[icon]::before {
+      content: attr(icon);
+      font-family: 'Material Icons';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $accent;
+      font-size: $fontSize20;
+    }
+
+
+    o-text-input input::placeholder,
+    o-integer-input input::placeholder,
+    o-real-input input::placeholder,
+    o-date-input input::placeholder,
+    o-image input::placeholder {
+      color: $accent;
+      opacity: 0.8;
+    }
+
+    /* Botones e interacción */
+    .form-section o-text-input:hover,
+    .form-section o-integer-input:hover,
+    .form-section o-real-input:hover,
+    .form-section o-date-input:hover,
+    .form-section o-image:hover {
+      background-color: $blanco;
+    }
+
+    /* Estilos generales para la fila del formulario */
+    .form-row {
+      margin: 24px 0; /* Espaciado vertical */
+    }
+    .form-container {
+      padding: $padding;
+      background: $blanco;
+    }
+
+    .form-section {
+      border-radius: $borderRadius;
+      background-color: $blanco;
+      padding: $padding;
+      box-shadow: 0px 8px 30px rgba($primary, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
+      padding-left: 40px;
+      font-size: $fontSize16;
+      background-color: $blanco;
+      border: 1px solid $accent;
+      border-radius: $borderRadius;
+      transition: all 0.3s ease;
+    }
+
+    o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
+      border-color: $primary;
+    }
+
+    o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
+      content: attr(icon);
+      font-family: 'Material Icons';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $accent;
+      font-size: $fontSize20;
+    }
+
+    o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
+      color: $accent;
+      opacity: 0.8;
+    }
+
+    /* Botones e interacción */
+    .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
+      background-color: $blanco;
+    }
+
+    /* Estilos generales para la fila del formulario */
+    .form-row {
+      margin: 24px 0; /* Espaciado vertical */
+    }
+
+    /* Estilo para los campos de formulario */
+    .mat-form-field {
+    width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
+    border-radius: $borderRadius; /* Bordes redondeados */
+    background: $blanco; /* Fondo blanco */
+    box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    }
+
+
+    /* Estilo de las etiquetas */
+    .mat-label {
+    font-weight: 600; /* Etiquetas en negrita */
+    color: $accent; /* Color gris oscuro */
+    transition: color 0.3s ease; /* Transición suave para el color */
+    }
+
+    /* Color de los iconos */
+    .mat-icon {
+    color: $primary /* Color azul moderno para iconos */
+    }
+
+    /* Estilo para el toggle del datepicker */
+    .mat-datepicker-toggle {
+    color: $primary; /* Color para el toggle del datepicker */
+    }
+
+    /* Estilo de los inputs */
+    input.mat-input-element {
+    border: 1px solid $blanco; /* Borde de los inputs */
+    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
+    padding: $paddingInterno; /* Espaciado interno */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    }
+
+    /* Efecto al enfocar el input */
+    input.mat-input-element:focus {
+    border-color: $primary; /* Color del borde al enfocar el input */
+    box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
+    }
+
+    /* Estilo para inputs deshabilitados */
+    input.mat-input-element:disabled {
+    background-color: $accent; /* Color de fondo para inputs deshabilitados */
+    opacity: 0.7; /* Reduce la opacidad */
+    }
+
+    /* Estilo para el calendario del datepicker */
+    .mat-datepicker-content {
+    background: $blanco; /* Fondo blanco para el datepicker */
+    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
+    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
+    }
+
+    /* Estilo para el calendario dentro del datepicker */
+    .mat-datepicker-calendar {
+    background: $accent; /* Color de fondo moderno */
+    }
+
+    /* Color de los botones */
+    .mat-button {
+    color: $primary; /* Color de los botones */
+    }
+
+    /* Efecto hover en botones */
+    .mat-button:hover {
+    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
+    }
+
+    .form-container {
+      padding: $padding;
+      background: $accent;
+    }
+
+    .form-section {
+      border-radius: $borderRadius;
+      background-color: $blanco;
+      padding: $padding;
+      box-shadow: 0px 8px 30px rgba($primary, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .form-row {
+      margin-bottom: 24px;
+    }
+
+    o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
+      padding-left: 40px;
+      font-size: $fontSize16;
+      background-color: $blanco;
+      border: 1px solid $accent;
+      border-radius: $borderRadius;
+      transition: all 0.3s ease;
+    }
+
+    o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
+      border-color: $primary;
+    }
+
+    o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
+      content: attr(icon);
+      font-family: 'Material Icons';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $accent;
+      font-size: $fontSize20;
+    }
+
+    o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
+      color: $accent;
+      opacity: 0.8;
+    }
+
+    /* Botones e interacción */
+    .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
+      background-color: $blanco;
+    }
+
+    /* Estilos generales para la fila del formulario */
+    .form-row {
+      margin: 24px 0; /* Espaciado vertical */
+    }
+
+    /* Estilo para los campos de formulario */
+    .mat-form-field {
+    width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
+    border-radius: $borderRadius; /* Bordes redondeados */
+    background: $blanco; /* Fondo blanco */
+    box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+    }
+
+    /* Estilo de las etiquetas */
+    .mat-label {
+    font-weight: 600; /* Etiquetas en negrita */
+    color: $primary; /* Color gris oscuro */
+    transition: color 0.3s ease; /* Transición suave para el color */
+    }
+
+    /* Color de los iconos */
+    .mat-icon {
+    color: $primary; /* Color azul moderno para iconos */
+    }
+
+    /* Estilo para el toggle del datepicker */
+    .mat-datepicker-toggle {
+    color: $primary; /* Color para el toggle del datepicker */
+    }
+
+    /* Estilo de los inputs */
+    input.mat-input-element {
+    border: 1px solid $blanco; /* Borde de los inputs */
+    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
+    padding: 12px 16px; /* Espaciado interno */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+    }
+
+    /* Efecto al enfocar el input */
+    input.mat-input-element:focus {
+    border-color: $primary; /* Color del borde al enfocar el input */
+    box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
+    }
+
+    /* Estilo para inputs deshabilitados */
+    input.mat-input-element:disabled {
+    background-color: $accent; /* Color de fondo para inputs deshabilitados */
+    opacity: 0.7; /* Reduce la opacidad */
+    }
+
+    /* Estilo para el calendario del datepicker */
+    .mat-datepicker-content {
+    background: $blanco; /* Fondo blanco para el datepicker */
+    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
+    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
+    }
+
+    /* Estilo para el calendario dentro del datepicker */
+    .mat-datepicker-calendar {
+    background: $accent; /* Color de fondo moderno */
+    }
+
+    /* Color de los botones */
+    .mat-button {
+    color: $primary; /* Color de los botones */
+    }
+
+    /* Efecto hover en botones */
+    .mat-button:hover {
+    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
+    }
+
+    /* Efecto hover en botones */
+    .mat-button:hover {
+    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
+    }
+
+    .location{
+      // Estilo de la ubicación
+      color: $primary;
+      margin: 0 0 8px 0;
+      font-size: $fontSize18;
+    }
+    .capacity {
+      // Estilo de la ubicación y capacidad
+      color: $primary;
+      margin: 0;
+      font-size: $fontSize12;
+      font-weight: $fontBlack;
+      border-radius: $borderRadiusEqual;
+      background-color: $accentClaro;
+      padding: 2px;
+      text-align: center;
+    }
+    .services {
+      // Contenedor de los servicios
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      transition: transform 0.2s;
+      //translate: 20px;
+
+      .service-icon {
+        // Estilo de los iconos de servicios
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $primary;
+        color: $blanco;
+        border-radius: $borderRadiusButton;
+        font-size: $fontSize12;
+      }
+    }
+  }
+
+  .capacity-price-container {
+    border-left: solid 5px $primary;
+    padding: 0px 0 0 17px;
+    min-width: 190px;
+
+    .price-container {
+      // Contenedor del precio
+      padding: $paddingInterno;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $verdeBoton;
+      min-height: 100%;
+      border-radius: $borderRadius;
+
+      .price {
+        // Estilo del precio
+        //font-size: $fontSize45;
+        font-size: $fontSize35;
+        font-weight: bold;
+        color: $blanco;
+
+        .decimal {
+              font-size: $fontSize18; /* Tamaño reducido para decimales */
+              //vertical-align: super; /* Opcional: sube un poco los decimales */
+          }
+      }
+    }
+  }
+
+  .capacity-container {
+    // Contenedor de la capacidad
+    width: 15%;
+    padding: $paddingInterno;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background-color: $accent;
+    min-height: 100%;
+
+    .capacity {
+      // Estilo de la capacidad
+      font-size: $fontSize24;
+      font-weight: bold;
+      color: $primary;
+    }
+  }
 /*
 .serviceAvailable{
   cursor:pointer;

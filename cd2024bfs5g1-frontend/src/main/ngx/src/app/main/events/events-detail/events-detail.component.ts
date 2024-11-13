@@ -29,7 +29,7 @@ export class EventsDetailComponent {
         minutosRestantes = minutes % 60;
         tiempo = `${horas} ${DurationHours} ${minutosRestantes} ${DurationMinutes}`;
       } else {
-        tiempo = `${minutes} minutos`;
+        tiempo = `${minutes} ${DurationMinutes}`;
       }
     }
     return tiempo;

@@ -15,6 +15,7 @@ export class BookingsStateRenderComponent extends OBaseTableCellRenderer {
 
   getCellData(cellvalue: any, rowvalue?: Array<any>): string {
     var currentDate = new Date();
+    currentDate.setHours(0,0,0,0);
     var startDate = rowvalue["dates"][0];
     var endDate = rowvalue["dates"][rowvalue["dates"].length - 1];
     var state = "Cancelada"

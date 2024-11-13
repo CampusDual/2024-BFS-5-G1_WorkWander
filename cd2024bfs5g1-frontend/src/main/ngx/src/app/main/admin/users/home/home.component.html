@@ -19,7 +19,7 @@
 
     <o-table #usersTable attr="users" service="users" entity="user" keys="usr_id"
       columns="usr_id;usr_name;usr_surname;usr_email;usr_login" visible-columns="usr_name;usr_surname;usr_email;usr_login"
-      sort-columns="usr_name" query-rows="25" quick-filter="yes" row-height="medium" pageable="no" query-on-init="yes" query-on-bind="false"
+      sort-columns="usr_name" query-rows="25" quick-filter="yes" row-height="medium" pageable="yes" query-on-init="yes" query-on-bind="false"
       select-all-checkbox-visible="yes" insert-button="yes" delete-button="yes" refresh-button="no" fixed-header="yes"
       class="home-table" fxFlex export-mode="local">
       <o-table-columns-filter columns="usr_name;usr_surname;usr_email;usr_login"></o-table-columns-filter>

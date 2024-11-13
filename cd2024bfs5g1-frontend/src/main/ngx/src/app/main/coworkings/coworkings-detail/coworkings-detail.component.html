@@ -58,7 +58,7 @@
                 <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
                 <o-integer-input  *ngIf="parsePermissions('realCapacity')" label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
               </div>
-              <o-currency-input attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
+              <o-currency-input id="precioDetalle" attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
             </div>
           </o-column>
 

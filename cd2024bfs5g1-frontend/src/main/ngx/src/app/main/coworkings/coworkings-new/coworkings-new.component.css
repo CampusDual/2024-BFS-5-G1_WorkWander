@@ -50,8 +50,6 @@
   transition: all 0.3s ease;
 }
 
-
-
 .form-row {
   margin-bottom: 14px;
 }
@@ -102,8 +100,6 @@ o-text-input input::placeholder, o-integer-input input::placeholder, o-real-inpu
 }
 
 
-
-
 /* Estilos generales para la fila del formulario */
 .form-row {
 margin: 24px 0;
@@ -131,11 +127,6 @@ transform: translateY(-2px); /* Sube ligeramente el campo al pasar el mouse */
 font-weight: 600; /* Etiquetas en negrita */
 color: #4A4A4A; /* Color gris oscuro */
 transition: color 0.3s ease; /* Transición suave para el color */
-}
-
-/* Color de los iconos */
-.mat-icon {
-color: #3F51B5; /* Color azul moderno para iconos */
 }
 
 /* Estilo para el toggle del datepicker */
@@ -204,21 +195,11 @@ to {
 }
 }
 
-.serviceAvailable{
-  cursor:pointer;
-  color:black;
-  font-size: 12px;
-  border-box: 1px solid black;
-  box-shadow: 2px 5px #888888;
-  width: 147px;
-  height: 40px;
-  transition: width 2s, height 2s;
-  text-align:center;
-  margin: 0 auto;
-  border-bottom: 0.5px solid  #888888;
-  padding: 5px 15px 5px 15px;
-  background-color: #e6d5c3;
-  border-radius: 8px;
+.srv{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
 }
 
 .serviceDisable{
@@ -229,13 +210,11 @@ to {
   font-size: 12px;
   border-radius: 8px;
   border-box: 1px solid black;
-  box-shadow: 2px 5px #888888;
-  width: 147px;
-  height: 40px;
+  width: 120px;
   transition: width 2s, height 2s;
   text-align:center;
   margin: 0 auto;
-  border-bottom: 0.5px solid  #888888;
+  padding: 15px 10px 10px 10px;
 }
 
 .buttons{
@@ -249,4 +228,11 @@ to {
 .mat-mdc-raised-button > .mat-icon{
   margin-right:unset;
   margin-left: unset;
+}
+
+.location-combo-icon {
+  align-content: center;
+  margin: 0 !important;
+  padding-right: 8px;
+  background-color: #fafafa;
 }

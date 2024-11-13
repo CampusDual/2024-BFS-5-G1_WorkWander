@@ -89,25 +89,57 @@ export class CoworkingsDetailComponent {
         bk_date: this.dateArray,
         bk_state: true,
       };
-      const sqltypes={
-        bk_date:91
+      const sqltypes = {
+        bk_date: 91,
       };
       const conf = this.service.getDefaultServiceConfiguration("bookings");
       this.service.configureService(conf);
       const columns = ["bk_id"];
 
-      this.service
-        .query(filter, columns, "getDatesDisponibility")
-        .subscribe(
-          (resp) =>{
-            console.log("patata")
-          },
-          (error) => {
-            console.error("Error al consultar capacidad:", error);
-            reject(error);
+      this.service.query(filter, columns, "getDatesDisponibility").subscribe(
+        (resp) => {
+          const data = resp.data.data;
+          console.log(data);
+          const fechasDisponibles = Object.values(data).every(
+            (disponible: boolean) => disponible === true
+          );
+          if (fechasDisponibles) {
+            this.showAvailableToast("PLAZAS_DISPONIBLES"); // Mostrar mensaje de plazas disponibles
+            resolve(true);
+          } else {
+            // Mostrar fechas que no están disponibles y guardarlas en un array
+            const fechasNoDisponibles = Object.entries(data)
+              .filter(([fecha, disponible]) => disponible === false)
+              .map(([fecha]) => new Date(fecha));
+
+            const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
+              this.changeFormatDate(fecha.getTime(), this.idioma)
+            );
+
+            const mensaje = `${(
+              "NO_PLAZAS_DISPONIBLES"
+            )}:\n - ${fechasFormateadas.join("\n - ")}`;
+            this.showAvailableToast(mensaje);
+            resolve(false);
           }
-        );
+        },
+        (error) => {
+          console.error("Error al consultar capacidad:", error);
+          reject(error);
+        }
+      );
     });
+  }
+
+  showAvailableToast(mensaje?: string) {
+    const availableMessage =
+      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
+    const configuration: OSnackBarConfig = {
+      milliseconds: 2000,
+      icon: "info",
+      iconPosition: "left",
+    };
+    this.snackBarService.open(availableMessage, configuration);
   }
 
   changeFormatDate(milis: number, idioma: string) {

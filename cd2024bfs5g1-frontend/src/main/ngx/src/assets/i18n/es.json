@@ -143,6 +143,7 @@
   "BOOKINGS_CONFIRMED": "Reserva confirmada",
   "IM_REGISTERED": "Ya estoy registrado",
   "DATE": "Fecha",
-  "NO_SERVICES" : " Sin servicios adicionales"
-
+  "NO_SERVICES" : " Sin servicios adicionales",
+  "PLAZAS_DISPONIBLES": "Plazas disponibles",
+  "NO_PLAZAS_DISPONIBLES": "No hay plazas disponibles en las siguientes fechas"
 }

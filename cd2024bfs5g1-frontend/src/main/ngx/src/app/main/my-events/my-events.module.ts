@@ -7,6 +7,7 @@ import { OntimizeWebModule, OPermissionsModule } from 'ontimize-web-ngx';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 
+
 @NgModule({
   declarations: [
     MyEventsHomeComponent

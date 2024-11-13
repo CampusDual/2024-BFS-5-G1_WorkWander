@@ -158,6 +158,7 @@
   "ADVANCED_SEARCH" : "Advanced search",
   "SERVICES": "Services",
   "FILTER": "Filter",
-  "CLEAR": "Clear"
+  "CLEAR": "Clear",
+  "DATE_RESERVATION": "Date of reservation"
 
 }

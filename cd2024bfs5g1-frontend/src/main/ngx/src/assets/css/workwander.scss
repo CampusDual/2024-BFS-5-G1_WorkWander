@@ -1,16 +1,21 @@
 @use "sass:map";
-@import './custom_font.scss';
+@import "./custom_font.scss";
 
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   &:hover {
-    animation: wave 1.5s ease-in-out ;
+    animation: wave 1.5s ease-in-out;
   }
 }
 /* Colores personalizados */
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
-$verdeBoton: #5F6F65;
+$verdeBoton: #5f6f65;
 
 $primaryClaro: rgba($primary, 0.5);
 $accentClaro: rgba($accent, 0.5);
@@ -18,7 +23,6 @@ $verdeBotonClaro: rgba($verdeBoton, 0.5);
 
 $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;
-
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -29,10 +33,30 @@ $padding: 25px 25px 25px 25px;
 $paddingInterno: 12px 16px;
 
 // Gradientes de colores
-$linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
-$linear-gradientRL: linear-gradient(270deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
-$linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
-$linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+$linear-gradientLR: linear-gradient(
+  90deg,
+  $colorDegradadoFuerte 0%,
+  $colorDegradadoFuerte 5%,
+  $colorDegradadoSuave 100%
+);
+$linear-gradientRL: linear-gradient(
+  270deg,
+  $colorDegradadoFuerte 0%,
+  $colorDegradadoFuerte 5%,
+  $colorDegradadoSuave 100%
+);
+$linear-gradientTB: linear-gradient(
+  180deg,
+  $colorDegradadoFuerte 0%,
+  $colorDegradadoFuerte 5%,
+  $colorDegradadoSuave 100%
+);
+$linear-gradientBT: linear-gradient(
+  0,
+  $colorDegradadoFuerte 0%,
+  $colorDegradadoFuerte 5%,
+  $colorDegradadoSuave 100%
+);
 
 /* Margin personalizado */
 .m-top-24 {
@@ -53,7 +77,7 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
 }
 
 /* Footer */
-#footer{
+#footer {
   position: absolute;
   left: 0;
   right: 0;
@@ -71,7 +95,6 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
       padding-right: 4px;
     }
   }
-
 }
 /*  Barra de navegación lateral  */
 .navMenu {
@@ -92,13 +115,13 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   .mdc-snackbar__label {
     color: $accent;
     font-size: $fontSize14;
-    padding:0;
+    padding: 0;
   }
   span.mdc-button__label {
     color: $verdeBoton;
     font: $fontSize12;
   }
-  .mat-mdc-snack-bar-actions.mdc-snackbar__actions.ng-star-inserted{
+  .mat-mdc-snack-bar-actions.mdc-snackbar__actions.ng-star-inserted {
     background-color: $accent;
     border-radius: 15px;
   }
@@ -119,7 +142,7 @@ o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
   top: 1px;
   right: 0;
-  z-index: -1;
+  z-index: 100;
 }
 
 /* Pantalla login */
@@ -130,7 +153,7 @@ login {
     z-index: 2;
     background-color: unset;
 
-    .login-inner-container form{
+    .login-inner-container form {
       padding: $padding;
       justify-content: center;
       background-color: rgba($blanco, 0.4);
@@ -142,23 +165,20 @@ login {
       .login-title-container {
         margin-top: unset;
       }
-
-     }
+    }
     .login-inner-container {
       background-color: unset;
     }
   }
 }
 
-
 /* Formato Full page */
-.full-page{
+.full-page {
   width: 100%;
   height: 100%;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-
 
   .title_text {
     font-size: $fontSize14;
@@ -178,11 +198,10 @@ login {
       border: unset;
     }
 
-    div.text-center{
+    div.text-center {
       text-align: center;
     }
   }
-
 }
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
   background-color: $verdeBotonClaro !important;
@@ -197,24 +216,24 @@ nav.ng-star-inserted:nth-last-child(2) {
   border-left: 0px solid $accent !important;
   margin: 0px 5px 0 5px;
   transition: all 0.2s;
-  top:unset;
+  top: unset;
   bottom: 25px;
   right: 0;
   width: 96%;
 
-  :hover{
+  :hover {
     border-left: 0px solid $accent !important;
   }
-  .mdc-button__label > div{
+  .mdc-button__label > div {
     justify-content: center !important;
   }
 
-  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
+  .o-app-sidenav-menu-item:not([disabled="true"]) a:hover {
     border-radius: 25px !important;
     border-left: 0px solid $accent;
     transition: none;
   }
-  .mat-mdc-button>.mat-icon {
+  .mat-mdc-button > .mat-icon {
     margin-left: 0;
     margin-right: 0px;
   }
@@ -228,35 +247,31 @@ nav.ng-star-inserted:nth-last-child(2) {
   }
 
   .o-app-sidenav-container {
-
-    .o-app-header{
+    .o-app-header {
       background-image: $linear-gradientRL;
     }
 
-    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a{
+    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
       border-radius: $borderRadius;
     }
 
-    .o-app-sidenav-menu-item:not([disabled=true]){
+    .o-app-sidenav-menu-item:not([disabled="true"]) {
       border-radius: $borderRadiusNav;
       transition: all 0.2s;
       margin: unset;
       border-left: unset;
 
-      a:hover{
+      a:hover {
         border-radius: $borderRadiusNav;
         background-color: $accent;
         color: $primary;
         border-left: 8px solid $primary;
       }
-
     }
     .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
       padding-bottom: 0px !important;
     }
-
   }
-
 }
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
@@ -265,11 +280,10 @@ nav.ng-star-inserted:nth-last-child(2) {
   margin-bottom: 25px;
 }
 
-
 /* Contenedores fichas detalle */
 .card-detalle {
   display: flex;
-  gap: 25px;
+  gap: 15px;
   flex-wrap: wrap;
   flex-direction: column;
 
@@ -279,23 +293,24 @@ nav.ng-star-inserted:nth-last-child(2) {
     box-shadow: none;
     margin: 0;
 
-    div.o-container-gap{
+    div.o-container-gap {
       padding: unset !important;
-      >div{
+      > div {
         flex-wrap: wrap;
       }
     }
 
-    div.info-container{
+    div.info-container {
       width: 100%;
       max-width: 400px;
     }
-    div.detail-container{
+    div.detail-container {
       flex-direction: column;
     }
   }
+
   o-form {
-    .inner-form .o-form-content-wrapper{
+    .inner-form .o-form-content-wrapper {
       flex-flow: wrap;
     }
   }
@@ -304,56 +319,66 @@ nav.ng-star-inserted:nth-last-child(2) {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
     border: none;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
-    -moz-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
-    box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+    -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+    box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
   }
 
   .image-container {
     margin-right: 25px;
-
+    .hidden {
+      display: none;
+      /* Oculta el div que envuelve o-image */
+    }
     img {
       width: 800px;
       height: 480px;
       object-fit: cover;
       border-radius: $borderRadiusButton;
       display: block;
-      -webkit-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
-      -moz-box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
-      box-shadow: 0px 0px 10px 0px rgba($primary,0.45);
+      -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+      -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+      box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     }
   }
- .price {
+  .price {
     // Estilo del precio
-      font-size: $fontSize45;
-      font-weight: bold;
-      background-color: $verdeBoton;
-      color: $blanco;
-      margin:0;
-      border-radius: $borderRadius;
-      text-align: center;
-    }
+    font-size: $fontSize45;
+    font-weight: bold;
+    background-color: $verdeBoton;
+    color: $blanco;
+    margin: 10px;
+    padding: 10px;
+    border-radius: $borderRadius;
+    text-align: center;
+  }
 
-    .price .decimal {
-      font-size: 24px; /* Tamaño reducido para decimales */
-      //vertical-align: super; /* Opcional: sube un poco los decimales */
-    }
+  .price .decimal {
+    font-size: 24px; /* Tamaño reducido para decimales */
+    //vertical-align: super; /* Opcional: sube un poco los decimales */
+  }
+}
+.reservation-button {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
 }
 
-o-form-layout-tabgroup .card-detalle div.button-back{
+o-form-layout-tabgroup .card-detalle div.button-back {
   display: none;
   visibility: hidden;
 }
 
 //Codigo Conjunto//
-o-column.o-column, o-row.o-row {
-    background: transparent ;
-}
-o-column{
+o-column.o-column,
+o-row.o-row {
   background: transparent;
 }
-.o-container{
-    background: transparent;
+o-column {
+  background: transparent;
+}
+.o-container {
+  background: transparent;
 }
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: $accentClaro !important;
@@ -362,39 +387,38 @@ o-column{
   margin-top: 24px;
   align-items: flex-end;
 }
-.form-container{
+.form-container {
   width: 100vw;
 }
 
-.form-new-event{
+.form-new-event {
   background-color: transparent;
 
-    o-column.o-column:not(.service-column),
-    o-row.o-row:not(.service-column) {
+  o-column.o-column:not(.service-column),
+  o-row.o-row:not(.service-column) {
     background: transparent;
     border: solid 1px $verdeBoton;
     border-radius: $borderRadius;
     padding: 5px;
 
-      o-text-input,
-      o-integer-input,
-      o-textarea-input,
-      o-real-input,
-      o-date-input,
-      o-combo,
-      o-grid,
-      o-image,
-      o-hour-input{
-        max-width: 100%;
-        width:100%;
-        min-width: 100%;
-      }
+    o-text-input,
+    o-integer-input,
+    o-textarea-input,
+    o-real-input,
+    o-date-input,
+    o-combo,
+    o-grid,
+    o-image,
+    o-hour-input {
+      max-width: 100%;
+      width: 100%;
+      min-width: 100%;
+    }
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
 
-
-    .o-container-scroll.o-scroll.o-container-gap{
+    .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
       > div {
         gap: 25px;
@@ -403,28 +427,28 @@ o-column{
         justify-content: space-between !important;
       }
     }
-    o-column.o-column, o-row.o-row {
+    o-column.o-column,
+    o-row.o-row {
       background: $blanco;
     }
   }
-  article.ng-star-inserted{
+  article.ng-star-inserted {
     align-self: center !important;
-    padding:5px;
+    padding: 5px;
   }
   .buttons {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
   }
-
 }
 
 .application-layout-content-wrapper.header-layout {
-    background-image: url("/assets/images/fondo_workwander.jpg");
-    background-position-y: bottom;
-    background-position-x: right;
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("/assets/images/fondo_workwander.jpg");
+  background-position-y: bottom;
+  background-position-x: right;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 /*  Coworking */
 .coworking-card {
@@ -458,227 +482,231 @@ o-column{
   }
 }
 .info {
-    // Contenedor de la información
-    width: 70%;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  // Contenedor de la información
+  width: 70%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    .coworking-name {
-      // Estilo del nombre del coworking
-      font-size: $fontSize24;
-      font-weight: bold;
-      color: $primary;
-      cursor: pointer;
-      margin-bottom: 8px;
-      margin-top: 0;
-      display: inline-block; // Necesario para que el efecto funcione correctamente
-
-    }
-
-    .form-container {
-      padding: $padding;
-      background: $blanco;
-    }
-
-    .form-section {
-      border-radius: $borderRadius;
-      background-color: $blanco;
-      padding: $padding;
-      box-shadow: 0px 8px 30px rgba($primary, 0.1);
-      transition: all 0.3s ease;
-
-      :hover{
-        transform: none!important;
-      }
-
-    }
-
-    .form-row {
-      margin-bottom: 24px;
-    }
-
-    o-text-input, o-integer-input, o-real-input, o-date-input, o-image {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-image[icon] {
-      padding-left: 40px;
-      font-size: $fontSize16;
-      background-color: $blanco;
-      border: 1px solid $accent;
-      border-radius: $borderRadius;
-      transition: all 0.3s ease;
-    }
-    o-text-input[icon]:hover,
-    o-integer-input[icon]:hover,
-    o-real-input[icon]:hover,
-    o-date-input[icon]:hover,
-    o-image[icon]:hover,
-    o-textarea-input [icon]:hover{
-      border-color: $primary;
-    }
-
-    o-text-input[icon]::before,
-    o-integer-input[icon]::before,
-    o-real-input[icon]::before,
-    o-date-input[icon]::before,
-    o-image[icon]::before {
-      content: attr(icon);
-      font-family: 'Material Icons';
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $accent;
-      font-size: $fontSize20;
-    }
-
-
-    o-text-input input::placeholder,
-    o-integer-input input::placeholder,
-    o-real-input input::placeholder,
-    o-date-input input::placeholder,
-    o-image input::placeholder {
-      color: $accent;
-      opacity: 0.8;
-    }
-
-    /* Botones e interacción */
-    .form-section o-text-input:hover,
-    .form-section o-integer-input:hover,
-    .form-section o-real-input:hover,
-    .form-section o-date-input:hover,
-    .form-section o-image:hover {
-      background-color: $blanco;
-    }
-
-    /* Estilos generales para la fila del formulario */
-    .form-row {
-      margin: 24px 0; /* Espaciado vertical */
-    }
-    .location{
-      // Estilo de la ubicación
-      color: $primary;
-      margin: 0 0 8px 0;
-      font-size: $fontSize18;
-    }
-    .capacity {
-      // Estilo de la ubicación y capacidad
-      color: $primary;
-      margin: 0;
-      font-size: $fontSize12;
-      font-weight: $fontBlack;
-      border-radius: $borderRadiusEqual;
-      background-color: $accentClaro;
-      padding: 2px;
-      text-align: center;
-    }
-    .services {
-      // Contenedor de los servicios
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      transition: transform 0.2s;
-      //translate: 20px;
-
-      .service-icon {
-        // Estilo de los iconos de servicios
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $primary;
-        color: $blanco;
-        border-radius: $borderRadiusButton;
-        font-size: $fontSize12;
-      }
-    }
-
+  .coworking-name {
+    // Estilo del nombre del coworking
+    font-size: $fontSize24;
+    font-weight: bold;
+    color: $primary;
+    cursor: pointer;
+    margin-bottom: 8px;
+    margin-top: 0;
+    display: inline-block; // Necesario para que el efecto funcione correctamente
   }
 
-  .capacity-price-container {
-    border-left: solid 5px $primary;
-    padding: 0px 0 0 17px;
-    min-width: 190px;
+  .form-container {
+    padding: $padding;
+    background: $blanco;
+  }
 
-    .price-container {
-      // Contenedor del precio
-      padding: $paddingInterno;
+  .form-section {
+    border-radius: $borderRadius;
+    background-color: $blanco;
+    padding: $padding;
+    box-shadow: 0px 8px 30px rgba($primary, 0.1);
+    transition: all 0.3s ease;
+
+    :hover {
+      transform: none !important;
+    }
+  }
+
+  .form-row {
+    margin-bottom: 24px;
+  }
+
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-image {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  o-text-input[icon],
+  o-integer-input[icon],
+  o-real-input[icon],
+  o-date-input[icon],
+  o-image[icon] {
+    padding-left: 40px;
+    font-size: $fontSize16;
+    background-color: $blanco;
+    border: 1px solid $accent;
+    border-radius: $borderRadius;
+    transition: all 0.3s ease;
+  }
+  o-text-input[icon]:hover,
+  o-integer-input[icon]:hover,
+  o-real-input[icon]:hover,
+  o-date-input[icon]:hover,
+  o-image[icon]:hover,
+  o-textarea-input [icon]:hover {
+    border-color: $primary;
+  }
+
+  o-text-input[icon]::before,
+  o-integer-input[icon]::before,
+  o-real-input[icon]::before,
+  o-date-input[icon]::before,
+  o-image[icon]::before {
+    content: attr(icon);
+    font-family: "Material Icons";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $accent;
+    font-size: $fontSize20;
+  }
+
+  o-text-input input::placeholder,
+  o-integer-input input::placeholder,
+  o-real-input input::placeholder,
+  o-date-input input::placeholder,
+  o-image input::placeholder {
+    color: $accent;
+    opacity: 0.8;
+  }
+
+  /* Botones e interacción */
+  .form-section o-text-input:hover,
+  .form-section o-integer-input:hover,
+  .form-section o-real-input:hover,
+  .form-section o-date-input:hover,
+  .form-section o-image:hover {
+    background-color: $blanco;
+  }
+
+  /* Estilos generales para la fila del formulario */
+  .form-row {
+    margin: 24px 0; /* Espaciado vertical */
+  }
+  .location {
+    // Estilo de la ubicación
+    color: $primary;
+    margin: 0 0 8px 0;
+    font-size: $fontSize18;
+  }
+  .capacity {
+    // Estilo de la ubicación y capacidad
+    color: $primary;
+    margin: 0;
+    font-size: $fontSize12;
+    font-weight: $fontBlack;
+    border-radius: $borderRadiusEqual;
+    background-color: $accentClaro;
+    padding: 2px;
+    text-align: center;
+  }
+  .services {
+    // Contenedor de los servicios
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    transition: transform 0.2s;
+    //translate: 20px;
+
+    .service-icon {
+      // Estilo de los iconos de servicios
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: $verdeBoton;
-      min-height: 100%;
-      border-radius: $borderRadius;
-
-      .price {
-        // Estilo del precio
-        //font-size: $fontSize45;
-        font-size: $fontSize35;
-        font-weight: bold;
-        color: $blanco;
-
-        .decimal {
-              font-size: $fontSize18; /* Tamaño reducido para decimales */
-              //vertical-align: super; /* Opcional: sube un poco los decimales */
-          }
-      }
+      background-color: $primary;
+      color: $blanco;
+      border-radius: $borderRadiusButton;
+      font-size: $fontSize12;
     }
   }
+}
 
-  .capacity-container {
-    // Contenedor de la capacidad
-    width: 15%;
+.capacity-price-container {
+  border-left: solid 5px $primary;
+  padding: 0px 0 0 17px;
+  min-width: 190px;
+
+  .price-container {
+    // Contenedor del precio
     padding: $paddingInterno;
     display: flex;
     align-items: center;
-    justify-content: end;
-    background-color: $accent;
+    justify-content: center;
+    background-color: $verdeBoton;
     min-height: 100%;
+    border-radius: $borderRadius;
 
-    .capacity {
-      // Estilo de la capacidad
-      font-size: $fontSize24;
+    .price {
+      // Estilo del precio
+      //font-size: $fontSize45;
+      font-size: $fontSize35;
       font-weight: bold;
-      color: $primary;
+      color: $blanco;
+
+      .decimal {
+        font-size: $fontSize18; /* Tamaño reducido para decimales */
+        //vertical-align: super; /* Opcional: sube un poco los decimales */
+      }
     }
   }
+}
+
+.capacity-container {
+  // Contenedor de la capacidad
+  width: 15%;
+  padding: $paddingInterno;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background-color: $accent;
+  min-height: 100%;
+
+  .capacity {
+    // Estilo de la capacidad
+    font-size: $fontSize24;
+    font-weight: bold;
+    color: $primary;
+  }
+}
 
 .ontimize-table.o-table,
 .mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {
-    background: transparent !important;
+  background: transparent !important;
 }
 
-@media(min-width:768px){
+@media (min-width: 768px) {
   .form-new-event {
     o-column.o-column:not(.service-column),
-    o-row.o-row:not(.service-column){
+    o-row.o-row:not(.service-column) {
       o-date-input,
       o-integer-input,
       o-real-input,
-      o-hour-input{
+      o-hour-input {
         max-width: 48%;
-        width:48%;
+        width: 48%;
         min-width: 48%;
       }
       o-date-input.row-tree-fields,
       o-integer-input.row-tree-fields,
       o-real-input.row-tree-fields,
-      o-hour-input.row-tree-fields{
+      o-hour-input.row-tree-fields {
         max-width: 30%;
-        width:30%;
+        width: 30%;
         min-width: 30%;
       }
     }
-   }
+  }
 }
-@media(max-width:850px){
-  .button-back{
+@media (max-width: 850px) {
+  .button-back {
     display: none;
   }
   .card-detalle .image-container img {
@@ -691,7 +719,7 @@ o-column{
     }
   }
 }
-@media(max-width:767.9px){
+@media (max-width: 767.9px) {
   o-text-input,
   o-integer-input,
   o-real-input,
@@ -703,7 +731,7 @@ o-column{
     min-width: 100% !important;
   }
 }
-@media(max-width:576px) {
+@media (max-width: 576px) {
   .full-page {
     .footer-container {
       div {
@@ -714,7 +742,7 @@ o-column{
   }
 }
 // Media para 1400px
-@media(max-width: 1400px){
+@media (max-width: 1400px) {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
     background-color: transparent;
@@ -723,5 +751,5 @@ o-column{
   }
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
     padding: 25px 25px 85px 25px;
- }
+  }
 }

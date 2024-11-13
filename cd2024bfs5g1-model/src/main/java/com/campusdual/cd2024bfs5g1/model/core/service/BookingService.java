@@ -73,6 +73,10 @@ public class BookingService implements IBookingService {
             d = calendar.getTime();
             dates.add(d);
         }
+        if (dates.isEmpty()) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            dates.add(calendar.getTime());
+        }
 
         final Map<Date, Boolean> fechas = new HashMap<>();
         //Hacemos las consultas

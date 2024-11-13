@@ -76,14 +76,14 @@
                 show-buttons-text="no"
                 gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
           <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
-            <div class="srv" (click)="selectService(dato.srv_id, 'sel'+dato.srv_id)">
+            <div class="srv" (click)="selectService(dato.srv_id, 'sel'+dato.srv_id)" title="{{dato.srv_name | oTranslate}}">
               <o-column  id="{{'sel'+dato.srv_id}}" class="serviceDisable">
-                <article *ngIf="dato.srv_name=='additional_screen'"><mat-icon title="{{'additional_screen' | oTranslate}}">desktop_windows</mat-icon></article>
-                <article *ngIf="dato.srv_name=='vending_machine'"><mat-icon title="{{'vending_machine' | oTranslate}}">kitchen</mat-icon></article>
-                <article *ngIf="dato.srv_name=='coffee_bar'"><mat-icon title="{{'coffee_bar' | oTranslate}}">local_cafe</mat-icon></article>
-                <article *ngIf="dato.srv_name=='water_dispenser'"><mat-icon title="{{'water_dispenser' | oTranslate}}">local_drink</mat-icon></article>
-                <article *ngIf="dato.srv_name=='ergonomic_chair'"><mat-icon title="{{'ergonomic_chair' | oTranslate}}">event_seat</mat-icon></article>
-                <article *ngIf="dato.srv_name=='parking'"><mat-icon title="{{'parking' | oTranslate}}">local_parking</mat-icon></article>
+                <article *ngIf="dato.srv_name=='additional_screen'"><mat-icon>desktop_windows</mat-icon></article>
+                <article *ngIf="dato.srv_name=='vending_machine'"><mat-icon>kitchen</mat-icon></article>
+                <article *ngIf="dato.srv_name=='coffee_bar'"><mat-icon>local_cafe</mat-icon></article>
+                <article *ngIf="dato.srv_name=='water_dispenser'"><mat-icon>local_drink</mat-icon></article>
+                <article *ngIf="dato.srv_name=='ergonomic_chair'"><mat-icon>event_seat</mat-icon></article>
+                <article *ngIf="dato.srv_name=='parking'"><mat-icon>local_parking</mat-icon></article>
               </o-column>
             </div>
           </o-grid-item>

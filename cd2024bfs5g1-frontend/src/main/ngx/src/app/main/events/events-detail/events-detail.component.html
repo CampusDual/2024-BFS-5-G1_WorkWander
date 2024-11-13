@@ -1,0 +1,79 @@
+<div class="card-detalle">
+  <o-form
+    #form
+    attr="eventDetail"
+    service="events"
+    entity="event"
+    keys="id_event"
+    header-actions="R"
+    show-header-navigation="no"
+    class="form-section"
+    ignore-default-navigation="yes"
+    editable-detail="no"
+    columns="id_event;name;bookings;date_event;hour_event;locality;address;description"
+    header-position="top"
+    stay-in-record-after-insert="true"
+  >
+    <div
+      fxLayout="row"
+      class="form-section"
+      class="form-container"
+      fxLayoutGap="24px"
+      fxLayoutAlign="center start"
+    >
+      <!-- Información General -->
+      <div class="info-container">
+        <o-integer-input oHidden #id attr="id_event"></o-integer-input>
+        <!-- Nombre -->
+        <div>
+          <h1>{{ form.getFieldValue("name") }}</h1>
+          <o-text-input fxFlex="40" oHidden attr="name"></o-text-input>
+        </div>
+        <!-- Plazas -->
+        <o-column class="detail-container">
+          <div class="info-container">
+            <!--bookings-->
+            <p>
+              <strong>{{ "BOOKINGS" | oTranslate }}:</strong>
+              {{ form.getFieldValue("bookings") }}
+            </p>
+            <o-text-input oHidden attr="bookings"></o-text-input>
+            <!--date_event-->
+            <p>
+              <strong>{{ "DATE_EVENT" | oTranslate }}:</strong>
+              {{ formatDate(form.getFieldValue("date_event")) }}
+            </p>
+            <o-text-input oHidden attr="date_event"></o-text-input>
+            <!--hour_event-->
+            <p>
+              <strong>{{ "HOUR_EVENT" | oTranslate }}:</strong>
+              {{ form.getFieldValue("hour_event") }}
+            </p>
+            <o-text-input oHidden attr="hour_event"></o-text-input>
+          </div>
+          <div class="info-container">
+            <!--location-->
+            <p>
+              <strong>{{ "LOCALITY" | oTranslate }}:</strong>
+              {{ form.getFieldValue("locality") }}
+            </p>
+            <o-text-input oHidden attr="locality"></o-text-input>
+            <!-- Direction -->
+            <p>
+              <strong>{{ "ADDRESS" | oTranslate }}:</strong>
+              {{ form.getFieldValue("address") }}
+            </p>
+            <o-text-input oHidden attr="address"></o-text-input>
+          </div>
+          <div class="info-container">
+            <p>
+              <strong>{{ "DESCRIPTION" | oTranslate }}:</strong>
+              {{ form.getFieldValue("description") }}
+            </p>
+            <o-text-input oHidden attr="description"></o-text-input>
+          </div>
+        </o-column>
+      </div>
+    </div>
+  </o-form>
+</div>

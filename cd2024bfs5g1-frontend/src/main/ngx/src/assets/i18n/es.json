@@ -98,13 +98,10 @@
   "cw_image": "Imagen",
   "EVENTS": "Eventos",
   "EVENT_INFORMATION": "Nuevo Evento",
-  "name": "Nombre",
-  "date_event": "Fecha",
-  "hour_event": "Hora",
-  "address": "Dirección",
-  "locality": "Localidad",
-  "bookings": "Plazas",
-  "description": "Descripción",
+  "DATE_EVENT": "Fecha",
+  "HOUR_EVENT": "Hora",
+  "LOCALITY": "Localidad",
+  "BOOKINGS": "Plazas",
   "NEW_EVENT": "Crear Evento",
   "REGISTER": "Registrar",
   "ADD_COWORKING":"Añadir coworking",
@@ -157,5 +154,9 @@
   "VALIDATE_USERNAME": "El nombre de usuario solo puede contener letras, números, puntos, guiones y debe tener entre 3 y 20 caracteres",
   "VALIDATE_EMAIL": "El correo electrónico contiene caracteres no permitidos",
   "CIF_ERROR": "El CIF es obligatorio y debe ser válido si la empresa está marcada.",
-  "DONE": "Aceptar"
+  "DONE": "Aceptar",
+  "ADVANCED_SEARCH" : "Búsqueda avanzada",
+  "SERVICES": "Servicios",
+  "FILTER": "Filtrar",
+  "CLEAR": "Limpiar"
 }

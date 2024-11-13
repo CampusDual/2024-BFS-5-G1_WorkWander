@@ -98,13 +98,10 @@
   "cw_image": "Image",
   "EVENTS": "Events",
   "EVENT_INFORMATION": "New Event",
-  "name": "Name",
-  "date_event": "Date",
-  "hour_event": "Hour",
-  "address": "Address",
-  "locality": "Locality",
-  "bookings": "Bookings",
-  "description": "Description",
+  "DATE_EVENT": "Date",
+  "HOUR_EVENT": "Hour",
+  "LOCALITY": "Locality",
+  "BOOKINGS": "Bookings",
   "NEW_EVENT": "New Event",
   "REGISTER": "Register",
   "ADD_COWORKING":"Add Coworking",
@@ -157,6 +154,10 @@
   "VALIDATE_USERNAME": "The username can only contain letters, numbers, periods, hyphens and must be between 3 and 20 characters",
   "VALIDATE_EMAIL": "The email contains illegal characters",
   "CIF_ERROR": "The CIF is mandatory and must be valid if the company is marked",
-  "DONE": "Done"
+  "DONE": "Done",
+  "ADVANCED_SEARCH" : "Advanced search",
+  "SERVICES": "Services",
+  "FILTER": "Filter",
+  "CLEAR": "Clear"
 
 }

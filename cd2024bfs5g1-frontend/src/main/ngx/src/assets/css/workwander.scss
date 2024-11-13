@@ -369,7 +369,7 @@ o-column{
 .form-new-event{
   background-color: transparent;
 
-    o-column.o-column:not(.service-column), 
+    o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
     background: transparent;
     border: solid 1px $verdeBoton;
@@ -656,7 +656,7 @@ o-column{
 
 @media(min-width:768px){
   .form-new-event {
-    o-column.o-column:not(.service-column), 
+    o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column){
       o-date-input,
       o-integer-input,

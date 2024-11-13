@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingsHomeComponent } from './bookings-home/bookings-home.component';
 import { OntimizeWebModule, OPermissionsModule } from 'ontimize-web-ngx';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { OntimizeWebModule, OPermissionsModule } from 'ontimize-web-ngx';
     BookingsRoutingModule,
     OntimizeWebModule,
     OPermissionsModule,
+    SharedModule
   ]
 })
 export class BookingsModule { }

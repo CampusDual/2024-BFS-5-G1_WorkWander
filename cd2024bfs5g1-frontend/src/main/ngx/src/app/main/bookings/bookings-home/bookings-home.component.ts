@@ -1,5 +1,7 @@
 import { Component, ViewChild } from "@angular/core";
 import { ODateInputComponent, OTableColumn, OTableColumnComponent } from "ontimize-web-ngx";
+import { dateEndFunction, dateStartFunction } from 'src/app/shared/shared.module';
+
 
 @Component({
   selector: "app-bookings-home",
@@ -8,18 +10,7 @@ import { ODateInputComponent, OTableColumn, OTableColumnComponent } from "ontimi
 })
 export class BookingsHomeComponent {
 
-
-
-  @ViewChild("dates") bookingDate: OTableColumnComponent;
-
-  private arrayDates: OTableColumnComponent;
-  private dates: [];
-
-  showStartDate(){
-    return this.arrayDates[0];
-  }
-  showEndDate(){
-    return this.arrayDates[length-1];
-  }
+public dateStart = dateStartFunction
+public dateEnd = dateEndFunction
 
 }

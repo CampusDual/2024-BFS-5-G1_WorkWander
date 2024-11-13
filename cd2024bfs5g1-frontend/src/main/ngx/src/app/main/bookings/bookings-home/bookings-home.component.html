@@ -1,14 +1,16 @@
 <o-form-layout-manager attr="myBookingsHome" title="{{'MYBOOKINGS' | oTranslate }}" separator=" " mode="tab"
-    label-columns="bk_id">
-    <o-table delete-button="no" insert-button="no" attr="myCoworkingsTable" service="bookings" entity="datesByBooking" keys="bk_id"
-        columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
-        visible-columns="cw_name;bk_state;dates"
-        query-rows="15" auto-adjust="true">
-       
-        <o-table-column attr="cw_name" title= '{{"COWORKINGS_NAME" | oTranslate}}' width="15%"></o-table-column>
-        <o-table-column attr="bk_state" title= '{{"BOOKING_STATE" | oTranslate}}' width="10%" content-align="end"></o-table-column>
-        <o-table-column attr="dates" oHidden></o-table-column>
-        <o-table-column attr="date_start" title= '{{"START_DATE" | oTranslate}}' width="10%" (onLoadedData)="showStartDate()" ></o-table-column>
-        <o-table-column attr="date_end" title= '{{"END_DATE" | oTranslate}}' width="10%"></o-table-column>
-    </o-table>
+  label-columns="bk_id">
+  <o-table delete-button="no" insert-button="no" attr="myCoworkingsTable" service="bookings" entity="datesByBooking"
+    keys="bk_id" columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
+    visible-columns="cw_name;bk_state;date_start;date_end" query-rows="15" auto-adjust="true">
+
+    <o-table-column attr="cw_name" title='{{"COWORKINGS_NAME" | oTranslate}}' width="15%"></o-table-column>
+    <o-table-column attr="bk_state" title='{{"BOOKING_STATE" | oTranslate}}' width="10%"
+      content-align="end"></o-table-column>
+
+    <o-table-column-calculated attr="date_start" title='{{"START_DATE" | oTranslate}}' [operation-function]="dateStart"
+      type="date"></o-table-column-calculated>
+    <o-table-column-calculated attr="date_end" title='{{"END_DATE" | oTranslate}}' [operation-function]="dateEnd"
+      type="date"></o-table-column-calculated>
+  </o-table>
 </o-form-layout-manager>

@@ -20,6 +20,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
   entity="event"
   keys="id_event"
   header-actions="new"
+  show-header="no"
   show-header-navigation="no"
   (onInsert)="createEvent(); $event.stopPropagation()"
   class="form-section"
@@ -99,6 +100,12 @@ This HTML file defines the structure of the "New Event" form component in an Ang
           maxlength="250"
           required="yes"
         ></o-textarea-input>
+      </div>
+      <div fxLayout="column" fxLayoutGap="24px" class="form-row">
+        <div class="buttons">
+          <button mat-raised-button color="warn" (click)="cancel()">{{ 'cancel' | oTranslate }}</button>
+          <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save' | oTranslate }}</button>
+        </div>
       </div>
     </o-column>
   </div>

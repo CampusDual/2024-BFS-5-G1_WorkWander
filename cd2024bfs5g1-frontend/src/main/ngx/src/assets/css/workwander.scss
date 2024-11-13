@@ -318,34 +318,9 @@ o-form-layout-tabgroup .card-detalle div.button-back{
   visibility: hidden;
 }
 
-@media(max-width:850px){
-  .button-back{
-    display: none;
-  }
-  .card-detalle .image-container img {
-    height: 220px;
-  }
-  .card-detalle {
-    o-column.o-column,
-    o-row.o-row {
-      width: 100%;
-    }
-  }
-}
-@media(max-width:576px) {
-  .full-page {
-    .footer-container {
-      div {
-        margin: 0 auto;
-        place-content: center !important;
-      }
-    }
-  }
-}
-
 //Codigo Conjunto//
 o-column.o-column, o-row.o-row {
-    background: transparent !important;
+    background: transparent ;
 }
 o-column{
   background: transparent;
@@ -362,14 +337,46 @@ o-column{
 }
 .form-container{
   width: 100vw;
-  }
-o-column.o-column.form-new-event{
-  background-color: transparent;
 }
-o-form.form-new-event{
-  align-items: flex-start;
-  align-content: flex-start;
+
+.form-new-event{
+  background-color: transparent;
+
+  o-column.o-column,
+  o-row.o-row {
+    background: transparent;
+
+    o-text-input,
+    o-integer-input,
+    o-textarea-input,
+    o-real-input,
+    o-date-input,
+    o-combo,
+    o-grid,
+    o-image,
+    o-hour-input{
+      max-width: 100%;
+      width:100%;
+      min-width: 100%;
+    }
+
+    .o-container-scroll.o-scroll.o-container-gap{
+      align-items: flex-start;
+      > div {
+        gap: 25px;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between !important;
+      }
+    }
   }
+  article.ng-star-inserted{
+    align-self: center !important;
+    padding:10px 15px;
+  }
+
+}
+
 
 .application-layout-content-wrapper.header-layout {
     background-image: url("/assets/images/fondo_workwander.jpg");
@@ -861,43 +868,69 @@ o-form.form-new-event{
       color: $primary;
     }
   }
+
 .ontimize-table.o-table,
 .mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {
     background: transparent !important;
 }
 
-.serviceAvailable{
-  cursor:pointer;
-  color:black;
-  font-size: 12px;
-  border-box: 1px solid $primary;
-  box-shadow: 2px 5px $primary;
-  width: 40px;
-  height: 40px;
-  //transition: width 2s, height 2s;
-  text-align:center;
-  margin: 0 auto;
-  border-bottom: 0.5px solid $primary;
-  padding: 5px 15px 5px 15px;
-  background-color: $accent;
-  border-radius: 8px;
+@media(min-width:768px){
+  .form-new-event{
+    o-column.o-column, o-row.o-row {
+      o-date-input,
+      o-integer-input,
+      o-real-input,
+      o-hour-input{
+        max-width: 48%;
+        width:48%;
+        min-width: 48%;
+      }
+      o-date-input.row-tree-fields,
+      o-integer-input.row-tree-fields,
+      o-real-input.row-tree-fields,
+      o-hour-input.row-tree-fields{
+        max-width: 30%;
+        width:30%;
+        min-width: 30%;
+      }
+
+    }
+  }
+
 }
-
-.serviceDisable{
-  cursor:pointer;
-  background-color:$blanco;
-  color:black;
-  padding: 5px 15px 5px 15px;
-  font-size: 12px;
-  border-radius: 8px;
-  border-box: 1px solid $primary;
-  box-shadow: 2px 5px $primary;
-  width: 40px;
-  height: 40px;
-  //transition: width 2s, height 2s;
-  text-align:center;
-  margin: 0 auto;
-  border-bottom: 0.5px solid  $primary;
+@media(max-width:850px){
+  .button-back{
+    display: none;
+  }
+  .card-detalle .image-container img {
+    height: 220px;
+  }
+  .card-detalle {
+    o-column.o-column,
+    o-row.o-row {
+      width: 100%;
+    }
+  }
 }
-
-
+@media(max-width:768px){
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-hour-input,
+  o-image {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+@media(max-width:576px) {
+  .full-page {
+    .footer-container {
+      div {
+        margin: 0 auto;
+        place-content: center !important;
+      }
+    }
+  }
+}

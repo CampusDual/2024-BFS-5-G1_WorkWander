@@ -14,7 +14,7 @@ export function dateStartFunction(rowData: Array<any>): any {
 
 export function dateEndFunction(rowData: Array<any>): any {
 
-  return rowData["dates"][rowData["dates"].length-1];
+  return rowData["dates"][rowData["dates"].length - 1];
 }
 
 @NgModule({

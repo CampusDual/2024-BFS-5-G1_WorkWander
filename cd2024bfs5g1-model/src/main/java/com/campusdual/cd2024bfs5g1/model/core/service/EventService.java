@@ -63,14 +63,6 @@ public class EventService implements IEventService {
         return this.daoHelper.insert(this.eventDao, attributes);
     }
 
-    /*
-    public static Date getZonedDate() {
-        final ZoneId currentZone = ZoneId.of("Europe/Madrid");
-        final ZonedDateTime currentTime = ZonedDateTime.now(currentZone);
-        return Date.from(currentTime.toInstant());
-    }
-     */
-
     @Override
     public EntityResult myEventQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

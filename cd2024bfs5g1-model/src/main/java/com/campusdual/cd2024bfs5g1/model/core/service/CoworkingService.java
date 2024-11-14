@@ -76,9 +76,6 @@ public class CoworkingService implements ICoworkingService {
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
         // Recuperación de los servicios
-
-
-        // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
 
         // Ejecutar el insert usando el daoHelper

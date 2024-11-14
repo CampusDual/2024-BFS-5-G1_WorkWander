@@ -97,6 +97,7 @@ public class BookingService implements IBookingService {
 
             fechas.put(date, capacidadDisponible - plazas > 0);
         }
+        
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);
         r.put("data", fechas);

@@ -80,16 +80,16 @@ export class CoworkingsDetailComponent {
       .catch((error) => {
         console.error("Error al consultar capacidad:", error);
       });
-  } 
+  }
   /**
    * Checks the capacity availability for a coworking space.
-   * 
+   *
    * This method creates a filter based on the coworking ID, date array, and state,
    * then queries the service to check for available dates. If all dates are available,
    * it shows a toast message indicating availability and resolves the promise with `true`.
    * If some dates are not available, it formats the unavailable dates, shows a toast message
    * with the unavailable dates, and resolves the promise with `false`.
-   * 
+   *
    * @returns {Promise<boolean>} A promise that resolves to `true` if all dates are available,
    *                             or `false` if some dates are not available.
    */

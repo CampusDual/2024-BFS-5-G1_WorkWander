@@ -165,40 +165,10 @@ login {
   overflow: hidden;
 
 
-  .title_text {
-    font-size: $fontSize14;
-    font-weight: 600;
-  }
-
-  .registerForm form.inner-form.form-no-toolbar {
+ .registerForm form.inner-form.form-no-toolbar {
     min-height: 100vh;
     justify-content: center;
     min-width: 368px;
-
-    button {
-      width: 100%;
-      margin: 32px 0 0;
-      height: 42px;
-      font-size: $fontSize16;
-      border: unset;
-    }
-
-    div.text-center {
-      text-align: center;
-    }
-  }
-  .registerForm form.inner-form.form-no-toolbar {
-    min-height: 100vh;
-    justify-content: center;
-    min-width: 368px;
-
-    button {
-      width: 100%;
-      margin: 32px 0 0;
-      height: 42px;
-      font-size: $fontSize16;
-      border: unset;
-    }
 
     div.text-center{
       text-align: center;
@@ -214,14 +184,6 @@ login {
     min-height: unset !important;
   }
 
-  .login-outer-container {
-    justify-content: center;
-
-    .wrapp-login .login-inner-container form .login-title-container {
-      margin-top: unset;
-    }
-
-  }
   .register-outer-container {
       width: 100%;
       height: 100%;

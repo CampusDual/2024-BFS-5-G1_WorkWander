@@ -8,6 +8,27 @@
                  columns="city" searchable="true" visible-columns="city" multiple="yes" translate="yes"
                  fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
         </o-combo>
+        <o-combo
+        #servicesField
+        appearance="outline"
+        label="{{ 'SERVICES' | oTranslate }}"
+        id="service"
+        null-selection="no"
+        attr="srv_name"
+        service="services"
+        entity="service"
+        keys="srv_id"
+        value-column="srv_name"
+        columns="srv_name"
+        searchable="true"
+        visible-columns="srv_name"
+        multiple="yes"
+        translate="yes"
+        fxFlex="100"
+        fxFlex.gt-xs="37"
+        fxFlex.gt-sm="18"
+      >
+      </o-combo>
         <o-row class="btn-container">
           <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED" label="SEARCH" class="button btn-outline-light custom-button" matTooltip="{{ 'Search' | oTranslate }}">
             <mat-icon class="material-icons">search</mat-icon>

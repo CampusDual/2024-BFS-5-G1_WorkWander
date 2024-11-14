@@ -1,34 +1,17 @@
 <div class="grid-container">
-  <o-form show-header="no" class="filters">
+  <o-form class="filters"  show-header="no">
     <o-column-collapsible class="collapsible-container" attr="container" title="{{ 'ADVANCED_SEARCH' | oTranslate }}"
                           icon="filter_list" expanded="no">
       <div class="collapsible-container-items">
         <o-combo #locationField appearance="outline" label="LOCATION" id="cw_location" null-selection="no"
-                 attr="city" service="cities" entity="city" keys="id_city" value-column="city"
-                 columns="city" searchable="true" visible-columns="city" multiple="yes" translate="yes"
-                 fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
+            attr="city" service="cities" entity="city" keys="id_city" value-column="city"
+            columns="city" searchable="true" visible-columns="city" multiple="yes" translate="yes"
+            fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18">
         </o-combo>
-        <o-combo
-        #servicesField
-        appearance="outline"
-        label="{{ 'SERVICES' | oTranslate }}"
-        id="service"
-        null-selection="no"
-        attr="srv_name"
-        service="services"
-        entity="service"
-        keys="srv_id"
-        value-column="srv_name"
-        columns="srv_name"
-        searchable="true"
-        visible-columns="srv_name"
-        multiple="yes"
-        translate="yes"
-        fxFlex="100"
-        fxFlex.gt-xs="37"
-        fxFlex.gt-sm="18"
-      >
-      </o-combo>
+        <o-combo #servicesField appearance="outline" label="{{ 'SERVICES' | oTranslate }}" id="service" null-selection="no" attr="srv_name"
+          service="services" entity="service" keys="srv_id" value-column="srv_name" columns="srv_name" searchable="true" visible-columns="srv_name"
+          multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18" >
+        </o-combo>
         <o-row class="btn-container">
           <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED"
                   label="SEARCH" class="button btn-outline-light custom-button"
@@ -43,7 +26,7 @@
         </o-row>
 
         <o-filter-builder #filterBuilder attr="thefilter"
-                           filters="cw_location:city;services:srv_name"
+                          filters="cw_location:city;services:srv_name"
                           [target]="coworkingsGrid" query-on-change="no" query-on-change-delay="500"
                           [expression-builder]="createFilter">
         </o-filter-builder>

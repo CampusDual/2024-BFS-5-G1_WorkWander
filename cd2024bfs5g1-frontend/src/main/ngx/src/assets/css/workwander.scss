@@ -667,6 +667,10 @@ o-column {
     color: $primary;
   }
 }
+o-data-toolbar {
+  align-content: flex-start !important;
+  max-width: 440px;
+}
 
 .ontimize-table.o-table,
 .mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {

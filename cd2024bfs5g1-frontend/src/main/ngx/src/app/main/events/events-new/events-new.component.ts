@@ -19,10 +19,10 @@ export class EventsNewComponent {
   @ViewChild("timeInput") public timeCtrl: OTimeInputComponent;
   @ViewChild("form") public formCtrl: OFormComponent;
 
-  constructor(private router: Router, private service: OntimizeService,
-    protected snackBarService: SnackBarService) {
+  constructor(private router: Router, private service: OntimizeService, protected snackBarService: SnackBarService) {
     const conf = this.service.getDefaultServiceConfiguration("events");
     this.service.configureService(conf);
+
   }
 
   // Estas funciones están en desarrollo, están pensadas para comprobar que la fecha sea una fecha posterior al dia de hoy
@@ -54,18 +54,14 @@ export class EventsNewComponent {
   currentDate() {
     return new Date();
   }
-
-  //Obtiene la hora actual del sistema en la zona horaria local del usuario.
-  getValue() {
-    console.log("Hora: ", new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }));
-    return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-  }
-
-  //Función para crear un evento
+ //Obtiene la hora actual del sistema en la zona horaria local del usuario.
+ getValue() {
+  console.log("Hora: ", new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }));
+  return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+}
   createEvent() {
     this.router.navigate(["/main/myevents"]);
   }
-
   //Función que deshabilita el botón de guardar mientras no se introduzcan datos
   isInvalidForm(): boolean {
     return !this.formCtrl || this.formCtrl.formGroup.invalid;
@@ -116,4 +112,5 @@ export class EventsNewComponent {
     };
     this.snackBarService.open('Evento creado!', configuration);
   }
+
 }

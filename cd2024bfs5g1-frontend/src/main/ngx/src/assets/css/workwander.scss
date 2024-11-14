@@ -1,19 +1,24 @@
 @use "sass:map";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import './custom_font.scss';
 
-/* Tipografía*/
-$typography: "Noto Sans";
-
+h1, h2, h3, h4, h5, h6{
+  &:hover {
+    animation: wave 1.5s ease-in-out ;
+  }
+}
 /* Colores personalizados */
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
 $verdeBoton: #5F6F65;
-$primaryClaro: rgba($primary, 0.4);
-$accentClaro: rgba($accent, 0.8);
+
+$primaryClaro: rgba($primary, 0.5);
+$accentClaro: rgba($accent, 0.5);
+$verdeBotonClaro: rgba($verdeBoton, 0.5);
 
 $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;
+
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -23,42 +28,20 @@ $borderRadiusEqual: 25px;
 $padding: 25px 25px 25px 25px;
 $paddingInterno: 12px 16px;
 
-h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
-  font-family: $typography !important;
-}
-
-h1, h2, h3, h4, h5, h6{
-  &:hover {
-    animation: wave 1.5s ease-in-out ;
-  }
-}
-
-// Tamaños de tipografías
-$fontSize12: 12px;
-$fontSize14: 14px;
-$fontSize16: 16px;
-$fontSize18: 18px;
-$fontSize20: 20px;
-$fontSize24: 24px;
-$fontSize45: 45px;
-
-// Grosores de tipografías
-$fontLightThin: 100;
-$fontThin: 200;
-$fontLight: 300;
-$fontRegular: 400;
-$fontMedium: 500;
-$fontSemiBold: 600;
-$fontBold: 700;
-$fontBlack: 800;
-$fontHeavyBlack: 900;
-
-
 // Gradientes de colores
 $linear-gradientLR: linear-gradient(90deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 $linear-gradientRL: linear-gradient(270deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 $linear-gradientTB: linear-gradient(180deg, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
 $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradadoFuerte 5%, $colorDegradadoSuave 100%);
+
+/* Margin personalizado */
+.m-top-24 {
+  margin-top: 24px;
+}
+
+mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligature-font.mat-icon-no-color {
+  color: $verdeBoton;
+}
 
 /*   Video home page  */
 #background-video {
@@ -73,23 +56,33 @@ $linear-gradientBT: linear-gradient(0, $colorDegradadoFuerte 0%, $colorDegradado
   z-index: -1;
 }
 
-login {
-  .full-page .login-outer-container .wrapp-login {
-    width: 100vw;
-    min-height: unset;
-    z-index: 2;
-  }
+/* Footer */
+#footer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  z-index: 2;
 
-  .login-outer-container .wrapp-login .login-inner-container,
-  .login-outer-container .wrapp-login {
-    background-color: unset;
-  }
-  .full-page .login-outer-container .wrapp-login .login-inner-container form{
-    padding: $padding;
+  div {
+    height: 40px;
+    margin-right: 50px;
+
+    span {
+      font-size: $fontSize12;
+      padding-right: 4px;
+    }
   }
 
 }
+/*  Barra de navegación lateral  */
+.navMenu {
+  background-image: $linear-gradientBT;
+}
 
+/* SnackBar */
 .cdk-overlay-container .cdk-global-overlay-wrapper {
   align-items: flex-start !important;
   margin-top: 25px;
@@ -117,37 +110,53 @@ login {
     border-radius: 15px;
     padding: 5px 15px;
     background-color: $accent;
-    border: 0 solid $accent;
+    border: none;
   }
 }
 
-#footer{
-  background-color: $primary;
-  color: $accent;
+o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
-  left: 0;
+  left: 75px;
+}
+
+.mat-mdc-paginator-container {
+  position: absolute;
+  top: 1px;
   right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  z-index: 2;
+  width: 450px !important;
+  z-index: 1;
+}
 
-  div {
-    height: 40px;
-    margin-right: 50px;
 
-    span {
-      font-size: $fontSize12;
-      padding-right: 4px;
+/* Pantalla login */
+login {
+  .full-page .login-outer-container .wrapp-login {
+    width: 100vw;
+    min-height: unset;
+    z-index: 2;
+    background-color: unset;
+
+    .login-inner-container form {
+      padding: $padding;
+      justify-content: center;
+      background-color: rgba($blanco, 0.4);
+      border-radius: $borderRadius;
+      padding: $padding;
+      justify-content: center;
+      min-height: unset !important;
+
+      .login-title-container {
+        margin-top: unset;
+      }
+    }
+    .login-inner-container {
+      background-color: unset;
     }
   }
-
 }
 
-.m-top-24 {
-  margin-top: 24px;
-}
 
+/* Formato Full page */
 .full-page {
   width: 100%;
   height: 100%;
@@ -174,86 +183,85 @@ login {
       border: unset;
     }
 
-    div.text-center{
+    div.text-center {
       text-align: center;
     }
   }
 
-  .login-inner-container form,
-  .o-form form .o-form-content-wrapper {
-    background-color: rgba($blanco, 0.4);
-    border-radius: $borderRadius;
-    padding: $padding;
-    justify-content: center;
-    min-height: unset !important;
-  }
-
-  .login-outer-container {
-    justify-content: center;
-
-    .wrapp-login .login-inner-container form .login-title-container {
-      margin-top: unset;
-    }
-
-  }
-  .register-outer-container {
-      width: 100%;
-      height: 100%;
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -moz-box;
-      display: -ms-flexbox;
-      display: flex;
-      flex-wrap: wrap;
-      overflow: auto;
-      justify-content: center;
-  }
-
-  .register-bg-container {
-      background-image: unset;
-      width: unset;
-      background-repeat: no-repeat;
-      background-size: unset;
-      background-position: unset;
-      position: unset;
-      z-index: 1;
-  }
-
-    .register-bg-container::before {
-      content: "";
-      display: block;
-      position: absolute;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background: rgba($primary, .1);
-      opacity: .8;
-    }
-    .wrapp-register {
-      width: 640px;
-      min-height: 100%;
-      z-index: 2;
-
-      .register-inner-container{
-          width: 100%;
-      }
-
-      form {
-        padding: $paddingInterno;
-        min-height: 600px;
-        min-width: 368px;
-      }
-    }
+}
+.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
+  background-color: $verdeBotonClaro !important;
 }
 
-o-form.o-form o-column.o-column.o-appearance-outline {
-  border-radius: $borderRadius;
-  background-color: rgba($blanco, 0.4);
-  padding: $padding;
+/* Boton salir */
+nav.ng-star-inserted:nth-last-child(1),
+nav.ng-star-inserted:nth-last-child(2) {
+  background-color: $accent;
+  position: absolute;
+  border-radius: 25px;
+  border-left: 0px solid $accent !important;
+  margin: 0px 5px 0 5px;
+  transition: all 0.2s;
+  top: unset;
+  bottom: 25px;
+  right: 0;
+  width: 96%;
+
+  :hover {
+    border-left: 0px solid $accent !important;
+  }
+  .mdc-button__label > div {
+    justify-content: center !important;
+  }
+
+  .o-app-sidenav-menu-item:not([disabled="true"]) a:hover {
+    border-radius: 25px !important;
+    border-left: 0px solid $accent;
+    transition: none;
+  }
+  .mat-mdc-button > .mat-icon {
+    margin-left: 0;
+    margin-right: 0px;
+  }
 }
 
+// Formato barra lateral
+.o-app-sidenav {
+  .o-app-sidenav-sidenav {
+    background-image: $linear-gradientBT;
+    background-color: $primary;
+  }
+
+  .o-app-sidenav-container {
+    .o-app-header {
+      background-image: $linear-gradientRL;
+    }
+
+    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
+      border-radius: $borderRadius;
+    }
+
+    .o-app-sidenav-menu-item:not([disabled="true"]) {
+      border-radius: $borderRadiusNav;
+      transition: all 0.2s;
+      margin: unset;
+      border-left: unset;
+
+      a:hover {
+        border-radius: $borderRadiusNav;
+        background-color: $accent;
+        color: $primary;
+        border-left: 8px solid $primary;
+      }
+
+    }
+    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
+      padding-bottom: 0px !important;
+    }
+
+  }
+
+}
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
   padding: $padding;
@@ -261,288 +269,196 @@ o-form.o-form o-column.o-column.o-appearance-outline {
   margin-bottom: 25px;
 }
 
-.o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
-  background-color: $accent;
-}
 
-.o-app-header .o-user-info {
-  color: $accentClaro;
-}
+/* Contenedores fichas detalle */
+.card-detalle {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  flex-direction: column;
 
-.o-app-header.o-app-header-medium.header-layout {
-  background: $blanco;
-}
+  o-column.o-column,
+  o-row.o-row {
+    background: transparent;
+    box-shadow: none;
+    margin: 0;
 
-.o-column.o-appearance-outline .o-container-outline {
-    .o-container-outline-end,
-    .o-container-outline-start,
-    .o-container-outline-gap{
-      border-width: 0;
-    }
-}
-.o-column.form-section.o-column,
-.card.ng-star-inserted {
-  -webkit-box-shadow: -1px -1px 9px 4px $primaryClaro;
-  -moz-box-shadow: -1px -1px 9px 4px $primaryClaro;
-  box-shadow: -1px -1px 9px 4px $primaryClaro;
-  transition: all 0.5s ease-in-out;
-}
-.o-column.form-section.o-column:hover,
-.card.ng-star-inserted:hover {
-  box-shadow: -1px -1px 9px 9px $primaryClaro;
-  -webkit-box-shadow: -1px -1px 9px 9px $primaryClaro;
-  -moz-box-shadow: -1px -1px 9px 9px $primaryClaro;
-  transition: all 0.5s ease-in-out;
-}
-
-
-/*  Barra de navegación lateral  */
-.navMenu {
-  background-image: $linear-gradientBT;
-}
-
-.o-app-sidenav {
-
-  .o-app-sidenav-container .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
-    padding-bottom: 0px !important;
-  }
-
-  .o-app-sidenav-container .o-app-header{
-    background-image: $linear-gradientRL;
-  }
-
-  .ng-star-inserted{
-    place-content: center flex-end;
-    justify-content: space-between;
-  }
-
-  .o-app-sidenav-menu-group a,
-  .o-app-sidenav-menu-item a {
-    margin: 0px 5px 0 5px;
-    color: $primary;
-  }
-
-  .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-    border-radius: $borderRadius;
-    transition: all 0.2s;
-    margin: unset;
-    border-left: 8px solid $primary !important;
-    padding: 0;
-  }
-
-  .o-app-sidenav-sidenav {
-    background-image: $linear-gradientBT;
-    background-color: $primary;
-
-    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
-      border-radius: $borderRadius;
-    }
-    .sidenav-toggle {
-      color: $primary !important;
-
-      :hover{
-        color: rgba($primary, 0.5) !important;
-        transition: all 0.5s ease-in;
+    div.o-container-gap {
+      padding: unset !important;
+      > div {
+        flex-wrap: wrap;
       }
     }
 
-    li a{
-      color: $primary !important;
+    div.info-container {
+      width: 100%;
+      max-width: 400px;
+
+
     }
 
-  nav.ng-star-inserted:nth-last-child(1),
-  nav.ng-star-inserted:nth-last-child(2) {
-    background-color: $accent;
-    position: absolute;
-    border-radius: 25px;
-    border-left: 0px solid $accent !important;
-    margin: 0px 5px 0 5px;
-    transition: all 0.2s;
-    top:unset;
-    bottom: 25px;
-    right: 0;
-    width: 96%;
-
-    :hover{
-      border-left: 0px solid $accent !important;
+    div.detail-container {
+      flex-direction: column;
     }
-    .mdc-button__label > div{
-      justify-content: center !important;
-    }
-
-    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-      border-radius: 25px !important;
-      border-left: 0px solid $accent;
-      transition: none;
-    }
-    .mat-mdc-button>.mat-icon {
-      margin-left: 0;
-      margin-right: 0px;
-    }
+  }
+  p {
+    max-width: 449px !important;
+    overflow: hidden;
   }
 
 
+  o-form {
+    .inner-form .o-form-content-wrapper {
+      flex-flow: wrap;
+    }
+  }
 
-    .o-app-sidenav-menu-group:not([disabled=true]) a:hover
-    .o-app-sidenav-menu-item:not([disabled=true]) a:hover {
-      color: $primary !important;
-      background-color: $accentClaro !important;
-      border-left: 8px solid $primary !important;
+  o-button.o-button button {
+    padding: 25px 35px;
+    border-radius: $borderRadiusButton;
+    border: none;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+    -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+    box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+  }
+
+  .image-container {
+    margin-right: 25px;
+    .hidden {
+      display: none;
+      /* Oculta el div que envuelve o-image */
+    }
+    img {
+      width: 800px;
+      height: 480px;
+      object-fit: cover;
+      border-radius: $borderRadiusButton;
+      display: block;
+      -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+      -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+      box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+    }
+  }
+  .price {
+    // Estilo del precio
+    font-size: $fontSize45;
+    font-weight: bold;
+    background-color: $verdeBoton;
+    color: $blanco;
+    margin: 10px;
+    padding: 10px;
+    border-radius: $borderRadius;
+    text-align: center;
+  }
+
+  .price .decimal {
+    font-size: 24px; /* Tamaño reducido para decimales */
+    //vertical-align: super; /* Opcional: sube un poco los decimales */
+  }
+}
+.reservation-button {
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+}
+
+o-form-layout-tabgroup .card-detalle div.button-back {
+  display: none;
+  visibility: hidden;
+}
+
+//Codigo Conjunto//
+o-column.o-column,
+o-row.o-row {
+  background: transparent;
+}
+o-column {
+  background: transparent;
+}
+.o-container {
+  background: transparent;
+}
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: $accentClaro !important;
+}
+.form-row {
+  margin-top: 24px;
+  align-items: flex-end;
+}
+.form-container {
+  width: 100vw;
+}
+
+.form-new-event {
+  background-color: transparent;
+
+  o-column.o-column:not(.service-column),
+  o-row.o-row:not(.service-column) {
+    background: transparent;
+    border: solid 1px $verdeBoton;
+    border-radius: $borderRadius;
+    padding: 5px;
+
+    o-text-input,
+    o-integer-input,
+    o-textarea-input,
+    o-real-input,
+    o-date-input,
+    o-combo,
+    o-grid,
+    o-image,
+    o-hour-input {
+      max-width: 100%;
+      width: 100%;
+      min-width: 100%;
+    }
+    .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
+      padding: 10px;
     }
 
-    .o-app-sidenav-menu-item:not([disabled=true]) a.o-app-sidenav-viewer-sidenav-item-selected {
-      background-color: $accentClaro;
-      color: $primary;
-      border-left: 8px solid $accentClaro;
+    .o-container-scroll.o-scroll.o-container-gap {
+      align-items: flex-start;
+      > div {
+        gap: 25px;
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: space-between !important;
+      }
     }
+    o-column.o-column,
+    o-row.o-row {
+      background: $blanco;
+    }
+  }
+  article.ng-star-inserted {
+    align-self: center !important;
+    padding: 5px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
   }
 
 }
 
-/* Estilo para los campos de formulario */
-.mat-form-field {
-  width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-  border-radius: $borderRadius; /* Bordes redondeados */
-  background: $blanco; /* Fondo blanco */
-  box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
-  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+.application-layout-content-wrapper.header-layout {
+  background-image: url("/assets/images/fondo_workwander.jpg");
+  background-position-y: bottom;
+  background-position-x: right;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-/* Estilo de las etiquetas */
-.mat-label {
-  font-weight: 600; /* Etiquetas en negrita */
-  color: $verdeBoton; /* Color gris oscuro */
-  transition: color 0.3s ease; /* Transición suave para el color */
-}
-
-/* Color de los botones */
-.mat-button {
-  color: $primary; /* Color de los botones */
-}
-
-
-/* Color de los iconos */
-.mat-icon {
-  color: $primary; /* Color azul moderno para iconos */
-}
-
-/* Estilo para el toggle del datepicker */
-.mat-datepicker-toggle {
-  color: $primary; /* Color para el toggle del datepicker */
-}
-/* Estilo de los MAT */
-.mat-mdc-raised-button:not(:disabled):not(.mat-secondary) {
-  background-color: $primary !important;
-  color: $accent !important;
-}
-
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base:hover,
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base:hover,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-accent:hover,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base:hover,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base:hover,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-accent:hover,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base:hover,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-accent:hover {
-  color: $primary;
-  background-color: $accent;
-  border-color: transparent;
-}
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary,
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary {
-  color: $blanco;
-  background-color: $verdeBoton;
-  border-color: transparent;
-}
-
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
-.mat-mdc-dialog-actions button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.mat-primary:hover,
-.o-form .o-form-toolbar button:not([disabled]).o-form-toolbar-button.mat-mdc-button-base.o-button-primary:hover,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
-.o-grid .o-grid-toolbar button.o-grid-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
-.o-list .o-list-toolbar button.o-list-button:not([disabled]).mat-mdc-button-base.o-button-primary:hover,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.mat-primary:hover,
-.ontimize-table.o-table .o-table-container .o-table-toolbar .buttons .o-table-button button:not([disabled]).mat-mdc-button-base.o-button-primary:hover {
-  color: $primary;
-  background-color: $blanco;
-  border-color: $primaryClaro;
-}
-
-a.mdc-button.mat-mdc-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted:hover {
-  border-radius: $borderRadiusNav;
-}
-
-a.mdc-button.mat-mdc-button.o-app-sidenav-viewer-sidenav-item-selected.mat-unthemed.mat-mdc-button-base.ng-star-inserted{
-  border-left: 8px solid $primary;
-  border-radius: $borderRadiusNav;
-}
-
-mat-toolbar.mat-toolbar.o-form-toolbar-header.mat-toolbar-single-row {
-  border-radius: $borderRadiusButton;
-}
-
-button .mat-mdc-button:not(:disabled) {
-  color: $accentClaro;
-}
-
-/* Estilo de los inputs */
-#precioDetalle .mat-mdc-input-element{
-  font-size: 4em;
-  text-align: end;
-}
-input.mat-input-element {
-  border: 1px solid $blanco; /* Borde de los inputs */
-  border-radius: 12px; /* Bordes redondeados en los inputs */
-  padding: $paddingInterno; /* Espaciado interno */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-}
-
-/* Efecto al enfocar el input */
-input.mat-input-element:focus {
-  border-color: $primary; /* Color del borde al enfocar el input */
-  box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
-}
-
-/* Estilo para inputs deshabilitados */
-input.mat-input-element:disabled {
-  background-color: $blanco; /* Color de fondo para inputs deshabilitados */
-  opacity: 0.7; /* Reduce la opacidad */
-}
-
-/* Estilo para el calendario del datepicker */
-.mat-datepicker-content {
-  background: $blanco; /* Fondo blanco para el datepicker */
-  border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
-  box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
-}
-
-/* Estilo para el calendario dentro del datepicker */
-.mat-datepicker-calendar {
-  background: $accent; /* Color de fondo moderno */
-}
-
 /*  Coworking */
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: $blanco;
+  background-color: rgba($accent, 0.5);
   border-radius: $borderRadius;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba($primary, 0.1);
+  box-shadow: 0 4px 6px rgba($primary, 0.4);
   min-height: 200px;
   width: 100%;
   padding: 0 15px 0 4px;
@@ -563,436 +479,160 @@ input.mat-input-element:disabled {
       border-radius: $borderRadius;
     }
   }
-    .info {
-    // Contenedor de la información
-    width: 70%;
-    padding: 16px;
+}
+.info {
+  // Contenedor de la información
+  width: 70%;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .coworking-name {
+    // Estilo del nombre del coworking
+    font-size: $fontSize24;
+    font-weight: bold;
+    color: $primary;
+    cursor: pointer;
+    margin-bottom: 8px;
+    margin-top: 0;
+    display: inline-block; // Necesario para que el efecto funcione correctamente
+  }
+
+  .form-container {
+    padding: $padding;
+    background: $blanco;
+  }
+
+  .form-section {
+    border-radius: $borderRadius;
+    background-color: $blanco;
+    padding: $padding;
+    box-shadow: 0px 8px 30px rgba($primary, 0.1);
+    transition: all 0.3s ease;
+
+    :hover {
+      transform: none !important;
+    }
+  }
+
+  .form-row {
+    margin-bottom: 24px;
+  }
+
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-image {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  o-text-input[icon],
+  o-integer-input[icon],
+  o-real-input[icon],
+  o-date-input[icon],
+  o-image[icon] {
+    padding-left: 40px;
+    font-size: $fontSize16;
+    background-color: $blanco;
+    border: 1px solid $accent;
+    border-radius: $borderRadius;
+    transition: all 0.3s ease;
+  }
+  o-text-input[icon]:hover,
+  o-integer-input[icon]:hover,
+  o-real-input[icon]:hover,
+  o-date-input[icon]:hover,
+  o-image[icon]:hover,
+  o-textarea-input [icon]:hover {
+    border-color: $primary;
+  }
+
+  o-text-input[icon]::before,
+  o-integer-input[icon]::before,
+  o-real-input[icon]::before,
+  o-date-input[icon]::before,
+  o-image[icon]::before {
+    content: attr(icon);
+    font-family: "Material Icons";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $accent;
+    font-size: $fontSize20;
+  }
+
+  o-text-input input::placeholder,
+  o-integer-input input::placeholder,
+  o-real-input input::placeholder,
+  o-date-input input::placeholder,
+  o-image input::placeholder {
+    color: $accent;
+    opacity: 0.8;
+  }
+
+  /* Botones e interacción */
+  .form-section o-text-input:hover,
+  .form-section o-integer-input:hover,
+  .form-section o-real-input:hover,
+  .form-section o-date-input:hover,
+  .form-section o-image:hover {
+    background-color: $blanco;
+  }
+
+  /* Estilos generales para la fila del formulario */
+  .form-row {
+    margin: 24px 0; /* Espaciado vertical */
+  }
+  .location {
+    // Estilo de la ubicación
+    color: $primary;
+    margin: 0 0 8px 0;
+    font-size: $fontSize18;
+  }
+  .capacity {
+    // Estilo de la ubicación y capacidad
+    color: $primary;
+    margin: 0;
+    font-size: $fontSize12;
+    font-weight: $fontBlack;
+    border-radius: $borderRadiusEqual;
+    background-color: $accentClaro;
+    padding: 2px;
+    text-align: center;
+  }
+  .services {
+    // Contenedor de los servicios
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+    transition: transform 0.2s;
+    //translate: 20px;
 
-    .coworking-name {
-      // Estilo del nombre del coworking
-      font-size: $fontSize24;
-      font-weight: bold;
-      color: $primary;
-      cursor: pointer;
-      margin-bottom: 8px;
-      margin-top: 0;
-      display: inline-block; // Necesario para que el efecto funcione correctamente
-
-    }
-
-    .form-container {
-      padding: $padding;
-      background: $blanco;
-    }
-
-    .form-section {
-      border-radius: $borderRadius;
-      background-color: $blanco;
-      padding: $padding;
-      box-shadow: 0px 8px 30px rgba($primary, 0.1);
-      transition: all 0.3s ease;
-
-      :hover{
-        transform: none!important;
-      }
-
-    }
-
-    .form-row {
-      margin-bottom: 24px;
-    }
-
-    o-text-input, o-integer-input, o-real-input, o-date-input, o-image {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-image[icon] {
-      padding-left: 40px;
-      font-size: $fontSize16;
-      background-color: $blanco;
-      border: 1px solid $accent;
-      border-radius: $borderRadius;
-      transition: all 0.3s ease;
-    }
-    o-text-input[icon]:hover,
-    o-integer-input[icon]:hover,
-    o-real-input[icon]:hover,
-    o-date-input[icon]:hover,
-    o-image[icon]:hover,
-    o-textarea-input [icon]:hover{
-      border-color: $primary;
-    }
-
-    o-text-input[icon]::before,
-    o-integer-input[icon]::before,
-    o-real-input[icon]::before,
-    o-date-input[icon]::before,
-    o-image[icon]::before {
-      content: attr(icon);
-      font-family: 'Material Icons';
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $accent;
-      font-size: $fontSize20;
-    }
-
-
-    o-text-input input::placeholder,
-    o-integer-input input::placeholder,
-    o-real-input input::placeholder,
-    o-date-input input::placeholder,
-    o-image input::placeholder {
-      color: $accent;
-      opacity: 0.8;
-    }
-
-    /* Botones e interacción */
-    .form-section o-text-input:hover,
-    .form-section o-integer-input:hover,
-    .form-section o-real-input:hover,
-    .form-section o-date-input:hover,
-    .form-section o-image:hover {
-      background-color: $blanco;
-    }
-
-    /* Estilos generales para la fila del formulario */
-    .form-row {
-      margin: 24px 0; /* Espaciado vertical */
-    }
-    .form-container {
-      padding: $padding;
-      background: $blanco;
-    }
-
-    .form-section {
-      border-radius: $borderRadius;
-      background-color: $blanco;
-      padding: $padding;
-      box-shadow: 0px 8px 30px rgba($primary, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
-      padding-left: 40px;
-      font-size: $fontSize16;
-      background-color: $blanco;
-      border: 1px solid $accent;
-      border-radius: $borderRadius;
-      transition: all 0.3s ease;
-    }
-
-    o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
-      border-color: $primary;
-    }
-
-    o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
-      content: attr(icon);
-      font-family: 'Material Icons';
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $accent;
-      font-size: $fontSize20;
-    }
-
-    o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
-      color: $accent;
-      opacity: 0.8;
-    }
-
-    /* Botones e interacción */
-    .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
-      background-color: $blanco;
-    }
-
-    /* Estilos generales para la fila del formulario */
-    .form-row {
-      margin: 24px 0; /* Espaciado vertical */
-    }
-
-    /* Estilo para los campos de formulario */
-    .mat-form-field {
-    width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: $borderRadius; /* Bordes redondeados */
-    background: $blanco; /* Fondo blanco */
-    box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
-    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-    }
-
-
-    /* Estilo de las etiquetas */
-    .mat-label {
-    font-weight: 600; /* Etiquetas en negrita */
-    color: $accent; /* Color gris oscuro */
-    transition: color 0.3s ease; /* Transición suave para el color */
-    }
-
-    /* Color de los iconos */
-    .mat-icon {
-    color: $primary /* Color azul moderno para iconos */
-    }
-
-    /* Estilo para el toggle del datepicker */
-    .mat-datepicker-toggle {
-    color: $primary; /* Color para el toggle del datepicker */
-    }
-
-    /* Estilo de los inputs */
-    input.mat-input-element {
-    border: 1px solid $blanco; /* Borde de los inputs */
-    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
-    padding: $paddingInterno; /* Espaciado interno */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-    }
-
-    /* Efecto al enfocar el input */
-    input.mat-input-element:focus {
-    border-color: $primary; /* Color del borde al enfocar el input */
-    box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
-    }
-
-    /* Estilo para inputs deshabilitados */
-    input.mat-input-element:disabled {
-    background-color: $accent; /* Color de fondo para inputs deshabilitados */
-    opacity: 0.7; /* Reduce la opacidad */
-    }
-
-    /* Estilo para el calendario del datepicker */
-    .mat-datepicker-content {
-    background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
-    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
-    }
-
-    /* Estilo para el calendario dentro del datepicker */
-    .mat-datepicker-calendar {
-    background: $accent; /* Color de fondo moderno */
-    }
-
-    /* Color de los botones */
-    .mat-button {
-    color: $primary; /* Color de los botones */
-    }
-
-    /* Efecto hover en botones */
-    .mat-button:hover {
-    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
-    }
-
-    .form-container {
-      padding: $padding;
-      background: $accent;
-    }
-
-    .form-section {
-      border-radius: $borderRadius;
-      background-color: $blanco;
-      padding: $padding;
-      box-shadow: 0px 8px 30px rgba($primary, 0.1);
-      transition: all 0.3s ease;
-    }
-
-    .form-row {
-      margin-bottom: 24px;
-    }
-
-    o-text-input, o-integer-input, o-real-input, o-date-input, o-hour-input{
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    o-text-input[icon], o-integer-input[icon], o-real-input[icon], o-date-input[icon], o-hour-input[icon] {
-      padding-left: 40px;
-      font-size: $fontSize16;
-      background-color: $blanco;
-      border: 1px solid $accent;
-      border-radius: $borderRadius;
-      transition: all 0.3s ease;
-    }
-
-    o-text-input[icon]:hover, o-integer-input[icon]:hover, o-real-input[icon]:hover, o-date-input[icon]:hover, o-hour-input[icon]:hover {
-      border-color: $primary;
-    }
-
-    o-text-input[icon]::before, o-integer-input[icon]::before, o-real-input[icon]::before, o-date-input[icon]::before, o-hour-input[icon]::before {
-      content: attr(icon);
-      font-family: 'Material Icons';
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: $accent;
-      font-size: $fontSize20;
-    }
-
-    o-text-input input::placeholder, o-integer-input input::placeholder, o-real-input input::placeholder, o-date-input input::placeholder, o-hour-input input:focus {
-      color: $accent;
-      opacity: 0.8;
-    }
-
-    /* Botones e interacción */
-    .form-section o-text-input:hover, .form-section o-integer-input:hover, .form-section o-real-input:hover, .form-section o-date-input:hover, .form-section o-hour-input:hover {
-      background-color: $blanco;
-    }
-
-    /* Estilos generales para la fila del formulario */
-    .form-row {
-      margin: 24px 0; /* Espaciado vertical */
-    }
-
-    /* Estilo para los campos de formulario */
-    .mat-form-field {
-    width: 100%; /* Asegura que los campos ocupen el 100% del contenedor */
-    border-radius: $borderRadius; /* Bordes redondeados */
-    background: $blanco; /* Fondo blanco */
-    box-shadow: 0 4px 20px rgba($primary, 0.15); /* Sombra sutil */
-    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
-    }
-
-
-    /* Estilo de las etiquetas */
-    .mat-label {
-    font-weight: 600; /* Etiquetas en negrita */
-    color: $primary; /* Color gris oscuro */
-    transition: color 0.3s ease; /* Transición suave para el color */
-    }
-
-    /* Color de los iconos */
-    .mat-icon {
-    color: $primary; /* Color azul moderno para iconos */
-    }
-
-    /* Estilo para el toggle del datepicker */
-    .mat-datepicker-toggle {
-    color: $primary; /* Color para el toggle del datepicker */
-    }
-
-    /* Estilo de los inputs */
-    input.mat-input-element {
-    border: 1px solid $blanco; /* Borde de los inputs */
-    border-radius: $borderRadius; /* Bordes redondeados en los inputs */
-    padding: 12px 16px; /* Espaciado interno */
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
-    }
-
-    /* Efecto al enfocar el input */
-    input.mat-input-element:focus {
-    border-color: $primary; /* Color del borde al enfocar el input */
-    box-shadow: 0 0 5px rgba($primary, 0.5); /* Sombra al enfocar */
-    }
-
-    /* Estilo para inputs deshabilitados */
-    input.mat-input-element:disabled {
-    background-color: $accent; /* Color de fondo para inputs deshabilitados */
-    opacity: 0.7; /* Reduce la opacidad */
-    }
-
-    /* Estilo para el calendario del datepicker */
-    .mat-datepicker-content {
-    background: $blanco; /* Fondo blanco para el datepicker */
-    border-radius: $borderRadius; /* Bordes redondeados en el datepicker */
-    box-shadow: 0 8px 30px rgba($primary, 0.25); /* Sombra más profunda */
-    }
-
-    /* Estilo para el calendario dentro del datepicker */
-    .mat-datepicker-calendar {
-    background: $accent; /* Color de fondo moderno */
-    }
-
-    /* Color de los botones */
-    .mat-button {
-    color: $primary; /* Color de los botones */
-    }
-
-    /* Efecto hover en botones */
-    .mat-button:hover {
-    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
-    }
-
-
-    /* Efecto hover en botones */
-    .mat-button:hover {
-    background-color: rgba($primary, 0.1); /* Color de fondo en hover */
-    }
-    .stars {
-      // Contenedor de las estrellas de calificación
+    .service-icon {
+      // Estilo de los iconos de servicios
+      width: 24px;
+      height: 24px;
       display: flex;
       align-items: center;
-      margin-bottom: 8px;
-      color: $primary;
-
-      mat-icon {
-        // Estilo de los iconos de estrellas
-        font-size: $fontSize12;
-        width: 16px;
-        height: 16px;
-      }
-
-      .rating {
-        // Estilo del texto de calificación
-        margin-left: 8px;
-        font-size: $fontSize14;
-      }
-    }
-    .location{
-      // Estilo de la ubicación
-      color: $primary;
-      margin: 0 0 8px 0;
-      font-size: $fontSize18;
-    }
-    .capacity {
-      // Estilo de la ubicación y capacidad
-      color: $primary;
-      margin: 0;
+      justify-content: center;
+      background-color: $primary;
+      color: $blanco;
+      border-radius: $borderRadiusButton;
       font-size: $fontSize12;
-      font-weight: $fontBlack;
-      border-radius: $borderRadiusEqual;
-      background-color: $accentClaro;
-      padding: 2px;
-      text-align: center;
     }
-    .services {
-      // Contenedor de los servicios
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-      transition: transform 0.2s;
-      //translate: 20px;
+  }
+}
 
-      .service-icon {
-        // Estilo de los iconos de servicios
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: $primary;
-        color: $blanco;
-        border-radius: $borderRadiusButton;
-        font-size: $fontSize12;
-      }
-    }
-  }
-  .capacity-price-container {
-    border-left: solid 5px $primary;
-    padding: 0px 0 0 17px;
-    min-width: 190px;
-  }
+.capacity-price-container {
+  border-left: solid 5px $primary;
+  padding: 0px 0 0 17px;
+  min-width: 190px;
+
   .price-container {
     // Contenedor del precio
     padding: $paddingInterno;
@@ -1005,129 +645,124 @@ input.mat-input-element:disabled {
 
     .price {
       // Estilo del precio
-      font-size: $fontSize45;
+      //font-size: $fontSize45;
+      font-size: $fontSize35;
       font-weight: bold;
       color: $blanco;
-    }
 
-    .price .decimal {
-      font-size: 24px; /* Tamaño reducido para decimales */
-      //vertical-align: super; /* Opcional: sube un poco los decimales */
-    }
-  }
-
-  .capacity-container {
-    // Contenedor de la capacidad
-    width: 15%;
-    padding: $paddingInterno;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    background-color: $accent;
-    min-height: 100%;
-
-    .capacity {
-      // Estilo de la capacidad
-      font-size: $fontSize24;
-      font-weight: bold;
-      color: $primary;
+      .decimal {
+        font-size: $fontSize18; /* Tamaño reducido para decimales */
+        //vertical-align: super; /* Opcional: sube un poco los decimales */
+      }
     }
   }
 }
 
-/*  Filtros de página   */
-o-search-input.o-search-input.ng-star-inserted {
-  position: absolute;
-  left: 70px;
-}
+.capacity-container {
+  // Contenedor de la capacidad
+  width: 15%;
+  padding: $paddingInterno;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background-color: $accent;
+  min-height: 100%;
 
-button.o-grid-button.no-text.mdc-icon-button.mat-mdc-icon-button.mat-unthemed.mat-mdc-button-base.ng-star-inserted {
-  background-color: transparent;
-  border: none;
-  }
-
-mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
-    position: absolute;
-    right: 25px;
-    background-color: transparent;
-}
-
-// Animación de onda
-@keyframes wave {
-  0% {
-    transform: translateY(0);
-  }
-  25% {
-    transform: translateY(-2px);
-  }
-  50% {
-    transform: translateY(2px);
-  }
-  75% {
-    transform: translateY(-2px);
-  }
-  100% {
-    transform: translateY(0);
+  .capacity {
+    // Estilo de la capacidad
+    font-size: $fontSize24;
+    font-weight: bold;
+    color: $primary;
   }
 }
-// Media para 1400px
-@media(max-width: 1400px){
-  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
-    position: absolute;
-    background-color: transparent;
-    left: 14px;
-    top: 39px;
-  }
-  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-    padding: 25px 25px 85px 25px;
- }
+o-data-toolbar {
+  align-content: flex-start !important;
+  max-width: 440px;
 }
 
-// Media Query para dispositivos móviles (max-width: 768px)
-@media (max-width: 768px) {
-  .coworking-card {
-    flex-direction: column;
-    align-items: stretch;
-    min-height: auto;
+.ontimize-table.o-table,
+.mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {
+  background: transparent !important;
+}
 
-    .image-container {
+@media (min-width: 768px) {
+  .form-new-event {
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-date-input,
+      o-integer-input,
+      o-real-input,
+      o-hour-input {
+        max-width: 48%;
+        width: 48%;
+        min-width: 48%;
+      }
+      o-date-input.row-tree-fields,
+      o-integer-input.row-tree-fields,
+      o-real-input.row-tree-fields,
+      o-hour-input.row-tree-fields {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+    }
+  }
+}
+@media (max-width: 850px) {
+  .button-back {
+    display: none;
+  }
+  .card-detalle .image-container img {
+    height: 220px;
+  }
+  .card-detalle {
+    o-column.o-column,
+    o-row.o-row {
       width: 100%;
-      height: 200px;
-      padding: 0;
     }
-
-    .info {
-      width: 100%;
-      padding: $paddingInterno;
-    }
-
-    .price-container {
-      width: 100%;
-      justify-content: center;
-      padding: $paddingInterno;
-      background-color: $accent;
-    }
-
-    .capacity-container {
-      width: 100%;
-      justify-content: center;
-      padding: $paddingInterno;
-      background-color: $accent;
-    }
-  }
-  .o-app-sidenav nav.ng-star-inserted:nth-last-child(2) {
-    margin: 0;
-    border-radius: 5px;
   }
 }
-@media(max-width:576px) {
+@media (max-width: 767.9px) {
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-hour-input,
+  o-image {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+@media (max-width: 576px) {
   .full-page {
-
     .footer-container {
       div {
         margin: 0 auto;
         place-content: center !important;
       }
     }
+  }
+}
+// Media para 1050px
+@media (max-width: 1150px) {
+  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+    position: absolute;
+    background-color: transparent;
+    top: 50px;
+  }
+  .mat-mdc-paginator-container {
+    position: absolute;
+    top: 41px;
+    right: unset;
+    width: 450px !important;
+    z-index: 1;
+    left: -80px;
+}
+  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+    padding: 25px 25px 85px 25px;
+  }
+  o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
+    margin-bottom:60px !important;
   }
 }

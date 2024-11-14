@@ -45,6 +45,10 @@ This HTML file defines the structure of the "New Event" form component in an Ang
                 <o-textarea-input fxFlex="100" attr="description" icon="description" maxlength="250"
                     required="yes"></o-textarea-input>
             </div>
+            <!-- Imagen -->
+            <div fxLayout="row" class="form-row">
+                <o-image attr="image_event" sql-type="OTHER" max-file-size=1048576></o-image>
+            </div>
         </o-column>
     </div>
 </o-form>

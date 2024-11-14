@@ -9,7 +9,7 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
 })
 export class EventsDetailComponent {
   constructor(private translate: OTranslateService,private utils:UtilsService) {}
-
+  
   formatDate(rawDate:number):string{
     return this.utils.formatDate(rawDate);
   }

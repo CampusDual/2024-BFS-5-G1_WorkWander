@@ -13,43 +13,104 @@ This HTML file defines the structure of the "New Event" form component in an Ang
     - **Description**: Text input for the event description with a maximum length of 250 characters.
 - **Layout**: Utilizes Angular Flex Layout directives (`fxLayout`, `fxFlex`, `fxLayoutGap`, `fxLayoutAlign`) to arrange the form elements responsively.
 -->
-<o-form #form attr="eventNew" service="events" entity="event" keys="id_event" header-actions="new"
-         show-header="no" show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section"
-        ignore-default-navigation="yes" fxFlex>
-  <div class="form-section form-new-event" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="left start">
+<o-form
+  #form
+  attr="eventNew"
+  service="events"
+  entity="event"
+  keys="id_event"
+  header-actions="new"
+  show-header="no"
+  show-header-navigation="no"
+  (onInsert)="createEvent(); $event.stopPropagation()"
+  class="form-section"
+  ignore-default-navigation="yes"
+  fxFlex
+>
+  <div
+    class="form-section form-new-event"
+    fxLayout="row"
+    fxLayoutGap="24px"
+    fxLayoutAlign="left start"
+  >
     <!-- Información General -->
-    <o-column fxFlex class="form-section column-new-event" title="EVENT_INFORMATION" fxLayoutGap="24px">
+    <o-column
+      fxFlex
+      class="form-section column-new-event"
+      title="EVENT_INFORMATION"
+      fxLayoutGap="24px"
+    >
       <!-- Nombre -->
-      <o-text-input #nameInput attr="name" icon="business" required="yes"></o-text-input>
-      <!-- Plazas -->
-      <o-integer-input attr="bookings" min="0" step="1" icon="event_seat" thousand-separator="."
-                       required="yes" class="row-tree-fields"></o-integer-input>
+      <o-text-input
+        #nameInput
+        attr="name"
+        icon="business"
+        required="yes"
+      ></o-text-input>
+      <!-- Descripción -->
+      <o-textarea-input
+        attr="description"
+        icon="description"
+        maxlength="250"
+        required="yes"
+      ></o-textarea-input>
       <!-- Fecha -->
-      <o-date-input #dateInput attr="date_event" [min]="currentDate()" value-type="date"
-                    icon="event" required="yes" class="row-tree-fields"></o-date-input>
+      <o-date-input
+        #dateInput
+        attr="date_event"
+        [min]="currentDate()"
+        value-type="date"
+        icon="event"
+        required="yes"
+      ></o-date-input>
       <!-- Hora -->
-      <o-hour-input attr="hour_event" icon="schedule" required="yes" class="row-tree-fields"></o-hour-input>
-         <!-- Duración -->
-         <o-integer-input
-         fxFlex="30"
-         attr="duration"
-         icon="hourglass_empty">
-       </o-integer-input>
+      <o-hour-input
+        attr="hour_event"
+        icon="schedule"
+        required="yes"
+      ></o-hour-input>
+      <!-- Plazas -->
+      <o-integer-input
+        attr="bookings"
+        min="0"
+        step="1"
+        icon="event_seat"
+        thousand-separator="."
+        required="yes"
+      ></o-integer-input>
+      <!-- Duración -->
+      <o-integer-input attr="duration" icon="hourglass_empty">
+      </o-integer-input>
       <!-- Localidad -->
-      <o-text-input attr="locality" icon="location_city" required="yes"></o-text-input>
+      <o-text-input
+        attr="locality"
+        icon="location_city"
+        required="yes"
+      ></o-text-input>
       <!-- Dirección -->
       <o-text-input attr="address" icon="place" required="yes"></o-text-input>
-      <!-- Descripción -->
-      <o-textarea-input attr="description" icon="description" maxlength="250"
-                        required="yes"></o-textarea-input>
-                        <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
-                          <div class="buttons">
-                            <button mat-raised-button color="warn" (click)="cancel()">{{ 'cancel' | oTranslate }}</button>
-                            <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save'
-                              | oTranslate }}
-                            </button>
-                          </div>
-                        </div>
+      <!-- Imagen -->
+      <o-image
+        attr="image_event"
+        sql-type="OTHER"
+        max-file-size="1048576"
+      ></o-image>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+        <div class="buttons">
+          <button mat-raised-button color="warn" (click)="cancel()">
+            {{ "cancel" | oTranslate }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isInvalidForm()"
+            attr="save"
+            (click)="save()"
+          >
+            {{ "save" | oTranslate }}
+          </button>
+        </div>
+      </div>
     </o-column>
   </div>
 </o-form>

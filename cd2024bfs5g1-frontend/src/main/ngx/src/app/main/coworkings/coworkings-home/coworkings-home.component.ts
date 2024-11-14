@@ -48,7 +48,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
   // Función para convertir la imagen desde la base de datos
   public getImageSrc(base64: any): any {
-    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/image-default.jpg';
+    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jpg';
   }
 
   protected configureService() {

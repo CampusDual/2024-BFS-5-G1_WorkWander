@@ -94,8 +94,6 @@ export class CoworkingsDetailComponent {
           alert("NO hay plazas");
         }
       });
-      console.log(this.plazasOcupadas)
-      console.log(this.realCapacity)
   }
 
   changeFormatDate(milis: number, idioma: string) {

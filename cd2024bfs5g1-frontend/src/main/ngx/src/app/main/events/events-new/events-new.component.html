@@ -14,7 +14,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
 - **Layout**: Utilizes Angular Flex Layout directives (`fxLayout`, `fxFlex`, `fxLayoutGap`, `fxLayoutAlign`) to arrange the form elements responsively.
 -->
 <o-form #form attr="eventNew" service="events" entity="event" keys="id_event" header-actions="new"
-        show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section"
+         show-header="no" show-header-navigation="no" (onInsert)="createEvent(); $event.stopPropagation()" class="form-section"
         ignore-default-navigation="yes" fxFlex>
   <div class="form-section form-new-event" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="left start">
     <!-- Información General -->
@@ -29,6 +29,12 @@ This HTML file defines the structure of the "New Event" form component in an Ang
                     icon="event" required="yes" class="row-tree-fields"></o-date-input>
       <!-- Hora -->
       <o-hour-input attr="hour_event" icon="schedule" required="yes" class="row-tree-fields"></o-hour-input>
+         <!-- Duración -->
+         <o-integer-input 
+         fxFlex="30" 
+         attr="duration" 
+         icon="hourglass_empty"> 
+       </o-integer-input>
       <!-- Localidad -->
       <o-text-input attr="locality" icon="location_city" required="yes"></o-text-input>
       <!-- Dirección -->
@@ -36,6 +42,14 @@ This HTML file defines the structure of the "New Event" form component in an Ang
       <!-- Descripción -->
       <o-textarea-input attr="description" icon="description" maxlength="250"
                         required="yes"></o-textarea-input>
+                        <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+                          <div class="buttons">
+                            <button mat-raised-button color="warn" (click)="cancel()">{{ 'cancel' | oTranslate }}</button>
+                            <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save'
+                              | oTranslate }}
+                            </button>
+                          </div>
+                        </div>
     </o-column>
   </div>
 </o-form>

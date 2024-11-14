@@ -293,11 +293,19 @@ nav.ng-star-inserted:nth-last-child(2) {
     div.info-container {
       width: 100%;
       max-width: 400px;
+
+
     }
+
     div.detail-container {
       flex-direction: column;
     }
   }
+  p {
+    max-width: 449px !important;
+    overflow: hidden;
+  }
+
 
   o-form {
     .inner-form .o-form-content-wrapper {

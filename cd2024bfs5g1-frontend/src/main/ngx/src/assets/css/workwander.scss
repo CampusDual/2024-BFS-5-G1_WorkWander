@@ -737,14 +737,24 @@ o-data-toolbar {
   }
 }
 // Media para 1050px
-@media (max-width: 1050px) {
+@media (max-width: 1150px) {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
     background-color: transparent;
-    left: 430px;
     top: 50px;
   }
+  .mat-mdc-paginator-container {
+    position: absolute;
+    top: 41px;
+    right: unset;
+    width: 450px !important;
+    z-index: 1;
+    left: -80px;
+}
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
     padding: 25px 25px 85px 25px;
+  }
+  o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
+    margin-bottom:60px !important;
   }
 }

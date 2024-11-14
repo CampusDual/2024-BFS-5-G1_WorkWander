@@ -170,6 +170,7 @@
   "ADVANCED_SEARCH" : "Búsqueda avanzada",
   "SERVICES": "Servicios",
   "FILTER": "Filtrar",
-  "CLEAR": "Limpiar", 
-  "DATE_RESERVATION": "Fecha de reserva"
+  "CLEAR": "Limpiar",
+  "DATE_RESERVATION": "Fecha de reserva",
+  "SEATS": "asientos"
 }

@@ -171,6 +171,7 @@
   "SERVICES": "Services",
   "FILTER": "Filter",
   "CLEAR": "Clear",
-  "DATE_RESERVATION": "Date of reservation"
+  "DATE_RESERVATION": "Date of reservation",
+  "SEATS": "seats"
 
 }

@@ -63,7 +63,7 @@
 
       <o-column class="detail-container">
         <o-text-input #sites oHidden attr="cw_capacity" fxFlex label="CAPACITY"></o-text-input>
-        <p><strong>{{"CAPACITY" | oTranslate}}:</strong> {{form.getFieldValue("cw_capacity")}} personas</p>
+        <p><strong>{{"CAPACITY" | oTranslate}}:</strong> {{form.getFieldValue("cw_capacity")}} {{ "SEATS"| oTranslate }}</p>
 
         <div *ngIf="parsePermissions('date')">
           <p><strong>{{"DATE_RESERVATION" | oTranslate}}:</strong> </p>

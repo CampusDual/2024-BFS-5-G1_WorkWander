@@ -72,5 +72,10 @@ public class CwServiceService implements ICwServiceService {
         return this.daoHelper.delete(this.cwServiceDao, keyMap);
     }
 
+    @Override
+    public EntityResult servicePerCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+        return this.daoHelper.query(this.cwServiceDao, keyMap, attrList, CwServiceDao.SERVICES_PER_COWORKING);
+    }
+
 }
 

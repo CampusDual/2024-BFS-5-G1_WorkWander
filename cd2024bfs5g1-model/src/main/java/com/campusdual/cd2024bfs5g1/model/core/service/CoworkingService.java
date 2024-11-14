@@ -4,7 +4,9 @@ import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,16 +64,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public EntityResult serviceCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        if(keyMap.size()>0){
-            Map<String, Object> newKeyMap = new HashMap<>();
-            int cwId = (Integer)keyMap.get("cw_id");
-            newKeyMap.put("cw_id", cwId);
-            ArrayList<String> newList = new ArrayList<>();
-            newList.add("srv_id");
-            return cwServiceService.cwServiceQuery(newKeyMap, newList);
-        }else{
-            return null;
-        }
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
     }
 
     @Override
@@ -125,6 +118,13 @@ public class CoworkingService implements ICoworkingService {
     @Override
     public EntityResult coworkingDelete(Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.coworkingDao, keyMap);
+    }
+
+    @Override
+    public AdvancedEntityResult serviceCoworkingPaginationQuery(Map<String, Object> keysValues, List<?> attributes,
+                                                                int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
+                orderBy, this.coworkingDao.CW_QUERY_SERVICES );
     }
 
 }

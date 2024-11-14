@@ -46,3 +46,4 @@ local.properties
 *.iml
 
 .yo-rc.json
+/cd2024bfs5g1-frontend/.vscode/**

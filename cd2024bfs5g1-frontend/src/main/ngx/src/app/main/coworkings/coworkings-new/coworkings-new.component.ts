@@ -6,7 +6,6 @@ import {
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
 import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
-import { OTranslatePipe } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-coworking-new",
@@ -49,51 +48,31 @@ export class CoworkingsNewComponent implements OnInit{
     this.router.navigateByUrl("/main/mycoworkings")
   }
 
-  public selectService(id:number, name:string):void{
+  public selectService(id:number, serv:string):void{
     this.exist = false;
     for (let i = 0; i < this.arrayServices.length; i++) {
       if(this.arrayServices[i].id === id){
         this.exist = true;
-        this.deleteService(i, id, "srv"+id);
+        this.deleteService(i, id, serv);
       }
     }
     if (!this.exist) {
-      this.appendService(id, name);
+      this.appendService(id, serv);
     }
   }
 
-  public appendService(id:number, name:string):void{
+  public appendService(id:number, serv:string):void{
     this.arrayServices.push({id:id});
-    let selectService = document.getElementById("tagServices");
-    let service = document.createElement("span");
-    service.setAttribute("id",id+"")
-    service.innerHTML = `<div style="${this.styleAppendService()}">${name}</div> `;
-    selectService.appendChild(service);
-    this.styleSelectedService("srv"+id);
+    document.getElementById(serv).style.backgroundColor = "#e6d5c3";
+    document.getElementById(serv).style.color = "black;";
     this.selectedServices ++;
     this.availableServices --;
   }
 
-  public styleAppendService():string{
-    return "cursor:pointer; background-color:#834333;\
-    color:whitesmoke; padding: 5px; font-size: 12px;\
-    border-radius: 5px; border-box: 1px solid black;\
-    box-shadow: 2px 5px #888888; width: 147px;\
-    height: 40px; transition: width 2s, height 2s;\
-    text-align:center;  margin: 0 auto; border-bottom: 0.5px solid  #888888;"
-  }
-
-  public styleSelectedService(id:string):void{
-    document.getElementById(id).style.backgroundColor = "whitesmoke";
-    document.getElementById(id).style.color="black";
-  }
-
-  public deleteService(index:number, id:number, srvId:string):void{
+  public deleteService(index:number, id:number, serv:string):void{
     this.arrayServices.splice(index, 1)
-    let element = document.getElementById(id+"");
-    element.remove();
-    document.getElementById(srvId).style.backgroundColor ="#834333";
-    document.getElementById(srvId).style.color ="whitesmoke";
+    document.getElementById(serv).style.backgroundColor = "whitesmoke";
+    document.getElementById(serv).style.color ="black";
     this.selectedServices --;
     this.availableServices ++;
   }
@@ -126,32 +105,16 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   isInvalidForm(): boolean {
-    //this.coworkingForm.
-    let name = this.coworkingForm?.getFieldValue('cw_name');
-    let description = this.coworkingForm?.getFieldValue('cw_description');
-    let address = this.coworkingForm?.getFieldValue('cw_address');
-    let location = this.coworkingForm?.getFieldValue('cw_location');
-    let capacity = this.coworkingForm?.getFieldValue('cw_capacity');
-    let dailyPrice = this.coworkingForm?.getFieldValue('cw_daily_price');
-    if ((name && name.length) && (description && description.length) &&
-        (address && address.length) && (location && location.length) &&
-        (capacity && capacity != 0) && (dailyPrice && dailyPrice != 0)) {
-      return false;
-    }else{
-      return true;
-    }
+    return !this.coworkingForm || this.coworkingForm.formGroup.invalid;
   }
 
   public showConfigured() {
-    // SnackBar configuration
     const configuration: OSnackBarConfig = {
         action: '¡Coworking creado!',
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'
     };
-
-    // Simple message with icon on the left and action
     this.snackBarService.open('¡Coworking creado!', configuration);
-}
+  }
 }

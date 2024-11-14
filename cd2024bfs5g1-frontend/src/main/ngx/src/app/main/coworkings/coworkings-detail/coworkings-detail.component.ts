@@ -1,7 +1,6 @@
+import { Location } from '@angular/common';
 import { Component, Inject, ViewChild } from "@angular/core";
-
 import { ActivatedRoute, Router } from "@angular/router";
-
 import {
   AuthService,
   DialogService,
@@ -17,12 +16,12 @@ import {
   SnackBarService,
   Util
 } from "ontimize-web-ngx";
-
 @Component({
   selector: "app-coworkings-detail",
   templateUrl: "./coworkings-detail.component.html",
   styleUrls: ["./coworkings-detail.component.css"],
 })
+
 export class CoworkingsDetailComponent {
   constructor(
     private service: OntimizeService,
@@ -32,7 +31,8 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-  ) {}
+    private location: Location,
+  ) { }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("date") bookingDate: ODateInputComponent;
@@ -40,10 +40,20 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("id") idCoworking: OIntegerInputComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
   public idioma: string;
+  public serviceList = []
+
+  getName() {
+    return this.coworkingName ? this.coworkingName.getValue() : "";
+  }
+
+  ngOnInit() {
+    this.showServices();
+  }
 
   currentDate() {
     return new Date();
@@ -51,8 +61,8 @@ export class CoworkingsDetailComponent {
 
   checkCapacity() {
     const filter = {
-      bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue()+3600000,
+      bk_cw_id: +this.idCoworking.getValue(),
+      bk_date: this.bookingDate.getValue() + 3600000,
       bk_state: true,
     };
 
@@ -69,6 +79,7 @@ export class CoworkingsDetailComponent {
         if (resp.code === 0) {
 
           this.plazasOcupadas = resp.data[0]["plazasocupadas"];
+          console.log(this.plazasOcupadas)
           this.realCapacity.setValue(
             this.coworkingsSites.getValue() - this.plazasOcupadas
           );
@@ -85,11 +96,8 @@ export class CoworkingsDetailComponent {
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
-
     let fechaFormateada;
-
     fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
-
     return fechaFormateada;
   }
 
@@ -119,23 +127,14 @@ export class CoworkingsDetailComponent {
         });
       }
     } else {
-      this.dialogService.confirm(
-        nologedMessageTitle,
-        nologedMessageBody // No añade el boton cancelar al dialogo, o cambia el icono de alerta
-      );
-
-      this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.router.navigate(["/login"]);
-        }
-      });
+      this.router.navigate(["/login"]);
     }
   }
 
   createBooking() {
     const filter = {
-      bk_cw_id: +this.activeRoute.snapshot.params["cw_id"],
-      bk_date: this.bookingDate.getValue()+3600000,
+      bk_cw_id: +this.idCoworking.getValue(),
+      bk_date: this.bookingDate.getValue() + 3600000,
       bk_state: true,
     };
 
@@ -156,16 +155,13 @@ export class CoworkingsDetailComponent {
   }
 
   showToastMessage() {
-
     const confirmedMessage = this.translate.get('BOOKINGS_CONFIRMED');
-
     // SnackBar configuration
     const configuration: OSnackBarConfig = {
       milliseconds: 2000,
       icon: "check_circle",
       iconPosition: "left",
     };
-
     // Simple message with icon on the left and action
     this.snackBarService.open(confirmedMessage, configuration);
   }
@@ -173,6 +169,7 @@ export class CoworkingsDetailComponent {
   checkAuthStatus() {
     return !this.authService.isLoggedIn();
   }
+  
   parsePermissions(attr: string): boolean {
     // if oattr in form, it can have permissions
     if (!this.form || !Util.isDefined(this.form.oattr)) {
@@ -187,4 +184,30 @@ export class CoworkingsDetailComponent {
     return permissions.visible;
   }
 
+  showServices(): any {
+    const filter = {
+      cw_id: +this.activeRoute.snapshot.params["cw_id"],
+    }
+    const conf = this.service.getDefaultServiceConfiguration("cw_services");
+    this.service.configureService(conf);
+    const columns = ["srv_name"];
+    return this.service
+      .query(filter, columns, "servicePerCoworking")
+      .subscribe((resp) => {
+        this.serviceList = resp.data
+      });
+  }
+
+  serviceIcons = {
+    additional_screen: 'desktop_windows',
+    vending_machine: 'kitchen',
+    coffee_bar: 'local_cafe',
+    water_dispenser: 'local_drink',
+    ergonomic_chair: 'event_seat',
+    parking: 'local_parking'
+  };
+
+  goBack(): void {
+    this.location.back();
+  }
 }

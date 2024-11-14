@@ -1,1 +1,77 @@
-<p>coworkings-edit works!</p>
+<o-form class="form-section" #coworkingForm attr="coworkingEdit" service="coworkings" entity="coworking" keys="cw_id"
+  header-actions="R;U" show-header="no" show-header-navigation="no" 
+  columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
+  visible-columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location" 
+  (onInsert)="onInsertSuccess(); $event.stopPropagation()" ignore-default-navigation="yes">
+  <div class="form-section" fxLayout="row" fxLayoutGap="24px" fxLayoutAlign="center start" class="form-container">
+    <!-- General Information -->
+    <o-column fxFlex="70" class="form-section" title="EDIT_COWORKING">
+      <!-- Name and Description-->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+        <o-text-input fxFlex="50" attr="cw_name" fxFlex label="NAME" required="yes" icon="business" fxFlex
+          placeholder="{{'COWORKINGS_NAME' | oTranslate }}" max-length="25" min-length="3"></o-text-input>
+      </div>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-textarea-input fxFlex="50" attr="cw_description" fxFlex label="DESCRIPTION" required="yes" icon="description"
+          max-length="250" icon="description" fxFlex
+          placeholder="{{'COWORKINGS_DESCRIPTION' | oTranslate }}"></o-textarea-input>
+      </div>
+      <!-- Direction and Locality -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <div class="location-combo-icon">
+          <mat-icon fontIcon="apartment" style="color: #9e9e9e;"></mat-icon>
+        </div>
+        <o-combo #combo attr="cw_location" service="cities" entity="city" keys="id_city" value-column="id_city"
+          columns="id_city;city" visible-columns="city" null-selection="no" required="yes" label="LOCATION"
+          translate="yes" searchable="true" sort="ASC" appearance="fill" fxFlex="30">
+        </o-combo>
+
+        <o-text-input fxFlex="50" attr="cw_address" fxFlex label="ADDRESS" required="yes" icon="place" fxFlex
+          placeholder="{{'COWORKINGS_ADDRESS' | oTranslate }}" max-length="50" min-length="3"></o-text-input>
+      </div>
+      <!-- Capacity and Price -->
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row">
+        <o-integer-input min="1" max="1000" fxFlex="50" attr="cw_capacity" label="CAPACITY" required="yes" icon="event_seat"
+          placeholder="{{'COWORKINGS_CAPACITY' | oTranslate }}" style="--field-hover-color: #6200ea"></o-integer-input>
+        <o-real-input min="1" max="1000" fxFlex="50" attr="cw_daily_price" label="DAILY_PRICE" required="yes" decimal-digits="2"
+          icon="euro_symbol" placeholder="{{'COWORKINGS_PRICE' | oTranslate }}"
+          style="--field-hover-color: #6200ea"></o-real-input>
+      </div>
+      <!-- Imagen -->
+      <div fxLayout="row" class="form-row">
+        <o-image attr="cw_image" sql-type="OTHER" max-file-size=1048576></o-image>
+      </div>
+      <!--Servicios-->
+      <div fxLayout="column" fxLayoutGap="24px" class="form-row">
+        <span>{{ 'selected_services' | oTranslate}} {{ selectedServices }} / 6</span>
+        <o-grid attr="services" service="services" entity="service" cols="6"
+                #servicesGrid columns="srv_id;srv_name" keys="srv_id"
+                quick-filter="no" fixed-header="no"
+                controls="false"
+                refresh-button="false" show-page-size="false" pagination-controls="false"
+                show-buttons-text="no"
+                gutter-size="2px" detail-mode="none" show-footer="no" grid-item-height="100px">
+          <o-grid-item *ngFor = "let dato of servicesGrid.dataArray">
+            <div class="srv" (click)="selectService(dato.srv_id, 'sel'+dato.srv_id)" title="{{dato.srv_name | oTranslate}}">
+              <o-column  id="{{'sel'+dato.srv_id}}" class="serviceDisable">
+                <article *ngIf="dato.srv_name=='additional_screen'"><mat-icon>desktop_windows</mat-icon></article>
+                <article *ngIf="dato.srv_name=='vending_machine'"><mat-icon>kitchen</mat-icon></article>
+                <article *ngIf="dato.srv_name=='coffee_bar'"><mat-icon>local_cafe</mat-icon></article>
+                <article *ngIf="dato.srv_name=='water_dispenser'"><mat-icon>local_drink</mat-icon></article>
+                <article *ngIf="dato.srv_name=='ergonomic_chair'"><mat-icon>event_seat</mat-icon></article>
+                <article *ngIf="dato.srv_name=='parking'"><mat-icon>local_parking</mat-icon></article>
+              </o-column>
+            </div>
+          </o-grid-item>
+        </o-grid>
+      </div>
+      <div fxLayout="column" fxLayoutGap="24px" class="form-row">
+        <div class="buttons">         
+          <button mat-raised-button color="primary" [disabled]="isInvalidForm()" attr="save" (click)="save()">{{ 'save' | oTranslate }}</button>
+        </div>
+      </div>
+    </o-column>
+  </div>
+</o-form>
+

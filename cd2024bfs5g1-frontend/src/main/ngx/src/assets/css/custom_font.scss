@@ -1,0 +1,30 @@
+@use "sass:map";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Tipografía*/
+$typography: "Noto Sans";
+
+h1, h2, h3, h4, h5, h6, p, a, span, div, button, input, mat-label, mat-mdc-form-field, mat-mdc-floating-label{
+  font-family: $typography !important;
+}
+
+// Tamaños de tipografías
+$fontSize12: 12px;
+$fontSize14: 14px;
+$fontSize16: 16px;
+$fontSize18: 18px;
+$fontSize20: 20px;
+$fontSize24: 24px;
+$fontSize35: 35px;
+$fontSize45: 45px;
+
+// Grosores de tipografías
+$fontLightThin: 100;
+$fontThin: 200;
+$fontLight: 300;
+$fontRegular: 400;
+$fontMedium: 500;
+$fontSemiBold: 600;
+$fontBold: 700;
+$fontBlack: 800;
+$fontHeavyBlack: 900;

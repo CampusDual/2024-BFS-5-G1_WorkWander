@@ -25,41 +25,10 @@ export class EventsNewComponent {
     this.service.configureService(conf);
   }
 
-  // Estas funciones están en desarrollo, están pensadas para comprobar que la fecha sea una fecha posterior al dia de hoy
-  // y que no se meta un evento repetido
-
-  // validateEvent() {
-  //   const name = this.nameCtrl.getValue();
-  //   const time = this.timeCtrl.getValue();
-  //   console.log(name);
-  //   console.log(time);
-  //   console.log(this.timeCtrl);
-  //   if ((name === undefined || name === null) || (time === undefined || time === null)) {
-  //     this.formCtrl.showHeader = false;
-  //   } else {
-  //     const filter = { 'name': name, 'date_event': time};
-  //     const columns = [ 'id_event' ];
-  //     const sqltypes = { 'date_event': 93 };
-  //     this.service.query(filter, columns, 'event', sqltypes).subscribe(resp => {
-  //       if (resp.data && resp.data.lenght > 0) {
-  //         alert('Evento ya existe');
-  //         this.formCtrl.showHeader = false;
-  //       } else {
-  //         this.formCtrl.showHeader = true;
-  //       }
-  //     });
-  //   }
-  // }
-
+  //Devuelve la fecha actual
   currentDate() {
     return new Date();
   }
-
-  //Obtiene la hora actual del sistema en la zona horaria local del usuario.
-  // getValue() {
-  //   console.log("Hora: ", new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }));
-  //   return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-  // }
 
   //Función para crear un evento
   createEvent() {
@@ -87,7 +56,6 @@ export class EventsNewComponent {
       name:this.formCtrl.getFieldValue('name'),
       description:this.formCtrl.getFieldValue('description'),
       date_event:new Date(this.formCtrl.getFieldValue('date_event')).toLocaleString(),
-      // hour_event:this.formCtrl.getFieldValue('hour_event'),
       hour_event:new Date(this.formCtrl.getFieldValue('hour_event')).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }),
       address:this.formCtrl.getFieldValue('address'),
       locality:this.formCtrl.getFieldValue('locality'),

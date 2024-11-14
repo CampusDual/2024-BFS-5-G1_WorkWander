@@ -123,8 +123,10 @@ o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
   top: 1px;
   right: 0;
-  z-index: 100;
+  width: 410px !important;
+  z-index: 1;
 }
+
 
 /* Pantalla login */
 login {
@@ -730,13 +732,13 @@ o-column {
     }
   }
 }
-// Media para 1400px
-@media (max-width: 1400px) {
+// Media para 1050px
+@media (max-width: 1050px) {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
     background-color: transparent;
-    left: 14px;
-    top: 39px;
+    left: 430px;
+    top: 50px;
   }
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
     padding: 25px 25px 85px 25px;

@@ -50,6 +50,8 @@
               {{ form.getFieldValue("hour_event") }}
             </p>
             <o-text-input oHidden attr="hour_event"></o-text-input>
+            <p><strong>{{ 'DURATION' | oTranslate }}:</strong> {{ durationConvert(form.getFieldValue('duration')) }}</p>
+            <o-text-input oHidden attr="duration"></o-text-input>
           </div>
           <div class="info-container">
             <!--location-->

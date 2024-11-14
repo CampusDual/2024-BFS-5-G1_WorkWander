@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +60,26 @@ public class EventService implements IEventService {
                 throw new OntimizeJEERuntimeException("Formato de hora incorrecto para hour_event: " + hourEventStr, e);
             }
         }
-        attributes.put("date_event", new Date(String.valueOf(attributes.get("date_event"))));
+
+        // Asegura que el formato de entrada y el de salida coinciden con lo esperado
+        final String inputPattern = "dd/MM/yyyy, H:mm:ss";
+        final String outputPattern = "yyyy-MM-dd HH:mm:ss";
+        final SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
+        final SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
+
+        try {
+            // Extrae y analiza la fecha según el formato de entrada
+            final String dateEventString = String.valueOf(attributes.get("date_event"));
+            final Date parsedDate = inputFormat.parse(dateEventString);
+
+            // Convierte a String en el formato de salida esperado
+            final String formattedDate = outputFormat.format(parsedDate);
+
+            // Guarda el valor formateado en attributes
+            attributes.put("date_event", formattedDate);
+        } catch (final ParseException e) {
+            e.printStackTrace();
+        }
 
         return this.daoHelper.insert(this.eventDao, attributes);
     }

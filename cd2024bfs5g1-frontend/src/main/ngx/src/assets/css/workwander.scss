@@ -187,6 +187,91 @@ login {
       text-align: center;
     }
   }
+  .registerForm form.inner-form.form-no-toolbar {
+    min-height: 100vh;
+    justify-content: center;
+    min-width: 368px;
+
+    button {
+      width: 100%;
+      margin: 32px 0 0;
+      height: 42px;
+      font-size: $fontSize16;
+      border: unset;
+    }
+
+    div.text-center{
+      text-align: center;
+    }
+  }
+
+  .login-inner-container form,
+  .o-form form .o-form-content-wrapper {
+    background-color: rgba($blanco, 0.4);
+    border-radius: $borderRadius;
+    padding: $padding;
+    justify-content: center;
+    min-height: unset !important;
+  }
+
+  .login-outer-container {
+    justify-content: center;
+
+    .wrapp-login .login-inner-container form .login-title-container {
+      margin-top: unset;
+    }
+
+  }
+  .register-outer-container {
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      justify-content: center;
+  }
+
+  .register-bg-container {
+      background-image: unset;
+      width: unset;
+      background-repeat: no-repeat;
+      background-size: unset;
+      background-position: unset;
+      position: unset;
+      z-index: 1;
+  }
+
+    .register-bg-container::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba($primary, .1);
+      opacity: .8;
+    }
+    .wrapp-register {
+      width: 640px;
+      min-height: 100%;
+      z-index: 2;
+
+      .register-inner-container{
+          width: 100%;
+      }
+
+      form {
+        padding: $paddingInterno;
+        min-height: 600px;
+        min-width: 368px;
+      }
+    }
 
 }
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
@@ -391,6 +476,7 @@ o-column {
 
 .form-new-event {
   background-color: transparent;
+  max-width: 550px;
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
@@ -520,74 +606,6 @@ o-column {
     margin-bottom: 24px;
   }
 
-  o-text-input,
-  o-integer-input,
-  o-real-input,
-  o-date-input,
-  o-image {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
-
-  o-text-input[icon],
-  o-integer-input[icon],
-  o-real-input[icon],
-  o-date-input[icon],
-  o-image[icon] {
-    padding-left: 40px;
-    font-size: $fontSize16;
-    background-color: $blanco;
-    border: 1px solid $accent;
-    border-radius: $borderRadius;
-    transition: all 0.3s ease;
-  }
-  o-text-input[icon]:hover,
-  o-integer-input[icon]:hover,
-  o-real-input[icon]:hover,
-  o-date-input[icon]:hover,
-  o-image[icon]:hover,
-  o-textarea-input [icon]:hover {
-    border-color: $primary;
-  }
-
-  o-text-input[icon]::before,
-  o-integer-input[icon]::before,
-  o-real-input[icon]::before,
-  o-date-input[icon]::before,
-  o-image[icon]::before {
-    content: attr(icon);
-    font-family: "Material Icons";
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $accent;
-    font-size: $fontSize20;
-  }
-
-  o-text-input input::placeholder,
-  o-integer-input input::placeholder,
-  o-real-input input::placeholder,
-  o-date-input input::placeholder,
-  o-image input::placeholder {
-    color: $accent;
-    opacity: 0.8;
-  }
-
-  /* Botones e interacción */
-  .form-section o-text-input:hover,
-  .form-section o-integer-input:hover,
-  .form-section o-real-input:hover,
-  .form-section o-date-input:hover,
-  .form-section o-image:hover {
-    background-color: $blanco;
-  }
-
-  /* Estilos generales para la fila del formulario */
-  .form-row {
-    margin: 24px 0; /* Espaciado vertical */
-  }
   .location {
     // Estilo de la ubicación
     color: $primary;
@@ -693,17 +711,9 @@ o-data-toolbar {
       o-integer-input,
       o-real-input,
       o-hour-input {
-        max-width: 48%;
-        width: 48%;
-        min-width: 48%;
-      }
-      o-date-input.row-tree-fields,
-      o-integer-input.row-tree-fields,
-      o-real-input.row-tree-fields,
-      o-hour-input.row-tree-fields {
-        max-width: 30%;
-        width: 30%;
-        min-width: 30%;
+        max-width: 47%;
+        width: 47%;
+        min-width: 47%;
       }
     }
   }

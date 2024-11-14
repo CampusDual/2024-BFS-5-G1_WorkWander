@@ -19,5 +19,8 @@ export const SERVICE_CONFIG: Object = {
   },
   cw_services: {
     path: "/cw_services",
+  },
+  cities: {
+    path: "/cities",
   }
 };

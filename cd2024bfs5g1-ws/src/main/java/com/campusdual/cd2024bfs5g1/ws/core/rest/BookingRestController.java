@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/bookings")
-public class BookingRestController  extends ORestController<IBookingService> {
+public class BookingRestController extends ORestController<IBookingService> {
 
     @Autowired
     private IBookingService bookingService;

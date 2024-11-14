@@ -13,14 +13,16 @@
             <span class="title_text">{{ 'REGISTER_TITLE' | oTranslate }}:</span>
           </div>
             <div fxLayout="column" fxLayoutGap="15px">
-              <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}" data=""
-                            required="true" (onBlur)="checkUserName()" class="m-top-24"></o-text-input>
-              <o-email-input #emailInput attr="usr_email" label="{{ 'usr_email' | oTranslate }}" data="" read-only="no"
+              <o-text-input #nameInput attr="usr_login" label="{{ 'NAME' | oTranslate }}"
+                required="yes" (onBlur)="checkUserName()" class="m-top-24">
+              </o-text-input>
+              <o-email-input #emailInput attr="usr_email" label="{{ 'USR_EMAIL' | oTranslate }}"read-only="no"
                 required="yes" (onBlur)="checkEmail()" class="m-top-24"></o-email-input>
-              <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" data=""
-                required="yes" class="m-top-24"></o-password-input>
+              <o-password-input #passInput attr="usr_password" label="{{ 'PASSWORD' | oTranslate }}" 
+                required="yes" min-length="8" max-length="16" (onBlur)="checkPassword()" class="m-top-24">
+              </o-password-input>
               <o-text-input [hidden]="showCIF()" #companyInput attr="usr_cif"
-                label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()"></o-text-input>
+                label="{{ 'CIF_COMPANY' | oTranslate }}" (onBlur)="checkCif()" class="m-top-24"></o-text-input>
               <o-checkbox #checkBoxCompany attr="companyCheck" label="{{ 'COMPANYCB' | oTranslate }}"></o-checkbox>
               <button #submitButton  mat-raised-button color="secondary" (click)="insertUser(); $event.preventDefault();" class="m-top-24">{{"REGISTER" | oTranslate }}</button>
               <div class="text-center">

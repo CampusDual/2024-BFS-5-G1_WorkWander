@@ -143,7 +143,10 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: number): string {
-    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    let [integerPart, decimalPart] = price.toFixed(2).split('.');
+    if (decimalPart== ''){
+      decimalPart= "00";
+     }
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
 

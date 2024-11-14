@@ -56,10 +56,10 @@ export class EventsNewComponent {
   }
 
   //Obtiene la hora actual del sistema en la zona horaria local del usuario.
-  getValue() {
-    console.log("Hora: ", new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }));
-    return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-  }
+  // getValue() {
+  //   console.log("Hora: ", new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }));
+  //   return new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  // }
 
   //Función para crear un evento
   createEvent() {
@@ -87,7 +87,8 @@ export class EventsNewComponent {
       name:this.formCtrl.getFieldValue('name'),
       description:this.formCtrl.getFieldValue('description'),
       date_event:new Date(this.formCtrl.getFieldValue('date_event')).toLocaleString(),
-      hour_event:this.formCtrl.getFieldValue('hour_event'),
+      // hour_event:this.formCtrl.getFieldValue('hour_event'),
+      hour_event:new Date(this.formCtrl.getFieldValue('hour_event')).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }),
       address:this.formCtrl.getFieldValue('address'),
       locality:this.formCtrl.getFieldValue('locality'),
       bookings:this.formCtrl.getFieldValue('bookings')

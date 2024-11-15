@@ -46,43 +46,11 @@ public class BookingService implements IBookingService {
     @Override
     public EntityResult getDatesDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object datesObj = keyMap.get("bk_date");
-        final List<Date> dates = new ArrayList<>();
-
-        //Pasamos Fechas Object a Strings a Date
-        if (datesObj instanceof List) {
-            final List<String> datesList = (List<String>) datesObj;
-            for (final String date : datesList) {
-                final String processedDate = date.split("T")[0];
-                final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-                final Date date2;
-                try {
-                    date2 = sdf.parse(processedDate);
-                    dates.add(date2);
-                } catch (final ParseException e) {
-                    System.out.println("Error al parsear la fecha");
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-        //Sacamos las fechas intermedias
-        final Date startDate = dates.get(0);
-        final Date finalDate = dates.get(1);
-        dates.clear();
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTime(startDate);
-        for (Date d = startDate; d.getTime() != finalDate.getTime(); ) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
-            d = calendar.getTime();
-            dates.add(d);
-        }
-        if (dates.isEmpty()) {
-            dates.add(calendar.getTime());
-        }
+        ArrayList<Date> dates = BookingService.objectToDates(datesObj);
+        dates = BookingService.getIntermediateDates(dates);
 
         final Map<Date, Boolean> fechas = new LinkedHashMap<>();
-        //Hacemos las consultas
+
         for (final Date date : dates) {
             final Map<String, Object> paramsCW = new HashMap<>();
             paramsCW.put("cw_id", keyMap.get("bk_cw_id"));
@@ -127,27 +95,8 @@ public class BookingService implements IBookingService {
     @Override
     public EntityResult rangeBookingInsert(final Map<String, Object> attrMap) {
         final Object datesObj = attrMap.get("bk_date");
-        final List<Date> dates = new ArrayList<>();
+        final List<Date> dates = BookingService.objectToDates(datesObj);
 
-        if (datesObj instanceof List) {
-            final List<String> datesList = (List<String>) datesObj;
-
-            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-            for (final String date : datesList) {
-                final String processedDate = date.split("T")[0];
-                final Date date2;
-                try {
-                    date2 = sdf.parse(processedDate);
-                    dates.add(date2);
-                } catch (final ParseException e) {
-                    System.out.println("Error al parsear la fecha");
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-
-        // Añadir el ID del usuario al mapa de atributos para el insert
         final Map<String, Object> paramsBD = new HashMap<>();
         final EntityResult result = this.bookingInsert(attrMap);
         final int bk_id = (int) result.get(BookingDao.BK_ID);
@@ -168,5 +117,44 @@ public class BookingService implements IBookingService {
     @Override
     public EntityResult bookingDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.bookingDao, keyMap);
+    }
+
+    public static ArrayList<Date> objectToDates(final Object datesObj) {
+        final ArrayList<Date> dates = new ArrayList<>();
+        if (datesObj instanceof List) {
+            final List<String> datesList = (List<String>) datesObj;
+
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            for (final String date : datesList) {
+                final String processedDate = date.split("T")[0];
+                final Date date2;
+                try {
+                    date2 = sdf.parse(processedDate);
+                    dates.add(date2);
+                } catch (final ParseException e) {
+                    System.out.println("Error al parsear la fecha");
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return dates;
+    }
+
+    private static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
+        final Date startDate = dates.get(0);
+        final Date finalDate = dates.get(1);
+        dates.clear();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        for (Date d = startDate; d.getTime() != finalDate.getTime(); ) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            d = calendar.getTime();
+            dates.add(d);
+        }
+        if (dates.isEmpty()) {
+            dates.add(calendar.getTime());
+        }
+        return dates;
     }
 }

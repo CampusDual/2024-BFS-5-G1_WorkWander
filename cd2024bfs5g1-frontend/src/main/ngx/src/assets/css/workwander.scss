@@ -43,6 +43,11 @@ mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligatur
   color: $verdeBoton;
 }
 
+.o-column-collapsible > .o-container.mat-expansion-panel .mat-expansion-panel-header,
+.o-row-collapsible > .o-container.mat-expansion-panel .mat-expansion-panel-header {
+    padding-left: 0px;
+}
+
 /*   Video home page  */
 #background-video {
   width: 100vw;
@@ -116,7 +121,7 @@ mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligatur
 
 o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
-  left: 75px;
+  left: 50px;
 }
 
 .mat-mdc-paginator-container {
@@ -311,14 +316,28 @@ nav.ng-star-inserted:nth-last-child(2) {
 }
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
-  padding: $padding;
+  padding: 25px 25px 25px 0;
   border-radius: $borderRadiusButton;
   margin-bottom: 25px;
 }
 
-div#innerCol > div {
-  gap: 15px;
+div#innerCol {
+  padding: 10px 0 1px 0;
+  > div {
+    column-gap: 15px;
+    .btn-container{
+      button{
+        padding-top: 4px;
+      }
+    }
+  }
 }
+.mat-mdc-select-panel {
+  .mat-pseudo-checkbox-checked {
+      background-color: $primary !important;
+    }
+}
+
 
 /* Contenedores fichas detalle */
 .card-detalle {
@@ -441,7 +460,6 @@ o-column {
 
 .form-new-event {
   background-color: transparent;
-  max-width: 550px;
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
@@ -484,6 +502,16 @@ o-column {
   article.ng-star-inserted {
     align-self: center !important;
     padding: 5px;
+    color: $verdeBoton;
+    fill:  $verdeBoton;
+    :hover{
+      cursor: pointer;
+    }
+    mat-icon{
+      font-size: $fontSize35;
+      width: $fontSize35;
+      height: $fontSize35;
+    }
   }
   .buttons {
     display: flex;
@@ -531,6 +559,10 @@ o-column {
     }
   }
 }
+.material-icons {
+    color: $verdeBoton;
+    fill: $verdeBoton;
+  }
 .info {
   // Contenedor de la información
   width: 70%;
@@ -591,9 +623,11 @@ o-column {
   .services {
     // Contenedor de los servicios
     display: flex;
-    gap: 8px;
+    gap: 0px;
     margin-top: 8px;
     transition: transform 0.2s;
+    flex-direction: row;
+    flex-wrap: wrap;
     //translate: 20px;
 
     .service-icon {
@@ -724,7 +758,8 @@ o-data-toolbar {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
     background-color: transparent;
-    top: 50px;
+    top: 0px;
+    left: 24px;
   }
   .mat-mdc-paginator-container {
     position: absolute;
@@ -733,11 +768,70 @@ o-data-toolbar {
     width: 450px !important;
     z-index: 1;
     left: -80px;
-}
+  }
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-    padding: 25px 25px 85px 25px;
+    padding: 25px 25px 85px 0px;
   }
   o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
     margin-bottom:60px !important;
   }
+}
+
+@media (max-width: 1500px) {
+  /*  Coworking */
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 12px;
+
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 110px;
+        height: 110px;
+      }
+    }
+    .info .coworking-name {
+        font-size: $fontSize18;
+    }
+    .capacity-price-container .price-container .price {
+        font-size: $fontSize20;
+        .decimal {
+            font-size: $fontSize12;
+        }
+    }
+  .capacity-price-container {
+      min-width: 100px;
+    }
+  .material-icons {
+      font-size: $fontSize18;
+    }
+  }
+}
+@media(min-width:1000px) and (max-width: 1250px){
+    .coworking-card {
+      // Estilo general de la tarjeta de coworking
+      .image-container {
+        // Contenedor de la imagen
+        padding: 5px;
+
+        .coworking-image {
+          // Estilo de la imagen de coworking
+          width: 70px;
+          height: 70px;
+        }
+      }
+      .capacity-price-container .price-container .price {
+          font-size: $fontSize18;
+          .decimal {
+              font-size: $fontSize12;
+          }
+      }
+    .capacity-price-container {
+        min-width: 70px;
+      }
+    .material-icons {
+        font-size: $fontSize14;
+      }
+    }
 }

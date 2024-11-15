@@ -153,7 +153,7 @@
         gutter-size="2px"
         detail-mode="none"
         show-footer="no"
-        grid-item-height="40px"
+        grid-item-height="70px"
       >
         <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
           <div
@@ -164,7 +164,7 @@
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
-              fxFlex="35px"
+              fxFlex="65px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
                 <mat-icon>desktop_windows</mat-icon>

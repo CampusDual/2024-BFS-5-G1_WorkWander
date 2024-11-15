@@ -47,6 +47,18 @@ export class CoworkingsDetailComponent {
   public idioma: string;
   public serviceList = []
 
+  // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
+  public formatPrice(price: string): string {
+    const price_ = parseFloat(price);
+    let [integerPart, decimalPart] = price_.toFixed(2).split('.');
+    if (decimalPart== ''){
+      decimalPart= "00";
+    }
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
+    
+    
+  
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
   }

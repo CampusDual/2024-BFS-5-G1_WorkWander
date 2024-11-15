@@ -316,6 +316,9 @@ nav.ng-star-inserted:nth-last-child(2) {
   margin-bottom: 25px;
 }
 
+div#innerCol > div {
+  gap: 15px;
+}
 
 /* Contenedores fichas detalle */
 .card-detalle {

@@ -23,6 +23,7 @@ public class EventDao extends OntimizeJdbcDaoSupport {
     public static final String BOOKINGS = "bookings";
     public static final String USR_ID = "usr_id";
     public static final String DURATION = "duration";
+    public static final String IMAGE_EVENT = "image_event";
 
     public EventDao() {
         super();

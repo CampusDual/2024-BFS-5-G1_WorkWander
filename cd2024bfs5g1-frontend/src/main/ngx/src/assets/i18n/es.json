@@ -109,6 +109,7 @@
   "name": "Nombre",
   "date_event": "Fecha",
   "hour_event": "Hora",
+  "image_event": "Imagen",
   "duration" : "Duración (minutos)",
   "address": "Dirección",
   "locality": "Localidad",

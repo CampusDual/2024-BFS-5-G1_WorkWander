@@ -7,7 +7,6 @@ import {
   OButtonComponent,
   ODateInputComponent,
   OFormComponent,
-  OImageComponent,
   OIntegerInputComponent,
   OntimizeService,
   OPermissions,
@@ -41,7 +40,6 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
-  @ViewChild("image") image: OImageComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
 
   plazasOcupadas: number;
@@ -183,6 +181,7 @@ export class CoworkingsDetailComponent {
   checkAuthStatus() {
     return !this.authService.isLoggedIn();
   }
+  
   parsePermissions(attr: string): boolean {
     // if oattr in form, it can have permissions
     if (!this.form || !Util.isDefined(this.form.oattr)) {

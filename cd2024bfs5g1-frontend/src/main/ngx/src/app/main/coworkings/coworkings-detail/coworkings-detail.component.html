@@ -1,81 +1,176 @@
-<o-form #form attr="coworkingDetail" service="coworkings" entity="coworking" header-actions="R"
-  show-header-navigation="no" keys="cw_id" keys-sql-types="integer" columns="cw_id;cw_name" header-position="top"
-  layout-direction="row" detect-changes-on-blur="no" fxFill undo-button="no" stay-in-record-after-insert="true"
-  editable-detail="no">
-  <div fxLayout="row" fxLayoutGap="30px" fxFill>
-    <div id="container">
-      <div class="card" fxLayout="column" fxFlex="calc(50% - 15px)">
+<div class="card-detalle">
+  <div class="button-back">
+    <o-button
+      attr="iconposition3"
+      icon="arrow_back_ios"
+      (click)="goBack()"
+    ></o-button>
+  </div>
+  <o-form
+    #form
+    attr="coworkingDetail"
+    service="coworkings"
+    entity="coworking"
+    header-actions="R"
+    show-header-navigation="no"
+    keys="cw_id"
+    keys-sql-types="integer"
+    columns="cw_id;cw_name"
+    header-position="false"
+    layout-direction="row"
+    detect-changes-on-blur="no"
+    undo-button="no"
+    stay-in-record-after-insert="true"
+    editable-detail="no"
+  >
+    <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
 
-        <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+    <div class="image-container">
+      <!-- Campo para mostrar la imagen de coworking -->
+      <div [ngClass]="{ hidden: !form.getFieldValue('cw_image') }">
+        <!-- Ocultaremos el div cuando no exista "cw_image" -->
+        <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
+        <o-image
+          attr="cw_image"
+          show-controls="no"
+          read-only="yes"
+          height="480px"
+          width="450px"
+          auto-fit="no"
+        ></o-image>
+      </div>
+      <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
+      <img
+        *ngIf="!form.getFieldValue('cw_image')"
+        src="assets/images/coworking-default.jpg"
+        alt="Imagen predeterminada"
+      />
+    </div>
 
-        <div fxLayout="row" class="image-container">
-          <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{'hidden': !form.getFieldValue('cw_image')}">  <!-- Ocultaremos el div cuando no exista "cw_image" -->
-            <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
-            <o-image attr="cw_image" show-controls="no" read-only="yes" height="500px" width="900px"></o-image>
-          </div>
-          <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
-          <img *ngIf="!form.getFieldValue('cw_image')" src="assets/images/image-default.jpg" alt="Imagen predeterminada"
-            height="500px" width="900px" />
-        </div>
+    <div class="info-container">
+      <div>
+        <o-text-input #name type="text" oHidden attr="cw_name" fxFlex label="NAME"
+          ></o-text-input>
+        <h1>{{form.getFieldValue("cw_name")}}</h1>
+      </div>
 
-        <div fxLayout="row" fxLayoutGap="15px">
+      <o-column class="detail-container">
+        <o-text-input #location type="text" oHidden attr="cw_location" fxFlex label="LOCATION"
+          ></o-text-input>
+        <p><strong>{{"LOCATION" | oTranslate}}:</strong> {{form.getFieldValue("cw_location")}}</p>
 
-          <o-column class="center" [title]="getName()" appearance="no" layout-gap="16px" fxFlex="1 1 100%"
-            layout-align="start stretch">
+        <o-text-input #address type="text" oHidden attr="cw_address" fxFlex label="ADDRESS"
+          ></o-text-input>
+        <p><strong>{{"ADDRESS" | oTranslate}}:</strong> {{form.getFieldValue("cw_address")}}</p>
 
-            <div fxLayout="row">
-              <o-text-input #name type="text" hidden="yes" attr="cw_name" fxFlex label="NAME"
-                string-case="uppercase"></o-text-input>
-            </div>
+        <o-text-input #description type="text" oHidden attr="cw_description" fxFlex label="DESCRIPTION"
+          ></o-text-input>
+        <p><strong>{{"DESCRIPTION" | oTranslate}}:</strong> {{form.getFieldValue("cw_description")}}</p>
+      </o-column>
 
-            <div fxLayout="row" fxLayoutGap="22px">
-              <o-text-input attr="cw_location" fxFlex label="LOCATION"></o-text-input>
-              <o-text-input attr="cw_address" fxFlex label="ADDRESS"></o-text-input>
-            </div>
-
-
-            <o-grid #coworkingsGrid attr="coworkingsGrid" service="cw_services" entity="servicePerCoworking"
-              keys="cw_id" columns="servicios" parent-keys="cw_id" quick-filter="no" fixed-header="no" controls="false"
-              refresh-button="false" show-page-size="false" pagination-controls="false" show-buttons-text="no"
-              gutter-size="8px" cols="6" detail-mode="none" show-footer="no" grid-item-height="40px">
-              <o-grid-item *ngFor="let dato of coworkingsGrid.dataArray">
-                <span class="coworking-service">{{ dato.servicios | oTranslate }}</span>
+      <div>
+        <section class="services">
+          <p>
+            <strong>{{ "SERVICES" | oTranslate }}:</strong>
+          </p>
+          <o-grid
+            #coworkingsGrid
+            attr="coworkingsGrid"
+            service="cw_services"
+            entity="servicePerCoworking"
+            keys="cw_id"
+            columns="servicios"
+            parent-keys="cw_id"
+            quick-filter="no"
+            fixed-header="no"
+            controls="false"
+            refresh-button="false"
+            show-page-size="false"
+            pagination-controls="false"
+            show-buttons-text="no"
+            gutter-size="8px"
+            rows="1"
+            detail-mode="none"
+            show-footer="no"
+            grid-item-height="40px"
+          >
+            <ng-container
+              *ngIf="coworkingsGrid.dataArray.length > 0; else noServices"
+            >
+              <o-grid-item *ngFor="let service of coworkingsGrid.dataArray">
+                <mat-icon [matTooltip]="service.servicios | oTranslate">
+                  {{ serviceIcons[service.servicios] }}
+                </mat-icon>
               </o-grid-item>
-            </o-grid>
-            <ng-container *ngIf="coworkingsGrid.dataArray.length === 0">
-              <span class="coworking-service">{{"NO_SERVICES"| oTranslate }}</span>
             </ng-container>
+          </o-grid>
+          <ng-template #noServices>
+            <span class="coworking-service">{{
+              "NO_SERVICES" | oTranslate
+            }}</span>
+          </ng-template>
+        </section>
+      </div>
 
+      <o-column class="detail-container">
+        <o-text-input
+          #sites
+          oHidden
+          attr="cw_capacity"
+          fxFlex
+          label="CAPACITY"
+        ></o-text-input>
+        <p>
+          <strong>{{ "CAPACITY" | oTranslate }}:</strong>
+          {{ form.getFieldValue("cw_capacity") }} {{ "SEATS" | oTranslate }}
+        </p>
 
-
-            <div fxLayout="row">
-              <o-textarea-input attr="cw_description" fxFlex label="DESCRIPTION"></o-textarea-input>
-            </div>
-
-            <div fxLayoutGap="22px" >
-              <div fxLayout="column" fxLayoutGap="22px">
-                <o-integer-input #sites attr="cw_capacity" fxFlex label="CAPACITY"></o-integer-input>
-                <o-integer-input  *ngIf="parsePermissions('realCapacity')" label="REAL_CAPACITY" editable-detail="no" #realCapacity></o-integer-input>
-              </div>
-              <o-currency-input id="precioDetalle" attr="cw_daily_price" fxFlex label="DAILY_PRICE"></o-currency-input>
-            </div>
-          </o-column>
-
-          <div class="book" *ngIf="parsePermissions('date')">
-            <o-form editable-detail="no" show-header="no">
-              <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-              <o-date-input #date attr="date" label="DATE" read-only="no" [min]="currentDate()"
-                (onValueChange)="checkCapacity()" value-type="date"></o-date-input>
-            </o-form>
-
-            <div *ngIf="parsePermissions('bookingButton')">
-              <o-button #bookingButton attr="bookingButton" label="{{'BOOKING' | oTranslate }}" type="raised"
-                color="primary" (click)="showConfirm($event)" enabled="false"></o-button>
-            </div>
-          </div>
+        <div *ngIf="parsePermissions('date')">
+          <p>
+            <strong>{{ "DATE_RESERVATION" | oTranslate }}:</strong>
+          </p>
+          <o-form editable-detail="no" show-header="no">
+            <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+            <o-date-input
+              #date
+              attr="date"
+              label="DATE"
+              read-only="no"
+              [min]="currentDate()"
+              (onValueChange)="checkCapacity()"
+              value-type="date"
+            ></o-date-input>
+          </o-form>
+          <o-integer-input
+            *ngIf="parsePermissions('realCapacity')"
+            label="REAL_CAPACITY"
+            editable-detail="no"
+            #realCapacity
+            oHidden
+          ></o-integer-input>
+          <p *ngIf="parsePermissions('realCapacity')">
+            <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
+          </p>
         </div>
+      </o-column>
+
+      <o-column class="price-container">
+        <o-text-input #dailyPrice type="text" oHidden attr="cw_daily_price" fxFlex label="DAILY_PRICE"
+          ></o-text-input>
+        <div class="price"><strong>{{ "DAILY_PRICE"| oTranslate }}: </strong> <span [innerHTML]="formatPrice(form.getFieldValue('cw_daily_price'))"></span></div>
+      </o-column>
+
+      <div class="reservation-button" *ngIf="parsePermissions('bookingButton')">
+        <o-button
+          #bookingButton
+          attr="bookingButton"
+          label="{{ 'BOOKING' | oTranslate }}"
+          type="raised"
+          color="primary"
+          (click)="showConfirm($event)"
+          enabled="FALSE"
+        ></o-button>
       </div>
     </div>
-  </div>
-</o-form>
+  </o-form>
+</div>

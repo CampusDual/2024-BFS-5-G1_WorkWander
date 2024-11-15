@@ -98,9 +98,19 @@
   "cw_image": "Image",
   "EVENTS": "Events",
   "EVENT_INFORMATION": "New Event",
+  "DATE_EVENT": "Date",
+  "HOUR_EVENT": "Hour",
+  "DURATION": "Duration",
+  "HOURS_MESSAGE" : "hour(s) and",
+  "MINUTES_MESSAGE" : "minutes",
+  "NO_DURATION" : "Not defined",
+  "LOCALITY": "Locality",
+  "BOOKINGS": "Bookings",
   "name": "Name",
   "date_event": "Date",
   "hour_event": "Hour",
+  "image_event": "Image",
+  "duration" : "Duration (minutes)",
   "address": "Address",
   "locality": "Locality",
   "bookings": "Bookings",
@@ -159,6 +169,11 @@
   "VALIDATE_EMAIL": "The email contains illegal characters",
   "CIF_ERROR": "The CIF is mandatory and must be valid if the company is marked",
   "DONE": "Done",
-  "ADVANCED_SEARCH" : "Advanced search"
+  "ADVANCED_SEARCH" : "Advanced search",
+  "SERVICES": "Services",
+  "FILTER": "Filter",
+  "CLEAR": "Clear",
+  "DATE_RESERVATION": "Date of reservation",
+  "SEATS": "seats"
 
 }

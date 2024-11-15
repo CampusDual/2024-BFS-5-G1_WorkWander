@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 
+
 @Repository(value = "BookingDao")
 @Lazy
 @ConfigurationFile(configurationFile = "dao/BookingDao.xml",

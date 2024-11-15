@@ -560,6 +560,10 @@ o-column {
     }
   }
 }
+.material-icons {
+    color: $verdeBoton;
+    fill: $verdeBoton;
+  }
 .info {
   // Contenedor de la información
   width: 70%;
@@ -802,8 +806,6 @@ o-data-toolbar {
     }
   .material-icons {
       font-size: $fontSize18;
-      color: $verdeBoton;
-      fill: $verdeBoton;
     }
   }
 }

@@ -78,7 +78,6 @@ public class BookingService implements IBookingService {
             dates.add(d);
         }
         if (dates.isEmpty()) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
             dates.add(calendar.getTime());
         }
 

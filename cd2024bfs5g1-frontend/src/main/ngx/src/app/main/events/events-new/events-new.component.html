@@ -42,6 +42,9 @@ This HTML file defines the structure of the "New Event" form component in an Ang
     >
       <!-- Nombre -->
       <o-text-input #nameInput attr="name" icon="business" required="yes"></o-text-input>
+      <!-- Descripción -->
+      <o-textarea-input fxFlex="100" attr="description" icon="description" maxlength="250"
+      required="yes"></o-textarea-input>
       <!-- Fecha -->
       <o-date-input #dateInput attr="date_event" [min]="currentDate()" value-type="date" icon="event" required="yes"></o-date-input>
       <!-- Hora -->

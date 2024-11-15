@@ -233,7 +233,6 @@ export class CoworkingsDetailComponent {
 
     this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
-        this.checkCapacity();
         this.showAvailableToast("BOOKINGS_CONFIRMED");
       }
     });

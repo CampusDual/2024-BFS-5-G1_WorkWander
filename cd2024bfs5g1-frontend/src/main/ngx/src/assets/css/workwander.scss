@@ -620,9 +620,11 @@ o-column {
   .services {
     // Contenedor de los servicios
     display: flex;
-    gap: 8px;
+    gap: 0px;
     margin-top: 8px;
     transition: transform 0.2s;
+    flex-direction: row;
+    flex-wrap: wrap;
     //translate: 20px;
 
     .service-icon {
@@ -773,7 +775,7 @@ o-data-toolbar {
 }
 
 @media (max-width: 1500px) {
-/*  Coworking */
+  /*  Coworking */
   .coworking-card {
     // Estilo general de la tarjeta de coworking
     .image-container {
@@ -804,4 +806,31 @@ o-data-toolbar {
       fill: $verdeBoton;
     }
   }
+}
+@media(min-width:1000px) and (max-width: 1250px){
+    .coworking-card {
+      // Estilo general de la tarjeta de coworking
+      .image-container {
+        // Contenedor de la imagen
+        padding: 5px;
+
+        .coworking-image {
+          // Estilo de la imagen de coworking
+          width: 70px;
+          height: 70px;
+        }
+      }
+      .capacity-price-container .price-container .price {
+          font-size: $fontSize18;
+          .decimal {
+              font-size: $fontSize12;
+          }
+      }
+    .capacity-price-container {
+        min-width: 70px;
+      }
+    .material-icons {
+        font-size: $fontSize14;
+      }
+    }
 }

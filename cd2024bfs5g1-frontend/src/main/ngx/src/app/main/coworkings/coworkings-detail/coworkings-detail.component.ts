@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { Location } from "@angular/common";
 import { Component, Inject, ViewChild } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -30,8 +30,8 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-    private location: Location,
-  ) { }
+    private location: Location
+  ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -46,27 +46,23 @@ export class CoworkingsDetailComponent {
   public idioma: string;
   public serviceList = [];
   public dateArray = [];
-  public dateArrayF= [];
-
-  public serviceList = []
+  public dateArrayF = [];
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
     const price_ = parseFloat(price);
-    let [integerPart, decimalPart] = price_.toFixed(2).split('.');
-    if (decimalPart== ''){
-      decimalPart= "00";
+    let [integerPart, decimalPart] = price_.toFixed(2).split(".");
+    if (decimalPart == "") {
+      decimalPart = "00";
     }
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
-
-
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.showServices();
   }
 
@@ -142,8 +138,8 @@ export class CoworkingsDetailComponent {
               this.changeFormatDate(fecha.getTime(), this.idioma)
             );
 
-            this.dateArray=fechasDisponibles
-            this.dateArrayF=fechasFormateadas
+            this.dateArray = fechasDisponibles;
+            this.dateArrayF = fechasFormateadas;
             this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
             resolve(true); // Resolver la promesa con true
           } else {
@@ -174,7 +170,8 @@ export class CoworkingsDetailComponent {
   }
 
   showAvailableToast(mensaje?: string) {
-    const availableMessage = mensaje || this.translate.get("PLAZAS_DISPONIBLES");
+    const availableMessage =
+      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
     const configuration: OSnackBarConfig = {
       milliseconds: 2000,
       icon: "info",
@@ -182,7 +179,6 @@ export class CoworkingsDetailComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
-
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
@@ -205,7 +201,9 @@ export class CoworkingsDetailComponent {
       if (this.dialogService) {
         this.dialogService.confirm(
           confirmMessageTitle,
-          `${confirmMessageBody}  ${this.dateArrayF.join("\n - ")} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+          `${confirmMessageBody}  ${this.dateArrayF.join(
+            "\n - "
+          )} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
         );
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
@@ -258,7 +256,7 @@ export class CoworkingsDetailComponent {
     return permissions.visible;
   }
 
-  showServices():any{
+  showServices(): any {
     const filter = {
       cw_id: +this.activeRoute.snapshot.params["cw_id"],
     };
@@ -268,21 +266,20 @@ export class CoworkingsDetailComponent {
     return this.service
       .query(filter, columns, "servicePerCoworking")
       .subscribe((resp) => {
-        this.serviceList = resp.data
+        this.serviceList = resp.data;
       });
   }
 
   serviceIcons = {
-    additional_screen: 'desktop_windows',
-    vending_machine: 'kitchen',
-    coffee_bar: 'local_cafe',
-    water_dispenser: 'local_drink',
-    ergonomic_chair: 'event_seat',
-    parking: 'local_parking'
+    additional_screen: "desktop_windows",
+    vending_machine: "kitchen",
+    coffee_bar: "local_cafe",
+    water_dispenser: "local_drink",
+    ergonomic_chair: "event_seat",
+    parking: "local_parking",
   };
 
   goBack(): void {
     this.location.back();
   }
-
 }

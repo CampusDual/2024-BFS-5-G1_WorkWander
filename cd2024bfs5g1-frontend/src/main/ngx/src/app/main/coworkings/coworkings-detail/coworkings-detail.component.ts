@@ -1,13 +1,11 @@
+import { Location } from '@angular/common';
 import { Component, Inject, ViewChild } from "@angular/core";
-
 import { ActivatedRoute, Router } from "@angular/router";
-
 import {
   AuthService,
   DialogService,
   OButtonComponent,
   OFormComponent,
-  OImageComponent,
   OIntegerInputComponent,
   OntimizeService,
   OPermissions,
@@ -18,7 +16,6 @@ import {
   Util,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
-
 @Component({
   selector: "app-coworkings-detail",
   templateUrl: "./coworkings-detail.component.html",
@@ -32,8 +29,9 @@ export class CoworkingsDetailComponent {
     protected dialogService: DialogService,
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
-    private translate: OTranslateService
-  ) {}
+    private translate: OTranslateService,
+    private location: Location,
+  ) { }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -41,7 +39,6 @@ export class CoworkingsDetailComponent {
   @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
-  @ViewChild("image") image: OImageComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
 
   plazasOcupadas: number;
@@ -51,11 +48,25 @@ export class CoworkingsDetailComponent {
   public dateArray = [];
   public dateArrayF= [];
 
+  public serviceList = []
+
+  // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
+  public formatPrice(price: string): string {
+    const price_ = parseFloat(price);
+    let [integerPart, decimalPart] = price_.toFixed(2).split('.');
+    if (decimalPart== ''){
+      decimalPart= "00";
+    }
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
+
+
+
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.showServices();
   }
 
@@ -175,11 +186,8 @@ export class CoworkingsDetailComponent {
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
-
     let fechaFormateada;
-
     fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
-
     return fechaFormateada;
   }
 
@@ -250,7 +258,7 @@ export class CoworkingsDetailComponent {
     return permissions.visible;
   }
 
-  showServices(): any {
+  showServices():any{
     const filter = {
       cw_id: +this.activeRoute.snapshot.params["cw_id"],
     };
@@ -260,7 +268,21 @@ export class CoworkingsDetailComponent {
     return this.service
       .query(filter, columns, "servicePerCoworking")
       .subscribe((resp) => {
-        this.serviceList = resp.data;
+        this.serviceList = resp.data
       });
   }
+
+  serviceIcons = {
+    additional_screen: 'desktop_windows',
+    vending_machine: 'kitchen',
+    coffee_bar: 'local_cafe',
+    water_dispenser: 'local_drink',
+    ergonomic_chair: 'event_seat',
+    parking: 'local_parking'
+  };
+
+  goBack(): void {
+    this.location.back();
+  }
+
 }

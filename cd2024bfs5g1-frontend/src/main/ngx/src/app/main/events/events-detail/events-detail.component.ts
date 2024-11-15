@@ -1,16 +1,21 @@
+import { Location } from '@angular/common';
 import { Component } from "@angular/core";
 import { OTranslateService } from "ontimize-web-ngx";
-import { UtilsService } from 'src/app/shared/services/utils.service';
+import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
-  selector: 'app-events-detail',
-  templateUrl: './events-detail.component.html',
-  styleUrls: ['./events-detail.component.css']
+  selector: "app-events-detail",
+  templateUrl: "./events-detail.component.html",
+  styleUrls: ["./events-detail.component.css"],
 })
 export class EventsDetailComponent {
-  constructor(private translate: OTranslateService,private utils:UtilsService) {}
+  constructor(
+    private translate: OTranslateService,
+    private utils: UtilsService,
+    private location: Location,
+  ) {}
 
-  formatDate(rawDate:number):string{
+  formatDate(rawDate: number): string {
     return this.utils.formatDate(rawDate);
   }
   durationConvert(minutes: number): String {
@@ -33,5 +38,9 @@ export class EventsDetailComponent {
       }
     }
     return tiempo;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

@@ -89,12 +89,12 @@
   "cw_id": "Coworking Id.",
   "cw_name": "Name",
   "cw_address": "Address",
-  "cw_description": "Description",
+  "cw_description":"Description",
   "cw_location": "Location",
   "cw_capacity": "Capacity",
   "cw_daily_price": "Daily price",
-  "cw_start_date": "Start date",
-  "cw_end_date": "End date",
+  "cw_start_date":"Start date",
+  "cw_end_date":"End date",
   "cw_image": "Image",
   "EVENTS": "Events",
   "EVENT_INFORMATION": "New Event",
@@ -110,6 +110,7 @@
   "date_event": "Date",
   "hour_event": "Hour",
   "duration": "Duration (minutes)",
+  "image_event": "Image",
   "address": "Address",
   "locality": "Locality",
   "bookings": "Bookings",
@@ -174,5 +175,8 @@
   "PLAZAS_DISPONIBLES": "Available places",
   "NO_PLAZAS_DISPONIBLES": "No available places on the following dates",
   "SELECT_DATE_RANGE": "Select a date range",
-  "DATERANGE.APPLYLABEL": "Apply"
+  "DATERANGE.APPLYLABEL": "Apply",
+  "DATE_RESERVATION": "Date of reservation",
+  "SEATS": "seats"
+
 }

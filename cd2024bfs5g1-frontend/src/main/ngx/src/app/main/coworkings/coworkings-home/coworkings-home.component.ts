@@ -48,7 +48,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
   // Función para convertir la imagen desde la base de datos
   public getImageSrc(base64: any): any {
-    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/image-default.jpg';
+    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jpg';
   }
 
   protected configureService() {
@@ -143,7 +143,10 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: number): string {
-    const [integerPart, decimalPart] = price.toFixed(2).split('.');
+    let [integerPart, decimalPart] = price.toFixed(2).split('.');
+    if (decimalPart== ''){
+      decimalPart= "00";
+     }
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
 

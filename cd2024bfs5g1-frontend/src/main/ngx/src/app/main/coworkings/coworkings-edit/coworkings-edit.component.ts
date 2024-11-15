@@ -1,5 +1,5 @@
 import { Component, Injector, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
 
 @Component({
@@ -21,6 +21,7 @@ export class CoworkingsEditComponent {
 
   constructor(
     private router: Router,
+    private activeRoute: ActivatedRoute,
     protected injector:Injector,
     protected snackBarService: SnackBarService
   ) {
@@ -81,9 +82,9 @@ export class CoworkingsEditComponent {
       cw_image:this.coworkingForm.getFieldValue('cw_image'),
       services:this.arrayServices
     }
+    
     this.update(coworking);
     this.coworkingForm._clearAndCloseFormAfterInsert();
-    //this.router.navigateByUrl("/main/mycoworkings");
   }
 
   public update(coworking:any){
@@ -106,5 +107,25 @@ export class CoworkingsEditComponent {
         iconPosition: 'left'
     };
     this.snackBarService.open('¡Coworking actualizado!', configuration);
+  }
+
+  showServices(cw_id: any):any{
+    const filter = {cw_id: cw_id}
+    console.log(filter)
+    const conf = this.service.getDefaultServiceConfiguration("cw_services");
+    this.service.configureService(conf);
+    const columns = ["id"];
+    return this.service
+      .query(filter, columns, "servicePerCoworking")
+      .subscribe((resp) =>{
+        this.arrayServices = resp.data
+        this.selectedServices = this.arrayServices.length
+        if (this.arrayServices.length > 0) {
+          for (let index = 0; index < this.arrayServices.length; index++) {
+            document.getElementById('sel' + this.arrayServices[index]['id']).style.backgroundColor = "#e6d5c3";
+          }
+        }
+      });
+
   }
 }

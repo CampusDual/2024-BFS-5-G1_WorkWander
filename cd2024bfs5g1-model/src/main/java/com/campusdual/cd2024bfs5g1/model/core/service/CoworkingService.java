@@ -78,8 +78,6 @@ public class CoworkingService implements ICoworkingService {
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
         // Recuperación de los servicios
-
-        // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
 
         // Ejecutar el insert usando el daoHelper
@@ -88,12 +86,7 @@ public class CoworkingService implements ICoworkingService {
         final int cwId = (int) cwResult.get(CoworkingDao.CW_ID);
 
         // Bucle for para alta en la tabla pivote
-        for (int i = 0; i < services.size(); i++) {
-            final Map<String, Object> map = new HashMap<>();
-            map.put(CwServiceDao.CW_ID, cwId);
-            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
-            this.cwServiceService.cwServiceInsert(map);
-        }
+        this.iterationPivotCwService(services, cwId);
         return cwResult;
     }
 
@@ -106,7 +99,21 @@ public class CoworkingService implements ICoworkingService {
      */
     @Override
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
-        return this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+
+        // Recuperación de los servicios
+        final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+
+        // Ejecutar el insert usando el daoHelper
+        final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+
+        final int cwId = (int) cwResult.get(CoworkingDao.CW_ID);
+        final Map<String, Object> cwMap = new HashMap<>();
+        cwMap.put("cw_id", cwId);
+        this.cwServiceService.cwServiceDelete(cwMap);
+
+        // Bucle for para alta en la tabla pivote
+        this.iterationPivotCwService(services, cwId);
+        return cwResult;
     }
 
     /**
@@ -126,6 +133,15 @@ public class CoworkingService implements ICoworkingService {
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
+    }
+
+    public void iterationPivotCwService(final ArrayList<Map<String, Integer>> services, final int cwId) {
+        for (int i = 0; i < services.size(); i++) {
+            final Map<String, Object> map = new HashMap<>();
+            map.put(CwServiceDao.CW_ID, cwId);
+            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
+            this.cwServiceService.cwServiceInsert(map);
+        }
     }
 
 }

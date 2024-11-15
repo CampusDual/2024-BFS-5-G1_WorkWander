@@ -14,7 +14,7 @@
     <Queries>
         <Query id="servicePerCoworking">
             <Sentence>
-                <![CDATA[SELECT srv_name as servicios FROM ${mainschema}.cw_service as cws JOIN ${mainschema}.service as s ON cws.srv_id = s.srv_id #WHERE# ]]>
+                <![CDATA[SELECT cws.srv_id as id, srv_name as servicios FROM ${mainschema}.cw_service as cws JOIN ${mainschema}.service as s ON cws.srv_id = s.srv_id #WHERE# ]]>
             </Sentence>
         </Query>
     </Queries>

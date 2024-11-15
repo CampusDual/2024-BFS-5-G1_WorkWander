@@ -47,12 +47,15 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         icon="business"
         required="yes"
       ></o-text-input>
-      <!-- Descripción -->
       <o-textarea-input
+        fxFlex
         attr="description"
-        icon="description"
-        maxlength="250"
+        fxFlex
+        label="DESCRIPTION"
         required="yes"
+        icon="description"
+        max-length="250"
+        icon="description"
       ></o-textarea-input>
       <!-- Fecha -->
       <o-date-input
@@ -79,8 +82,14 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         required="yes"
       ></o-integer-input>
       <!-- Duración -->
-      <o-integer-input attr="duration" icon="hourglass_empty">
-      </o-integer-input>
+      <o-integer-input
+        fxFlex="30"
+        attr="duration"
+        icon="hourglass_empty"
+        min="0"
+        step="1"
+        max="999"
+      ></o-integer-input>
       <!-- Localidad -->
       <o-text-input
         attr="locality"

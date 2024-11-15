@@ -43,6 +43,11 @@ mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligatur
   color: $verdeBoton;
 }
 
+.o-column-collapsible > .o-container.mat-expansion-panel .mat-expansion-panel-header,
+.o-row-collapsible > .o-container.mat-expansion-panel .mat-expansion-panel-header {
+    padding-left: 0px;
+}
+
 /*   Video home page  */
 #background-video {
   width: 100vw;
@@ -116,7 +121,7 @@ mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligatur
 
 o-search-input.o-search-input.ng-star-inserted {
   position: absolute;
-  left: 75px;
+  left: 50px;
 }
 
 .mat-mdc-paginator-container {
@@ -165,28 +170,75 @@ login {
   overflow: hidden;
 
 
-  .title_text {
-    font-size: $fontSize14;
-    font-weight: 600;
-  }
-
-  .registerForm form.inner-form.form-no-toolbar {
+ .registerForm form.inner-form.form-no-toolbar {
     min-height: 100vh;
     justify-content: center;
     min-width: 368px;
 
-    button {
-      width: 100%;
-      margin: 32px 0 0;
-      height: 42px;
-      font-size: $fontSize16;
-      border: unset;
-    }
-
-    div.text-center {
+    div.text-center{
       text-align: center;
     }
   }
+
+  .login-inner-container form,
+  .o-form form .o-form-content-wrapper {
+    background-color: rgba($blanco, 0.4);
+    border-radius: $borderRadius;
+    padding: $padding;
+    justify-content: center;
+    min-height: unset !important;
+  }
+
+  .register-outer-container {
+      width: 100%;
+      height: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-wrap: wrap;
+      overflow: auto;
+      justify-content: center;
+  }
+
+  .register-bg-container {
+      background-image: unset;
+      width: unset;
+      background-repeat: no-repeat;
+      background-size: unset;
+      background-position: unset;
+      position: unset;
+      z-index: 1;
+  }
+
+    .register-bg-container::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba($primary, .1);
+      opacity: .8;
+    }
+    .wrapp-register {
+      width: 640px;
+      min-height: 100%;
+      z-index: 2;
+
+      .register-inner-container{
+          width: 100%;
+      }
+
+      form {
+        padding: $paddingInterno;
+        min-height: 600px;
+        min-width: 368px;
+      }
+    }
 
 }
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
@@ -264,9 +316,26 @@ nav.ng-star-inserted:nth-last-child(2) {
 }
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
-  padding: $padding;
+  padding: 25px 25px 25px 0;
   border-radius: $borderRadiusButton;
   margin-bottom: 25px;
+}
+
+div#innerCol {
+  padding: 10px 0 1px 0;
+  > div {
+    column-gap: 15px;
+    .btn-container{
+      button{
+        padding-top: 4px;
+      }
+    }
+  }
+}
+.mat-mdc-select-panel {
+  .mat-pseudo-checkbox-checked {
+      background-color: $primary !important;
+    }
 }
 
 
@@ -433,6 +502,16 @@ o-column {
   article.ng-star-inserted {
     align-self: center !important;
     padding: 5px;
+    color: $verdeBoton;
+    fill:  $verdeBoton;
+    :hover{
+      cursor: pointer;
+    }
+    mat-icon{
+      font-size: $fontSize35;
+      width: $fontSize35;
+      height: $fontSize35;
+    }
   }
   .buttons {
     display: flex;
@@ -443,7 +522,7 @@ o-column {
 }
 
 .application-layout-content-wrapper.header-layout {
-  background-image: url("/assets/images/fondo_workwander.jpg");
+  background-image: url("./assets/images/fondo_workwander.jpg");
   background-position-y: bottom;
   background-position-x: right;
   background-repeat: no-repeat;
@@ -480,6 +559,10 @@ o-column {
     }
   }
 }
+.material-icons {
+    color: $verdeBoton;
+    fill: $verdeBoton;
+  }
 .info {
   // Contenedor de la información
   width: 70%;
@@ -520,74 +603,6 @@ o-column {
     margin-bottom: 24px;
   }
 
-  o-text-input,
-  o-integer-input,
-  o-real-input,
-  o-date-input,
-  o-image {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-  }
-
-  o-text-input[icon],
-  o-integer-input[icon],
-  o-real-input[icon],
-  o-date-input[icon],
-  o-image[icon] {
-    padding-left: 40px;
-    font-size: $fontSize16;
-    background-color: $blanco;
-    border: 1px solid $accent;
-    border-radius: $borderRadius;
-    transition: all 0.3s ease;
-  }
-  o-text-input[icon]:hover,
-  o-integer-input[icon]:hover,
-  o-real-input[icon]:hover,
-  o-date-input[icon]:hover,
-  o-image[icon]:hover,
-  o-textarea-input [icon]:hover {
-    border-color: $primary;
-  }
-
-  o-text-input[icon]::before,
-  o-integer-input[icon]::before,
-  o-real-input[icon]::before,
-  o-date-input[icon]::before,
-  o-image[icon]::before {
-    content: attr(icon);
-    font-family: "Material Icons";
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: $accent;
-    font-size: $fontSize20;
-  }
-
-  o-text-input input::placeholder,
-  o-integer-input input::placeholder,
-  o-real-input input::placeholder,
-  o-date-input input::placeholder,
-  o-image input::placeholder {
-    color: $accent;
-    opacity: 0.8;
-  }
-
-  /* Botones e interacción */
-  .form-section o-text-input:hover,
-  .form-section o-integer-input:hover,
-  .form-section o-real-input:hover,
-  .form-section o-date-input:hover,
-  .form-section o-image:hover {
-    background-color: $blanco;
-  }
-
-  /* Estilos generales para la fila del formulario */
-  .form-row {
-    margin: 24px 0; /* Espaciado vertical */
-  }
   .location {
     // Estilo de la ubicación
     color: $primary;
@@ -608,9 +623,11 @@ o-column {
   .services {
     // Contenedor de los servicios
     display: flex;
-    gap: 8px;
+    gap: 0px;
     margin-top: 8px;
     transition: transform 0.2s;
+    flex-direction: row;
+    flex-wrap: wrap;
     //translate: 20px;
 
     .service-icon {
@@ -693,17 +710,9 @@ o-data-toolbar {
       o-integer-input,
       o-real-input,
       o-hour-input {
-        max-width: 48%;
-        width: 48%;
-        min-width: 48%;
-      }
-      o-date-input.row-tree-fields,
-      o-integer-input.row-tree-fields,
-      o-real-input.row-tree-fields,
-      o-hour-input.row-tree-fields {
-        max-width: 30%;
-        width: 30%;
-        min-width: 30%;
+        max-width: 47%;
+        width: 47%;
+        min-width: 47%;
       }
     }
   }
@@ -749,7 +758,8 @@ o-data-toolbar {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
     position: absolute;
     background-color: transparent;
-    top: 50px;
+    top: 0px;
+    left: 24px;
   }
   .mat-mdc-paginator-container {
     position: absolute;
@@ -758,11 +768,70 @@ o-data-toolbar {
     width: 450px !important;
     z-index: 1;
     left: -80px;
-}
+  }
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-    padding: 25px 25px 85px 25px;
+    padding: 25px 25px 85px 0px;
   }
   o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
     margin-bottom:60px !important;
   }
+}
+
+@media (max-width: 1500px) {
+  /*  Coworking */
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 12px;
+
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 110px;
+        height: 110px;
+      }
+    }
+    .info .coworking-name {
+        font-size: $fontSize18;
+    }
+    .capacity-price-container .price-container .price {
+        font-size: $fontSize20;
+        .decimal {
+            font-size: $fontSize12;
+        }
+    }
+  .capacity-price-container {
+      min-width: 100px;
+    }
+  .material-icons {
+      font-size: $fontSize18;
+    }
+  }
+}
+@media(min-width:1000px) and (max-width: 1250px){
+    .coworking-card {
+      // Estilo general de la tarjeta de coworking
+      .image-container {
+        // Contenedor de la imagen
+        padding: 5px;
+
+        .coworking-image {
+          // Estilo de la imagen de coworking
+          width: 70px;
+          height: 70px;
+        }
+      }
+      .capacity-price-container .price-container .price {
+          font-size: $fontSize18;
+          .decimal {
+              font-size: $fontSize12;
+          }
+      }
+    .capacity-price-container {
+        min-width: 70px;
+      }
+    .material-icons {
+        font-size: $fontSize14;
+      }
+    }
 }

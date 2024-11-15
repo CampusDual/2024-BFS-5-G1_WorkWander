@@ -59,6 +59,8 @@ export class EventsNewComponent {
       hour_event:new Date(this.formCtrl.getFieldValue('hour_event')).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }),
       address:this.formCtrl.getFieldValue('address'),
       locality:this.formCtrl.getFieldValue('locality'),
+      image_event:this.formCtrl.getFieldValue('image_event'),
+      duration:this.formCtrl.getFieldValue('duration'),
       bookings:this.formCtrl.getFieldValue('bookings')
     }
     console.log("Event: ", event);

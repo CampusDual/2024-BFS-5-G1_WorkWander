@@ -19,7 +19,7 @@ export class BookingsHomeComponent {
   ){}
   toCoworkingDetail(event){
     console.log(event.row.bk_cw_id)
-    this.router.navigate(["/main/coworkings/:"+event.row.bk_cw_id.toString()]);
+    this.router.navigate(["/main/coworkings/"+event.row.bk_cw_id]);
   }
 
 }

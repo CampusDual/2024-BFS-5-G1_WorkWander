@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,7 +12,4 @@
         <Column>bk_id</Column>
         <Column>date</Column>
     </UpdateKeys>
-    <GeneratedKey></GeneratedKey>
-    <Queries>
-    </Queries>
 </JdbcEntitySetup>

@@ -1,5 +1,6 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
+import com.campusdual.cd2024bfs5g1.api.core.service.IBookingDateService;
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingService;
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
@@ -28,6 +29,9 @@ public class BookingService implements IBookingService {
     private BookingDao bookingDao;
     @Autowired
     private ICoworkingService cs;
+    @Autowired
+    private IBookingDateService bds;
+
 
     @Override
     public EntityResult bookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
@@ -78,7 +82,7 @@ public class BookingService implements IBookingService {
             dates.add(calendar.getTime());
         }
 
-        final Map<Date, Boolean> fechas = new HashMap<>();
+        final Map<Date, Boolean> fechas = new LinkedHashMap<>();
         //Hacemos las consultas
         for (final Date date : dates) {
             final Map<String, Object> paramsCW = new HashMap<>();
@@ -97,7 +101,7 @@ public class BookingService implements IBookingService {
 
             fechas.put(date, capacidadDisponible - plazas > 0);
         }
-        
+
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);
         r.put("data", fechas);
@@ -115,15 +119,46 @@ public class BookingService implements IBookingService {
     @Override
     @Secured({PermissionsProviderSecured.SECURED})
     public EntityResult bookingInsert(final Map<String, Object> attrMap) {
-        // Obtener el usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        attrMap.put(BookingDao.BK_USR_ID, userId);
+        return this.daoHelper.insert(this.bookingDao, attrMap);
+    }
+
+    @Override
+    public EntityResult rangeBookingInsert(final Map<String, Object> attrMap) {
+        final Object datesObj = attrMap.get("bk_date");
+        final List<Date> dates = new ArrayList<>();
+
+        if (datesObj instanceof List) {
+            final List<String> datesList = (List<String>) datesObj;
+
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            for (final String date : datesList) {
+                final String processedDate = date.split("T")[0];
+                final Date date2;
+                try {
+                    date2 = sdf.parse(processedDate);
+                    dates.add(date2);
+                } catch (final ParseException e) {
+                    System.out.println("Error al parsear la fecha");
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
         // Añadir el ID del usuario al mapa de atributos para el insert
-        attrMap.put(BookingDao.BK_USR_ID, userId);
+        final Map<String, Object> paramsBD = new HashMap<>();
+        final EntityResult result = this.bookingInsert(attrMap);
+        final int bk_id = (int) result.get(BookingDao.BK_ID);
+        paramsBD.put("bk_id", bk_id);
 
-        // Ejecutar el insert usando el daoHelper
-        return this.daoHelper.insert(this.bookingDao, attrMap);
+        for (final Date date : dates) {
+            paramsBD.put("date", date);
+            final EntityResult bdresult = this.bds.bookingDateInsert(paramsBD);
+        }
+        return result;
     }
 
     @Override

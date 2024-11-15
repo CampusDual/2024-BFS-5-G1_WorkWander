@@ -49,6 +49,7 @@ export class CoworkingsDetailComponent {
   public idioma: string;
   public serviceList = [];
   public dateArray = [];
+  public dateArrayF= [];
 
   getName() {
     return this.coworkingName ? this.coworkingName.getValue() : "";
@@ -121,6 +122,17 @@ export class CoworkingsDetailComponent {
           );
           if (fechasDisponibles) {
             // Mostrar un mensaje de disponibilidad
+            const fechasDisponibles = Object.entries(data)
+              .filter(([fecha, disponible]) => disponible === true)
+              .map(([fecha]) => new Date(fecha));
+
+            // Formatear las fechas no disponibles
+            const fechasFormateadas = fechasDisponibles.map((fecha) =>
+              this.changeFormatDate(fecha.getTime(), this.idioma)
+            );
+
+            this.dateArray=fechasDisponibles
+            this.dateArrayF=fechasFormateadas
             this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
             resolve(true); // Resolver la promesa con true
           } else {
@@ -160,6 +172,7 @@ export class CoworkingsDetailComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
+
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
 
@@ -175,38 +188,32 @@ export class CoworkingsDetailComponent {
     this.idiomaActual === "es"
       ? (this.idioma = "es-ES")
       : (this.idioma = "en-US");
-    for (const date of this.dateArray) {
-      this.bookingDate = date;
-      const rawDate = this.bookingDate.getValue();
-      const fechaBien = this.changeFormatDate(rawDate, this.idioma);
-      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
-      const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
-      const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
-      const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
-      const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
-
-      if (this.authService.isLoggedIn()) {
-        if (this.dialogService) {
-          this.dialogService.confirm(
-            confirmMessageTitle,
-            `${confirmMessageBody}  ${fechaBien} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
-          );
-          this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-              this.createBooking();
-            }
-          });
-        }
-      } else {
-        this.router.navigate(["/login"]);
+    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+    const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
+    const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
+    //const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
+    //const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
+    if (this.authService.isLoggedIn()) {
+      if (this.dialogService) {
+        this.dialogService.confirm(
+          confirmMessageTitle,
+          `${confirmMessageBody}  ${this.dateArrayF.join("\n - ")} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+        );
+        this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+          if (result) {
+            this.createBooking();
+          }
+        });
       }
+    } else {
+      this.router.navigate(["/login"]);
     }
   }
 
   createBooking() {
     const filter = {
       bk_cw_id: +this.idCoworking.getValue(),
-      bk_date: this.bookingDate.getValue() + 3600000,
+      bk_date: this.dateArray,
       bk_state: true,
     };
 
@@ -218,26 +225,12 @@ export class CoworkingsDetailComponent {
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
 
-    this.service.insert(filter, "booking", sqltypes).subscribe((resp) => {
+    this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
         this.checkCapacity();
-        this.showToastMessage();
+        this.showAvailableToast("BOOKINGS_CONFIRMED");
       }
     });
-  }
-
-  showToastMessage() {
-    const confirmedMessage = this.translate.get("BOOKINGS_CONFIRMED");
-
-    // SnackBar configuration
-    const configuration: OSnackBarConfig = {
-      milliseconds: 2000,
-      icon: "check_circle",
-      iconPosition: "left",
-    };
-
-    // Simple message with icon on the left and action
-    this.snackBarService.open(confirmedMessage, configuration);
   }
 
   checkAuthStatus() {

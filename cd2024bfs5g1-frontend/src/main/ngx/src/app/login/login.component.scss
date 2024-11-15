@@ -1,8 +1,33 @@
-@use '../../assets/css/workwander.scss' as *;
+@use "../../assets/css/workwander.scss" as *;
 .m-top-24 {
   margin-top: 24px;
 }
+/* Pantalla login */
+login {
+  .full-page .login-outer-container .wrapp-login {
+    width: 100vw;
+    min-height: unset;
+    z-index: 2;
+    background-color: unset;
 
+    .login-inner-container form {
+      padding: $padding;
+      justify-content: center;
+      background-color: rgba($blanco, 0.4);
+      border-radius: $borderRadius;
+      padding: $padding;
+      justify-content: center;
+      min-height: unset !important;
+
+      .login-title-container {
+        margin-top: unset;
+      }
+    }
+    .login-inner-container {
+      background-color: unset;
+    }
+  }
+}
 .full-page {
   width: 100%;
   height: 100%;
@@ -23,7 +48,7 @@
     overflow: auto;
 
     .login-bg-container {
-      background-image: url('^assets/images/login_bg.png');
+      background-image: url("^assets/images/login_bg.png");
       width: calc(100% - 640px);
       background-repeat: no-repeat;
       background-size: cover;
@@ -32,19 +57,19 @@
       z-index: 1;
     }
 
-.full-page .login-outer-container .wrapp-login .login-inner-container form {
-    padding: 16px;
-    min-height: unset;
-    min-width: unset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    /* width: 80vh; */
-    background-color: #ffffff6e;
-    border-radius: 45px;
-    padding: 30px 55px;
-}
+    .full-page .login-outer-container .wrapp-login .login-inner-container form {
+      padding: 16px;
+      min-height: unset;
+      min-width: unset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      /* width: 80vh; */
+      background-color: #ffffff6e;
+      border-radius: 45px;
+      padding: 30px 55px;
+    }
 
     .wrapp-login {
       width: 640px;
@@ -104,7 +129,6 @@
         }
       }
     }
-
   }
 
   .footer-container {
@@ -125,17 +149,15 @@
         padding-right: 4px;
       }
     }
-
   }
-
 }
-.noLogin{
+.noLogin {
   text-align: center;
   justify-content: center;
-   padding-top:15px;
-   display: block;
+  padding-top: 15px;
+  display: block;
 }
-@media(max-width:576px) {
+@media (max-width: 576px) {
   .full-page {
     .login-outer-container {
       .wrapp-login {
@@ -180,7 +202,7 @@
     height: 50px;
   }
   .company-name {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-size: 50px;
     font-weight: bold;
     color: $blanco;
@@ -199,7 +221,6 @@
     display: flex;
     align-items: center;
 
-
     mat-icon {
       margin-right: 8px;
     }
@@ -211,7 +232,7 @@
   }
 }
 .company-name {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 30px;
   font-weight: bold;
   color: $blanco;

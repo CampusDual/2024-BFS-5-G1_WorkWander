@@ -156,7 +156,7 @@ public class BookingService implements IBookingService {
 
         for (final Date date : dates) {
             paramsBD.put("date", date);
-            final EntityResult bdresult = this.bds.bookingDateInsert(paramsBD);
+            this.bds.bookingDateInsert(paramsBD);
         }
         return result;
     }

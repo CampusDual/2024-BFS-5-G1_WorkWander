@@ -12,7 +12,7 @@
     </UpdateKeys>
     <GeneratedKey>bk_id</GeneratedKey>
     <Queries>
-        <Query id="totalBookingsByDateAndCoworking">
+        <Query id="totalBookingsByDate">
             <Sentence>
                 <![CDATA[
                     SELECT COUNT(b.bk_id) as "plazasOcupadas"

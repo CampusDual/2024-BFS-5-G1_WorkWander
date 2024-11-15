@@ -11,7 +11,7 @@ const routes: Routes = [
         redirectedPermissionsRedirect:403
       }
     }
-  },
+  }
 ];
 
 @NgModule({

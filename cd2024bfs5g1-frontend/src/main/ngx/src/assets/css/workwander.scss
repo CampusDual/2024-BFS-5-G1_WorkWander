@@ -316,6 +316,10 @@ nav.ng-star-inserted:nth-last-child(2) {
   margin-bottom: 25px;
 }
 
+div#innerCol > div {
+  column-gap: 15px;
+}
+
 
 /* Contenedores fichas detalle */
 .card-detalle {
@@ -438,7 +442,7 @@ o-column {
 
 .form-new-event {
   background-color: transparent;
-  max-width: 550px;
+  //max-width: 550px;
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
@@ -481,6 +485,16 @@ o-column {
   article.ng-star-inserted {
     align-self: center !important;
     padding: 5px;
+    color: $verdeBoton;
+    fill:  $verdeBoton;
+    :hover{
+      cursor: pointer;
+    }
+    mat-icon{
+      font-size: $fontSize35;
+      width: $fontSize35;
+      height: $fontSize35;
+    }
   }
   .buttons {
     display: flex;

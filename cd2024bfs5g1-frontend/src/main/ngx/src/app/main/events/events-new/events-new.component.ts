@@ -60,7 +60,8 @@ export class EventsNewComponent {
       address:this.formCtrl.getFieldValue('address'),
       locality:this.formCtrl.getFieldValue('locality'),
       image_event:this.formCtrl.getFieldValue('image_event'),
-      bookings:this.formCtrl.getFieldValue('bookings')
+      bookings:this.formCtrl.getFieldValue('bookings'),
+      duration: this.formCtrl.getFieldValue('duration')
     }
     console.log("Event: ", event);
     this.insert(event, sqlTypes);

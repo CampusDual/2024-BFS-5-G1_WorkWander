@@ -12,7 +12,7 @@
           service="services" entity="service" keys="srv_id" value-column="srv_name" columns="srv_name" searchable="true" visible-columns="srv_name"
           multiple="yes" translate="yes" fxFlex="100" fxFlex.gt-xs="37" fxFlex.gt-sm="18" >
         </o-combo>
-        <o-row class="btn-container">
+        <o-row class="btn-container" layout-gap="10px">
           <button attr="filter" [oFilterBuilderQuery]="filterBuilder" query-on-change="true" type="RAISED"
                   label="SEARCH" class="button btn-outline-light custom-button"
                   matTooltip="{{ 'Search' | oTranslate }}">

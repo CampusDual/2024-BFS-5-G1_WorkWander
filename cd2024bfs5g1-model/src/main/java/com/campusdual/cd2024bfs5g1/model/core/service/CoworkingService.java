@@ -99,19 +99,14 @@ public class CoworkingService implements ICoworkingService {
      */
     @Override
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
-
         // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
-
-        // Ejecutar el insert usando el daoHelper
+        // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
-
-        final int cwId = (int) cwResult.get(CoworkingDao.CW_ID);
-        final Map<String, Object> cwMap = new HashMap<>();
-        cwMap.put("cw_id", cwId);
-        this.cwServiceService.cwServiceDelete(cwMap);
-
+        // Borrado de los servicios
+        this.cwServiceService.cwServiceDelete(keyMap);
         // Bucle for para alta en la tabla pivote
+        final int cwId = (int) keyMap.get("cw_id");
         this.iterationPivotCwService(services, cwId);
         return cwResult;
     }

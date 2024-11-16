@@ -9,9 +9,8 @@ import { ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, 
 })
 export class CoworkingsEditComponent {
   public today: string = new Date().toLocaleDateString();
-  public arrayServices:any=[];
+  public arrayServices:any[];
   public exist = false;
-  public availableServices:number = 6;
   public selectedServices:number = 0;
   protected service: OntimizeService;
 
@@ -26,6 +25,7 @@ export class CoworkingsEditComponent {
     protected snackBarService: SnackBarService
   ) {
     this.service = this.injector.get(OntimizeService);
+    this.arrayServices = [];
   }
 
   ngOnInit(): void {
@@ -60,7 +60,6 @@ export class CoworkingsEditComponent {
     document.getElementById(serv).style.backgroundColor = "#e6d5c3";
     document.getElementById(serv).style.color = "black;";
     this.selectedServices ++;
-    this.availableServices --;
   }
 
   public deleteService(index:number, id:number, serv:string):void{
@@ -68,11 +67,18 @@ export class CoworkingsEditComponent {
     document.getElementById(serv).style.backgroundColor = "whitesmoke";
     document.getElementById(serv).style.color ="black";
     this.selectedServices --;
-    this.availableServices ++;
   }
 
-  public save(){    
+  /**
+   * Método que se llama desde el botón de guardado
+   */
+  public save(){
+    //Ordenamos el array de coworkings
+    this.arrayServices.sort((a:any, b:any) => a - b);
+    console.log(this.arrayServices)
+    //Creamos un objeto coworking
     const coworking = {
+      cw_id:this.coworkingForm.getFieldValue('cw_id'),
       cw_name:this.coworkingForm.getFieldValue('cw_name'),
       cw_description:this.coworkingForm.getFieldValue('cw_description'),
       cw_address:this.coworkingForm.getFieldValue('cw_address'),
@@ -82,16 +88,23 @@ export class CoworkingsEditComponent {
       cw_image:this.coworkingForm.getFieldValue('cw_image'),
       services:this.arrayServices
     }
-    
+    //Llamamos a la función para actualizar, enviando el objeto
     this.update(coworking);
+    this.showUpdated();
     this.coworkingForm._clearAndCloseFormAfterInsert();
   }
 
-  public update(coworking:any){
+  /**
+   * Actualización, recibe un objeto coworking,
+   * se llama desde save()
+   * @param coworking
+   */
+  public update(coworking:any):void{
     const keyMap = {cw_id:this.coworkingForm.getFieldValue('cw_id')}
+    const conf = this.service.getDefaultServiceConfiguration('coworkings');
+    this.service.configureService(conf);
     this.service.update(keyMap, coworking, 'coworking').subscribe(data => {
       console.log(data);
-      this.showConfigured();
     });
   }
 
@@ -99,7 +112,7 @@ export class CoworkingsEditComponent {
     return !this.coworkingForm || this.coworkingForm.formGroup.invalid;
   }
 
-  public showConfigured() {
+  public showUpdated() {
     const configuration: OSnackBarConfig = {
         action: '¡Coworking actualizado!',
         milliseconds: 5000,
@@ -110,22 +123,30 @@ export class CoworkingsEditComponent {
   }
 
   showServices(cw_id: any):any{
-    const filter = {cw_id: cw_id}
-    console.log(filter)
-    const conf = this.service.getDefaultServiceConfiguration("cw_services");
-    this.service.configureService(conf);
-    const columns = ["id"];
-    return this.service
-      .query(filter, columns, "servicePerCoworking")
-      .subscribe((resp) =>{
-        this.arrayServices = resp.data
-        this.selectedServices = this.arrayServices.length
-        if (this.arrayServices.length > 0) {
-          for (let index = 0; index < this.arrayServices.length; index++) {
-            document.getElementById('sel' + this.arrayServices[index]['id']).style.backgroundColor = "#e6d5c3";
+    //Vaciamos el array
+    this.arrayServices=[];
+    /*Verificamos que cw_id no sea undefined
+    para que aplique el filtro y así no traer todos los registros de la tabla pivote cw_service*/
+    if(cw_id!=undefined){
+      const filter = {cw_id: cw_id}
+      //Creamos el servicio
+      const conf = this.service.getDefaultServiceConfiguration("cw_services");
+      this.service.configureService(conf);
+      const columns = ["id"];
+      //Hacemos la petición
+      return this.service
+        .query(filter, columns, "servicePerCoworking")
+        .subscribe((resp) =>{
+          //Obtenemos resp (respuesta) del servidor, y recorremos el array de servicios (data)
+          for (let index = 0; index < resp.data.length; index++) {
+            document.getElementById('sel' + resp.data[index]['id']).style.backgroundColor = "#e6d5c3";
+            //Guardamos el id que devuelve data situado en esa posición del array
+            let obj = resp.data[index]['id'];
+            this.arrayServices.push({id:obj}); //Con el valor, creamos un objeto y lo guardamos en el array de servicios
+            this.selectedServices++; //Sumamos 1 a los servicios seleccionados
           }
         }
-      });
-
+      );
+    }
   }
 }

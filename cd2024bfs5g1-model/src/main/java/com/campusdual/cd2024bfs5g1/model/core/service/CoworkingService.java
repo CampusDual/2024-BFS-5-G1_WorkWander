@@ -122,6 +122,18 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.delete(this.coworkingDao, keyMap);
     }
 
+    /**
+     * Calcula la capacidad que tiene el coworking
+     *
+     * @param keyMap   Mapa de claves para identificar el coworking a examinar.
+     * @param attrList
+     * @return
+     */
+    @Override
+    public EntityResult coworkingCapacityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.CW_QUERY_CAPACITY);
+    }
+
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
             final List<?> attributes,

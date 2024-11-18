@@ -1,6 +1,4 @@
-
-<div class="coworkings-container">
-  <!-- Desplegable para los filtros avanzados de busqueda -->
+<div class="grid-container">
   <o-form class="filters" show-header="no">
     <o-column-collapsible
       class="collapsible-container"
@@ -32,27 +30,27 @@
         >
         </o-combo>
         <o-combo
-        #servicesField
-        appearance="outline"
-        label="{{ 'SERVICES' | oTranslate }}"
-        id="service"
-        null-selection="no"
-        attr="srv_name"
-        service="services"
-        entity="service"
-        keys="srv_id"
-        value-column="srv_name"
-        columns="srv_name"
-        searchable="true"
-        visible-columns="srv_name"
-        multiple="yes"
-        translate="yes"
-        fxFlex="100"
-        fxFlex.gt-xs="37"
-        fxFlex.gt-sm="18"
-      >
-      </o-combo>
-        <o-row class="btn-container">
+          #servicesField
+          appearance="outline"
+          label="{{ 'SERVICES' | oTranslate }}"
+          id="service"
+          null-selection="no"
+          attr="srv_name"
+          service="services"
+          entity="service"
+          keys="srv_id"
+          value-column="srv_name"
+          columns="srv_name"
+          searchable="true"
+          visible-columns="srv_name"
+          multiple="yes"
+          translate="yes"
+          fxFlex="100"
+          fxFlex.gt-xs="37"
+          fxFlex.gt-sm="18"
+        >
+        </o-combo>
+        <o-row class="btn-container" layout-gap="10px">
           <button
             attr="filter"
             [oFilterBuilderQuery]="filterBuilder"
@@ -95,7 +93,6 @@
   <o-grid
     #coworkingsGrid
     attr="coworkingsGrid"
-    title="COWORKINGS"
     service="coworkings"
     entity="serviceCoworking"
     keys="cw_id"
@@ -132,8 +129,8 @@
                 <mat-icon
                   style="vertical-align: middle"
                   title="{{ 'additional_screen' | oTranslate }}"
-                  >desktop_windows</mat-icon
-                >
+                  >desktop_windows
+                </mat-icon>
               </article>
               <article *ngIf="service == 'vending_machine'">
                 <mat-icon
@@ -153,15 +150,15 @@
                 <mat-icon
                   style="vertical-align: middle"
                   title="{{ 'water_dispenser' | oTranslate }}"
-                  >local_drink</mat-icon
-                >
+                  >local_drink
+                </mat-icon>
               </article>
               <article *ngIf="service == 'ergonomic_chair'">
                 <mat-icon
                   style="vertical-align: middle"
                   title="{{ 'ergonomic_chair' | oTranslate }}"
-                  >event_seat</mat-icon
-                >
+                  >event_seat
+                </mat-icon>
               </article>
               <article *ngIf="service == 'parking'">
                 <mat-icon
@@ -172,14 +169,8 @@
               </article>
             </article>
           </section>
-          <!--<div class="stars">
-            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
-              <mat-icon class="star-icon" svgIcon="star" aria-hidden="true"></mat-icon>
-            </ng-container>
-          </div>-->
           <p class="location">{{ data.cw_location }}</p>
         </div>
-
         <div class="capacity-price-container">
           <div class="price-container">
             <!-- <span class="price">{{ data.cw_daily_price | number:'1.2-2'}}€</span> -->

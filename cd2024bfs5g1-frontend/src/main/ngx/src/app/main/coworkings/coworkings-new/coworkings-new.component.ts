@@ -6,7 +6,6 @@ import {
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
 import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
-import { OTranslatePipe } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-coworking-new",

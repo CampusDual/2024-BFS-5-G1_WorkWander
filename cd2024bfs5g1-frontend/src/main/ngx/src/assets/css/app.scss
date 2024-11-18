@@ -1,5 +1,7 @@
 // Define your custom theme or choose predefined theme
-@use 'ontimize-web-ngx/theming/themes/ontimize.scss' as theme;
+//@use 'ontimize-web-ngx/theming/themes/ontimize.scss' as theme;
+@use './custom_theme.scss'as theme;
+@use './custom-component-theme.scss'as custom-component-theme;
 @use 'ontimize-web-ngx/theming/ontimize-style.scss';
 @use './workwander.scss';
 @use '../../app/login/login.theme.scss' as login;

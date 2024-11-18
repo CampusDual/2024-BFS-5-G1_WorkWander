@@ -1,0 +1,1 @@
+ALTER TABLE public.event ADD image_event varchar NULL;

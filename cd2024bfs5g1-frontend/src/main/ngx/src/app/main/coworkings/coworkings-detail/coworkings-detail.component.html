@@ -166,15 +166,17 @@
           </p>
           <o-form editable-detail="no" show-header="no">
             <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-            <o-date-input
-              #date
-              attr="date"
-              label="DATE"
+            <o-daterange-input
+              attr="daterange"
+              #daterange
+              fxFlex
+              label="SELECT_DATE_RANGE"
               read-only="no"
+              required="yes"
               [min]="currentDate()"
-              (onValueChange)="checkCapacity()"
+              (onValueChange)="setDates()"
               value-type="date"
-            ></o-date-input>
+            ></o-daterange-input>
           </o-form>
           <o-integer-input
             *ngIf="parsePermissions('realCapacity')"

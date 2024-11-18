@@ -172,6 +172,10 @@
   "SERVICES": "Servicios",
   "FILTER": "Filtrar",
   "CLEAR": "Limpiar",
+  "PLAZAS_DISPONIBLES": "Plazas disponibles",
+  "NO_PLAZAS_DISPONIBLES": "No hay plazas disponibles en las siguientes fechas",
+  "SELECT_DATE_RANGE": "Seleccione un rango de fechas",
+  "DATERANGE.APPLYLABEL": "Aplicar",
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos"
 }

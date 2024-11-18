@@ -32,6 +32,7 @@
           read-only="yes"
           height="480px"
           width="450px"
+          auto-fit="no"
         ></o-image>
       </div>
       <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
@@ -39,6 +40,8 @@
         *ngIf="!form.getFieldValue('image_event')"
         src="assets/images/event-default.jpg"
         alt="Imagen predeterminada"
+        height="480px"
+        width="450px"
       />
     </div>
 
@@ -52,45 +55,41 @@
       </div>
       <!-- Plazas -->
       <o-column class="detail-container">
-        <div class="info-container">
-          <!--bookings-->
-          <p>
-            <strong>{{ "BOOKINGS" | oTranslate }}:</strong>
-            {{ form.getFieldValue("bookings") }}
-          </p>
-          <o-text-input oHidden attr="bookings"></o-text-input>
-          <!--date_event-->
-          <p>
-            <strong>{{ "DATE_EVENT" | oTranslate }}:</strong>
-            {{ formatDate(form.getFieldValue("date_event")) }}
-          </p>
-          <o-text-input oHidden attr="date_event"></o-text-input>
-          <!--hour_event-->
-          <p>
-            <strong>{{ "HOUR_EVENT" | oTranslate }}:</strong>
-            {{ form.getFieldValue("hour_event") }}
-          </p>
-          <o-text-input oHidden attr="hour_event"></o-text-input>
-          <p>
-            <strong>{{ "DURATION" | oTranslate }}:</strong>
-            {{ durationConvert(form.getFieldValue("duration")) }}
-          </p>
-          <o-text-input oHidden attr="duration"></o-text-input>
-        </div>
-        <div class="info-container">
-          <!--location-->
-          <p>
-            <strong>{{ "LOCALITY" | oTranslate }}:</strong>
-            {{ form.getFieldValue("locality") }}
-          </p>
-          <o-text-input oHidden attr="locality"></o-text-input>
-          <!-- Direction -->
-          <p>
-            <strong>{{ "ADDRESS" | oTranslate }}:</strong>
-            {{ form.getFieldValue("address") }}
-          </p>
-          <o-text-input oHidden attr="address"></o-text-input>
-        </div>
+        <!--bookings-->
+        <p>
+          <strong>{{ "BOOKINGS" | oTranslate }}:</strong>
+          {{ form.getFieldValue("bookings") }}
+        </p>
+        <o-text-input oHidden attr="bookings"></o-text-input>
+        <!--date_event-->
+        <p>
+          <strong>{{ "DATE_EVENT" | oTranslate }}:</strong>
+          {{ formatDate(form.getFieldValue("date_event")) }}
+        </p>
+        <o-text-input oHidden attr="date_event"></o-text-input>
+        <!--hour_event-->
+        <p>
+          <strong>{{ "HOUR_EVENT" | oTranslate }}:</strong>
+          {{ form.getFieldValue("hour_event") }}
+        </p>
+        <o-text-input oHidden attr="hour_event"></o-text-input>
+        <p>
+          <strong>{{ "DURATION" | oTranslate }}:</strong>
+          {{ durationConvert(form.getFieldValue("duration")) }}
+        </p>
+        <o-text-input oHidden attr="duration"></o-text-input>
+        <!--location-->
+        <p>
+          <strong>{{ "LOCALITY" | oTranslate }}:</strong>
+          {{ form.getFieldValue("locality") }}
+        </p>
+        <o-text-input oHidden attr="locality"></o-text-input>
+        <!-- Direction -->
+        <p>
+          <strong>{{ "ADDRESS" | oTranslate }}:</strong>
+          {{ form.getFieldValue("address") }}
+        </p>
+        <o-text-input oHidden attr="address"></o-text-input>
         <div class="info-container">
           <p>
             <strong>{{ "DESCRIPTION" | oTranslate }}:</strong>

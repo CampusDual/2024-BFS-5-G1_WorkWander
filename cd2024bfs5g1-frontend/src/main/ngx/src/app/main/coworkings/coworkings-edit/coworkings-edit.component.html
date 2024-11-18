@@ -1,0 +1,187 @@
+<o-form
+  class="form-section"
+  #coworkingForm
+  attr="coworkingEdit"
+  service="coworkings"
+  entity="coworking"
+  keys="cw_id"
+  header-actions="R;U"
+  show-header="no"
+  show-header-navigation="no"
+  columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
+  visible-columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
+  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
+  ignore-default-navigation="yes"
+  fxFlex
+>
+  <div
+    class="form-section form-new-event"
+    fxLayout="row"
+    fxLayoutGap="24px"
+    fxLayoutAlign="left start"
+  >
+    <!-- General Information -->
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title="EDIT_COWORKING"
+      fxLayoutGap="24px"
+    >
+      <!-- Name and Description-->
+      <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+      <o-text-input
+        fxFlex
+        attr="cw_name"
+        fxFlex
+        label="NAME"
+        required="yes"
+        icon="business"
+        placeholder="{{ 'COWORKINGS_NAME' | oTranslate }}"
+        max-length="25"
+        min-length="3"
+      ></o-text-input>
+      <o-textarea-input
+        fxFlex
+        attr="cw_description"
+        fxFlex
+        label="DESCRIPTION"
+        required="yes"
+        icon="description"
+        max-length="250"
+        icon="description"
+        placeholder="{{ 'COWORKINGS_DESCRIPTION' | oTranslate }}"
+      ></o-textarea-input>
+      <!-- Direction and Locality -->
+      <o-combo
+        #combo
+        attr="cw_location"
+        service="cities"
+        entity="city"
+        keys="id_city"
+        value-column="id_city"
+        columns="id_city;city"
+        visible-columns="city"
+        null-selection="no"
+        required="yes"
+        label="LOCATION"
+        translate="yes"
+        searchable="true"
+        sort="ASC"
+        appearance="fill"
+      >
+      </o-combo>
+
+      <o-text-input
+        fxFlex
+        attr="cw_address"
+        fxFlex
+        label="ADDRESS"
+        required="yes"
+        icon="place"
+        placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
+        max-length="50"
+        min-length="3"
+      ></o-text-input>
+      <!-- Capacity and Price -->
+      <o-integer-input
+        min="1"
+        max="1000"
+        attr="cw_capacity"
+        label="CAPACITY"
+        required="yes"
+        icon="event_seat"
+        placeholder="{{ 'COWORKINGS_CAPACITY' | oTranslate }}"
+        style="--field-hover-color: #6200ea"
+      ></o-integer-input>
+      <o-real-input
+        min="1"
+        max="1000"
+        attr="cw_daily_price"
+        label="DAILY_PRICE"
+        required="yes"
+        decimal-digits="2"
+        icon="euro_symbol"
+        placeholder="{{ 'COWORKINGS_PRICE' | oTranslate }}"
+        style="--field-hover-color: #6200ea"
+        class="price"
+      ></o-real-input>
+      <!-- Imagen -->
+      <o-image
+        attr="cw_image"
+        sql-type="OTHER"
+        max-file-size="1048576"
+      ></o-image>
+      <!--Servicios-->
+      <span
+        >{{ "selected_services" | oTranslate }} {{ selectedServices }} / 6</span
+      >
+      <o-grid
+        attr="services"
+        service="services"
+        entity="service"
+        cols="6"
+        #servicesGrid
+        columns="srv_id;srv_name"
+        keys="srv_id"
+        quick-filter="no"
+        fixed-header="no"
+        controls="false"
+        refresh-button="false"
+        show-page-size="false"
+        pagination-controls="false"
+        show-buttons-text="no"
+        gutter-size="2px"
+        detail-mode="none"
+        show-footer="no"
+        grid-item-height="70px"
+        (onDataLoaded)="showServices(coworkingForm.getFieldValue('cw_id'))"
+      >
+        <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
+          <div
+            class="srv"
+            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)"
+            title="{{ dato.srv_name | oTranslate }}"
+          >
+            <o-column
+              id="{{ 'sel' + dato.srv_id }}"
+              class="serviceDisable service-column"
+              fxFlex="65px"
+            >
+              <article *ngIf="dato.srv_name == 'additional_screen'">
+                <mat-icon>desktop_windows</mat-icon>
+              </article>
+              <article *ngIf="dato.srv_name == 'vending_machine'">
+                <mat-icon>kitchen</mat-icon>
+              </article>
+              <article *ngIf="dato.srv_name == 'coffee_bar'">
+                <mat-icon>local_cafe</mat-icon>
+              </article>
+              <article *ngIf="dato.srv_name == 'water_dispenser'">
+                <mat-icon>local_drink</mat-icon>
+              </article>
+              <article *ngIf="dato.srv_name == 'ergonomic_chair'">
+                <mat-icon>event_seat</mat-icon>
+              </article>
+              <article *ngIf="dato.srv_name == 'parking'">
+                <mat-icon>local_parking</mat-icon>
+              </article>
+            </o-column>
+          </div>
+        </o-grid-item>
+      </o-grid>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+        <div class="buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isInvalidForm()"
+            attr="save"
+            (click)="save()"
+          >
+            {{ "save" | oTranslate }}
+          </button>
+        </div>
+      </div>
+    </o-column>
+  </div>
+</o-form>

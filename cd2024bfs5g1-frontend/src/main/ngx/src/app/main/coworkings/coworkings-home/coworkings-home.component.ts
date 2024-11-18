@@ -1,8 +1,7 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { Expression, FilterExpressionUtils, OComboComponent, OFilterBuilderComponent, OGridComponent, OntimizeService, OTextInputComponent } from 'ontimize-web-ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-coworkings-home',

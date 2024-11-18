@@ -11,7 +11,7 @@
 
 	<groupId>com.campusdual.cd2024bfs5g1</groupId>
 	<artifactId>cd2024bfs5g1</artifactId>
-	<version>1.0.0</version>
+	<version>1.2.0</version>
 	<packaging>pom</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 

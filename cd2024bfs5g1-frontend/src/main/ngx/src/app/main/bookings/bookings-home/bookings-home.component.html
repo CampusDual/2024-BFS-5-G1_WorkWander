@@ -21,27 +21,28 @@
     pageable="yes"
     (onClick)="toCoworkingDetail($event)"
     detail-mode="none"
+    quick-filter="no"
   >
     <o-table-column
       attr="cw_name"
-      title="{{ 'COWORKINGS_NAME' | oTranslate }}"
+      title="COWORKINGS_NAME"
       width="15%"
     ></o-table-column>
     <o-table-column-calculated
       attr="date_start"
-      title="{{ 'START_DATE' | oTranslate }}"
+      title="START_DATE"
       [operation-function]="dateStart"
       type="date"
       format="LL"
     ></o-table-column-calculated>
     <o-table-column-calculated
       attr="date_end"
-      title="{{ 'END_DATE' | oTranslate }}"
+      title="END_DATE"
       [operation-function]="dateEnd"
       type="date"
       format="LL"
     ></o-table-column-calculated>
-    <o-table-column attr="states" title="{{ 'BOOKING_STATE' | oTranslate }}">
+    <o-table-column attr="states" title="BOOKING_STATE">
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
   </o-table>

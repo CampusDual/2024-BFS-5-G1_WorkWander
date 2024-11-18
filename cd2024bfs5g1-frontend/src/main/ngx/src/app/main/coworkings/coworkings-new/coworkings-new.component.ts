@@ -79,7 +79,7 @@ export class CoworkingsNewComponent implements OnInit{
 
   public save(){
     //Ordenamos el array de coworkings
-    this.arrayServices.sort((a:any, b:any) => a - b);
+    this.arrayServices.sort((a:any, b:any) => a.id - b.id);
     const coworking = {
       cw_name:this.coworkingForm.getFieldValue('cw_name'),
       cw_description:this.coworkingForm.getFieldValue('cw_description'),

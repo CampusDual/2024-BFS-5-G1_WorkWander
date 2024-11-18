@@ -74,8 +74,7 @@ export class CoworkingsEditComponent {
    */
   public save(){
     //Ordenamos el array de coworkings
-    this.arrayServices.sort((a:any, b:any) => a - b);
-    console.log(this.arrayServices)
+    this.arrayServices.sort((a:any, b:any) => a.id - b.id);
     //Creamos un objeto coworking
     const coworking = {
       cw_id:this.coworkingForm.getFieldValue('cw_id'),
@@ -127,7 +126,7 @@ export class CoworkingsEditComponent {
     this.arrayServices=[];
     /*Verificamos que cw_id no sea undefined
     para que aplique el filtro y así no traer todos los registros de la tabla pivote cw_service*/
-    if(cw_id!=undefined){
+    if(cw_id != undefined){
       const filter = {cw_id: cw_id}
       //Creamos el servicio
       const conf = this.service.getDefaultServiceConfiguration("cw_services");

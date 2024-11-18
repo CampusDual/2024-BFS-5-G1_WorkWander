@@ -1,6 +1,6 @@
 import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
+import { ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-coworkings-edit',
@@ -19,6 +19,7 @@ export class CoworkingsEditComponent {
   @ViewChild("endDate") coworkingEndDate: ODateInputComponent;
 
   constructor(
+    private translate: OTranslateService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     protected injector:Injector,
@@ -112,12 +113,14 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
+    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
+        action: action,
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'
     };
-    this.snackBarService.open('¡Coworking actualizado!', configuration);
+    this.snackBarService.open('', configuration);
   }
 
   showServices(cw_id: any):any{

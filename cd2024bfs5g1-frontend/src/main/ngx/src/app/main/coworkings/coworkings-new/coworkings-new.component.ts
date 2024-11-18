@@ -111,11 +111,13 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   public showConfigured() {
+    const action = this.translate.get('COWORKING_CREATE')
     const configuration: OSnackBarConfig = {
+        action: action,
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'
     };
-    this.snackBarService.open('¡Coworking creado!', configuration);
+    this.snackBarService.open('', configuration);
   }
 }

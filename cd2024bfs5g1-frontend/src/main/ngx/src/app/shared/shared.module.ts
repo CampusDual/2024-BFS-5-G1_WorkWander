@@ -8,14 +8,6 @@ import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/cowork
 import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
 import { UtilsService } from './services/utils.service';
 
-export function dateStartFunction(rowData: Array<any>): any {
-  return rowData["dates"][0];
-}
-
-export function dateEndFunction(rowData: Array<any>): any {
-  return rowData["dates"][rowData["dates"].length - 1];
-}
-
 @NgModule({
   imports: [
     OntimizeWebModule

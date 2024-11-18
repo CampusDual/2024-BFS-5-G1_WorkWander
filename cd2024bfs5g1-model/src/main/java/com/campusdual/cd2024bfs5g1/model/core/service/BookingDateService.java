@@ -11,34 +11,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+@Service("BookingDateService")
 @Lazy
-@Service(value = "BookingDateService")
-
 public class BookingDateService implements IBookingDateService {
-
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
-
     @Autowired
     private BookingDateDao bookingDateDao;
 
     @Override
-    public EntityResult bookingDateQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult bookingDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingDateDao, keyMap, attrList);
     }
 
     @Override
-    public EntityResult bookingDateInsert(Map<String, Object> attrMap) {
+    public EntityResult bookingDateInsert(final Map<String, Object> attrMap) {
         return this.daoHelper.insert(this.bookingDateDao, attrMap);
     }
 
     @Override
-    public EntityResult bookingDateUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
-        return this.daoHelper.update(this.bookingDateDao, attrMap, keyMap);
+    public EntityResult bookingDateUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
+        return this.daoHelper.update(this.bookingDateDao, keyMap, attrMap);
     }
 
     @Override
-    public EntityResult bookingDateDelete(Map<String, Object> keyMap) {
+    public EntityResult bookingDateDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.bookingDateDao, keyMap);
     }
 }

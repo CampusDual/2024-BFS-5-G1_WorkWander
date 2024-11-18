@@ -12,12 +12,13 @@ $loader-circle3: #f9c922; */
   z-index: 1000;
 }
 
+
 #loader-wrapper .loader-section {
   position: fixed;
   top: 0;
   width: 51%;
   height: 100%;
-  background: #eee;
+  background: #f8f6f4;
   z-index: 1000;
   -webkit-transform: translateX(0);
   /* Chrome, Opera 15+, Safari 3.1+ */
@@ -45,7 +46,7 @@ $loader-circle3: #f9c922; */
   margin: -75px 0 0 -75px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #3498db;
+  border-top-color: #8b5e3c;
 
   -webkit-animation: spin 2s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */
@@ -64,7 +65,7 @@ $loader-circle3: #f9c922; */
   bottom: 5px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #e74c3c;
+  border-top-color: #5F6F65;
 
   -webkit-animation: spin 3s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */
@@ -81,7 +82,7 @@ $loader-circle3: #f9c922; */
   bottom: 15px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: #f9c922;
+  border-top-color: #e6d5c3;
 
   -webkit-animation: spin 1.5s linear infinite;
   /* Chrome, Opera 15+, Safari 5+ */

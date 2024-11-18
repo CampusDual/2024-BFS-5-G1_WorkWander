@@ -15,7 +15,11 @@
         <Query id="totalBookingsByDate">
             <Sentence>
                 <![CDATA[
-                SELECT COUNT(*) as plazasocupadas FROM ${mainschema}.booking #WHERE#
+                    SELECT COUNT(b.bk_id) as "plazasOcupadas"
+                    FROM ${mainschema}.booking b
+                    join ${mainschema}.booking_date bd
+                    on b.bk_id=bd.bk_id
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>
@@ -44,5 +48,4 @@
             </Sentence>
         </Query>
     </Queries>
-
 </JdbcEntitySetup>

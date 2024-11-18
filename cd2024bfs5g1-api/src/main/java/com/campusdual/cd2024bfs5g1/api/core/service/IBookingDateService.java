@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface IBookingDateService {
+    public EntityResult bookingDateQuery(final Map<String, Object> keyMap, final List<String> attrList);
 
-    public EntityResult bookingDateQuery(Map<String, Object> keyMap, List<String> attrList);
+    public EntityResult bookingDateInsert(final Map<String, Object> attrMap);
 
-    public EntityResult bookingDateInsert(Map<String, Object> attrMap);
+    public EntityResult bookingDateUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap);
 
-    public EntityResult bookingDateUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
-
-    public EntityResult bookingDateDelete(Map<String, Object> keyMap);
+    public EntityResult bookingDateDelete(final Map<String, Object> keyMap);
 }

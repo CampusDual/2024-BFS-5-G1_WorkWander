@@ -10,6 +10,7 @@ import java.util.Map;
 public interface IBookingService {
     public EntityResult bookingQuery(Map<String, Object> keyMap, List<String> attrList);
 
+    EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList);
 
     AdvancedEntityResult datesByBookingPaginationQuery(Map<String, Object> keyMap, List<?> attrList,
                                                        int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException;
@@ -24,5 +25,7 @@ public interface IBookingService {
 
     public EntityResult bookingDelete(Map<String, Object> keyMap);
 
+    public EntityResult getDatesDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList);
 
+    public EntityResult rangeBookingInsert(Map<String, Object> attrMap);
 }

@@ -50,6 +50,11 @@ ngx-material-timepicker-container ngx-material-timepicker-content header.timepic
     padding-left: 0px;
 }
 
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container div.mat-mdc-tab.mdc-tab--active {
+    background-color: transparent;
+    font-size: $fontSize20;
+    font-weight: $fontBold;
+}
 /*   Video home page  */
 #background-video {
   width: 100vw;
@@ -412,7 +417,7 @@ div#innerCol {
   }
   .price {
     // Estilo del precio
-    font-size: $fontSize45;
+    font-size: $fontSize25;
     font-weight: bold;
     background-color: $verdeBoton;
     color: $blanco;
@@ -423,7 +428,7 @@ div#innerCol {
   }
 
   .price .decimal {
-    font-size: 24px; /* Tamaño reducido para decimales */
+    font-size: $fontSize16; /* Tamaño reducido para decimales */
     //vertical-align: super; /* Opcional: sube un poco los decimales */
   }
 }

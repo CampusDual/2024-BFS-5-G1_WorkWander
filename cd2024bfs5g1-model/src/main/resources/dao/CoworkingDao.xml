@@ -62,6 +62,17 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="coworkingCapacity">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                    c.cw_capacity
+                FROM
+                    ${mainschema}.coworking c
+                #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 
 </JdbcEntitySetup>

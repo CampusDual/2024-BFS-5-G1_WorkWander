@@ -129,7 +129,7 @@ export class CoworkingsDetailComponent {
     const availableMessage =
       mensaje || this.translate.get("PLAZAS_DISPONIBLES");
     const configuration: OSnackBarConfig = {
-      milliseconds: 2000,
+      milliseconds: 7500,
       icon: "info",
       iconPosition: "left",
     };

@@ -1,0 +1,48 @@
+<o-form-layout-manager
+  attr="myBookingsHome"
+  title="{{ 'MY_BOOKINGS' | oTranslate }}"
+  separator=" "
+  mode="none"
+  label-columns="bk_id"
+>
+  <p>{{ "MY_BOOKINGS" | oTranslate }}</p>
+  <o-table
+    delete-button="no"
+    insert-button="no"
+    #table
+    attr="myCoworkingsTable"
+    service="bookings"
+    entity="datesByBooking"
+    keys="bk_id"
+    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
+    visible-columns="cw_name;date_start;date_end;states"
+    query-rows="15"
+    auto-adjust="true"
+    pageable="yes"
+    (onClick)="toCoworkingDetail($event)"
+    detail-mode="none"
+  >
+    <o-table-column
+      attr="cw_name"
+      title="{{ 'COWORKINGS_NAME' | oTranslate }}"
+      width="15%"
+    ></o-table-column>
+    <o-table-column-calculated
+      attr="date_start"
+      title="{{ 'START_DATE' | oTranslate }}"
+      [operation-function]="dateStart"
+      type="date"
+      format="LL"
+    ></o-table-column-calculated>
+    <o-table-column-calculated
+      attr="date_end"
+      title="{{ 'END_DATE' | oTranslate }}"
+      [operation-function]="dateEnd"
+      type="date"
+      format="LL"
+    ></o-table-column-calculated>
+    <o-table-column attr="states" title="{{ 'BOOKING_STATE' | oTranslate }}">
+      <app-bookings-state-render></app-bookings-state-render>
+    </o-table-column>
+  </o-table>
+</o-form-layout-manager>

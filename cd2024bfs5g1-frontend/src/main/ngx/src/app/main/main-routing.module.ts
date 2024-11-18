@@ -20,7 +20,8 @@ export const routes: Routes = [
       //{ path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule) },
       { path: 'profile', component: ProfileComponent },
       { path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule) },
-      { path: 'myevents', loadChildren: () => import('./my-events/my-events.module').then(m => m.MyEventsModule) }
+      { path: 'myevents', loadChildren: () => import('./my-events/my-events.module').then(m => m.MyEventsModule) },
+      { path: 'bookings', loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsModule) }
     ]
   }
 ];

@@ -15,4 +15,12 @@ export class UtilsService {
     this.language === "es" ? (this.language = "es-ES") : (this.language = "en-US");
     return new Intl.DateTimeFormat(this.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(date);
   }
+
+  dateStartFunction(rowData: Array<any>): any {
+    return rowData["dates"][0];
+  }
+  
+  dateEndFunction(rowData: Array<any>): any {
+    return rowData["dates"][rowData["dates"].length - 1];
+  }
 }

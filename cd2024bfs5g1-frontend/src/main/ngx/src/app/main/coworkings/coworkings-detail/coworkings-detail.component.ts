@@ -77,96 +77,56 @@ export class CoworkingsDetailComponent {
     this.dateArray[0] = startDate;
     this.dateArray[1] = endDate;
 
-    this.checkCapacity()
-      .then((funciona) => {
-        if (funciona) {
-          this.bookingButton.enabled = true;
-        } else {
-          this.bookingButton.enabled = false;
-        }
-      })
-      .catch((error) => {
-        console.error("Error al consultar capacidad:", error);
-      });
-  }
-  /**
-   * Checks the capacity availability for a coworking space.
-   *
-   * This method creates a filter based on the coworking ID, date array, and state,
-   * then queries the service to check for available dates. If all dates are available,
-   * it shows a toast message indicating availability and resolves the promise with `true`.
-   * If some dates are not available, it formats the unavailable dates, shows a toast message
-   * with the unavailable dates, and resolves the promise with `false`.
-   *
-   * @returns {Promise<boolean>} A promise that resolves to `true` if all dates are available,
-   *                             or `false` if some dates are not available.
-   */
-  checkCapacity(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      // Crear un filtro para la consulta
-      const filter = {
-        bk_cw_id: this.idCoworking.getValue(), // Obtener el ID del coworking
-        bk_date: this.dateArray, // Array de fechas
-        bk_state: true, // Estado de la reserva
-      };
-      // Definir tipos SQL para la consulta
-      const sqltypes = {
-        bk_date: 91, // Tipo SQL para la fecha
-      };
-      // Obtener la configuración del servicio
-      const conf = this.service.getDefaultServiceConfiguration("bookings");
-      this.service.configureService(conf); // Configurar el servicio con la configuración obtenida
-      const columns = ["bk_id"]; // Columnas a consultar
+    const filter = {
+      bk_cw_id: this.idCoworking.getValue(),
+      bk_date: this.dateArray,
+      bk_state: true,
+    };
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+    const columns = ["bk_id"];
 
-      // Realizar la consulta al servicio
-      this.service.query(filter, columns, "getDatesDisponibility").subscribe(
-        (resp) => {
-          const data = resp.data.data; // Obtener los datos de la respuesta
-          console.log(data);
-          // Verificar si todas las fechas están disponibles
-          const fechasDisponibles = Object.values(data).every(
-            (disponible: boolean) => disponible === true
+    this.service.query(filter, columns, "getDatesDisponibility").subscribe(
+      (resp) => {
+        const data = resp.data.data;
+        console.log(data);
+        const fechasDisponibles = Object.values(data).every(
+          (disponible: boolean) => disponible === true
+        );
+        if (fechasDisponibles) {
+          const fechasDisponibles = Object.entries(data)
+            .filter(([fecha, disponible]) => disponible === true)
+            .map(([fecha]) => new Date(fecha));
+
+          const fechasFormateadas = fechasDisponibles.map((fecha) =>
+            this.changeFormatDate(fecha.getTime(), this.idioma)
           );
-          if (fechasDisponibles) {
-            // Mostrar un mensaje de disponibilidad
-            const fechasDisponibles = Object.entries(data)
-              .filter(([fecha, disponible]) => disponible === true)
-              .map(([fecha]) => new Date(fecha));
 
-            // Formatear las fechas no disponibles
-            const fechasFormateadas = fechasDisponibles.map((fecha) =>
-              this.changeFormatDate(fecha.getTime(), this.idioma)
-            );
+          this.dateArray = fechasDisponibles;
+          this.dateArrayF = fechasFormateadas;
+          this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
+          this.bookingButton.enabled=true;
+        } else {
+          const fechasNoDisponibles = Object.entries(data)
+            .filter(([fecha, disponible]) => disponible === false)
+            .map(([fecha]) => new Date(fecha));
 
-            this.dateArray = fechasDisponibles;
-            this.dateArrayF = fechasFormateadas;
-            this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-            resolve(true); // Resolver la promesa con true
-          } else {
-            // Obtener las fechas no disponibles
-            const fechasNoDisponibles = Object.entries(data)
-              .filter(([fecha, disponible]) => disponible === false)
-              .map(([fecha]) => new Date(fecha));
+          const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
+            this.changeFormatDate(fecha.getTime(), this.idioma)
+          );
 
-            // Formatear las fechas no disponibles
-            const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
-              this.changeFormatDate(fecha.getTime(), this.idioma)
-            );
-
-            // Crear un mensaje con las fechas no disponibles
-            const mensaje = `${this.translate.get(
-              "NO_PLAZAS_DISPONIBLES"
-            )}:\n - ${fechasFormateadas.join("\n - ")}`;
-            this.showAvailableToast(mensaje); // Mostrar el mensaje
-            resolve(false); // Resolver la promesa con false
-          }
-        },
-        (error) => {
-          console.error("Error al consultar capacidad:", error); // Manejar el error
-          reject(error); // Rechazar la promesa con el error
+          const mensaje = `${this.translate.get(
+            "NO_PLAZAS_DISPONIBLES"
+          )}:\n - ${fechasFormateadas.join("\n - ")}`;
+          this.showAvailableToast(mensaje);
+          this.bookingButton.enabled=false;
         }
-      );
-    });
+      },
+      (error) => {
+        console.error("Error al consultar capacidad:", error);
+        this.bookingButton.enabled=false;
+      }
+    );
   }
 
   showAvailableToast(mensaje?: string) {
@@ -195,8 +155,6 @@ export class CoworkingsDetailComponent {
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
     const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
-    //const nologedMessageTitle = this.translate.get("BOOKINGS_NO_LOGED");
-    //const nologedMessageBody = this.translate.get("BOOKINGS_NO_LOGED2");
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
         this.dialogService.confirm(
@@ -227,13 +185,13 @@ export class CoworkingsDetailComponent {
       bk_date: 91,
     };
 
-    //Llaman al servicio del enpoint /bookings
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
 
     this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
+        this.bookingDate.clearValue();
       }
     });
   }

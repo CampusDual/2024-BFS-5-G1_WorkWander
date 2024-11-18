@@ -93,8 +93,8 @@
   "cw_location": "Location",
   "cw_capacity": "Capacity",
   "cw_daily_price": "Daily price",
-  "cw_start_date": "Start date",
-  "cw_end_date": "End date",
+  "cw_start_date":"Start date",
+  "cw_end_date":"End date",
   "cw_image": "Image",
   "EVENTS": "Events",
   "EVENT_INFORMATION": "New Event",
@@ -172,6 +172,10 @@
   "SERVICES": "Services",
   "FILTER": "Filter",
   "CLEAR": "Clear",
+  "PLAZAS_DISPONIBLES": "Available places",
+  "NO_PLAZAS_DISPONIBLES": "No available places on the following dates",
+  "SELECT_DATE_RANGE": "Select a date range",
+  "DATERANGE.APPLYLABEL": "Apply",
   "DATE_RESERVATION": "Date of reservation",
   "SEATS": "seats"
 }

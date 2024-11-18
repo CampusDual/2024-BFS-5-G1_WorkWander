@@ -41,7 +41,12 @@ This HTML file defines the structure of the "New Event" form component in an Ang
       fxLayoutGap="24px"
     >
       <!-- Nombre -->
-      <o-text-input #nameInput attr="name" icon="business" required="yes"></o-text-input>
+      <o-text-input
+        #nameInput
+        attr="name"
+        icon="business"
+        required="yes"
+      ></o-text-input>
       <o-textarea-input
         fxFlex
         attr="description"
@@ -53,13 +58,38 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         icon="description"
       ></o-textarea-input>
       <!-- Fecha -->
-      <o-date-input #dateInput attr="date_event" [min]="currentDate()" value-type="date" icon="event" required="yes"></o-date-input>
+      <o-date-input
+        #dateInput
+        attr="date_event"
+        [min]="currentDate()"
+        value-type="date"
+        icon="event"
+        required="yes"
+      ></o-date-input>
       <!-- Hora -->
-      <o-hour-input attr="hour_event" icon="schedule" required="yes"></o-hour-input>
+      <o-hour-input
+        attr="hour_event"
+        icon="schedule"
+        required="yes"
+      ></o-hour-input>
       <!-- Plazas -->
-      <o-integer-input attr="bookings" min="0" step="1" icon="event_seat" thousand-separator="." required="yes"></o-integer-input>
+      <o-integer-input
+        attr="bookings"
+        min="0"
+        step="1"
+        icon="event_seat"
+        thousand-separator="."
+        required="yes"
+      ></o-integer-input>
       <!-- Duración -->
-      <o-integer-input fxFlex="30" attr="duration" icon="hourglass_empty"> </o-integer-input>
+      <o-integer-input
+        fxFlex="30"
+        attr="duration"
+        icon="hourglass_empty"
+        min="0"
+        step="1"
+        max="999"
+      ></o-integer-input>
       <!-- Localidad -->
       <o-text-input
         attr="locality"

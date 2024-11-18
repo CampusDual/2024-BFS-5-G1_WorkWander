@@ -38,7 +38,7 @@
                         JOIN  ${mainschema}.coworking ON booking.bk_cw_id = coworking.cw_id
                         #WHERE#
                         GROUP BY booking.bk_id, coworking.cw_name
-                        ORDER BY dates ASC)
+                        ORDER BY dates DESC)
                     SELECT
                     #COLUMNS#
                     FROM

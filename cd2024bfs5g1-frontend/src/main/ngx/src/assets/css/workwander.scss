@@ -412,7 +412,7 @@ div#innerCol {
   }
   .price {
     // Estilo del precio
-    font-size: $fontSize45;
+    font-size: $fontSize25;
     font-weight: bold;
     background-color: $verdeBoton;
     color: $blanco;
@@ -423,7 +423,7 @@ div#innerCol {
   }
 
   .price .decimal {
-    font-size: 24px; /* Tamaño reducido para decimales */
+    font-size: $fontSize16; /* Tamaño reducido para decimales */
     //vertical-align: super; /* Opcional: sube un poco los decimales */
   }
 }

@@ -145,7 +145,7 @@
   "WITHOUT_LOGIN": "Enter without login",
   "BOOKING": "Booking",
   "BOOKINGS_INSERT": "Booking",
-  "BOOKINGS_INSERT2": "Are you sure you want to book for the",
+  "BOOKINGS_INSERT2": "Are you sure you want to book the date range",
   "BOOKINGS_INSERT3": "in",
   "BOOKINGS_NO_LOGED": "Booking error",
   "BOOKINGS_NO_LOGED2": "User not authenticated, would you like to log in?",

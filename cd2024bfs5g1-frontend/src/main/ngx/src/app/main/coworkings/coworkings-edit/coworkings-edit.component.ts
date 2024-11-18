@@ -113,7 +113,6 @@ export class CoworkingsEditComponent {
 
   public showUpdated() {
     const configuration: OSnackBarConfig = {
-        action: '¡Coworking actualizado!',
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'

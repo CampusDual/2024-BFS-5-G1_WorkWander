@@ -112,7 +112,6 @@ export class CoworkingsNewComponent implements OnInit{
 
   public showConfigured() {
     const configuration: OSnackBarConfig = {
-        action: '¡Coworking creado!',
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'

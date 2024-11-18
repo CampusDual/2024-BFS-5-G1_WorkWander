@@ -154,14 +154,21 @@ export class CoworkingsDetailComponent {
     this.dateArrayF = this.dateArray.map((fecha) =>
       this.changeFormatDate(fecha.getTime(), this.idioma)
     );
+    const startDate=this.dateArrayF[0];
+    const endDate=this.dateArrayF[this.dateArrayF.length-1]
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
-        this.dialogService.confirm(
-          confirmMessageTitle,
-          `${confirmMessageBody}  ${this.dateArrayF.join(
-            "\n - "
-          )} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
-        );
+        if(startDate==endDate){
+          this.dialogService.confirm(
+            confirmMessageTitle,
+            `${confirmMessageBody}  ${this.dateArrayF} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+          );
+        }else{
+          this.dialogService.confirm(
+            confirmMessageTitle,
+            `${confirmMessageBody}  ${startDate} - ${endDate} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+          );
+        }
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
             this.createBooking();

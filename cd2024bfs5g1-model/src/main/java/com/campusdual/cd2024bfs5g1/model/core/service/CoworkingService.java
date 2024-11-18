@@ -4,7 +4,9 @@ import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Autowired
     private CwServiceService cwServiceService;
+
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
      *
@@ -41,7 +44,7 @@ public class CoworkingService implements ICoworkingService {
      * @return {@link EntityResult} con los resultados de la consulta.
      */
     @Override
-    public EntityResult coworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult coworkingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
@@ -53,45 +56,37 @@ public class CoworkingService implements ICoworkingService {
      * @return {@link EntityResult} con el resultado de la operación de inserción.
      */
     @Override
-    public EntityResult myCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = (int)((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+    public EntityResult myCoworkingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(CoworkingDao.CW_USER_ID, userId);
-        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
-    }
-
-    @Override
-    public EntityResult serviceCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
     }
 
     @Override
-    public EntityResult coworkingInsert(Map<String, Object> attrMap) {
+    public EntityResult serviceCoworkingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
+    }
+
+    @Override
+    public EntityResult coworkingInsert(final Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
         // Recuperación de los servicios
-
-
-        // Recuperación de los servicios
-        ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>)attrMap.remove("services");
+        final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
 
         // Ejecutar el insert usando el daoHelper
-        EntityResult cwResult = this.daoHelper.insert(this.coworkingDao, attrMap);
+        final EntityResult cwResult = this.daoHelper.insert(this.coworkingDao, attrMap);
 
-        int cwId = (int)cwResult.get(CoworkingDao.CW_ID);
+        final int cwId = (int) cwResult.get(CoworkingDao.CW_ID);
 
         // Bucle for para alta en la tabla pivote
-        for (int i = 0; i < services.size(); i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put(CwServiceDao.CW_ID, cwId);
-            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
-            cwServiceService.cwServiceInsert(map);
-        }
+        this.iterationPivotCwService(services, cwId);
         return cwResult;
     }
 
@@ -103,8 +98,17 @@ public class CoworkingService implements ICoworkingService {
      * @return {@link EntityResult} con el resultado de la operación de actualización.
      */
     @Override
-    public EntityResult coworkingUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
-        return this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+    public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
+        // Recuperación de los servicios
+        final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+        // Ejecutar el update usando el daoHelper
+        final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+        // Borrado de los servicios
+        this.cwServiceService.cwServiceDelete(keyMap);
+        // Bucle for para alta en la tabla pivote
+        final int cwId = (int) keyMap.get("cw_id");
+        this.iterationPivotCwService(services, cwId);
+        return cwResult;
     }
 
     /**
@@ -114,8 +118,37 @@ public class CoworkingService implements ICoworkingService {
      * @return {@link EntityResult} con el resultado de la operación de eliminación.
      */
     @Override
-    public EntityResult coworkingDelete(Map<String, Object> keyMap) {
+    public EntityResult coworkingDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.coworkingDao, keyMap);
+    }
+
+    /**
+     * Calcula la capacidad que tiene el coworking
+     *
+     * @param keyMap   Mapa de claves para identificar el coworking a examinar.
+     * @param attrList
+     * @return
+     */
+    @Override
+    public EntityResult coworkingCapacityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.CW_QUERY_CAPACITY);
+    }
+
+    @Override
+    public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
+            final List<?> attributes,
+            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
+                orderBy, this.coworkingDao.CW_QUERY_SERVICES);
+    }
+
+    public void iterationPivotCwService(final ArrayList<Map<String, Integer>> services, final int cwId) {
+        for (int i = 0; i < services.size(); i++) {
+            final Map<String, Object> map = new HashMap<>();
+            map.put(CwServiceDao.CW_ID, cwId);
+            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
+            this.cwServiceService.cwServiceInsert(map);
+        }
     }
 
 }

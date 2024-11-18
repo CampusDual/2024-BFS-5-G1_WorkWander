@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MyCoworkingsHomeComponent } from './my-coworkings-home/my-coworkings-home.component';
 import { CoworkingsNewComponent } from '../coworkings/coworkings-new/coworkings-new.component';
-import { CoworkingsDetailComponent } from '../coworkings/coworkings-detail/coworkings-detail.component';
+import { CoworkingsEditComponent } from '../coworkings/coworkings-edit/coworkings-edit.component';
 
 const routes: Routes = [
   { path: '', component: MyCoworkingsHomeComponent,
@@ -17,7 +17,7 @@ const routes: Routes = [
       path: "new",
       component: CoworkingsNewComponent,
     },
-  { path: ":cw_id", component: CoworkingsDetailComponent },
+  { path: ":cw_id", component: CoworkingsEditComponent },
 ];
 
 @NgModule({

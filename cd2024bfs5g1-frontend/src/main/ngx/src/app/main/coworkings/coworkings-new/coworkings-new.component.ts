@@ -6,7 +6,6 @@ import {
 } from "ontimize-web-ngx";
 import { Router } from "@angular/router";
 import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
-import { OTranslatePipe } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-coworking-new",
@@ -49,40 +48,38 @@ export class CoworkingsNewComponent implements OnInit{
     this.router.navigateByUrl("/main/mycoworkings")
   }
 
-  public selectService(id:number, sel:string, serv:string):void{
+  public selectService(id:number, serv:string):void{
     this.exist = false;
     for (let i = 0; i < this.arrayServices.length; i++) {
       if(this.arrayServices[i].id === id){
         this.exist = true;
-        this.deleteService(i, id, sel, serv);
+        this.deleteService(i, id, serv);
       }
     }
     if (!this.exist) {
-      this.appendService(id, sel, serv);
+      this.appendService(id, serv);
     }
   }
 
-  public appendService(id:number, idsel:string, serv:string):void{
+  public appendService(id:number, serv:string):void{
     this.arrayServices.push({id:id});
-    document.getElementById(idsel).style.backgroundColor = "whitesmoke";
-    document.getElementById(idsel).style.color = "black";
     document.getElementById(serv).style.backgroundColor = "#e6d5c3";
     document.getElementById(serv).style.color = "black;";
     this.selectedServices ++;
     this.availableServices --;
   }
 
-  public deleteService(index:number, id:number, sel:string, serv:string):void{
+  public deleteService(index:number, id:number, serv:string):void{
     this.arrayServices.splice(index, 1)
     document.getElementById(serv).style.backgroundColor = "whitesmoke";
     document.getElementById(serv).style.color ="black";
-    document.getElementById(sel).style.backgroundColor = "#e6d5c3";
-    document.getElementById(sel).style.color ="black";
     this.selectedServices --;
     this.availableServices ++;
   }
 
   public save(){
+    //Ordenamos el array de coworkings
+    this.arrayServices.sort((a:any, b:any) => a.id - b.id);
     const coworking = {
       cw_name:this.coworkingForm.getFieldValue('cw_name'),
       cw_description:this.coworkingForm.getFieldValue('cw_description'),
@@ -114,12 +111,13 @@ export class CoworkingsNewComponent implements OnInit{
   }
 
   public showConfigured() {
+    const action = this.translate.get('COWORKING_CREATE')
     const configuration: OSnackBarConfig = {
-        action: '¡Coworking creado!',
+        action: action,
         milliseconds: 5000,
         icon: 'check_circle',
         iconPosition: 'left'
     };
-    this.snackBarService.open('¡Coworking creado!', configuration);
+    this.snackBarService.open('', configuration);
   }
 }

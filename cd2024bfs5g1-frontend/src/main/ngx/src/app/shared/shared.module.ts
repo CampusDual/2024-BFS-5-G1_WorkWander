@@ -1,10 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
 import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.component';
-import { CoworkingsDetailComponent } from '../main/coworkings/coworkings-detail/coworkings-detail.component';
 import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/coworkings-new.component';
+import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
+import { UtilsService } from './services/utils.service';
+import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/coworkings-edit.component';
 
 @NgModule({
   imports: [
@@ -13,8 +15,9 @@ import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/cowork
   declarations: [
     FilterComponent,
     HomeToolbarComponent,
-    CoworkingsDetailComponent,
-    CoworkingsNewComponent
+    CoworkingsNewComponent,
+    EventsDetailComponent,
+    CoworkingsEditComponent
   ],
   exports: [
     CommonModule,

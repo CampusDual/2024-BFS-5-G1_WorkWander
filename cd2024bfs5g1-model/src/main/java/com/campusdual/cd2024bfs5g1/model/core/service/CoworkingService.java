@@ -60,7 +60,7 @@ public class CoworkingService implements ICoworkingService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(CoworkingDao.CW_USER_ID, userId);
-        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_SERVICES);
     }
 
     @Override
@@ -86,12 +86,7 @@ public class CoworkingService implements ICoworkingService {
         final int cwId = (int) cwResult.get(CoworkingDao.CW_ID);
 
         // Bucle for para alta en la tabla pivote
-        for (int i = 0; i < services.size(); i++) {
-            final Map<String, Object> map = new HashMap<>();
-            map.put(CwServiceDao.CW_ID, cwId);
-            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
-            this.cwServiceService.cwServiceInsert(map);
-        }
+        this.iterationPivotCwService(services, cwId);
         return cwResult;
     }
 
@@ -104,7 +99,16 @@ public class CoworkingService implements ICoworkingService {
      */
     @Override
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
-        return this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+        // Recuperación de los servicios
+        final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+        // Ejecutar el update usando el daoHelper
+        final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
+        // Borrado de los servicios
+        this.cwServiceService.cwServiceDelete(keyMap);
+        // Bucle for para alta en la tabla pivote
+        final int cwId = (int) keyMap.get("cw_id");
+        this.iterationPivotCwService(services, cwId);
+        return cwResult;
     }
 
     /**
@@ -131,10 +135,20 @@ public class CoworkingService implements ICoworkingService {
     }
 
     @Override
-    public AdvancedEntityResult serviceCoworkingPaginationQuery(Map<String, Object> keysValues, List<?> attributes,
-                                                                int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException {
+    public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
+            final List<?> attributes,
+            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
+    }
+
+    public void iterationPivotCwService(final ArrayList<Map<String, Integer>> services, final int cwId) {
+        for (int i = 0; i < services.size(); i++) {
+            final Map<String, Object> map = new HashMap<>();
+            map.put(CwServiceDao.CW_ID, cwId);
+            map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
+            this.cwServiceService.cwServiceInsert(map);
+        }
     }
 
 }

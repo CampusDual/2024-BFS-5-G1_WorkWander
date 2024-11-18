@@ -123,27 +123,24 @@
             show-page-size="false"
             pagination-controls="false"
             show-buttons-text="no"
+            cols="6"
             gutter-size="8px"
             rows="1"
             detail-mode="none"
             show-footer="no"
             grid-item-height="40px"
           >
-            <ng-container
-              *ngIf="coworkingsGrid.dataArray.length > 0; else noServices"
-            >
-              <o-grid-item *ngFor="let service of coworkingsGrid.dataArray">
-                <mat-icon [matTooltip]="service.servicios | oTranslate">
-                  {{ serviceIcons[service.servicios] }}
-                </mat-icon>
-              </o-grid-item>
-            </ng-container>
+            <o-grid-item *ngFor="let service of coworkingsGrid.dataArray">
+              <mat-icon [matTooltip]="service.servicios | oTranslate">
+                {{ serviceIcons[service.servicios] }}
+              </mat-icon>
+            </o-grid-item>
           </o-grid>
-          <ng-template #noServices>
+          <ng-container *ngIf="coworkingsGrid.dataArray.length === 0">
             <span class="coworking-service">{{
               "NO_SERVICES" | oTranslate
             }}</span>
-          </ng-template>
+          </ng-container>
         </section>
       </div>
 
@@ -178,6 +175,7 @@
               value-type="date"
             ></o-daterange-input>
           </o-form>
+          <!-- Mostrar "Plazas Disponibles:"
           <o-integer-input
             *ngIf="parsePermissions('realCapacity')"
             label="REAL_CAPACITY"
@@ -185,6 +183,7 @@
             #realCapacity
             oHidden
           ></o-integer-input>
+        -->
           <p *ngIf="parsePermissions('realCapacity')">
             <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
           </p>

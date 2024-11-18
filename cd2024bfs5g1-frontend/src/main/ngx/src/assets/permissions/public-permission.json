@@ -18,6 +18,11 @@
         "enabled": false
       },
       {
+        "attr": "myBookings",
+        "visible": false,
+        "enabled": false
+      },
+      {
         "attr": "logout",
         "visible": false,
         "enabled": false
@@ -65,6 +70,10 @@
       },
       {
         "permissionId":"MyEvents",
+        "enabled": false
+      },
+      {
+        "permissionId":"Bookings",
         "enabled": false
       },
       {

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { OntimizeWebModule } from 'ontimize-web-ngx';
 import { FilterComponent } from './components/filters/filters.component';
@@ -6,6 +6,7 @@ import { HomeToolbarComponent } from './components/home-toolbar/home-toolbar.com
 import { CoworkingsDetailComponent } from '../main/coworkings/coworkings-detail/coworkings-detail.component';
 import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/coworkings-new.component';
 import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
+import { UtilsService } from './services/utils.service';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { EventsDetailComponent } from '../main/events/events-detail/events-detai
   exports: [
     CommonModule,
     FilterComponent,
-    HomeToolbarComponent
+    HomeToolbarComponent,
   ]
 })
 export class SharedModule { }

@@ -5,6 +5,8 @@ import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
+
+
 @Repository(value = "BookingDao")
 @Lazy
 @ConfigurationFile(configurationFile = "dao/BookingDao.xml",
@@ -16,4 +18,5 @@ public class BookingDao extends OntimizeJdbcDaoSupport {
     public static final String BK_DATE = "bk_date";
     public static final String BK_STATE = "bk_state";
     public static final String TOTAL_BOOKINGS_DATE_QUERY = "totalBookingsByDate";
+    public static final String DATES_BY_BOOKING_QUERY = "datesByBooking";
 }

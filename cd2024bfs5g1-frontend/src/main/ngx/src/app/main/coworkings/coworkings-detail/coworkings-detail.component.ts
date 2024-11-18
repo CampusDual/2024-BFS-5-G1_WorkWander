@@ -71,8 +71,8 @@ export class CoworkingsDetailComponent {
   }
 
   setDates() {
-    const startDate = new Date((this.bookingDate as any).value.value.startDate);
-    const endDate = new Date((this.bookingDate as any).value.value.endDate);
+    const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
+    const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
 
     this.dateArray[0] = startDate;
     this.dateArray[1] = endDate;
@@ -82,6 +82,7 @@ export class CoworkingsDetailComponent {
       bk_date: this.dateArray,
       bk_state: true,
     };
+
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
     const columns = ["bk_id"];
@@ -97,13 +98,7 @@ export class CoworkingsDetailComponent {
           const fechasDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === true)
             .map(([fecha]) => new Date(fecha));
-
-          const fechasFormateadas = fechasDisponibles.map((fecha) =>
-            this.changeFormatDate(fecha.getTime(), this.idioma)
-          );
-
           this.dateArray = fechasDisponibles;
-          this.dateArrayF = fechasFormateadas;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
           this.bookingButton.enabled=true;
         } else {
@@ -127,6 +122,7 @@ export class CoworkingsDetailComponent {
         this.bookingButton.enabled=false;
       }
     );
+    this.dateArray.splice(0,this.dateArray.length)
   }
 
   showAvailableToast(mensaje?: string) {
@@ -155,6 +151,9 @@ export class CoworkingsDetailComponent {
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessageBody = this.translate.get("BOOKINGS_INSERT2");
     const confirmMessageBody2 = this.translate.get("BOOKINGS_INSERT3");
+    this.dateArrayF = this.dateArray.map((fecha) =>
+      this.changeFormatDate(fecha.getTime(), this.idioma)
+    );
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
         this.dialogService.confirm(
@@ -191,6 +190,7 @@ export class CoworkingsDetailComponent {
     this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
+        this.bookingButton.enabled=false;
         this.bookingDate.clearValue();
       }
     });

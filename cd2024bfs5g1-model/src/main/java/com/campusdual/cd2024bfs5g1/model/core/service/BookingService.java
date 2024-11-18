@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Lazy
@@ -123,14 +124,12 @@ public class BookingService implements IBookingService {
         final ArrayList<Date> dates = new ArrayList<>();
         if (datesObj instanceof List) {
             final List<String> datesList = (List<String>) datesObj;
-
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             for (final String date : datesList) {
-                final String processedDate = date.split("T")[0];
                 final Date date2;
                 try {
-                    date2 = sdf.parse(processedDate);
+                    date2 = sdf.parse(date);
                     dates.add(date2);
                 } catch (final ParseException e) {
                     System.out.println("Error al parsear la fecha");
@@ -145,12 +144,13 @@ public class BookingService implements IBookingService {
         final Date startDate = dates.get(0);
         final Date finalDate = dates.get(1);
         dates.clear();
+        final LocalDate currentDate = LocalDate.now();
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
         for (Date d = startDate; d.getTime() != finalDate.getTime(); ) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1);
             d = calendar.getTime();
             dates.add(d);
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
         if (dates.isEmpty()) {
             dates.add(calendar.getTime());

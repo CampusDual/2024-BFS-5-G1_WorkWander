@@ -180,5 +180,7 @@
   "SELECT_DATE_RANGE": "Seleccione un rango de fechas",
   "DATERANGE.APPLYLABEL": "Aplicar",
   "DATE_RESERVATION": "Fecha de reserva",
-  "SEATS": "asientos"
+  "SEATS": "asientos",
+  "COWORKING_UPDATE": "¡Coworking actualizado!",
+  "COWORKING_CREATE": "¡Coworking creado!"
 }

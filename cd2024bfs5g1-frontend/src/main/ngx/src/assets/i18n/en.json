@@ -179,5 +179,6 @@
   "SELECT_DATE_RANGE": "Select a date range",
   "DATERANGE.APPLYLABEL": "Apply",
   "DATE_RESERVATION": "Date of reservation",
-  "SEATS": "seats"
+  "SEATS": "seats",
+  "EDIT_COWORKING": "Edit coworking"
 }

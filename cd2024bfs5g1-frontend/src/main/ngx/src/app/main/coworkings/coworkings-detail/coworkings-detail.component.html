@@ -175,6 +175,7 @@
               value-type="date"
             ></o-daterange-input>
           </o-form>
+          <!-- Mostrar "Plazas Disponibles:"
           <o-integer-input
             *ngIf="parsePermissions('realCapacity')"
             label="REAL_CAPACITY"
@@ -182,6 +183,7 @@
             #realCapacity
             oHidden
           ></o-integer-input>
+        -->
           <p *ngIf="parsePermissions('realCapacity')">
             <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
           </p>

@@ -182,5 +182,6 @@
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
-  "COWORKING_CREATE": "¡Coworking creado!"
+  "COWORKING_CREATE": "¡Coworking creado!",
+  "CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?"
 }

@@ -182,5 +182,6 @@
   "SEATS": "seats",
   "EDIT_COWORKING": "Edit coworking",
   "COWORKING_UPDATE": "Coworking updated!",
-  "COWORKING_CREATE": "Coworking created!"
+  "COWORKING_CREATE": "Coworking created!",
+  "CANCEL_BOOKING": "Are you sure you want to cancel that booking?"
 }

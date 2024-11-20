@@ -12,7 +12,6 @@ export class BookingsHomeComponent {
   public dateEnd = this.utils.dateEndFunction;
 
   constructor(private router: Router, private utils: UtilsService) {}
-
   toCoworkingDetail(event) {
     console.log(event.row.bk_cw_id);
     this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);

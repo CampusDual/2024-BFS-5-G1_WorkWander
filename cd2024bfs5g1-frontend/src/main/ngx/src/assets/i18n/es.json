@@ -183,5 +183,6 @@
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
   "COWORKING_CREATE": "¡Coworking creado!",
-  "CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?"
+  "CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?",
+  "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada"
 }

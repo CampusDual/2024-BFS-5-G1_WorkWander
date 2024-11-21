@@ -74,7 +74,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
     id: "analytics",
     name: "ANALYTICS",
     tooltip: "Analytics",
-    route: "/main/analytics",
     icon: "bar_chart",
     items: [
       {
@@ -99,5 +98,5 @@ export const MENU_CONFIG: MenuRootItem[] = [
     route: "/login",
     icon: "power_settings_new",
     confirm: "no",
-  }
+  },
 ];

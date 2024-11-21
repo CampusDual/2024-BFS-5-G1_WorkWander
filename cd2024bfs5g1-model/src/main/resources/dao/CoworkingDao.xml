@@ -51,12 +51,13 @@
                         public.coworking.cw_address as cw_address,
                         public.coworking.cw_capacity as cw_capacity,
                         public.coworking.cw_location as cw_location,
+                        public.city.city as location,
                         public.coworking.cw_daily_price as cw_daily_price,
                         public.coworking.cw_image as cw_image
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location
                     #WHERE#
-                    GROUP BY public.coworking.cw_id, public.coworking.cw_location)
+                    GROUP BY public.coworking.cw_id, public.coworking.cw_location, public.city.city)
                 SELECT
                     #COLUMNS#
                     FROM

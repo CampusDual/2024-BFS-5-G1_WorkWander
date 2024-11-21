@@ -6,3 +6,5 @@ create table booking_event (
 	constraint bke_usr_id_fk foreign key (bke_usr_id) references usr_user(usr_id),
 	constraint bke_event_id_fk foreign key (bke_id_event) references event(id_event)
 );
+
+ALTER TABLE public.booking_event ALTER COLUMN bke_event_state SET DEFAULT true;

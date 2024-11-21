@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
-import { Component, Inject, ViewChild } from "@angular/core";
-import { AuthService, OFormComponent, Util, OntimizeService, OPermissions, OTranslateService, OSnackBarConfig, SnackBarService } from "ontimize-web-ngx";
+import { Component, ViewChild } from "@angular/core";
+import { DialogService, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
@@ -15,8 +15,7 @@ export class EventsDetailComponent {
     private location: Location,
     private service: OntimizeService,
     protected snackBarService: SnackBarService,
-    @Inject(AuthService) private authService: AuthService,
-
+    protected dialogService: DialogService
   ) { }
 
   @ViewChild("form") form: OFormComponent;
@@ -26,6 +25,7 @@ export class EventsDetailComponent {
   formatDate(rawDate: number): string {
     return this.utils.formatDate(rawDate);
   }
+
   durationConvert(minutes: number): String {
     const DurationHours = this.translate.get("HOURS_MESSAGE");
     const DurationMinutes = this.translate.get("MINUTES_MESSAGE");
@@ -52,60 +52,47 @@ export class EventsDetailComponent {
     this.location.back();
   }
 
-  //----------------------------------------------
+  //---------------------------------
+  showConfirm() {
+    this.idiomaActual = this.translate.getCurrentLang();
+    this.idiomaActual === "es"
+      ? (this.idioma = "es-ES")
+      : (this.idioma = "en-US");
 
-  parsePermissions(attr: string): boolean {
-    // if oattr in form, it can have permissions
-    if (!this.form || !Util.isDefined(this.form.oattr)) {
-      return;
-    }
-    const permissions: OPermissions =
-      this.form.getFormComponentPermissions(attr);
+    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+    this.dialogService.confirm(confirmMessageTitle, '¿Confirma su asistencia al evento? 📆').then((result) => {
+      if (result) {
+        this.createBooking();
+      }
+    });
 
-    if (!Util.isDefined(permissions)) {
-      return true;
-    }
-    return permissions.visible;
   }
 
   createBooking() {
     const filter = {
-      id_event: +this.form.getFieldValue('id_event'),
+      bke_id_event: +this.form.getFieldValue('id_event'),
     };
+    console.log(filter);
 
-    const conf = this.service.getDefaultServiceConfiguration("bookingEvent"); // cambiar por el de eventos
+    const conf = this.service.getDefaultServiceConfiguration('bookingEvents'); // cambiar por el de eventos
     this.service.configureService(conf);
 
     this.service.insert(filter).subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
-        this.form.getFieldValue('bookingButton').enabled = false;
       }
     });
   }
 
   showAvailableToast(mensaje?: string) {
     const availableMessage =
-      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
+      this.translate.get(mensaje);
     const configuration: OSnackBarConfig = {
       milliseconds: 7500,
       icon: "info",
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
-  }
-
-  checkAuthStatus() {
-    return !this.authService.isLoggedIn();
-  }
-
-  showConfirm(evt: any) {
-    this.idiomaActual = this.translate.getCurrentLang();
-    this.idiomaActual === "es"
-      ? (this.idioma = "es-ES")
-      : (this.idioma = "en-US");
-    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
-
   }
 }
 

@@ -39,7 +39,7 @@ public class BookingEventService implements IBookingEventService {
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(BookingEventDao.BKE_USR_ID, userId);
-
+        attrMap.put(BookingEventDao.BKE_EVENT_STATE,true);
         return this.daoHelper.insert(this.bookingEventDao, attrMap);
 
     }

@@ -2,9 +2,9 @@ import { Component, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import {
   DialogService,
-  OIntegerInputComponent,
   OntimizeService,
   OSnackBarConfig,
+  OTableComponent,
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
@@ -18,6 +18,8 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 export class BookingsHomeComponent {
   public dateStart = this.utils.dateStartFunction;
   public dateEnd = this.utils.dateEndFunction;
+
+  @ViewChild("table") table: OTableComponent
 
   constructor(
     private router: Router,
@@ -42,8 +44,8 @@ export class BookingsHomeComponent {
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.updateState(evt["bk_id"]);
-          
-        }
+          this.table.reloadData()
+        } 
       });
     }
   }

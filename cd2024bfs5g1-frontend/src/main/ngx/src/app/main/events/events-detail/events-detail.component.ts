@@ -74,7 +74,7 @@ export class EventsDetailComponent {
     };
     console.log(filter);
 
-    const conf = this.service.getDefaultServiceConfiguration('bookingEvents'); // cambiar por el de eventos
+    const conf = this.service.getDefaultServiceConfiguration('booking_events'); // cambiar por el de eventos
     this.service.configureService(conf);
 
     this.service.insert(filter).subscribe((resp) => {

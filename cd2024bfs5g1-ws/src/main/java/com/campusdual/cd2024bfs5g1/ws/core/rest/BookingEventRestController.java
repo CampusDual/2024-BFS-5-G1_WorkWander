@@ -17,7 +17,5 @@ public class BookingEventRestController  extends ORestController<IBookingEventSe
         private IBookingEventService bookingEventService;
 
         @Override
-        public IBookingEventService getService() {
-            return this.bookingEventService;
-        }
+        public IBookingEventService getService() {return this.bookingEventService;}
 }

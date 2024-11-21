@@ -525,6 +525,13 @@ o-column {
     justify-content: space-evenly;
     width: 100%;
   }
+  .o-image .o-image-content.o-image-auto-fit .o-image-display-container>img {
+    max-width: 350px;
+  }
+}
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container div.mat-mdc-tab.mdc-tab--active {
+  font-size: 8px;
+  font-weight: 700;
 }
 .application-layout-content-wrapper.header-layout {
   background-image: url("assets/images/fondo_workwander.jpg");

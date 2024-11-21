@@ -180,5 +180,7 @@
   "DATERANGE.APPLYLABEL": "Apply",
   "DATE_RESERVATION": "Date of reservation",
   "SEATS": "seats",
-  "EDIT_COWORKING": "Edit coworking"
+  "EDIT_COWORKING": "Edit coworking",
+  "COWORKING_UPDATE": "Coworking updated!",
+  "COWORKING_CREATE": "Coworking created!"
 }

@@ -22,8 +22,10 @@
     undo-button="no"
     stay-in-record-after-insert="true"
     editable-detail="no"
+    (onDataLoaded)="showEvents(form.getFieldValue('cw_location'))"
   >
     <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+    <o-integer-input oHidden #cw_location attr="cw_location"></o-integer-input>
 
     <div class="image-container">
       <!-- Campo para mostrar la imagen de coworking -->

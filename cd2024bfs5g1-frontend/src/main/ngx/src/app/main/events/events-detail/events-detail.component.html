@@ -99,5 +99,16 @@
         </div>
       </o-column>
     </div>
+    <div class="reservation-button" *ngIf="parsePermissions('bookingButton')">
+      <o-button
+        #bookingButton
+        attr="bookingButton"
+        label="{{ 'BOOKING' | oTranslate }}"
+        type="raised"
+        color="primary"
+        (click)="showConfirm($event)"
+        enabled="FALSE"
+      ></o-button>
+    </div>
   </o-form>
 </div>

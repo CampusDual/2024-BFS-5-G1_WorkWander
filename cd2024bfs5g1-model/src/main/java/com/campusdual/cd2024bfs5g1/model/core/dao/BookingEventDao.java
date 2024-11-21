@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
         configurationFilePlaceholder = "dao/placeholders.properties")
 
 public class BookingEventDao  extends OntimizeJdbcDaoSupport {
-    public static final String BKE_EVENT_ID = "bke_event_id";
-    public static final String BKE_ID_EVENT = "bke_id_event";
-    public static final String BKE_USR_ID = "bke_usr_id";
-    public static final String BKE_EVENT_STATE = "bke_event_state";
+    public static final String BKE_EVENT_ID = "bke_event_id"; //Identificador de la tabla
+    public static final String BKE_ID_EVENT = "bke_id_event"; //ID del evento
+    public static final String BKE_USR_ID = "bke_usr_id"; //Id del usuario
+    public static final String BKE_EVENT_STATE = "bke_event_state"; //Estado del booking
 }

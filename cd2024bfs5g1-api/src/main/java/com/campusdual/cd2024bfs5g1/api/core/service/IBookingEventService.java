@@ -14,6 +14,6 @@ public interface IBookingEventService {
 
     public EntityResult bookingEventDelete(final Map<String, Object> keyMap);
 
-    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList);
+    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap);
 
 }

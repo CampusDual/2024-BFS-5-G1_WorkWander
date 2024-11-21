@@ -1,5 +1,4 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
-import com.campusdual.cd2024bfs5g1.api.core.service.IBookingDateService;
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingEventService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.*;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -18,7 +17,7 @@ import java.util.Map;
 @Service("BookingEventService")
 @Lazy
 
-public class BookingEventService implements IBookingEventService {
+public abstract class BookingEventService implements IBookingEventService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
@@ -36,6 +35,10 @@ public class BookingEventService implements IBookingEventService {
         // Obtener el usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+
+        // Verificamos cuantos espacios hay disponibles
+
+        EntityResult resultado = this.getEventDisponibilityQuery(attrMap);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(BookingEventDao.BKE_USR_ID, userId);
@@ -55,7 +58,7 @@ public class BookingEventService implements IBookingEventService {
     }
 
     @Override
-    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap) {
         EntityResult result = new EntityResultMapImpl();
 
         // Paso 1: Obtener el total de plazas del evento
@@ -76,6 +79,8 @@ public class BookingEventService implements IBookingEventService {
 
         EntityResult bookingResult = this.daoHelper.query(this.bookingEventDao, bookingFilter, List.of(BookingEventDao.BKE_ID_EVENT));
         int usedBookings = bookingResult.calculateRecordNumber();
+
+
 
         // Paso 3: Calcular plazas disponibles
         int availableBookings = totalBookings - usedBookings;

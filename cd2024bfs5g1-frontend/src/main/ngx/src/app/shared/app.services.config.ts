@@ -24,6 +24,6 @@ export const SERVICE_CONFIG: Object = {
     path: "/cities",
   },
   booking_events: {
-    path: "/booking_events",
+    path: "/bookingEvent",
   }
 };

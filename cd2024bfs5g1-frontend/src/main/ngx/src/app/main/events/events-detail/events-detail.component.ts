@@ -77,7 +77,7 @@ export class EventsDetailComponent {
     const conf = this.service.getDefaultServiceConfiguration('booking_events'); // cambiar por el de eventos
     this.service.configureService(conf);
 
-    this.service.insert(filter).subscribe((resp) => {
+    this.service.insert(filter, "bookingEvent").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
       }

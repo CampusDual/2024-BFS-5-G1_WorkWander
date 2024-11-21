@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsOccupationComponent } from './analytics-occupation/analytics-occupation.component';
+import { OChartModule } from 'ontimize-web-ngx-charts';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AnalyticsOccupationComponent } from './analytics-occupation/analytics-o
   ],
   imports: [
     CommonModule,
-    AnalyticsRoutingModule
+    AnalyticsRoutingModule,
+    OChartModule
   ]
 })
 export class AnalyticsModule { }

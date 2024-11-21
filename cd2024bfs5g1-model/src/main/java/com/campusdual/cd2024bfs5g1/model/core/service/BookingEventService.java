@@ -1,4 +1,5 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
+
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingEventService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.*;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -17,7 +18,7 @@ import java.util.Map;
 @Service("BookingEventService")
 @Lazy
 
-public abstract class BookingEventService implements IBookingEventService {
+public class BookingEventService implements IBookingEventService {
     @Autowired
     private DefaultOntimizeDaoHelper daoHelper;
     @Autowired
@@ -38,7 +39,7 @@ public abstract class BookingEventService implements IBookingEventService {
 
         // Verificamos cuantos espacios hay disponibles
 
-        EntityResult resultado = this.getEventDisponibilityQuery(attrMap);
+        // EntityResult resultado = this.getEventDisponibilityQuery(attrMap, null);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(BookingEventDao.BKE_USR_ID, userId);
@@ -58,7 +59,7 @@ public abstract class BookingEventService implements IBookingEventService {
     }
 
     @Override
-    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap) {
+    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList) {
         EntityResult result = new EntityResultMapImpl();
 
         // Paso 1: Obtener el total de plazas del evento

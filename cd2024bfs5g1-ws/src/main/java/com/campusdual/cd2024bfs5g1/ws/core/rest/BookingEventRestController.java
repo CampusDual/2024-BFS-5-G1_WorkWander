@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/bookingEvent")
-
 public class BookingEventRestController  extends ORestController<IBookingEventService>{
 
         @Autowired
@@ -28,6 +27,6 @@ public class BookingEventRestController  extends ORestController<IBookingEventSe
 
         @PostMapping("/getEventDisponibility")
         public EntityResult getEventDisponibilityQuery(@RequestBody Map<String, Object> keyMap) {
-                return this.bookingEventService.getEventDisponibilityQuery(keyMap);
+                return this.bookingEventService.getEventDisponibilityQuery(keyMap, null);
         }
 }

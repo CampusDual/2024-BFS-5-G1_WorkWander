@@ -52,22 +52,29 @@
             />
           </div>
 
-          <p><strong>Detalles</strong></p>
+          <p>
+            <strong>{{ "DETAILS" | oTranslate }}:</strong>
+          </p>
           <p>{{ form.getFieldValue("description") }}</p>
           <hr />
-          <div>Detalles:</div>
+          <div>{{ "DETAILS" | oTranslate }}:</div>
           <div>
-            Fecha: {{ formatDate(form.getFieldValue("date_event")) }} -
+            {{ "DATE_EVENT" | oTranslate }}:
+            {{ formatDate(form.getFieldValue("date_event")) }} -
             {{ form.getFieldValue("hour_event") }}
           </div>
           <div>
-            Duración: {{ durationConvert(form.getFieldValue("duration")) }}
+            {{ "DURATION" | oTranslate }}:
+            {{ durationConvert(form.getFieldValue("duration")) }}
           </div>
           <div>
-            Ubicación: {{ form.getFieldValue("address") }},
+            {{ "LOCATION" | oTranslate }}: {{ form.getFieldValue("address") }},
             {{ form.getFieldValue("locality") }}
           </div>
-          <div>Participación: {{ form.getFieldValue("bookings") }} plazas</div>
+          <div>
+            {{ "PARTICIPATION" | oTranslate }}:
+            {{ form.getFieldValue("bookings") }} plazas
+          </div>
         </div>
         <div fxLayout="column" class="detalles">
           <p>
@@ -77,7 +84,8 @@
           </p>
           <p>
             <mat-icon>hourglass_bottom</mat-icon>
-            Duración: {{ durationConvert(form.getFieldValue("duration")) }}
+            {{ "DURATION" | oTranslate }}:
+            {{ durationConvert(form.getFieldValue("duration")) }}
           </p>
           <p>
             <mat-icon>location_on</mat-icon>

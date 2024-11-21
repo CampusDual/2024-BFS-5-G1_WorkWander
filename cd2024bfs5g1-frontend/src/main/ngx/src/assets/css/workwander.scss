@@ -1,24 +1,15 @@
 @use "sass:map";
 @import './custom_font.scss';
+@import './custom_color.scss';
 
 h1, h2, h3, h4, h5, h6{
   &:hover {
     animation: wave 1.5s ease-in-out ;
   }
 }
-/* Colores personalizados */
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5F6F65;
-
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
 
 $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;
-
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -546,7 +537,7 @@ o-column {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: rgba($accent, 0.5);
+  background-color: rgba($accent, 1);
   border-radius: $borderRadius;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba($primary, 0.4);

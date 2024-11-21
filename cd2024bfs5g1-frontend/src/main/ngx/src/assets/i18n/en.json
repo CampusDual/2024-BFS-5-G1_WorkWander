@@ -184,5 +184,6 @@
   "COWORKING_UPDATE": "Coworking updated!",
   "COWORKING_CREATE": "Coworking created!",
   "DETAILS": "Details",
-  "PARTICIPATION": "Participation"
+  "PARTICIPATION": "Participation",
+  "SLOTS": "slots"
 }

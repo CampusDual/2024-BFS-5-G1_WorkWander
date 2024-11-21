@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;locality;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
     header-position="top"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -79,11 +79,18 @@
         </p>
         <o-text-input oHidden attr="duration"></o-text-input>
         <!--location-->
+        <o-text-input
+          #locality
+          type="text"
+          oHidden
+          attr="location"
+          fxFlex
+          label="LOCALITY"
+        ></o-text-input>
         <p>
           <strong>{{ "LOCALITY" | oTranslate }}:</strong>
-          {{ form.getFieldValue("locality") }}
+          {{ form.getFieldValue("location") }}
         </p>
-        <o-text-input oHidden attr="locality"></o-text-input>
         <!-- Direction -->
         <p>
           <strong>{{ "ADDRESS" | oTranslate }}:</strong>

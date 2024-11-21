@@ -22,6 +22,7 @@ import {
   styleUrls: ["./coworkings-detail.component.css"],
 })
 export class CoworkingsDetailComponent {
+  events: any = [];
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -73,6 +74,45 @@ export class CoworkingsDetailComponent {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
+      let now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      const filter = {
+        "@basic_expression": {
+            lop:{
+                lop: "locality",
+                op: "=",
+                rop: cw_location           
+            },
+            op:"AND",
+            rop:{
+                lop: "date_event",
+                op: ">=",
+                rop: now
+            }            
+        }
+      };
+      let sqltypes = {
+        "date_event":91
+        }
+      const conf = this.service.getDefaultServiceConfiguration("events");
+      this.service.configureService(conf);
+      const columns = [
+        "id_event",
+        "name",
+        "description",
+        "date_event",
+        "hour_event",
+        "address",
+        "locality",
+        "bookings",
+        "usr_id",
+        "duration",
+        "image_event"
+      ];
+      this.service.query(filter, columns, "event", sqltypes).subscribe((resp) => {
+        if (resp.code === 0) {
+          this.events = resp.data;
+        }
+      });
     }
   }
 

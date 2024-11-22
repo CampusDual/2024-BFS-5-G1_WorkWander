@@ -136,8 +136,8 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes,
-            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes,
+                                                                final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }

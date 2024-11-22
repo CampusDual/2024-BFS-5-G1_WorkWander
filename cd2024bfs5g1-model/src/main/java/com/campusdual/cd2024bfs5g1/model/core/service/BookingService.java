@@ -159,6 +159,57 @@ public class BookingService implements IBookingService {
         return dates;
     }
 
+    public EntityResult occupationLinearChart(final List<String> attrList) {
+        //Usuario
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        //Definir keyMaps y attr
+        final Map<String, Object> keyMapB = new HashMap<>();
+        final Map<String, Object> keyMapCW = new HashMap<>();
+        keyMapCW.put("cw_usr_id", userId);
+        //Cogemos los id de los coworkings
+        final EntityResult idCoworkingsER = this.cs.coworkingByUserQuery(keyMapCW, attrList);
+        final ArrayList<Integer> idCoworkings = (ArrayList<Integer>) idCoworkingsER.get("cw_id");
+        //defino el calendario
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        //Mapa1
+        final Map<Integer, Map<Date, Integer>> coworkingMap = new LinkedHashMap<>();
+        //Bucle de coworkings de la empresa
+        for (final int id : idCoworkings) {
+            keyMapCW.put("cw_id", id);
+            keyMapB.put("bk_cw_id", id);
+            //Sacar la capacidad de los coworkings
+            final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMapCW, attrList);
+            final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);
+
+            //Mpa de fechas y capacidad
+            final Map<Date, Integer> datesMap = new LinkedHashMap<>();
+            //Recorrer hasta 7 días atrás
+            for (int i = 0; i < 7; i++) {
+                //cambio la fecha y la pongo en el keyMap
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                final Date date = calendar.getTime();
+                keyMapB.put("date", date);
+                keyMapB.put("bk_state", true);
+                //Saco la ocupacion y la añado al mapa como porcentaje
+                final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
+                final int ocupacionI = ((ArrayList<Integer>) ocupacion.get("cw_capacity")).get(0);
+                final int ocupacionP = ocupacionI / capacidadDisponible * 100;
+                datesMap.put(date, ocupacionP);
+            }
+            coworkingMap.put(id, datesMap);
+        }
+        //Envuelvo coworkingMap pa mandarlo al frontend
+        final EntityResult r = new EntityResultMapImpl();
+        r.setCode(0);
+        r.put("data", coworkingMap);
+        return r;
+    }
+
     private static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
         final Date startDate = dates.get(0);
         final Date finalDate = dates.get(1);

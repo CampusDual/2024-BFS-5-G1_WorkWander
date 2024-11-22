@@ -76,6 +76,13 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="coworkingsByUser">
+            <Sentence>
+                select cw_id
+                FROM {!mainschema}.coworking c
+                #WHERE#
+            </Sentence>
+        </Query>
     </Queries>
 
 </JdbcEntitySetup>

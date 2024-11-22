@@ -47,5 +47,14 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="occupationByDate">
+            <Sentence>
+                SELECT count(bk_id) as 'dates'
+                FROM {!mainschema}.booking b join
+                {!mainschema}.booking_date bd on
+                b.bk_id = bd.bk_id
+                #WHERE#
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

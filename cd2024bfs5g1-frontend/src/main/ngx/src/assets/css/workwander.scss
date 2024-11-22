@@ -748,6 +748,22 @@ o-data-toolbar {
   }
 }
 
+// borde botón cancelar
+
+td.mat-mdc-tooltip-trigger.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-cancelCWbooking.mat-column-cancelCWbooking.ng-tns-c228-1.empty-cell.o-column-action.ng-star-inserted {
+  mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+    border: 2px #9f2525 solid;
+    border-style: outset;
+    border-radius: 8px;
+    padding: 2px 16px 2px 16px;
+    color: white;
+    margin: 2px 0 2px 0;
+    background-color: #9f2525;
+  }
+}
+
+//
+
 @media (min-width: 768px) {
   .form-new-event {
     o-column.o-column:not(.service-column),

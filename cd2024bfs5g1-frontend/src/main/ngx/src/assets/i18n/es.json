@@ -188,7 +188,7 @@
   "SLOTS": "plazas",
   "VERIFY_CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?",
   "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada",
-  "CANCELLED_BOOKING": "Esta reserva ya está cancelada"
+  "CANCELLED_BOOKING": "Esta reserva ya está cancelada",
   "BOOKINGS_CONFIRMATION": "¿Confirma su asistencia al evento?",
   "NO_BOOKING_ENABLED": "¡No hay reserva disponible!"
 }

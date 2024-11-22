@@ -93,6 +93,7 @@
             <span>
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
+          </div>
           <div class="reservation-button" >
             <o-button
               #bookingButton
@@ -102,7 +103,7 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-          </div>
+          
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@
     ignore-default-navigation="yes"
     editable-detail="no"
     columns="id_event;name;bookings;date_event;hour_event;location;address;description"
-    header-position="top"
+    show-header="false"
     layout-direction="row"
     stay-in-record-after-insert="true"
     fxFlex
@@ -93,6 +93,17 @@
             <span>
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
+          </div>
+          <div class="reservation-button" >
+            <o-button
+              #bookingButton
+              attr="bookingButton"
+              label="{{ 'BOOKING' | oTranslate }}"
+              type="raised"
+              color="primary"
+              (click)="showConfirm()"
+            ></o-button>
+          
           </div>
         </div>
       </div>

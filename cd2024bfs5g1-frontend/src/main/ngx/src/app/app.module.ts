@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomPermissionsService } from './shared/services/custom-permissions.service';
 import { MatIconModule } from '@angular/material/icon';
 
+import { CustomGeocodingService } from './shared/services/custom-geocoding.service';
+import { O_GEOCODING_SERVICE } from 'ontimize-web-ngx-map';
+
 // Standard providers...
 // Defining custom providers (if needed)...
 export const customProviders: any = [
@@ -41,8 +44,9 @@ export const customProviders: any = [
     { provide: APP_CONFIG, useValue: CONFIG },
     ONTIMIZE_PROVIDERS,
     { provide: O_PERMISSION_SERVICE, useValue: CustomPermissionsService },
-    {provide: O_FORM_GLOBAL_CONFIG, useValue: { headersActions:'C,U'}},
-    ...customProviders
+    { provide: O_FORM_GLOBAL_CONFIG, useValue: { headersActions: 'C,U' } },
+    ...customProviders,
+    { provide: O_GEOCODING_SERVICE, useValue: CustomGeocodingService }
   ],
 })
 export class AppModule { }

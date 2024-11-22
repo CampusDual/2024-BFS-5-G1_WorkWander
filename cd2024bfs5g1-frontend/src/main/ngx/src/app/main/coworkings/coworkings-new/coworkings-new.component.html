@@ -31,13 +31,13 @@
   header-actions="new"
   show-header-navigation="no"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  class="form-section"
+  class="form-section form-new-event"
   show-header="no"
   ignore-default-navigation="yes"
   fxFlex
 >
   <div
-    class="form-section form-new-event"
+    class="form-section"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="left start"
@@ -182,36 +182,56 @@
           </div>
         </o-grid-item>
       </o-grid>
-      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
-        <div class="buttons">
-          <button mat-raised-button color="warn" (click)="cancel()">
-            {{ "cancel" | oTranslate }}
-          </button>
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="isInvalidForm()"
-            attr="save"
-            (click)="save()"
-          >
-            {{ "save" | oTranslate }}
-          </button>
-        </div>
+    </o-column>
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title=""
+      fxLayoutGap="24px"
+    >
+      <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">
+        <!-- Map Information -->
+        <o-map
+          #oMapBasic
+          attr="basic-usage-map"
+          center="42.240599, -8.720727"
+          zoom="11"
+          min-zoom="3"
+          max-zoom="20"
+          zoom-control="yes"
+          search-control="false"
+          fxFlex
+        ></o-map>
+        <!-- Imagen Information -->
+        <!-- Imagen -->
+        <o-image
+          attr="cw_image"
+          sql-type="OTHER"
+          max-file-size="1048576"
+        ></o-image>
       </div>
     </o-column>
-    <o-column>
-      <!-- Map Information -->
-      <o-map
-        #oMapBasic
-        attr="basic-usage-map"
-        center="42.240599, -8.720727"
-        zoom="11"
-        min-zoom="3"
-        max-zoom="20"
-        zoom-control="yes"
-        search-control="yes"
-        fxFlex
-      ></o-map>
-    </o-column>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayoutGap="24px"
+    class="form-row"
+    fxFlex
+    fxLayoutAlign="end"
+    fxLayoutGap="30px"
+    class="buttons"
+  >
+    <button mat-raised-button color="warn" (click)="cancel()">
+      {{ "cancel" | oTranslate }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="isInvalidForm()"
+      attr="save"
+      (click)="save()"
+    >
+      {{ "save" | oTranslate }}
+    </button>
   </div>
 </o-form>

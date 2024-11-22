@@ -94,6 +94,17 @@
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
           </div>
+          <div class="reservation-button" >
+            <o-button
+              #bookingButton
+              attr="bookingButton"
+              label="{{ 'BOOKING' | oTranslate }}"
+              type="raised"
+              color="primary"
+              (click)="showConfirm()"
+            ></o-button>
+          
+          </div>
         </div>
       </div>
     </div>

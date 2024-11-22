@@ -23,7 +23,9 @@ export class EventsDetailComponent {
   public idioma: string;
 
   formatDate(rawDate: number): string {
-    return this.utils.formatDate(rawDate);
+    if (rawDate) {
+      return this.utils.formatDate(rawDate);
+    }
   }
 
   durationConvert(minutes: number): String {

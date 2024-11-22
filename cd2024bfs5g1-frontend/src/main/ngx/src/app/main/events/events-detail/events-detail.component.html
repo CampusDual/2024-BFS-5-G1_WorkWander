@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;locality;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
     header-position="top"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -83,7 +83,7 @@
             </div>
             <span>
               {{ form.getFieldValue("address") }},
-              {{ form.getFieldValue("locality") }}
+              {{ form.getFieldValue("location") }}
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">

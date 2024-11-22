@@ -185,5 +185,6 @@
   "COWORKING_CREATE": "¡Coworking creado!",
   "DETAILS": "Detalles",
   "PARTICIPATION": "Participación",
-  "SLOTS": "plazas"
+  "SLOTS": "plazas",
+  "NEAR_EVENTS": "Eventos cercanos"
 }

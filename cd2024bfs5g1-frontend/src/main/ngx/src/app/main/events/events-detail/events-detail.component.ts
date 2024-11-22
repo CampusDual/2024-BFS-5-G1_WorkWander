@@ -13,10 +13,12 @@ export class EventsDetailComponent {
     private translate: OTranslateService,
     private utils: UtilsService,
     private location: Location,
-  ) {}
+  ) { }
 
   formatDate(rawDate: number): string {
-    return this.utils.formatDate(rawDate);
+    if (rawDate) {
+      return this.utils.formatDate(rawDate);
+    }
   }
   durationConvert(minutes: number): String {
     const DurationHours = this.translate.get("HOURS_MESSAGE");

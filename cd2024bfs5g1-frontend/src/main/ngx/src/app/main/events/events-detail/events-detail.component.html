@@ -51,47 +51,49 @@
               width="450px"
             />
           </div>
-
-          <p>
-            <strong>{{ "DETAILS" | oTranslate }}:</strong>
-          </p>
-          <p>{{ form.getFieldValue("description") }}</p>
-          <hr />
-          <div>{{ "DETAILS" | oTranslate }}:</div>
           <div>
-            {{ "DATE_EVENT" | oTranslate }}:
-            {{ formatDate(form.getFieldValue("date_event")) }} -
-            {{ form.getFieldValue("hour_event") }}
-          </div>
-          <div>
-            {{ "DURATION" | oTranslate }}:
-            {{ durationConvert(form.getFieldValue("duration")) }}
-          </div>
-          <div>
-            {{ "LOCALITY" | oTranslate }}: {{ form.getFieldValue("address") }},
-            {{ form.getFieldValue("location") }}
-          </div>
-          <div>
-            {{ "PARTICIPATION" | oTranslate }}:
-            {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
+            <p>
+              <strong>{{ "DETAILS" | oTranslate }}:</strong>
+            </p>
+            <p>{{ form.getFieldValue("description") }}</p>
           </div>
         </div>
-        <div fxLayout="column" class="detalles">
-          <p>
-            <mat-icon>calendar_month</mat-icon>
-            {{ formatDate(form.getFieldValue("date_event")) }} -
-            {{ form.getFieldValue("hour_event") }}
-          </p>
-          <p>
-            <mat-icon>hourglass_bottom</mat-icon>
-            {{ "DURATION" | oTranslate }}:
-            {{ durationConvert(form.getFieldValue("duration")) }}
-          </p>
-          <p>
-            <mat-icon>location_on</mat-icon>
-            {{ form.getFieldValue("address") }},
-            {{ form.getFieldValue("location") }}
-          </p>
+        <div fxLayout="column" class="detalles" fxLayoutGap="16px">
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>calendar_month</mat-icon>
+            </div>
+            <span>
+              {{ formatDate(form.getFieldValue("date_event")) }} -
+              {{ form.getFieldValue("hour_event") }}
+            </span>
+          </div>
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>hourglass_bottom</mat-icon>
+            </div>
+            <span>
+              {{ "DURATION" | oTranslate }}:
+              {{ durationConvert(form.getFieldValue("duration")) }}
+            </span>
+          </div>
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <span>
+              {{ form.getFieldValue("address") }},
+              {{ form.getFieldValue("location") }}
+            </span>
+          </div>
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>person</mat-icon>
+            </div>
+            <span>
+              {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

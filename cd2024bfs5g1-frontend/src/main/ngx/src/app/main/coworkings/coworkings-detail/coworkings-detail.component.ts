@@ -111,7 +111,7 @@ export class CoworkingsDetailComponent implements OnInit {
         "date_event",
         "hour_event",
         "address",
-        "locality",
+        "location",
         "bookings",
         "usr_id",
         "duration",

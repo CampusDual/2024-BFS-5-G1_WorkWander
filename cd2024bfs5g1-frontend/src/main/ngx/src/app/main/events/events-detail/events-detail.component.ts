@@ -8,7 +8,9 @@ import { UtilsService } from "src/app/shared/services/utils.service";
   templateUrl: "./events-detail.component.html",
   styleUrls: ["./events-detail.component.css"],
 })
+
 export class EventsDetailComponent {
+  @ViewChild("form") form: OFormComponent;
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
@@ -17,10 +19,7 @@ export class EventsDetailComponent {
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService
   ) { }
-
-  @ViewChild("form") form: OFormComponent;
-  public idiomaActual: string;
-  public idioma: string;
+  
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -55,11 +54,6 @@ export class EventsDetailComponent {
   }
 
   showConfirm() {
-    this.idiomaActual = this.translate.getCurrentLang();
-    this.idiomaActual === "es"
-      ? (this.idioma = "es-ES")
-      : (this.idioma = "en-US");
-
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
     const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
     this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {

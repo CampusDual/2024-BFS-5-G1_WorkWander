@@ -1,12 +1,13 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingEventService;
-import com.campusdual.cd2024bfs5g1.model.core.dao.*;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingEventDao;
+import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
+import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -19,22 +20,27 @@ import java.util.Map;
 @Lazy
 
 public class BookingEventService implements IBookingEventService {
-    @Autowired
-    private DefaultOntimizeDaoHelper daoHelper;
-    @Autowired
-    private BookingEventDao bookingEventDao;
-    @Autowired
-    private EventDao eventDao;
+    private final DefaultOntimizeDaoHelper daoHelper;
+    private final BookingEventDao bookingEventDao;
+    private final EventDao eventDao;
+
+    public BookingEventService(final DefaultOntimizeDaoHelper daoHelper,
+            final BookingEventDao bookingEventDao,
+            final EventDao eventDao) {
+        this.daoHelper = daoHelper;
+        this.bookingEventDao = bookingEventDao;
+        this.eventDao = eventDao;
+    }
 
     @Override
-    public EntityResult bookingEventQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult bookingEventQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingEventDao, keyMap, attrList);
     }
 
     @Override
-    public EntityResult bookingEventInsert(Map<String, Object> attrMap) {
+    public EntityResult bookingEventInsert(final Map<String, Object> attrMap) {
         EntityResult retorno = new EntityResultMapImpl();
-        Map<String, Object> eventMap = new HashMap<>();
+        final Map<String, Object> eventMap = new HashMap<>();
 
         // Obtener el usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -44,9 +50,9 @@ public class BookingEventService implements IBookingEventService {
         eventMap.put(this.eventDao.ID_EVENT, attrMap.get(this.bookingEventDao.BKE_ID_EVENT));
 
         // Verificamos cuantos espacios hay disponibles
-        List<String> eventAttrList = List.of(EventDao.ID_EVENT);
+        final List<String> eventAttrList = List.of(EventDao.ID_EVENT);
 
-        EntityResult resultado = this.getEventDisponibilityQuery(eventMap, eventAttrList);
+        final EntityResult resultado = this.getEventDisponibilityQuery(eventMap, eventAttrList);
 
         if (((Number) resultado.get("availableEventBookings")).intValue() > 0) {
             // Añadir el ID del usuario al mapa de atributos para el insert
@@ -54,30 +60,29 @@ public class BookingEventService implements IBookingEventService {
             attrMap.put(BookingEventDao.BKE_EVENT_STATE, true);
             retorno = this.daoHelper.insert(this.bookingEventDao, attrMap);
             retorno.setMessage("BOOKINGS_CONFIRMED");
-            }
-        else {
+        } else {
             retorno.setMessage("NO_BOOKING_ENABLED");
         }
         return retorno;
     }
 
     @Override
-    public EntityResult bookingEventUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
+    public EntityResult bookingEventUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         return this.daoHelper.update(this.bookingEventDao, keyMap, attrMap);
     }
 
     @Override
-    public EntityResult bookingEventDelete(Map<String, Object> keyMap) {
+    public EntityResult bookingEventDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.bookingEventDao, keyMap);
     }
 
     @Override
-    public EntityResult getEventDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList) {
-        EntityResult result = new EntityResultMapImpl();
+    public EntityResult getEventDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final EntityResult result = new EntityResultMapImpl();
 
         // Paso 1: Obtener el total de plazas del evento
-        List<String> eventAttrList = List.of(EventDao.BOOKINGS);
-        EntityResult eventResult = this.daoHelper.query(this.eventDao, keyMap, eventAttrList);
+        final List<String> eventAttrList = List.of(EventDao.BOOKINGS);
+        final EntityResult eventResult = this.daoHelper.query(this.eventDao, keyMap, eventAttrList);
 
         if (eventResult.calculateRecordNumber() == 0) {
             result.setCode(EntityResult.OPERATION_WRONG);
@@ -85,18 +90,19 @@ public class BookingEventService implements IBookingEventService {
             return result;
         }
 
-        int totalBookings = (int) eventResult.getRecordValues(0).get(EventDao.BOOKINGS);
+        final int totalBookings = (int) eventResult.getRecordValues(0).get(EventDao.BOOKINGS);
 
         // Paso 2: Contar las inscripciones del evento
-        Map<String, Object> bookingFilter = new HashMap<>();
+        final Map<String, Object> bookingFilter = new HashMap<>();
         bookingFilter.put(BookingEventDao.BKE_ID_EVENT, keyMap.get(EventDao.ID_EVENT));
 
-        EntityResult bookingResult = this.daoHelper.query(this.bookingEventDao, bookingFilter, List.of(BookingEventDao.BKE_ID_EVENT));
+        final EntityResult bookingResult = this.daoHelper.query(this.bookingEventDao, bookingFilter,
+                List.of(BookingEventDao.BKE_ID_EVENT));
 
-        int usedBookings = bookingResult.calculateRecordNumber();
+        final int usedBookings = bookingResult.calculateRecordNumber();
 
         // Paso 3: Calcular plazas disponibles
-        int availableBookings = totalBookings - usedBookings;
+        final int availableBookings = totalBookings - usedBookings;
 
         // Paso 4: Devolver resultado
         result.put("totalEventBookings", totalBookings);

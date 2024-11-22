@@ -186,7 +186,6 @@
   "DETAILS": "Details",
   "PARTICIPATION": "Participation",
   "SLOTS": "slots",
-  "COWORKING_CREATE": "Coworking created!",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
-  "NO_BOOKING_ENABLED": "Not booking enabled!"
+  "NO_BOOKING_ENABLED": "Not booking available!"
 }

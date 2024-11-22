@@ -231,10 +231,10 @@
       <p>{{ 'NEAR_EVENTS' | oTranslate }}</p>
   </ng-template>
   <ng-template let-event pTemplate="item">
-      <div class="product-item">
-          <div class="product-item-content">
+      <div class="event-item">
+          <div class="event-item-content">
               <div >
-                  <img [src]="getImageSrc(event.image_event)" alt="{{ event.name }}" class="product-image" />
+                  <img [src]="getImageSrc(event.image_event)" alt="{{ event.name }}" class="event-image" />
               </div>
               <div>
                   <h4 >{{ event.name }}</h4>
@@ -248,25 +248,3 @@
 
 </div>
 </div>
-
-
-<p-carousel [value]="events" [numVisible]="3" [numScroll]="1" [circular]="true" styleClass="custom-carousel" [autoplayInterval]="3000">
-  <ng-template pTemplate="header">
-      <h5>Circular, AutoPlay, 3 Items per Page and Scroll by 1</h5>
-  </ng-template>
-  <ng-template let-event pTemplate="item">
-      <div class="product-item">
-          <div class="product-item-content">
-              <div class="mb-3">
-                  <img [src]="getImageSrc(event.image_event)" alt="{{ event.name }}" class="product-image" />
-              </div>
-              <div>
-                  <h4 class="mb-1">{{event.name}}</h4>
-                  <h6 class="mt-0 mb-3">{{event.date_event | date:'dd-MMMM-yyyy'}}</h6>
-                  <span >{{event.hour_event}}</span>
-
-              </div>
-          </div>
-      </div>
-  </ng-template>
-</p-carousel>

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomPermissionsService } from './shared/services/custom-permissions.service';
 import { MatIconModule } from '@angular/material/icon';
 
+import { OMapModule } from 'ontimize-web-ngx-map';
 import { CustomGeocodingService } from './shared/services/custom-geocoding.service';
 import { O_GEOCODING_SERVICE } from 'ontimize-web-ngx-map';
 
@@ -32,7 +33,8 @@ export const customProviders: any = [
     OntimizeWebModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MatIconModule
+    MatIconModule,
+    OMapModule,
   ],
   declarations: [
     AppComponent

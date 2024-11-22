@@ -38,12 +38,18 @@
                 "input": "node_modules/ontimize-web-ngx/assets",
                 "output": "/assets"
               },
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx-map/images",
+                "output": "/assets"
+              }
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",
               "src/assets/css/app.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ontimize-web-ngx-map/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,

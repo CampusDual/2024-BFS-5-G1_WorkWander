@@ -125,13 +125,7 @@
         style="--field-hover-color: #6200ea"
         class="price"
       ></o-real-input>
-      <!-- Imagen -->
-      <o-image
-        attr="cw_image"
-        sql-type="OTHER"
-        max-file-size="1048576"
-      ></o-image>
-      <!--Servicios-->
+
       <span
         >{{ "selected_services" | oTranslate }} {{ selectedServices }} / 6</span
       >
@@ -205,17 +199,19 @@
         </div>
       </div>
     </o-column>
-    <!-- Map Information -->
+    <o-column>
+      <!-- Map Information -->
+      <o-map
+        #oMapBasic
+        attr="basic-usage-map"
+        center="42.240599, -8.720727"
+        zoom="11"
+        min-zoom="3"
+        max-zoom="20"
+        zoom-control="yes"
+        search-control="yes"
+        fxFlex
+      ></o-map>
+    </o-column>
   </div>
 </o-form>
-<o-map
-  #oMapBasic
-  attr="basic-usage-map"
-  center="42.240599, -8.720727"
-  zoom="11"
-  min-zoom="3"
-  max-zoom="20"
-  zoom-control="yes"
-  search-control="yes"
-  fxFlex
-></o-map>

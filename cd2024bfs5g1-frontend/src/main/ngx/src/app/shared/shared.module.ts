@@ -7,10 +7,12 @@ import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/cowork
 import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
 import { UtilsService } from './services/utils.service';
 import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/coworkings-edit.component';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 @NgModule({
   imports: [
-    OntimizeWebModule
+    OntimizeWebModule,
+    OMapModule
   ],
   declarations: [
     FilterComponent,

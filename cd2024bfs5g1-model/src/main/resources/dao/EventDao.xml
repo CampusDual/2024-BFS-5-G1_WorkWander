@@ -12,4 +12,62 @@
         <Column>id_event</Column>
     </UpdateKeys>
     <GeneratedKey>id_event</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.id_event as id_event,
+                        public.event.name as name,
+                        public.event.description as description,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.locality as locality,
+                        public.city.city as location,
+                        public.event.bookings as bookings,
+                        public.event.duration as duration,
+                        public.event.image_event as image_event,
+                        public.event.usr_id as usr_id
+                    FROM event
+                    LEFT JOIN city on city.id_city = public.event.locality
+                    #WHERE#
+                    GROUP BY public.event.id_event, public.event.locality, public.city.city)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="myEvents">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.id_event as id_event,
+                        public.event.name as name,
+                        public.event.description as description,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.locality as locality,
+                        public.city.city as location,
+                        public.event.bookings as bookings,
+                        public.event.duration as duration,
+                        public.event.image_event as image_event,
+                        public.event.usr_id as usr_id
+                    FROM event
+                    LEFT JOIN city on city.id_city = public.event.locality
+                    #WHERE#
+                    GROUP BY public.event.id_event, public.event.locality, public.city.city)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>

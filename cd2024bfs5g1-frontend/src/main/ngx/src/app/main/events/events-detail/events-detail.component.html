@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;locality;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
     header-position="top"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -68,8 +68,8 @@
             {{ durationConvert(form.getFieldValue("duration")) }}
           </div>
           <div>
-            {{ "LOCATION" | oTranslate }}: {{ form.getFieldValue("address") }},
-            {{ form.getFieldValue("locality") }}
+            {{ "LOCALITY" | oTranslate }}: {{ form.getFieldValue("address") }},
+            {{ form.getFieldValue("location") }}
           </div>
           <div>
             {{ "PARTICIPATION" | oTranslate }}:
@@ -104,6 +104,6 @@
     <o-text-input oHidden attr="date_event"></o-text-input>
     <o-text-input oHidden attr="hour_event"></o-text-input>
     <o-text-input oHidden attr="duration"></o-text-input>
-    <o-text-input oHidden attr="locality"></o-text-input>
+    <o-text-input oHidden attr="location"></o-text-input>
   </o-form>
 </div>

@@ -118,13 +118,13 @@
   "description": "Descripción",
   "NEW_EVENT": "Crear evento",
   "REGISTER": "Registrar",
-  "ADD_COWORKING":"Añadir coworking",
+  "ADD_COWORKING":"Nuevo coworking",
   "START_DATE":"Fecha de inicio",
   "END_DATE":"Fecha de final",
   "BOOKING_STATE": "Estado de reserva",
-  "COWORKING_ADDED": "Operación exitosa",
-  "COWORKING_ADDED2": "El coworking se ha guardado correctamente",
-  "SELECT_DATE": "Seleccione una fecha",
+  "COWORKING_ADDED":"Operación exitosa",
+  "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
+  "SELECT_DATE":"Seleccione una fecha",
   "REGISTER_TITLE": "Registrate",
   "selected_services": "Servicios",
   "save": "Guardar",
@@ -182,8 +182,5 @@
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
-  "COWORKING_CREATE": "¡Coworking creado!",
-  "DETAILS": "Detalles",
-  "PARTICIPATION": "Participación",
-  "SLOTS": "plazas"
+  "COWORKING_CREATE": "¡Coworking creado!"
 }

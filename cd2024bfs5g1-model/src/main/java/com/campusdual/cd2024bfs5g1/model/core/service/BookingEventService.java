@@ -33,33 +33,32 @@ public class BookingEventService implements IBookingEventService {
 
     @Override
     public EntityResult bookingEventInsert(Map<String, Object> attrMap) {
-        // Obtener el usuario autenticado
         EntityResult retorno = new EntityResultMapImpl();
         Map<String, Object> eventMap = new HashMap<>();
-        eventMap.put(this.eventDao.ID_EVENT, attrMap.get(this.bookingEventDao.BKE_ID_EVENT));
 
+        // Obtener el usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+
+        retorno.setCode(0);
+        eventMap.put(this.eventDao.ID_EVENT, attrMap.get(this.bookingEventDao.BKE_ID_EVENT));
 
         // Verificamos cuantos espacios hay disponibles
         List<String> eventAttrList = List.of(EventDao.ID_EVENT);
 
         EntityResult resultado = this.getEventDisponibilityQuery(eventMap, eventAttrList);
-        int availableBookings = ((Number) resultado.get("availableEventBookings")).intValue();
-        if (availableBookings > 0) {
+
+        if (((Number) resultado.get("availableEventBookings")).intValue() > 0) {
             // Añadir el ID del usuario al mapa de atributos para el insert
             attrMap.put(BookingEventDao.BKE_USR_ID, userId);
             attrMap.put(BookingEventDao.BKE_EVENT_STATE, true);
             retorno = this.daoHelper.insert(this.bookingEventDao, attrMap);
             retorno.setMessage("BOOKINGS_CONFIRMED");
-            return retorno;
-
-        }
+            }
         else {
-            retorno.setCode(0);
             retorno.setMessage("NO_BOOKING_ENABLED");
-            return retorno;
         }
+        return retorno;
     }
 
     @Override

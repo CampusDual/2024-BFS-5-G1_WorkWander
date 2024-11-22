@@ -28,4 +28,8 @@ public interface IBookingService {
     public EntityResult getDatesDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList);
 
     public EntityResult rangeBookingInsert(Map<String, Object> attrMap);
+
+    public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMapB, final List<String> attrList);
+
+    public EntityResult occupationByDateQuery(Map<String, Object> keyMap, List<String> attrList);
 }

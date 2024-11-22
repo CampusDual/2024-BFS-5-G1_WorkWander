@@ -151,4 +151,9 @@ public class CoworkingService implements ICoworkingService {
         }
     }
 
+    @Override
+    public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.COWORKINGS_BY_USER);
+    }
+
 }

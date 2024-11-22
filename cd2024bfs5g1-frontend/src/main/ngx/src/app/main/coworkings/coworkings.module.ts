@@ -6,6 +6,7 @@ import { ODateRangeInputModule, OntimizeWebModule } from 'ontimize-web-ngx';
 import { CoworkingsHomeComponent } from './coworkings-home/coworkings-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import {MatRadioModule} from '@angular/material/radio';
+import { CarouselModule } from 'primeng/carousel';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatRadioModule} from '@angular/material/radio';
     OntimizeWebModule,
     SharedModule,
     ODateRangeInputModule,
-    MatRadioModule
+    MatRadioModule,
+    CarouselModule
   ]
 })
 export class CoworkingsModule { }

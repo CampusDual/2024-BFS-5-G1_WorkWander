@@ -22,6 +22,7 @@ import {
   Util,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
+
 @Component({
   selector: "app-coworkings-detail",
   templateUrl: "./coworkings-detail.component.html",
@@ -29,6 +30,7 @@ import {
 })
 export class CoworkingsDetailComponent implements OnInit {
   events: any = [];
+  responsiveOptions!:any;
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -39,7 +41,25 @@ export class CoworkingsDetailComponent implements OnInit {
     private translate: OTranslateService,
     private location: Location,
     private sanitizer:DomSanitizer
-  ) {}
+  ) {
+    this.responsiveOptions = [
+      {
+          breakpoint: '1024px',
+          numVisible: 3,
+          numScroll: 3
+      },
+      {
+          breakpoint: '768px',
+          numVisible: 2,
+          numScroll: 2
+      },
+      {
+          breakpoint: '560px',
+          numVisible: 1,
+          numScroll: 1
+      }
+  ];
+  }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -130,6 +150,7 @@ export class CoworkingsDetailComponent implements OnInit {
 
   // Función para convertir la imagen desde la base de datos
   public getImageSrc(base64: any): any {
+    console.log(base64)
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
   }
 

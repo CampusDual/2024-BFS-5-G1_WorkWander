@@ -182,5 +182,11 @@
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
-  "COWORKING_CREATE": "¡Coworking creado!"
+  "COWORKING_CREATE": "¡Coworking creado!",
+  "DETAILS": "Detalles",
+  "PARTICIPATION": "Participación",
+  "SLOTS": "plazas",
+  "VERIFY_CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?",
+  "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada",
+  "CANCELLED_BOOKING": "Esta reserva ya está cancelada"
 }

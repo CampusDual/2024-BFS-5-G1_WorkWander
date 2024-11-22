@@ -5,6 +5,7 @@ import { CoworkingsDetailComponent } from './coworkings-detail/coworkings-detail
 import { ODateRangeInputModule, OntimizeWebModule } from 'ontimize-web-ngx';
 import { CoworkingsHomeComponent } from './coworkings-home/coworkings-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CoworkingsRoutingModule,
     OntimizeWebModule,
     SharedModule,
-    ODateRangeInputModule
+    ODateRangeInputModule,
+    MatRadioModule
   ]
 })
 export class CoworkingsModule { }

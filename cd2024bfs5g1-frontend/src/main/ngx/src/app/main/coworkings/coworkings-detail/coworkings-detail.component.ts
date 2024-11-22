@@ -1,5 +1,11 @@
 import { Location } from "@angular/common";
-import { Component, Inject, ViewChild } from "@angular/core";
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   AuthService,
@@ -21,7 +27,7 @@ import {
   templateUrl: "./coworkings-detail.component.html",
   styleUrls: ["./coworkings-detail.component.css"],
 })
-export class CoworkingsDetailComponent {
+export class CoworkingsDetailComponent implements OnInit {
   events: any = [];
   constructor(
     private service: OntimizeService,
@@ -31,7 +37,8 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-    private location: Location
+    private location: Location,
+    private sanitizer:DomSanitizer
   ) {}
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -74,25 +81,27 @@ export class CoworkingsDetailComponent {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let now = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+      let now = `${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}`;
       const filter = {
         "@basic_expression": {
-            lop:{
-                lop: "locality",
-                op: "=",
-                rop: cw_location           
-            },
-            op:"AND",
-            rop:{
-                lop: "date_event",
-                op: ">=",
-                rop: now
-            }            
-        }
+          lop: {
+            lop: "locality",
+            op: "=",
+            rop: cw_location,
+          },
+          op: "AND",
+          rop: {
+            lop: "date_event",
+            op: ">=",
+            rop: now,
+          },
+        },
       };
       let sqltypes = {
-        "date_event":91
-        }
+        date_event: 91,
+      };
       const conf = this.service.getDefaultServiceConfiguration("events");
       this.service.configureService(conf);
       const columns = [
@@ -106,14 +115,26 @@ export class CoworkingsDetailComponent {
         "bookings",
         "usr_id",
         "duration",
-        "image_event"
+        "image_event",
       ];
-      this.service.query(filter, columns, "event", sqltypes).subscribe((resp) => {
-        if (resp.code === 0) {
-          this.events = resp.data;
-        }
-      });
+      this.service
+        .query(filter, columns, "event", sqltypes)
+        .subscribe((resp) => {
+          if (resp.code === 0) {
+            this.events = resp.data;
+            console.log(this.events);
+          }
+        });
     }
+  }
+
+  // Función para convertir la imagen desde la base de datos
+  public getImageSrc(base64: any): any {
+    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
+  }
+
+  goEvent(id_event:number):void{
+    this.router.navigate(['/myevents', id_event]);
   }
 
   setDates() {

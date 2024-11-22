@@ -19,7 +19,7 @@ export class BookingsHomeComponent {
   public dateStart = this.utils.dateStartFunction;
   public dateEnd = this.utils.dateEndFunction;
 
-  @ViewChild("table") table: OTableComponent
+  @ViewChild("table") table: OTableComponent;
 
   constructor(
     private router: Router,
@@ -37,16 +37,21 @@ export class BookingsHomeComponent {
 
   cancelBooking(evt: any) {
     var confirmMessageTitle = this.translate.get("CANCEL");
-    var confirmMessageBody = this.translate.get("CANCEL_BOOKING");
+    var confirmMessageBody = this.translate.get("VERIFY_CANCEL_BOOKING");
+    var cancelledMessage = this.translate.get("CANCELLED_BOOKING")
 
-    if (this.dialogService) {
-      this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
-      this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-        if (result) {
-          this.updateState(evt["bk_id"]);
-          this.table.reloadData()
-        } 
-      });
+    if (evt["bk_state"]) {
+      if (this.dialogService) {
+        this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
+        this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+          if (result) {
+            this.updateState(evt["bk_id"]);
+            this.table.reloadData();
+          }
+        });
+      }
+    } else {
+      this.showAvailableToast(cancelledMessage);
     }
   }
 
@@ -66,7 +71,7 @@ export class BookingsHomeComponent {
   showAvailableToast(mensaje?: string) {
     const availableMessage = mensaje;
     const configuration: OSnackBarConfig = {
-      milliseconds: 7500,
+      milliseconds: 3000,
       icon: "info",
       iconPosition: "left",
     };

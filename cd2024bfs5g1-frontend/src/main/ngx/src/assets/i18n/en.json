@@ -183,6 +183,7 @@
   "EDIT_COWORKING": "Edit coworking",
   "COWORKING_UPDATE": "Coworking updated!",
   "COWORKING_CREATE": "Coworking created!",
-  "CANCEL_BOOKING": "Are you sure you want to cancel that booking?",
-  "CANCEL_CW_BOOKING_CONFIRMED": "Booking canceled"
+  "VERIFY_CANCEL_BOOKING": "Are you sure you want to cancel that booking?",
+  "CANCEL_CW_BOOKING_CONFIRMED": "Booking canceled",
+  "CANCELLED_BOOKING": "This booking is already cancelled"
 }

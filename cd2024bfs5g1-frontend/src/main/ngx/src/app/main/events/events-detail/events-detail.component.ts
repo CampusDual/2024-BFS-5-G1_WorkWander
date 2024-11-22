@@ -76,7 +76,7 @@ export class EventsDetailComponent {
 
     this.service.insert(filter, "bookingEvent").subscribe((resp) => {
       if (resp.code === 0) {
-        this.showAvailableToast(resp.mensaje);
+        this.showAvailableToast(resp.message);
       }
     });
   }

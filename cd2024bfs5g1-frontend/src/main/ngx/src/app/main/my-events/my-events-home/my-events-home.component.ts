@@ -13,7 +13,6 @@ constructor(private router: Router) {
 }
 
   openDetail(event: any) {
-    console.log("rowData.ev_id", event);
     this.router.navigate(["/main/myevents/" + event.row.id_event]);
   }
 

@@ -52,7 +52,6 @@ export class EventsDetailComponent {
     this.location.back();
   }
 
-  //---------------------------------
   showConfirm() {
     this.idiomaActual = this.translate.getCurrentLang();
     this.idiomaActual === "es"
@@ -60,43 +59,36 @@ export class EventsDetailComponent {
       : (this.idioma = "en-US");
 
     const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
-    this.dialogService.confirm(confirmMessageTitle, '¿Confirma su asistencia al evento? 📆').then((result) => {
+    const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
+    this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
       if (result) {
-        this.createBooking();
+        this.createBookingEvent();
       }
     });
-
   }
 
-  createBooking() {
+  createBookingEvent() {
     const filter = {
       bke_id_event: +this.form.getFieldValue('id_event'),
     };
-    console.log(filter);
-
-    const conf = this.service.getDefaultServiceConfiguration('booking_events'); // cambiar por el de eventos
+    const conf = this.service.getDefaultServiceConfiguration('bookingEvents');
     this.service.configureService(conf);
 
     this.service.insert(filter, "bookingEvent").subscribe((resp) => {
       if (resp.code === 0) {
-        this.showAvailableToast("BOOKINGS_CONFIRMED");
+        this.showAvailableToast(resp.mensaje);
       }
     });
   }
 
-  showAvailableToast(mensaje?: string) {
+  showAvailableToast(mensaje: string) {
     const availableMessage =
       this.translate.get(mensaje);
     const configuration: OSnackBarConfig = {
-      milliseconds: 7500,
+      milliseconds: 3500,
       icon: "info",
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
   }
 }
-
-
-// Añadiremos un botón de Asistiré en el detalle del evento si quedan plazas disponibles.
-
-// Cuando el usuario se inscriba, mostraremos un toast indicando Reserva confirmada.

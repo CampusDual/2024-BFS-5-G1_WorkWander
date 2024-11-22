@@ -182,5 +182,7 @@
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
-  "COWORKING_CREATE": "¡Coworking creado!"
+  "COWORKING_CREATE": "¡Coworking creado!",
+  "BOOKINGS_CONFIRMATION": "¿Confirma su asistencia al evento?",
+  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!"
 }

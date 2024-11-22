@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/bookingEvent")
+@RequestMapping("/bookingEvents")
 public class BookingEventRestController  extends ORestController<IBookingEventService>{
 
         @Autowired
@@ -23,10 +23,5 @@ public class BookingEventRestController  extends ORestController<IBookingEventSe
         @Override
         public IBookingEventService getService() {
                 return this.bookingEventService;
-        }
-
-        @PostMapping("/getEventDisponibility")
-        public EntityResult getEventDisponibilityQuery(@RequestBody Map<String, Object> keyMap) {
-                return this.bookingEventService.getEventDisponibilityQuery(keyMap, null);
         }
 }

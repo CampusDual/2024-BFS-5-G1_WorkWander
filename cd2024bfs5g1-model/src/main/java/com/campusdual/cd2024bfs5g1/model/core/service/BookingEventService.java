@@ -34,18 +34,32 @@ public class BookingEventService implements IBookingEventService {
     @Override
     public EntityResult bookingEventInsert(Map<String, Object> attrMap) {
         // Obtener el usuario autenticado
+        EntityResult retorno = new EntityResultMapImpl();
+        Map<String, Object> eventMap = new HashMap<>();
+        eventMap.put(this.eventDao.ID_EVENT, attrMap.get(this.bookingEventDao.BKE_ID_EVENT));
+
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
         // Verificamos cuantos espacios hay disponibles
+        List<String> eventAttrList = List.of(EventDao.ID_EVENT);
 
-        // EntityResult resultado = this.getEventDisponibilityQuery(attrMap, null);
+        EntityResult resultado = this.getEventDisponibilityQuery(eventMap, eventAttrList);
+        int availableBookings = ((Number) resultado.get("availableEventBookings")).intValue();
+        if (availableBookings > 0) {
+            // Añadir el ID del usuario al mapa de atributos para el insert
+            attrMap.put(BookingEventDao.BKE_USR_ID, userId);
+            attrMap.put(BookingEventDao.BKE_EVENT_STATE, true);
+            retorno = this.daoHelper.insert(this.bookingEventDao, attrMap);
+            retorno.setMessage("BOOKINGS_CONFIRMED");
+            return retorno;
 
-        // Añadir el ID del usuario al mapa de atributos para el insert
-        attrMap.put(BookingEventDao.BKE_USR_ID, userId);
-        attrMap.put(BookingEventDao.BKE_EVENT_STATE,true);
-        return this.daoHelper.insert(this.bookingEventDao, attrMap);
-
+        }
+        else {
+            retorno.setCode(0);
+            retorno.setMessage("NO_BOOKING_ENABLED");
+            return retorno;
+        }
     }
 
     @Override
@@ -79,9 +93,8 @@ public class BookingEventService implements IBookingEventService {
         bookingFilter.put(BookingEventDao.BKE_ID_EVENT, keyMap.get(EventDao.ID_EVENT));
 
         EntityResult bookingResult = this.daoHelper.query(this.bookingEventDao, bookingFilter, List.of(BookingEventDao.BKE_ID_EVENT));
+
         int usedBookings = bookingResult.calculateRecordNumber();
-
-
 
         // Paso 3: Calcular plazas disponibles
         int availableBookings = totalBookings - usedBookings;

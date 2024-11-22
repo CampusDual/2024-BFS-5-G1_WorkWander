@@ -23,7 +23,7 @@ export const SERVICE_CONFIG: Object = {
   cities: {
     path: "/cities",
   },
-  booking_events: {
-    path: "/bookingEvent",
+  bookingEvents: {
+    path: "/bookingEvents",
   }
 };

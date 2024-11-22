@@ -182,5 +182,7 @@
   "SEATS": "seats",
   "EDIT_COWORKING": "Edit coworking",
   "COWORKING_UPDATE": "Coworking updated!",
-  "COWORKING_CREATE": "Coworking created!"
+  "COWORKING_CREATE": "Coworking created!",
+  "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
+  "NO_BOOKING_ENABLED": "Not booking enabled!"
 }

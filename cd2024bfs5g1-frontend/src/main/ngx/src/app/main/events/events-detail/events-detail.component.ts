@@ -12,7 +12,7 @@ export class EventsDetailComponent {
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
-    private location: Location,
+    private location: Location
   ) { }
 
   formatDate(rawDate: number): string {
@@ -20,6 +20,13 @@ export class EventsDetailComponent {
       return this.utils.formatDate(rawDate);
     }
   }
+
+  formatTime(time:string):string{
+    if (time!=null || time!=undefined) {
+      return this.utils.formatTime(time);
+    }
+  }
+
   durationConvert(minutes: number): String {
     const DurationHours = this.translate.get("HOURS_MESSAGE");
     const DurationMinutes = this.translate.get("MINUTES_MESSAGE");

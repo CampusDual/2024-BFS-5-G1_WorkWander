@@ -22,6 +22,7 @@ import {
   Util,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
+import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -40,7 +41,8 @@ export class CoworkingsDetailComponent implements OnInit {
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
     private location: Location,
-    private sanitizer:DomSanitizer
+    private sanitizer:DomSanitizer,
+    private utils:UtilsService
   ) {
     this.responsiveOptions = [
       {
@@ -142,16 +144,33 @@ export class CoworkingsDetailComponent implements OnInit {
         .subscribe((resp) => {
           if (resp.code === 0) {
             this.events = resp.data;
-            console.log(this.events);
           }
         });
     }
   }
 
-  // Función para convertir la imagen desde la base de datos
+  /**
+   * Método para transformar la imagen desde la BBDD
+   * @param base64
+   * @returns la imagen almacenada o la imagen por defecto
+   */
   public getImageSrc(base64: any): any {
     console.log(base64)
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
+  }
+
+  /**
+   * Método para transformar la fecha en función del idioma
+   * Usa el servicio UtilsService en shared
+   * @param date
+   * @returns la fecha formateada como string
+   */
+  dateTransform(date:number):string{
+    return this.utils.formatDate(date);
+  }
+
+  timeTransform(time:any):string{
+    return this.utils.formatTime(time);
   }
 
   goEvent(id_event:number):void{

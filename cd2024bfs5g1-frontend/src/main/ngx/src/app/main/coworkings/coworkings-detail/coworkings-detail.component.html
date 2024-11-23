@@ -228,7 +228,7 @@
 
 <p-carousel [value]="events" [numVisible]="3" [numScroll]="1" [circular]="true"  [responsiveOptions]="responsiveOptions" [autoplayInterval]="5000">
   <ng-template pTemplate="header">
-      <p>{{ 'NEAR_EVENTS' | oTranslate }}</p>
+      <h2>{{ 'NEAR_EVENTS' | oTranslate }}</h2>
   </ng-template>
   <ng-template let-event pTemplate="item">
       <div class="event-item">
@@ -237,9 +237,9 @@
                   <img [src]="getImageSrc(event.image_event)" alt="{{ event.name }}" class="event-image" />
               </div>
               <div>
-                  <h4 >{{ event.name }}</h4>
-                  <h6 >{{ event.date_event | date:'dd-MMMM-yyyy' }}</h6>
-                  <h6 >{{ event.hour_event }}</h6>
+                  <p>{{ event.name }}</p>
+                  <p>{{ dateTransform(event.date_event) }}</p>
+                  <p>{{ timeTransform(event.hour_event) }}</p>
               </div>
           </div>
       </div>

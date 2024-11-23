@@ -61,7 +61,7 @@
           <div>
             {{ "DATE_EVENT" | oTranslate }}:
             {{ formatDate(form.getFieldValue("date_event")) }} -
-            {{ form.getFieldValue("hour_event") }}
+            {{ formatTime(form.getFieldValue("hour_event")) }}
           </div>
           <div>
             {{ "DURATION" | oTranslate }}:
@@ -80,7 +80,7 @@
           <p>
             <mat-icon>calendar_month</mat-icon>
             {{ formatDate(form.getFieldValue("date_event")) }} -
-            {{ form.getFieldValue("hour_event") }}
+            {{ formatTime(form.getFieldValue("hour_event")) }}
           </p>
           <p>
             <mat-icon>hourglass_bottom</mat-icon>

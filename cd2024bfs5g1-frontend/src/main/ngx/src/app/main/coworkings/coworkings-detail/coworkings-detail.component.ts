@@ -42,7 +42,8 @@ export class CoworkingsDetailComponent implements OnInit {
     private translate: OTranslateService,
     private location: Location,
     private sanitizer:DomSanitizer,
-    private utils:UtilsService
+    private utils:UtilsService,
+    private route: ActivatedRoute
   ) {
     this.responsiveOptions = [
       {
@@ -155,7 +156,6 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    console.log(base64)
     return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
   }
 
@@ -169,12 +169,23 @@ export class CoworkingsDetailComponent implements OnInit {
     return this.utils.formatDate(date);
   }
 
+  /**
+   * Método para transformar la hora en hh:mm
+   * @param time
+   * @returns la hora formateada en hh:mm
+   */
   timeTransform(time:any):string{
     return this.utils.formatTime(time);
   }
 
-  goEvent(id_event:number):void{
-    this.router.navigate(['/myevents', id_event]);
+  /**
+   * Método que permite navegar desde el evento seleccionado 
+   * dentro del coworking hasta su detalle, en events-detail
+   * @param id_event 
+   */
+  goEvent(id_event:number):void{    
+    //Navegamos hacia main/coworkings, definido en coworkings-routing-module
+    this.router.navigate(['main/coworkings/'+ this.idCoworking + '/' + id_event], { queryParams: { isdetail: true } });
   }
 
   setDates() {

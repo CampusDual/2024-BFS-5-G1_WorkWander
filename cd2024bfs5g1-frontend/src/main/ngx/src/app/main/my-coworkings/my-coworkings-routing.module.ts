@@ -17,7 +17,7 @@ const routes: Routes = [
       path: "new",
       component: CoworkingsNewComponent,
     },
-  { path: ":cw_id", component: CoworkingsEditComponent },
+  { path: ":cw_id", component: CoworkingsEditComponent }  
 ];
 
 @NgModule({

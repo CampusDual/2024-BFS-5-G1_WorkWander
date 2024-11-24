@@ -139,9 +139,7 @@
         <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
           <div
             class="srv"
-            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)"
-            title="{{ dato.srv_name | oTranslate }}"
-          >
+            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)">
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
@@ -165,6 +163,7 @@
               <article *ngIf="dato.srv_name == 'parking'">
                 <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_parking</mat-icon>
               </article>
+              {{ dato.srv_name | oTranslate }}
             </o-column>
           </div>
         </o-grid-item>

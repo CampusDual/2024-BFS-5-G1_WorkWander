@@ -130,42 +130,42 @@
               <article *ngIf="service == 'additional_screen'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'additional_screen' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >desktop_windows
                 </mat-icon>
               </article>
               <article *ngIf="service == 'vending_machine'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'vending_machine' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >kitchen</mat-icon
                 >
               </article>
               <article *ngIf="service == 'coffee_bar'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'coffee_bar' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >local_cafe</mat-icon
                 >
               </article>
               <article *ngIf="service == 'water_dispenser'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'water_dispenser' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >local_drink
                 </mat-icon>
               </article>
               <article *ngIf="service == 'ergonomic_chair'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'ergonomic_chair' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >event_seat
                 </mat-icon>
               </article>
               <article *ngIf="service == 'parking'">
                 <mat-icon
                   style="vertical-align: middle"
-                  title="{{ 'parking' | oTranslate }}"
+                  [matTooltip]="service | oTranslate"
                   >local_parking</mat-icon
                 >
               </article>

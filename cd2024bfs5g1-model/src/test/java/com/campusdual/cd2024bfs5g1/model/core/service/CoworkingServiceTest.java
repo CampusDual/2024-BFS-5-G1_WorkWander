@@ -23,6 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -82,21 +85,22 @@ public class CoworkingServiceTest {
                 "resultado esperado");
         verify(this.daoHelper).query(this.coworkingDao, keyMap, attrList);
     }
-    //TODO: REVISAR ESTE TEST, COMPARAR CON LA MISMA DE CoworkingService
-    /*@Test
+
+    @Test
     public void testMyCoworkingQuery() {
-        setupSecurityContext(); // Mover la configuración aquí
+        this.setupSecurityContext(); // Mover la configuración aquí
 
         // Datos de prueba
-        Map<String, Object> keyMap = new HashMap<>();
-        List<String> attrList = Arrays.asList("attribute1", "attribute2");
-        EntityResult expectedResult = new EntityResultMapImpl();
+        final Map<String, Object> keyMap = new HashMap<>();
+        final List<String> attrList = Arrays.asList("attribute1", "attribute2");
+        final EntityResult expectedResult = new EntityResultMapImpl();
 
         // Configurar el mock
-        when(daoHelper.query(eq(coworkingDao), anyMap(), eq(attrList))).thenReturn(expectedResult);
+        when(this.daoHelper.query(eq(this.coworkingDao), anyMap(), eq(attrList),
+                eq(this.coworkingDao.CW_QUERY_SERVICES))).thenReturn(expectedResult);
 
         // Llamar al método
-        EntityResult result = coworkingService.myCoworkingQuery(keyMap, attrList);
+        final EntityResult result = this.coworkingService.myCoworkingQuery(keyMap, attrList);
 
         // Verificar que se añadió el ID del usuario al keyMap
         assertTrue(keyMap.containsKey(CoworkingDao.CW_USER_ID), "El ID del usuario debería haberse añadido a keyMap");
@@ -105,34 +109,62 @@ public class CoworkingServiceTest {
         // Verificar resultados
         assertEquals(expectedResult, result, "El resultado devuelto por el método debería coincidir con el resultado " +
                 "esperado");
-        verify(daoHelper).query(eq(coworkingDao), eq(keyMap), eq(attrList));
-    }*/
+        verify(this.daoHelper).query(eq(this.coworkingDao), eq(keyMap), eq(attrList),
+                eq(this.coworkingDao.CW_QUERY_SERVICES));
+    }
 
     //TODO corregir test
-    // @Test
-    // public void testCoworkingInsert() {
-    //     setupSecurityContext(); // Mover la configuración aquí
+    /*@Test
+    public void testCoworkingInsert() {
+        this.setupSecurityContext(); // Mover la configuración aquí
 
-    //     // Datos de prueba
-    //     Map<String, Object> attrMap = new HashMap<>();
-    //     EntityResult expectedResult = new EntityResultMapImpl();
+        //     // Datos de prueba
+        final Map<String, Object> attrMap = new HashMap<>();
+        final ArrayList<Map<String, Integer>> srv = new ArrayList<Map<String, Integer>>();
+        final Map<String, Integer> service = new HashMap<>();
+        service.put("id", 1);
+        srv.add(service);
+        attrMap.put("cw_name", "Proba");
+        attrMap.put("cw_description", "Datos de proba");
+        attrMap.put("cw_address", "Rúa de proba");
+        attrMap.put("cw_capacity", 4);
+        attrMap.put("cw_daily_price", 15);
+        attrMap.put("cw_usr_id", 12);
+        attrMap.put("cw_start_date", "2024-11-24");
+        attrMap.put("cw_end_date", "2024-11-25");
+        attrMap.put("cw_image", " ");
+        attrMap.put("cw_location", 4560);
+        attrMap.put("services", srv);
 
-    //     // Configurar el mock
-    //     when(daoHelper.insert(coworkingDao, attrMap)).thenReturn(expectedResult);
+        // Obtener el usuario autenticado
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
-    //     // Llamar al método
-    //     EntityResult result = coworkingService.coworkingInsert(attrMap);
+        // Añadir el ID del usuario al mapa de atributos para el insert
+        attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
-    //     // Verificar que se añadió el ID del usuario al attrMap
-    //     assertTrue(attrMap.containsKey(CoworkingDao.CW_USER_ID),"El ID del usuario debería estar presente en
-    //     attrMap tras la inserción");
-    //     assertEquals(1, attrMap.get(CoworkingDao.CW_USER_ID),"El valor del ID de usuario en attrMap debería ser 1");
+        final EntityResult expectedResult = new EntityResultMapImpl();
 
-    //     // Verificar resultados
-    //     assertEquals(expectedResult, result,"El resultado devuelto por el método debería coincidir con el
-    //      resultado esperado");
-    //     verify(daoHelper).insert(coworkingDao, attrMap);
-    // }
+        //     // Configurar el mock
+        when(this.daoHelper.insert(this.coworkingDao, attrMap)).thenReturn(expectedResult);
+
+        // Recuperación de los servicios
+        final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+
+        //     // Llamar al método
+        final EntityResult result = this.coworkingService.coworkingInsert(attrMap);
+
+        //     // Verificar que se añadió el ID del usuario al attrMap
+        assertTrue(attrMap.containsKey(CoworkingDao.CW_USER_ID), "El ID del usuario debería estar presente" +
+                "en attrMap\\ tras la inserción");
+        assertEquals(1, attrMap.get(CoworkingDao.CW_USER_ID), "El valor del ID de usuario en attrMap\\" +
+                " debería ser 1");
+
+        //     // Verificar resultados
+        assertEquals(expectedResult, result, "El resultado devuelto por el \\" +
+                "método debería coincidir con el resultado esperado");
+        verify(this.daoHelper).insert(this.coworkingDao, attrMap);
+    }*/
     //TODO: REVISAR ESTE TEST, COMPARAR CON LA MISMA DE CoworkingUpdate
     /*@Test
     public void testCoworkingUpdate() {

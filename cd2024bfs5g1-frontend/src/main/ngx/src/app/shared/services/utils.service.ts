@@ -9,6 +9,11 @@ export class UtilsService {
 
   constructor(private translate: OTranslateService) { }
 
+  /**
+   * Método que retorna la fecha formateada según el idioma
+   * @param rawDate
+   * @returns string
+   */
   formatDate(rawDate:number){
     const date = new Date(rawDate);
     this.language = this.translate.getCurrentLang();
@@ -19,8 +24,17 @@ export class UtilsService {
   dateStartFunction(rowData: Array<any>): any {
     return rowData["dates"][0];
   }
-  
+
   dateEndFunction(rowData: Array<any>): any {
     return rowData["dates"][rowData["dates"].length - 1];
+  }
+
+  /**
+   * Método que retorna la hora en formato hh:mm
+   * @param time
+   * @returns string
+   */
+  formatTime(time:string):string{
+    return `${time.substring(0,2)}:${time.substring(3,5)}`
   }
 }

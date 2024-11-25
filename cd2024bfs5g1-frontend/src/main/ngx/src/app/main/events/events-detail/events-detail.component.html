@@ -64,8 +64,9 @@
               <mat-icon>calendar_month</mat-icon>
             </div>
             <span>
+              {{ "DATE_EVENT" | oTranslate }}:
               {{ formatDate(form.getFieldValue("date_event")) }} -
-              {{ form.getFieldValue("hour_event") }}
+              {{ formatTime(form.getFieldValue("hour_event")) }}
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -103,7 +104,7 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-          
+
           </div>
         </div>
       </div>

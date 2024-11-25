@@ -5,7 +5,6 @@
   mode="none"
   label-columns="bk_id"
 >
-  <p>{{ "MY_BOOKINGS" | oTranslate }}</p>
   <o-table
     delete-button="no"
     insert-button="no"
@@ -18,11 +17,12 @@
     visible-columns="cw_name;date_start;date_end;states;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
-    pageable="yes"
     (onClick)="toCoworkingDetail($event)"
     detail-mode="none"
-    quick-filter="no"
   >
+    <o-table-columns-filter
+      columns="cw_name;date_start;date_end"
+    ></o-table-columns-filter>
     <o-table-column
       attr="cw_name"
       title="COWORKINGS_NAME"

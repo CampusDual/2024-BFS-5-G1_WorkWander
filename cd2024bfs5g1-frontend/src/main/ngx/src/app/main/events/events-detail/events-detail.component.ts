@@ -19,11 +19,17 @@ export class EventsDetailComponent {
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService
   ) { }
-  
+
 
   formatDate(rawDate: number): string {
     if (rawDate) {
       return this.utils.formatDate(rawDate);
+    }
+  }
+
+  formatTime(time:string):string{
+    if (time!=null || time!=undefined) {
+      return this.utils.formatTime(time);
     }
   }
 

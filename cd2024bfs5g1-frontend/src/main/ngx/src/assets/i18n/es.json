@@ -185,6 +185,8 @@
   "COWORKING_CREATE": "¡Coworking creado!",
   "DETAILS": "Detalles",
   "PARTICIPATION": "Participación",
+  "NEAR_EVENTS": "Eventos recomendados por la zona",
+  "HOURS": "horas",
   "SLOTS": "plazas",
   "VERIFY_CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?",
   "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada",

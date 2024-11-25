@@ -22,7 +22,8 @@ import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/cowo
   exports: [
     CommonModule,
     FilterComponent,
-    HomeToolbarComponent
+    HomeToolbarComponent,
+    EventsDetailComponent
   ]
 })
 export class SharedModule { }

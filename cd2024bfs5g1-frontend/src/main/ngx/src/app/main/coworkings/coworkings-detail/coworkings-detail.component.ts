@@ -1,10 +1,5 @@
 import { Location } from "@angular/common";
-import {
-  Component,
-  Inject,
-  OnInit,
-  ViewChild
-} from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -31,7 +26,7 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 })
 export class CoworkingsDetailComponent implements OnInit {
   events: any = [];
-  responsiveOptions!:any;
+  responsiveOptions!: any;
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -41,27 +36,27 @@ export class CoworkingsDetailComponent implements OnInit {
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
     private location: Location,
-    private sanitizer:DomSanitizer,
-    private utils:UtilsService,
+    private sanitizer: DomSanitizer,
+    private utils: UtilsService,
     private route: ActivatedRoute
   ) {
     this.responsiveOptions = [
       {
-          breakpoint: '1024px',
-          numVisible: 3,
-          numScroll: 3
+        breakpoint: "1024px",
+        numVisible: 3,
+        numScroll: 3,
       },
       {
-          breakpoint: '768px',
-          numVisible: 2,
-          numScroll: 2
+        breakpoint: "768px",
+        numVisible: 2,
+        numScroll: 2,
       },
       {
-          breakpoint: '560px',
-          numVisible: 1,
-          numScroll: 1
-      }
-  ];
+        breakpoint: "560px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
@@ -145,6 +140,9 @@ export class CoworkingsDetailComponent implements OnInit {
         .subscribe((resp) => {
           if (resp.code === 0) {
             this.events = resp.data;
+            this.events.sort(function (a: any, b: any) {
+              return a.date_event - b.date_event;
+            });
           }
         });
     }
@@ -156,7 +154,11 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
+    return base64
+      ? this.sanitizer.bypassSecurityTrustResourceUrl(
+          "data:image/*;base64," + base64
+        )
+      : "./assets/images/event-default.jpg";
   }
 
   /**
@@ -165,7 +167,7 @@ export class CoworkingsDetailComponent implements OnInit {
    * @param date
    * @returns la fecha formateada como string
    */
-  dateTransform(date:number):string{
+  dateTransform(date: number): string {
     return this.utils.formatDate(date);
   }
 
@@ -174,18 +176,21 @@ export class CoworkingsDetailComponent implements OnInit {
    * @param time
    * @returns la hora formateada en hh:mm
    */
-  timeTransform(time:any):string{
+  timeTransform(time: any): string {
     return this.utils.formatTime(time);
   }
 
   /**
-   * Método que permite navegar desde el evento seleccionado 
+   * Método que permite navegar desde el evento seleccionado
    * dentro del coworking hasta su detalle, en events-detail
-   * @param id_event 
+   * @param id_event
    */
-  goEvent(id_event:number):void{    
+  goEvent(id_event: number): void {
     //Navegamos hacia main/coworkings, definido en coworkings-routing-module
-    this.router.navigate(['main/coworkings/'+ this.idCoworking + '/' + id_event], { queryParams: { isdetail: true } });
+    this.router.navigate(
+      ["main/coworkings/" + this.idCoworking + "/" + id_event],
+      { queryParams: { isdetail: true } }
+    );
   }
 
   setDates() {

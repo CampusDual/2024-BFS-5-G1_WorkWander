@@ -770,11 +770,12 @@ o-data-toolbar {
 
 .event-item {
   .event-item-content {
-      border: 1px solid var(--surface-d);
-      border-radius: 3px;
+      border: 1px solid #dfe7ef;
+      border-radius: 25px 5px 25px 5px;
       margin: .3rem;
       text-align: center;
-      padding: 2rem 0;
+      padding: 1rem 0;
+      height: 20%;
   }
 
   .event-item-content:hover{
@@ -782,15 +783,19 @@ o-data-toolbar {
   }
 
   .event-image {
-      width: 25%;
-      height: 50%;
+      width: 100px;
+      height: 100px;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
   }
 }
 
+.p-carousel-indicators{
+  margin: 0%;
+}
+
 .p-carousel-indicator{
   list-style:none;
-  padding: 5px;
+  padding: 5px;  
 }
 
 @media (min-width: 768px) {

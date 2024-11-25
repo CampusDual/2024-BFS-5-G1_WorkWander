@@ -185,5 +185,6 @@
   "COWORKING_CREATE": "Coworking created!",
   "DETAILS": "Details",
   "PARTICIPATION": "Participation",
-  "SLOTS": "slots"
+  "SLOTS": "slots",
+  "NO_BOOKING_ENABLED": "No bookings available!"
 }

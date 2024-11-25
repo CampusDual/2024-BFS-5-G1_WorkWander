@@ -89,6 +89,7 @@
         searchable="true"
         sort="ASC"
         appearance="fill"
+        (onBlur)="checkLocation()"
       >
       </o-combo>
       <o-text-input
@@ -101,6 +102,7 @@
         placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
         max-length="50"
         min-length="3"
+        (onBlur)="checkAddress()"
       ></o-text-input>
       <!-- Capacity and Price -->
       <o-integer-input
@@ -190,6 +192,13 @@
       fxLayoutGap="24px"
     >
       <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">
+        <!-- Imagen Information -->
+        <!-- Imagen -->
+        <o-image
+          attr="cw_image"
+          sql-type="OTHER"
+          max-file-size="1048576"
+        ></o-image>
         <!-- Map Information -->
         <o-map
           #oMapBasic
@@ -199,16 +208,9 @@
           min-zoom="3"
           max-zoom="20"
           zoom-control="yes"
-          search-control="false"
+          search-control="yes"
           fxFlex
         ></o-map>
-        <!-- Imagen Information -->
-        <!-- Imagen -->
-        <o-image
-          attr="cw_image"
-          sql-type="OTHER"
-          max-file-size="1048576"
-        ></o-image>
       </div>
     </o-column>
   </div>

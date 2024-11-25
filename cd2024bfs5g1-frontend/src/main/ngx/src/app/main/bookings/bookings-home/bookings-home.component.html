@@ -15,7 +15,7 @@
     entity="datesByBooking"
     keys="bk_id"
     columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
-    visible-columns="cw_name;date_start;date_end;states;cancel"
+    visible-columns="cw_name;date_start;date_end;states;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     pageable="yes"
@@ -46,7 +46,8 @@
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
     <o-table-column
-      attr="cancel"
+      #cancelCWbooking
+      attr="cancelCWbooking"
       title="CANCEL"
       type="action"
       icon="close"

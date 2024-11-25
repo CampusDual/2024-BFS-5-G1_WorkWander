@@ -179,6 +179,19 @@ login {
     z-index: 2;
     background-color: unset;
 
+    .login-button {
+      background-color: $primary;
+      color: $blanco;
+      margin-bottom: 40px;
+    }
+    .register-button {
+      background-color: $accent;
+    }
+    .enter-without-account-button {
+      background-color: $blanco;
+      color: $primary;
+    }
+
     .login-inner-container form {
       padding: $padding;
       justify-content: center;
@@ -210,10 +223,6 @@ login {
     min-height: 100vh;
     justify-content: center;
     min-width: 368px;
-
-    div.text-center {
-      text-align: center;
-    }
   }
 
   .login-inner-container form,
@@ -260,10 +269,20 @@ login {
     background: rgba($primary, 0.1);
     opacity: 0.8;
   }
+
   .wrapp-register {
     width: 640px;
     min-height: 100%;
     z-index: 2;
+
+    .register-button {
+      background-color: $primary;
+      color: $blanco;
+      margin-bottom: 40px;
+    }
+    .go-back-button {
+      background-color: $accent;
+    }
 
     .register-inner-container {
       width: 100%;
@@ -741,11 +760,11 @@ o-column {
   background-color: $accent;
   color: $primary;
   padding: 5px 5px 5px 5px;
-  font-size: 9px;  
+  font-size: 9px;
   width: 250px;
-  height: auto;  
+  height: auto;
   text-align:center;
-  margin: 0 auto;  
+  margin: 0 auto;
 }
 
 o-data-toolbar {
@@ -767,6 +786,20 @@ o-data-toolbar {
     border-radius: 16px;
   }
 }
+
+// borde botón cancelar
+td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
+  mat-icon.mat-icon {
+    border: 2px #9f2525 solid;
+    border-style: outset;
+    border-radius: 8px;
+    padding: 2px 8px 2px 8px;
+    color: white !important;
+    margin: 5px 0 5px 0;
+    background-color: #9f2525 !important;
+  }
+}
+//
 
 .event-item {
   .event-item-content {
@@ -795,7 +828,7 @@ o-data-toolbar {
 
 .p-carousel-indicator{
   list-style:none;
-  padding: 5px;  
+  padding: 5px;
 }
 
 @media (min-width: 768px) {

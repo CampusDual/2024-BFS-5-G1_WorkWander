@@ -15,7 +15,7 @@
     entity="datesByBooking"
     keys="bk_id"
     columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
-    visible-columns="cw_name;date_start;date_end;states"
+    visible-columns="cw_name;date_start;date_end;states;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     pageable="yes"
@@ -44,6 +44,15 @@
     ></o-table-column-calculated>
     <o-table-column attr="states" title="BOOKING_STATE">
       <app-bookings-state-render></app-bookings-state-render>
+    </o-table-column>
+    <o-table-column
+      #cancelCWbooking
+      attr="cancelCWbooking"
+      title="CANCEL"
+      type="action"
+      icon="close"
+      (onClick)="cancelBooking($event)"
+    >
     </o-table-column>
   </o-table>
 </o-form-layout-manager>

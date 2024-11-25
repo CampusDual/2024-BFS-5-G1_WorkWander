@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
-import { Component } from "@angular/core";
-import { OTranslateService } from "ontimize-web-ngx";
+import { Component, ViewChild } from "@angular/core";
+import { DialogService, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
@@ -8,12 +8,18 @@ import { UtilsService } from "src/app/shared/services/utils.service";
   templateUrl: "./events-detail.component.html",
   styleUrls: ["./events-detail.component.css"],
 })
+
 export class EventsDetailComponent {
+  @ViewChild("form") form: OFormComponent;
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
-    private location: Location
+    private location: Location,
+    private service: OntimizeService,
+    protected snackBarService: SnackBarService,
+    protected dialogService: DialogService
   ) { }
+
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -51,5 +57,40 @@ export class EventsDetailComponent {
 
   goBack(): void {
     this.location.back();
+  }
+
+  showConfirm() {
+    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+    const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
+    this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
+      if (result) {
+        this.createBookingEvent();
+      }
+    });
+  }
+
+  createBookingEvent() {
+    const filter = {
+      bke_id_event: +this.form.getFieldValue('id_event'),
+    };
+    const conf = this.service.getDefaultServiceConfiguration('bookingEvents');
+    this.service.configureService(conf);
+
+    this.service.insert(filter, "bookingEvent").subscribe((resp) => {
+      if (resp.code === 0) {
+        this.showAvailableToast(resp.message);
+      }
+    });
+  }
+
+  showAvailableToast(mensaje: string) {
+    const availableMessage =
+      this.translate.get(mensaje);
+    const configuration: OSnackBarConfig = {
+      milliseconds: 3500,
+      icon: "info",
+      iconPosition: "left",
+    };
+    this.snackBarService.open(availableMessage, configuration);
   }
 }

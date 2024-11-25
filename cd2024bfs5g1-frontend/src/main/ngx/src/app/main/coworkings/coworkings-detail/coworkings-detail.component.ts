@@ -93,7 +93,10 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   currentDate() {
-    return new Date();
+    let date = new Date();
+    date.setHours(0,0,0,0)
+
+    return date;
   }
 
   showEvents(cw_location: number): void {

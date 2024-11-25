@@ -6,6 +6,7 @@ import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -14,10 +15,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Servicio para gestionar las operaciones relacionadas con los coworkings.
@@ -150,6 +148,24 @@ public class CoworkingService implements ICoworkingService {
             this.cwServiceService.cwServiceInsert(map);
         }
     }
+
+    public EntityResult getUserCoworkings(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put("cw_usr_id", userId);
+        final EntityResult idCoworkingsER = this.coworkingByUserQuery(keyMap, attrList);
+        final ArrayList<Integer> idCoworkings = (ArrayList<Integer>) idCoworkingsER.get("cw_id");
+        final ArrayList<String> namesCoworkings = (ArrayList<String>) idCoworkingsER.get("cw_name");
+        final Map<Integer, String> coworkings = new LinkedHashMap<>();
+        for (int i = 0; i < idCoworkings.size(); i++) {
+            coworkings.put(idCoworkings.get(i), namesCoworkings.get(i));
+        }
+        final EntityResult r = new EntityResultMapImpl();
+        r.setCode(0);
+        r.put("data", coworkings);
+        return r;
+    }
+
 
     @Override
     public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList) {

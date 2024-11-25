@@ -160,28 +160,27 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMapB, final List<String> attrList) {
-        //Usuario
+    public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        //Definir keyMaps y attr
+        final Object datesObj = keyMap.get("bk_date");
+        final List<Integer> idList = (List<Integer>) datesObj;
+        keyMap.put("bk_usr_id", userId);
         final Map<String, Object> keyMapCW = new HashMap<>();
         keyMapCW.put("cw_usr_id", userId);
-        //Cogemos los id de los coworkings
-        final EntityResult idCoworkingsER = this.cs.coworkingByUserQuery(keyMapCW, attrList);
-        final ArrayList<Integer> idCoworkings = (ArrayList<Integer>) idCoworkingsER.get("cw_id");
-        //defino el calendario
+        //Defino el calendario
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
+        int contador = 0;
         //Mapa1
-        final Map<Integer, Map<Date, Double>> coworkingMap = new LinkedHashMap<>();
+        final Map<String, Map<Date, Double>> coworkingMap = new LinkedHashMap<>();
         //Bucle de coworkings de la empresa
-        for (final int id : idCoworkings) {
+        for (final int id : idList) {
             keyMapCW.put("cw_id", id);
-            keyMapB.put("bk_cw_id", id);
+            keyMap.put("bk_cw_id", id);
             //Sacar la capacidad de los coworkings
             final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMapCW, attrList);
             final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);
@@ -193,14 +192,15 @@ public class BookingService implements IBookingService {
                 //cambio la fecha y la pongo en el keyMap
                 calendar.add(Calendar.DAY_OF_MONTH, -1);
                 final Date date = calendar.getTime();
-                keyMapB.put("date", date);
+                keyMap.put("date", date);
                 //Saco la ocupacion y la añado al mapa como porcentaje
-                final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
+                final EntityResult ocupacion = this.occupationByDateQuery(keyMap, attrList);
                 final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
                 final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
                 datesMap.put(date, ocupacionP);
             }
-            coworkingMap.put(id, datesMap);
+            coworkingMap.put(namesCoworkings.get(contador), datesMap);
+            contador++;
         }
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();

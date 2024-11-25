@@ -78,9 +78,9 @@
         </Query>
         <Query id="coworkingsByUser">
             <Sentence>
-                select cw_id
+                select cw_id,cw_name
                 FROM {mainschema}.coworking c
-                #WHERE#
+                #WHERE# ORDER BY cw_id
             </Sentence>
         </Query>
     </Queries>

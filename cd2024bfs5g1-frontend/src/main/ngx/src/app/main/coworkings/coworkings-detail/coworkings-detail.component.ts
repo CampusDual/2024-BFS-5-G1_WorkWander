@@ -67,7 +67,10 @@ export class CoworkingsDetailComponent {
   }
 
   currentDate() {
-    return new Date();
+    let date = new Date();
+    date.setHours(0,0,0,0)
+
+    return date;
   }
 
   setDates() {

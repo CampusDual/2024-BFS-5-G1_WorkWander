@@ -2,7 +2,7 @@
   attr="myEvents"
   title="{{ 'MYEVENTS' | oTranslate }}"
   separator=" "
-  mode="tab"
+  mode="none"
   label-columns="name"
 >
   <o-table
@@ -16,7 +16,9 @@
     columns="id_event;name;description;date_event;hour_event;address;location;bookings;usr_id"
     visible-columns="name;date_event;hour_event;location"
     query-rows="15"
+    detail-mode="none"
     auto-adjust="true"
+    (onClick)="openDetail($event)"
   >
     <!-- Columna para mostrar la fecha del evento -->
     <o-table-column

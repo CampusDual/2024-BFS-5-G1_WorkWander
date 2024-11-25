@@ -1,28 +1,15 @@
 @use "sass:map";
 @use '@angular/material'as mat;
 @use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss'as ontimize-style;
+@import './custom_color.scss';
 
-/* Color definitions */
-/*$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5F6F65;
-$primaryClaro: rgba($primary, 0.4);
-$accentClaro: rgba($accent, 0.8);
-*/
-
-
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$verdeBoton: #5F6F65;
-$blanco: #f8f6f4;
 
 //$mat-custom-primary: (50 : rgba($primary, 0.05), 100 : #f3af7a, 200 : #df9760, 300 : #d6925e, 400 : #d38f5c, 500 : #c28455, 600 : #b67b4f, 700 : #a36f48, 800 : #996843, 900 : #8b5e3c, A100 : #f3af7a, A200 : #c28455, A400 : #a36f48, A700 : #8b5e3c, contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff));
 $mat-custom-primary: (50 : rgba($primary, 0.05), 100 : rgba($primary, 0.1), 200 : rgba($primary, 0.20), 300 : rgba($primary, 0.30), 400 : rgba($primary, 0.45), 500 : rgba($primary, 0.60), 600 : rgba($primary, 0.70), 700 : rgba($primary, 0.80), 800 : rgba($primary, 0.90), 900 : $primary, A100 : rgba($primary, 0.20), A200 : rgba($primary, 0.30), A400 : rgba($primary, 0.40), A700 : rgba($primary, 0.70), contrast: (50 : rgba($verdeBoton,1), 100 : rgba($verdeBoton,1), 200 : rgba($verdeBoton,1), 300 : rgba($verdeBoton,1), 400 : rgba($accent,1), 500 : rgba($accent,1), 600 : rgba($accent,1), 700 : rgba($accent,1), 800 : rgba($accent,1), 900 : rgba($accent,1), A100 : rgba($verdeBoton,1), A200 : rgba($verdeBoton,1), A400 : rgba($accent,1), A700 : rgba($accent,1)));
 
 /* Color definitions */
 //$mat-custom-primary-dark: (50 : #f1f6fa, 100 : #dce8f2, 200 : #c5d9e9, 300 : #adc9e0, 400 : #9cbed9, 500 : #8ab2d2, 600 : #82abcd, 700 : #c28455, 800 : #f3af7a, 900 : #c28455, A100 : #ffffff, A200 : #ebf5ff, A400 : #b8dcff, A700 : #9ed0ff, contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #000000, 500 : #000000, 600 : #000000, 700 : #000000, 800 : #000000, 900 : #000000, A100 : #000000, A200 : #000000, A400 : #000000, A700 : #000000, ));
-$mat-custom-primary-dark: (50 : rgba($accent, 0.05), 100 : rgba($accent, 0.100), 200 : rgba($accent, 0.20), 300 : rgba($accent, 0.30), 400 :  rgba($accent, 0.40), 500 :  rgba($primary, 0.50), 600 :  rgba($primary, 0.60), 700 :  rgba($primary, 0.70), 800 :  rgba($primary, 0.85), 900 :  rgba($primary, 1), A100 :  rgba($accent, 1), A200 :  rgba($primary, 0.30), A400 : rgba($primary, 0.50), A700 : rgba($primary, 0.70), contrast: (50 : rgba($verdeBoton,1), 100 : rgba($verdeBoton,1), 200 : rgba($verdeBoton,1), 300 : rgba($verdeBoton,1), 400 : rgba($verdeBoton,1), 500 : rgba($verdeBoton,1), 600 : rgba($verdeBoton,1), 700 : rgba($verdeBoton,1), 800 : rgba($verdeBoton,1), 900 : rgba($verdeBoton,1), A100 : rgba($verdeBoton,1), A200 : rgba($verdeBoton,1), A400 : rgba($verdeBoton,1), A700 : rgba($verdeBoton,1), ));
+$mat-custom-primary-dark: (50 : rgba($accent, 0.05), 100 : rgba($accent, 0.100), 200 : rgba($accent, 0.20), 300 : rgba($accent, 0.30), 400 : rgba($accent, 0.40), 500 : rgba($primary, 0.50), 600 : rgba($primary, 0.60), 700 : rgba($primary, 0.70), 800 : rgba($primary, 0.85), 900 : rgba($primary, 1), A100 : rgba($accent, 1), A200 : rgba($primary, 0.30), A400 : rgba($primary, 0.50), A700 : rgba($primary, 0.70), contrast: (50 : rgba($verdeBoton,1), 100 : rgba($verdeBoton,1), 200 : rgba($verdeBoton,1), 300 : rgba($verdeBoton,1), 400 : rgba($verdeBoton,1), 500 : rgba($verdeBoton,1), 600 : rgba($verdeBoton,1), 700 : rgba($verdeBoton,1), 800 : rgba($verdeBoton,1), 900 : rgba($verdeBoton,1), A100 : rgba($verdeBoton,1), A200 : rgba($verdeBoton,1), A400 : rgba($verdeBoton,1), A700 : rgba($verdeBoton,1), ));
 
 // Define a theme.
 $primary: mat.define-palette($mat-custom-primary);

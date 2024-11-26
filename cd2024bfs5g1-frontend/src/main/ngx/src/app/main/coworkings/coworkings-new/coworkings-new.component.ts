@@ -178,7 +178,12 @@ export class CoworkingsNewComponent implements OnInit {
     }
     return null;
   }
-
+  checkEnterAndBlur(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      (event.target as HTMLInputElement).blur();  // Controla manualmente el blur
+    }
+  }
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();

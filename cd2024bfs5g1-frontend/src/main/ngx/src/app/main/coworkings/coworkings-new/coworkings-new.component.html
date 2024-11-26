@@ -104,6 +104,7 @@
         placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
         max-length="50"
         min-length="3"
+        keydown="checkEnterAndBlur($event)"
         (onBlur)="onAddressBlur()"
       ></o-text-input>
       <!-- Capacity and Price -->

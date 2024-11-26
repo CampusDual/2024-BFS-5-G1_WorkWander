@@ -4,6 +4,7 @@ import { AuthGuardService, PermissionsGuardService } from 'ontimize-web-ngx';
 
 import { MainComponent } from './main.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EventsDetailComponent } from './events/events-detail/events-detail.component';
 
 export const routes: Routes = [
   {

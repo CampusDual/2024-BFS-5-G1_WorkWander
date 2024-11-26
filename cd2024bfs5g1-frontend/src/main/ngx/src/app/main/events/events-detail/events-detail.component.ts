@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild } from "@angular/core";
-import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
+import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 
@@ -11,20 +12,26 @@ import { UtilsService } from "src/app/shared/services/utils.service";
   styleUrls: ["./events-detail.component.css"],
 })
 
-export class EventsDetailComponent {
+export class EventsDetailComponent implements OnInit {
   bookingEvents: any = [];
 
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
+  @ViewChild("lblSeatsAvailable") lblSeatsAvailable: OTextInputComponent;
 
   constructor(
+    private service: OntimizeService,
+    private activeRoute: ActivatedRoute,
     private translate: OTranslateService,
     private utils: UtilsService,
     private location: Location,
-    private service: OntimizeService,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService
   ) { }
+
+  ngOnInit() {
+    this.checkBookingEvent();
+  }
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -99,16 +106,20 @@ export class EventsDetailComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-  checkBookingEvent(id_event: number) {
-    const plazasDisponibles = "";
+  checkBookingEvent() {
+    //const plazasDisponibles = "";
+    /*
     const filter = {
       "@basic_expression": {
         lop: {
           lop: "id_event",
           op: "=",
-          rop: id_event,
+          rop: this.activeRoute.snapshot.params["cw_id"],
         },
       },
+    };*/
+    const filter = {
+      id_event: +this.activeRoute.snapshot.params["id_event"],
     };
 
     const conf = this.service.getDefaultServiceConfiguration("bookingEvents");
@@ -124,8 +135,13 @@ export class EventsDetailComponent {
       .subscribe((resp) => {
         if (resp.code === 0) {
           this.bookingEvents = resp.data;
-          console.log("Plazas disponibles: ", this.bookingEvents[0]);
-          return this.bookingEvents[0];
+          console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
+          //document.getElementById("lblSeatsAvailable") = this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
+          // this.bookingEvents.lblSeatsAvailable.setValue(this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings);
+          return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
+
+        } else {
+          return this.translate.get("NO_BOOKING_ENABLED")
         }
       });
   }

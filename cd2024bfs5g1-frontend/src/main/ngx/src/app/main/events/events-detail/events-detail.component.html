@@ -96,9 +96,7 @@
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
-            <span
-              [innerHTML]="checkBookingEvent(form.getFieldValue('id_event'))"
-            ></span>
+            <span id="lblSeatsAvailable"></span>
           </div>
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
@@ -133,7 +131,6 @@
         </div>
       </div>
     </div>
-
     <o-integer-input oHidden #id attr="id_event"></o-integer-input>
     <o-text-input oHidden attr="name"></o-text-input>
     <o-text-input oHidden attr="description"></o-text-input>

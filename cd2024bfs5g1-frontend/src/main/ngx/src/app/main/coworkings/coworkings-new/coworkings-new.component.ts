@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, Injector, OnInit, ViewChild } from "@angular/core";
-import {
-  OFormComponent,
-  ODateInputComponent,
-  OTranslateService,
-  OComboComponent,
-  OTextInputComponent,
-} from "ontimize-web-ngx";
-import { Router } from "@angular/router";
-import { OntimizeService, OSnackBarConfig, SnackBarService } from 'ontimize-web-ngx';
-import { OMapComponent } from "ontimize-web-ngx-map";
 import { HttpClient } from '@angular/common/http';
+import { Component, Injector, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
+import {
+  OComboComponent,
+  ODateInputComponent,
+  OFormComponent,
+  OntimizeService, OSnackBarConfig,
+  OTextInputComponent,
+  OTranslateService,
+  SnackBarService,
+} from "ontimize-web-ngx";
+import { OMapComponent } from "ontimize-web-ngx-map";
 
 @Component({
   selector: "app-coworking-new",
@@ -40,7 +41,7 @@ export class CoworkingsNewComponent implements OnInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild('combo') combo: OComboComponent;
   @ViewChild('address') address: OTextInputComponent;
-  toastService: any;
+
 
   constructor(
     private router: Router,
@@ -138,115 +139,87 @@ export class CoworkingsNewComponent implements OnInit {
     this.snackBarService.open('', configuration);
   }
 
-  //Metodos mapa usando api externa
-  onMunicipalityChange(): void {
-    const selectedCityId = this.combo.getValue();
+  // ---------------------- MAPA ----------------------
 
-    const cityObject = this.combo.dataArray.find((city) => city.id_city === selectedCityId);
-    const cityName = cityObject ? cityObject.city : null;
-
-    if (cityName) {
-      this.getCoordinatesForCity(cityName).then((coords) => {
-
-        if (coords && /^[+-]?\d+(\.\d+)?;[+-]?\d+(\.\d+)?$/.test(coords)) {
-          this.center = coords;
-          this.zoom = 12;
-        } else {
-          this.showToast('Formato inválido de coordenadas: ' + coords);
-        }
-
-      });
-    } else {
-      this.showToast('No se encontró el nombre para el ID de ciudad seleccionado');
-    }
-  }
-
-  private async getCoordinatesForCity(city: string): Promise<string | null> {
-    try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city + ', Spain')}&countrycodes=es&format=json`;
-      const response = await this.http.get<any>(url).toPromise();
-
-      if (response && response.length > 0) {
-        this.mapLat = response[0].lat;
-        this.mapLon = response[0].lon;
-        return `${this.mapLat};${this.mapLon}`;
-      } else {
-        this.showToast('No se encontraron resultados para la ciudad: ' + city);
-      }
-    } catch (error) {
-      this.showToast('Error al consultar la API: ' + error);
-    }
-    return null;
-  }
-  checkEnterAndBlur(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      (event.target as HTMLInputElement).blur();  // Controla manualmente el blur
-    }
-  }
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
-
-    if (selectedCityId && address) {
-      this.getCoordinatesForCity(address).then((coords) => {
-        if (coords) {
-          this.center = coords;
-          this.zoom = 18;
-        } else {
-          this.showToast('No se pudo encontrar la dirección. Mostrando el municipio.');
-          this.getCityCoordinatesById(selectedCityId);
-        }
-      });
-    } else if (selectedCityId) {
-      this.getCityCoordinatesById(selectedCityId);
-    } else {
-      this.showToast('Por favor, selecciona un municipio o ingresa una dirección válida.');
-    }
-  }
-
-  private getCityCoordinatesById(cityId: number): void {
-    const cityObject = this.combo.dataArray.find((city) => city.id_city === cityId);
+    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
 
-    if (cityName) {
-      this.getCoordinatesForCity(cityName).then((coords) => {
-        if (coords) {
-          this.center = coords;
-          this.zoom = 12;
-        } else {
-          this.showToast('No se pudieron encontrar coordenadas para el municipio.');
-        }
-      });
+    if (!cityName) {
+      this.snackBar('Por favor, selecciona una localidad válida.');
+      return;
     }
+
+    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+
+    this.getCoordinatesForCity(addressComplete).then((coords) => {
+      if (coords) {
+        this.center = coords;
+        this.zoom = address ? 18 : 12;
+        //this.addMarkers(coords); // Añadir marcador -> en proceso!!!
+      } else {
+        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+      }
+    });
   }
 
-  private showToast(message: string): void {
-    this.toastService.show(message, {
-      classname: 'bg-danger text-light',
-      delay: 5000
+  //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
+  private async getCoordinatesForCity(location: string): Promise<string | null> {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const response = await this.http.get<any>(url).toPromise();
+      console.log(response);
+      if (response?.length > 0) {
+        const { lat, lon } = response[0];
+        return `${lat};${lon}`;
+      } else {
+        this.snackBar(`No se encontraron resultados para: ${location}`);
+      }
+    } catch (error) {
+      this.snackBar(`Error al consultar la API: ${error}`);
+    }
+    return null;
+  }
+
+
+  // private addMarkers(results: any[]): void { EN PROCESOOOO!!
+  // results.forEach(result => {
+  //   const lat = parseFloat(result.lat);
+  //   const lon = parseFloat(result.lon);
+  //   const marker = this.coworkingMap.getMapService().addMarker([lat, lon]);
+  //   this.coworkingMap.getMapService().addLayer(marker);
+  // });
+
+
+  private snackBar(message: string): void {
+    this.snackBarService.open(message, {
+      milliseconds: 5000,
+      icon: 'error',
+      iconPosition: 'left'
     });
   }
 
   // Metodos para controlar el draw dentro del mapa
-  ngAfterViewInit() {
-    this.getDrawLayer();
-  }
+  // ngAfterViewInit() {
+  //   this.getDrawLayer();
+  // }
 
-  getDrawLayer() {
-    console.log(this.coworking_map.getMapService().getDrawLayer());
-  }
+  // getDrawLayer() {
+  //   console.log(this.coworking_map.getMapService().getDrawLayer());
+  // }
 
-  addDrawEvent(arg) {
-    this._eventsArray.push(arg);
-  }
+  // addDrawEvent(arg) {
+  //   this._eventsArray.push(arg);
+  // }
 
-  get eventsArray(): Array<any> {
-    return this._eventsArray;
-  }
+  // get eventsArray(): Array<any> {
+  //   return this._eventsArray;
+  // }
 
-  set eventsArray(arg: Array<any>) {
-    this._eventsArray = arg;
-  }
+  // set eventsArray(arg: Array<any>) {
+  //   this._eventsArray = arg;
+  // }
 
 }

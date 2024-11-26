@@ -803,12 +803,13 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 
 .event-item {
   .event-item-content {
+      width: 95%;
       border: 1px solid #dfe7ef;
-      border-radius: 25px 5px 25px 5px;
-      margin: .3rem;
+      border-radius: 25px 5px 25px 5px;      
       text-align: center;
-      padding: 1rem 0;
+      padding-top:2px; 
       height: 20%;
+      margin:0 auto;
   }
 
   .event-item-content:hover{

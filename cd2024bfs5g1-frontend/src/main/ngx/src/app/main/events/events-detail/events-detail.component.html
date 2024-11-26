@@ -100,12 +100,18 @@
             <div>
               <mat-icon>payments</mat-icon>
             </div>
-            <span>
-              {{ form.getFieldValue("price") }} {{ "EVENT_PRICE" | oTranslate }}
+
+            <span *ngIfElse="form.getFieldValue('price') !=0; else freeValue" >
+              {{ form.getFieldValue("price") }} €
             </span>
+            <ng-container #freeValue>
+              <span>
+                gratis
+              </span>
+            </ng-container>
           </div>
 
-          <div class="reservation-button" >
+          <div class="reservation-button">
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -114,7 +120,6 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-
           </div>
         </div>
       </div>

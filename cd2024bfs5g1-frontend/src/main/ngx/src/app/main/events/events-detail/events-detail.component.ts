@@ -10,6 +10,8 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 })
 
 export class EventsDetailComponent {
+
+  
   @ViewChild("form") form: OFormComponent;
   constructor(
     private translate: OTranslateService,

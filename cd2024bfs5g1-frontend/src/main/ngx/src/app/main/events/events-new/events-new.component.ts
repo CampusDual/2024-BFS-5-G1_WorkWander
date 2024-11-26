@@ -15,6 +15,8 @@ import {
   styleUrls: ["./events-new.component.css"],
 })
 export class EventsNewComponent {
+
+  
   @ViewChild("nameInput") public nameCtrl: OTextInputComponent;
   @ViewChild("timeInput") public timeCtrl: OTimeInputComponent;
   @ViewChild("form") public formCtrl: OFormComponent;
@@ -62,7 +64,7 @@ export class EventsNewComponent {
       image_event:this.formCtrl.getFieldValue('image_event'),
       duration:this.formCtrl.getFieldValue('duration'),
       bookings:this.formCtrl.getFieldValue('bookings'),
-      price:this.formCtrl.getFieldValue('price')
+      price: this.formCtrl.getFieldValue('price') ?? 0
     }
     console.log("Event: ", event);
     this.insert(event, sqlTypes);

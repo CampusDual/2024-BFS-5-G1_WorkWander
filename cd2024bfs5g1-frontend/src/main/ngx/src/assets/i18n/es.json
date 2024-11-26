@@ -185,11 +185,16 @@
   "COWORKING_CREATE": "¡Coworking creado!",
   "DETAILS": "Detalles",
   "PARTICIPATION": "Participación",
+  "NEAR_EVENTS": "Eventos recomendados por la zona",
+  "HOURS": "horas",
   "SLOTS": "plazas",
   "VERIFY_CANCEL_BOOKING": "¿Estás seguro de que quieres cancelar esta reserva?",
   "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada",
   "CANCELLED_BOOKING": "Esta reserva ya está cancelada",
   "CANCELLED_BOOKING2": "No pueden ser canceladas reservas en curso o finalizadas",
   "BOOKINGS_CONFIRMATION": "¿Confirma su asistencia al evento?",
-  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!"
+  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
+  "EVENT_PRICE": "Precio",
+  "FREE_EVENT": "Evento gratuito",
+  "price": "Precio"
 }

@@ -1,14 +1,14 @@
+
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { ViewChild } from '@angular/core';
-
 import {
   OComboComponent,
   OntimizeService,
   OSnackBarConfig,
   OValueChangeEvent,
   SnackBarService,
+  OTranslateService
 } from "ontimize-web-ngx";
-
 @Component({
   selector: "app-analytics-occupation",
   templateUrl: "./analytics-occupation.component.html",
@@ -21,25 +21,26 @@ export class AnalyticsOccupationComponent {
   selectedCoworking: string = "";
   chartParameters: any;
   colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
-
+  //coworkingMap: { [key: string]: string } = {}; // Mapa de IDs a nombres
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
-
   constructor(
     private service: OntimizeService,
     private cd: ChangeDetectorRef,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private translate: OTranslateService,
   ) {}
-
   onCoworkingChange(selectednames: OValueChangeEvent) {
+    
     if (selectednames.newValue.length <= 3) {
       this.selectedCoworkings = selectednames.newValue;
+      //const coworkingNames = this.selectedCoworkings.map(id => this.coworkingMap[id] || id); intento de pasar los ids a nombres
       this.selectedCoworking = this.selectedCoworkings.join(",");
       this.showAvailableToast(
-        `Selected coworkings: ${this.selectedCoworkings.join(", ")}`
+        `${this.translate.get('COWORKING_CHART_SELECTION')} ${this.selectedCoworkings.join(", ")}`
       );
     } else {
       this.comboCoworkingInput.setValue(this.selectedCoworkings);
-      this.showAvailableToast("You can select up to 3 coworkings only.");
+      this.showAvailableToast(this.translate.get('COWORKING_CHART_SELECTION_LIMIT'));
     }
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
@@ -47,7 +48,6 @@ export class AnalyticsOccupationComponent {
       cw_id: this.selectedCoworkings,
     };
     const columns = ["data"];
-
     this.service.query(filter, columns, "occupationLinearChart").subscribe(
       (resp) => {
         if (resp.data && resp.data.length > 0) {
@@ -60,12 +60,11 @@ export class AnalyticsOccupationComponent {
         }
       },
       (error) => {
-        console.error("Error al cargar datos de ocupación:", error);
+        console.error(this.translate.get('COWORKING_CHART_SELECTION_ERROR'), error);
         this.isGraph = false;
       }
     );
   }
-
   transformOccupationData(data: any): any[] {
     const chartData = [];
     if (data[this.selectedCoworking]) {
@@ -79,7 +78,6 @@ export class AnalyticsOccupationComponent {
     }
     return chartData;
   }
-
   showAvailableToast(mensaje?: string) {
     const availableMessage =
       mensaje;

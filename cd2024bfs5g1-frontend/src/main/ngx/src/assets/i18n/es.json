@@ -182,5 +182,9 @@
   "DATE_RESERVATION": "Fecha de reserva",
   "SEATS": "asientos",
   "COWORKING_UPDATE": "¡Coworking actualizado!",
-  "COWORKING_CREATE": "¡Coworking creado!"
+  "COWORKING_CREATE": "¡Coworking creado!",
+  "COWORKING_CHART_SELECTION_LIMIT": "Puedes seleccionar hasta 3 coworkings.",
+  "COWORKING_CHART_ SELECTION_ERROR": "Error al cargar los datos de ocupación",
+  "COWORKING_CHART_SELECTION": "Coworkings seleccionados: "
+
 }

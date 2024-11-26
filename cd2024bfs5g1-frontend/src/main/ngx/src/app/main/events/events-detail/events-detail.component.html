@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description;price"
     show-header="false"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -53,7 +53,7 @@
           </div>
           <div>
             <p>
-              <strong>{{ "DETAILS" | oTranslate }}:</strong>
+              <strong>{{ "DETAILS" | oTranslate }}</strong>
             </p>
             <p>{{ form.getFieldValue("description") }}</p>
           </div>
@@ -61,7 +61,9 @@
         <div fxLayout="column" class="detalles" fxLayoutGap="16px">
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>calendar_month</mat-icon>
+              <mat-icon [matTooltip]="'DATE_EVENT' | oTranslate"
+                >calendar_month</mat-icon
+              >
             </div>
             <span>
               {{ "DATE_EVENT" | oTranslate }}:
@@ -71,16 +73,19 @@
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>hourglass_bottom</mat-icon>
+              <mat-icon [matTooltip]="'DURATION' | oTranslate"
+                >hourglass_bottom</mat-icon
+              >
             </div>
             <span>
-              {{ "DURATION" | oTranslate }}:
               {{ durationConvert(form.getFieldValue("duration")) }}
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>location_on</mat-icon>
+              <mat-icon [matTooltip]="'LOCATION' | oTranslate"
+                >location_on</mat-icon
+              >
             </div>
             <span>
               {{ form.getFieldValue("address") }},
@@ -89,13 +94,33 @@
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>person</mat-icon>
+              <mat-icon [matTooltip]="'CAPACITY' | oTranslate">person</mat-icon>
             </div>
             <span>
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
           </div>
-          <div class="reservation-button" >
+
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>payments</mat-icon>
+            </div>
+
+            <span
+              *ngIf="
+                !form.getFieldValue('price') ||
+                  form.getFieldValue('price') === 0;
+                else priceValue
+              "
+            >
+              {{ "FREE_EVENT" | oTranslate }}
+            </span>
+            <ng-template #priceValue>
+              <span>{{ form.getFieldValue("price") }} €</span>
+            </ng-template>
+          </div>
+
+          <div class="reservation-button">
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -104,7 +129,6 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-
           </div>
         </div>
       </div>
@@ -119,5 +143,6 @@
     <o-text-input oHidden attr="hour_event"></o-text-input>
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
+    <o-text-input oHidden attr="price"></o-text-input>
   </o-form>
 </div>

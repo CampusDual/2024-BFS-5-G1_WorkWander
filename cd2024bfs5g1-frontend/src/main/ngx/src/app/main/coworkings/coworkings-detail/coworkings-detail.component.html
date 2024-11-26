@@ -212,45 +212,45 @@
           enabled="FALSE"
         ></o-button>
       </div>
-    </div>
-    <!-- Carrusel que muestra los eventos -->
-    <div id="carousel">
-      <div class="card" *ngIf="events.length > 0">
-        <p-carousel
-          [value]="events"
-          [numVisible]="3"
-          [numScroll]="1"
-          [circular]="true"
-          [responsiveOptions]="responsiveOptions"
-          [autoplayInterval]="5000"
-        >
-          <ng-template pTemplate="header">
-            <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
-          </ng-template>
-          <ng-template let-event pTemplate="item">
-            <div class="event-item" (click)="goEvent(event.id_event)">
-              <div class="event-item-content">
-                <div>
-                  <img
-                    [src]="getImageSrc(event.image_event)"
-                    alt="{{ event.name }}"
-                    class="event-image"
-                  />
-                </div>
-                <div>
-                  {{ event.name }}
-                  <p>
-                    <mat-icon>calendar_month</mat-icon>
-                    {{ dateTransform(event.date_event) }}
-                    {{ timeTransform(event.hour_event) }} -
-                    {{ "HOURS" | oTranslate }}
-                  </p>
-                </div>
+    </div>    
+  </o-form>
+  <!-- Carrusel que muestra los eventos -->
+  <div id="carousel">
+    <div class="card" *ngIf="events.length > 0">
+      <p-carousel
+        [value]="events"
+        [numVisible]="3"
+        [numScroll]="1"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [autoplayInterval]="5000"
+      >
+        <ng-template pTemplate="header">
+          <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
+        </ng-template>
+        <ng-template let-event pTemplate="item">
+          <div class="event-item" (click)="goEvent(event.id_event)">
+            <div class="event-item-content">
+              <div>
+                <img
+                  [src]="getImageSrc(event.image_event)"
+                  alt="{{ event.name }}"
+                  class="event-image"
+                />
+              </div>
+              <div>
+                {{ event.name }}
+                <br>
+                <mat-icon>calendar_month</mat-icon>
+                {{ dateTransform(event.date_event) }}
+                <br>
+                <mat-icon>access_time</mat-icon>
+                {{ timeTransform(event.hour_event) }}                                  
               </div>
             </div>
-          </ng-template>
-        </p-carousel>
-      </div>
+          </div>
+        </ng-template>
+      </p-carousel>
     </div>
-  </o-form>
+  </div>
 </div>

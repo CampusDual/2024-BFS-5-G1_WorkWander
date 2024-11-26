@@ -52,6 +52,17 @@
           fxFlex.gt-sm="18"
         >
         </o-combo>
+        <o-daterange-input
+          attr="daterange"
+          #daterange
+          fxFlex
+          label="SELECT_DATE_RANGE"
+          read-only="no"
+          required="yes"
+          [min]="currentDate()"
+          (onValueChange)="setDates()"
+          value-type="date"
+        ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
           <button
             attr="filter"
@@ -80,7 +91,7 @@
         <o-filter-builder
           #filterBuilder
           attr="thefilter"
-          filters="cw_location:city;services:srv_name"
+          filters="cw_location:city;services:srv_name;daterange:daterange"
           [target]="coworkingsGrid"
           query-on-change="no"
           query-on-change-delay="500"
@@ -175,14 +186,12 @@
         </div>
         <div class="capacity-price-container">
           <div class="price-container">
-            <!-- <span class="price">{{ data.cw_daily_price | number:'1.2-2'}}€</span> -->
             <div
               class="price"
               [innerHTML]="formatPrice(data.cw_daily_price)"
             ></div>
           </div>
         </div>
-        <!-- Cerradura corregida aquí -->
       </div>
     </o-grid-item>
   </o-grid>

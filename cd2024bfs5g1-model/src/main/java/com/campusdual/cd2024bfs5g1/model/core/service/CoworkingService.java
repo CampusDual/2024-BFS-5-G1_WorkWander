@@ -138,6 +138,14 @@ public class CoworkingService implements ICoworkingService {
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
             final List<?> attributes,
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, attributes,
+                this.coworkingDao.CW_QUERY_SERVICES);
+        final Map<Object, Object> objectMap = filteredResults.getRecordValues(0);
+
+        //        for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
+        //            final String aux = filteredResults.getRecordValues(i).get("cw_id").toString();
+        //        }
+
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }

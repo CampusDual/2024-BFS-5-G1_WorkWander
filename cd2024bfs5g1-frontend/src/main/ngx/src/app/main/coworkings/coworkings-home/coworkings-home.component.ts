@@ -1,7 +1,7 @@
 import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { Expression, FilterExpressionUtils, ODateRangeInputComponent, OFilterBuilderComponent, OGridComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-coworkings-home',
@@ -11,15 +11,21 @@ import { Expression, FilterExpressionUtils, OFilterBuilderComponent, OGridCompon
 export class CoworkingsHomeComponent implements OnInit {
   @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
+  @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
+  @ViewChild("id") idCoworking: OIntegerInputComponent;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
+  public dateArray = [];
+  public idioma: string;
 
   // Creamos constructor
   constructor(
     protected injector: Injector,
     protected sanitizer: DomSanitizer,
-    protected router: Router
+    protected router: Router,
+    private translate: OTranslateService,
+    protected snackBarService: SnackBarService
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -68,6 +74,7 @@ export class CoworkingsHomeComponent implements OnInit {
     let filtersOR: Array<Expression> = [];
     let locationExpressions: Array<Expression> = [];
     let serviceExpressions: Array<Expression> = [];
+    let daterangeExpressions: Array<Expression> = [];
     values.forEach((fil) => {
       if (fil.value) {
         if (fil.attr === "cw_location") {
@@ -94,6 +101,10 @@ export class CoworkingsHomeComponent implements OnInit {
               FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
             );
           }
+        } else if (fil.attr == 'daterange') {
+          daterangeExpressions.push(FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value.startDate.toDate()));
+          daterangeExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value.endDate.toDate()));
+
         }
       }
     });
@@ -108,6 +119,19 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
+
+    // Construir expresión OR para locations
+    let daterangeExpression: Expression = null;
+    if (daterangeExpressions.length > 0) {
+      daterangeExpression = daterangeExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
+      );
+    }
+
     // Construir expresión AND para services
     let serviceExpression: Expression = null;
     if (serviceExpressions.length > 0) {
@@ -122,7 +146,8 @@ export class CoworkingsHomeComponent implements OnInit {
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
-      serviceExpression
+      serviceExpression,
+      daterangeExpression
     ].filter((exp) => exp !== null);
     let combinedExpression: Expression = null;
     if (expressionsToCombine.length > 0) {
@@ -149,4 +174,79 @@ export class CoworkingsHomeComponent implements OnInit {
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
 
+  currentDate() {
+    let date = new Date();
+    date.setHours(0,0,0,0)
+
+    return date;
+  }
+
+  setDates() {
+    const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
+    const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
+
+    this.dateArray[0] = startDate;
+    this.dateArray[1] = endDate;
+
+    const filter = {
+      bk_cw_id: this.idCoworking.getValue(),
+      bk_date: this.dateArray,
+      bk_state: true,
+    };
+
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+    const columns = ["bk_id"];
+
+    this.service.query(filter, columns, "getDatesDisponibility").subscribe(
+      (resp) => {
+        const data = resp.data.data;
+        console.log(data);
+        const fechasDisponibles = Object.values(data).every(
+          (disponible: boolean) => disponible === true
+        );
+        if (fechasDisponibles) {
+          const fechasDisponibles = Object.entries(data)
+            .filter(([fecha, disponible]) => disponible === true)
+            .map(([fecha]) => new Date(fecha));
+          this.dateArray = fechasDisponibles;
+        } else {
+          const fechasNoDisponibles = Object.entries(data)
+            .filter(([fecha, disponible]) => disponible === false)
+            .map(([fecha]) => new Date(fecha));
+
+          const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
+            this.changeFormatDate(fecha.getTime(), this.idioma)
+          );
+
+          const mensaje = `${this.translate.get(
+            "NO_PLAZAS_DISPONIBLES"
+          )}:\n - ${fechasFormateadas.join("\n - ")}`;
+          this.showAvailableToast(mensaje);
+        }
+      },
+      (error) => {
+        console.error("Error al consultar capacidad:", error);
+      }
+    );
+    this.dateArray.splice(0,this.dateArray.length)
+  }
+
+  changeFormatDate(milis: number, idioma: string) {
+    const fecha = new Date(milis);
+    let fechaFormateada;
+    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
+    return fechaFormateada;
+  }
+
+  showAvailableToast(mensaje?: string) {
+    const availableMessage =
+      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
+    const configuration: OSnackBarConfig = {
+      milliseconds: 7500,
+      icon: "info",
+      iconPosition: "left",
+    };
+    this.snackBarService.open(availableMessage, configuration);
+  }
 }

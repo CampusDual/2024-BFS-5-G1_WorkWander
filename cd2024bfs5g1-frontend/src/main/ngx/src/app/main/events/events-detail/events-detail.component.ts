@@ -12,7 +12,7 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 })
 
 export class EventsDetailComponent {
-
+  bookingEvents: any = [];
 
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
@@ -25,10 +25,6 @@ export class EventsDetailComponent {
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService
   ) { }
-
-  ngAfterViewInit() {
-    this.checkBookingEvent();
-  }
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -103,17 +99,34 @@ export class EventsDetailComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-  checkBookingEvent() {
+  checkBookingEvent(id_event: number) {
     const plazasDisponibles = "";
+    const filter = {
+      "@basic_expression": {
+        lop: {
+          lop: "id_event",
+          op: "=",
+          rop: id_event,
+        },
+      },
+    };
 
-    // const filter = { 'id_event': this.form.getFieldValue('id_event') };
-    const filter = { 'id_event': '326' };
-    const columns = ['id_event'];
+    const conf = this.service.getDefaultServiceConfiguration("bookingEvents");
+    this.service.configureService(conf);
+    const columns = [
+      "availableEventBookings",
+      "usedEventBookings",
+      "totalEventBookings",
+    ];
 
-    this.service.query(filter, columns, 'bookingEvents/getEventDisponibility').subscribe(resp => {
-      if (resp.data && resp.data.length > 0) {
-        console.log(resp.data);
-      }
-    });
+    this.service
+      .query(filter, columns, "getEventDisponibility")
+      .subscribe((resp) => {
+        if (resp.code === 0) {
+          this.bookingEvents = resp.data;
+          return this.bookingEvents[0];
+        }
+      });
   }
 }
+

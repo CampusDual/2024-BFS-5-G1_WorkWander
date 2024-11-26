@@ -89,11 +89,12 @@
         searchable="true"
         sort="ASC"
         appearance="fill"
-        (onBlur)="checkLocation()"
+        (onChange)="onMunicipalityChange()">
       >
       </o-combo>
       <o-text-input
         fxFlex
+        #address
         attr="cw_address"
         fxFlex
         label="ADDRESS"
@@ -102,7 +103,7 @@
         placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
         max-length="50"
         min-length="3"
-        (onBlur)="checkAddress()"
+        (onBlur)="onAddressBlur()"
       ></o-text-input>
       <!-- Capacity and Price -->
       <o-integer-input
@@ -202,13 +203,13 @@
         <!-- Map Information -->
         <o-map
           #oMapBasic
-          attr="basic-usage-map"
-          center="42.240599, -8.720727"
-          zoom="11"
+          attr="coworking_map"
+          [center]=center
+          [zoom]=zoom
           min-zoom="3"
           max-zoom="20"
           zoom-control="yes"
-          search-control="yes"
+          search-control="no"
           fxFlex
         ></o-map>
       </div>

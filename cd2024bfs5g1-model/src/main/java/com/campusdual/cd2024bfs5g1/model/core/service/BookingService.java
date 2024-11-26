@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Lazy
 @Service(value = "BookingService")
@@ -161,24 +162,33 @@ public class BookingService implements IBookingService {
 
     @Override
     public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+
+        // Recuperar el ID del usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        final Object datesObj = keyMap.get("bk_date");
-        final List<Integer> idList = (List<Integer>) datesObj;
+
+        // Verificar si el frontend envió IDs de coworkings
+        final List<Integer> coworkingIds = (List<Integer>) keyMap.get("coworkings");
+        if (coworkingIds == null || coworkingIds.isEmpty()) {
+            throw new OntimizeJEERuntimeException("No coworkings selected");
+        }
+        
+        // Calcular las fechas de los últimos 7 días
+        final LocalDate today = LocalDate.now();
+        final LocalDate sevenDaysAgo = today.minusDays(6); // 7 días contando el actual
+        final List<String> lastSevenDays = sevenDaysAgo.datesUntil(today.plusDays(1))
+                .map(LocalDate::toString)//convierte las fechas en String (formateadas)
+                .collect(Collectors.toList());//mete esas Strings en la lista
+
+        // Agregar parámetros al keyMap
+        keyMap.put("date", lastSevenDays);
         keyMap.put("bk_usr_id", userId);
+        keyMap.put("bk_cw_id", coworkingIds); // IDs de coworkings seleccionados
         final Map<String, Object> keyMapCW = new HashMap<>();
-        keyMapCW.put("cw_usr_id", userId);
-        //Defino el calendario
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        int contador = 0;
         //Mapa1
-        final Map<String, Map<Date, Double>> coworkingMap = new LinkedHashMap<>();
+        final Map<Integer, Map<String, Double>> coworkingMap = new LinkedHashMap<>();
         //Bucle de coworkings de la empresa
-        for (final int id : idList) {
+        for (final int id : coworkingIds) {
             keyMapCW.put("cw_id", id);
             keyMap.put("bk_cw_id", id);
             //Sacar la capacidad de los coworkings
@@ -186,12 +196,10 @@ public class BookingService implements IBookingService {
             final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);
 
             //Mpa de fechas y capacidad
-            final Map<Date, Double> datesMap = new LinkedHashMap<>();
+            final Map<String, Double> datesMap = new LinkedHashMap<>();
             //Recorrer hasta 7 días atrás
-            for (int i = 0; i < 7; i++) {
+            for (final String date : lastSevenDays) {
                 //cambio la fecha y la pongo en el keyMap
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
-                final Date date = calendar.getTime();
                 keyMap.put("date", date);
                 //Saco la ocupacion y la añado al mapa como porcentaje
                 final EntityResult ocupacion = this.occupationByDateQuery(keyMap, attrList);
@@ -199,14 +207,18 @@ public class BookingService implements IBookingService {
                 final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
                 datesMap.put(date, ocupacionP);
             }
-            coworkingMap.put(namesCoworkings.get(contador), datesMap);
-            contador++;
+            coworkingMap.put(id, datesMap);
         }
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);
         r.put("data", coworkingMap);
         return r;
+    }
+
+    @Override
+    public EntityResult occupationByDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.OCCUPATION_BY_DATES);
     }
 
     private static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
@@ -225,11 +237,6 @@ public class BookingService implements IBookingService {
             dates.add(calendar.getTime());
         }
         return dates;
-    }
-
-    @Override
-    public EntityResult occupationByDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
-        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.OCCUPATION_BY_DATES);
     }
 
 

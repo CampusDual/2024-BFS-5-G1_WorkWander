@@ -89,8 +89,9 @@
         searchable="true"
         sort="ASC"
         appearance="fill"
-        (onChange)="onMunicipalityChange()">
+        (onChange)="onMunicipalityChange()"
       >
+        >
       </o-combo>
       <o-text-input
         fxFlex
@@ -202,10 +203,10 @@
         ></o-image>
         <!-- Map Information -->
         <o-map
-          #oMapBasic
+          #coworking_map
           attr="coworking_map"
-          [center]=center
-          [zoom]=zoom
+          [center]="center"
+          [zoom]="zoom"
           min-zoom="3"
           max-zoom="20"
           zoom-control="yes"

@@ -489,20 +489,36 @@ o-column {
 .form-container {
   width: 100vw;
 }
+.columna-imagen-mapa{
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
 
+  o-map, o-image{
+    width: 100%;
+    height: 100%;
+    max-height: 270px;
+    min-height: 270px;
+  }
+}
 .form-new-event {
   background-color: transparent;
   border: solid 1px $verdeBoton;
   border-radius: $borderRadius;
-  width: 80vw;
-  max-width: 1200px;
+  width: 1200px;
+  max-width: 80vw;
+  
+  .form-section{
+    min-width: 500px;
+    flex-wrap: wrap;
+  }
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
     background: transparent;
     padding: 5px;
     border: solid 0px $verdeBoton;
-
+    
     o-text-input,
     o-integer-input,
     o-textarea-input,
@@ -772,18 +788,6 @@ o-data-toolbar {
       }
     }
   }
-  .columna-imagen-mapa{
-    display: flex;
-    flex-direction: column;
-    gap: 35px;
-
-    o-map, o-image{
-      width: 100%;
-      height: 100%;
-      max-height: 270px;
-      min-height: 270px;
-    }
-  }
 }
 @media (max-width: 850px) {
   .button-back {
@@ -810,6 +814,11 @@ o-data-toolbar {
     width: 100% !important;
     min-width: 100% !important;
   }
+  .form-new-event article.ng-star-inserted mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
 }
 @media (max-width: 576px) {
   .full-page {

@@ -38,12 +38,28 @@
                 "input": "node_modules/ontimize-web-ngx/assets",
                 "output": "/assets"
               },
-              "src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx-charts/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "/assets"
+              },
               {
                 "glob": "**/*",
                 "input": "node_modules/ontimize-web-ngx-map/images",
                 "output": "/assets"
-              }
+              },
+              "src/manifest.webmanifest"
+
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",

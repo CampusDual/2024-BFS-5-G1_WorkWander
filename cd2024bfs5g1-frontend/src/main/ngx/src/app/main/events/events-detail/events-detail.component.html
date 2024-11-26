@@ -101,14 +101,18 @@
               <mat-icon>payments</mat-icon>
             </div>
 
-            <span *ngIfElse="form.getFieldValue('price') !=0; else freeValue" >
-              {{ form.getFieldValue("price") }} €
+            <span
+              *ngIf="
+                !form.getFieldValue('price') ||
+                  form.getFieldValue('price') === 0;
+                else priceValue
+              "
+            >
+              Gratis
             </span>
-            <ng-container #freeValue>
-              <span>
-                gratis
-              </span>
-            </ng-container>
+            <ng-template #priceValue>
+              <span>{{ form.getFieldValue("price") }} €</span>
+            </ng-template>
           </div>
 
           <div class="reservation-button">

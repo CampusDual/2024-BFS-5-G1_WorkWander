@@ -1,8 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { ViewChild } from '@angular/core';
+
 import {
   OComboComponent,
   OntimizeService,
   OSnackBarConfig,
+  OValueChangeEvent,
+  SnackBarService,
 } from "ontimize-web-ngx";
 
 @Component({
@@ -17,24 +21,24 @@ export class AnalyticsOccupationComponent {
   selectedCoworking: string = "";
   chartParameters: any;
   colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
-  snackBarService: any;
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
 
   constructor(
     private service: OntimizeService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private snackBarService: SnackBarService
   ) {}
 
-  onCoworkingChange(selectednames: number[]) {
-    if (selectednames.length <= 3) {
-      this.selectedCoworkings = selectednames.map((id) => id.toString());
+  onCoworkingChange(selectednames: OValueChangeEvent) {
+    if (selectednames.newValue.length <= 3) {
+      this.selectedCoworkings = selectednames.newValue;
       this.selectedCoworking = this.selectedCoworkings.join(",");
-      this.showSnackBar(
+      this.showAvailableToast(
         `Selected coworkings: ${this.selectedCoworkings.join(", ")}`
       );
     } else {
-      this.showSnackBar("You can select up to 3 coworkings only.");
+      this.showAvailableToast("You can select up to 3 coworkings only.");
       this.comboCoworkingInput.setValue(this.selectedCoworkings);
     }
 
@@ -78,22 +82,14 @@ export class AnalyticsOccupationComponent {
     return chartData;
   }*/
   }
-  showSnackBar(arg0: string) {
-    throw new Error("Method not implemented.");
+  showAvailableToast(mensaje?: string) {
+    const availableMessage =
+      mensaje;
+    const configuration: OSnackBarConfig = {
+      milliseconds: 7500,
+      icon: "info",
+      iconPosition: "left",
+    };
+    this.snackBarService.open(availableMessage, configuration);
   }
-}
-
-function ViewChild(selector: string) {
-  return function (target: any, propertyKey: string) {
-    Object.defineProperty(target, propertyKey, {
-      get: function () {
-        return this[`_${propertyKey}`];
-      },
-      set: function (value) {
-        this[`_${propertyKey}`] = value;
-      },
-      enumerable: true,
-      configurable: true,
-    });
-  };
 }

@@ -193,5 +193,7 @@
   "CANCELLED_BOOKING": "This booking is already cancelled",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
   "NO_BOOKING_ENABLED": "Not booking available!",
-  "EVENT_PRICE": "Price"
+  "EVENT_PRICE": "Price",
+  "FREE_EVENT": "Free event",
+  "price": "Price"
 }

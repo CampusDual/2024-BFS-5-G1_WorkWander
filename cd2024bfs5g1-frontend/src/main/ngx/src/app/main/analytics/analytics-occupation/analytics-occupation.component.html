@@ -1,2 +1,16 @@
-<o-chart type="line" x-label="Time" y-label="Amount (€)" entity="Coworkings"
-x-axis="DATE_" y-axis="MOVEMENT" x-data-type="time"></o-chart>
+<o-combo
+  #comboCoworking
+  attr="cw_name"
+  service="coworkings"
+  entity="coworkingByUser"
+  label="{{ 'SELECT_COWORKING' | oTranslate }}"
+  value-column="cw_id"
+  columns="cw_name"
+  visible-columns="cw_name"
+  required="yes"
+  formControlName="coworking"
+  (onValueChange)="onCoworkingChange($event)"
+  searchable="true"
+  [multiple]="true"
+>
+</o-combo>

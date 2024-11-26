@@ -149,27 +149,12 @@ public class CoworkingService implements ICoworkingService {
         }
     }
 
-    public EntityResult getUserCoworkings(final Map<String, Object> keyMap, final List<String> attrList) {
-        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        keyMap.put("cw_usr_id", userId);
-        final EntityResult idCoworkingsER = this.coworkingByUserQuery(keyMap, attrList);
-        final ArrayList<Integer> idCoworkings = (ArrayList<Integer>) idCoworkingsER.get("cw_id");
-        final ArrayList<String> namesCoworkings = (ArrayList<String>) idCoworkingsER.get("cw_name");
-        final Map<Integer, String> coworkings = new LinkedHashMap<>();
-        for (int i = 0; i < idCoworkings.size(); i++) {
-            coworkings.put(idCoworkings.get(i), namesCoworkings.get(i));
-        }
-        final EntityResult r = new EntityResultMapImpl();
-        r.setCode(0);
-        r.put("data", coworkings);
-        return r;
-    }
-
-
     @Override
     public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList) {
-        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.COWORKINGS_BY_USER);
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
 }

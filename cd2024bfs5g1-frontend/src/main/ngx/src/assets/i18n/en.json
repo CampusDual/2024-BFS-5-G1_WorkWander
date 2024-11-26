@@ -192,5 +192,6 @@
   "CANCEL_CW_BOOKING_CONFIRMED": "Booking canceled",
   "CANCELLED_BOOKING": "This booking is already cancelled",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
-  "NO_BOOKING_ENABLED": "Not booking available!"
+  "NO_BOOKING_ENABLED": "Not booking available!",
+  "MY_CALENDAR":"My calendar"
 }

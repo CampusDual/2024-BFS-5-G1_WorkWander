@@ -192,5 +192,6 @@
   "CANCEL_CW_BOOKING_CONFIRMED": "Reserva cancelada",
   "CANCELLED_BOOKING": "Esta reserva ya está cancelada",
   "BOOKINGS_CONFIRMATION": "¿Confirma su asistencia al evento?",
-  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!"
+  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
+  "MY_CALENDAR":"Mi calendario"
 }

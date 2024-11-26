@@ -1,0 +1,18 @@
+package com.campusdual.cd2024bfs5g1.model.core.dao;
+
+import com.ontimize.jee.server.dao.common.ConfigurationFile;
+import com.ontimize.jee.server.dao.jdbc.OntimizeJdbcDaoSupport;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Repository;
+
+
+@Repository(value = "BookingRateDao")
+@Lazy
+@ConfigurationFile(configurationFile = "dao/BookingRateDao.xml",
+        configurationFilePlaceholder = "dao/placeholders.properties")
+public class BookingRateDao extends OntimizeJdbcDaoSupport {
+    public static final String ID_BKR = "id_bkr";
+    public static final String BKR_DESCRIPTION = "bkr_description";
+    public static final String BKR_RATIO = "bkr_ratio";
+
+}

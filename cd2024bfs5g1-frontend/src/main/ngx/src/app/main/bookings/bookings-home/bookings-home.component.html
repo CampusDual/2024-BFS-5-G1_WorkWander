@@ -29,6 +29,7 @@
       width="15%"
     ></o-table-column>
     <o-table-column-calculated
+      #start_date
       attr="date_start"
       title="START_DATE"
       [operation-function]="dateStart"
@@ -36,6 +37,7 @@
       format="LL"
     ></o-table-column-calculated>
     <o-table-column-calculated
+      #end_date
       attr="date_end"
       title="END_DATE"
       [operation-function]="dateEnd"

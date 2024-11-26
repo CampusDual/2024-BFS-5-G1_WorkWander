@@ -124,6 +124,7 @@ export class EventsDetailComponent {
       .subscribe((resp) => {
         if (resp.code === 0) {
           this.bookingEvents = resp.data;
+          console.log("Plazas disponibles: ", this.bookingEvents[0]);
           return this.bookingEvents[0];
         }
       });

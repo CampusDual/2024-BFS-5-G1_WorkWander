@@ -96,10 +96,9 @@
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
-            <div id="plazas_disponibles">
-              {{ checkBookingEvent(form.getFieldValue("id_event")) }}
-            </div>
-            <span> </span>
+            <span
+              [innerHTML]="checkBookingEvent(form.getFieldValue('id_event'))"
+            ></span>
           </div>
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">

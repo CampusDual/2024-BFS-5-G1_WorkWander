@@ -1,16 +1,18 @@
-<o-combo
-  #comboCoworking
-  attr="cw_name"
-  service="coworkings"
-  entity="coworkingByUser"
-  label="{{ 'SELECT_COWORKING' | oTranslate }}"
-  value-column="cw_id"
-  columns="cw_name"
-  visible-columns="cw_name"
-  required="yes"
-  formControlName="coworking"
-  (onValueChange)="onCoworkingChange($event)"
-  searchable="true"
-  [multiple]="true"
->
-</o-combo>
+<o-form #comboCoworkingInput>
+  <o-combo
+    attr="cw_name"
+    service="coworkings"
+    entity="coworkingByUser"
+    label="{{ 'SELECT_COWORKING' | oTranslate }}"
+    value-column="cw_id"
+    columns="cw_name"
+    visible-columns="cw_name"
+    required="yes"
+    formControlName="coworking"
+    (onValueChange)="onCoworkingChange($event)"
+    searchable="true"
+    [multiple]="true"
+    multiple-trigger-label="true"
+  >
+  </o-combo>
+</o-form>

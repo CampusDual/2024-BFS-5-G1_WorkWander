@@ -1,5 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { OntimizeService } from "ontimize-web-ngx";
+import {
+  OComboComponent,
+  OntimizeService,
+  OSnackBarConfig,
+} from "ontimize-web-ngx";
 
 @Component({
   selector: "app-analytics-occupation",
@@ -7,33 +11,31 @@ import { OntimizeService } from "ontimize-web-ngx";
   styleUrls: ["./analytics-occupation.component.css"],
 })
 export class AnalyticsOccupationComponent {
-  selectedCoworkings: any[] = [];
+  selectedCoworkings: string[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
   selectedCoworking: string = "";
   chartParameters: any;
   colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
+  snackBarService: any;
+
+  @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
 
   constructor(
     private service: OntimizeService,
     private cd: ChangeDetectorRef
   ) {}
 
-  onCoworkingChange(event: any) {
-    if (this.selectedCoworkings.length < 3) {
-      this.selectedCoworkings.push(event);
+  onCoworkingChange(selectednames: number[]) {
+    if (selectednames.length <= 3) {
+      this.selectedCoworkings = selectednames.map((id) => id.toString());
+      this.selectedCoworking = this.selectedCoworkings.join(",");
+      this.showSnackBar(
+        `Selected coworkings: ${this.selectedCoworkings.join(", ")}`
+      );
     } else {
-      console.warn("Maximum of 3 coworkings can be selected.");
-    }
-    this.selectedCoworking = event;
-    setTimeout(() => {
-      this.loadOccupationData();
-    });
-  }
-
-  loadOccupationData() {
-    if (!this.selectedCoworking) {
-      return;
+      this.showSnackBar("You can select up to 3 coworkings only.");
+      this.comboCoworkingInput.setValue(this.selectedCoworkings);
     }
 
     // Configurar el servicio para obtener los datos de ocupación
@@ -76,4 +78,22 @@ export class AnalyticsOccupationComponent {
     return chartData;
   }*/
   }
+  showSnackBar(arg0: string) {
+    throw new Error("Method not implemented.");
+  }
+}
+
+function ViewChild(selector: string) {
+  return function (target: any, propertyKey: string) {
+    Object.defineProperty(target, propertyKey, {
+      get: function () {
+        return this[`_${propertyKey}`];
+      },
+      set: function (value) {
+        this[`_${propertyKey}`] = value;
+      },
+      enumerable: true,
+      configurable: true,
+    });
+  };
 }

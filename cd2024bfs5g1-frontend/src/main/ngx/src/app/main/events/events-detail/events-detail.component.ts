@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, ViewChild } from "@angular/core";
-import { DialogService, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
+import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+
+
 
 @Component({
   selector: "app-events-detail",
@@ -11,8 +13,10 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 
 export class EventsDetailComponent {
 
-  
+
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("id_event") id_event: OIntegerInputComponent;
+
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
@@ -22,6 +26,9 @@ export class EventsDetailComponent {
     protected dialogService: DialogService
   ) { }
 
+  ngAfterViewInit() {
+    this.checkBookingEvent();
+  }
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -29,8 +36,8 @@ export class EventsDetailComponent {
     }
   }
 
-  formatTime(time:string):string{
-    if (time!=null || time!=undefined) {
+  formatTime(time: string): string {
+    if (time != null || time != undefined) {
       return this.utils.formatTime(time);
     }
   }
@@ -94,5 +101,19 @@ export class EventsDetailComponent {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  checkBookingEvent() {
+    const plazasDisponibles = "";
+
+    // const filter = { 'id_event': this.form.getFieldValue('id_event') };
+    const filter = { 'id_event': '326' };
+    const columns = ['id_event'];
+
+    this.service.query(filter, columns, 'bookingEvents/getEventDisponibility').subscribe(resp => {
+      if (resp.data && resp.data.length > 0) {
+        console.log(resp.data);
+      }
+    });
   }
 }

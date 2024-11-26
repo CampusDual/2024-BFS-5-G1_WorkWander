@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description;price"
     show-header="false"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -95,6 +95,16 @@
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
           </div>
+
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>payments</mat-icon>
+            </div>
+            <span>
+              {{ form.getFieldValue("price") }} {{ "EVENT_PRICE" | oTranslate }}
+            </span>
+          </div>
+
           <div class="reservation-button" >
             <o-button
               #bookingButton
@@ -119,5 +129,6 @@
     <o-text-input oHidden attr="hour_event"></o-text-input>
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
+    <o-text-input oHidden attr="price"></o-text-input>
   </o-form>
 </div>

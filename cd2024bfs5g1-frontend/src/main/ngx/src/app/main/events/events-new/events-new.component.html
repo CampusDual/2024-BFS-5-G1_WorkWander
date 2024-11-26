@@ -111,6 +111,16 @@ This HTML file defines the structure of the "New Event" form component in an Ang
       </o-combo>
       <!-- Dirección -->
       <o-text-input attr="address" icon="place" required="yes"></o-text-input>
+
+      <o-integer-input
+        attr="price"
+        required="no"
+        data="0"
+        min="0"
+        max="1000"
+        placeholder="{{'EVENT_PRICE' | oTranslate}}"
+      ></o-integer-input>
+
       <!-- Imagen -->
       <o-image
         attr="image_event"

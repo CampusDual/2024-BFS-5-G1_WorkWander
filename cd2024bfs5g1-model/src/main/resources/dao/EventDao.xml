@@ -29,7 +29,8 @@
                         public.event.bookings as bookings,
                         public.event.duration as duration,
                         public.event.image_event as image_event,
-                        public.event.usr_id as usr_id
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
                     FROM event
                     LEFT JOIN city on city.id_city = public.event.locality
                     #WHERE#
@@ -57,7 +58,8 @@
                         public.event.bookings as bookings,
                         public.event.duration as duration,
                         public.event.image_event as image_event,
-                        public.event.usr_id as usr_id
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
                     FROM event
                     LEFT JOIN city on city.id_city = public.event.locality
                     #WHERE#

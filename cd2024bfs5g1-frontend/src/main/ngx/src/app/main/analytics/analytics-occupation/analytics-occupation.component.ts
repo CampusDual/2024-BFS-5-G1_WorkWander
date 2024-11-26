@@ -38,15 +38,13 @@ export class AnalyticsOccupationComponent {
         `Selected coworkings: ${this.selectedCoworkings.join(", ")}`
       );
     } else {
-      this.showAvailableToast("You can select up to 3 coworkings only.");
       this.comboCoworkingInput.setValue(this.selectedCoworkings);
+      this.showAvailableToast("You can select up to 3 coworkings only.");
     }
-
-    // Configurar el servicio para obtener los datos de ocupación
-    /*const conf = this.service.getDefaultServiceConfiguration("occupation");
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
     const filter = {
-      cw_id: this.selectedCoworking,
+      cw_id: this.selectedCoworkings,
     };
     const columns = ["data"];
 
@@ -80,8 +78,8 @@ export class AnalyticsOccupationComponent {
       }
     }
     return chartData;
-  }*/
   }
+
   showAvailableToast(mensaje?: string) {
     const availableMessage =
       mensaje;

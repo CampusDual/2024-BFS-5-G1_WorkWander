@@ -162,50 +162,54 @@ public class BookingService implements IBookingService {
 
     @Override
     public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
-
         // Recuperar el ID del usuario autenticado
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
         // Verificar si el frontend envió IDs de coworkings
-        final List<Integer> coworkingIds = (List<Integer>) keyMap.get("coworkings");
+        final List<Integer> coworkingIds = (List<Integer>) keyMap.get("cw_id");
         if (coworkingIds == null || coworkingIds.isEmpty()) {
             throw new OntimizeJEERuntimeException("No coworkings selected");
         }
-        
+
         // Calcular las fechas de los últimos 7 días
         final LocalDate today = LocalDate.now();
-        final LocalDate sevenDaysAgo = today.minusDays(6); // 7 días contando el actual
-        final List<String> lastSevenDays = sevenDaysAgo.datesUntil(today.plusDays(1))
-                .map(LocalDate::toString)//convierte las fechas en String (formateadas)
-                .collect(Collectors.toList());//mete esas Strings en la lista
-
+        final LocalDate sevenDaysAgo = today.minusDays(7);
+        final List<String> lastSevenDays = sevenDaysAgo.datesUntil(today)
+                .map(LocalDate::toString)
+                .collect(Collectors.toList());
+        final Map<String, Object> keyMapB = new HashMap<>();
         // Agregar parámetros al keyMap
-        keyMap.put("date", lastSevenDays);
-        keyMap.put("bk_usr_id", userId);
-        keyMap.put("bk_cw_id", coworkingIds); // IDs de coworkings seleccionados
-        final Map<String, Object> keyMapCW = new HashMap<>();
+        keyMapB.put("date", lastSevenDays);
+        keyMapB.put("bk_usr_id", userId);
+        keyMapB.put("bk_cw_id", coworkingIds); // IDs de coworkings seleccionados
         //Mapa1
         final Map<Integer, Map<String, Double>> coworkingMap = new LinkedHashMap<>();
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         //Bucle de coworkings de la empresa
         for (final int id : coworkingIds) {
-            keyMapCW.put("cw_id", id);
-            keyMap.put("bk_cw_id", id);
+            keyMap.put("cw_id", id);
+            keyMapB.put("bk_cw_id", id);
             //Sacar la capacidad de los coworkings
-            final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMapCW, attrList);
+            final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMap, attrList);
             final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);
 
             //Mpa de fechas y capacidad
             final Map<String, Double> datesMap = new LinkedHashMap<>();
             //Recorrer hasta 7 días atrás
             for (final String date : lastSevenDays) {
-                //cambio la fecha y la pongo en el keyMap
-                keyMap.put("date", date);
-                //Saco la ocupacion y la añado al mapa como porcentaje
-                final EntityResult ocupacion = this.occupationByDateQuery(keyMap, attrList);
-                final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
-                final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
-                datesMap.put(date, ocupacionP);
+                try {
+                    final Date date2 = sdf.parse(date);
+                    keyMapB.put("date", date2);
+                    //Saco la ocupacion y la añado al mapa como porcentaje
+                    final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
+                    final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
+                    final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
+                    datesMap.put(date, ocupacionP);
+                } catch (final ParseException e) {
+                    throw new RuntimeException(e);
+                }
             }
             coworkingMap.put(id, datesMap);
         }

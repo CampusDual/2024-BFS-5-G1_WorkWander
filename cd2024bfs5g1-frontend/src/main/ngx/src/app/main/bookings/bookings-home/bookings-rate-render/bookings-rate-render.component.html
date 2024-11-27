@@ -1,3 +1,3 @@
-<ng-template #rate let-cellvalue="cellvalue" let-rowvalue="rowvalue" >
-    {{getCellData(cellvalue, rowvalue)}}
+<ng-template #rate let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+  <p-rating [(ngModel)]="rowvalue['bkr_ratio']" [cancel]="false" />
 </ng-template>

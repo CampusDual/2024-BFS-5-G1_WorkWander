@@ -8,12 +8,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { BookingsStateRenderComponent } from './bookings-home/bookings-state-render/bookings-state-render.component';
 import { BookingsRateRenderComponent } from './bookings-home/bookings-rate-render/bookings-rate-render.component';
 import { RatingModule } from 'primeng/rating';
+import { BookingRateComponent } from './booking-rate/booking-rate.component';
 
 @NgModule({
   declarations: [
     BookingsHomeComponent,
     BookingsStateRenderComponent,
-    BookingsRateRenderComponent
+    BookingsRateRenderComponent,
+    BookingRateComponent
   ],
   imports: [
     CommonModule,

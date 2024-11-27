@@ -28,12 +28,24 @@ export class BookingsHomeComponent {
     private dialogService: DialogService,
     private translate: OTranslateService,
     private snackBarService: SnackBarService
-  ) {}
+  ) { }
+
+  // toCoworkingDetail(event) {
+  //   console.log(event.row.bk_cw_id);
+  //   this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);
+  // }
 
   toCoworkingDetail(event) {
-    console.log(event.row.bk_cw_id);
-    this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);
+    if (event.columnName == "rate") {
+      console.log("ABRIR MODAL");
+    } else if (event.columnName == "cancelCWbooking") {
+      this.cancelBooking(event);
+    } else {
+      this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);
+    }
   }
+
+
 
   cancelBooking(evt: any) {
     var confirmMessageTitle = this.translate.get("CANCEL");
@@ -77,4 +89,16 @@ export class BookingsHomeComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
+
+  // openValoration(stars: Number, data: any): void{
+  //   this.dialog.open(PackValorationComponent, {
+  //     height: '37%',
+  //     width: '40%',
+  //     data: {
+  //       stars: stars,
+  //       data: data
+  //     }
+  //   })
+  // }
+
 }

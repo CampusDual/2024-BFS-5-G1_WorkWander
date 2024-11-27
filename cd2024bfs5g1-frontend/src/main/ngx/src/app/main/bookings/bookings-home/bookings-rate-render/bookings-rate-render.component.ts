@@ -6,16 +6,12 @@ import { OBaseTableCellRenderer } from "ontimize-web-ngx";
   templateUrl: "./bookings-rate-render.component.html",
   styleUrls: ["./bookings-rate-render.component.css"],
 })
-export class BookingsRateRenderComponent extends OBaseTableCellRenderer{
-  
-  @ViewChild("rate", { read: TemplateRef, static: false })
-  public templateref: TemplateRef<any>;
+export class BookingsRateRenderComponent extends OBaseTableCellRenderer {
+
+  @ViewChild("rate", { read: TemplateRef, static: false }) public templateref: TemplateRef<any>;
 
   constructor(protected injector: Injector) {
     super(injector);
   }
 
-  getCellData(cellvalue: any, rowvalue?: Array<any>): string {
-    return "";
-  }
 }

@@ -8,6 +8,10 @@ import java.util.Map;
 
 public interface IEventService {
     public EntityResult eventQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
     public EntityResult eventInsert(Map<String, Object> attributes) throws OntimizeJEERuntimeException;
+
     public EntityResult myEventQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
+    public EntityResult homeEventsQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

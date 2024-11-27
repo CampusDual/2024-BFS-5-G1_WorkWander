@@ -69,5 +69,29 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="homeEvents">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.image_event as image_event,
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.bookings as bookings,
+                        count(public.booking_event.bke_event_id) as reserved
+                    FROM event
+                    LEFT JOIN public.booking_event on public.booking_event.bke_id_event = public.event.id_event
+                    #WHERE#
+                    GROUP BY name, date_event, public.booking_event.bke_usr_id, address, bookings, image_event, hour_event
+					ORDER BY date_event;
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

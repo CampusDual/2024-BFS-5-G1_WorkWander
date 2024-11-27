@@ -92,4 +92,9 @@ public class EventService implements IEventService {
         return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTS_QUERY);
     }
 
+    @Override
+    public EntityResult homeEventsQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.HOMEEVENTS_QUERY);
+    }
+
 }

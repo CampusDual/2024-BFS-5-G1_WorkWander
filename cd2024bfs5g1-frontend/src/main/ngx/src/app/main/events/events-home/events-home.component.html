@@ -1,1 +1,52 @@
-<p>events-home works!</p>
+<div class="grid-container">
+    <!-- Grid que muestra los datos de los events -->
+    <o-grid
+      #eventsGrid
+      attr="eventsGrid"
+      service="events"
+      entity="homeEvents"
+      keys="id_event"
+      columns="id_event;name;image_event;date_event;hour_event;price"
+      quick-filter-columns="name"
+      pagination-controls="true"
+      page-size-options="12;16;20"
+      query-rows="12"
+      grid-item-height="3.5:1"
+      [cols]="gridCols"
+      gutter-size="40px"
+      pageable="yes"
+    >
+      <o-grid-item
+        *ngFor="let data of eventsGrid.dataArray"
+        class="responsive-grid"
+      >
+        <div class="event-card">
+          <div class="image-container">
+            <!-- Mostramos la imagen del evento en las cards -->
+            <img
+              class="event-image"
+              [src]="getImageSrc(data.image_event)"
+              alt="{{ data.name }}"
+            />
+          </div>
+  
+          <div class="info">
+            <h2 class="event-name">{{ data.name }}</h2>
+            <p class="event-date">{{ data.date_event }}</p>
+            <p class="event-hour">{{ data.hour_event}}</p>
+          </div>
+          <div class="capacity-price-container">
+            <div class="price-container">
+              <!-- <span class="price">{{ data.price | number:'1.2-2'}}€</span> -->
+              <div
+                class="price"
+                [innerHTML]="formatPrice(data.price)"
+              ></div>
+            </div>
+          </div>
+          <!-- Cerradura corregida aquí -->
+        </div>
+      </o-grid-item>
+    </o-grid>
+  </div>
+  

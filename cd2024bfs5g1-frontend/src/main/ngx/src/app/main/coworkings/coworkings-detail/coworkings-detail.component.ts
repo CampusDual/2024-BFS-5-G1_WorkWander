@@ -17,6 +17,7 @@ import {
   SnackBarService,
   Util,
   ODateRangeInputComponent,
+
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -70,6 +71,8 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("coworking_map") coworking_map: OMapComponent;
+  @ViewChild("cw_city") cw_city: OTextInputComponent;
+  @ViewChild("cw_address") cw_address: OTextInputComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -389,8 +392,9 @@ export class CoworkingsDetailComponent implements OnInit {
 
   // ---------------------- MAPA ----------------------
   mapaShow(): void {
-    const selectedCityId = this.form.getFieldValue("location");
-    const address = this.form.getFieldValue("cw_address");
+    let selectedCityId = this.cw_city.getValue();
+    let address = this.cw_address.getValue();
+
     const addressComplete = selectedCityId + ", " + address;
     console.log(addressComplete);
 

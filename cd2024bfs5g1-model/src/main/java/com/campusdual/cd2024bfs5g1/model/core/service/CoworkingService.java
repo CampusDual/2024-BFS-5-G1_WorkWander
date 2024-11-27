@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
@@ -138,13 +139,35 @@ public class CoworkingService implements ICoworkingService {
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
             final List<?> attributes,
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
-        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, attributes,
-                this.coworkingDao.CW_QUERY_SERVICES);
-        final Map<Object, Object> objectMap = filteredResults.getRecordValues(0);
+        //
+        final Map<String, Object> combinedFilter = new HashMap<>();
+        combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand());
 
-        //        for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
-        //            final String aux = filteredResults.getRecordValues(i).get("cw_id").toString();
-        //        }
+        final SQLStatementBuilder.BasicExpression daterangeFilter =
+                (SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getRightOperand();
+
+        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, combinedFilter, attributes,
+                this.coworkingDao.CW_QUERY_SERVICES);
+
+        for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
+            final Integer aux = (Integer) filteredResults.getRecordValues(i).get("cw_id");
+
+            final SQLStatementBuilder.BasicExpression cwIdBasicExpression = new SQLStatementBuilder.BasicExpression(
+                    "cw_id", SQLStatementBuilder.BasicOperator.EQUAL_OP, aux);
+
+            final SQLStatementBuilder.BasicExpression dateBasicExpression =
+                    new SQLStatementBuilder.BasicExpression(daterangeFilter,
+                            SQLStatementBuilder.BasicOperator.AND_OP, cwIdBasicExpression);
+
+            final Map<String, Object> dateCwFilter = new HashMap<>();
+            dateCwFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+                    dateBasicExpression);
+
+            final EntityResult daterangeResults = this.daoHelper.query(this.coworkingDao, dateCwFilter, attributes,
+                    this.coworkingDao.CW_QUERY_DATES);
+
+        }
 
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);

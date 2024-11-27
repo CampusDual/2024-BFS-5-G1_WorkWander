@@ -60,7 +60,6 @@
           read-only="no"
           required="yes"
           [min]="currentDate()"
-          (onValueChange)="setDates()"
           value-type="date"
         ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
@@ -91,7 +90,7 @@
         <o-filter-builder
           #filterBuilder
           attr="thefilter"
-          filters="cw_location:city;services:srv_name;daterange:daterange"
+          filters="cw_location:city;services:srv_name;date:daterange"
           [target]="coworkingsGrid"
           query-on-change="no"
           query-on-change-delay="500"

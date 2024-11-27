@@ -71,10 +71,10 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   // Función para crear los filtros de busqueda avanzada
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
-    let filtersOR: Array<Expression> = [];
     let locationExpressions: Array<Expression> = [];
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
+
     values.forEach((fil) => {
       if (fil.value) {
         if (fil.attr === "cw_location") {
@@ -101,29 +101,18 @@ export class CoworkingsHomeComponent implements OnInit {
               FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
             );
           }
-        } else if (fil.attr == 'daterange') {
+        } else if (fil.attr == 'date') {
           daterangeExpressions.push(FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value.startDate.toDate()));
           daterangeExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value.endDate.toDate()));
 
         }
       }
     });
+
     // Construir expresión OR para locations
     let locationExpression: Expression = null;
     if (locationExpressions.length > 0) {
       locationExpression = locationExpressions.reduce((exp1, exp2) =>
-        FilterExpressionUtils.buildComplexExpression(
-          exp1,
-          exp2,
-          FilterExpressionUtils.OP_OR
-        )
-      );
-    }
-
-    // Construir expresión OR para locations
-    let daterangeExpression: Expression = null;
-    if (daterangeExpressions.length > 0) {
-      daterangeExpression = daterangeExpressions.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(
           exp1,
           exp2,
@@ -143,12 +132,26 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
+
+    // Construir expresión OR para daterange
+    let daterangeExpression: Expression = null;
+    if (daterangeExpressions.length > 0) {
+      daterangeExpression = daterangeExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_OR
+        )
+      );
+    }
+
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
       daterangeExpression
     ].filter((exp) => exp !== null);
+
     let combinedExpression: Expression = null;
     if (expressionsToCombine.length > 0) {
       combinedExpression = expressionsToCombine.reduce((exp1, exp2) =>
@@ -159,12 +162,15 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
-    return combinedExpression;
+
+    return combinedExpression
   }
+
   //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
   }
+
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: number): string {
     let [integerPart, decimalPart] = price.toFixed(2).split('.');
@@ -181,56 +187,56 @@ export class CoworkingsHomeComponent implements OnInit {
     return date;
   }
 
-  setDates() {
-    const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
-    const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
+  // setDates() {
+  //   const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
+  //   const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
 
-    this.dateArray[0] = startDate;
-    this.dateArray[1] = endDate;
+  //   this.dateArray[0] = startDate;
+  //   this.dateArray[1] = endDate;
 
-    const filter = {
-      bk_cw_id: this.idCoworking.getValue(),
-      bk_date: this.dateArray,
-      bk_state: true,
-    };
+  //   const filter = {
+  //     bk_cw_id: this.idCoworking.getValue(),
+  //     bk_date: this.dateArray,
+  //     bk_state: true,
+  //   };
 
-    const conf = this.service.getDefaultServiceConfiguration("bookings");
-    this.service.configureService(conf);
-    const columns = ["bk_id"];
+  //   const conf = this.service.getDefaultServiceConfiguration("bookings");
+  //   this.service.configureService(conf);
+  //   const columns = ["bk_id"];
 
-    this.service.query(filter, columns, "getDatesDisponibility").subscribe(
-      (resp) => {
-        const data = resp.data.data;
-        console.log(data);
-        const fechasDisponibles = Object.values(data).every(
-          (disponible: boolean) => disponible === true
-        );
-        if (fechasDisponibles) {
-          const fechasDisponibles = Object.entries(data)
-            .filter(([fecha, disponible]) => disponible === true)
-            .map(([fecha]) => new Date(fecha));
-          this.dateArray = fechasDisponibles;
-        } else {
-          const fechasNoDisponibles = Object.entries(data)
-            .filter(([fecha, disponible]) => disponible === false)
-            .map(([fecha]) => new Date(fecha));
+  //   this.service.query(filter, columns, "getDatesDisponibility").subscribe(
+  //     (resp) => {
+  //       const data = resp.data.data;
+  //       console.log(data);
+  //       const fechasDisponibles = Object.values(data).every(
+  //         (disponible: boolean) => disponible === true
+  //       );
+  //       if (fechasDisponibles) {
+  //         const fechasDisponibles = Object.entries(data)
+  //           .filter(([fecha, disponible]) => disponible === true)
+  //           .map(([fecha]) => new Date(fecha));
+  //         this.dateArray = fechasDisponibles;
+  //       } else {
+  //         const fechasNoDisponibles = Object.entries(data)
+  //           .filter(([fecha, disponible]) => disponible === false)
+  //           .map(([fecha]) => new Date(fecha));
 
-          const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
-            this.changeFormatDate(fecha.getTime(), this.idioma)
-          );
+  //         const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
+  //           this.changeFormatDate(fecha.getTime(), this.idioma)
+  //         );
 
-          const mensaje = `${this.translate.get(
-            "NO_PLAZAS_DISPONIBLES"
-          )}:\n - ${fechasFormateadas.join("\n - ")}`;
-          this.showAvailableToast(mensaje);
-        }
-      },
-      (error) => {
-        console.error("Error al consultar capacidad:", error);
-      }
-    );
-    this.dateArray.splice(0,this.dateArray.length)
-  }
+  //         const mensaje = `${this.translate.get(
+  //           "NO_PLAZAS_DISPONIBLES"
+  //         )}:\n - ${fechasFormateadas.join("\n - ")}`;
+  //         this.showAvailableToast(mensaje);
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error("Error al consultar capacidad:", error);
+  //     }
+  //   );
+  //   this.dateArray.splice(0,this.dateArray.length)
+  // }
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);

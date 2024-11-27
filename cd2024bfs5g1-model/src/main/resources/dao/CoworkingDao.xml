@@ -76,6 +76,28 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="filterDates">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS (
+                    SELECT
+                        cw.cw_id as cw_id,
+                        cw.cw_name as cw_name,
+                        bd.date as date,
+                        cw.cw_capacity as cw_capacity,
+                        COUNT(b.bk_id) as plazasOcupadas
+                    FROM coworking cw
+                    LEFT JOIN booking b ON cw.cw_id = b.bk_cw_id
+                    LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
+                    GROUP BY cw.cw_id, bd.date;
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        temp_table
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
-
 </JdbcEntitySetup>

@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
-
-
 @Component({
   selector: "app-events-detail",
   templateUrl: "./events-detail.component.html",

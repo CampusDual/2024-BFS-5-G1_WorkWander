@@ -304,10 +304,10 @@ login {
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $accent;
+  background-color: $primary;
   position: absolute;
   border-radius: 25px;
-  border-left: 0px solid $accent !important;
+  border-left: 0px solid $primary !important;
   margin: 0px 5px 0 5px;
   transition: all 0.2s;
   top: unset;
@@ -626,7 +626,7 @@ o-column {
     }
   }
 }
-.material-icons {
+o-snackbar .material-icons {
   color: $accent;
   fill: $accent !important;
 }

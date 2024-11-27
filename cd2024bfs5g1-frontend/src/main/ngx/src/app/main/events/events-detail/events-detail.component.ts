@@ -102,7 +102,7 @@ export class EventsDetailComponent implements OnInit {
     const availableMessage =
       this.translate.get(mensaje);
     const configuration: OSnackBarConfig = {
-      milliseconds: 3500,
+      milliseconds: 350000,
       icon: "info",
       iconPosition: "left",
     };

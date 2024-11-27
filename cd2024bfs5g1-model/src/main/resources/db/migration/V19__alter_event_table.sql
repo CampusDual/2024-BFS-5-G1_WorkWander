@@ -1,1 +1,1 @@
-ALTER TABLE event ADD price INTEGER;
+ALTER TABLE event ADD price NUMERIC(10,2);

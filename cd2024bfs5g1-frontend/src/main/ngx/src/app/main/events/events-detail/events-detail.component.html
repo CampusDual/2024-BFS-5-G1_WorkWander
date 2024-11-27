@@ -96,8 +96,17 @@
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
-            <span id="lblSeatsAvailable">{{ literalPlazas }}</span>
+            <div>
+              <mat-icon>event_seat</mat-icon>
+            </div>
+            <span id="lblSeatsAvailable"> {{ numeroPlazas }}</span>
           </div>
+          <p
+            class="lblSeatsText"
+            style="margin-block-start: -10px; margin-bottom: 40px"
+          >
+            {{ literalPlazas }}
+          </p>
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>

@@ -83,6 +83,13 @@
                 #WHERE# ORDER BY cw_id
             </Sentence>
         </Query>
+        <Query id="coworkingNameById">
+            <Sentence>
+                SELECT cw_name
+                FROM {mainschema}.coworking
+                #WHERE#
+            </Sentence>
+        </Query>
     </Queries>
 
 </JdbcEntitySetup>

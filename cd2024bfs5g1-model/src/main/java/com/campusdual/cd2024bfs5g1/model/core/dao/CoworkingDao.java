@@ -24,4 +24,5 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
     public static final String CW_QUERY_SERVICES = "serviceCoworking";
     public static final String CW_QUERY_CAPACITY = "coworkingCapacity";
     public static final String COWORKINGS_BY_USER = "coworkingsByUser";
+    public static final String COWORKINGS_NAME_BY_NAME = "coworkingNameById";
 }

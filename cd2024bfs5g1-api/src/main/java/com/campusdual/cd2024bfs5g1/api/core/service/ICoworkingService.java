@@ -25,4 +25,5 @@ public interface ICoworkingService {
 
     public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList);
 
+    public EntityResult coworkingNameByIdQuery(final Map<String, Object> keyMap, final List<String> attrList);
 }

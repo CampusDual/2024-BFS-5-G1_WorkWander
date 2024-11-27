@@ -10,5 +10,5 @@
     <UpdateKeys>
         <Column>id_bkr</Column>
     </UpdateKeys>
-    <GeneratedKey>id_bkr</GeneratedKey>
+
 </JdbcEntitySetup>

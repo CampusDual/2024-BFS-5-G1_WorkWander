@@ -14,5 +14,6 @@ public class BookingRateDao extends OntimizeJdbcDaoSupport {
     public static final String ID_BKR = "id_bkr";
     public static final String BKR_DESCRIPTION = "bkr_description";
     public static final String BKR_RATIO = "bkr_ratio";
+    public static final String CW_ID = "cw_id";
 
 }

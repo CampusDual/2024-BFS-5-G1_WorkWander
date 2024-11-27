@@ -1,4 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import {
   DialogService,
@@ -9,6 +10,7 @@ import {
   SnackBarService,
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { BookingRateComponent } from "../booking-rate/booking-rate.component";
 
 @Component({
   selector: "app-bookings-home",
@@ -21,13 +23,15 @@ export class BookingsHomeComponent {
 
   @ViewChild("table") table: OTableComponent;
 
+
   constructor(
     private router: Router,
     private service: OntimizeService,
     private utils: UtilsService,
     private dialogService: DialogService,
     private translate: OTranslateService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    protected dialog: MatDialog,
   ) { }
 
   // toCoworkingDetail(event) {
@@ -38,6 +42,8 @@ export class BookingsHomeComponent {
   toCoworkingDetail(event) {
     if (event.columnName == "rate") {
       console.log("ABRIR MODAL");
+
+      this.openValoration(event);
     } else if (event.columnName == "cancelCWbooking") {
       this.cancelBooking(event);
     } else {
@@ -57,7 +63,7 @@ export class BookingsHomeComponent {
         this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
         this.dialogService.dialogRef.afterClosed().subscribe((result) => {
           if (result) {
-            this.updateState(evt["bk_id"]);
+            this.updateState(evt);
             this.table.reloadData();
           }
         });
@@ -90,15 +96,24 @@ export class BookingsHomeComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-  // openValoration(stars: Number, data: any): void{
-  //   this.dialog.open(PackValorationComponent, {
-  //     height: '37%',
-  //     width: '40%',
-  //     data: {
-  //       stars: stars,
-  //       data: data
-  //     }
-  //   })
-  // }
+  openValoration(data): void {
+    console.log(data)
+    console.log("name:" + data.row.cw_name);
+    console.log("rate:" + data.row.bkr_ratio);
+    console.log("bk_id:" + data.row.bk_id);
+    console.log("cw_id: " + data.row.bk_cw_id);
+    console.log("_____________________________________");
+
+    this.dialog.open(BookingRateComponent, {
+      height: '37%',
+      width: '40%',
+      data: {
+        name: data.row.cw_name,
+        rate: data.row.bkr_ratio,
+        bk_id: data.row.bk_id,
+        cw_id: data.row.bk_cw_id
+      }
+    })
+  }
 
 }

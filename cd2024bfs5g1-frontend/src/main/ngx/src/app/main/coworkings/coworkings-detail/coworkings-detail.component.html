@@ -22,8 +22,10 @@
     undo-button="no"
     stay-in-record-after-insert="true"
     editable-detail="no"
+    (onDataLoaded)="showEvents(form.getFieldValue('cw_location'))"
   >
     <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+    <o-integer-input oHidden #cw_location attr="cw_location"></o-integer-input>
 
     <div class="image-container">
       <!-- Campo para mostrar la imagen de coworking -->
@@ -175,6 +177,10 @@
               value-type="date"
             ></o-daterange-input>
           </o-form>
+          <!-- Mostrar "Plazas Disponibles:"-->
+          <p *ngIf="parsePermissions('realCapacity')">
+            <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
+          </p>
         </div>
       </o-column>
 
@@ -206,6 +212,45 @@
           enabled="FALSE"
         ></o-button>
       </div>
-    </div>
+    </div>    
   </o-form>
+  <!-- Carrusel que muestra los eventos -->
+  <div id="carousel">
+    <div class="card" *ngIf="events.length > 0">
+      <p-carousel
+        [value]="events"
+        [numVisible]="3"
+        [numScroll]="1"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [autoplayInterval]="5000"
+      >
+        <ng-template pTemplate="header">
+          <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
+        </ng-template>
+        <ng-template let-event pTemplate="item">
+          <div class="event-item" (click)="goEvent(event.id_event)">
+            <div class="event-item-content">
+              <div>
+                <img
+                  [src]="getImageSrc(event.image_event)"
+                  alt="{{ event.name }}"
+                  class="event-image"
+                />
+              </div>
+              <div>
+                {{ event.name }}
+                <br>
+                <mat-icon>calendar_month</mat-icon>
+                {{ dateTransform(event.date_event) }}
+                <br>
+                <mat-icon>access_time</mat-icon>
+                {{ timeTransform(event.hour_event) }}                                  
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    </div>
+  </div>
 </div>

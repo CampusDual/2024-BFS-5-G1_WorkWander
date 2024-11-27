@@ -24,7 +24,8 @@ import { OMapModule } from 'ontimize-web-ngx-map';
   exports: [
     CommonModule,
     FilterComponent,
-    HomeToolbarComponent
+    HomeToolbarComponent,
+    EventsDetailComponent
   ]
 })
 export class SharedModule { }

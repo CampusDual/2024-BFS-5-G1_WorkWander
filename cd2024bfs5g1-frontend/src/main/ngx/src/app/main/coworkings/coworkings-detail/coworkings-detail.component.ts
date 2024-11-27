@@ -1,5 +1,6 @@
 import { Location } from "@angular/common";
-import { Component, Inject, ViewChild } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   AuthService,
@@ -16,12 +17,16 @@ import {
   Util,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
+import { UtilsService } from "src/app/shared/services/utils.service";
+
 @Component({
   selector: "app-coworkings-detail",
   templateUrl: "./coworkings-detail.component.html",
   styleUrls: ["./coworkings-detail.component.css"],
 })
-export class CoworkingsDetailComponent {
+export class CoworkingsDetailComponent implements OnInit {
+  events: any = [];
+  responsiveOptions!: any;
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -30,8 +35,29 @@ export class CoworkingsDetailComponent {
     protected snackBarService: SnackBarService,
     @Inject(AuthService) private authService: AuthService,
     private translate: OTranslateService,
-    private location: Location
-  ) {}
+    private location: Location,
+    private sanitizer: DomSanitizer,
+    private utils: UtilsService,
+    private route: ActivatedRoute
+  ) {
+    this.responsiveOptions = [
+      {
+        breakpoint: "1024px",
+        numVisible: 3,
+        numScroll: 3,
+      },
+      {
+        breakpoint: "768px",
+        numVisible: 2,
+        numScroll: 2,
+      },
+      {
+        breakpoint: "560px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
+  }
 
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -67,12 +93,116 @@ export class CoworkingsDetailComponent {
   }
 
   currentDate() {
-    return new Date();
+    let date = new Date();
+    date.setHours(0,0,0,0)
+
+    return date;
+  }
+
+  showEvents(cw_location: number): void {
+    if (cw_location != undefined) {
+      let date = new Date();
+      let now = `${date.getFullYear()}-${
+        date.getMonth() + 1
+      }-${date.getDate()}`;
+      const filter = {
+        "@basic_expression": {
+          lop: {
+            lop: "locality",
+            op: "=",
+            rop: cw_location,
+          },
+          op: "AND",
+          rop: {
+            lop: "date_event",
+            op: ">=",
+            rop: now,
+          },
+        },
+      };
+      let sqltypes = {
+        date_event: 91,
+      };
+      const conf = this.service.getDefaultServiceConfiguration("events");
+      this.service.configureService(conf);
+      const columns = [
+        "id_event",
+        "name",
+        "description",
+        "date_event",
+        "hour_event",
+        "address",
+        "location",
+        "bookings",
+        "usr_id",
+        "duration",
+        "image_event",
+      ];
+      this.service
+        .query(filter, columns, "event", sqltypes)
+        .subscribe((resp) => {
+          if (resp.code === 0) {
+            this.events = resp.data;
+            this.events.sort(function (a: any, b: any) {
+              return a.date_event - b.date_event;
+            });
+          }
+        });
+    }
+  }
+
+  /**
+   * Método para transformar la imagen desde la BBDD
+   * @param base64
+   * @returns la imagen almacenada o la imagen por defecto
+   */
+  public getImageSrc(base64: any): any {
+    return base64
+      ? this.sanitizer.bypassSecurityTrustResourceUrl(
+          "data:image/*;base64," + base64
+        )
+      : "./assets/images/event-default.jpg";
+  }
+
+  /**
+   * Método para transformar la fecha en función del idioma
+   * Usa el servicio UtilsService en shared
+   * @param date
+   * @returns la fecha formateada como string
+   */
+  dateTransform(date: number): string {
+    return this.utils.formatDate(date);
+  }
+
+  /**
+   * Método para transformar la hora en hh:mm
+   * @param time
+   * @returns la hora formateada en hh:mm
+   */
+  timeTransform(time: any): string {
+    return this.utils.formatTime(time);
+  }
+
+  /**
+   * Método que permite navegar desde el evento seleccionado
+   * dentro del coworking hasta su detalle, en events-detail
+   * @param id_event
+   */
+  goEvent(id_event: number): void {
+    //Navegamos hacia main/coworkings, definido en coworkings-routing-module
+    this.router.navigate(
+      ["main/coworkings/" + this.idCoworking + "/" + id_event],
+      { queryParams: { isdetail: true } }
+    );
   }
 
   setDates() {
-    const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
-    const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
+    const startDate = new Date(
+      (this.bookingDate as any).value.value.startDate
+    ).toLocaleString("en-CA");
+    const endDate = new Date(
+      (this.bookingDate as any).value.value.endDate
+    ).toLocaleString("en-CA");
 
     this.dateArray[0] = startDate;
     this.dateArray[1] = endDate;
@@ -100,7 +230,7 @@ export class CoworkingsDetailComponent {
             .map(([fecha]) => new Date(fecha));
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-          this.bookingButton.enabled=true;
+          this.bookingButton.enabled = true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -114,15 +244,15 @@ export class CoworkingsDetailComponent {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          this.bookingButton.enabled=false;
+          this.bookingButton.enabled = false;
         }
       },
       (error) => {
         console.error("Error al consultar capacidad:", error);
-        this.bookingButton.enabled=false;
+        this.bookingButton.enabled = false;
       }
     );
-    this.dateArray.splice(0,this.dateArray.length)
+    this.dateArray.splice(0, this.dateArray.length);
   }
 
   showAvailableToast(mensaje?: string) {
@@ -154,16 +284,18 @@ export class CoworkingsDetailComponent {
     this.dateArrayF = this.dateArray.map((fecha) =>
       this.changeFormatDate(fecha.getTime(), this.idioma)
     );
-    const startDate=this.dateArrayF[0];
-    const endDate=this.dateArrayF[this.dateArrayF.length-1]
+    const startDate = this.dateArrayF[0];
+    const endDate = this.dateArrayF[this.dateArrayF.length - 1];
     if (this.authService.isLoggedIn()) {
       if (this.dialogService) {
-        if(startDate==endDate){
+        if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${this.dateArrayF} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
+            `${confirmMessageBody}  ${
+              this.dateArrayF
+            } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
-        }else{
+        } else {
           this.dialogService.confirm(
             confirmMessageTitle,
             `${confirmMessageBody}  ${startDate} - ${endDate} ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
@@ -197,7 +329,7 @@ export class CoworkingsDetailComponent {
     this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
-        this.bookingButton.enabled=false;
+        this.bookingButton.enabled = false;
         this.bookingDate.clearValue();
       }
     });

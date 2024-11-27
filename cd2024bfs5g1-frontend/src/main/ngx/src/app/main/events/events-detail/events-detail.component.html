@@ -100,6 +100,18 @@
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
           </div>
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon>event_seat</mat-icon>
+            </div>
+            <span id="lblSeatsAvailable"> {{ numeroPlazas }}</span>
+          </div>
+          <p
+            class="lblSeatsText"
+            style="margin-block-start: -10px; margin-bottom: 40px"
+          >
+            {{ literalPlazas }}
+          </p>
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
@@ -133,7 +145,6 @@
         </div>
       </div>
     </div>
-
     <o-integer-input oHidden #id attr="id_event"></o-integer-input>
     <o-text-input oHidden attr="name"></o-text-input>
     <o-text-input oHidden attr="description"></o-text-input>

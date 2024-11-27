@@ -196,5 +196,13 @@
   "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
   "EVENT_PRICE": "Precio",
   "FREE_EVENT": "Evento gratuito",
-  "price": "Precio"
+  "price": "Precio",
+  "EVENT_DISPONIBILITY_GT_90": "Parece que este evento genera interés",
+  "EVENT_DISPONIBILITY_GT_65": "Apúntate que esto empieza a llenarse",
+  "EVENT_DISPONIBILITY_GT_50": "Asistir o no asistir, esta es la cuestión",
+  "EVENT_DISPONIBILITY_GT_30": "No esperes más, casi está lleno",
+  "EVENT_DISPONIBILITY_GT_00": "Quedan muy pocas plazas, corre que vuelan",
+  "EVENT_DISPONIBILITY_EQ_00": "Sigue buscando",
+  "BOOKINGS_LEFT": "Plazas disponibles"
+
 }

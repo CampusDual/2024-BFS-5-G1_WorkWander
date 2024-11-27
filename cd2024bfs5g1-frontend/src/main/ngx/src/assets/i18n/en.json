@@ -191,9 +191,17 @@
   "VERIFY_CANCEL_BOOKING": "Are you sure you want to cancel that booking?",
   "CANCEL_CW_BOOKING_CONFIRMED": "Booking canceled",
   "CANCELLED_BOOKING": "This booking is already cancelled",
+  "CANCELLED_BOOKING2": "Bookings in progress or completed cannot be canceled",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
   "NO_BOOKING_ENABLED": "Not booking available!",
   "EVENT_PRICE": "Price",
   "FREE_EVENT": "Free event",
-  "price": "Price"
+  "price": "Price",
+  "EVENT_DISPONIBILITY_GT_90": "This event generates interest",
+  "EVENT_DISPONIBILITY_GT_65": "This event is starting to fill up",
+  "EVENT_DISPONIBILITY_GT_50": "Be here or not be here, this is the question",
+  "EVENT_DISPONIBILITY_GT_30": "Quite plenty of people",
+  "EVENT_DISPONIBILITY_GT_00": "Come on hurry up!!!",
+  "EVENT_DISPONIBILITY_EQ_00": "Keep looking",
+  "BOOKINGS_LEFT": "Booking left"
 }

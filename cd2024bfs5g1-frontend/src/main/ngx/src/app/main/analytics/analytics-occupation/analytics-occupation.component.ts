@@ -39,6 +39,7 @@ export class AnalyticsOccupationComponent {
     private snackBarService: SnackBarService,
     private translate: OTranslateService
   ) {}
+
   onCoworkingChange(selectednames: OValueChangeEvent) {
     if (selectednames.newValue.length <= 3) {
       this.selectedCoworkings = selectednames.newValue;
@@ -63,10 +64,10 @@ export class AnalyticsOccupationComponent {
     this.service.query(filter, columns, "occupationLinearChart").subscribe(
       (resp) => {
         if (resp.data && resp.data.length > 0) {
-          const data = resp.data[0].data;
-          this.chartData = this.transformOccupationData(data);
+          this.chartData=resp.data;
+          /**const data = resp.data[0].data;
+          this.chartData = this.transformOccupationData(data);*/
           this.isGraph = this.chartData.length > 0;
-          this.cd.detectChanges();
         } else {
           this.isGraph = false;
         }
@@ -82,17 +83,16 @@ export class AnalyticsOccupationComponent {
   }
 
   transformOccupationData(data: any): any[] {
-    const chartData = [];
     if (data[this.selectedCoworking]) {
       const dateMap = data[this.selectedCoworking];
       for (const [date, percentage] of Object.entries(dateMap)) {
-        chartData.push({
+        this.chartData.push({
           name: new Date(date).toLocaleDateString(),
           value: percentage,
         });
       }
     }
-    return chartData;
+    return this.chartData;
   }
 
   showAvailableToast(mensaje?: string) {

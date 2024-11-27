@@ -90,7 +90,6 @@ export class CoworkingsDetailComponent {
     this.service.query(filter, columns, "getDatesDisponibility").subscribe(
       (resp) => {
         const data = resp.data.data;
-        console.log(data);
         const fechasDisponibles = Object.values(data).every(
           (disponible: boolean) => disponible === true
         );

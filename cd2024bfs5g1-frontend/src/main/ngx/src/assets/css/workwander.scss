@@ -507,7 +507,7 @@ o-column {
   border-radius: $borderRadius;
   width: 1200px;
   max-width: 80vw;
-  
+
   .form-section{
     min-width: 500px;
     flex-wrap: wrap;
@@ -518,7 +518,7 @@ o-column {
     background: transparent;
     padding: 5px;
     border: solid 0px $verdeBoton;
-    
+
     o-text-input,
     o-integer-input,
     o-textarea-input,
@@ -535,7 +535,25 @@ o-column {
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
+    o-image.imagen-mapa{
+      width: 150px;
+      height: 150px;
+      max-height: 150px;
+      min-height: 150px;
 
+      o-image-content .o-image-display-container {
+        margin: 4px;
+        padding: 5px;
+      }
+    }
+
+    .rowCityDirection {
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+      margin: 55px 0 25px 0;
+      justify-content: space-between;
+    }
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
       > div {
@@ -774,7 +792,7 @@ o-data-toolbar {
 
 @media (min-width: 768px) {
   .form-new-event {
-    
+
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
 

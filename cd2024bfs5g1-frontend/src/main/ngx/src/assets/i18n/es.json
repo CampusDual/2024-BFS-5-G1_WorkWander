@@ -205,5 +205,6 @@
   "EVENT_DISPONIBILITY_EQ_00": "Sigue buscando",
   "BOOKINGS_LEFT": "Plazas disponibles",
   "COWORKING_VALORATION": "Reseña registrada correctamente",
-  "bk_description": "Reseña"
+  "bk_description": "Reseña",
+  "SEND_REVIEW": "Enviar valoración"
 }

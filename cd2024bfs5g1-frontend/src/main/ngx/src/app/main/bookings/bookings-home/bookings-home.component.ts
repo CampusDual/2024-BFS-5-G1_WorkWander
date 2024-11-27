@@ -99,21 +99,30 @@ export class BookingsHomeComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-  openValoration(data): void {
+  openValoration(evt): void {
 
-    console.log("user: " + data.row.bk_usr_id)
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    var startDate = new Date(evt.row.dates[0]);
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date(evt.row.dates[(evt.row.dates).length - 1]);
+    endDate.setHours(0, 0, 0, 0);
 
-    this.dialog.open(BookingRateComponent, {
-      height: '30%',
-      width: '40%',
-      data: {
-        name: data.row.cw_name,
-        rate: data.row.bkr_ratio,
-        bk_id: data.row.bk_id,
-        cw_id: data.row.bk_cw_id,
-        usr_id: data.row.bk_usr_id
+    if (evt.row.bk_state) {
+      if (currentDate > endDate) {
+        this.dialog.open(BookingRateComponent, {
+          height: '30%',
+          width: '40%',
+          data: {
+            name: evt.row.cw_name,
+            rate: evt.row.bkr_ratio,
+            bk_id: evt.row.bk_id,
+            cw_id: evt.row.bk_cw_id,
+            usr_id: evt.row.bk_usr_id
+          }
+        })
       }
-    })
+    }
   }
 
 }

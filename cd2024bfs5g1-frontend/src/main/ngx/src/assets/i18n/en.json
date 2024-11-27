@@ -191,7 +191,10 @@
   "VERIFY_CANCEL_BOOKING": "Are you sure you want to cancel that booking?",
   "CANCEL_CW_BOOKING_CONFIRMED": "Booking canceled",
   "CANCELLED_BOOKING": "This booking is already cancelled",
+  "CANCELLED_BOOKING2": "Bookings in progress or completed cannot be canceled",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
   "NO_BOOKING_ENABLED": "Not booking available!",
-  "EVENT_PRICE": "Price"
+  "EVENT_PRICE": "Price",
+  "FREE_EVENT": "Free event",
+  "price": "Price"
 }

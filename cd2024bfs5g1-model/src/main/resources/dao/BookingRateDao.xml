@@ -10,5 +10,19 @@
     <UpdateKeys>
         <Column>id_bkr</Column>
     </UpdateKeys>
-
+    <Queries>
+        <Query id="coworkingValorations">
+            <Sentence>
+                <![CDATA[
+                    SELECT br.bkr_ratio as bkr_ratio,
+                    br.bkr_description as bkr_description,
+                    u.usr_login as usr_login
+                    FROM ${mainschema}.booking_rate br
+                    join ${mainschema}.usr_user u
+                    on br.usr_id = u.usr_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>

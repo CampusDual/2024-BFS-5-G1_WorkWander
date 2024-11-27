@@ -20,22 +20,28 @@ public class BookingRateService implements IBookingRateService {
     private BookingRateDao bookingRateDao;
 
     @Override
-    public EntityResult bookingRateQuery(Map<String, Object> keyMap, List<String> attrList) {
+    public EntityResult bookingRateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingRateDao, keyMap, attrList);
     }
 
     @Override
-    public EntityResult bookingRateInsert(Map<String, Object> attrMap) {
+    public EntityResult bookingValorationsPerCoworkingQuery(final Map<String, Object> keyMap,
+            final List<String> attrList) {
+        return this.daoHelper.query(this.bookingRateDao, keyMap, attrList, BookingRateDao.COWORKING_VALORATIONS);
+    }
+
+    @Override
+    public EntityResult bookingRateInsert(final Map<String, Object> attrMap) {
         return this.daoHelper.insert(this.bookingRateDao, attrMap);
     }
 
     @Override
-    public EntityResult bookingRateUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap) {
+    public EntityResult bookingRateUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         return this.daoHelper.update(this.bookingRateDao, keyMap, attrMap);
     }
 
     @Override
-    public EntityResult bookingRateDelete(Map<String, Object> keyMap) {
+    public EntityResult bookingRateDelete(final Map<String, Object> keyMap) {
         return this.daoHelper.delete(this.bookingRateDao, keyMap);
     }
 }

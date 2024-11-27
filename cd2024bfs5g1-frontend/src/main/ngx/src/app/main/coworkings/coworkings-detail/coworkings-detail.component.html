@@ -212,45 +212,84 @@
           enabled="FALSE"
         ></o-button>
       </div>
-    </div>    
-  </o-form>
-  <!-- Carrusel que muestra los eventos -->
-  <div id="carousel">
-    <div class="card" *ngIf="events.length > 0">
-      <p-carousel
-        [value]="events"
-        [numVisible]="3"
-        [numScroll]="1"
-        [circular]="true"
-        [responsiveOptions]="responsiveOptions"
-        [autoplayInterval]="5000"
-      >
-        <ng-template pTemplate="header">
-          <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
-        </ng-template>
-        <ng-template let-event pTemplate="item">
-          <div class="event-item" (click)="goEvent(event.id_event)">
-            <div class="event-item-content">
-              <div>
-                <img
-                  [src]="getImageSrc(event.image_event)"
-                  alt="{{ event.name }}"
-                  class="event-image"
-                />
-              </div>
-              <div>
-                {{ event.name }}
-                <br>
-                <mat-icon>calendar_month</mat-icon>
-                {{ dateTransform(event.date_event) }}
-                <br>
-                <mat-icon>access_time</mat-icon>
-                {{ timeTransform(event.hour_event) }}                                  
+    </div>
+    <!-- Carrusel que muestra los eventos -->
+    <div id="carousel">
+      <div class="card" *ngIf="events.length > 0">
+        <p-carousel
+          [value]="events"
+          [numVisible]="3"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          [autoplayInterval]="5000"
+        >
+          <ng-template pTemplate="header">
+            <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
+          </ng-template>
+          <ng-template let-event pTemplate="item">
+            <div class="event-item" (click)="goEvent(event.id_event)">
+              <div class="event-item-content">
+                <div>
+                  <img
+                    [src]="getImageSrc(event.image_event)"
+                    alt="{{ event.name }}"
+                    class="event-image"
+                  />
+                </div>
+                <div>
+                  {{ event.name }}
+                  <br />
+                  <mat-icon>calendar_month</mat-icon>
+                  {{ dateTransform(event.date_event) }}
+                  <br />
+                  <mat-icon>access_time</mat-icon>
+                  {{ timeTransform(event.hour_event) }}
+                </div>
               </div>
             </div>
-          </div>
-        </ng-template>
-      </p-carousel>
+          </ng-template>
+        </p-carousel>
+      </div>
     </div>
-  </div>
+    <div style="width: 100%">
+      <o-grid
+        #coworkingValoration
+        attr="coworkingValoration"
+        service="bookingsRate"
+        entity="bookingValorationsPerCoworking"
+        keys="cw_id"
+        columns="bkr_ratio;bkr_description;usr_login"
+        parent-keys="cw_id"
+        quick-filter="no"
+        fixed-header="no"
+        controls="false"
+        refresh-button="false"
+        show-page-size="false"
+        pagination-controls="false"
+        show-buttons-text="no"
+        cols="6"
+        gutter-size="8px"
+        rows="1"
+        detail-mode="none"
+        show-footer="no"
+      >
+        <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
+          <div>
+            <div>
+              <p-rating
+                [(ngModel)]="rate.bkr_ratio"
+                [cancel]="false"
+                [readonly]="true"
+              />
+            </div>
+            <p>{{ rate.usr_login }}</p>
+            <p>
+              {{ rate.bkr_description }}
+            </p>
+          </div>
+        </o-grid-item>
+      </o-grid>
+    </div>
+  </o-form>
 </div>

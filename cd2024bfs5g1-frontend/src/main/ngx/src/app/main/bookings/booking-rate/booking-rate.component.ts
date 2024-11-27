@@ -31,18 +31,15 @@ export class BookingRateComponent {
     console.log("ratio:" + data.rate)
     console.log("id de booking:" + data.bk_id)
     console.log("cw_id: " + this.data.cw_id);
-    console.log("-----------------------------------");
   }
 
   createValoration() {
-    console.log("id: " + this.data.bk_id);
-    console.log("cw_id: " + this.data.cw_id);
-
     const filter = {
       id_bkr: this.data.bk_id,
       bkr_description: this.comment.getValue(),
       bkr_ratio: this.ratio.value,
-      cw_id: this.data.cw_id
+      cw_id: this.data.cw_id,
+      usr_id: this.data.usr_id
     };
 
     const conf = this.service.getDefaultServiceConfiguration("bookingsRate");
@@ -50,7 +47,7 @@ export class BookingRateComponent {
 
     this.service.insert(filter, "bookingRate").subscribe((resp) => {
 
-      this.showAvailableToast("Bieeeeeeen!!!!");
+      this.showAvailableToast("COWORKING_VALORATION");
       this.dialogRef.close();
       window.location.reload();
 

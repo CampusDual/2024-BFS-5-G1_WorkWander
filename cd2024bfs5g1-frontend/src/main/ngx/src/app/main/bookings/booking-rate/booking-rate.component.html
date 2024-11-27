@@ -9,21 +9,22 @@
       <div>
         <h1>{{ data.name }}</h1>
       </div>
-
-      <p-rating [(ngModel)]="data.rate" [cancel]="false" #ratio />
+      <div>
+        <p-rating [(ngModel)]="data.rate" [cancel]="false" #ratio />
+      </div>
     </div>
-    <div fxLayout="column">
+    <div fxLayout="column" fxLayoutGap="16px">
       <div fxLayout="row" fxLayoutAlign="center center">
         <o-textarea-input
           #comment
           id="coment"
-          attr="pck_description"
-          rows="6"
+          attr="bk_description"
+          rows="10"
           max-length="500"
           width="70%"
         ></o-textarea-input>
       </div>
-      <div fxLayout="row">
+      <div fxLayout="row" fxLayoutAlign="center center">
         <button
           id="button_valoration"
           mat-raised-button

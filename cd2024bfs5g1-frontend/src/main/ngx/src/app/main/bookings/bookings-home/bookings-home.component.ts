@@ -100,21 +100,18 @@ export class BookingsHomeComponent {
   }
 
   openValoration(data): void {
-    console.log(data)
-    console.log("name:" + data.row.cw_name);
-    console.log("rate:" + data.row.bkr_ratio);
-    console.log("bk_id:" + data.row.bk_id);
-    console.log("cw_id: " + data.row.bk_cw_id);
-    console.log("_____________________________________");
+
+    console.log("user: " + data.row.bk_usr_id)
 
     this.dialog.open(BookingRateComponent, {
-      height: '37%',
+      height: '30%',
       width: '40%',
       data: {
         name: data.row.cw_name,
         rate: data.row.bkr_ratio,
         bk_id: data.row.bk_id,
-        cw_id: data.row.bk_cw_id
+        cw_id: data.row.bk_cw_id,
+        usr_id: data.row.bk_usr_id
       }
     })
   }

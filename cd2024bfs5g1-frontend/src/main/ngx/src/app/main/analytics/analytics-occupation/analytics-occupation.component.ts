@@ -1,18 +1,27 @@
-
-import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  ViewEncapsulation,
+} from "@angular/core";
+import { ViewChild } from "@angular/core";
 import {
   OComboComponent,
   OntimizeService,
   OSnackBarConfig,
   OValueChangeEvent,
   SnackBarService,
-  OTranslateService
+  OTranslateService,
 } from "ontimize-web-ngx";
 @Component({
   selector: "app-analytics-occupation",
   templateUrl: "./analytics-occupation.component.html",
   styleUrls: ["./analytics-occupation.component.css"],
+
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    "[class.custom-chart]": "true",
+  },
 })
 export class AnalyticsOccupationComponent {
   selectedCoworkings: string[] = [];
@@ -21,26 +30,29 @@ export class AnalyticsOccupationComponent {
   selectedCoworking: string = "";
   chartParameters: any;
   colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
-  //coworkingMap: { [key: string]: string } = {}; // Mapa de IDs a nombres
+
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
+
   constructor(
     private service: OntimizeService,
     private cd: ChangeDetectorRef,
     private snackBarService: SnackBarService,
-    private translate: OTranslateService,
+    private translate: OTranslateService
   ) {}
   onCoworkingChange(selectednames: OValueChangeEvent) {
-    
     if (selectednames.newValue.length <= 3) {
       this.selectedCoworkings = selectednames.newValue;
-      //const coworkingNames = this.selectedCoworkings.map(id => this.coworkingMap[id] || id); intento de pasar los ids a nombres
       this.selectedCoworking = this.selectedCoworkings.join(",");
       this.showAvailableToast(
-        `${this.translate.get('COWORKING_CHART_SELECTION')} ${this.selectedCoworkings.join(", ")}`
+        `${this.translate.get(
+          "COWORKING_CHART_SELECTION"
+        )} ${this.selectedCoworkings.join(", ")}`
       );
     } else {
       this.comboCoworkingInput.setValue(this.selectedCoworkings);
-      this.showAvailableToast(this.translate.get('COWORKING_CHART_SELECTION_LIMIT'));
+      this.showAvailableToast(
+        this.translate.get("COWORKING_CHART_SELECTION_LIMIT")
+      );
     }
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
@@ -60,11 +72,15 @@ export class AnalyticsOccupationComponent {
         }
       },
       (error) => {
-        console.error(this.translate.get('COWORKING_CHART_SELECTION_ERROR'), error);
+        console.error(
+          this.translate.get("COWORKING_CHART_SELECTION_ERROR"),
+          error
+        );
         this.isGraph = false;
       }
     );
   }
+
   transformOccupationData(data: any): any[] {
     const chartData = [];
     if (data[this.selectedCoworking]) {
@@ -78,9 +94,9 @@ export class AnalyticsOccupationComponent {
     }
     return chartData;
   }
+
   showAvailableToast(mensaje?: string) {
-    const availableMessage =
-      mensaje;
+    const availableMessage = mensaje;
     const configuration: OSnackBarConfig = {
       milliseconds: 7500,
       icon: "info",

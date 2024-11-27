@@ -1,19 +1,38 @@
-<o-form>
-  <o-combo
-    #comboCoworkingInput
-    attr="cw_name"
-    service="coworkings"
-    entity="coworkingByUser"
-    label="{{ 'SELECT_COWORKING' | oTranslate }}"
-    value-column="cw_id"
-    columns="cw_name"
-    visible-columns="cw_name"
-    required="yes"
-    formControlName="coworking"
-    (onValueChange)="onCoworkingChange($event)"
-    searchable="true"
-    [multiple]="true"
-    multiple-trigger-label="true"
-  >
-  </o-combo>
-</o-form>
+<!-- Combobox para seleccionar coworkings -->
+<o-combo
+  #comboCoworkingInput
+  attr="cw_name"
+  service="coworkings"
+  entity="coworkingByUser"
+  label="{{ 'SELECT_COWORKING' | oTranslate }}"
+  value-column="cw_id"
+  columns="cw_name"
+  visible-columns="cw_name"
+  required="yes"
+  formControlName="coworking"
+  (onValueChange)="onCoworkingChange($event)"
+  searchable="true"
+  [multiple]="true"
+  (onSelectionChange)="onCoworkingChange($event)"
+  multiple-trigger-label="true"
+>
+</o-combo>
+
+<!-- Gráfico de Ocupación -->
+<div *ngIf="isGraph" class="chart-container">
+  <o-chart
+    type="line"
+    [data]="chartData"
+    color="colorScheme"
+    x-label="name"
+    y-label="value"
+    x-data-type="{{ 'PERCENTAGE %' | oTranslate }}"
+    y-data-type="{{ 'DATE' | oTranslate }}"
+    show-legend="true"
+    show-x-axis-label="true"
+    show-y-axis-label="true"
+    legend-position="below"
+    legend-title="Legend"
+    show-grid-lines="false"
+  ></o-chart>
+</div>

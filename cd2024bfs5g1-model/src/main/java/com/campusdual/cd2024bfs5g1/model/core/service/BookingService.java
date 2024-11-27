@@ -209,7 +209,7 @@ public class BookingService implements IBookingService {
                     final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
                     final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
                     final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
-                    dateMap.put("name", date2);
+                    dateMap.put("name", date);
                     dateMap.put("value", ocupacionP);
                     listaFechas.add(dateMap);
                 } catch (final ParseException e) {

@@ -14,10 +14,11 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 
 export class EventsDetailComponent implements OnInit {
   bookingEvents: any = [];
+  literalPlazas: string;
 
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
-  @ViewChild("lblSeatsAvailable") lblSeatsAvailable: OTextInputComponent;
+  //@ViewChild("lblSeatsAvailable") lblSeatsAvailable: OTextInputComponent;
 
   constructor(
     private service: OntimizeService,
@@ -107,17 +108,6 @@ export class EventsDetailComponent implements OnInit {
   }
 
   checkBookingEvent() {
-    //const plazasDisponibles = "";
-    /*
-    const filter = {
-      "@basic_expression": {
-        lop: {
-          lop: "id_event",
-          op: "=",
-          rop: this.activeRoute.snapshot.params["cw_id"],
-        },
-      },
-    };*/
     const filter = {
       id_event: +this.activeRoute.snapshot.params["id_event"],
     };
@@ -137,7 +127,8 @@ export class EventsDetailComponent implements OnInit {
           this.bookingEvents = resp.data;
           console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
           //document.getElementById("lblSeatsAvailable") = this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
-          // this.bookingEvents.lblSeatsAvailable.setValue(this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings);
+          this.literalPlazas = this.translate.get("SLOTS") + ": " + this.bookingEvents.availableEventBookings;
+
           return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
 
         } else {

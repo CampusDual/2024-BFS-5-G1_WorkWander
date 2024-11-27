@@ -14,7 +14,7 @@
     entity="myEvent"
     keys="id_event"
     columns="id_event;name;description;date_event;hour_event;address;location;bookings;usr_id"
-    visible-columns="name;date_event;hour_event;location"
+    visible-columns="name;location;date_event;hour_event"
     query-rows="15"
     detail-mode="none"
     auto-adjust="true"
@@ -27,6 +27,7 @@
       title="DATE_EVENT"
       type="date"
       format="LL"
+      width="20%"
     ></o-table-column>
 
     <!-- Columna para mostrar la hora del evento -->
@@ -36,6 +37,7 @@
       title="HOUR_EVENT"
       width="100px"
       format="LT"
+      width="20%"
     ></o-table-column>
 
     <!-- Columna para mostrar el nombre del evento -->
@@ -44,6 +46,7 @@
       fxFlex
       title="name"
       width="150px"
+      width="40%"
     ></o-table-column>
 
     <!-- Columna para la localidad del evento -->
@@ -52,6 +55,7 @@
       fxFlex
       title="locality"
       width="150px"
+      width="20%"
     ></o-table-column>
   </o-table>
 </o-form-layout-manager>

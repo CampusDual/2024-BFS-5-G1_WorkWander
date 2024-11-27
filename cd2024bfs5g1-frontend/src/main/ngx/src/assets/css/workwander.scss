@@ -318,6 +318,15 @@ nav.ng-star-inserted:nth-last-child(2) {
   bottom: 25px;
   right: 0;
   width: 96%;
+  
+
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
   :hover {
     border-left: 0px solid $accent !important;
@@ -339,6 +348,7 @@ nav.ng-star-inserted:nth-last-child(2) {
 
 // Formato barra lateral
 .o-app-sidenav {
+
   .o-app-sidenav-sidenav {
     background-image: $linear-gradientBT;
     background-color: $primary;
@@ -593,10 +603,12 @@ o-column {
         justify-content: space-between !important;
       }
     }
+
     o-column.o-column,
     o-row.o-row {
       background: $blanco;
     }
+
   }
   article.ng-star-inserted {
     align-self: center !important;

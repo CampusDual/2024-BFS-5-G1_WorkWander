@@ -200,27 +200,6 @@
           ></span>
         </div>
       </o-column>
-      <o-column>
-        <div class="columna-imagen-map">
-          <!-- Map Information -->
-          <div title="" fxLayoutGap="24px" class="map-container">
-            <o-map
-              #coworking_map
-              attr="coworking_map"
-              [center]="center"
-              [zoom]="zoom"
-              min-zoom="3"
-              max-zoom="20"
-              zoom-control="yes"
-              search-control="no"
-              layer-panel-visible="no"
-              fxFlex
-            >
-            </o-map>
-          </div>
-        </div>
-      </o-column>
-
       <div class="reservation-button" *ngIf="parsePermissions('bookingButton')">
         <o-button
           #bookingButton
@@ -233,6 +212,26 @@
         ></o-button>
       </div>
     </div>
+    <o-column>
+      <div class="columna-imagen-map">
+        <!-- Map Information -->
+        <div title="" fxLayoutGap="24px" class="map-container">
+          <o-map
+            #coworking_map
+            attr="coworking_map"
+            [center]="center"
+            [zoom]="zoom"
+            min-zoom="3"
+            max-zoom="20"
+            zoom-control="yes"
+            search-control="no"
+            layer-panel-visible="no"
+            fxFlex
+          >
+          </o-map>
+        </div>
+      </div>
+    </o-column>
   </o-form>
   <!-- Carrusel que muestra los eventos -->
   <div id="carousel">

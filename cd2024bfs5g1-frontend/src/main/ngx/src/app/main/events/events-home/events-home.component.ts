@@ -9,6 +9,10 @@ import { OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimi
   styleUrls: ['./events-home.component.css']
 })
 export class EventsHomeComponent implements OnInit{
+createFilter: any;
+clearFilters() {
+throw new Error('Method not implemented.');
+}
   @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
   @ViewChild("eventsGrid") protected eventsGrid: OGridComponent;
 

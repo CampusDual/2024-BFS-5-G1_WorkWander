@@ -211,8 +211,22 @@
           max-zoom="20"
           zoom-control="yes"
           search-control="no"
+          layer-panel-visible="no"
           fxFlex
-        ></o-map>
+          (onDrawEvent)="addDrawEvent($event)"
+        >
+          <o-map-draw-controls layer-id="coworking-layer">
+            <o-map-layer
+              #map_layer
+              layer-type="marker"
+              layer-id="coworking-layer"
+              [layer-center]="mapMarker"
+              layer-menu-label="Coworking"
+              layer-menu-label-secondary="Coworking location"
+            >
+            </o-map-layer>
+          </o-map-draw-controls>
+        </o-map>
       </div>
     </o-column>
   </div>

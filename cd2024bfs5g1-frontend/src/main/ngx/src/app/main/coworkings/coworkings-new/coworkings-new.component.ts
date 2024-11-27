@@ -31,6 +31,7 @@ export class CoworkingsNewComponent implements OnInit {
   mapLat: string = "42.240599";
   mapLon: string = "-8.720727";
   center: string = this.mapLat + ";" + this.mapLon;
+  mapMarker: string;
 
   zoom: number = 16; // Zoom inicial
 
@@ -41,6 +42,8 @@ export class CoworkingsNewComponent implements OnInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild('combo') combo: OComboComponent;
   @ViewChild('address') address: OTextInputComponent;
+  @ViewChild('map_layer') map_layer: OMapComponent;
+
 
 
   constructor(
@@ -55,6 +58,7 @@ export class CoworkingsNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.configureService();
+
   }
 
   protected configureService() {
@@ -141,6 +145,32 @@ export class CoworkingsNewComponent implements OnInit {
 
   // ---------------------- MAPA ----------------------
 
+  ngAfterViewInit() {
+    this.getDrawLayer();
+  }
+
+  getDrawLayer() {
+    console.log(this.coworking_map.getMapService().getDrawLayer());
+  }
+
+  addDrawEvent(arg) {
+    this._eventsArray.push(arg);
+    // Manejar el evento de dibujo y añadir la geometría a la capa
+    const layer = arg.layer;
+    if (layer) {
+      this.coworking_map.getMapService().addLayer("coworking-layer", layer, false, 'true', 'Dibujado');
+    }
+  }
+
+  get eventsArray(): Array<any> {
+    return this._eventsArray;
+  }
+
+  set eventsArray(arg: Array<any>) {
+    this._eventsArray = arg;
+  }
+
+
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
@@ -154,11 +184,17 @@ export class CoworkingsNewComponent implements OnInit {
 
     const addressComplete = address ? `${address}, ${cityName}` : cityName;
 
-    this.getCoordinatesForCity(addressComplete).then((coords) => {
-      if (coords) {
-        this.center = coords;
+    this.getCoordinatesForCity(addressComplete).then((results) => {
+      if (results) {
+        this.center = results;
+        this.mapMarker = results;
+
+        this.addDrawEvent(results);// 
+        //this.mapMarker = results;
+        //this.map_layer.setCenter(this.center);
+        //this.map_layer.addMarker(LayerConfiguration, this.center, null, null, null, null, null, null);
+        //this.mapMarker = results;   
         this.zoom = address ? 18 : 12;
-        //this.addMarkers(coords); // Añadir marcador -> en proceso!!!
       } else {
         this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
       }
@@ -173,6 +209,7 @@ export class CoworkingsNewComponent implements OnInit {
       console.log(response);
       if (response?.length > 0) {
         const { lat, lon } = response[0];
+        console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       } else {
         this.snackBar(`No se encontraron resultados para: ${location}`);
@@ -184,15 +221,6 @@ export class CoworkingsNewComponent implements OnInit {
   }
 
 
-  // private addMarkers(results: any[]): void { EN PROCESOOOO!!
-  // results.forEach(result => {
-  //   const lat = parseFloat(result.lat);
-  //   const lon = parseFloat(result.lon);
-  //   const marker = this.coworkingMap.getMapService().addMarker([lat, lon]);
-  //   this.coworkingMap.getMapService().addLayer(marker);
-  // });
-
-
   private snackBar(message: string): void {
     this.snackBarService.open(message, {
       milliseconds: 5000,
@@ -200,26 +228,4 @@ export class CoworkingsNewComponent implements OnInit {
       iconPosition: 'left'
     });
   }
-
-  // Metodos para controlar el draw dentro del mapa
-  // ngAfterViewInit() {
-  //   this.getDrawLayer();
-  // }
-
-  // getDrawLayer() {
-  //   console.log(this.coworking_map.getMapService().getDrawLayer());
-  // }
-
-  // addDrawEvent(arg) {
-  //   this._eventsArray.push(arg);
-  // }
-
-  // get eventsArray(): Array<any> {
-  //   return this._eventsArray;
-  // }
-
-  // set eventsArray(arg: Array<any>) {
-  //   this._eventsArray = arg;
-  // }
-
 }

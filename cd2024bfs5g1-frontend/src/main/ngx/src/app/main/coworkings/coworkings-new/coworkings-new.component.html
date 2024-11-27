@@ -36,12 +36,7 @@
   ignore-default-navigation="yes"
   fxFlex
 >
-  <div
-    class="form-section"
-    fxLayout="row"
-    fxLayoutGap="24px"
-    fxLayoutAlign="left start"
-  >
+  <div class="form-section" fxLayout="row" fxLayoutAlign="left start">
     <!-- General Information -->
     <o-column
       fxFlex
@@ -166,6 +161,7 @@
       class="form-section form-new-event"
       title=""
       fxLayoutGap="24px"
+      style="padding: 0 15px"
     >
       <div class="rowCityDirection" fxLayoutGap="24px">
         <!-- Direction and Locality -->
@@ -185,6 +181,7 @@
           searchable="true"
           sort="ASC"
           appearance="fill"
+          class="halfSize"
         ></o-combo>
         <o-text-input
           #address
@@ -197,6 +194,7 @@
           max-length="50"
           min-length="3"
           (onBlur)="onAddressBlur()"
+          class="halfSize"
         ></o-text-input>
       </div>
       <!-- Map Information -->

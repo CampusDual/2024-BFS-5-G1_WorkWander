@@ -494,7 +494,13 @@ o-column {
   flex-direction: column;
   gap: 35px;
 
-  o-map, o-image{
+  o-map{
+    width: 100%;
+    height: 100%;
+    max-height: 470px;
+    min-height: 470px;
+  } 
+  o-image{
     width: 100%;
     height: 100%;
     max-height: 270px;
@@ -551,11 +557,13 @@ o-column {
       flex-direction: row;
       box-sizing: border-box;
       display: flex;
-      margin: 55px 0 25px 0;
+      margin: 60px 0 25px 0;
       justify-content: space-between;
     }
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
+      overflow: hidden;
+
       > div {
         gap: 25px;
         flex-direction: row !important;
@@ -795,6 +803,19 @@ o-data-toolbar {
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
+
+      o-combo.halfSize{
+        max-width: 27%;
+        width: 27%;
+        min-width: 27%;
+      }
+
+      o-text-input.halfSize{
+        max-width: 67%;
+        width: 67%;
+        min-width: 67%;
+      }
+
 
       o-date-input,
       o-integer-input,

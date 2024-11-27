@@ -19,7 +19,6 @@ export class EventsDetailComponent implements OnInit {
 
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
-  //@ViewChild("lblSeatsAvailable") lblSeatsAvailable: OTextInputComponent;
 
   constructor(
     private service: OntimizeService,

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Location } from "@angular/common";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -18,6 +19,7 @@ import {
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { OMapComponent } from "ontimize-web-ngx-map";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -38,7 +40,8 @@ export class CoworkingsDetailComponent implements OnInit {
     private location: Location,
     private sanitizer: DomSanitizer,
     private utils: UtilsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.responsiveOptions = [
       {
@@ -66,6 +69,7 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
+  @ViewChild("coworking_map") coworking_map: OMapComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -73,6 +77,11 @@ export class CoworkingsDetailComponent implements OnInit {
   public serviceList = [];
   public dateArray = [];
   public dateArrayF = [];
+
+  mapLat: string = "42.240599";
+  mapLon: string = "-8.720727";
+  center: string = this.mapLat + ";" + this.mapLon;
+  zoom: number = 12; // Zoom inicial
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
@@ -90,11 +99,12 @@ export class CoworkingsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.showServices();
+    this.mapaShow();
   }
 
   currentDate() {
     let date = new Date();
-    date.setHours(0,0,0,0)
+    date.setHours(0, 0, 0, 0)
 
     return date;
   }
@@ -102,9 +112,8 @@ export class CoworkingsDetailComponent implements OnInit {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let now = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      let now = `${date.getFullYear()}-${date.getMonth() + 1
+        }-${date.getDate()}`;
       const filter = {
         "@basic_expression": {
           lop: {
@@ -159,8 +168,8 @@ export class CoworkingsDetailComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
+        "data:image/*;base64," + base64
+      )
       : "./assets/images/event-default.jpg";
   }
 
@@ -291,8 +300,7 @@ export class CoworkingsDetailComponent implements OnInit {
         if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${
-              this.dateArrayF
+            `${confirmMessageBody}  ${this.dateArrayF
             } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
         } else {
@@ -377,5 +385,60 @@ export class CoworkingsDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  // ---------------------- MAPA ----------------------
+  mapaShow(): void {
+    const selectedCityId = this.form.getFieldValue("location");
+    const address = this.form.getFieldValue("cw_address");
+    const addressComplete = selectedCityId + ", " + address;
+    console.log(addressComplete);
+
+    this.getCoordinatesForCity(addressComplete).then((results) => {
+      if (results) {
+        const [lat, lon] = results.split(';')
+        this.coworking_map.getMapService().setCenter(+lat, +lon);
+        this.coworking_map.getMapService().setZoom(18);
+        this.coworking_map.addMarker(
+          'custom_marker',           // id
+          lat,                 // latitude
+          lon,                 // longitude
+          { draggable: true },       // options
+          'Ubicacion del coworking',     // popup
+          false,                     // hidden
+          true,                      // showInMenu
+          'Marcador Personalizado'   // menuLabel
+        );
+      } else {
+        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+      }
+    });
+  }
+
+  //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
+  private async getCoordinatesForCity(location: string): Promise<string | null> {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const response = await this.http.get<any>(url).toPromise();
+      console.log(response);
+      if (response?.length > 0) {
+        const { lat, lon } = response[0];
+        console.log(`${lat};${lon}`);
+        return `${lat};${lon}`;
+        //return response;
+      } else {
+        this.snackBar(`No se encontraron resultados para: ${location}`);
+      }
+    } catch (error) {
+      this.snackBar(`Error al consultar la API: ${error}`);
+    }
+    return null;
+  }
+  private snackBar(message: string): void {
+    this.snackBarService.open(message, {
+      milliseconds: 5000,
+      icon: 'error',
+      iconPosition: 'left'
+    });
   }
 }

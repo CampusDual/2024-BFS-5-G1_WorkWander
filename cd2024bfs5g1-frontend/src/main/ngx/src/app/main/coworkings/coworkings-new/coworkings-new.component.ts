@@ -54,7 +54,6 @@ export class CoworkingsNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.configureService();
-
   }
 
   protected configureService() {

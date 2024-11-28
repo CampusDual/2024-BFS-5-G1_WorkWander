@@ -29,6 +29,7 @@ export class AnalyticsOccupationComponent {
   isGraph: boolean = false;
   selectedCoworking: string = "";
   chartParameters: any;
+  maxSelection=3;
   colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
@@ -41,7 +42,8 @@ export class AnalyticsOccupationComponent {
   ) {}
 
   onCoworkingChange(selectednames: OValueChangeEvent) {
-    if (selectednames.newValue.length <= 3) {
+    if(selectednames.type===0){
+    if (selectednames.newValue.length <= this.maxSelection) {
       this.selectedCoworkings = selectednames.newValue;
       this.selectedCoworking = this.selectedCoworkings.join(",");
       this.showAvailableToast(
@@ -50,10 +52,11 @@ export class AnalyticsOccupationComponent {
         )} ${this.selectedCoworkings.join(", ")}`
       );
     } else {
-      this.comboCoworkingInput.setValue(this.selectedCoworkings);
+      this.comboCoworkingInput.setValue(selectednames.oldValue);
       this.showAvailableToast(
-        this.translate.get("COWORKING_CHART_SELECTION_LIMIT")
+        this.translate.get("COWORKING_CHART_SELECTION_LIMIT")+this.maxSelection
       );
+      return;
     }
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
@@ -64,9 +67,7 @@ export class AnalyticsOccupationComponent {
     this.service.query(filter, columns, "occupationLinearChart").subscribe(
       (resp) => {
         if (resp.data && resp.data.length > 0) {
-          this.chartData=resp.data;
-          /**const data = resp.data[0].data;
-          this.chartData = this.transformOccupationData(data);*/
+          this.chartData=resp.data[0].data;
           this.isGraph = this.chartData.length > 0;
         } else {
           this.isGraph = false;
@@ -81,18 +82,12 @@ export class AnalyticsOccupationComponent {
       }
     );
   }
+  }
 
-  transformOccupationData(data: any): any[] {
-    if (data[this.selectedCoworking]) {
-      const dateMap = data[this.selectedCoworking];
-      for (const [date, percentage] of Object.entries(dateMap)) {
-        this.chartData.push({
-          name: new Date(date).toLocaleDateString(),
-          value: percentage,
-        });
-      }
+  getChartData(){
+    if(this.chartData){
+      return this.chartData
     }
-    return this.chartData;
   }
 
   showAvailableToast(mensaje?: string) {
@@ -104,4 +99,5 @@ export class AnalyticsOccupationComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
+
 }

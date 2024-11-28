@@ -22,8 +22,8 @@
 <div *ngIf="isGraph" class="chart-container">
   <o-chart
     type="line"
-    [data]="chartData"
-    color="colorScheme"
+    [data]="getChartData()"
+    color="vivid"
     x-label="name"
     y-label="value"
     x-data-type="{{ 'PERCENTAGE %' | oTranslate }}"

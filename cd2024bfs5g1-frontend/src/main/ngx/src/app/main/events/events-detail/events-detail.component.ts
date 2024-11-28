@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild } from "@angular/core";
-import { DialogService, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
+import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
@@ -9,19 +10,28 @@ import { UtilsService } from "src/app/shared/services/utils.service";
   styleUrls: ["./events-detail.component.css"],
 })
 
-export class EventsDetailComponent {
+export class EventsDetailComponent implements OnInit {
+  bookingEvents: any = [];
+  literalNumeroPlazas: string;
+  numeroPlazas: string;
+  literalPlazas: string;
 
-  
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("id_event") id_event: OIntegerInputComponent;
+
   constructor(
+    private service: OntimizeService,
+    private activeRoute: ActivatedRoute,
     private translate: OTranslateService,
     private utils: UtilsService,
     private location: Location,
-    private service: OntimizeService,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService
   ) { }
 
+  ngOnInit() {
+    this.checkBookingEvent();
+  }
 
   formatDate(rawDate: number): string {
     if (rawDate) {
@@ -29,8 +39,8 @@ export class EventsDetailComponent {
     }
   }
 
-  formatTime(time:string):string{
-    if (time!=null || time!=undefined) {
+  formatTime(time: string): string {
+    if (time != null || time != undefined) {
       return this.utils.formatTime(time);
     }
   }
@@ -81,6 +91,7 @@ export class EventsDetailComponent {
     this.service.insert(filter, "bookingEvent").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast(resp.message);
+        this.checkBookingEvent();
       }
     });
   }
@@ -95,4 +106,60 @@ export class EventsDetailComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
+
+  checkBookingEvent() {
+    const filter = {
+      id_event: +this.activeRoute.snapshot.params["id_event"],
+    };
+
+    const conf = this.service.getDefaultServiceConfiguration("bookingEvents");
+    this.service.configureService(conf);
+    const columns = [
+      "availableEventBookings",
+      "usedEventBookings",
+      "totalEventBookings",
+    ];
+    let cantidadPlazasLibres: number = 0.00;
+
+    this.service
+      .query(filter, columns, "getEventDisponibility")
+      .subscribe((resp) => {
+        if (resp.code === 0) {
+          this.bookingEvents = resp.data;
+          console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
+          if (this.bookingEvents.totalEventBookings > 0) {
+
+            cantidadPlazasLibres = this.bookingEvents.availableEventBookings / this.bookingEvents.totalEventBookings;
+            this.literalNumeroPlazas = "BOOKINGS_LEFT"
+            this.numeroPlazas = this.bookingEvents.availableEventBookings;
+            switch (true) {
+
+              case (cantidadPlazasLibres > 0.9):
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";
+                break;
+              case (cantidadPlazasLibres > 0.65) && (cantidadPlazasLibres <= 0.9):
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_65";
+                break;
+              case (cantidadPlazasLibres > 0.5) && (cantidadPlazasLibres <= 0.65):
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_50";
+                break;
+              case (cantidadPlazasLibres > 0.3) && (cantidadPlazasLibres <= 0.5):
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_30";
+                break;
+              case (cantidadPlazasLibres > 0) && (cantidadPlazasLibres <= 0.3):
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_00";
+                break;
+              case (cantidadPlazasLibres == 0):
+                this.literalPlazas = "EVENT_DISPONIBILITY_EQ_00";
+                break;
+            }
+          }
+          return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
+
+        } else {
+          return this.translate.get("NO_BOOKING_ENABLED")
+        }
+      });
+  }
 }
+

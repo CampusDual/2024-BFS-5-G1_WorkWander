@@ -139,37 +139,87 @@ public class CoworkingService implements ICoworkingService {
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
             final List<?> attributes,
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
-        //
+
         final Map<String, Object> combinedFilter = new HashMap<>();
-        combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-                ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand());
+        //        if (keysValues.size() > 0 && (((SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder
+        //        .BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
+        //        .EXPRESSION_KEY)).getLeftOperand())
+        //                .getClass() != SQLStatementBuilder.BasicExpression.class ||
+        //                (((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder
+        //                .ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand()
+        //                        .getClass() == SQLStatementBuilder.BasicExpression.class &&
+        //                        ((SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder.BasicExpression)
+        //                        keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
+        //                        .EXPRESSION_KEY)).getLeftOperand()).getLeftOperand() != "date"))) {
+        //
+        //            if (keysValues.size() == 1) {
+        //                combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+        //                        keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
+        //                        .EXPRESSION_KEY));
+        //            } else {
+        //                combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+        //                        ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder
+        //                        .ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand());
+        //            }
+        //        }
 
-        final SQLStatementBuilder.BasicExpression daterangeFilter =
-                (SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getRightOperand();
+        final List<String> datesAttributes = List.of("cw_id", "date", "cw_capacity", "cw_location", "services",
+                "plazasOcupadas");
 
-        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, combinedFilter, attributes,
-                this.coworkingDao.CW_QUERY_SERVICES);
+        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
+                this.coworkingDao.CW_QUERY_DATES);
+
+        final List<Integer> coworkingsSinDisponibilidad = new ArrayList<>();
 
         for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
-            final Integer aux = (Integer) filteredResults.getRecordValues(i).get("cw_id");
+            final int aux = (int) filteredResults.getRecordValues(i).get("cw_id");
 
-            final SQLStatementBuilder.BasicExpression cwIdBasicExpression = new SQLStatementBuilder.BasicExpression(
-                    "cw_id", SQLStatementBuilder.BasicOperator.EQUAL_OP, aux);
+            final long plazasOcupadas = (long) filteredResults.getRecordValues(i).get("plazasOcupadas");
+            final int capacity = (int) filteredResults.getRecordValues(i).get("cw_capacity");
 
-            final SQLStatementBuilder.BasicExpression dateBasicExpression =
-                    new SQLStatementBuilder.BasicExpression(daterangeFilter,
-                            SQLStatementBuilder.BasicOperator.AND_OP, cwIdBasicExpression);
+            if (plazasOcupadas >= capacity) {
+                coworkingsSinDisponibilidad.add(aux);
+            }
 
-            final Map<String, Object> dateCwFilter = new HashMap<>();
-            dateCwFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-                    dateBasicExpression);
-
-            final EntityResult daterangeResults = this.daoHelper.query(this.coworkingDao, dateCwFilter, attributes,
-                    this.coworkingDao.CW_QUERY_DATES);
-
+            //            final SQLStatementBuilder.BasicExpression cwIdBasicExpression = new SQLStatementBuilder
+            //            .BasicExpression(
+            //                    "cw_id", SQLStatementBuilder.BasicOperator.EQUAL_OP, aux);
+            //
+            //            final SQLStatementBuilder.BasicExpression dateBasicExpression =
+            //                    new SQLStatementBuilder.BasicExpression(daterangeFilter,
+            //                            SQLStatementBuilder.BasicOperator.AND_OP, cwIdBasicExpression);
+            //
+            //            final Map<String, Object> dateCwFilter = new HashMap<>();
+            //            dateCwFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
+            //                    dateBasicExpression);
+            //
+            //            final EntityResult auxiliarQuery = this.daoHelper.query(this.coworkingDao, dateCwFilter,
+            //            attributes,
+            //                    this.coworkingDao.CW_QUERY_DATES);
+            //
+            //            if (auxiliarQuery.calculateRecordNumber() > 0) {
+            //                if (daterangeResults == null) {
+            //                    daterangeResults = this.daoHelper.query(this.coworkingDao, dateCwFilter, attributes,
+            //                            this.coworkingDao.CW_QUERY_DATES);
+            //                } else {
+            //                    daterangeResults.putAll(this.daoHelper.query(this.coworkingDao, dateCwFilter,
+            //                    attributes,
+            //                            this.coworkingDao.CW_QUERY_DATES).getRecordValues(0));
+            //                }
+            //            }
         }
 
-        return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
+        final Map<String, Object> filter = new HashMap<>();
+
+        if (coworkingsSinDisponibilidad.size() > 0) {
+            final SQLStatementBuilder.BasicExpression filtroIds =
+                    new SQLStatementBuilder.BasicExpression(new SQLStatementBuilder.BasicField(CoworkingDao.CW_ID),
+                            SQLStatementBuilder.BasicOperator.NOT_IN_OP, coworkingsSinDisponibilidad);
+
+            filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, filtroIds);
+        }
+
+        return this.daoHelper.paginationQuery(this.coworkingDao, filter, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }
 

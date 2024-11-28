@@ -26,8 +26,8 @@ ontimize:
     name-convention: lower
     sqlhandler: postgres
     sql-condition-processor:
-      upper-string: true
-      upper-like: true
+      upper-string: false
+      upper-like: false
   security:
     mode: default
     ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search,/cw_services/servicePerCoworking/search,/coworkings/serviceCoworking/search,/coworkings/serviceCoworking/advancedsearch,/cities/city/search,/services/service/search,/bookings/getDatesDisponibility/search'

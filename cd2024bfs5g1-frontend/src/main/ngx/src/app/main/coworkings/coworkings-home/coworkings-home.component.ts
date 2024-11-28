@@ -102,9 +102,8 @@ export class CoworkingsHomeComponent implements OnInit {
             );
           }
         } else if (fil.attr == 'date') {
-          daterangeExpressions.push(FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value.startDate.toDate()));
-          daterangeExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value.endDate.toDate()));
-
+          daterangeExpressions.push(FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, new Date(fil.value.startDate.toDate()).toLocaleDateString("en-CA") ));
+          daterangeExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, new Date(fil.value.endDate.toDate()).toLocaleDateString("en-CA") ));
         }
       }
     });
@@ -133,14 +132,14 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
-    // Construir expresión OR para daterange
+    // Construir expresión AND para daterange
     let daterangeExpression: Expression = null;
     if (daterangeExpressions.length > 0) {
       daterangeExpression = daterangeExpressions.reduce((exp1, exp2) =>
         FilterExpressionUtils.buildComplexExpression(
           exp1,
           exp2,
-          FilterExpressionUtils.OP_OR
+          FilterExpressionUtils.OP_AND
         )
       );
     }

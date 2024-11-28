@@ -26,13 +26,12 @@ export class CoworkingsNewComponent implements OnInit {
   public availableServices: number = 6;
   public selectedServices: number = 0;
   protected service: OntimizeService;
-
-  // mapId: number = 0;
-  mapLat: string = "42.240599";
-  mapLon: string = "-8.720727";
-  center: string = this.mapLat + ";" + this.mapLon;
-  zoom: number = 12; // Zoom inicial
-
+  protected validAddress : boolean = false;
+  protected mapLat: string = ""; //Latitud 
+  protected mapLon: string = ""; //Longitud
+  protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
+  protected zoom: number = 8; // Zoom inicial
+  protected center : string = "42.240599;-8.720727" //Centro inicial
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -40,8 +39,6 @@ export class CoworkingsNewComponent implements OnInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild('combo') combo: OComboComponent;
   @ViewChild('address') address: OTextInputComponent;
-
-
 
   constructor(
     private router: Router,
@@ -147,13 +144,15 @@ export class CoworkingsNewComponent implements OnInit {
     const cityName = cityObject ? cityObject.city : null;
 
     if (!cityName) {
-      this.snackBar('Por favor, selecciona una localidad válida.');
+      this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
     const addressComplete = address ? `${address}, ${cityName}` : cityName;
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
         const [lat, lon] = results.split(';')
+        this.mapLat = lat;
+        this.mapLon = lon;
         this.coworking_map.getMapService().setCenter(+lat, +lon);
         this.coworking_map.getMapService().setZoom(18);
         this.coworking_map.addMarker(
@@ -166,8 +165,27 @@ export class CoworkingsNewComponent implements OnInit {
           true,                      // showInMenu
           'Marcador Personalizado'   // menuLabel
         );
+        this.validAddress = true;
       } else {
-        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+        this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
+        this.getCoordinatesForCity(cityName).then((results) => {
+          if (results) {
+            const [lat, lon] = results.split(';')
+            this.coworking_map.getMapService().setCenter(+lat, +lon);
+            this.coworking_map.getMapService().setZoom(12);
+            this.coworking_map.addMarker(
+              'custom_marker',           // id
+              lat,                 // latitude
+              lon,                 // longitude
+              { draggable: true },       // options
+              'Ubicacion del coworking',     // popup
+              false,                     // hidden
+              true,                      // showInMenu
+              'Marcador Personalizado'   // menuLabel
+            );
+            this.validAddress = false;
+          }
+        });
       }
     });
   }
@@ -182,12 +200,9 @@ export class CoworkingsNewComponent implements OnInit {
         const { lat, lon } = response[0];
         console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
-        //return response;
-      } else {
-        this.snackBar(`No se encontraron resultados para: ${location}`);
       }
     } catch (error) {
-      this.snackBar(`Error al consultar la API: ${error}`);
+      this.snackBar(this.translate.get("API_ERROR") + error);
     }
     return null;
   }

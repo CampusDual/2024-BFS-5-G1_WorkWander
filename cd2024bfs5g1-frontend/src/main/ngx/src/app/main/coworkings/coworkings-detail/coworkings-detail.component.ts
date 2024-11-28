@@ -90,7 +90,7 @@ export class CoworkingsDetailComponent implements OnInit {
     if (decimalPart == "") {
       decimalPart = "00";
     }
-    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+    return `${integerPart},<span class="">${decimalPart}</span> €`;
   }
 
   getName() {
@@ -98,8 +98,12 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showServices();
+    //this.showServices();
     //this.mapaShow();
+  }
+  iniciarPantalla(idLocation: number, city: string, address: string) {
+    this.showEvents(idLocation);
+    this.mapaShow(city, address);
   }
 
   currentDate() {
@@ -390,7 +394,6 @@ export class CoworkingsDetailComponent implements OnInit {
   // ---------------------- MAPA ----------------------
   mapaShow(selectedCity: string, address: string): void {
     const addressComplete = selectedCity + ", " + address;
-    console.log(addressComplete);
 
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
@@ -437,10 +440,8 @@ export class CoworkingsDetailComponent implements OnInit {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
-      console.log(response);
       if (response?.length > 0) {
         const { lat, lon } = response[0];
-        console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       } else {
         this.snackBar(`No se encontraron resultados para: ${location}`);

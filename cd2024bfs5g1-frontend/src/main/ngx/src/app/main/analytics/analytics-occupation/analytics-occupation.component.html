@@ -1,12 +1,8 @@
-<!-- Combobox para seleccionar coworkings -->
-<mat-tab-group>
-  <mat-tab>
-    <ng-template class="label" mat-tab-label>{{
-      "%_WEEKEND" | oTranslate
-    }}</ng-template>
-    <h1>{{ "SEVEN_DAYS_GRAPHIC" | oTranslate }}</h1>
-
+<o-form show-header="false" class="chart-container">
+  <!-- Combobox para seleccionar coworkings -->
+  <div class="selector-container">
     <o-combo
+      class="input-selector"
       #comboCoworkingInput
       attr="cw_name"
       service="coworkings"
@@ -24,6 +20,22 @@
       multiple-trigger-label="true"
     >
     </o-combo>
+
+    <!-- Date Range Selector -->
+
+    <o-daterange-input
+      class="input-selector"
+      attr="daterange"
+      #daterange
+      fxFlex
+      label="SELECT_DATE_RANGE"
+      read-only="no"
+      required="yes"
+      (onValueChange)="setDates()"
+      value-type="date"
+    ></o-daterange-input>
+  </div>
+  <div>
     <!-- Gráfico de Ocupación -->
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart
@@ -41,31 +53,11 @@
         legend-title="Legend"
         show-grid-lines="false"
       ></o-chart>
-      <div class="noResults" *ngIf="!isGraph">
-        {{ "SELECTOR_COMBO_GRAPH_NO_RESULTS" | oTranslate }}
-      </div>
     </ng-container>
-    <ng-template #noChartTemplate>
-      <div class="noResults">
-        {{ "NO_CHART_AVAILABLE" | oTranslate }}
-      </div>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template class="label" mat-tab-label>{{
-      "DATES_SELECTOR" | oTranslate
-    }}</ng-template>
-    <h1>{{ "DATES_DAYS_SELECTOR" | oTranslate }}</h1>
-    <o-daterange-input
-      attr="daterange"
-      #daterange
-      fxFlex
-      label="SELECT_DATE_RANGE"
-      read-only="no"
-      required="yes"
-      (onValueChange)="setDates()"
-      value-type="date"
-    ></o-daterange-input>
-  </mat-tab>
-</mat-tab-group>
+  </div>
+  <ng-template #noChartTemplate>
+    <div class="noResults">
+      {{ "NO_CHART_AVAILABLE" | oTranslate }}
+    </div>
+  </ng-template>
+</o-form>

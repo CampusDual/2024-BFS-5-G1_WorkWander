@@ -207,9 +207,9 @@ public class BookingService implements IBookingService {
                     //Saco la ocupacion y la añado al mapa como porcentaje
                     final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
                     final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
-                    final double ocupacionP = (double) ocupacionI / capacidadDisponible * 100;
+                    final double ocupacionP = (double) ocupacionI / capacidadDisponible;
                     dateMap.put("name", date);
-                    dateMap.put("value", (int) ocupacionP);
+                    dateMap.put("value", ocupacionP);
                     listaFechas.add(dateMap);
                 } catch (final ParseException e) {
                     throw new RuntimeException(e);
@@ -251,6 +251,5 @@ public class BookingService implements IBookingService {
         }
         return dates;
     }
-
 
 }

@@ -111,7 +111,7 @@ export class BookingsHomeComponent {
     if (evt.row.bk_state && evt.row.bkr_ratio == undefined) {
       if (currentDate > endDate) {
         this.dialog.open(BookingRateComponent, {
-          height: '30%',
+          height: '50%',
           width: '40%',
           data: {
             name: evt.row.cw_name,

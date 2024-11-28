@@ -187,6 +187,7 @@
   "COWORKING_CHART_ SELECTION_ERROR": "Error while charging occupation data.",
   "COWORKING_CHART_SELECTION": "Selected coworkings: ",
   "X-LABEL": "Date",
-  "Y-LABEL": "Occupation percentage",
-  "SELECT_COWORKING": "Selected coworking:  "
+  "Y-LABEL": "Occupation",
+  "SELECT_COWORKING": "Select up to three coworkings ",
+  "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date."
 }

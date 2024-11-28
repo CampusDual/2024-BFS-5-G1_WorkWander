@@ -185,5 +185,8 @@
   "COWORKING_CREATE": "Coworking created!",
   "COWORKING_CHART_SELECTION_LIMIT": "You can select up to these coworkings: ",
   "COWORKING_CHART_ SELECTION_ERROR": "Error while charging occupation data.",
-  "COWORKING_CHART_SELECTION": "Selected coworkings: "
+  "COWORKING_CHART_SELECTION": "Selected coworkings: ",
+  "X-LABEL": "Date",
+  "Y-LABEL": "Occupation percentage",
+  "SELECT_COWORKING": "Selected coworking:  "
 }

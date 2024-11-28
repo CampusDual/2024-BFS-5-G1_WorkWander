@@ -1,4 +1,6 @@
 <!-- Combobox para seleccionar coworkings -->
+<o-form show-header="false">
+ 
 <o-combo
   #comboCoworkingInput
   attr="cw_name"
@@ -24,10 +26,10 @@
     type="line"
     [data]="getChartData()"
     color="vivid"
-    x-label="name"
-    y-label="value"
-    x-data-type="{{ 'PERCENTAGE %' | oTranslate }}"
-    y-data-type="{{ 'DATE' | oTranslate }}"
+    x-label="{{ 'X-LABEL' | oTranslate }}"
+    y-label="{{'Y-LABEL' | oTranslate}}"
+    x-data-type="date"
+    y-data-type="percentage"
     show-legend="true"
     show-x-axis-label="true"
     show-y-axis-label="true"
@@ -36,3 +38,5 @@
     show-grid-lines="false"
   ></o-chart>
 </div>
+</o-form>
+

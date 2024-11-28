@@ -3,6 +3,7 @@ import { Location } from "@angular/common";
 import { Component, Injector, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import {
+  DialogService,
   OComboComponent,
   ODateInputComponent,
   OFormComponent,
@@ -26,12 +27,12 @@ export class CoworkingsNewComponent implements OnInit {
   public availableServices: number = 6;
   public selectedServices: number = 0;
   protected service: OntimizeService;
-  protected validAddress : boolean = false;
-  protected mapLat: string = ""; //Latitud 
+  leafletMap: any;
+  protected validAddress : boolean;
+  protected mapLat: string = ""; //Latitud
   protected mapLon: string = ""; //Longitud
   protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
-  protected zoom: number = 8; // Zoom inicial
-  protected center : string = "42.240599;-8.720727" //Centro inicial
+
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -45,6 +46,7 @@ export class CoworkingsNewComponent implements OnInit {
     private translate: OTranslateService,
     protected injector: Injector,
     protected snackBarService: SnackBarService,
+        protected dialogService: DialogService,
     private http: HttpClient
   ) {
     this.service = this.injector.get(OntimizeService);
@@ -52,6 +54,16 @@ export class CoworkingsNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.configureService();
+
+    // Usa un timeout para asegurarte de que el mapa esté listo
+    setTimeout(() => {
+      this.leafletMap = this.coworking_map.getMapService().getMap();
+      if (this.leafletMap) {
+        console.log('Mapa inicializado correctamente:', this.leafletMap);
+      } else {
+        console.error('El mapa aún no está listo.');
+      }
+    }, 500); // Ajusta el tiempo según sea necesario
   }
 
   protected configureService() {
@@ -93,7 +105,13 @@ export class CoworkingsNewComponent implements OnInit {
     this.availableServices++;
   }
 
-  public save() {
+  public async save() {
+     if (!this.validAddress) {
+       const confirmSave = await this.showConfirm();
+       if (!confirmSave) {
+         return;
+       }
+     }
     //Ordenamos el array de coworkings
     this.arrayServices.sort((a: any, b: any) => a.id - b.id);
     const coworking = {
@@ -143,18 +161,30 @@ export class CoworkingsNewComponent implements OnInit {
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
 
-    if (!cityName) {
+    if (!cityName || !address) {
       this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
     const addressComplete = address ? `${address}, ${cityName}` : cityName;
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
-        const [lat, lon] = results.split(';')
-        this.mapLat = lat;
-        this.mapLon = lon;
-        this.coworking_map.getMapService().setCenter(+lat, +lon);
-        this.coworking_map.getMapService().setZoom(18);
+        let [lat, lon] = results.split(';')
+
+        console.log('coworking_map:', this.coworking_map);
+        console.log('MapService:', this.coworking_map?.getMapService());
+        console.log('Map instance:', this.coworking_map?.getMapService()?.getMap());
+
+        if (this.coworking_map && this.coworking_map.getMapService()) {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
+          if (this.leafletMap) {
+            this.leafletMap.setView([+lat, +lon], 16); // Por ejemplo
+          } else {
+            console.error('El mapa no está inicializado.');
+          }
+        } else {
+          console.error('El servicio del mapa no está disponible.');
+        }
+
         this.coworking_map.addMarker(
           'custom_marker',           // id
           lat,                 // latitude
@@ -166,26 +196,11 @@ export class CoworkingsNewComponent implements OnInit {
           'Marcador Personalizado'   // menuLabel
         );
         this.validAddress = true;
-      } else {
+      }else{
+
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-        this.getCoordinatesForCity(cityName).then((results) => {
-          if (results) {
-            const [lat, lon] = results.split(';')
-            this.coworking_map.getMapService().setCenter(+lat, +lon);
-            this.coworking_map.getMapService().setZoom(12);
-            this.coworking_map.addMarker(
-              'custom_marker',           // id
-              lat,                 // latitude
-              lon,                 // longitude
-              { draggable: true },       // options
-              'Ubicacion del coworking',     // popup
-              false,                     // hidden
-              true,                      // showInMenu
-              'Marcador Personalizado'   // menuLabel
-            );
-            this.validAddress = false;
-          }
-        });
+        this.coworking_map.getMapService().setCenter(40.416775,-3.703790);
+        this.coworking_map.getMapService().setZoom(6);
       }
     });
   }
@@ -213,6 +228,20 @@ export class CoworkingsNewComponent implements OnInit {
       milliseconds: 5000,
       icon: 'error',
       iconPosition: 'left'
+    });
+  }
+
+private async showConfirm(): Promise<boolean> {
+    return new Promise((resolve) => {
+      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
+      this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
+        if (result) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
     });
   }
 }

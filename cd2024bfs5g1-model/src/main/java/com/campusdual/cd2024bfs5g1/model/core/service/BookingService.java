@@ -22,7 +22,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Lazy
 @Service(value = "BookingService")
@@ -67,9 +66,9 @@ public class BookingService implements IBookingService {
     @Override
     public EntityResult getDatesDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object datesObj = keyMap.get("bk_date");
+
         ArrayList<Date> dates = BookingService.objectToDates(datesObj);
         dates = BookingService.getIntermediateDates(dates);
-
         final Map<Date, Boolean> fechas = new LinkedHashMap<>();
 
         for (final Date date : dates) {
@@ -166,28 +165,33 @@ public class BookingService implements IBookingService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
-        // Verificar si el frontend envió IDs de coworkings
+        final Object datesObj = keyMap.get("bk_date");
+        ArrayList<Date> dates = BookingService.objectToDates(datesObj);
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (dates.isEmpty()) {
+            final Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            final Date today = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_MONTH, -6);
+            final Date sevenDays = calendar.getTime();
+            dates.add(sevenDays);
+            dates.add(today);
+        }
+        dates = BookingService.getIntermediateDates(dates);
         final List<Integer> coworkingIds = (List<Integer>) keyMap.get("cw_id");
         if (coworkingIds == null || coworkingIds.isEmpty()) {
             throw new OntimizeJEERuntimeException("No coworkings selected");
         }
+        keyMap.clear();
 
-        // Calcular las fechas de los últimos 7 días
-        final LocalDate today = LocalDate.now();
-        final LocalDate sevenDaysAgo = today.minusDays(7);
-        final List<String> lastSevenDays = sevenDaysAgo.datesUntil(today)
-                .map(LocalDate::toString)
-                .collect(Collectors.toList());
         final Map<String, Object> keyMapB = new HashMap<>();
-        // Agregar parámetros al keyMap
-        keyMapB.put("date", lastSevenDays);
-        keyMapB.put("bk_cw_id", coworkingIds); // IDs de coworkings seleccionados
-        //Mapa1
+        keyMapB.put("bk_cw_id", coworkingIds);
         final List<Map<String, Object>> listaCoworkings = new ArrayList<>();
 
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        //Bucle de coworkings de la empresa
         for (final int id : coworkingIds) {
             final Map<String, Object> coworkingMap = new LinkedHashMap<>();
             keyMap.put("cw_id", id);
@@ -199,21 +203,17 @@ public class BookingService implements IBookingService {
             //Mpa de fechas y capacidad
             final List<Map<String, Object>> listaFechas = new ArrayList<>();
             //Recorrer hasta 7 días atrás
-            for (final String date : lastSevenDays) {
+            for (final Date date : dates) {
                 final Map<String, Object> dateMap = new LinkedHashMap<>();
-                try {
-                    final Date date2 = sdf.parse(date);
-                    keyMapB.put("date", date2);
-                    //Saco la ocupacion y la añado al mapa como porcentaje
-                    final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
-                    final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
-                    final double ocupacionP = (double) ocupacionI / capacidadDisponible;
-                    dateMap.put("name", date);
-                    dateMap.put("value", ocupacionP);
-                    listaFechas.add(dateMap);
-                } catch (final ParseException e) {
-                    throw new RuntimeException(e);
-                }
+                keyMapB.put("date", date);
+                //Saco la ocupacion y la añado al mapa como porcentaje
+                final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
+                final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
+                final double ocupacionP = (double) ocupacionI / capacidadDisponible;
+                final String formattedDate = sdf.format(date);
+                dateMap.put("name", formattedDate);
+                dateMap.put("value", ocupacionP);
+                listaFechas.add(dateMap);
             }
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");

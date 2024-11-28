@@ -40,6 +40,7 @@ export class AnalyticsOccupationComponent {
     private snackBarService: SnackBarService,
     private translate: OTranslateService
   ) {}
+
   onCoworkingChange(selectednames: OValueChangeEvent) {
     if (selectednames.type === 0) {
       if (selectednames.newValue.length <= this.maxSelection) {
@@ -50,6 +51,13 @@ export class AnalyticsOccupationComponent {
             "COWORKING_CHART_SELECTION"
           )} ${this.selectedCoworkings.join(", ")}`
         );
+      try{
+        const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
+        const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
+        this.dateArray[0] = startDate;
+        this.dateArray[1] = endDate;
+      }catch(error){
+      }
       } else {
         this.comboCoworkingInput.setValue(selectednames.oldValue);
         this.showAvailableToast(
@@ -60,8 +68,11 @@ export class AnalyticsOccupationComponent {
       }
       const conf = this.service.getDefaultServiceConfiguration("bookings");
       this.service.configureService(conf);
-      const filter = { cw_id: this.selectedCoworkings };
-      const columns = ["data"];
+      const filter = {
+        cw_id: this.selectedCoworkings,
+        bk_date: this.dateArray
+      };
+      const columns = ["bk_id"];
       this.service.query(filter, columns, "occupationLinearChart").subscribe(
         (resp) => {
           if (resp.data && resp.data.length > 0) {
@@ -81,47 +92,11 @@ export class AnalyticsOccupationComponent {
       );
     }
   }
-  getChartData() {
-    if (this.chartData) {
-      return this.chartData;
+
+  getChartData(){
+    if(this.chartData){
+      return this.chartData
     }
-  }
-  setDates() {
-    const startDate = new Date(
-      (this.bookingDate as any).value.value.startDate
-    ).toLocaleString("en-CA");
-    const endDate = new Date(
-      (this.bookingDate as any).value.value.endDate
-    ).toLocaleString("en-CA");
-
-    this.dateArray[0] = startDate;
-    this.dateArray[1] = endDate;
-
-    const filter = {
-      cw_id: this.selectedCoworkings,
-      bk_date: this.dateArray,
-    };
-
-    const conf = this.service.getDefaultServiceConfiguration("bookings");
-    this.service.configureService(conf);
-    const columns = ["bk_id"];
-
-    this.service.query(filter, columns, "occupationLinearChart").subscribe(
-      (resp) => {
-        const data = resp.data.data;
-      },
-      (error) => {
-        console.error("Error al consultar capacidad:", error);
-      }
-    );
-    this.dateArray.splice(0, this.dateArray.length);
-  }
-
-  changeFormatDate(milis: number, idioma: string) {
-    const fecha = new Date(milis);
-    let fechaFormateada;
-    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
-    return fechaFormateada;
   }
 
   showAvailableToast(mensaje?: string) {

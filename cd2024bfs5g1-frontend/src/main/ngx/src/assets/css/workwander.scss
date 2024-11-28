@@ -615,7 +615,7 @@ o-column {
   }
 }
 .event-card {
-  // Estilo general de la tarjeta de coworking
+  // Estilo general de la tarjeta de evento
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -635,7 +635,7 @@ o-column {
     padding: 8px;
 
     .event-image {
-      // Estilo de la imagen de coworking
+      // Estilo de la imagen de evento
       width: 160px;
       height: 160px;
       object-fit: cover;
@@ -645,7 +645,7 @@ o-column {
   }
 }
 .event-date, .event-hour {
-  // Estilo de la ubicación
+  // Estilo de la hora y la fecha del evento
   color: $primary;
   margin: 0 0 8px 0;
   font-size: $fontSize18;
@@ -663,7 +663,7 @@ o-column {
   justify-content: space-between;
 
   .coworking-name, .event-name {
-    // Estilo del nombre del coworking
+    // Estilo del nombre del coworking y de evento
     font-size: $fontSize24;
     font-weight: bold;
     color: $primary;

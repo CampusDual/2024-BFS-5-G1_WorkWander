@@ -644,6 +644,12 @@ o-column {
     }
   }
 }
+.event-date, .event-hour {
+  // Estilo de la ubicación
+  color: $primary;
+  margin: 0 0 8px 0;
+  font-size: $fontSize18;
+}
 .material-icons {
   color: $verdeBoton;
   fill: $verdeBoton;
@@ -656,7 +662,7 @@ o-column {
   flex-direction: column;
   justify-content: space-between;
 
-  .coworking-name {
+  .coworking-name, .event-name {
     // Estilo del nombre del coworking
     font-size: $fontSize24;
     font-weight: bold;

@@ -203,6 +203,7 @@
   "EVENT_DISPONIBILITY_GT_30": "No esperes más, casi está lleno",
   "EVENT_DISPONIBILITY_GT_00": "Quedan muy pocas plazas, corre que vuelan",
   "EVENT_DISPONIBILITY_EQ_00": "Sigue buscando",
-  "BOOKINGS_LEFT": "Plazas disponibles"
+  "BOOKINGS_LEFT": "Plazas disponibles",
+  "AVAILABLE": "disponible"
 
 }

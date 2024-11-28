@@ -81,10 +81,7 @@ export class CoworkingsDetailComponent implements OnInit {
   public dateArray = [];
   public dateArrayF = [];
 
-  mapLat: string = "42.240599";
-  mapLon: string = "-8.720727";
-  center: string = this.mapLat + ";" + this.mapLon;
-  zoom: number = 12; // Zoom inicial
+  center: string = "42.240599;-8.720727";
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
@@ -102,7 +99,7 @@ export class CoworkingsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.showServices();
-    this.mapaShow();
+    //this.mapaShow();
   }
 
   currentDate() {
@@ -391,16 +388,14 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   // ---------------------- MAPA ----------------------
-  mapaShow(): void {
-    let selectedCityId = this.cw_city.getValue();
-    let address = this.cw_address.getValue();
-
-    const addressComplete = selectedCityId + ", " + address;
+  mapaShow(selectedCity: string, address: string): void {
+    const addressComplete = selectedCity + ", " + address;
     console.log(addressComplete);
 
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
         const [lat, lon] = results.split(';')
+        this.center = lat + ";" + lon;
         this.coworking_map.getMapService().setCenter(+lat, +lon);
         this.coworking_map.getMapService().setZoom(18);
         this.coworking_map.addMarker(
@@ -415,6 +410,24 @@ export class CoworkingsDetailComponent implements OnInit {
         );
       } else {
         this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+        this.getCoordinatesForCity(selectedCity).then((results) => {
+          if (results) {
+            const [lat, lon] = results.split(';')
+            this.center = lat + ";" + lon;
+            this.coworking_map.getMapService().setCenter(+lat, +lon);
+            this.coworking_map.getMapService().setZoom(12);
+            this.coworking_map.addMarker(
+              'custom_marker',           // id
+              lat,                 // latitude
+              lon,                 // longitude
+              { draggable: true },       // options
+              'Ubicacion del coworking',     // popup
+              false,                     // hidden
+              true,                      // showInMenu
+              'Marcador Personalizado'   // menuLabel
+            );
+          }
+        });
       }
     });
   }
@@ -429,7 +442,6 @@ export class CoworkingsDetailComponent implements OnInit {
         const { lat, lon } = response[0];
         console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
-        //return response;
       } else {
         this.snackBar(`No se encontraron resultados para: ${location}`);
       }

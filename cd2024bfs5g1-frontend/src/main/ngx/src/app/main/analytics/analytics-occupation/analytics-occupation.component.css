@@ -1,4 +1,20 @@
-.chart-container{
-    height:500px;
-    margin-top:40px;
+.chart-container {
+  height: 100vh;
+}
+.selector-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.input-selector {
+  flex: 1;
+}
+
+.noResults {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 20vh;
+  font-size: xx-large;
 }

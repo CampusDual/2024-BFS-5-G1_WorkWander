@@ -108,7 +108,7 @@ export class BookingsHomeComponent {
     var endDate = new Date(evt.row.dates[(evt.row.dates).length - 1]);
     endDate.setHours(0, 0, 0, 0);
 
-    if (evt.row.bk_state) {
+    if (evt.row.bk_state && evt.row.bkr_ratio == undefined) {
       if (currentDate > endDate) {
         this.dialog.open(BookingRateComponent, {
           height: '30%',

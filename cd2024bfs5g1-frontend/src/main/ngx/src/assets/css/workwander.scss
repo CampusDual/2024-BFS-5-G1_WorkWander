@@ -614,6 +614,36 @@ o-column {
     }
   }
 }
+.event-card {
+  // Estilo general de la tarjeta de coworking
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba($accent, 0.5);
+  border-radius: $borderRadius;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba($primary, 0.4);
+  min-height: 200px;
+  width: 100%;
+  padding: 0 15px 0 4px;
+
+  .image-container {
+    // Contenedor de la imagen
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    .event-image {
+      // Estilo de la imagen de coworking
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: $borderRadius;
+    }
+  }
+}
 .material-icons {
   color: $verdeBoton;
   fill: $verdeBoton;

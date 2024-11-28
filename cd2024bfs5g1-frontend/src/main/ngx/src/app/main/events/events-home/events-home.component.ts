@@ -2,6 +2,7 @@ import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
   selector: 'app-events-home',
@@ -9,21 +10,17 @@ import { OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimi
   styleUrls: ['./events-home.component.css']
 })
 export class EventsHomeComponent implements OnInit{
-createFilter: any;
-clearFilters() {
-throw new Error('Method not implemented.');
-}
-  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
-  @ViewChild("eventsGrid") protected eventsGrid: OGridComponent;
 
-  public arrayServices: any = [];
+@ViewChild("eventsGrid") protected eventsGrid: OGridComponent;
+
   protected service: OntimizeService;
 
 //Creamos constructor
 constructor(
   protected injector: Injector,
   protected sanitizer: DomSanitizer,
-  protected router: Router
+  protected router: Router,
+  protected utils: UtilsService,
 ) {
   this.service = this.injector.get(OntimizeService);
 }
@@ -45,6 +42,7 @@ setGridCols(width: number) {
 
 // Función para convertir la imagen desde la base de datos
 public getImageSrc(base64: any): any {
+  console.log(base64)
   return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/event-default.jpg';
 }
 
@@ -53,23 +51,27 @@ protected configureService() {
   this.service.configureService(conf);
 }
 
-public serviceList(services: string) {
-  if (services != undefined) {
-    return services.split(',')
-  } else {
-    return null;
+// Formatea los decimales del precio y añade simbolo de euro en las card de event
+public formatPrice(price?: number): string {
+  if (price != undefined) {
+      let [integerPart, decimalPart] = price.toFixed(2).split('.');
+  if (decimalPart== ''){
+    decimalPart= "00";
+    }
+    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+  }
+  else {
+    return "GRATIS"
   }
 }
 
-// Formatea los decimales del precio y añade simbolo de euro en las card de event
-public formatPrice(price: number): string {
-  let [integerPart, decimalPart] = price.toFixed(2).split('.');
-  if (decimalPart== ''){
-    decimalPart= "00";
-   }
-  return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+formatDate(date: any): string{
+  return this.utils.formatDate(date)
 }
 
+formatTime(time: any): string{
+  return this.utils.formatTime(time)
+}
 
 }
 

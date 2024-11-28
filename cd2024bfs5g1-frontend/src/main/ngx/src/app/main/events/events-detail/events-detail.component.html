@@ -98,7 +98,7 @@
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>event_seat</mat-icon>
+              <mat-icon [matTooltip]="'REAL_CAPACITY' | oTranslate">event_seat</mat-icon>
             </div>
             <span id="lblSeatsAvailable">
               {{ literalNumeroPlazas | oTranslate }}: {{ numeroPlazas }}</span
@@ -113,7 +113,7 @@
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>payments</mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
             </div>
 
             <span

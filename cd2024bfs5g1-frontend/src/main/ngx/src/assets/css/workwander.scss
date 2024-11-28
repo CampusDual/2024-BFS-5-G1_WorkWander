@@ -673,6 +673,17 @@ o-column {
     display: inline-block; // Necesario para que el efecto funcione correctamente
   }
 
+  .last-tickets-container {
+    margin-top: 20px;
+  }
+
+  .last-tickets {
+    padding: 5px;
+    color: white;
+    background-color: red;
+    border-radius: 8px;
+  }
+
   .form-container {
     padding: $padding;
     background: $blanco;

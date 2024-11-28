@@ -193,5 +193,6 @@
   "CANCELLED_BOOKING": "Esta reserva ya está cancelada",
   "BOOKINGS_CONFIRMATION": "¿Confirma su asistencia al evento?",
   "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
-  "FREE": "Gratis" 
+  "FREE": "Gratis",
+  "LAST_CHANCES": "Últimas plazas"
 }

@@ -74,6 +74,10 @@ formatTime(time: any): string{
   return this.utils.formatTime(time)
 }
 
+getAvailability(reserved: any, capacity: any): number{
+  return reserved / capacity
+}
+
 }
 
 

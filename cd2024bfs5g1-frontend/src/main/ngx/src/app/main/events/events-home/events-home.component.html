@@ -6,7 +6,7 @@
     service="events"
     entity="homeEvents"
     keys="id_event"
-    columns="id_event;name;image_event;date_event;hour_event;price"
+    columns="id_event;name;image_event;date_event;hour_event;price;bookings;reserved"
     quick-filter-columns="name"
     pagination-controls="true"
     page-size-options="12;16;20"
@@ -34,6 +34,15 @@
           <h2 class="event-name">{{ data.name }}</h2>
           <p class="event-date">{{ formatDate(data.date_event) }}</p>
           <p class="event-hour">{{ formatTime(data.hour_event) }}</p>
+          <div
+            class="last-tickets-container"
+            *ngIf="
+              getAvailability(data.reserved, data.bookings) >= 0.9;
+              aND: getAvailability(data.reserved, data.bookings) < 1
+            "
+          >
+            <span class="last-tickets">{{ "LAST_CHANCES" | oTranslate }}</span>
+          </div>
         </div>
         <div class="capacity-price-container">
           <div class="price-container">

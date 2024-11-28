@@ -10,7 +10,12 @@
         <h1>{{ data.name }}</h1>
       </div>
       <div>
-        <p-rating [(ngModel)]="data.rate" [cancel]="false" #ratio />
+        <p-rating
+          class="rate"
+          [(ngModel)]="data.rate"
+          [cancel]="false"
+          #ratio
+        />
       </div>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">

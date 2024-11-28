@@ -181,7 +181,6 @@ public class BookingService implements IBookingService {
         final Map<String, Object> keyMapB = new HashMap<>();
         // Agregar parámetros al keyMap
         keyMapB.put("date", lastSevenDays);
-        keyMapB.put("bk_usr_id", userId);
         keyMapB.put("bk_cw_id", coworkingIds); // IDs de coworkings seleccionados
         //Mapa1
         final List<Map<String, Object>> listaCoworkings = new ArrayList<>();
@@ -208,9 +207,9 @@ public class BookingService implements IBookingService {
                     //Saco la ocupacion y la añado al mapa como porcentaje
                     final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
                     final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
-                    final double ocupacionP = (int) ocupacionI / capacidadDisponible * 100;
+                    final double ocupacionP = (double) ocupacionI / capacidadDisponible * 100;
                     dateMap.put("name", date);
-                    dateMap.put("value", ocupacionP);
+                    dateMap.put("value", (int) ocupacionP);
                     listaFechas.add(dateMap);
                 } catch (final ParseException e) {
                     throw new RuntimeException(e);
@@ -226,7 +225,7 @@ public class BookingService implements IBookingService {
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);
-        r.put("data", listaCoworkings);
+        r.put("data", (List.of(listaCoworkings)));
         return r;
     }
 

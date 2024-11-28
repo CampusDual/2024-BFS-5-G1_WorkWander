@@ -1,41 +1,71 @@
 <!-- Combobox para seleccionar coworkings -->
- <o-form show-header="false">
-<o-combo
-  #comboCoworkingInput
-  attr="cw_name"
-  service="coworkings"
-  entity="coworkingByUser"
-  label="{{ 'SELECT_COWORKING' | oTranslate }}"
-  value-column="cw_id"
-  columns="cw_name"
-  visible-columns="cw_name"
-  required="yes"
-  formControlName="coworking"
-  (onValueChange)="onCoworkingChange($event)"
-  searchable="true"
-  [multiple]="true"
-  (onSelectionChange)="onCoworkingChange($event)"
-  multiple-trigger-label="true"
->
-</o-combo>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template class="label" mat-tab-label>{{
+      "%_WEEKEND" | oTranslate
+    }}</ng-template>
+    <h1>{{ "SEVEN_DAYS_GRAPHIC" | oTranslate }}</h1>
 
-<!-- Gráfico de Ocupación -->
-<div *ngIf="isGraph" class="chart-container">
-  <o-chart
-    type="line"
-    [data]="getChartData()"
-    color="vivid"
-    x-label="{{ 'X-LABEL' | oTranslate }}"
-    y-label="{{'Y-LABEL' | oTranslate}}"
-    x-data-type="date"
-    y-data-type="percentage"
-    show-legend="true"
-    show-x-axis-label="true"
-    show-y-axis-label="true"
-    legend-position="below"
-    legend-title="Legend"
-    show-grid-lines="false"
-  ></o-chart>
-</div>
-</o-form>
+    <o-combo
+      #comboCoworkingInput
+      attr="cw_name"
+      service="coworkings"
+      entity="coworkingByUser"
+      label="{{ 'SELECT_COWORKING' | oTranslate }}"
+      value-column="cw_id"
+      columns="cw_name"
+      visible-columns="cw_name"
+      required="yes"
+      formControlName="coworking"
+      (onValueChange)="onCoworkingChange($event)"
+      searchable="true"
+      [multiple]="true"
+      (onSelectionChange)="onCoworkingChange($event)"
+      multiple-trigger-label="true"
+    >
+    </o-combo>
+    <!-- Gráfico de Ocupación -->
+    <ng-container *ngIf="isGraph; else noChartTemplate">
+      <o-chart
+        type="line"
+        [data]="getChartData()"
+        color="vivid"
+        x-label="{{ 'X-LABEL' | oTranslate }}"
+        y-label="{{ 'Y-LABEL' | oTranslate }}"
+        x-data-type="date"
+        y-data-type="percentage"
+        show-legend="true"
+        show-x-axis-label="true"
+        show-y-axis-label="true"
+        legend-position="below"
+        legend-title="Legend"
+        show-grid-lines="false"
+      ></o-chart>
+      <div class="noResults" *ngIf="!isGraph">
+        {{ "SELECTOR_COMBO_GRAPH_NO_RESULTS" | oTranslate }}
+      </div>
+    </ng-container>
+    <ng-template #noChartTemplate>
+      <div class="noResults">
+        {{ "NO_CHART_AVAILABLE" | oTranslate }}
+      </div>
+    </ng-template>
+  </mat-tab>
 
+  <mat-tab>
+    <ng-template class="label" mat-tab-label>{{
+      "DATES_SELECTOR" | oTranslate
+    }}</ng-template>
+    <h1>{{ "DATES_DAYS_SELECTOR" | oTranslate }}</h1>
+    <o-daterange-input
+      attr="daterange"
+      #daterange
+      fxFlex
+      label="SELECT_DATE_RANGE"
+      read-only="no"
+      required="yes"
+      (onValueChange)="setDates()"
+      value-type="date"
+    ></o-daterange-input>
+  </mat-tab>
+</mat-tab-group>

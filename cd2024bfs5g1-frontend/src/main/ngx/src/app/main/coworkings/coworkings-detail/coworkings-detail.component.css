@@ -1,14 +1,28 @@
-  .card {
-    width: 60%;
-    height: 60%;
-    margin: 0 auto;
-  }
+.card {
+  width: 60%;
+  height: 60%;
+  margin: 0 auto;
+}
 
-  #carousel {
-    width: 100%;
-    height: 70%;
-  }
+#carousel {
+  width: 100%;
+  height: 70%;
+}
 
-  .p-carousel-container {
-    margin-top: 0%;
-  }
+.p-carousel-container {
+  margin-top: 0%;
+}
+
+.review-container {
+  border: solid 1px #dfe7ef;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.login-name {
+  background-color: #5f6f65;
+  padding: 8px;
+  border-radius: 16px 8px 16px 8px;
+}

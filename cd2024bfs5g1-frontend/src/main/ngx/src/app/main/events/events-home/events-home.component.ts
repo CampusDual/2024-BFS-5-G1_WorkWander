@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { OFilterBuilderComponent, OGridComponent, OntimizeService } from 'ontimize-web-ngx';
+import { OFilterBuilderComponent, OGridComponent, OntimizeService, OTranslateService } from 'ontimize-web-ngx';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 @Component({
@@ -21,6 +21,7 @@ constructor(
   protected sanitizer: DomSanitizer,
   protected router: Router,
   protected utils: UtilsService,
+  private translate: OTranslateService ,
 ) {
   this.service = this.injector.get(OntimizeService);
 }
@@ -61,7 +62,7 @@ public formatPrice(price?: number): string {
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
   else {
-    return "GRATIS"
+    return this.translate.get('FREE')
   }
 }
 

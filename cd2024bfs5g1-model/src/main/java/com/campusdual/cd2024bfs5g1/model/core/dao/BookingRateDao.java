@@ -17,5 +17,6 @@ public class BookingRateDao extends OntimizeJdbcDaoSupport {
     public static final String CW_ID = "cw_id";
     public static final String USR_ID = "usr_id";
     public static final String COWORKING_VALORATIONS = "coworkingValorations";
+    public static final String COWORKING_AVERAGE_RATIO = "coworkingAverageRatio";
 
 }

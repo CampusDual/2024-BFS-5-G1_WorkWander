@@ -50,7 +50,6 @@
         width="450px"
       />
     </div>
-
     <div class="info-container">
       <div>
         <o-text-input
@@ -63,6 +62,45 @@
         ></o-text-input>
         <h1>{{ form.getFieldValue("cw_name") }}</h1>
       </div>
+      <!-- Media valoración -->
+      <o-form
+        #formAverage
+        attr="averageRatio"
+        service="bookingsRate"
+        entity="ratioAveragePerCoworking"
+        show-header-navigation="no"
+        keys="cw_id"
+        parent-keys="cw_id"
+        keys-sql-types="integer"
+        columns="average_ratio"
+        header-position="false"
+        layout-direction="row"
+        detect-changes-on-blur="no"
+        undo-button="no"
+        stay-in-record-after-insert="true"
+        editable-detail="no"
+      >
+        <o-text-input
+          oHidden
+          #avg_ratio
+          attr="average_ratio"
+          label="media"
+        ></o-text-input>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+          fxLayoutGap="8px"
+        >
+          <p-rating
+            [ngModel]="formAverage.getFieldValue('average_ratio')"
+            [cancel]="false"
+            [readonly]="true"
+          />
+          <!-- <mat-icon #media_rating class="media_raqting">star</mat-icon> -->
+
+          <p>{{ formAverage.getFieldValue("average_ratio") }}</p>
+        </div>
+      </o-form>
 
       <o-column class="detail-container">
         <o-text-input
@@ -252,6 +290,7 @@
         </p-carousel>
       </div>
     </div>
+    <!-- Reviews -->
     <div style="width: 100%">
       <o-grid
         #coworkingValoration

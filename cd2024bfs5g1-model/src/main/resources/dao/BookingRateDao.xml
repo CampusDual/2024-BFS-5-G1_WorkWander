@@ -24,5 +24,15 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="coworkingAverageRatio">
+            <Sentence>
+                <![CDATA[
+                    SELECT AVG(bkr_ratio) as average_ratio
+                    FROM ${mainschema}.booking_rate
+                    #WHERE#
+                    GROUP BY cw_id
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

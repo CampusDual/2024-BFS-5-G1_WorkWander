@@ -10,6 +10,9 @@ public interface IBookingRateService {
 
     EntityResult bookingValorationsPerCoworkingQuery(Map<String, Object> keyMap, List<String> attrList);
 
+    EntityResult ratioAveragePerCoworkingQuery(Map<String, Object> keyMap,
+            List<String> attrList);
+
     public EntityResult bookingRateInsert(final Map<String, Object> attrMap);
 
     public EntityResult bookingRateUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap);

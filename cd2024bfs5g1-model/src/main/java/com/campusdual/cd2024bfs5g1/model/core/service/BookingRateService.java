@@ -31,6 +31,12 @@ public class BookingRateService implements IBookingRateService {
     }
 
     @Override
+    public EntityResult ratioAveragePerCoworkingQuery(final Map<String, Object> keyMap,
+            final List<String> attrList) {
+        return this.daoHelper.query(this.bookingRateDao, keyMap, attrList, BookingRateDao.COWORKING_AVERAGE_RATIO);
+    }
+
+    @Override
     public EntityResult bookingRateInsert(final Map<String, Object> attrMap) {
         return this.daoHelper.insert(this.bookingRateDao, attrMap);
     }

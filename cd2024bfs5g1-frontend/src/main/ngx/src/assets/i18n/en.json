@@ -204,6 +204,7 @@
   "EVENT_DISPONIBILITY_GT_00": "Come on hurry up!!!",
   "EVENT_DISPONIBILITY_EQ_00": "Keep looking",
   "BOOKINGS_LEFT": "Booking left",
+  "AVAILABLE": "available",
   "ADDRESS_NOT_FOUND": "Address not found",
   "INVALID_LOCATION": "Select a valid location",
   "API_ERROR": "Query API error",

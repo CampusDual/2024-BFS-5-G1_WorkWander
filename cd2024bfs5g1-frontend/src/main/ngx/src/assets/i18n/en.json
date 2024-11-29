@@ -217,5 +217,16 @@
   "ADDRESS_NOT_FOUND": "Address not found",
   "INVALID_LOCATION": "Select a valid location",
   "API_ERROR": "Query API error",
-  "COWORKING_MARKER": "Coworking location"
+  "COWORKING_MARKER": "Coworking location",
+  "COWORKING_CHART_SELECTION_LIMIT": "You can select up to ",
+  "COWORKING_CHART_ SELECTION_ERROR": "Error while charging occupation data.",
+  "COWORKING_CHART_SELECTION": "Selected coworkings: ",
+  "X-LABEL": "Date",
+  "Y-LABEL": "Occupation",
+  "SELECT_COWORKING": "Select up to three coworkings ",
+  "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
+  "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
+  "ANALYTICS": "Analytics",
+  "OCCUPATION": "Occupation",
+  "DATERANGE_SELECTION_ERROR": "You must select a date range."
 }

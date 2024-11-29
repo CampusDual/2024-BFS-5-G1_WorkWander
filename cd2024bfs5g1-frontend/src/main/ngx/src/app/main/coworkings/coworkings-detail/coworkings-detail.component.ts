@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Location } from "@angular/common";
+import { DecimalPipe, Location } from "@angular/common";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -17,10 +16,10 @@ import {
   SnackBarService,
   Util,
   ODateRangeInputComponent,
-
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { OMapComponent } from "ontimize-web-ngx-map";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -70,6 +69,7 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
+  @ViewChild('formAverage', { static: true }) formAverage!: OFormComponent; // Garantiza que esta propiedad no será undefined al usarla.
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
@@ -373,6 +373,30 @@ export class CoworkingsDetailComponent implements OnInit {
       .subscribe((resp) => {
         this.serviceList = resp.data;
       });
+  }
+
+  calculateIcons(average: number) {
+    const fullIcons = Math.floor(average); // Número de íconos completos
+    const hasHalfIcon = average % 1 >= 0.5; // Determina si se necesita un medio ícono
+    const totalIcons = 5; // Número máximo de íconos (por ejemplo, 5 estrellas)
+
+
+    return {
+      fullIcons,
+      hasHalfIcon,
+
+    };
+  }
+
+  /**
+   * Obtiene la media desde el formulario.
+   * @returns Número (media).
+   */
+  getAverage(): number {
+
+    let media: number = Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
+
+    return media;
   }
 
   serviceIcons = {

@@ -33,7 +33,6 @@ export class CoworkingsNewComponent implements OnInit {
   protected mapLon: string = ""; //Longitud
   protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
 
-
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
   @ViewChild("endDate") coworkingEndDate: ODateInputComponent;
@@ -188,7 +187,7 @@ export class CoworkingsNewComponent implements OnInit {
             this.translate.get("COWORKING_MARKER"),     // popup
             false,                     // hidden
             true,                      // showInMenu
-            'Marcador Coworking'   // menuLabel
+            this.translate.get("COWORKING_MARKER")   // menuLabel
           );
       }else{
         //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6

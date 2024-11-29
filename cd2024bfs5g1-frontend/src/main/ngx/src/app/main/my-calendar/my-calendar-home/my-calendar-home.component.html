@@ -10,20 +10,20 @@
     #navigator
   ></daypilot-navigator>  
   <div class="content">
-    <div class="buttons">
-      <button
+    <div class="buttons-c">
+      <button class="button-c"
         (click)="viewDay()"
         [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''"
       >
         {{ "DAY" | oTranslate }}
       </button>
-      <button
+      <button class="button-c"
         (click)="viewWeek()"
         [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''"
       >
         {{ "WEEK" | oTranslate }}
       </button>
-      <button
+      <button class="button-c"
         (click)="viewMonth()"
         [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''"
       >

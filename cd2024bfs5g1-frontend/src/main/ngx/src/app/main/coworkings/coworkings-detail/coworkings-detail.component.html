@@ -274,13 +274,17 @@
                       />
                     </div>
                     <div>
-                      {{ event.name }}
+                      <span style="font-weight: 800">{{ event.name }}</span>
                       <br />
-                      <mat-icon>calendar_month</mat-icon>
-                      {{ dateTransform(event.date_event) }}
+                      <!-- <mat-icon>calendar_month</mat-icon> //-->
+                      <span style="font-size: 12px; line-height: 10px">{{
+                        dateTransform(event.date_event)
+                      }}</span>
                       <br />
-                      <mat-icon>access_time</mat-icon>
-                      {{ timeTransform(event.hour_event) }}
+                      <!-- <mat-icon>access_time</mat-icon> //-->
+                      <span style="font-size: 12px; line-height: 10px">{{
+                        timeTransform(event.hour_event)
+                      }}</span>
                     </div>
                   </div>
                 </div>

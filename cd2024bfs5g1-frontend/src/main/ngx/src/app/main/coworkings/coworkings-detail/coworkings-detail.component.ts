@@ -387,7 +387,7 @@ export class CoworkingsDetailComponent implements OnInit {
    */
   getAverage(): number {
  
-    let media : number =  Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;; 
+    let media : number =  Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10; 
 
     return media ;
   }

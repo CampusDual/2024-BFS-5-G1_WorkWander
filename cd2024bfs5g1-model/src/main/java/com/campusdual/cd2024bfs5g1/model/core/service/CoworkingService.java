@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
@@ -135,8 +136,8 @@ public class CoworkingService implements ICoworkingService {
     }
 
     @Override
-    public EntityResult serviceCoworkingAdvancedQuery(final Map<String, Object> keysValues,
-            final List<?> attributes) throws OntimizeJEERuntimeException {
+    public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
+            final List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException {
 
         final Map<String, Object> combinedFilter = new HashMap<>();
         //        if (keysValues.size() > 0 && (((SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder
@@ -221,7 +222,8 @@ public class CoworkingService implements ICoworkingService {
             filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, filtroIds);
         }
 
-        return this.daoHelper.query(this.coworkingDao, filter, attributes, this.coworkingDao.CW_QUERY_SERVICES);
+        return this.daoHelper.paginationQuery(this.coworkingDao, filter, attributes, recordNumber, startIndex,
+                orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }
 
     public void iterationPivotCwService(final ArrayList<Map<String, Integer>> services, final int cwId) {

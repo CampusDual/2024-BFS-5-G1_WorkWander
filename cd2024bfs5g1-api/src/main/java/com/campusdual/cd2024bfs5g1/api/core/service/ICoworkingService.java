@@ -1,5 +1,6 @@
 package com.campusdual.cd2024bfs5g1.api.core.service;
 
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ICoworkingService {
 
     public EntityResult coworkingCapacityQuery(Map<String, Object> keyMap, List<String> attrList);
 
-    public EntityResult serviceCoworkingAdvancedQuery(Map<String, Object> keysValues, List<?> attributes);
-
+    public AdvancedEntityResult serviceCoworkingPaginationQuery(Map<String, Object> keysValues, List<?> attributes,
+            int recordNumber, int startIndex, List<?> orderBy);
 }

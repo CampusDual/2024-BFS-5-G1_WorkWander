@@ -62,6 +62,7 @@
           [min]="currentDate()"
           format="D/M/Y"
           value-type="DATE"
+          sql-type="DATE"
         ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
           <button
@@ -92,7 +93,7 @@
           #filterBuilder
           attr="thefilter"
           filters="cw_location:city;services:srv_name;date:daterange"
-          [target]="coworkingsTable"
+          [target]="coworkingsGrid"
           query-on-change="no"
           query-on-change-delay="500"
           [expression-builder]="createFilter"
@@ -106,6 +107,8 @@
   <o-grid
     #coworkingsGrid
     attr="coworkingsGrid"
+    service="coworkings"
+    entity="serviceCoworking"
     keys="cw_id"
     [static-data]="data"
     columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;date"
@@ -116,7 +119,7 @@
     grid-item-height="3.5:1"
     [cols]="gridCols"
     gutter-size="40px"
-    query-on-init="no"
+    pageable="yes"
   >
     <o-grid-item
       *ngFor="let data of coworkingsGrid.dataArray"
@@ -196,15 +199,3 @@
     </o-grid-item>
   </o-grid>
 </div>
-<o-table
-  #coworkingsTable
-  attr="coworkingsTable"
-  service="coworkings"
-  entity="serviceCoworkingAdvanced"
-  keys="cw_id"
-  columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;date"
-  (onDataLoaded)="loadGridData($event)"
-  oHidden
->
-  <o-table-column attr="date" type="date"></o-table-column
-></o-table>

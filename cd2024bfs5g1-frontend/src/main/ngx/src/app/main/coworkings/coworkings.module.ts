@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { CarouselModule } from 'primeng/carousel';
 import { OMapModule } from 'ontimize-web-ngx-map';
+import { RatingModule } from 'primeng/rating';
 
 
 @NgModule({
@@ -22,8 +23,9 @@ import { OMapModule } from 'ontimize-web-ngx-map';
     SharedModule,
     ODateRangeInputModule,
     MatRadioModule,
+    OMapModule,
     CarouselModule,
-    OMapModule
+    RatingModule
   ]
 })
 export class CoworkingsModule { }

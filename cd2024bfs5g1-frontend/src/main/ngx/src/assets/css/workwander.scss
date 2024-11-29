@@ -1,6 +1,7 @@
 @use "sass:map";
 @import "./custom_font.scss";
 @import "./custom_color.scss";
+@import "primeicons/primeicons.css";
 
 h1,
 h2,
@@ -698,7 +699,7 @@ o-column {
     max-width: 350px;
   }
 }
-.lblSeatsText{
+.lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;
   word-spacing: 0.8px;
@@ -886,22 +887,22 @@ o-snackbar .material-icons {
   }
 }
 
-.srv{
-  display:flex;
+.srv {
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-content: center;
 }
 
-.serviceDisable{
-  cursor:pointer;
+.serviceDisable {
+  cursor: pointer;
   background-color: $accent;
   color: $primary;
   padding: 5px 5px 5px 5px;
   font-size: 9px;
   width: 250px;
   height: auto;
-  text-align:center;
+  text-align: center;
   margin: 0 auto;
 }
 
@@ -940,34 +941,42 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 }
 //
 
+// estrellas
+svg.p-icon.p-rating-icon {
+  width: 20px;
+  height: 20px;
+  color: #d3b403;
+}
+//
+
 .event-item {
   .event-item-content {
-      width: 95%;
-      border: 1px solid #dfe7ef;
-      border-radius: 25px 5px 25px 5px;      
-      text-align: center;
-      padding-top:2px; 
-      height: 20%;
-      margin:0 auto;
+    width: 95%;
+    border: 1px solid #dfe7ef;
+    border-radius: 25px 5px 25px 5px;
+    text-align: center;
+    padding-top: 2px;
+    height: 20%;
+    margin: 0 auto;
   }
 
-  .event-item-content:hover{
+  .event-item-content:hover {
     cursor: pointer;
   }
 
   .event-image {
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 }
 
-.p-carousel-indicators{
+.p-carousel-indicators {
   margin: 0%;
 }
 
-.p-carousel-indicator{
-  list-style:none;
+.p-carousel-indicator {
+  list-style: none;
   padding: 5px;
 }
 

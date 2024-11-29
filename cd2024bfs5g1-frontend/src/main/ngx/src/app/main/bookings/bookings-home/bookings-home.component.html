@@ -13,8 +13,8 @@
     service="bookings"
     entity="datesByBooking"
     keys="bk_id"
-    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
-    visible-columns="cw_name;date_start;date_end;states;cancelCWbooking"
+    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
+    visible-columns="cw_name;date_start;date_end;states;rate;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     (onClick)="toCoworkingDetail($event)"
@@ -46,6 +46,9 @@
     ></o-table-column-calculated>
     <o-table-column attr="states" title="BOOKING_STATE">
       <app-bookings-state-render></app-bookings-state-render>
+    </o-table-column>
+    <o-table-column attr="rate" title="BOOKING_RATE">
+      <app-bookings-rate-render></app-bookings-rate-render>
     </o-table-column>
     <o-table-column
       #cancelCWbooking

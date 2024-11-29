@@ -307,7 +307,7 @@ nav.ng-star-inserted:nth-last-child(2) {
   bottom: 25px;
   right: 0;
   width: 96%;
-  
+
 
     .o-app-sidenav-menu-group a,
     .o-app-sidenav-menu-item a {
@@ -414,7 +414,7 @@ div#innerCol {
       width: 510px !important;
       height: 290px !important;
       object-fit: cover !important;
-    }  
+    }
 
   }
   .button-back {
@@ -493,7 +493,7 @@ div#innerCol {
 
       o-map{
         max-width: 700px;
-        min-width: 700px;   
+        min-width: 700px;
         width: 700px;
         max-height: 450px;
         min-height: 450px;
@@ -588,7 +588,7 @@ o-column {
     max-height: 470px;
     min-height: 470px;
     height: 470px;
-  } 
+  }
   o-image{
     width: 100%;
     height: 100%;
@@ -951,13 +951,13 @@ svg.p-icon.p-rating-icon {
 
 .event-item {
   .event-item-content {
-    width: 95%;
-    border: 1px solid #dfe7ef;
-    border-radius: 25px 5px 25px 5px;
-    text-align: center;
-    padding-top: 2px;
-    height: 20%;
-    margin: 0 auto;
+      width: 60%;
+      padding: 10px;
+      border: 1px solid #dfe7ef;
+      border-radius: 25px 5px 25px 5px;
+      text-align: center;
+      height: 20%;
+      margin:0 auto;
   }
 
   .event-item-content:hover {
@@ -965,9 +965,10 @@ svg.p-icon.p-rating-icon {
   }
 
   .event-image {
-    width: 100px;
-    height: 100px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      width: 100px;
+      height: 100px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      border-radius: 5px
   }
 }
 
@@ -978,6 +979,18 @@ svg.p-icon.p-rating-icon {
 .p-carousel-indicator {
   list-style: none;
   padding: 5px;
+}
+
+.header-container-re{
+  margin-bottom: 15px
+}
+
+.header-recommended-events{
+  padding: 5px;
+  background-color: $accent;
+  color: $primary;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {

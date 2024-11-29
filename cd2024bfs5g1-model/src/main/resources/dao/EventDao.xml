@@ -85,13 +85,14 @@
                         count(public.booking_event.bke_event_id) as reserved
                     FROM event
                     LEFT JOIN public.booking_event on public.booking_event.bke_id_event = public.event.id_event
-                    #WHERE#
+                    WHERE date_event >= now()
                     GROUP BY name, date_event, address, bookings, image_event, hour_event, id_event, price
 					ORDER BY date_event)
                 SELECT
                     #COLUMNS#
                     FROM
                         temp_table
+                    #WHERE#
                 ]]>
             </Sentence>
         </Query>

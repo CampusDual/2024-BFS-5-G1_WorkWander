@@ -191,6 +191,6 @@
   "SELECT_COWORKING": "Select between 1 and ",
   "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
   "ANALYTICS": "Analytics",
-  "OCCUPATION": "Occupation"
-
+  "OCCUPATION": "Occupation",
+  "DATERANGE_SELECTION_ERROR": "You must select a date range."
 }

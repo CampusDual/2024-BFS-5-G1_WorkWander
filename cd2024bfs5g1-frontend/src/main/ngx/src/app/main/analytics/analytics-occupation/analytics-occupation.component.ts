@@ -53,7 +53,8 @@ export class AnalyticsOccupationComponent {
         this.comboCoworkingInput.setValue(selectedNames.oldValue);
         this.showAvailableToast(
           this.translate.get("COWORKING_CHART_SELECTION_LIMIT") +
-            this.maxSelection+ " coworkings."
+            this.maxSelection +
+            " coworkings."
         );
         return;
       }
@@ -62,18 +63,25 @@ export class AnalyticsOccupationComponent {
 
   setDates() {
     try {
-      const startDate = new Date(
-        (this.bookingDate as any).value.value.startDate
-      ).toLocaleString("en-CA");
-      const endDate = new Date(
-        (this.bookingDate as any).value.value.endDate
-      ).toLocaleString("en-CA");
-      this.dateArray[0] = startDate;
-      this.dateArray[1] = endDate;
-
-      // Realizar una nueva consulta al backend con las fechas seleccionadas y los coworkings previamente seleccionados
-      if (this.selectedCoworkings.length > 0) {
-        this.setDatesAndQueryBackend();
+      const startDateM = new Date((this.bookingDate as any).value.value.startDate)
+        .setHours(0, 0, 0, 0);
+        //.toLocaleString("en-CA");
+      const startDate = new Date(startDateM).toLocaleString("en-CA");
+      const endDateM = new Date((this.bookingDate as any).value.value.endDate)
+        .setHours(0, 0, 0, 0);
+        //.toLocaleString("en-CA");
+        const endDate = new Date(endDateM).toLocaleString("en-CA");
+      if (startDate === endDate) {
+        this.showAvailableToast(
+          this.translate.get("DATERANGE_SELECTION_ERROR")
+        );
+      } else {
+        this.dateArray[0] = startDate;
+        this.dateArray[1] = endDate;
+        // Realizar una nueva consulta al backend con las fechas seleccionadas y los coworkings previamente seleccionados
+        if (this.selectedCoworkings.length > 0) {
+          this.setDatesAndQueryBackend();
+        }
       }
     } catch (error) {
       console.error("Error al establecer fechas: ", error);

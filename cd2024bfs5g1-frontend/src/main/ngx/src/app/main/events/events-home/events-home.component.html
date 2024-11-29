@@ -37,8 +37,8 @@
           <div
             class="last-tickets-container"
             *ngIf="
-              getAvailability(data.reserved, data.bookings) >= 0.9;
-              aND: getAvailability(data.reserved, data.bookings) < 1
+              getAvailability(data.reserved, data.bookings) >= 0.9 &&
+              getAvailability(data.reserved, data.bookings) < 1
             "
           >
             <span class="last-tickets">{{ "LAST_CHANCES" | oTranslate }}</span>

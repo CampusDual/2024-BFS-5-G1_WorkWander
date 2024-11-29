@@ -58,11 +58,13 @@
           fxFlex
           label="SELECT_DATE_RANGE"
           read-only="no"
-          required="yes"
           [min]="currentDate()"
           format="D/M/Y"
           value-type="DATE"
           sql-type="DATE"
+          fxFlex="100"
+          fxFlex.gt-xs="37"
+          fxFlex.gt-sm="18"
         ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
           <button

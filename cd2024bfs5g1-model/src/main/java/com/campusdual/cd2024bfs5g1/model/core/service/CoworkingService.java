@@ -135,32 +135,31 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.CW_QUERY_CAPACITY);
     }
 
+    // DOCUMENTAR DOCUMENTAR DOCUMENTAR DOCUMENTAR
+    public static boolean comprobacion(SQLStatementBuilder.BasicExpression basicExpression) {
+        boolean hasDate = false;
+
+        while (!hasDate) {
+            if (basicExpression.getLeftOperand().toString().equals("date") || (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().toString().equals("date"))) {
+                return true;
+            } else {
+
+                if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
+                    hasDate = comprobacion((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
+                }
+                if (!hasDate && basicExpression.getLeftOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
+                    basicExpression = ((SQLStatementBuilder.BasicExpression) basicExpression.getLeftOperand());
+                } else {
+                    return false;
+                }
+            }
+        }
+        return hasDate;
+    }
+
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes, int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException {
-
-        final Map<String, Object> combinedFilter = new HashMap<>();
-        //        if (keysValues.size() > 0 && (((SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder
-        //        .BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
-        //        .EXPRESSION_KEY)).getLeftOperand())
-        //                .getClass() != SQLStatementBuilder.BasicExpression.class ||
-        //                (((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder
-        //                .ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand()
-        //                        .getClass() == SQLStatementBuilder.BasicExpression.class &&
-        //                        ((SQLStatementBuilder.BasicExpression) ((SQLStatementBuilder.BasicExpression)
-        //                        keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
-        //                        .EXPRESSION_KEY)).getLeftOperand()).getLeftOperand() != "date"))) {
-        //
-        //            if (keysValues.size() == 1) {
-        //                combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-        //                        keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor
-        //                        .EXPRESSION_KEY));
-        //            } else {
-        //                combinedFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-        //                        ((SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder
-        //                        .ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY)).getLeftOperand());
-        //            }
-        //        }
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
 
         final List<String> datesAttributes = List.of("cw_id", "date", "cw_capacity", "cw_location", "services",
                 "plazasOcupadas");
@@ -170,6 +169,10 @@ public class CoworkingService implements ICoworkingService {
         attributes.remove("date");
         final List<Integer> coworkingsSinDisponibilidad = new ArrayList<>();
         final List<Integer> coworkings = new ArrayList<>();
+        final SQLStatementBuilder.BasicExpression basicExpression = (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
+        final boolean hasDate = basicExpression == null ? false : comprobacion(basicExpression);
+
+        System.out.print("a");
 
         for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
             final int aux = (int) filteredResults.getRecordValues(i).get("cw_id");
@@ -178,36 +181,9 @@ public class CoworkingService implements ICoworkingService {
             final int capacity = (int) filteredResults.getRecordValues(i).get("cw_capacity");
             coworkings.add(aux);
 
-            if (plazasOcupadas >= capacity && filteredResults.getRecordValues(i).get("date") != null) {
+            if (hasDate && plazasOcupadas >= capacity && filteredResults.getRecordValues(i).get("date") != null) {
                 coworkingsSinDisponibilidad.add(aux);
             }
-
-            //            final SQLStatementBuilder.BasicExpression cwIdBasicExpression = new SQLStatementBuilder
-            //            .BasicExpression(
-            //                    "cw_id", SQLStatementBuilder.BasicOperator.EQUAL_OP, aux);
-            //
-            //            final SQLStatementBuilder.BasicExpression dateBasicExpression =
-            //                    new SQLStatementBuilder.BasicExpression(daterangeFilter,
-            //                            SQLStatementBuilder.BasicOperator.AND_OP, cwIdBasicExpression);
-            //
-            //            final Map<String, Object> dateCwFilter = new HashMap<>();
-            //            dateCwFilter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY,
-            //                    dateBasicExpression);
-            //
-            //            final EntityResult auxiliarQuery = this.daoHelper.query(this.coworkingDao, dateCwFilter,
-            //            attributes,
-            //                    this.coworkingDao.CW_QUERY_DATES);
-            //
-            //            if (auxiliarQuery.calculateRecordNumber() > 0) {
-            //                if (daterangeResults == null) {
-            //                    daterangeResults = this.daoHelper.query(this.coworkingDao, dateCwFilter, attributes,
-            //                            this.coworkingDao.CW_QUERY_DATES);
-            //                } else {
-            //                    daterangeResults.putAll(this.daoHelper.query(this.coworkingDao, dateCwFilter,
-            //                    attributes,
-            //                            this.coworkingDao.CW_QUERY_DATES).getRecordValues(0));
-            //                }
-            //            }
         }
 
         coworkings.removeAll(coworkingsSinDisponibilidad);

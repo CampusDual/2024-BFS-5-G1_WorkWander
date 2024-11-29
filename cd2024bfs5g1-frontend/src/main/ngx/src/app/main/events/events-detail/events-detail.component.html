@@ -29,10 +29,7 @@
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column">
           <div class="image-container">
-            <!-- Campo para mostrar la imagen de evento -->
             <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
-              <!-- Ocultaremos el div cuando no exista "image_event" -->
-              <!-- Necesitamos el o-image para que se carge la imagen en el campo image_event del form, sino no existiría el image_event -->
               <o-image
                 attr="image_event"
                 show-controls="no"
@@ -42,7 +39,6 @@
                 auto-fit="no"
               ></o-image>
             </div>
-            <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
             <img
               *ngIf="!form.getFieldValue('image_event')"
               src="assets/images/event-default.jpg"
@@ -66,7 +62,7 @@
               >
             </div>
             <span>
-              {{ "DATE_EVENT" | oTranslate }}:
+              
               {{ formatDate(form.getFieldValue("date_event")) }} -
               {{ formatTime(form.getFieldValue("hour_event")) }}
             </span>
@@ -102,20 +98,22 @@
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>event_seat</mat-icon>
+              <mat-icon [matTooltip]="'REAL_CAPACITY' | oTranslate">event_seat</mat-icon>
             </div>
-            <span id="lblSeatsAvailable"> {{ numeroPlazas }}</span>
+            <span id="lblSeatsAvailable">
+              {{ literalNumeroPlazas | oTranslate }}: {{ numeroPlazas }}</span
+            >
           </div>
           <p
             class="lblSeatsText"
             style="margin-block-start: -10px; margin-bottom: 40px"
           >
-            {{ literalPlazas }}
+            {{ literalPlazas | oTranslate }}
           </p>
 
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>payments</mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
             </div>
 
             <span

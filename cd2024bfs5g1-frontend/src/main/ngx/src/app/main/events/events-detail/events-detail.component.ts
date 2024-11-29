@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
-
-
 @Component({
   selector: "app-events-detail",
   templateUrl: "./events-detail.component.html",
@@ -14,6 +12,7 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 
 export class EventsDetailComponent implements OnInit {
   bookingEvents: any = [];
+  literalNumeroPlazas: string;
   numeroPlazas: string;
   literalPlazas: string;
 
@@ -121,7 +120,6 @@ export class EventsDetailComponent implements OnInit {
       "totalEventBookings",
     ];
     let cantidadPlazasLibres: number = 0.00;
-    let textoPlazasLibres: string = '';
 
     this.service
       .query(filter, columns, "getEventDisponibility")
@@ -132,35 +130,30 @@ export class EventsDetailComponent implements OnInit {
           if (this.bookingEvents.totalEventBookings > 0) {
 
             cantidadPlazasLibres = this.bookingEvents.availableEventBookings / this.bookingEvents.totalEventBookings;
-            this.numeroPlazas = this.translate.get("BOOKINGS_LEFT") + ": " + this.bookingEvents.availableEventBookings;
+            this.literalNumeroPlazas = "BOOKINGS_LEFT"
+            this.numeroPlazas = this.bookingEvents.availableEventBookings;
             switch (true) {
-              // Parece que este evento genera interes	90
-              // Apúntate que esto empieza a llenarse	65
-              // Asistir o no asistir, esta es la cuestión	50
-              // No esperes más, casi está lleno	30
-              // Quedan muy pocas plazas, corre que vuelan	0-29
 
               case (cantidadPlazasLibres > 0.9):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_GT_90");
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";
                 break;
               case (cantidadPlazasLibres > 0.65) && (cantidadPlazasLibres <= 0.9):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_GT_65");
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_65";
                 break;
               case (cantidadPlazasLibres > 0.5) && (cantidadPlazasLibres <= 0.65):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_GT_50");
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_50";
                 break;
               case (cantidadPlazasLibres > 0.3) && (cantidadPlazasLibres <= 0.5):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_GT_30");
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_30";
                 break;
               case (cantidadPlazasLibres > 0) && (cantidadPlazasLibres <= 0.3):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_GT_00");
+                this.literalPlazas = "EVENT_DISPONIBILITY_GT_00";
                 break;
               case (cantidadPlazasLibres == 0):
-                textoPlazasLibres = this.translate.get("EVENT_DISPONIBILITY_EQ_00");
+                this.literalPlazas = "EVENT_DISPONIBILITY_EQ_00";
                 break;
             }
           }
-          this.literalPlazas = textoPlazasLibres;
           return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
 
         } else {

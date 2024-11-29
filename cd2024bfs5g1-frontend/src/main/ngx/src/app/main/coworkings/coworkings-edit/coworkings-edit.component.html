@@ -13,8 +13,8 @@
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
   (onDataLoaded)="
       iniciarPantalla(
-        form.getFieldValue('location'),
-        form.getFieldValue('cw_address')
+        coworkingForm.getFieldValue('location'),
+        coworkingForm.getFieldValue('cw_address')
       )
     "
   ignore-default-navigation="yes"
@@ -207,8 +207,8 @@
           attr="coworking_map"
           center="40.416775;-3.703790"
           zoom=6
-          min-zoom="3"
-          max-zoom="20"
+          min-zoom="6"
+          max-zoom="18"
           zoom-control="yes"
           search-control="no"
           layer-panel-visible="no"

@@ -109,6 +109,7 @@ export class CoworkingsDetailComponent implements OnInit {
           }
         }, 500);
   }
+  
   iniciarPantalla(idLocation: number, city: string, address: string) {
     this.showEvents(idLocation);
     this.mapaShow(city, address);
@@ -402,7 +403,7 @@ export class CoworkingsDetailComponent implements OnInit {
   // ---------------------- MAPA ----------------------
   mapaShow(selectedCity: string, address: string): void {
     const addressComplete = selectedCity + ", " + address;
-
+    let validAddress : boolean = false;
     this.getCoordinatesForCity(addressComplete).then((results) => {
        if (results) {
               let [lat, lon] = results.split(';')
@@ -425,25 +426,28 @@ export class CoworkingsDetailComponent implements OnInit {
                   true,                      // showInMenu
                   this.translate.get("COWORKING_MARKER")   // menuLabel
                 );
-              return;
+                validAddress = true;
+      }else{
+        console.log("Direccion invalida");
       }
-      console.log("Direccion invalida");
     });
 
-    this.getCoordinatesForCity(selectedCity).then((results) => {
-           if (results) {
-                  let [lat, lon] = results.split(';')
-                  if (this.coworking_map && this.coworking_map.getMapService()) {
-                    if (this.leafletMap) {
-                      this.leafletMap.setView([+lat, +lon], 12);
-                    } else {
-                      console.error('El mapa no está inicializado.');
-                    }
-                  } else {
-                    console.error('El servicio del mapa no está disponible.');
-                  }
-          }
-        });
+    if(!validAddress){
+        this.getCoordinatesForCity(selectedCity).then((results) => {
+              if (results) {
+                      let [lat, lon] = results.split(';')
+                      if (this.coworking_map && this.coworking_map.getMapService()) {
+                        if (this.leafletMap) {
+                          this.leafletMap.setView([+lat, +lon], 10);
+                        } else {
+                          console.error('El mapa no está inicializado.');
+                        }
+                      } else {
+                        console.error('El servicio del mapa no está disponible.');
+                      }
+              }
+            });
+      }
   }
 
   //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
@@ -454,8 +458,6 @@ export class CoworkingsDetailComponent implements OnInit {
       if (response?.length > 0) {
         const { lat, lon } = response[0];
         return `${lat};${lon}`;
-      } else {
-        this.snackBar(`No se encontraron resultados para: ${location}`);
       }
     } catch (error) {
       this.snackBar(`Error al consultar la API: ${error}`);

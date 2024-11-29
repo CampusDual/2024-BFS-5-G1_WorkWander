@@ -1,5 +1,6 @@
 @use "sass:map";
 @import "./custom_font.scss";
+@import "./custom_color.scss";
 
 h1,
 h2,
@@ -12,6 +13,7 @@ h6 {
   }
 }
 /* Colores personalizados */
+/*
 $primary: #8b5e3c;
 $accent: #e6d5c3;
 $blanco: #f8f6f4;
@@ -22,7 +24,7 @@ $accentClaro: rgba($accent, 0.5);
 $verdeBotonClaro: rgba($verdeBoton, 0.5);
 
 $colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;
+$colorDegradadoSuave: $accent;*/
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -302,10 +304,10 @@ login {
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $accent;
+  background-color: $primary;
   position: absolute;
   border-radius: 25px;
-  border-left: 0px solid $accent !important;
+  border-left: 0px solid $primary !important;
   margin: 0px 5px 0 5px;
   transition: all 0.2s;
   top: unset;
@@ -569,6 +571,15 @@ o-column {
     max-width: 350px;
   }
 }
+.lblSeatsText{
+  font-size: $fontSize18;
+  font-weight: $fontSemiBold;
+  word-spacing: 0.8px;
+  color: $verdeBoton;
+  text-align: center;
+  margin-top: -30px;
+  padding: 5px;
+}
 .mat-mdc-tab-group.o-tab-ontimize
   > .mat-mdc-tab-header
   .mat-mdc-tab-label-container
@@ -614,9 +625,9 @@ o-column {
     }
   }
 }
-.material-icons {
-  color: $verdeBoton;
-  fill: $verdeBoton;
+o-snackbar .material-icons {
+  color: $accent;
+  fill: $accent !important;
 }
 .info {
   // Contenedor de la información
@@ -784,6 +795,8 @@ o-data-toolbar {
     background-color: #fff;
     padding: 16px;
     border-radius: 16px;
+    margin-bottom: 90px;
+    box-shadow: 0px 0px 10px 0px rgba(139, 94, 6);
   }
 }
 

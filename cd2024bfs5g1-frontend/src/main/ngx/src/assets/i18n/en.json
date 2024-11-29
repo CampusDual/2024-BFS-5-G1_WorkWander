@@ -200,5 +200,14 @@
   "price": "Price",
   "DAY":"Day",
   "WEEK":"Week",
-  "MONTH":"Month"
+  "MONTH":"Month",
+  "price": "Price",
+  "EVENT_DISPONIBILITY_GT_90": "This event generates interest",
+  "EVENT_DISPONIBILITY_GT_65": "This event is starting to fill up",
+  "EVENT_DISPONIBILITY_GT_50": "Be here or not be here, this is the question",
+  "EVENT_DISPONIBILITY_GT_30": "Quite plenty of people",
+  "EVENT_DISPONIBILITY_GT_00": "Come on hurry up!!!",
+  "EVENT_DISPONIBILITY_EQ_00": "Keep looking",
+  "BOOKINGS_LEFT": "Booking left",
+  "AVAILABLE": "available"
 }

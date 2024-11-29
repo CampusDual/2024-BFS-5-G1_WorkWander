@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injector, ViewChild } from '@angular/core';
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -45,6 +45,45 @@ export class CoworkingsEditComponent {
     this.configureService();
   }
 
+  iniciarPantalla(selectedCity: string, address: string) {
+    const addressComplete = selectedCity + ", " + address;
+    setTimeout(() => {
+              this.leafletMap = this.coworking_map.getMapService().getMap();
+              if (this.leafletMap) {
+                console.log('Mapa inicializado correctamente:', this.leafletMap);
+              } else {
+                console.error('El mapa aún no está listo.');
+              }
+            }, 500);
+
+        this.getCoordinatesForCity(addressComplete).then((results) => {
+           if (results) {
+                  let [lat, lon] = results.split(';')
+                  if (this.coworking_map && this.coworking_map.getMapService()) {
+                    if (this.leafletMap) {
+                      this.leafletMap.setView([+lat, +lon], 16);
+                    } else {
+                      console.error('El mapa no está inicializado.');
+                    }
+                  } else {
+                    console.error('El servicio del mapa no está disponible.');
+                  }
+                  this.coworking_map.addMarker(
+                      'coworking_marker',           // id
+                      lat,                 // latitude
+                      lon,                 // longitude
+                      { draggable: true },       // options
+                      this.translate.get("COWORKING_MARKER"),     // popup
+                      false,                     // hidden
+                      true,                      // showInMenu
+                      this.translate.get("COWORKING_MARKER")   // menuLabel
+                    );
+          } else {
+            this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
+                    this.leafletMap.setView([40.416775, -3.703790], 6);
+          }
+        });
+  }
   protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);

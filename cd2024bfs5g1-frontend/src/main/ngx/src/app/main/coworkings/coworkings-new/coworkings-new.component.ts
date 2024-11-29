@@ -187,7 +187,7 @@ export class CoworkingsNewComponent implements OnInit {
           this.translate.get("COWORKING_MARKER"),     // popup
           false,                     // hidden
           true,                      // showInMenu
-          'Marcador Coworking'   // menuLabel
+          this.translate.get("COWORKING_MARKER")   // menuLabel
         );
       } else {
         //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6

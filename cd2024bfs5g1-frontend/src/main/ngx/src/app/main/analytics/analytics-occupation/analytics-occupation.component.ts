@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import {
   Component,
   OnInit,
@@ -14,6 +15,7 @@ import {
   OTranslateService,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
+
 @Component({
   selector: "app-analytics-occupation",
   templateUrl: "./analytics-occupation.component.html",
@@ -28,7 +30,7 @@ export class AnalyticsOccupationComponent {
   selectedCoworking: string = "";
   chartParameters: any;
   maxSelection = 3;
-  colorScheme = ["#5AA454", "#A10A28", "#C7B42C"];
+
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
 
@@ -38,7 +40,8 @@ export class AnalyticsOccupationComponent {
     private service: OntimizeService,
     private cd: ChangeDetectorRef,
     private snackBarService: SnackBarService,
-    private translate: OTranslateService
+    private translate: OTranslateService,
+    private location: Location
   ) {}
 
   onCoworkingChange(selectednames: OValueChangeEvent) {
@@ -51,13 +54,31 @@ export class AnalyticsOccupationComponent {
             "COWORKING_CHART_SELECTION"
           )} ${this.selectedCoworkings.join(", ")}`
         );
-      try{
-        const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
-        const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
-        this.dateArray[0] = startDate;
-        this.dateArray[1] = endDate;
-      }catch(error){
-      }
+
+        // Consulta inicial al backend para mostrar el gráfico de 7 días atrás
+        const conf = this.service.getDefaultServiceConfiguration("bookings");
+        this.service.configureService(conf);
+        const filter = {
+          cw_id: this.selectedCoworkings,
+        };
+        const columns = ["bk_id"];
+        this.service.query(filter, columns, "occupationLinearChart").subscribe(
+          (resp) => {
+            if (resp.data && resp.data.length > 0) {
+              this.chartData = resp.data[0].data;
+              this.isGraph = this.chartData.length > 0;
+            } else {
+              this.isGraph = false;
+            }
+          },
+          (error) => {
+            console.error(
+              this.translate.get("COWORKING_CHART_SELECTION_ERROR"),
+              error
+            );
+            this.isGraph = false;
+          }
+        );
       } else {
         this.comboCoworkingInput.setValue(selectednames.oldValue);
         this.showAvailableToast(
@@ -66,36 +87,66 @@ export class AnalyticsOccupationComponent {
         );
         return;
       }
-      const conf = this.service.getDefaultServiceConfiguration("bookings");
-      this.service.configureService(conf);
-      const filter = {
-        cw_id: this.selectedCoworkings,
-        bk_date: this.dateArray
-      };
-      const columns = ["bk_id"];
-      this.service.query(filter, columns, "occupationLinearChart").subscribe(
-        (resp) => {
-          if (resp.data && resp.data.length > 0) {
-            this.chartData = resp.data[0].data;
-            this.isGraph = this.chartData.length > 0;
-          } else {
-            this.isGraph = false;
-          }
-        },
-        (error) => {
-          console.error(
-            this.translate.get("COWORKING_CHART_SELECTION_ERROR"),
-            error
-          );
-          this.isGraph = false;
-        }
-      );
     }
   }
 
-  getChartData(){
-    if(this.chartData){
-      return this.chartData
+  setDates() {
+    try {
+      const startDate = new Date(
+        (this.bookingDate as any).value.value.startDate
+      ).toLocaleString("en-CA");
+      const endDate = new Date(
+        (this.bookingDate as any).value.value.endDate
+      ).toLocaleString("en-CA");
+      this.dateArray[0] = startDate;
+      this.dateArray[1] = endDate;
+
+      // Realizar una nueva consulta al backend con las fechas seleccionadas y los coworkings previamente seleccionados
+      if (this.selectedCoworkings.length > 0) {
+        this.setDatesAndQueryBackend(startDate, endDate);
+      }
+    } catch (error) {
+      console.error("Error al establecer fechas: ", error);
+    }
+  }
+
+  private setDatesAndQueryBackend(startDate: string, endDate: string) {
+    // Guardamos las fechas en el array
+    this.dateArray[0] = startDate;
+    this.dateArray[1] = endDate;
+
+    // Configuramos el filtro para enviar al backend
+    const filter = {
+      cw_id: this.selectedCoworkings,
+      bk_date: this.dateArray,
+    };
+    const columns = ["bk_id"];
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+
+    // Realizamos la consulta al backend con el nuevo rango de fechas
+    this.service.query(filter, columns, "occupationLinearChart").subscribe(
+      (resp) => {
+        if (resp.data && resp.data.length > 0) {
+          this.chartData = resp.data[0].data;
+          this.isGraph = this.chartData.length > 0;
+        } else {
+          this.isGraph = false;
+        }
+      },
+      (error) => {
+        console.error(
+          this.translate.get("COWORKING_CHART_SELECTION_ERROR"),
+          error
+        );
+        this.isGraph = false;
+      }
+    );
+  }
+
+  getChartData() {
+    if (this.chartData) {
+      return this.chartData;
     }
   }
 
@@ -107,5 +158,9 @@ export class AnalyticsOccupationComponent {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

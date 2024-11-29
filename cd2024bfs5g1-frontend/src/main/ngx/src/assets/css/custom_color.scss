@@ -1,12 +1,12 @@
 /* Colores personalizados */
-$primary: #8b5e3c;
-$accent: #e6d5c3;
+$primary: #7ba587;
+$accent: #b9cebf;
 $blanco: #f8f6f4;
-$verdeBoton: #5F6F65;
+$verdeBoton: #1a1a1a;
 
 $primaryClaro: rgba($primary, 0.5);
 $accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
+$verdeBotonClaro: rgba($verdeBoton, 0.3);
 
-$colorDegradadoFuerte: $accent;
+$colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;

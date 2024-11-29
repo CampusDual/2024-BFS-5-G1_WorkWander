@@ -26,7 +26,7 @@ $verdeBotonClaro: rgba($verdeBoton, 0.5);
 $colorDegradadoFuerte: $primary;
 $colorDegradadoSuave: $accent;*/
 
-$borderRadius: 25px 5px 25px 5px;
+$borderRadius: 16px 8px 16px 8px;
 $borderRadiusButton: 25px 5px 25px 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
 $borderRadiusEqual: 25px;
@@ -39,25 +39,25 @@ $linear-gradientLR: linear-gradient(
   90deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientRL: linear-gradient(
   270deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientTB: linear-gradient(
   180deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientBT: linear-gradient(
   0,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 
 /* Margin personalizado */
@@ -125,7 +125,7 @@ ngx-material-timepicker-container
 }
 /*  Barra de navegación lateral  */
 .navMenu {
-  background-image: $linear-gradientBT;
+  background-color: $primary;
 }
 
 /* SnackBar */
@@ -304,7 +304,7 @@ login {
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $primary;
+  background-color: $verdeBoton;
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
@@ -314,6 +314,14 @@ nav.ng-star-inserted:nth-last-child(2) {
   bottom: 25px;
   right: 0;
   width: 96%;
+
+  span.o-app-sidenav-menuitem-title {
+    color: $blanco;
+  }
+
+  mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+    color: $blanco;
+  }
 
   :hover {
     border-left: 0px solid $accent !important;
@@ -337,7 +345,6 @@ nav.ng-star-inserted:nth-last-child(2) {
 .o-app-sidenav {
   .o-app-sidenav-sidenav {
     background-image: $linear-gradientBT;
-    background-color: $primary;
   }
 
   .o-app-sidenav-container {
@@ -571,7 +578,7 @@ o-column {
     max-width: 350px;
   }
 }
-.lblSeatsText{
+.lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;
   word-spacing: 0.8px;
@@ -641,7 +648,7 @@ o-snackbar .material-icons {
     // Estilo del nombre del coworking
     font-size: $fontSize24;
     font-weight: bold;
-    color: $primary;
+    color: $verdeBoton;
     cursor: pointer;
     margin-bottom: 8px;
     margin-top: 0;
@@ -671,7 +678,7 @@ o-snackbar .material-icons {
 
   .location {
     // Estilo de la ubicación
-    color: $primary;
+    color: $verdeBoton;
     margin: 0 0 8px 0;
     font-size: $fontSize18;
   }
@@ -712,7 +719,7 @@ o-snackbar .material-icons {
 }
 
 .capacity-price-container {
-  border-left: solid 5px $primary;
+  // border-left: solid 5px $primary;
   padding: 0px 0 0 17px;
   min-width: 190px;
 
@@ -759,22 +766,22 @@ o-snackbar .material-icons {
   }
 }
 
-.srv{
-  display:flex;
+.srv {
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-content: center;
 }
 
-.serviceDisable{
-  cursor:pointer;
+.serviceDisable {
+  cursor: pointer;
   background-color: $accent;
   color: $primary;
   padding: 5px 5px 5px 5px;
   font-size: 9px;
   width: 250px;
   height: auto;
-  text-align:center;
+  text-align: center;
   margin: 0 auto;
 }
 
@@ -815,32 +822,32 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 
 .event-item {
   .event-item-content {
-      width: 95%;
-      border: 1px solid #dfe7ef;
-      border-radius: 25px 5px 25px 5px;      
-      text-align: center;
-      padding-top:2px; 
-      height: 20%;
-      margin:0 auto;
+    width: 95%;
+    border: 1px solid #dfe7ef;
+    border-radius: 25px 5px 25px 5px;
+    text-align: center;
+    padding-top: 2px;
+    height: 20%;
+    margin: 0 auto;
   }
 
-  .event-item-content:hover{
+  .event-item-content:hover {
     cursor: pointer;
   }
 
   .event-image {
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   }
 }
 
-.p-carousel-indicators{
+.p-carousel-indicators {
   margin: 0%;
 }
 
-.p-carousel-indicator{
-  list-style:none;
+.p-carousel-indicator {
+  list-style: none;
   padding: 5px;
 }
 

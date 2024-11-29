@@ -212,7 +212,7 @@
           enabled="FALSE"
         ></o-button>
       </div>
-    </div>    
+    </div>
   </o-form>
   <!-- Carrusel que muestra los eventos -->
   <div id="carousel">
@@ -220,13 +220,17 @@
       <p-carousel
         [value]="events"
         [numVisible]="3"
-        [numScroll]="1"
+        [numScroll]="3"
         [circular]="true"
         [responsiveOptions]="responsiveOptions"
         [autoplayInterval]="5000"
       >
         <ng-template pTemplate="header">
-          <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
+          <div class="header-container-re">
+            <span class="header-recommended-events">{{
+              "NEAR_EVENTS" | oTranslate
+            }}</span>
+          </div>
         </ng-template>
         <ng-template let-event pTemplate="item">
           <div class="event-item" (click)="goEvent(event.id_event)">
@@ -239,13 +243,12 @@
                 />
               </div>
               <div>
-                {{ event.name }}
-                <br>
-                <mat-icon>calendar_month</mat-icon>
-                {{ dateTransform(event.date_event) }}
-                <br>
-                <mat-icon>access_time</mat-icon>
-                {{ timeTransform(event.hour_event) }}                                  
+                <strong>{{ event.name }}</strong>
+                <br />
+                <small
+                  >{{ dateTransform(event.date_event) }} -
+                  {{ timeTransform(event.hour_event) }}</small
+                >
               </div>
             </div>
           </div>

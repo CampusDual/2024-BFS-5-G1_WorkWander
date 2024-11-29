@@ -815,11 +815,11 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 
 .event-item {
   .event-item-content {
-      width: 95%;
+      width: 60%;
+      padding: 10px;
       border: 1px solid #dfe7ef;
       border-radius: 25px 5px 25px 5px;      
       text-align: center;
-      padding-top:2px; 
       height: 20%;
       margin:0 auto;
   }
@@ -831,7 +831,8 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
   .event-image {
       width: 100px;
       height: 100px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      border-radius: 5px
   }
 }
 
@@ -842,6 +843,18 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 .p-carousel-indicator{
   list-style:none;
   padding: 5px;
+}
+
+.header-container-re{
+  margin-bottom: 15px
+}
+
+.header-recommended-events{
+  padding: 5px;
+  background-color: $accent;
+  color: $primary;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
 @media (min-width: 768px) {

@@ -5,42 +5,41 @@
   </div>
   <!-- Combobox para seleccionar coworkings -->
   <div class="selector-container">
-    <div class="input-selector">
-      <o-combo
-        #comboCoworkingInput
-        attr="cw_name"
-        service="coworkings"
-        entity="coworkingByUser"
-        label="{{ 'SELECT_COWORKING' | oTranslate }}"
-        value-column="cw_id"
-        columns="cw_name"
-        visible-columns="cw_name"
-        required="yes"
-        formControlName="coworking"
-        (onValueChange)="onCoworkingChange($event)"
-        searchable="true"
-        [multiple]="true"
-        (onSelectionChange)="onCoworkingChange($event)"
-        multiple-trigger-label="true"
-      >
-      </o-combo>
-    </div>
-    <div class="input-selector">
-      <!-- Date Range Selector -->
-      <o-daterange-input
-        attr="daterange"
-        #daterange
-        fxFlex
-        label="SELECT_DATE_RANGE"
-        read-only="no"
-        required="yes"
-        (onValueChange)="setDates()"
-        value-type="date"
-      ></o-daterange-input>
-    </div>
+    <o-combo
+      class="input-selector"
+      #comboCoworkingInput
+      attr="cw_name"
+      service="coworkings"
+      entity="coworkingByUser"
+      label="{{ 'SELECT_COWORKING' | oTranslate }} {{maxSelection}} {{' coworkings.'}}"
+      value-column="cw_id"
+      columns="cw_name"
+      visible-columns="cw_name"
+      required="yes"
+      formControlName="coworking"
+      (onValueChange)="onCoworkingChange($event)"
+      searchable="true"
+      [multiple]="true"
+      (onSelectionChange)="onCoworkingChange($event)"
+      multiple-trigger-label="true"
+    >
+    </o-combo>
+
+    <!-- Date Range Selector -->
+
+    <o-daterange-input
+      class="input-selector"
+      attr="daterange"
+      #daterange
+      fxFlex
+      label="SELECT_DATE_RANGE"
+      read-only="no"
+      required="no"
+      (onValueChange)="setDates()"
+      value-type="date"
+    ></o-daterange-input>
   </div>
 
-  <!-- Movido el gráfico fuera del selector-container -->
   <div class="chart-wrapper">
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart

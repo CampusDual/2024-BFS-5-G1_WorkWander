@@ -5,7 +5,6 @@
   mode="none"
   label-columns="bk_id"
 >
-  <p>{{ "MY_BOOKINGS" | oTranslate }}</p>
   <o-table
     delete-button="no"
     insert-button="no"
@@ -15,20 +14,22 @@
     entity="datesByBooking"
     keys="bk_id"
     columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;dates"
-    visible-columns="cw_name;date_start;date_end;states"
+    visible-columns="cw_name;date_start;date_end;states;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
-    pageable="yes"
     (onClick)="toCoworkingDetail($event)"
     detail-mode="none"
-    quick-filter="no"
   >
+    <o-table-columns-filter
+      columns="cw_name;date_start;date_end"
+    ></o-table-columns-filter>
     <o-table-column
       attr="cw_name"
       title="COWORKINGS_NAME"
       width="15%"
     ></o-table-column>
     <o-table-column-calculated
+      #start_date
       attr="date_start"
       title="START_DATE"
       [operation-function]="dateStart"
@@ -36,6 +37,7 @@
       format="LL"
     ></o-table-column-calculated>
     <o-table-column-calculated
+      #end_date
       attr="date_end"
       title="END_DATE"
       [operation-function]="dateEnd"
@@ -44,6 +46,15 @@
     ></o-table-column-calculated>
     <o-table-column attr="states" title="BOOKING_STATE">
       <app-bookings-state-render></app-bookings-state-render>
+    </o-table-column>
+    <o-table-column
+      #cancelCWbooking
+      attr="cancelCWbooking"
+      title="CANCEL"
+      type="action"
+      icon="close"
+      (onClick)="cancelBooking($event)"
+    >
     </o-table-column>
   </o-table>
 </o-form-layout-manager>

@@ -1,5 +1,5 @@
-@use '@angular/material' as mat;
-@import 'node_modules/@angular/material/theming';
+@use "@angular/material" as mat;
+@import "node_modules/@angular/material/theming";
 
 @mixin login-theme($theme) {
   $primary: map-get($theme, color, primary);
@@ -34,7 +34,6 @@
           color: mat.get-color-from-palette($primary);
         }
       }
-
     }
   }
 
@@ -47,5 +46,4 @@
       }
     }
   }
-
 }

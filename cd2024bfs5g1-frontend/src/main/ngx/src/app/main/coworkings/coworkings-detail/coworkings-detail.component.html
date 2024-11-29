@@ -49,19 +49,6 @@
         height="480px"
         width="450px"
       />
-    </div>
-    <div class="info-container">
-      <div>
-        <o-text-input
-          #name
-          type="text"
-          oHidden
-          attr="cw_name"
-          fxFlex
-          label="NAME"
-        ></o-text-input>
-        <h1>{{ form.getFieldValue("cw_name") }}</h1>
-      </div>
       <!-- Media valoración -->
       <o-form
         #formAverage
@@ -90,17 +77,25 @@
           fxLayout="row"
           fxLayoutAlign="space-around center"
           fxLayoutGap="8px"
+          *ngIf="formAverage.getFieldValue('average_ratio')"
         >
-          <p-rating
-            [ngModel]="formAverage.getFieldValue('average_ratio')"
-            [cancel]="false"
-            [readonly]="true"
-          />
-          <!-- <mat-icon #media_rating class="media_raqting">star</mat-icon> -->
-
-          <p>{{ formAverage.getFieldValue("average_ratio") }}</p>
+          <h3>{{ formAverage.getFieldValue("average_ratio") }}</h3>
+          <mat-icon #media_rating class="media_rating">star</mat-icon>
         </div>
       </o-form>
+    </div>
+    <div class="info-container">
+      <div>
+        <o-text-input
+          #name
+          type="text"
+          oHidden
+          attr="cw_name"
+          fxFlex
+          label="NAME"
+        ></o-text-input>
+        <h1>{{ form.getFieldValue("cw_name") }}</h1>
+      </div>
 
       <o-column class="detail-container">
         <o-text-input
@@ -312,7 +307,7 @@
         detail-mode="none"
         grid-item-height="4:1"
         pagination-controls="no"
-        query-rows="1"
+        query-rows="2"
       >
         <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
           <div class="review-container">

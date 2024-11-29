@@ -111,11 +111,10 @@
             ></i>
           </ng-container>
 
-
           <!-- Mostrar la media como texto -->
-          <p>{{ getAverage() }}</p>
-
-
+          <p *ngIf="formAverage.getFieldValue('average_ratio')">
+            {{ getAverage() }}
+          </p>
         </div>
       </o-form>
 

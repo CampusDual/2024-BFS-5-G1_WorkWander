@@ -10,4 +10,4 @@ WHERE rol_id = 3;
 INSERT INTO usr_server_permission (srp_name) VALUES ('com.campusdual.cd2024bfs5g1.api.core.service.IEventService/myEventsCalendarQuery');
 
 INSERT INTO usr_role_server_permission (rol_id,srp_id) VALUES
-(3,(SELECT srp_id FROM usr_server_permission WHERE srp_name = 'com.campusdual.cd2024bfs5g1.api.core.service.IEventService/myEventsCalendarQuery'));
+(2,(SELECT srp_id FROM usr_server_permission WHERE srp_name = 'com.campusdual.cd2024bfs5g1.api.core.service.IEventService/myEventsCalendarQuery'));

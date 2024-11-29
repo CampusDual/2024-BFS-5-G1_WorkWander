@@ -60,6 +60,7 @@
           fxFlex
           label="NAME"
         ></o-text-input>
+
         <h1>{{ form.getFieldValue("cw_name") }}</h1>
       </div>
       <!-- Media valoración -->
@@ -91,14 +92,31 @@
           fxLayoutAlign="space-around center"
           fxLayoutGap="8px"
         >
-          <p-rating
-            [ngModel]="formAverage.getFieldValue('average_ratio')"
-            [cancel]="false"
-            [readonly]="true"
-          />
-          <!-- <mat-icon #media_rating class="media_raqting">star</mat-icon> -->
+          <!-- Mostrar íconos completos -->
+          <ng-container
+            *ngFor="
+              let any of calculateIcons(getAverage()).fullIcons | numberToArray
+            "
+          >
+            <i
+              class="pi pi-star-fill"
+              style="color: rgb(202, 192, 50); font-size: 2rem"
+            ></i>
+          </ng-container>
 
-          <p>{{ formAverage.getFieldValue("average_ratio") }}</p>
+          <!-- Mostrar medio ícono si es necesario -->
+          <ng-container *ngIf="calculateIcons(getAverage()).hasHalfIcon">
+            <i
+              class="pi pi-star-half-fill"
+              style="color: rgb(202, 192, 50); font-size: 2rem"
+            ></i>
+          </ng-container>
+
+
+          <!-- Mostrar la media como texto -->
+          <p>{{ getAverage() }}</p>
+
+          
         </div>
       </o-form>
 

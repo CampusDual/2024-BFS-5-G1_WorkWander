@@ -7,6 +7,7 @@ import { CoworkingsNewComponent } from '../main/coworkings/coworkings-new/cowork
 import { EventsDetailComponent } from '../main/events/events-detail/events-detail.component';
 import { UtilsService } from './services/utils.service';
 import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/coworkings-edit.component';
+import { NumberToArrayPipe } from '../pipes/number-to-array.pipe';
 
 @NgModule({
   imports: [
@@ -17,13 +18,15 @@ import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/cowo
     HomeToolbarComponent,
     CoworkingsNewComponent,
     EventsDetailComponent,
-    CoworkingsEditComponent
+    CoworkingsEditComponent,
+    NumberToArrayPipe
   ],
   exports: [
     CommonModule,
     FilterComponent,
     HomeToolbarComponent,
-    EventsDetailComponent
+    EventsDetailComponent,
+    NumberToArrayPipe
   ]
 })
 export class SharedModule { }

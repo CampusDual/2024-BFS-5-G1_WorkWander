@@ -1,8 +1,5 @@
-import { Location } from "@angular/common";
 import {
   Component,
-  OnInit,
-  ChangeDetectorRef,
   ViewEncapsulation,
 } from "@angular/core";
 import { ViewChild } from "@angular/core";
@@ -27,8 +24,6 @@ export class AnalyticsOccupationComponent {
   selectedCoworkings: string[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
-  selectedCoworking: string = "";
-  chartParameters: any;
   maxSelection = 3;
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
@@ -38,10 +33,8 @@ export class AnalyticsOccupationComponent {
 
   constructor(
     private service: OntimizeService,
-    private cd: ChangeDetectorRef,
     private snackBarService: SnackBarService,
     private translate: OTranslateService,
-    private location: Location
   ) {}
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
@@ -132,9 +125,5 @@ export class AnalyticsOccupationComponent {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }

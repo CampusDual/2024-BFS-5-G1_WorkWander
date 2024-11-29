@@ -613,6 +613,7 @@ o-column {
   .form-section{
     min-width: 500px;
     flex-wrap: wrap;
+
   }
 
   o-column.o-column:not(.service-column),
@@ -667,12 +668,6 @@ o-column {
         justify-content: space-between !important;
       }
     }
-
-    o-column.o-column,
-    o-row.o-row {
-      background: $blanco;
-    }
-
   }
   article.ng-star-inserted {
     align-self: center !important;

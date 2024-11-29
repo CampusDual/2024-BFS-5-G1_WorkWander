@@ -1,15 +1,33 @@
-import { Component, HostListener, Injector, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { Expression, FilterExpressionUtils, ODateRangeInputComponent, OFilterBuilderComponent, OGridComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
+import {
+  Component,
+  HostListener,
+  Injector,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Router } from "@angular/router";
+import {
+  Expression,
+  FilterExpressionUtils,
+  ODateRangeInputComponent,
+  OFilterBuilderComponent,
+  OGridComponent,
+  OIntegerInputComponent,
+  OntimizeService,
+  OSnackBarConfig,
+  OTranslateService,
+  SnackBarService,
+} from "ontimize-web-ngx";
 
 @Component({
-  selector: 'app-coworkings-home',
-  templateUrl: './coworkings-home.component.html',
-  styleUrls: ['./coworkings-home.component.css']
+  selector: "app-coworkings-home",
+  templateUrl: "./coworkings-home.component.html",
+  styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
-  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
+  @ViewChild("filterBuilder", { static: true })
+  filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
@@ -18,6 +36,8 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
+
+  data: any[];
 
   // Creamos constructor
   constructor(
@@ -46,34 +66,38 @@ export class CoworkingsHomeComponent implements OnInit {
   }
 
   // Listener para que cuando se cambie el tamaño de la ventana, llamar al evento y la funcion setGridCols
-  @HostListener('window:resize', ['$event'])
+  @HostListener("window:resize", ["$event"])
   onResize(event: Event) {
     this.setGridCols((event.target as Window).innerWidth);
   }
 
   // Función para convertir la imagen desde la base de datos
   public getImageSrc(base64: any): any {
-    return base64 ? this.sanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + base64) : './assets/images/coworking-default.jpg';
+    return base64
+      ? this.sanitizer.bypassSecurityTrustResourceUrl(
+          "data:image/*;base64," + base64
+        )
+      : "./assets/images/coworking-default.jpg";
   }
 
   protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration('coworkings');
+    const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
   }
 
   public serviceList(services: string) {
     if (services != undefined) {
-      return services.split(',')
+      return services.split(",");
     } else {
       return null;
     }
-
   }
   // Función para crear los filtros de busqueda avanzada
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let locationExpressions: Array<Expression> = [];
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
+    let dateNullExpression: Expression;
 
     values.forEach((fil) => {
       if (fil.value) {
@@ -101,9 +125,22 @@ export class CoworkingsHomeComponent implements OnInit {
               FilterExpressionUtils.buildExpressionLike(fil.attr, fil.value)
             );
           }
-        } else if (fil.attr == 'date') {
-          daterangeExpressions.push(FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, new Date(fil.value.startDate.toDate()).toLocaleDateString("en-CA") ));
-          daterangeExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, new Date(fil.value.endDate.toDate()).toLocaleDateString("en-CA") ));
+        } else if (fil.attr == "date") {
+          daterangeExpressions.push(
+            FilterExpressionUtils.buildExpressionMoreEqual(
+              fil.attr,
+              fil.value.startDate.toDate()
+            )
+          );
+          daterangeExpressions.push(
+            FilterExpressionUtils.buildExpressionLessEqual(
+              fil.attr,
+              fil.value.endDate.toDate()
+            )
+          );
+          dateNullExpression = FilterExpressionUtils.buildExpressionIsNull(
+            fil.attr
+          );
         }
       }
     });
@@ -142,13 +179,18 @@ export class CoworkingsHomeComponent implements OnInit {
           FilterExpressionUtils.OP_AND
         )
       );
+      daterangeExpression = FilterExpressionUtils.buildComplexExpression(
+        daterangeExpression,
+        dateNullExpression,
+        FilterExpressionUtils.OP_OR
+      );
     }
 
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
-      daterangeExpression
+      daterangeExpression,
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -162,7 +204,7 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
-    return combinedExpression
+    return combinedExpression;
   }
 
   //Reinicia los valores de los filtros
@@ -172,16 +214,16 @@ export class CoworkingsHomeComponent implements OnInit {
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: number): string {
-    let [integerPart, decimalPart] = price.toFixed(2).split('.');
-    if (decimalPart== ''){
-      decimalPart= "00";
-     }
+    let [integerPart, decimalPart] = price.toFixed(2).split(".");
+    if (decimalPart == "") {
+      decimalPart = "00";
+    }
     return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
   }
 
   currentDate() {
     let date = new Date();
-    date.setHours(0,0,0,0)
+    date.setHours(0, 0, 0, 0);
 
     return date;
   }
@@ -253,5 +295,15 @@ export class CoworkingsHomeComponent implements OnInit {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  loadGridData(event: any) {
+    const eventObject = event.map(JSON.stringify);
+    const eventSet = new Set(eventObject);
+    const eventProcessed = Array.from(eventSet).map((item: string) =>
+      JSON.parse(item)
+    );
+    this.data = eventProcessed;
+    this.coworkingsGrid.reloadData();
   }
 }

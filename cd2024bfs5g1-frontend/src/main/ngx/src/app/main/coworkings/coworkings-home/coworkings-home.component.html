@@ -61,6 +61,7 @@
           required="yes"
           [min]="currentDate()"
           format="D/M/Y"
+          value-type="DATE"
         ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
           <button
@@ -91,7 +92,7 @@
           #filterBuilder
           attr="thefilter"
           filters="cw_location:city;services:srv_name;date:daterange"
-          [target]="coworkingsGrid"
+          [target]="coworkingsTable"
           query-on-change="no"
           query-on-change-delay="500"
           [expression-builder]="createFilter"
@@ -105,10 +106,9 @@
   <o-grid
     #coworkingsGrid
     attr="coworkingsGrid"
-    service="coworkings"
-    entity="serviceCoworking"
     keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services"
+    [static-data]="data"
+    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;date"
     quick-filter-columns="cw_name"
     pagination-controls="true"
     page-size-options="12;16;20"
@@ -116,12 +116,13 @@
     grid-item-height="3.5:1"
     [cols]="gridCols"
     gutter-size="40px"
-    pageable="yes"
+    query-on-init="no"
   >
     <o-grid-item
       *ngFor="let data of coworkingsGrid.dataArray"
       class="responsive-grid"
     >
+      <o-date-input attr="date" type="date" oHidden></o-date-input>
       <div class="coworking-card">
         <div class="image-container">
           <!-- Mostramos la imagen del coworking en las cards -->
@@ -195,3 +196,15 @@
     </o-grid-item>
   </o-grid>
 </div>
+<o-table
+  #coworkingsTable
+  attr="coworkingsTable"
+  service="coworkings"
+  entity="serviceCoworkingAdvanced"
+  keys="cw_id"
+  columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;date"
+  (onDataLoaded)="loadGridData($event)"
+  oHidden
+>
+  <o-table-column attr="date" type="date"></o-table-column
+></o-table>

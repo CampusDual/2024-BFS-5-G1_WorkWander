@@ -41,6 +41,16 @@
         "attr": "myEvents",
         "visible": false,
         "enabled": false
+      },
+      {
+        "attr":"analytics",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "myCalendar",
+        "visible": false,
+        "enabled": false
       }
     ],
     "routes": [
@@ -87,6 +97,14 @@
       {
         "permissionId":"appearance",
         "enabled":false
+      },
+      {
+        "permissionId":"myCalendar",
+        "enabled": false
+      },
+      {
+        "permissionId":"analytics-occupation",
+        "enabled": false
       }
     ]
   }

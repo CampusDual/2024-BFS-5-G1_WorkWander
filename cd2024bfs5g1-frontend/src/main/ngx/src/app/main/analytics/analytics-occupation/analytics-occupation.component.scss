@@ -1,0 +1,121 @@
+@use "sass:map";
+@import "../../../../assets/css/workwander.scss";
+
+.chart-container {
+  padding: 20px;
+  background-color: rgba($blanco, 0.4);
+  border-radius: $borderRadius;
+  margin: 20px;
+
+  .title {
+    text-align: center;
+    margin: 35px auto;
+    max-width: 800px;
+    width: 100%;
+    h1 {
+      color: $primary;
+      font-size: $fontSize25;
+      text-align: center;
+    }
+  }
+
+  .selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px; // Aumentado el espacio entre selectores
+    margin: 45px auto; // Aumentado el margen superior e inferior
+    max-width: 1200px;
+    width: 90%;
+
+    .input-selector {
+      width: 100%;
+
+      o-combo,
+      o-daterange-input {
+        width: 100%;
+
+        .mat-mdc-form-field {
+          width: 100%;
+          background-color: $accentClaro;
+          border-radius: $borderRadius;
+          padding: 5px 15px;
+        }
+      }
+    }
+  }
+
+  .chart-wrapper {
+    width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    o-chart {
+      width: 100%;
+      min-height: 500px;
+      background-color: rgba($blanco, 0.6);
+      border-radius: $borderRadius;
+      padding: 25px;
+      display: block;
+    }
+  }
+}
+
+.noResults {
+  text-align: center;
+  margin: 35px auto;
+  max-width: 800px;
+  width: 100%;
+  color: $primary;
+  font-size: $fontSize25;
+  text-align: center;
+}
+
+// Estilos responsive
+@media (min-width: 768px) {
+  .chart-container {
+    .selector-container {
+      flex-direction: row;
+
+      .input-selector {
+        width: 48%;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .chart-container .chart-wrapper o-chart {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-container {
+    margin: 10px;
+    padding: 15px;
+
+    .title h1 {
+      font-size: $fontSize20;
+    }
+
+    .selector-container {
+      gap: 15px;
+    }
+
+    .chart-wrapper {
+      padding: 10px;
+
+      o-chart {
+        min-height: 300px;
+        padding: 15px;
+      }
+    }
+  }
+}
+
+// Estilos específicos para el gráfico
+o-chart {
+  margin-top: 20px;
+  background-color: rgba($blanco, 0.6);
+  border-radius: $borderRadius;
+  padding: 15px;
+}

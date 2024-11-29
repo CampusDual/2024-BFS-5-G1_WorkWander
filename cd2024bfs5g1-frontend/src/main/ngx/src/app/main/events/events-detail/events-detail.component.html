@@ -62,7 +62,6 @@
               >
             </div>
             <span>
-              
               {{ formatDate(form.getFieldValue("date_event")) }} -
               {{ formatTime(form.getFieldValue("hour_event")) }}
             </span>
@@ -94,26 +93,12 @@
             </div>
             <span>
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
+              ({{ numeroPlazas }} {{ "AVAILABLE" | oTranslate }})
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>event_seat</mat-icon>
-            </div>
-            <span id="lblSeatsAvailable">
-              {{ literalNumeroPlazas | oTranslate }}: {{ numeroPlazas }}</span
-            >
-          </div>
-          <p
-            class="lblSeatsText"
-            style="margin-block-start: -10px; margin-bottom: 40px"
-          >
-            {{ literalPlazas | oTranslate }}
-          </p>
-
-          <div fxLayoutAlign="start center" fxLayoutGap="8px">
-            <div>
-              <mat-icon>payments</mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
             </div>
 
             <span
@@ -129,6 +114,12 @@
               <span>{{ form.getFieldValue("price") }} €</span>
             </ng-template>
           </div>
+          <p
+            class="lblSeatsText"
+            style="margin-block-start: 55px; margin-bottom: 8px;"
+          >
+            {{ literalPlazas | oTranslate }}
+          </p>
 
           <div class="reservation-button">
             <o-button

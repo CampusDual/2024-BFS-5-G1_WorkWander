@@ -23,4 +23,7 @@ public interface ICoworkingService {
 
     public AdvancedEntityResult serviceCoworkingPaginationQuery(Map<String, Object> keysValues, List<?> attributes, int recordNumber, int startIndex, List<?> orderBy);
 
+    public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList);
+
+    public EntityResult coworkingNameByIdQuery(final Map<String, Object> keyMap, final List<String> attrList);
 }

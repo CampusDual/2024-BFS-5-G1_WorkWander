@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Location } from "@angular/common";
 import { Component, Injector, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import {
@@ -31,7 +32,6 @@ export class CoworkingsNewComponent implements OnInit {
   protected mapLat: string = ""; //Latitud
   protected mapLon: string = ""; //Longitud
   protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
-
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;

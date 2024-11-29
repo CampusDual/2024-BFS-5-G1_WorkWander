@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Location } from "@angular/common";
+import { DecimalPipe, Location } from "@angular/common";
 import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -17,10 +16,10 @@ import {
   SnackBarService,
   Util,
   ODateRangeInputComponent,
-
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { OMapComponent } from "ontimize-web-ngx-map";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -70,6 +69,7 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
+  @ViewChild('formAverage', { static: true }) formAverage!: OFormComponent; // Garantiza que esta propiedad no será undefined al usarla.
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
@@ -81,8 +81,7 @@ export class CoworkingsDetailComponent implements OnInit {
   public dateArray = [];
   public dateArrayF = [];
 
-  leafletMap: any;
-  validAddress : boolean = false;
+  center: string = "42.240599;-8.720727";
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
@@ -109,7 +108,7 @@ export class CoworkingsDetailComponent implements OnInit {
           }
         }, 500);
   }
-  
+
   iniciarPantalla(idLocation: number, city: string, address: string) {
     this.showEvents(idLocation);
     this.mapaShow(city, address);
@@ -242,7 +241,6 @@ export class CoworkingsDetailComponent implements OnInit {
     this.service.query(filter, columns, "getDatesDisponibility").subscribe(
       (resp) => {
         const data = resp.data.data;
-        console.log(data);
         const fechasDisponibles = Object.values(data).every(
           (disponible: boolean) => disponible === true
         );
@@ -385,6 +383,30 @@ export class CoworkingsDetailComponent implements OnInit {
       .subscribe((resp) => {
         this.serviceList = resp.data;
       });
+  }
+
+  calculateIcons(average: number) {
+    const fullIcons = Math.floor(average); // Número de íconos completos
+    const hasHalfIcon = average % 1 >= 0.5; // Determina si se necesita un medio ícono
+    const totalIcons = 5; // Número máximo de íconos (por ejemplo, 5 estrellas)
+
+
+    return {
+      fullIcons,
+      hasHalfIcon,
+
+    };
+  }
+
+  /**
+   * Obtiene la media desde el formulario.
+   * @returns Número (media).
+   */
+  getAverage(): number {
+
+    let media: number = Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
+
+    return media;
   }
 
   serviceIcons = {

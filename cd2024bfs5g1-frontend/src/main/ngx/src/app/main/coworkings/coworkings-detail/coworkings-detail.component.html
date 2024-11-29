@@ -65,6 +65,62 @@
             src="assets/images/coworking-default.jpg"
             alt="Imagen predeterminada"
           />
+          <!-- Media valoración -->
+          <o-form
+            #formAverage
+            attr="averageRatio"
+            service="bookingsRate"
+            entity="ratioAveragePerCoworking"
+            show-header-navigation="no"
+            keys="cw_id"
+            parent-keys="cw_id"
+            keys-sql-types="integer"
+            columns="average_ratio"
+            header-position="false"
+            layout-direction="row"
+            detect-changes-on-blur="no"
+            undo-button="no"
+            stay-in-record-after-insert="true"
+            editable-detail="no"
+          >
+            <o-text-input
+              oHidden
+              #avg_ratio
+              attr="average_ratio"
+              label="media"
+            ></o-text-input>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-around center"
+              fxLayoutGap="8px"
+            >
+              <!-- Mostrar íconos completos -->
+              <ng-container
+                *ngFor="
+                  let any of calculateIcons(getAverage()).fullIcons
+                    | numberToArray
+                "
+              >
+                <i
+                  class="pi pi-star-fill"
+                  style="color: rgb(202, 192, 50); font-size: 2rem"
+                ></i>
+              </ng-container>
+
+              <!-- Mostrar medio ícono si es necesario -->
+              <ng-container *ngIf="calculateIcons(getAverage()).hasHalfIcon">
+                <i
+                  class="pi pi-star-half-fill"
+                  style="color: rgb(202, 192, 50); font-size: 2rem"
+                ></i>
+              </ng-container>
+
+              <!-- Mostrar la media como texto -->
+              <p *ngIf="formAverage.getFieldValue('average_ratio')">
+                {{ getAverage() }}
+              </p>
+            </div>
+          </o-form>
         </div>
         <div class="info-container" style="padding-top: 15px">
           <div class="detail-container">
@@ -181,7 +237,7 @@
                   ></o-daterange-input>
                 </o-form>
                 <!-- Mostrar "Plazas Disponibles:"-->
-                <!-- 
+                <!--
                 <p *ngIf="parsePermissions('realCapacity')">
                   <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
                 </p>
@@ -291,6 +347,47 @@
           </div>
         </div>
       </o-column>
+    </div>
+    <!-- Reviews -->
+    <div style="width: 100%; margin-top: 5vh">
+      <h4 class="review-title">{{ "REVIEWS" | oTranslate }}</h4>
+      <o-grid
+        #coworkingValoration
+        attr="coworkingValoration"
+        service="bookingsRate"
+        entity="bookingValorationsPerCoworking"
+        keys="cw_id"
+        columns="bkr_ratio;bkr_description;usr_login"
+        parent-keys="cw_id"
+        quick-filter="no"
+        fixed-header="no"
+        controls="no"
+        refresh-button="false"
+        show-page-size="no"
+        show-buttons-text="no"
+        cols="2"
+        gutter-size="8px"
+        detail-mode="none"
+        grid-item-height="5:1"
+        pagination-controls="no"
+        query-rows="2"
+      >
+        <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
+          <div class="review-container">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+              <p class="login-name">{{ rate.usr_login }}</p>
+              <p-rating
+                [(ngModel)]="rate.bkr_ratio"
+                [cancel]="false"
+                [readonly]="true"
+              />
+            </div>
+            <o-row>
+              {{ rate.bkr_description }}
+            </o-row>
+          </div>
+        </o-grid-item>
+      </o-grid>
     </div>
   </o-form>
 </div>

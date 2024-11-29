@@ -66,9 +66,9 @@ public class BookingService implements IBookingService {
     @Override
     public EntityResult getDatesDisponibilityQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object datesObj = keyMap.get("bk_date");
+
         ArrayList<Date> dates = BookingService.objectToDates(datesObj);
         dates = BookingService.getIntermediateDates(dates);
-
         final Map<Date, Boolean> fechas = new LinkedHashMap<>();
 
         for (final Date date : dates) {
@@ -159,6 +159,81 @@ public class BookingService implements IBookingService {
         return dates;
     }
 
+    @Override
+    public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        // Recuperar el ID del usuario autenticado
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+
+        final Object datesObj = keyMap.get("bk_date");
+        ArrayList<Date> dates = BookingService.objectToDates(datesObj);
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        if (dates.isEmpty()) {
+            final Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            final Date today = calendar.getTime();
+            calendar.add(Calendar.DAY_OF_MONTH, -6);
+            final Date sevenDays = calendar.getTime();
+            dates.add(sevenDays);
+            dates.add(today);
+        }
+        dates = BookingService.getIntermediateDates(dates);
+        final List<Integer> coworkingIds = (List<Integer>) keyMap.get("cw_id");
+        if (coworkingIds == null || coworkingIds.isEmpty()) {
+            throw new OntimizeJEERuntimeException("No coworkings selected");
+        }
+        keyMap.clear();
+
+        final Map<String, Object> keyMapB = new HashMap<>();
+        keyMapB.put("bk_cw_id", coworkingIds);
+        final List<Map<String, Object>> listaCoworkings = new ArrayList<>();
+
+        for (final int id : coworkingIds) {
+            final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+            keyMap.put("cw_id", id);
+            keyMapB.put("bk_cw_id", id);
+            //Sacar la capacidad de los coworkings
+            final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMap, attrList);
+            final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);
+
+            //Mpa de fechas y capacidad
+            final List<Map<String, Object>> listaFechas = new ArrayList<>();
+            //Recorrer hasta 7 días atrás
+            for (final Date date : dates) {
+                final Map<String, Object> dateMap = new LinkedHashMap<>();
+                keyMapB.put("date", date);
+                //Saco la ocupacion y la añado al mapa como porcentaje
+                final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
+                final long ocupacionI = ((ArrayList<Long>) ocupacion.get("dates")).get(0);
+                final double ocupacionP = (double) ocupacionI / capacidadDisponible;
+                final String formattedDate = sdf.format(date);
+                dateMap.put("name", formattedDate);
+                dateMap.put("value", ocupacionP);
+                listaFechas.add(dateMap);
+            }
+            final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
+            final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
+
+            coworkingMap.put("name", coworkingName.get(0));
+            coworkingMap.put("series", listaFechas);
+            listaCoworkings.add(coworkingMap);
+        }
+        //Envuelvo coworkingMap pa mandarlo al frontend
+        final EntityResult r = new EntityResultMapImpl();
+        r.setCode(0);
+        r.put("data", (List.of(listaCoworkings)));
+        return r;
+    }
+
+    @Override
+    public EntityResult occupationByDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.OCCUPATION_BY_DATES);
+    }
+
     private static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
         final Date startDate = dates.get(0);
         final Date finalDate = dates.get(1);
@@ -176,4 +251,5 @@ public class BookingService implements IBookingService {
         }
         return dates;
     }
+
 }

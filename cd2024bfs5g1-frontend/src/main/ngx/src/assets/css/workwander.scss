@@ -1165,12 +1165,12 @@ svg.p-icon.p-rating-icon {
   flex-grow: 1;
 }
 
-.buttons {
+.buttons-c {
   margin-bottom: 10px;
   display: inline-flex;
 }
 
-button {
+.button-c {
   background-color:$primary;
   color: $accent;
   border: 0;
@@ -1185,28 +1185,28 @@ button {
   box-sizing: border-box;
 }
 
-button:last-child {
+.button-c:last-child {
   margin-right: 0;
 }
 
-button.selected {  
+.button-c.selected {
   box-shadow: 0 3px 5px rgba(0,0,0,0.1);
 }
 
-button:first-child {
+.button-c:first-child {
   border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
 }
 
-button:last-child {
+.button-c:last-child {
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
 }
 
-button:hover {  
+.button-c:hover {
   box-shadow: 0 5px 7px rgba(0,0,0,0.1);
 }
 
-button:active {
+.button-c:active {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

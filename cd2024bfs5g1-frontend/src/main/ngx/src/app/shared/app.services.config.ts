@@ -25,5 +25,8 @@ export const SERVICE_CONFIG: Object = {
   },
   bookingEvents: {
     path: "/bookingEvents",
+  },
+  bookingsRate: {
+    path: "/bookingsRate",
   }
 };

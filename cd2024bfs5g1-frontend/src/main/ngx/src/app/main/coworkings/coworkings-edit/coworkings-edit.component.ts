@@ -43,48 +43,27 @@ export class CoworkingsEditComponent {
 
   ngOnInit(): void {
     this.configureService();
-    3
   }
-
-  iniciarPantalla(selectedCity: string, address: string) {
-    const addressComplete = selectedCity + ", " + address;
-    setTimeout(() => {
-              this.leafletMap = this.coworking_map.getMapService().getMap();
-              if (this.leafletMap) {
-                console.log('Mapa inicializado correctamente:', this.leafletMap);
-              } else {
-                console.error('El mapa aún no está listo.');
-              }
-              this.getCoordinatesForCity(addressComplete).then((results) => {
-                if (results) {
-                       let [lat, lon] = results.split(';')
-                       if (this.coworking_map && this.coworking_map.getMapService()) {
-                         if (this.leafletMap) {
-                           this.leafletMap.setView([+lat, +lon], 16);
-                         } else {
-                           console.error('El mapa no está inicializado.');
-                         }
-                       } else {
-                         console.error('El servicio del mapa no está disponible.');
-                       }
-                       this.coworking_map.addMarker(
-                           'coworking_marker',           // id
-                           lat,                 // latitude
-                           lon,                 // longitude
-                           { draggable: true },       // options
-                           this.translate.get("COWORKING_MARKER"),     // popup
-                           false,                     // hidden
-                           true,                      // showInMenu
-                           this.translate.get("COWORKING_MARKER")   // menuLabel
-                         );
-               } else {
-                 this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-                         this.leafletMap.setView([40.416775, -3.703790], 6);
-               }
-             });
-            }, 5000);
-
-        
+  inicializarMapa(): void {
+    // Esperar hasta que los datos estén listos
+    this.waitForDataReady()
+      .then(() => {
+        const selectedCityId = this.combo.getValue();
+        const address = this.address.getValue();
+        const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+        const cityName = cityObject ? cityObject.city : null;
+  
+        if (!cityName || !address) {
+          this.snackBar(this.translate.get("INVALID_LOCATION"));
+          return;
+        }
+  
+        this.setLocation(cityName, address);
+      })
+      .catch((error) => {
+        console.error("Error al inicializar el mapa:", error);
+        this.snackBar(this.translate.get("ERROR_INITIALIZING_MAP"));
+      });
   }
   protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
@@ -204,6 +183,48 @@ export class CoworkingsEditComponent {
     }
   }
   // ---------------------- MAPA ----------------------
+  setLocation(cityName: string, address: string): void {
+    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+  
+    this.getCoordinatesForCity(addressComplete)
+      .then((results) => {
+        if (!results) {
+          this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
+          if (this.leafletMap) {
+            this.leafletMap.setView([40.416775, -3.703790], 6); // Madrid por defecto
+          }
+          return;
+        }
+  
+        const [lat, lon] = results.split(';');
+        if (this.coworking_map && this.coworking_map.getMapService()) {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
+          if (this.leafletMap) {
+            this.leafletMap.setView([+lat, +lon], 18);
+            this.coworking_map.addMarker(
+              'coworking_marker',
+              +lat,
+              +lon,
+              { draggable: true },
+              this.translate.get("COWORKING_MARKER"),
+              false,
+              true,
+              'Marcador Coworking'
+            );
+          } else {
+            console.error("El mapa no está inicializado.");
+          }
+        } else {
+          console.error("El servicio del mapa no está disponible.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error obteniendo coordenadas:", error);
+        this.snackBar(this.translate.get("ERROR_RETRIEVING_COORDINATES"));
+      });
+  }
+  
+
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
@@ -211,7 +232,6 @@ export class CoworkingsEditComponent {
     const cityName = cityObject ? cityObject.city : null;
 
     if (!cityName || !address) {
-      this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
 
@@ -220,8 +240,9 @@ export class CoworkingsEditComponent {
       if (results) {
         let [lat, lon] = results.split(';')
         if (this.coworking_map && this.coworking_map.getMapService()) {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
           if (this.leafletMap) {
-            this.leafletMap.setView([+lat, +lon], 16);
+            this.leafletMap.setView([+lat, +lon], 18);
           } else {
             console.error('El mapa no está inicializado.');
           }
@@ -285,5 +306,29 @@ export class CoworkingsEditComponent {
       });
     });
   }
+
+  private waitForDataReady(maxRetries = 20, intervalMs = 1000): Promise<void> {
+    let retries = 0;
+  
+    return new Promise((resolve, reject) => {
+      const interval = setInterval(() => {
+        const selectedCityId = this.combo.getValue();
+        const address = this.address.getValue();
+        const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+        const cityName = cityObject ? cityObject.city : null;
+  
+        if (cityName && address) {
+          clearInterval(interval);
+          resolve();
+        } else if (retries >= maxRetries) {
+          clearInterval(interval);
+          reject("Datos no disponibles después de múltiples intentos.");
+        }
+  
+        retries++;
+      }, intervalMs);
+    });
+  }
+  
 
 }

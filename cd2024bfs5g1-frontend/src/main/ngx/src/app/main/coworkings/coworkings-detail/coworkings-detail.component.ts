@@ -82,7 +82,7 @@ export class CoworkingsDetailComponent implements OnInit {
   public dateArrayF = [];
 
   leafletMap: any;
-
+  validAddress : boolean = false;
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
@@ -426,13 +426,13 @@ export class CoworkingsDetailComponent implements OnInit {
                   true,                      // showInMenu
                   this.translate.get("COWORKING_MARKER")   // menuLabel
                 );
-                validAddress = true;
+                this.validAddress = true;
       }else{
         console.log("Direccion invalida");
       }
     });
 
-    if(!validAddress){
+    if(!this.validAddress){
         this.getCoordinatesForCity(selectedCity).then((results) => {
               if (results) {
                       let [lat, lon] = results.split(';')

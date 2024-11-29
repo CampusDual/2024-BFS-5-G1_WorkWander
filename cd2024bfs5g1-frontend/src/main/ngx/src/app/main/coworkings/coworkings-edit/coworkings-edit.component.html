@@ -11,12 +11,7 @@
   columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
   visible-columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  (onDataLoaded)="
-      iniciarPantalla(
-        coworkingForm.getFieldValue('location'),
-        coworkingForm.getFieldValue('cw_address')
-      )
-    "
+  (onDataLoaded)="inicializarMapa()"
   ignore-default-navigation="yes"
   fxFlex
 >

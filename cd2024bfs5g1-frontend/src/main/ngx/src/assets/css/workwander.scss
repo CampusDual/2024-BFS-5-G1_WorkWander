@@ -476,6 +476,12 @@ div#innerCol {
     flex-direction: column;
     row-gap: 14px;
   }
+  .p-carousel-indicator.p-highlight button {
+    background-color: $primary;
+  }
+  .p-carousel-indicator.p-highlight button.p-link:hover {
+    background-color: $accent;
+  }
 
   o-form {
     .inner-form .o-form-content-wrapper {
@@ -492,9 +498,9 @@ div#innerCol {
       }
 
       o-map{
-        max-width: 700px;
-        min-width: 700px;
-        width: 700px;
+        max-width: 650px;
+        min-width: 650px;
+        width: 650px;
         max-height: 450px;
         min-height: 450px;
         height: 450px;
@@ -956,11 +962,11 @@ svg.p-icon.p-rating-icon {
 
 .event-item {
   .event-item-content {
-      width: 60%;
-      padding: 10px;
+      width: 95%;
       border: 1px solid #dfe7ef;
       border-radius: 25px 5px 25px 5px;
       text-align: center;
+      padding-top:2px;
       height: 20%;
       margin:0 auto;
   }

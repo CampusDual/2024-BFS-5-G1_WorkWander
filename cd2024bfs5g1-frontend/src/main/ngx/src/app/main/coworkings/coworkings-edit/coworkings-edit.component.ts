@@ -52,12 +52,12 @@ export class CoworkingsEditComponent {
         const address = this.address.getValue();
         const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
         const cityName = cityObject ? cityObject.city : null;
-  
+
         if (!cityName || !address) {
           this.snackBar(this.translate.get("INVALID_LOCATION"));
           return;
         }
-  
+
         this.setLocation(cityName, address);
       })
       .catch((error) => {
@@ -185,7 +185,7 @@ export class CoworkingsEditComponent {
   // ---------------------- MAPA ----------------------
   setLocation(cityName: string, address: string): void {
     const addressComplete = address ? `${address}, ${cityName}` : cityName;
-  
+
     this.getCoordinatesForCity(addressComplete)
       .then((results) => {
         if (!results) {
@@ -195,7 +195,7 @@ export class CoworkingsEditComponent {
           }
           return;
         }
-  
+
         const [lat, lon] = results.split(';');
         if (this.coworking_map && this.coworking_map.getMapService()) {
           this.leafletMap = this.coworking_map.getMapService().getMap();
@@ -223,7 +223,7 @@ export class CoworkingsEditComponent {
         this.snackBar(this.translate.get("ERROR_RETRIEVING_COORDINATES"));
       });
   }
-  
+
 
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
@@ -232,6 +232,7 @@ export class CoworkingsEditComponent {
     const cityName = cityObject ? cityObject.city : null;
 
     if (!cityName || !address) {
+      this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
 
@@ -309,14 +310,14 @@ export class CoworkingsEditComponent {
 
   private waitForDataReady(maxRetries = 20, intervalMs = 1000): Promise<void> {
     let retries = 0;
-  
+
     return new Promise((resolve, reject) => {
       const interval = setInterval(() => {
         const selectedCityId = this.combo.getValue();
         const address = this.address.getValue();
         const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
         const cityName = cityObject ? cityObject.city : null;
-  
+
         if (cityName && address) {
           clearInterval(interval);
           resolve();
@@ -324,11 +325,11 @@ export class CoworkingsEditComponent {
           clearInterval(interval);
           reject("Datos no disponibles después de múltiples intentos.");
         }
-  
+
         retries++;
       }, intervalMs);
     });
   }
-  
+
 
 }

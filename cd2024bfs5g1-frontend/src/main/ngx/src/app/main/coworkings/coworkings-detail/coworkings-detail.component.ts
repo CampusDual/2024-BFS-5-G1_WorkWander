@@ -98,8 +98,6 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.showServices();
-    //this.mapaShow();
   }
   iniciarPantalla(idLocation: number, city: string, address: string) {
     this.showEvents(idLocation);

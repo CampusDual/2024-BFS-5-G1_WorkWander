@@ -85,6 +85,7 @@
   "LOCATION": "Localidad",
   "CAPACITY": "Capacidad",
   "DAILY_PRICE": "dia",
+  "PRICE": "precio",
   "MYCOWORKINGS": "Mis coworkings",
   "cw_id": "Coworking id.",
   "cw_name": "Nombre",

@@ -84,7 +84,7 @@
   "ADDRESS": "Address",
   "LOCATION": "Location",
   "CAPACITY": "Capacity",
-  "DAILY_PRICE": "Daily price",
+  "DAILY_PRICE": "day",
   "MYCOWORKINGS": "My coworkings",
   "cw_id": "Coworking id.",
   "cw_name": "Name",
@@ -208,5 +208,9 @@
   "EVENT_DISPONIBILITY_GT_00": "Come on hurry up!!!",
   "EVENT_DISPONIBILITY_EQ_00": "Keep looking",
   "BOOKINGS_LEFT": "Booking left",
-  "AVAILABLE": "available"
+  "AVAILABLE": "available",
+  "ADDRESS_NOT_FOUND": "Address not found",
+  "INVALID_LOCATION": "Select a valid location",
+  "API_ERROR": "Query API error",
+  "COWORKING_MARKER": "Coworking location"
 }

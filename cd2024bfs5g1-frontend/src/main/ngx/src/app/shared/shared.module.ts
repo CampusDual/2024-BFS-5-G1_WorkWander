@@ -8,10 +8,12 @@ import { EventsDetailComponent } from '../main/events/events-detail/events-detai
 import { UtilsService } from './services/utils.service';
 import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/coworkings-edit.component';
 import { NumberToArrayPipe } from '../pipes/number-to-array.pipe';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 @NgModule({
   imports: [
-    OntimizeWebModule
+    OntimizeWebModule,
+    OMapModule
   ],
   declarations: [
     FilterComponent,

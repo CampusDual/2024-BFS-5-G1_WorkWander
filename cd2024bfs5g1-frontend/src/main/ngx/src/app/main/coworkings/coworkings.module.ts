@@ -7,6 +7,7 @@ import { CoworkingsHomeComponent } from './coworkings-home/coworkings-home.compo
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { CarouselModule } from 'primeng/carousel';
+import { OMapModule } from 'ontimize-web-ngx-map';
 import { RatingModule } from 'primeng/rating';
 
 
@@ -22,6 +23,7 @@ import { RatingModule } from 'primeng/rating';
     SharedModule,
     ODateRangeInputModule,
     MatRadioModule,
+    OMapModule,
     CarouselModule,
     RatingModule
   ]

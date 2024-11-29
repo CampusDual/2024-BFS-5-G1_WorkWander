@@ -14,18 +14,6 @@ h6 {
   }
 }
 /* Colores personalizados */
-/*
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5f6f65;
-
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
-
-$colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;*/
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -214,6 +202,10 @@ login {
   }
 }
 
+app-coworking-new{
+  gap: 25px;
+  flex-wrap: wrap;
+}
 /* Formato Full page */
 .full-page {
   width: 100%;
@@ -315,6 +307,15 @@ nav.ng-star-inserted:nth-last-child(2) {
   bottom: 25px;
   right: 0;
   width: 96%;
+  
+
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
   :hover {
     border-left: 0px solid $accent !important;
@@ -336,6 +337,7 @@ nav.ng-star-inserted:nth-last-child(2) {
 
 // Formato barra lateral
 .o-app-sidenav {
+
   .o-app-sidenav-sidenav {
     background-image: $linear-gradientBT;
     background-color: $primary;
@@ -398,6 +400,30 @@ div#innerCol {
   gap: 25px;
   flex-wrap: wrap;
   flex-direction: column;
+  align-content: center;
+
+  o-image .o-image-display-container {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: left;
+    align-items: flex-start;
+    margin:0 !important ;
+
+    img {
+      width: 510px !important;
+      height: 290px !important;
+      object-fit: cover !important;
+    }  
+
+  }
+  .button-back {
+    position: absolute;
+  }
+  .dos-columnas{
+    width: 100%;
+    padding: 0 15px;
+  }
 
   o-column.o-column,
   o-row.o-row {
@@ -414,28 +440,71 @@ div#innerCol {
 
     div.info-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 550px;
     }
 
     div.detail-container {
-      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .bloque-reserva {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+
+          >div{
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: row;
+              width: 100%;
+              column-gap: 27px;
+              justify-content: flex-end;
+          }
+      }
     }
   }
-  p {
-    max-width: 449px !important;
-    overflow: hidden;
+
+  #carousel {
+    padding-top:35px;
+  }
+  .p-carousel {
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
   }
 
   o-form {
     .inner-form .o-form-content-wrapper {
       flex-flow: wrap;
     }
-  }
 
+  }
+    .map-container {
+      padding-top: 25px;
+
+      .ubicacion{
+        padding-top:30px;
+        font-size: $fontSize20;
+      }
+
+      o-map{
+        max-width: 700px;
+        min-width: 700px;   
+        width: 700px;
+        max-height: 450px;
+        min-height: 450px;
+        height: 450px;
+      }
+    }
   o-button.o-button button {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
     border: none;
+    width: 150px;
     -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
@@ -449,7 +518,7 @@ div#innerCol {
     }
     img {
       width: 480px !important;
-      height: 450px !important;
+      height: 280px !important;
       object-fit: cover !important;
       border-radius: $borderRadiusButton;
       display: block;
@@ -460,14 +529,15 @@ div#innerCol {
   }
   .price {
     // Estilo del precio
-    font-size: $fontSize25;
+    font-size: $fontSize18;
     font-weight: bold;
     background-color: $verdeBoton;
     color: $blanco;
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 10px 25px 10px;
+    padding: 10px 22px;
     border-radius: $borderRadius;
     text-align: center;
+    box-shadow: 0px 0px 10px 0px $verdeBotonClaro;
   }
 
   .price .decimal {
@@ -476,9 +546,9 @@ div#innerCol {
   }
 }
 .reservation-button {
-  display: block;
-  margin: 20px auto;
   text-align: center;
+  max-width: 170px;
+  width: 170px;
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -507,16 +577,50 @@ o-column {
 .form-container {
   width: 100vw;
 }
+.columna-imagen-mapa{
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+
+  o-map{
+    width: 100%;
+    height: 100%;
+    max-height: 470px;
+    min-height: 470px;
+    height: 470px;
+  } 
+  o-image{
+    width: 100%;
+    height: 100%;
+    max-height: 270px;
+    min-height: 270px;
+  }
+}
+.map-container o-map{
+  width: 100%;
+  height: 100%;
+  max-height: 470px;
+  min-height: 470px;
+  height: 470px;
+}
 
 .form-new-event {
   background-color: transparent;
+  border: solid 1px $verdeBoton;
+  border-radius: $borderRadius;
+  width: 80vw;
+  max-width: 80vw;
+
+  .form-section{
+    min-width: 500px;
+    flex-wrap: wrap;
+  }
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
     background: transparent;
-    border: solid 1px $verdeBoton;
-    border-radius: $borderRadius;
     padding: 5px;
+    border: solid 0px $verdeBoton;
 
     o-text-input,
     o-integer-input,
@@ -534,9 +638,29 @@ o-column {
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
+    o-image.imagen-mapa{
+      width: 150px;
+      height: 150px;
+      max-height: 150px;
+      min-height: 150px;
 
+      o-image-content .o-image-display-container {
+        margin: 4px;
+        padding: 5px;
+      }
+    }
+
+    .rowCityDirection {
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+      margin: 60px 0 25px 0;
+      justify-content: space-between;
+    }
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
+      overflow: hidden;
+
       > div {
         gap: 25px;
         flex-direction: row !important;
@@ -544,10 +668,12 @@ o-column {
         justify-content: space-between !important;
       }
     }
+
     o-column.o-column,
     o-row.o-row {
       background: $blanco;
     }
+
   }
   article.ng-star-inserted {
     align-self: center !important;
@@ -567,6 +693,7 @@ o-column {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    padding: 15px;
   }
   .o-image .o-image-content.o-image-auto-fit .o-image-display-container > img {
     max-width: 350px;
@@ -589,7 +716,7 @@ o-column {
   font-weight: 700;
 }
 .application-layout-content-wrapper.header-layout {
-  background-image: url("assets/images/fondo_workwander.jpg");
+  // background-image: url("assets/images/fondo_workwander.jpg");
   background-position-y: bottom;
   background-position-x: right;
   background-repeat: no-repeat;
@@ -855,8 +982,24 @@ svg.p-icon.p-rating-icon {
 
 @media (min-width: 768px) {
   .form-new-event {
+    margin-top: 70px;
+
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
+
+      o-combo.halfSize{
+        max-width: 27%;
+        width: 27%;
+        min-width: 27%;
+      }
+
+      o-text-input.halfSize{
+        max-width: 67%;
+        width: 67%;
+        min-width: 67%;
+      }
+
+
       o-date-input,
       o-integer-input,
       o-real-input,
@@ -893,6 +1036,11 @@ svg.p-icon.p-rating-icon {
     width: 100% !important;
     min-width: 100% !important;
   }
+  .form-new-event article.ng-star-inserted mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
 }
 @media (max-width: 576px) {
   .full-page {
@@ -958,6 +1106,9 @@ svg.p-icon.p-rating-icon {
       font-size: $fontSize18;
     }
   }
+  .dos-columnas{
+    flex-direction: column !important;
+   }
 }
 @media (min-width: 1000px) and (max-width: 1250px) {
   .coworking-card {

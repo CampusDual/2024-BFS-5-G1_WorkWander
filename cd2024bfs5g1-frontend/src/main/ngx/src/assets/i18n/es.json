@@ -84,7 +84,7 @@
   "ADDRESS": "Dirección",
   "LOCATION": "Localidad",
   "CAPACITY": "Capacidad",
-  "DAILY_PRICE": "Precio diario",
+  "DAILY_PRICE": "dia",
   "MYCOWORKINGS": "Mis coworkings",
   "cw_id": "Coworking id.",
   "cw_name": "Nombre",
@@ -208,5 +208,9 @@
   "bk_description": "Reseña",
   "SEND_REVIEW": "Enviar valoración",
   "REVIEWS": "Reseñas",
-  "AVAILABLE": "disponible"
+  "AVAILABLE": "disponible",
+  "ADDRESS_NOT_FOUND": "Dirección no encontrada",
+  "INVALID_LOCATION": "Seleccione una población válida",
+  "API_ERROR": "Error al consultar la API",
+  "COWORKING_MARKER": "Ubicación del coworking"
 }

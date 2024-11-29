@@ -18,6 +18,7 @@ import {
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { OMapComponent } from "ontimize-web-ngx-map";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -38,7 +39,8 @@ export class CoworkingsDetailComponent implements OnInit {
     private location: Location,
     private sanitizer: DomSanitizer,
     private utils: UtilsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.responsiveOptions = [
       {
@@ -67,7 +69,9 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild('formAverage', { static: true }) formAverage!: OFormComponent; // Garantiza que esta propiedad no será undefined al usarla.
-
+  @ViewChild("coworking_map") coworking_map: OMapComponent;
+  @ViewChild("cw_city") cw_city: OTextInputComponent;
+  @ViewChild("cw_address") cw_address: OTextInputComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -76,6 +80,8 @@ export class CoworkingsDetailComponent implements OnInit {
   public dateArray = [];
   public dateArrayF = [];
 
+  center: string = "42.240599;-8.720727";
+
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
     const price_ = parseFloat(price);
@@ -83,7 +89,7 @@ export class CoworkingsDetailComponent implements OnInit {
     if (decimalPart == "") {
       decimalPart = "00";
     }
-    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+    return `${integerPart},<span class="">${decimalPart}</span> €`;
   }
 
   getName() {
@@ -91,7 +97,10 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showServices();
+  }
+  iniciarPantalla(idLocation: number, city: string, address: string) {
+    this.showEvents(idLocation);
+    this.mapaShow(city, address);
   }
 
   currentDate() {
@@ -372,12 +381,12 @@ export class CoworkingsDetailComponent implements OnInit {
     const fullIcons = Math.floor(average); // Número de íconos completos
     const hasHalfIcon = average % 1 >= 0.5; // Determina si se necesita un medio ícono
     const totalIcons = 5; // Número máximo de íconos (por ejemplo, 5 estrellas)
-    
+
 
     return {
       fullIcons,
       hasHalfIcon,
-     
+
     };
   }
 
@@ -386,8 +395,8 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns Número (media).
    */
   getAverage(): number {
- 
-    let media : number =  Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10; 
+
+    let media : number =  Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
 
     return media ;
   }
@@ -403,5 +412,73 @@ export class CoworkingsDetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  // ---------------------- MAPA ----------------------
+  mapaShow(selectedCity: string, address: string): void {
+    const addressComplete = selectedCity + ", " + address;
+
+    this.getCoordinatesForCity(addressComplete).then((results) => {
+      if (results) {
+        const [lat, lon] = results.split(';')
+        this.center = lat + ";" + lon;
+        this.coworking_map.getMapService().setCenter(+lat, +lon);
+        this.coworking_map.getMapService().setZoom(18);
+        this.coworking_map.addMarker(
+          'custom_marker',           // id
+          lat,                 // latitude
+          lon,                 // longitude
+          { draggable: true },       // options
+          'Ubicacion del coworking',     // popup
+          false,                     // hidden
+          true,                      // showInMenu
+          'Marcador Personalizado'   // menuLabel
+        );
+      } else {
+        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+        this.getCoordinatesForCity(selectedCity).then((results) => {
+          if (results) {
+            const [lat, lon] = results.split(';')
+            this.center = lat + ";" + lon;
+            this.coworking_map.getMapService().setCenter(+lat, +lon);
+            this.coworking_map.getMapService().setZoom(12);
+            this.coworking_map.addMarker(
+              'custom_marker',           // id
+              lat,                 // latitude
+              lon,                 // longitude
+              { draggable: true },       // options
+              'Ubicacion del coworking',     // popup
+              false,                     // hidden
+              true,                      // showInMenu
+              'Marcador Personalizado'   // menuLabel
+            );
+          }
+        });
+      }
+    });
+  }
+
+  //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
+  private async getCoordinatesForCity(location: string): Promise<string | null> {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const response = await this.http.get<any>(url).toPromise();
+      if (response?.length > 0) {
+        const { lat, lon } = response[0];
+        return `${lat};${lon}`;
+      } else {
+        this.snackBar(`No se encontraron resultados para: ${location}`);
+      }
+    } catch (error) {
+      this.snackBar(`Error al consultar la API: ${error}`);
+    }
+    return null;
+  }
+  private snackBar(message: string): void {
+    this.snackBarService.open(message, {
+      milliseconds: 5000,
+      icon: 'error',
+      iconPosition: 'left'
+    });
   }
 }

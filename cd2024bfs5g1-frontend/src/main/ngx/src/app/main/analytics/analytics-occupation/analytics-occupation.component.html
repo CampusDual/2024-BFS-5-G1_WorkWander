@@ -1,11 +1,4 @@
 <o-form show-header="false" class="chart-container">
-  <div class="button-back">
-    <o-button
-      attr="iconposition3"
-      icon="arrow_back_ios"
-      (click)="goBack()"
-    ></o-button>
-  </div>
   <!-- Combobox para seleccionar coworkings -->
   <div class="selector-container">
     <o-combo
@@ -14,7 +7,7 @@
       attr="cw_name"
       service="coworkings"
       entity="coworkingByUser"
-      label="{{ 'SELECT_COWORKING' | oTranslate }}"
+      label="{{ 'SELECT_COWORKING' | oTranslate }} {{maxSelection}} {{' coworkings.'}}"
       value-column="cw_id"
       columns="cw_name"
       visible-columns="cw_name"
@@ -37,7 +30,7 @@
       fxFlex
       label="SELECT_DATE_RANGE"
       read-only="no"
-      required="yes"
+      required="no"
       (onValueChange)="setDates()"
       value-type="date"
     ></o-daterange-input>

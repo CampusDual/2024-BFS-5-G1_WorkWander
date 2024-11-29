@@ -44,22 +44,16 @@ export class AnalyticsOccupationComponent {
     private location: Location
   ) {}
 
-  onCoworkingChange(selectednames: OValueChangeEvent) {
-    if (selectednames.type === 0) {
-      if (selectednames.newValue.length <= this.maxSelection) {
-        this.selectedCoworkings = selectednames.newValue;
-        this.selectedCoworking = this.selectedCoworkings.join(",");
-        this.showAvailableToast(
-          `${this.translate.get(
-            "COWORKING_CHART_SELECTION"
-          )} ${this.selectedCoworkings.join(", ")}`
-        );
+  onCoworkingChange(selectedNames: OValueChangeEvent) {
+    if (selectedNames.type === 0) {
+      if (selectedNames.newValue.length <= this.maxSelection) {
+        this.selectedCoworkings = selectedNames.newValue;
         this.setDatesAndQueryBackend();
       } else {
-        this.comboCoworkingInput.setValue(selectednames.oldValue);
+        this.comboCoworkingInput.setValue(selectedNames.oldValue);
         this.showAvailableToast(
           this.translate.get("COWORKING_CHART_SELECTION_LIMIT") +
-            this.maxSelection
+            this.maxSelection+ " coworkings."
         );
         return;
       }

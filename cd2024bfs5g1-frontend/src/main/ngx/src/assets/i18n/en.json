@@ -183,11 +183,14 @@
   "EDIT_COWORKING": "Edit coworking",
   "COWORKING_UPDATE": "Coworking updated!",
   "COWORKING_CREATE": "Coworking created!",
-  "COWORKING_CHART_SELECTION_LIMIT": "You can select up to these coworkings: ",
+  "COWORKING_CHART_SELECTION_LIMIT": "You can select up to ",
   "COWORKING_CHART_ SELECTION_ERROR": "Error while charging occupation data.",
   "COWORKING_CHART_SELECTION": "Selected coworkings: ",
   "X-LABEL": "Date",
   "Y-LABEL": "Occupation",
-  "SELECT_COWORKING": "Select up to three coworkings ",
-  "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date."
+  "SELECT_COWORKING": "Select between 1 and ",
+  "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
+  "ANALYTICS": "Analytics",
+  "OCCUPATION": "Occupation"
+
 }

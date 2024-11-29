@@ -45,10 +45,9 @@
   }
 
   .chart-wrapper {
-    width: 100%;
+    width: 95%;
     margin: 20px auto;
     padding: 20px;
-
     o-chart {
       width: 100%;
       min-height: 500px;
@@ -58,6 +57,16 @@
       display: block;
     }
   }
+}
+
+.noResults {
+  text-align: center;
+  margin: 35px auto;
+  max-width: 800px;
+  width: 100%;
+  color: $primary;
+  font-size: $fontSize25;
+  text-align: center;
 }
 
 // Estilos responsive

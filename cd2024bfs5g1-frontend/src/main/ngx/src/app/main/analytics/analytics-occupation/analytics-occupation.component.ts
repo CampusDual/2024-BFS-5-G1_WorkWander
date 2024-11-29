@@ -19,7 +19,7 @@ import {
 @Component({
   selector: "app-analytics-occupation",
   templateUrl: "./analytics-occupation.component.html",
-  styleUrls: ["./analytics-occupation.component.css"],
+  styleUrls: ["./analytics-occupation.component.scss"],
   encapsulation: ViewEncapsulation.None,
   host: { "[class.custom-chart]": "true" },
 })

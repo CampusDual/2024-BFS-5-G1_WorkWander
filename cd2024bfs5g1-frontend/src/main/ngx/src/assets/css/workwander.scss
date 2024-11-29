@@ -399,6 +399,7 @@ div#innerCol {
   gap: 25px;
   flex-wrap: wrap;
   flex-direction: column;
+  align-content: center;
 
   o-image .o-image-display-container {
     flex-direction: column;
@@ -415,7 +416,9 @@ div#innerCol {
     }  
 
   }
-
+  .button-back {
+    position: absolute;
+  }
   .dos-columnas{
     width: 100%;
     padding: 0 15px;
@@ -449,11 +452,15 @@ div#innerCol {
           display: flex;
           flex-direction: row;
           align-items: flex-end;
-          justify-content: space-between;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+
           >div{
               display: flex;
               flex-wrap: wrap;
               flex-direction: row;
+              width: 100%;
+              column-gap: 27px;
           }
       }
     }
@@ -483,9 +490,9 @@ div#innerCol {
       }
 
       o-map{
-        max-width: 550px;
-        min-width: 550px;   
-        width: 550px;
+        max-width: 700px;
+        min-width: 700px;   
+        width: 700px;
         max-height: 450px;
         min-height: 450px;
         height: 450px;
@@ -599,7 +606,7 @@ o-column {
   background-color: transparent;
   border: solid 1px $verdeBoton;
   border-radius: $borderRadius;
-  width: 1200px;
+  width: 80vw;
   max-width: 80vw;
 
   .form-section{
@@ -964,6 +971,7 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 
 @media (min-width: 768px) {
   .form-new-event {
+    margin-top: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
@@ -1087,6 +1095,9 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
       font-size: $fontSize18;
     }
   }
+  .dos-columnas{
+    flex-direction: column !important;
+   }
 }
 @media (min-width: 1000px) and (max-width: 1250px) {
   .coworking-card {

@@ -63,7 +63,7 @@ export class CoworkingsNewComponent implements OnInit {
       } else {
         console.error('El mapa aún no está listo.');
       }
-    }, 500); // Ajusta el tiempo según sea necesario
+    }, 500);
   }
 
   protected configureService() {
@@ -165,42 +165,35 @@ export class CoworkingsNewComponent implements OnInit {
       this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
+
     const addressComplete = address ? `${address}, ${cityName}` : cityName;
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
         let [lat, lon] = results.split(';')
-
-        console.log('coworking_map:', this.coworking_map);
-        console.log('MapService:', this.coworking_map?.getMapService());
-        console.log('Map instance:', this.coworking_map?.getMapService()?.getMap());
-
-        if (this.coworking_map && this.coworking_map.getMapService()) {
-          this.leafletMap = this.coworking_map.getMapService().getMap();
-          if (this.leafletMap) {
-            this.leafletMap.setView([+lat, +lon], 16); // Por ejemplo
+          if (this.coworking_map && this.coworking_map.getMapService()) {
+              if (this.leafletMap) {
+                this.leafletMap.setView([+lat, +lon], 16);
+              } else {
+                console.error('El mapa no está inicializado.');
+              }
           } else {
-            console.error('El mapa no está inicializado.');
+            console.error('El servicio del mapa no está disponible.');
           }
-        } else {
-          console.error('El servicio del mapa no está disponible.');
-        }
-
-        this.coworking_map.addMarker(
-          'custom_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          'Ubicacion del coworking',     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          'Marcador Personalizado'   // menuLabel
-        );
-        this.validAddress = true;
+          this.validAddress = true;
+          this.coworking_map.addMarker(
+            'coworking_marker',           // id
+            lat,                 // latitude
+            lon,                 // longitude
+            { draggable: true },       // options
+            this.translate.get("COWORKING_MARKER"),     // popup
+            false,                     // hidden
+            true,                      // showInMenu
+            'Marcador Coworking'   // menuLabel
+          );
       }else{
-
+        //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-        this.coworking_map.getMapService().setCenter(40.416775,-3.703790);
-        this.coworking_map.getMapService().setZoom(6);
+        this.leafletMap.setView([40.416775, -3.703790], 6);
       }
     });
   }
@@ -221,7 +214,6 @@ export class CoworkingsNewComponent implements OnInit {
     }
     return null;
   }
-
 
   private snackBar(message: string): void {
     this.snackBarService.open(message, {

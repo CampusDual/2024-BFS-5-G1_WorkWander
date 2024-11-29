@@ -196,7 +196,9 @@
   "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
   "EVENT_PRICE": "Precio",
   "FREE_EVENT": "Evento gratuito",
-  "price": "Precio"
-  "NO_BOOKING_ENABLED": "¡No hay reserva disponible!",
-  "MY_CALENDAR":"Mi calendario"
+  "price": "Precio",
+  "MY_CALENDAR":"Mi calendario",
+  "DAY":"Día",
+  "WEEK":"Semana",
+  "MONTH":"Mes"
 }

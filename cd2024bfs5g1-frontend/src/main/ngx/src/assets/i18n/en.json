@@ -197,5 +197,8 @@
   "MY_CALENDAR":"My calendar",
   "EVENT_PRICE": "Price",
   "FREE_EVENT": "Free event",
-  "price": "Price"
+  "price": "Price",
+  "DAY":"Day",
+  "WEEK":"Week",
+  "MONTH":"Month"
 }

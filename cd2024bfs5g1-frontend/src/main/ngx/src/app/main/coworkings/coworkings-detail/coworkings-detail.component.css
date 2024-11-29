@@ -1,5 +1,3 @@
-@import "primeicons/primeicons.css";
-
 .card {
   width: 60%;
   height: 60%;
@@ -30,3 +28,8 @@
   color: white;
 }
 
+.media_rating {
+  color: #d3b403;
+  transform: scale(1.5);
+  padding-left: 8px;
+}

@@ -19,7 +19,7 @@ import {
 @Component({
   selector: "app-analytics-occupation",
   templateUrl: "./analytics-occupation.component.html",
-  styleUrls: ["./analytics-occupation.component.css"],
+  styleUrls: ["./analytics-occupation.component.scss"],
   encapsulation: ViewEncapsulation.None,
   host: { "[class.custom-chart]": "true" },
 })
@@ -44,19 +44,14 @@ export class AnalyticsOccupationComponent {
     private location: Location
   ) {}
 
-  onCoworkingChange(selectednames: OValueChangeEvent) {
-    if (selectednames.type === 0) {
-      if (selectednames.newValue.length <= this.maxSelection) {
-        this.selectedCoworkings = selectednames.newValue;
+  onCoworkingChange(selectedNames: OValueChangeEvent) {
+    if (selectedNames.type === 0) {
+      if (selectedNames.newValue.length <= this.maxSelection) {
+        this.selectedCoworkings = selectedNames.newValue;
         this.selectedCoworking = this.selectedCoworkings.join(",");
-        this.showAvailableToast(
-          `${this.translate.get(
-            "COWORKING_CHART_SELECTION"
-          )} ${this.selectedCoworkings.join(", ")}`
-        );
         this.setDatesAndQueryBackend();
       } else {
-        this.comboCoworkingInput.setValue(selectednames.oldValue);
+        this.comboCoworkingInput.setValue(selectedNames.oldValue);
         this.showAvailableToast(
           this.translate.get("COWORKING_CHART_SELECTION_LIMIT") +
             this.maxSelection

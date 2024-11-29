@@ -1,49 +1,47 @@
 <o-form show-header="false" class="chart-container">
-  <div class="button-back">
-    <o-button
-      attr="iconposition3"
-      icon="arrow_back_ios"
-      (click)="goBack()"
-    ></o-button>
+  <!-- Añadir el título aquí -->
+  <div class="title">
+    <h1>{{ "OCCUPANCY_PERCENTAGE_TITLE" | oTranslate }}</h1>
   </div>
   <!-- Combobox para seleccionar coworkings -->
   <div class="selector-container">
-    <o-combo
-      class="input-selector"
-      #comboCoworkingInput
-      attr="cw_name"
-      service="coworkings"
-      entity="coworkingByUser"
-      label="{{ 'SELECT_COWORKING' | oTranslate }}"
-      value-column="cw_id"
-      columns="cw_name"
-      visible-columns="cw_name"
-      required="yes"
-      formControlName="coworking"
-      (onValueChange)="onCoworkingChange($event)"
-      searchable="true"
-      [multiple]="true"
-      (onSelectionChange)="onCoworkingChange($event)"
-      multiple-trigger-label="true"
-    >
-    </o-combo>
-
-    <!-- Date Range Selector -->
-
-    <o-daterange-input
-      class="input-selector"
-      attr="daterange"
-      #daterange
-      fxFlex
-      label="SELECT_DATE_RANGE"
-      read-only="no"
-      required="yes"
-      (onValueChange)="setDates()"
-      value-type="date"
-    ></o-daterange-input>
+    <div class="input-selector">
+      <o-combo
+        #comboCoworkingInput
+        attr="cw_name"
+        service="coworkings"
+        entity="coworkingByUser"
+        label="{{ 'SELECT_COWORKING' | oTranslate }}"
+        value-column="cw_id"
+        columns="cw_name"
+        visible-columns="cw_name"
+        required="yes"
+        formControlName="coworking"
+        (onValueChange)="onCoworkingChange($event)"
+        searchable="true"
+        [multiple]="true"
+        (onSelectionChange)="onCoworkingChange($event)"
+        multiple-trigger-label="true"
+      >
+      </o-combo>
+    </div>
+    <div class="input-selector">
+      <!-- Date Range Selector -->
+      <o-daterange-input
+        attr="daterange"
+        #daterange
+        fxFlex
+        label="SELECT_DATE_RANGE"
+        read-only="no"
+        required="yes"
+        (onValueChange)="setDates()"
+        value-type="date"
+      ></o-daterange-input>
+    </div>
   </div>
-  <div>
-    <!-- Gráfico de Ocupación -->
+
+  <!-- Movido el gráfico fuera del selector-container -->
+  <div class="chart-wrapper">
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart
         type="line"

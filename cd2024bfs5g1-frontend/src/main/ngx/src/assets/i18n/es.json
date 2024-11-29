@@ -118,13 +118,13 @@
   "description": "Descripción",
   "NEW_EVENT": "Crear Evento",
   "REGISTER": "Registrar",
-  "ADD_COWORKING":"Añadir coworking",
-  "START_DATE":"Fecha de Inicio",
-  "END_DATE":"Fecha de Final",
+  "ADD_COWORKING": "Añadir coworking",
+  "START_DATE": "Fecha de Inicio",
+  "END_DATE": "Fecha de Final",
   "BOOKING_STATE": "Estado de reserva",
-  "COWORKING_ADDED":"Operación exitosa",
-  "COWORKING_ADDED2":"El coworking se ha guardado correctamente",
-  "SELECT_DATE":"Seleccione una fecha",
+  "COWORKING_ADDED": "Operación exitosa",
+  "COWORKING_ADDED2": "El coworking se ha guardado correctamente",
+  "SELECT_DATE": "Seleccione una fecha",
   "REGISTER_TITLE": "Registrate",
   "selected_services": "Servicios",
   "save": "Guardar",
@@ -189,6 +189,6 @@
   "X-LABEL": "Fecha",
   "Y-LABEL": "Ocupación",
   "SELECT_COWORKING": "Seleccione entre uno y tres coworkings:  ",
-  "NO_CHART_AVAILABLE": "No hay ningún gráfico disponible. Seleccione coworking y fecha."
-
+  "NO_CHART_AVAILABLE": "No hay ningún gráfico disponible. Seleccione coworking y fecha.",
+  "OCCUPANCY_PERCENTAGE_TITLE": "Porcentaje de ocupación"
 }

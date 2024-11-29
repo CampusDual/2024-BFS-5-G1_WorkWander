@@ -13,18 +13,6 @@ h6 {
   }
 }
 /* Colores personalizados */
-/*
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5f6f65;
-
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
-
-$colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;*/
 
 $borderRadius: 25px 5px 25px 5px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -412,6 +400,22 @@ div#innerCol {
   flex-wrap: wrap;
   flex-direction: column;
 
+  o-image .o-image-display-container {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: left;
+    align-items: flex-start;
+    margin:0 !important ;
+
+    img {
+      width: 510px !important;
+      height: 290px !important;
+      object-fit: cover !important;
+    }  
+
+  }
+
   .dos-columnas{
     width: 100%;
     padding: 0 15px;
@@ -432,7 +436,7 @@ div#innerCol {
 
     div.info-container {
       width: 100%;
-      max-width: 400px;
+      max-width: 550px;
     }
 
     div.detail-container {
@@ -440,12 +444,21 @@ div#innerCol {
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
+
+      .bloque-reserva {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: space-between;
+          >div{
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: row;
+          }
+      }
     }
   }
-  p {
-    max-width: 449px !important;
-    overflow: hidden;
-  }
+
   #carousel {
     padding-top:35px;
   }
@@ -453,23 +466,12 @@ div#innerCol {
     display: flex;
     flex-direction: column;
     row-gap: 14px;
-}
-  /*
-  .card {
-    width: 60%;
-    height: 60%;
-    margin: 0 auto;
   }
 
-  .p-carousel-container {
-    margin-top: 0%;
-  }
-    */
   o-form {
     .inner-form .o-form-content-wrapper {
       flex-flow: wrap;
     }
-
 
   }
     .map-container {
@@ -493,6 +495,7 @@ div#innerCol {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
     border: none;
+    width: 150px;
     -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
@@ -506,7 +509,7 @@ div#innerCol {
     }
     img {
       width: 480px !important;
-      height: 450px !important;
+      height: 280px !important;
       object-fit: cover !important;
       border-radius: $borderRadiusButton;
       display: block;
@@ -517,14 +520,15 @@ div#innerCol {
   }
   .price {
     // Estilo del precio
-    font-size: $fontSize25;
+    font-size: $fontSize18;
     font-weight: bold;
     background-color: $verdeBoton;
     color: $blanco;
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 10px 25px 10px;
+    padding: 10px 22px;
     border-radius: $borderRadius;
     text-align: center;
+    box-shadow: 0px 0px 10px 0px $verdeBotonClaro;
   }
 
   .price .decimal {
@@ -533,9 +537,9 @@ div#innerCol {
   }
 }
 .reservation-button {
-  display: block;
-  margin: 20px auto;
   text-align: center;
+  max-width: 170px;
+  width: 170px;
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {

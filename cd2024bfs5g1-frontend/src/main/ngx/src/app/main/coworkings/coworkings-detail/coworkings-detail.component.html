@@ -56,8 +56,6 @@
               attr="cw_image"
               show-controls="no"
               read-only="yes"
-              height="300px"
-              width="350px"
               auto-fit="no"
             ></o-image>
           </div>
@@ -66,8 +64,6 @@
             *ngIf="!form.getFieldValue('cw_image')"
             src="assets/images/coworking-default.jpg"
             alt="Imagen predeterminada"
-            height="480px"
-            width="450px"
           />
         </div>
         <div class="info-container" style="padding-top: 15px">
@@ -126,71 +122,83 @@
             </section>
           </div>
           <div class="detail-container">
-            <o-text-input
-              #sites
-              oHidden
-              attr="cw_capacity"
-              fxFlex
-              label="CAPACITY"
-            ></o-text-input>
-            <p>
-              <strong>{{ "CAPACITY" | oTranslate }}:</strong>
-              {{ form.getFieldValue("cw_capacity") }} {{ "SEATS" | oTranslate }}
-            </p>
-            <div class="price-container">
+            <div
+              style="
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
               <o-text-input
-                #dailyPrice
-                type="text"
+                #sites
                 oHidden
-                attr="cw_daily_price"
+                attr="cw_capacity"
                 fxFlex
-                label="DAILY_PRICE"
+                label="CAPACITY"
               ></o-text-input>
-              <div class="price">
-                <span
-                  [innerHTML]="
-                    formatPrice(form.getFieldValue('cw_daily_price'))
-                  "
-                ></span>
-                <strong>/{{ "DAILY_PRICE" | oTranslate }} </strong>
+              <p>
+                <strong>{{ "CAPACITY" | oTranslate }}:</strong>
+                {{ form.getFieldValue("cw_capacity") }}
+                {{ "SEATS" | oTranslate }}
+              </p>
+              <div class="price-container">
+                <o-text-input
+                  #dailyPrice
+                  type="text"
+                  oHidden
+                  attr="cw_daily_price"
+                  fxFlex
+                  label="DAILY_PRICE"
+                ></o-text-input>
+                <div class="price">
+                  <span
+                    [innerHTML]="
+                      formatPrice(form.getFieldValue('cw_daily_price'))
+                    "
+                  ></span>
+                  <strong>/{{ "DAILY_PRICE" | oTranslate }} </strong>
+                </div>
               </div>
             </div>
-            <div *ngIf="parsePermissions('date')">
-              <p>
-                <strong>{{ "DATE_RESERVATION" | oTranslate }}:</strong>
-              </p>
-              <o-form editable-detail="no" show-header="no">
-                <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
-                <o-daterange-input
-                  attr="daterange"
-                  #daterange
-                  fxFlex
-                  label="SELECT_DATE_RANGE"
-                  read-only="no"
-                  required="yes"
-                  [min]="currentDate()"
-                  (onValueChange)="setDates()"
-                  value-type="date"
-                ></o-daterange-input>
-              </o-form>
-              <!-- Mostrar "Plazas Disponibles:"-->
-              <p *ngIf="parsePermissions('realCapacity')">
-                <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
-              </p>
-            </div>
-            <div
-              class="reservation-button"
-              *ngIf="parsePermissions('bookingButton')"
-            >
-              <o-button
-                #bookingButton
-                attr="bookingButton"
-                label="{{ 'BOOKING' | oTranslate }}"
-                type="raised"
-                color="primary"
-                (click)="showConfirm($event)"
-                enabled="FALSE"
-              ></o-button>
+            <div class="bloque-reserva">
+              <div *ngIf="parsePermissions('date')">
+                <p>
+                  <strong>{{ "DATE_RESERVATION" | oTranslate }}:</strong>
+                </p>
+                <o-form editable-detail="no" show-header="no">
+                  <!--Hay que añadir la funcion [min]  y value-type = date para desactivar las pasadas -->
+                  <o-daterange-input
+                    attr="daterange"
+                    #daterange
+                    fxFlex
+                    label="SELECT_DATE_RANGE"
+                    read-only="no"
+                    required="yes"
+                    [min]="currentDate()"
+                    (onValueChange)="setDates()"
+                    value-type="date"
+                  ></o-daterange-input>
+                </o-form>
+                <!-- Mostrar "Plazas Disponibles:"-->
+                <p *ngIf="parsePermissions('realCapacity')">
+                  <strong>{{ "REAL_CAPACITY" | oTranslate }}: </strong>
+                </p>
+              </div>
+              <div
+                class="reservation-button"
+                *ngIf="parsePermissions('bookingButton')"
+              >
+                <o-button
+                  #bookingButton
+                  attr="bookingButton"
+                  label="{{ 'BOOKING' | oTranslate }}"
+                  type="raised"
+                  color="primary"
+                  (click)="showConfirm($event)"
+                  enabled="FALSE"
+                ></o-button>
+              </div>
             </div>
           </div>
         </div>

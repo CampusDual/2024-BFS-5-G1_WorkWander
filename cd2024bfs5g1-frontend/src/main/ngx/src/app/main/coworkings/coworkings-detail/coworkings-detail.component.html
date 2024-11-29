@@ -97,8 +97,9 @@
               <!-- Mostrar íconos completos -->
               <ng-container
                 *ngFor="
-              let any of calculateIcons(getAverage()).fullIcons | numberToArray
-            "
+                  let any of calculateIcons(getAverage()).fullIcons
+                    | numberToArray
+                "
               >
                 <i
                   class="pi pi-star-fill"
@@ -351,7 +352,7 @@
     </div>
     <!-- Reviews -->
     <div style="width: 100%; margin-top: 5vh">
-      <h4>{{ "REVIEWS" | oTranslate }}</h4>
+      <h4 class="review-title">{{ "REVIEWS" | oTranslate }}</h4>
       <o-grid
         #coworkingValoration
         attr="coworkingValoration"
@@ -369,7 +370,7 @@
         cols="2"
         gutter-size="8px"
         detail-mode="none"
-        grid-item-height="4:1"
+        grid-item-height="5:1"
         pagination-controls="no"
         query-rows="2"
       >

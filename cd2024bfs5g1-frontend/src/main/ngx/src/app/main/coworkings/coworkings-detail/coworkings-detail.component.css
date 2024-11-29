@@ -1,9 +1,13 @@
+.review-title {
+  margin-left: 16px;
+}
 .review-container {
-  border: solid 1px #dfe7ef;
+  border: solid 1px white;
   padding: 16px;
   border-radius: 8px;
-  width: 100%;
+  width: 90%;
   align-items: flex-start;
+  background-color: #f0f0f0;
 }
 
 .login-name {

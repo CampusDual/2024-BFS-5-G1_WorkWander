@@ -19,6 +19,7 @@ import {
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { OMapComponent } from "ontimize-web-ngx-map";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -105,7 +106,7 @@ export class CoworkingsDetailComponent implements OnInit {
 
   currentDate() {
     let date = new Date();
-    date.setHours(0,0,0,0)
+    date.setHours(0, 0, 0, 0)
 
     return date;
   }
@@ -113,9 +114,8 @@ export class CoworkingsDetailComponent implements OnInit {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let now = `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()}`;
+      let now = `${date.getFullYear()}-${date.getMonth() + 1
+        }-${date.getDate()}`;
       const filter = {
         "@basic_expression": {
           lop: {
@@ -170,8 +170,8 @@ export class CoworkingsDetailComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
+        "data:image/*;base64," + base64
+      )
       : "./assets/images/event-default.jpg";
   }
 
@@ -302,8 +302,7 @@ export class CoworkingsDetailComponent implements OnInit {
         if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${
-              this.dateArrayF
+            `${confirmMessageBody}  ${this.dateArrayF
             } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
         } else {
@@ -396,9 +395,9 @@ export class CoworkingsDetailComponent implements OnInit {
    */
   getAverage(): number {
 
-    let media : number =  Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
+    let media: number = Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
 
-    return media ;
+    return media;
   }
 
   serviceIcons = {

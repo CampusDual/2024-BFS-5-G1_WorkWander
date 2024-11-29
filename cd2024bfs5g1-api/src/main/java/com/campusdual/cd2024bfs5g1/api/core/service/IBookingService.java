@@ -25,7 +25,7 @@ public interface IBookingService {
 
     public EntityResult bookingDelete(Map<String, Object> keyMap);
 
-    public EntityResult getDatesDisponibilityQuery(Map<String, Object> keyMap, List<String> attrList);
+    public EntityResult getDatesDisponibilityQuery(Map<String, Object> keyMap, final List<String> attrList);
 
     public EntityResult rangeBookingInsert(Map<String, Object> attrMap);
 

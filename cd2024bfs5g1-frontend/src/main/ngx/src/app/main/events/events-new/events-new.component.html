@@ -91,13 +91,36 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         max="999"
       ></o-integer-input>
       <!-- Localidad -->
-      <o-text-input
+      <o-combo
+        #combo
         attr="locality"
-        icon="location_city"
+        service="cities"
+        entity="city"
+        keys="id_city"
+        value-column="id_city"
+        columns="id_city;city"
+        visible-columns="city"
+        null-selection="no"
         required="yes"
-      ></o-text-input>
+        label="LOCALITY"
+        translate="yes"
+        searchable="true"
+        sort="ASC"
+        appearance="fill"
+      >
+      </o-combo>
       <!-- Dirección -->
       <o-text-input attr="address" icon="place" required="yes"></o-text-input>
+
+      <o-real-input
+        attr="price"
+        required="no"
+        min="0"
+        max="1000"
+        placeholder="0"
+        decimal-digits="2"
+      ></o-real-input>
+
       <!-- Imagen -->
       <o-image
         attr="image_event"

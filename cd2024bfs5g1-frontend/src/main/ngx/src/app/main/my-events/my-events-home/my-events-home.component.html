@@ -1,20 +1,61 @@
-<o-form-layout-manager attr="myEvents" title="{{'MYEVENTS' | oTranslate }}" separator=" " mode="tab"
-    label-columns="name">
-    <o-table delete-button="no" insert-button="no" refresh-button="yes" attr="myEventsTable" service="events" entity="myEvent" keys="id_event"
-        columns="id_event;name;description;date_event;hour_event;address;locality;bookings;usr_id"
-        visible-columns="name;date_event;hour_event;locality"
-        query-rows="15" auto-adjust="true">
+<o-form-layout-manager
+  attr="myEvents"
+  title="{{ 'MYEVENTS' | oTranslate }}"
+  separator=" "
+  mode="none"
+  label-columns="name"
+>
+  <o-table
+    delete-button="no"
+    insert-button="no"
+    refresh-button="yes"
+    attr="myEventsTable"
+    service="events"
+    entity="myEvent"
+    keys="id_event"
+    columns="id_event;name;description;date_event;hour_event;address;location;bookings;usr_id"
+    visible-columns="name;location;date_event;hour_event"
+    query-rows="15"
+    detail-mode="none"
+    auto-adjust="true"
+    (onClick)="openDetail($event)"
+  >
+    <!-- Columna para mostrar la fecha del evento -->
+    <o-table-column
+      attr="date_event"
+      fxFlex
+      title="DATE_EVENT"
+      type="date"
+      format="LL"
+      width="20%"
+    ></o-table-column>
 
-        <!-- Columna para mostrar la fecha del evento -->
-        <o-table-column attr="date_event" fxFlex title="DATE_EVENT" type="date" format="LL"></o-table-column>
+    <!-- Columna para mostrar la hora del evento -->
+    <o-table-column
+      attr="hour_event"
+      fxFlex
+      title="HOUR_EVENT"
+      width="100px"
+      format="LT"
+      width="20%"
+    ></o-table-column>
 
-        <!-- Columna para mostrar la hora del evento -->
-        <o-table-column attr="hour_event" fxFlex title="HOUR_EVENT" width="100px" format="LT"></o-table-column>
+    <!-- Columna para mostrar el nombre del evento -->
+    <o-table-column
+      attr="name"
+      fxFlex
+      title="name"
+      width="150px"
+      width="40%"
+    ></o-table-column>
 
-        <!-- Columna para mostrar el nombre del evento -->
-        <o-table-column attr="name" fxFlex title="name" width="150px"></o-table-column>
-
-        <!-- Columna para la localidad del evento -->
-        <o-table-column attr="locality" fxFlex title="locality" width="150px"></o-table-column>
-    </o-table>
+    <!-- Columna para la localidad del evento -->
+    <o-table-column
+      attr="location"
+      fxFlex
+      title="locality"
+      width="150px"
+      width="20%"
+    ></o-table-column>
+  </o-table>
 </o-form-layout-manager>

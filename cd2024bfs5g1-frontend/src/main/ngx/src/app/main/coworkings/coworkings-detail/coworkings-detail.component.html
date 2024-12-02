@@ -329,10 +329,11 @@
                       <span class="nombre-evento">{{ event.name }}</span>
                       <br />
                       <!-- <mat-icon>calendar_month</mat-icon> //-->
+                      <span  class="hora-evento">{{
                       <span class="fecha-evento">{{
                         dateTransform(event.date_event)
+                      }}&nbsp;{{timeTransform(event.hour_event)}}</span>
                       }}</span>
-                      <br />
                       <!-- <mat-icon>access_time</mat-icon> //-->
                       <span class="hora-evento">{{
                         timeTransform(event.hour_event)

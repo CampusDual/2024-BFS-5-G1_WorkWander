@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+
 @Component({
   selector: "app-events-detail",
   templateUrl: "./events-detail.component.html",
@@ -19,7 +19,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
-  auth: any;
+
 
   constructor(
     private service: OntimizeService,
@@ -29,7 +29,7 @@ export class EventsDetailComponent implements OnInit {
     private location: Location,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
-    private authService: AuthService,
+    protected auth:AuthService,
     protected router:Router
   ) { }
 
@@ -79,17 +79,7 @@ export class EventsDetailComponent implements OnInit {
     return !this.authService.isLoggedIn();
   }
 
-  parsePermissions(attr: any): boolean {
-    if (!this.form || !Util.isDefined(this.form.oattr)) {
-      return ;
-    }
-    const permissions: OPermissions =
-      this.form.getFormComponentPermissions(attr);
-    if (!Util.isDefined(permissions)) {
-      return true;
-    }
-    return permissions.enabled;
-  }
+
 
   showConfirm() {
     if(this.auth.isLoggedIn()){
@@ -131,8 +121,19 @@ export class EventsDetailComponent implements OnInit {
     this.snackBarService.open(availableMessage, configuration);
   }
 
+  parsePermissions(attr: string): boolean {
+    // if oattr in form, it can have permissions
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return;
+    }
+    const permissions: OPermissions =
+      this.form.getFormComponentPermissions(attr);
 
-
+    if (!Util.isDefined(permissions)) {
+      return true;
+    }
+    return permissions.visible;
+  }
 
   checkBookingEvent() {
     const filter = {

@@ -114,6 +114,8 @@
               <span>{{ form.getFieldValue("price") }} €</span>
             </ng-template>
           </div>
+          <div class="reservation-button"
+          *ngIf="parsePermissions('bookingButton')">
           <p
             class="lblSeatsText"
             style="margin-block-start: 55px; margin-bottom: 8px"
@@ -145,5 +147,6 @@
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
     <o-text-input oHidden attr="price"></o-text-input>
+    </div>
   </o-form>
 </div>

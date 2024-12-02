@@ -101,28 +101,26 @@
               <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
             </div>
 
-            <span *ngIf="
+            <span
+              *ngIf="
                 !form.getFieldValue('price') ||
                   form.getFieldValue('price') === 0;
                 else priceValue
-              ">
+              "
+            >
               {{ "FREE_EVENT" | oTranslate }}
             </span>
             <ng-template #priceValue>
               <span>{{ form.getFieldValue("price") }} €</span>
             </ng-template>
           </div>
-          <p class="lblSeatsText" style="margin-block-start: 55px; margin-bottom: 8px;">
-          <div class="reservation-button"
-          *ngIf="parsePermissions('bookingButton')">
           <p
             class="lblSeatsText"
             style="margin-block-start: 55px; margin-bottom: 8px;"
           >
             {{ literalPlazas | oTranslate }}
           </p>
-
-          <div class="reservation-button">
+          <div class="reservation-button" *ngIf="parsePermissions('date')">
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -145,6 +143,5 @@
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
     <o-text-input oHidden attr="price"></o-text-input>
-    </div>
   </o-form>
 </div>

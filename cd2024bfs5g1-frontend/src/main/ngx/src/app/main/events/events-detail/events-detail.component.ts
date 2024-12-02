@@ -75,18 +75,6 @@ export class EventsDetailComponent implements OnInit {
     this.location.back();
   }
 
-  parsePermissions(attr: any): boolean {
-    if (!this.form || !Util.isDefined(this.form.oattr)) {
-      return ;
-    }
-    const permissions: OPermissions =
-      this.form.getFormComponentPermissions(attr);
-    if (!Util.isDefined(permissions)) {
-      return true;
-    }
-    return permissions.enabled;
-  }
-
   showConfirm() {
     if(this.auth.isLoggedIn()){
       const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
@@ -127,10 +115,6 @@ export class EventsDetailComponent implements OnInit {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-
-  checkAuthStatus() {
-    return !this.authService.isLoggedIn();
-  }
   parsePermissions(attr: string): boolean {
     // if oattr in form, it can have permissions
     if (!this.form || !Util.isDefined(this.form.oattr)) {

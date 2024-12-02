@@ -25,12 +25,14 @@
                         public.coworking.cw_capacity as cw_capacity,
                         public.coworking.cw_daily_price as cw_daily_price,
                         public.coworking.cw_image as cw_image,
-                        STRING_AGG(service.srv_name, ',') as services,
-                        public.coworking.cw_usr_id as cw_usr_id
+                        STRING_AGG(distinct service.srv_name, ',') as services,
+                        public.coworking.cw_usr_id as cw_usr_id,
+                        Round(AVG(br.bkr_ratio), 1) as ratio
                     FROM coworking
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
                     LEFT JOIN service on service.srv_id = cw_service.srv_id
                     LEFT JOIN city on city.id_city = coworking.cw_location
+                    LEFT join booking_rate br on coworking.cw_id = br.cw_id
                     GROUP BY public.coworking.cw_id, public.city.city)
                 SELECT
                     #COLUMNS#

@@ -1,0 +1,7 @@
+<ng-template #rate let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+  <p-rating
+    [(ngModel)]="rowvalue['bkr_ratio']"
+    [cancel]="false"
+    [readonly]="true"
+  />
+</ng-template>

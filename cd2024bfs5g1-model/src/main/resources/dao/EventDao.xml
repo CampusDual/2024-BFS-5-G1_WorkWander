@@ -29,7 +29,8 @@
                         public.event.bookings as bookings,
                         public.event.duration as duration,
                         public.event.image_event as image_event,
-                        public.event.usr_id as usr_id
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
                     FROM event
                     LEFT JOIN city on city.id_city = public.event.locality
                     #WHERE#
@@ -57,11 +58,33 @@
                         public.event.bookings as bookings,
                         public.event.duration as duration,
                         public.event.image_event as image_event,
-                        public.event.usr_id as usr_id
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
                     FROM event
                     LEFT JOIN city on city.id_city = public.event.locality
                     #WHERE#
                     GROUP BY public.event.id_event, public.event.locality, public.city.city)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="myEventsCalendar">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.duration as duration
+	                FROM event
+		            INNER JOIN booking_event on booking_event.bke_id_event = public.event.id_event
+			        #WHERE#
+				    GROUP BY public.event.name, public.event.date_event, public.event.duration, public.event.hour_event
+				    ORDER BY public.event.date_event)
                 SELECT
                     #COLUMNS#
                     FROM

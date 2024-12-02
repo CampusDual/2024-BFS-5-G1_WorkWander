@@ -16,4 +16,6 @@ public interface IEventService {
 
     public AdvancedEntityResult homeEventsPaginationQuery(Map<String, Object> keyMap, List<String> attrList,
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException;
+
+    public EntityResult myEventsCalendarQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

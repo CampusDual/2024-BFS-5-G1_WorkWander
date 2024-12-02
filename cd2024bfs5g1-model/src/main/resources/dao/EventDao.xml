@@ -12,4 +12,111 @@
         <Column>id_event</Column>
     </UpdateKeys>
     <GeneratedKey>id_event</GeneratedKey>
+    <Queries>
+        <Query id="default">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.id_event as id_event,
+                        public.event.name as name,
+                        public.event.description as description,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.locality as locality,
+                        public.city.city as location,
+                        public.event.bookings as bookings,
+                        public.event.duration as duration,
+                        public.event.image_event as image_event,
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
+                    FROM event
+                    LEFT JOIN city on city.id_city = public.event.locality
+                    #WHERE#
+                    GROUP BY public.event.id_event, public.event.locality, public.city.city)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="myEvents">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.id_event as id_event,
+                        public.event.name as name,
+                        public.event.description as description,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.locality as locality,
+                        public.city.city as location,
+                        public.event.bookings as bookings,
+                        public.event.duration as duration,
+                        public.event.image_event as image_event,
+                        public.event.usr_id as usr_id,
+                        public.event.price as price
+                    FROM event
+                    LEFT JOIN city on city.id_city = public.event.locality
+                    #WHERE#
+                    GROUP BY public.event.id_event, public.event.locality, public.city.city)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="myEventsCalendar">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.duration as duration
+	                FROM event
+		            INNER JOIN booking_event on booking_event.bke_id_event = public.event.id_event
+			        #WHERE#
+				    GROUP BY public.event.name, public.event.date_event, public.event.duration, public.event.hour_event
+				    ORDER BY public.event.date_event)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="homeEvents">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.id_event as id_event,
+                        public.event.image_event as image_event,
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.address as address,
+                        public.event.bookings as bookings,
+                        public.event.price as price,
+                        count(public.booking_event.bke_event_id) as reserved
+                    FROM event
+                    LEFT JOIN public.booking_event on public.booking_event.bke_id_event = public.event.id_event
+                    WHERE date_event >= now()
+                    GROUP BY name, date_event, address, bookings, image_event, hour_event, id_event, price
+					ORDER BY date_event)
+                SELECT
+                    #COLUMNS#
+                    FROM temp_table
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
 </JdbcEntitySetup>

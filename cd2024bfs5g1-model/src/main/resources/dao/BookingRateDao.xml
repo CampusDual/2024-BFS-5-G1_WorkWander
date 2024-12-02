@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JdbcEntitySetup xmlns="http://www.ontimize.com/schema/jdbc"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.ontimize.com/schema/jdbc http://www.ontimize.com/schema/jdbc/ontimize-jdbc-dao.xsd"
+                 catalog="" schema="${mainschema}" table="booking_rate" datasource="mainDataSource"
+                 sqlhandler="dbSQLStatementHandler">
+    <DeleteKeys>
+        <Column>id_bkr</Column>
+    </DeleteKeys>
+    <UpdateKeys>
+        <Column>id_bkr</Column>
+    </UpdateKeys>
+    <Queries>
+        <Query id="coworkingValorations">
+            <Sentence>
+                <![CDATA[
+                    SELECT br.bkr_ratio as bkr_ratio,
+                    br.bkr_description as bkr_description,
+                    u.usr_login as usr_login
+                    FROM ${mainschema}.booking_rate br
+                    join ${mainschema}.usr_user u
+                    on br.usr_id = u.usr_id
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coworkingAverageRatio">
+            <Sentence>
+                <![CDATA[
+                    SELECT AVG(bkr_ratio) as average_ratio
+                    FROM ${mainschema}.booking_rate
+                    #WHERE#
+                    GROUP BY cw_id
+                ]]>
+            </Sentence>
+        </Query>
+    </Queries>
+</JdbcEntitySetup>

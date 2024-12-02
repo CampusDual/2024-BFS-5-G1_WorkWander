@@ -11,10 +11,17 @@ export const MENU_CONFIG: MenuRootItem[] = [
     ]
   },
   { id: 'MyCoworkings', name: 'MYCOWORKINGS', tooltip:'MyCoworkings', route: '/main/mycoworkings', icon: 'filter_list' },
-  // Cuando se haga la funcionalidad de mostrar la tabla de eventos, habría que cambiar el route por '/main/events'.
+  { id: 'eventsHome', name: 'EVENTS', icon: 'event', route: 'main/events'},
+  { id: 'eventsPublic', name: 'EVENTS', icon: 'event', route: '/events'},
   { id: 'newEvents', name: 'NEW_EVENT', tooltip: 'NEW_EVENT', route: '/main/events/new', icon: 'event' },
   { id: 'myEvents', name: 'MYEVENTS', tooltip: 'MYEVENTS', route: '/main/myevents', icon: 'event' },
+  { id: 'myCalendar', name: 'MY_CALENDAR', tooltip: 'MY_CALENDAR', route: '/main/mycalendar', icon: 'event' },
   { id: 'myBookings', name: 'MY_BOOKINGS', tooltip: 'MY_BOOKINGS', route: '/main/bookings', icon: 'bookmark' },
+  { id: "analytics", name: "ANALYTICS", tooltip: "Analytics", icon: "bar_chart",
+        items: [
+          { id: "occupation", name: "OCCUPATION", tooltip: "occupation", route: "/main/analytics/occupation", icon: "show_chart"},
+        ],
+  },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' },
   { id: 'login_public', name: 'LOGIN', route: '/login', icon: 'power_settings_new', confirm: 'no' }
 ];

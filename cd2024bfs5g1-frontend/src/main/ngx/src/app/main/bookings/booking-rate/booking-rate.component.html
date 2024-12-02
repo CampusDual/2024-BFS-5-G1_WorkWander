@@ -1,0 +1,46 @@
+<div class="main_panel">
+  <o-form
+    #bookingValoration
+    show-header="no"
+    id="valoration_div"
+    attr="coworkingValoration"
+  >
+    <div fxLayout="column" fxLayoutAlign="space-between center">
+      <div>
+        <h1>{{ data.name }}</h1>
+      </div>
+      <div>
+        <p-rating
+          class="rate"
+          [(ngModel)]="data.rate"
+          [cancel]="false"
+          #ratio
+        />
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="16px">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <o-textarea-input
+          #comment
+          id="coment"
+          attr="bk_description"
+          rows="10"
+          max-length="500"
+          width="70%"
+          required="yes"
+        ></o-textarea-input>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button
+          id="button_valoration"
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="createValoration()"
+        >
+          {{ "SEND_REVIEW" | oTranslate }}
+        </button>
+      </div>
+    </div>
+  </o-form>
+</div>

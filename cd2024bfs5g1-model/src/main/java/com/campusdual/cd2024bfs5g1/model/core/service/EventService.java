@@ -3,6 +3,7 @@ package com.campusdual.cd2024bfs5g1.model.core.service;
 import com.campusdual.cd2024bfs5g1.api.core.service.IEventService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
+import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.security.PermissionsProviderSecured;
@@ -34,7 +35,7 @@ public class EventService implements IEventService {
     private DefaultOntimizeDaoHelper daoHelper;
 
     @Override
-    @Secured({PermissionsProviderSecured.SECURED})
+    //@Secured({PermissionsProviderSecured.SECURED})
     @Transactional(rollbackFor = Exception.class)
     public EntityResult eventQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.eventDao, keyMap, attrList);
@@ -89,7 +90,21 @@ public class EventService implements IEventService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(EventDao.USR_ID, userId);
-        return this.daoHelper.query(this.eventDao, keyMap, attrList);
+        return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTS_QUERY);
     }
 
+    @Override
+    public AdvancedEntityResult homeEventsPaginationQuery(final Map<String, Object> keyMap, final List<String> attrList,
+            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+        return this.daoHelper.paginationQuery(this.eventDao, keyMap, attrList, recordNumber, startIndex,
+                orderBy, this.eventDao.HOMEEVENTS_QUERY);
+    }
+    @Override
+    public EntityResult myEventsCalendarQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(EventDao.USR_ID, userId);
+        return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTSCALENDAR_QUERY);
+    }
 }
+

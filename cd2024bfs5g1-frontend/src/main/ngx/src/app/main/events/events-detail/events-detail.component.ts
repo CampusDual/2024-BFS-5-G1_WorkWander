@@ -1,10 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, ViewChild } from "@angular/core";
 import { Router } from '@angular/router';
-import { AuthService, DialogService, OFormComponent, OntimizeService, OPermissions, OSnackBarConfig, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
-import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
+import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({

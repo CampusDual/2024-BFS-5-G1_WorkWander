@@ -35,7 +35,7 @@ public class EventService implements IEventService {
     private DefaultOntimizeDaoHelper daoHelper;
 
     @Override
-    @Secured({PermissionsProviderSecured.SECURED})
+    //@Secured({PermissionsProviderSecured.SECURED})
     @Transactional(rollbackFor = Exception.class)
     public EntityResult eventQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.eventDao, keyMap, attrList);

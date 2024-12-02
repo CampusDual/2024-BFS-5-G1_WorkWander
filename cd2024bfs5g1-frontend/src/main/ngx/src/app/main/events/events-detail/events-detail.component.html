@@ -95,7 +95,8 @@
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
             </span>
           </div>
-          <div class="reservation-button" >
+          <div class="reservation-button"
+          *ngIf="parsePermissions('bookingButton')">
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -104,7 +105,6 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-
           </div>
         </div>
       </div>

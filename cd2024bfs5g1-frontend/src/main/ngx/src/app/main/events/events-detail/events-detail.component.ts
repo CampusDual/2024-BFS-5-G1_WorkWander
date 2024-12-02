@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, ViewChild } from "@angular/core";
-import { DialogService, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from "ontimize-web-ngx";
+import { Router } from '@angular/router';
+import { AuthService, DialogService, OFormComponent, OntimizeService, OPermissions, OSnackBarConfig, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
@@ -11,13 +12,16 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 
 export class EventsDetailComponent {
   @ViewChild("form") form: OFormComponent;
+  @ViewChild("bookingButton") reservationButton: OFormComponent;
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
     private location: Location,
     private service: OntimizeService,
     protected snackBarService: SnackBarService,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    protected auth:AuthService,
+    protected router:Router
   ) { }
 
 
@@ -59,14 +63,30 @@ export class EventsDetailComponent {
     this.location.back();
   }
 
+  parsePermissions(attr: any): boolean {
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return ;
+    }
+    const permissions: OPermissions =
+      this.form.getFormComponentPermissions(attr);
+    if (!Util.isDefined(permissions)) {
+      return true;
+    }
+    return permissions.enabled;
+  }
+
   showConfirm() {
-    const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
-    const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
-    this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
-      if (result) {
-        this.createBookingEvent();
-      }
-    });
+    if(this.auth.isLoggedIn()){
+      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
+      this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
+        if (result) {
+          this.createBookingEvent();
+        }
+      });
+    }else{
+      this.router.navigate(['/login']);
+    }
   }
 
   createBookingEvent() {

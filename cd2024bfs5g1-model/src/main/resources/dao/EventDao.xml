@@ -90,8 +90,7 @@
 					ORDER BY date_event)
                 SELECT
                     #COLUMNS#
-                    FROM
-                        temp_table
+                    FROM temp_table
                     #WHERE#
                 ]]>
             </Sentence>

@@ -11,8 +11,8 @@ export const MENU_CONFIG: MenuRootItem[] = [
     ]
   },
   { id: 'MyCoworkings', name: 'MYCOWORKINGS', tooltip:'MyCoworkings', route: '/main/mycoworkings', icon: 'filter_list' },
-  { id: 'eventsHome', name: 'Eventos', icon: 'event', route: 'main/events'},
-  { id: 'eventsPublic', name: 'Eventos', icon: 'event', route: '/events'},
+  { id: 'eventsHome', name: 'EVENTS', icon: 'event', route: 'main/events'},
+  { id: 'eventsPublic', name: 'EVENTS', icon: 'event', route: '/events'},
   { id: 'newEvents', name: 'NEW_EVENT', tooltip: 'NEW_EVENT', route: '/main/events/new', icon: 'event' },
   { id: 'myEvents', name: 'MYEVENTS', tooltip: 'MYEVENTS', route: '/main/myevents', icon: 'event' },
   { id: 'myCalendar', name: 'MY_CALENDAR', tooltip: 'MY_CALENDAR', route: '/main/mycalendar', icon: 'event' },

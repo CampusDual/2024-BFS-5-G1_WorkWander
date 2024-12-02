@@ -52,6 +52,20 @@
           fxFlex.gt-sm="18"
         >
         </o-combo>
+        <o-daterange-input
+          attr="daterange"
+          #daterange
+          fxFlex
+          label="SELECT_DATE_RANGE"
+          read-only="no"
+          [min]="currentDate()"
+          format="D/M/Y"
+          value-type="DATE"
+          sql-type="DATE"
+          fxFlex="100"
+          fxFlex.gt-xs="37"
+          fxFlex.gt-sm="18"
+        ></o-daterange-input>
         <o-row class="btn-container" layout-gap="10px">
           <button
             attr="filter"
@@ -80,7 +94,7 @@
         <o-filter-builder
           #filterBuilder
           attr="thefilter"
-          filters="cw_location:city;services:srv_name"
+          filters="cw_location:city;services:srv_name;date:daterange"
           [target]="coworkingsGrid"
           query-on-change="no"
           query-on-change-delay="500"
@@ -98,7 +112,8 @@
     service="coworkings"
     entity="serviceCoworking"
     keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;ratio"
+    [static-data]="data"
+    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;ratio;date"
     quick-filter-columns="cw_name"
     pagination-controls="true"
     page-size-options="12;16;20"
@@ -112,6 +127,7 @@
       *ngFor="let data of coworkingsGrid.dataArray"
       class="responsive-grid"
     >
+      <o-date-input attr="date" type="date" oHidden></o-date-input>
       <div class="coworking-card">
         <div class="image-container">
           <!-- Mostramos la imagen del coworking en las cards -->
@@ -182,14 +198,12 @@
         </div>
         <div class="capacity-price-container">
           <div class="price-container">
-            <!-- <span class="price">{{ data.cw_daily_price | number:'1.2-2'}}€</span> -->
             <div
               class="price"
               [innerHTML]="formatPrice(data.cw_daily_price)"
             ></div>
           </div>
         </div>
-        <!-- Cerradura corregida aquí -->
       </div>
     </o-grid-item>
   </o-grid>

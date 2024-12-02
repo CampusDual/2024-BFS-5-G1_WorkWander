@@ -195,6 +195,8 @@
   "CANCELLED_BOOKING2": "Bookings in progress or completed cannot be canceled",
   "BOOKINGS_CONFIRMATION": "Do you confirm your assistance?",
   "NO_BOOKING_ENABLED": "Not booking available!",
+  "FREE": "Free",
+  "LAST_CHANCES": "Last tickets!",
   "MY_CALENDAR":"My calendar",
   "EVENT_PRICE": "Price",
   "FREE_EVENT": "Free event",

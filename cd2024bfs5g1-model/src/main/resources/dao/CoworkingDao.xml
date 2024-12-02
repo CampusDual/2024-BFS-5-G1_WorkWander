@@ -92,6 +92,32 @@
                 #WHERE#
             </Sentence>
         </Query>
+        <Query id="filterDates">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS (
+                    SELECT
+                        cw.cw_id as cw_id,
+                        bd.date as date,
+                        cw.cw_capacity as cw_capacity,
+                        public.city.city as cw_location,
+                        STRING_AGG(service.srv_name, ',') as services,
+                        COUNT(b.bk_id) as plazasOcupadas
+                    FROM coworking cw
+                    LEFT JOIN booking b ON cw.cw_id = b.bk_cw_id
+                    LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
+                    LEFT JOIN cw_service on cw_service.cw_id = cw.cw_id
+                    LEFT JOIN service on service.srv_id = cw_service.srv_id
+                    LEFT JOIN city on city.id_city = cw.cw_location
+                    GROUP BY cw.cw_id, bd.date, city.city, cw.cw_capacity
+                    )
+                    SELECT
+                        #COLUMNS#
+                    FROM
+                        temp_table
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
-
 </JdbcEntitySetup>

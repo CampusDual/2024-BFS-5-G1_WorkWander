@@ -6,3 +6,4 @@ SET rol_json_client_permission = '{"menu":[{"attr":"admin","visible":false,"enab
 {"permissionId":"coworkingsPublic","enabled":false},{"permissionId":"login_public","enabled":false},
 {"permissionId":"coworkings-new.route","enabled":false},{"permissionId":"analytics-occupation","enabled":false}]}'
 WHERE rol_id = 2;
+

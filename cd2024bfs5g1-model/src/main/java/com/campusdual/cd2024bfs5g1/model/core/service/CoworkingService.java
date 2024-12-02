@@ -136,8 +136,8 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes,
-            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes,
+                                                                final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }
@@ -149,6 +149,22 @@ public class CoworkingService implements ICoworkingService {
             map.put(CwServiceDao.SRV_ID, services.get(i).get("id"));
             this.cwServiceService.cwServiceInsert(map);
         }
+    }
+
+    @Override
+    public EntityResult coworkingByUserQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult coworkingNameByIdQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
     }
 
 }

@@ -71,5 +71,26 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="myEventsCalendar">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.hour_event as hour_event,
+                        public.event.duration as duration
+	                FROM event
+		            INNER JOIN booking_event on booking_event.bke_id_event = public.event.id_event
+			        #WHERE#
+				    GROUP BY public.event.name, public.event.date_event, public.event.duration, public.event.hour_event
+				    ORDER BY public.event.date_event)
+                SELECT
+                    #COLUMNS#
+                    FROM
+                        temp_table
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

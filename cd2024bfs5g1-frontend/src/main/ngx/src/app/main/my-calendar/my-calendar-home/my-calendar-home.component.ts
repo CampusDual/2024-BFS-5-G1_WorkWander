@@ -58,16 +58,16 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   configMonth: DayPilot.MonthConfig = {
-    startDate: DayPilot.Date.today()    
+    startDate: DayPilot.Date.today()
   };
 
   configWeek: DayPilot.CalendarConfig = {
-    startDate: DayPilot.Date.today(),    
+    startDate: DayPilot.Date.today(),
     viewType: "Week"
   };
 
   configDay: DayPilot.CalendarConfig = {
-    startDate: DayPilot.Date.today(),    
+    startDate: DayPilot.Date.today(),
     viewType: "Day"
   };
 
@@ -98,7 +98,7 @@ export class MyCalendarHomeComponent implements OnInit {
           const finalTime =  this.createFinalTime(hour, response.data[i].duration)
           const date = new Date(response.data[i].date_event);
           let init = this.createInitDate(date)+hour;
-          let last = this.createInitDate(date)+finalTime;          
+          let last = this.createInitDate(date)+finalTime;
           const object = {
             id: i+1,
             start:init,
@@ -110,11 +110,12 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   createInitDate(date:any):string{
-    let day = date.getDate().toString();
+    let day = date.getDate()
+    let d = day < 10 ? '0'+day.toString() : day.toString();
     let month = date.getMonth() + 1;
     let m = this.convertMonth(month);
     const fullYear = date.getFullYear().toString();
-    return fullYear + "-" + m + "-" + day;
+    return fullYear + "-" + m + "-" + d;
   }
 
   convertMonth(n:number):string {
@@ -150,7 +151,7 @@ export class MyCalendarHomeComponent implements OnInit {
       restMinutes = "0"+m.toString()
     }else{
       restMinutes = m.toString()
-    }    
+    }
 return "T"+finalHour+":"+restMinutes+":"+"00"
   }
 

@@ -14,8 +14,20 @@ h6 {
   }
 }
 /* Colores personalizados */
+/*
+$primary: #8b5e3c;
+$accent: #e6d5c3;
+$blanco: #f8f6f4;
+$verdeBoton: #5f6f65;
 
-$borderRadius: 25px 5px 25px 5px;
+$primaryClaro: rgba($primary, 0.5);
+$accentClaro: rgba($accent, 0.5);
+$verdeBotonClaro: rgba($verdeBoton, 0.5);
+
+$colorDegradadoFuerte: $primary;
+$colorDegradadoSuave: $accent;*/
+
+$borderRadius: 16px 8px 16px 8px;
 $borderRadiusButton: 25px 5px 25px 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
 $borderRadiusEqual: 25px;
@@ -28,25 +40,25 @@ $linear-gradientLR: linear-gradient(
   90deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientRL: linear-gradient(
   270deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientTB: linear-gradient(
   180deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientBT: linear-gradient(
   0,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 
 /* Margin personalizado */
@@ -114,7 +126,7 @@ ngx-material-timepicker-container
 }
 /*  Barra de navegación lateral  */
 .navMenu {
-  background-image: $linear-gradientBT;
+  background-color: $primary;
 }
 
 /* SnackBar */
@@ -302,7 +314,7 @@ form{
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $primary;
+  background-color: $verdeBoton;
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
@@ -312,6 +324,14 @@ nav.ng-star-inserted:nth-last-child(2) {
   bottom: 25px;
   right: 0;
   width: 96%;
+
+  span.o-app-sidenav-menuitem-title {
+    color: $blanco;
+  }
+
+  mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+    color: $blanco;
+  }
 
   .o-app-sidenav-menu-group a,
   .o-app-sidenav-menu-item a {
@@ -343,7 +363,6 @@ nav.ng-star-inserted:nth-last-child(2) {
 .o-app-sidenav {
   .o-app-sidenav-sidenav {
     background-image: $linear-gradientBT;
-    background-color: $primary;
   }
 
   .o-app-sidenav-container {
@@ -718,7 +737,7 @@ o-column {
   font-weight: 700;
 }
 .application-layout-content-wrapper.header-layout {
-  background-image: url("assets/images/fondo_workwander.jpg");
+  // background-image: url("assets/images/fondo_workwander.jpg");
   background-position-y: bottom;
   background-position-x: right;
   background-repeat: no-repeat;
@@ -785,7 +804,8 @@ o-column {
     }
   }
 }
-.event-date, .event-hour {
+.event-date,
+.event-hour {
   // Estilo de la hora y la fecha del evento
   color: $primary;
   margin: 0 0 8px 0;
@@ -796,9 +816,14 @@ o-column {
   fill: $verdeBoton;
 }
 o-snackbar .material-icons {
-  color: $accent;
-  fill: $accent !important;
+  color: $blanco;
+  fill: $blanco !important;
 }
+
+o-snackbar .o-snackbar-message {
+  color: $blanco;
+}
+
 .info {
   // Contenedor de la información
   width: 70%;
@@ -807,15 +832,24 @@ o-snackbar .material-icons {
   flex-direction: column;
   justify-content: space-between;
 
-  .coworking-name, .event-name {
+  .coworking-name,
+  .event-name {
     // Estilo del nombre del coworking y de evento
     font-size: $fontSize24;
     font-weight: bold;
-    color: $primary;
+    color: $verdeBoton;
     cursor: pointer;
     margin-bottom: 8px;
     margin-top: 0;
     display: inline-block; // Necesario para que el efecto funcione correctamente
+  }
+
+  p.event-date {
+    color: $verdeBoton;
+  }
+
+  p.event-hour {
+    color: $verdeBoton;
   }
 
   .last-tickets-container {
@@ -852,13 +886,13 @@ o-snackbar .material-icons {
 
   .location {
     // Estilo de la ubicación
-    color: $primary;
+    color: $verdeBoton;
     margin: 0 0 8px 0;
     font-size: $fontSize18;
   }
 
   .ratio {
-    color: $primary;
+    color: $verdeBoton;
     align-content: center;
     align-items: center;
     display: flex;
@@ -871,7 +905,7 @@ o-snackbar .material-icons {
 
   .capacity {
     // Estilo de la ubicación y capacidad
-    color: $primary;
+    color: $verdeBoton;
     margin: 0;
     font-size: $fontSize12;
     font-weight: $fontBlack;
@@ -906,7 +940,7 @@ o-snackbar .material-icons {
 }
 
 .capacity-price-container {
-  border-left: solid 5px $primary;
+  // border-left: solid 5px $primary;
   padding: 0px 0 0 17px;
   min-width: 190px;
 
@@ -1332,17 +1366,17 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c {
-  background-color:$primary;
+  background-color: $primary;
   color: $accent;
   border: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   width: 80px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   margin-right: 1px;
   transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
@@ -1351,7 +1385,7 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c.selected {
-  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:first-child {
@@ -1365,9 +1399,9 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c:hover {
-  box-shadow: 0 5px 7px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:active {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

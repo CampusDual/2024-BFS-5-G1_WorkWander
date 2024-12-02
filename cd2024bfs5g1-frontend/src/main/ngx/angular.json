@@ -59,11 +59,12 @@
                 "output": "/assets"
               },
               "src/manifest.webmanifest"
-
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",
               "src/assets/css/app.scss",
+              "src/styles.scss",
+              "node_modules/ontimize-web-ngx-charts/styles.scss"
               "src/styles.scss",
               "node_modules/ontimize-web-ngx-map/styles.scss"
             ],
@@ -106,8 +107,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,
@@ -152,8 +153,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,
@@ -182,8 +183,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,

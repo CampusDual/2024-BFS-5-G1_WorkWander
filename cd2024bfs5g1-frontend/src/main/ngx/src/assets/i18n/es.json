@@ -220,6 +220,7 @@
   "INVALID_LOCATION": "Seleccione una población válida",
   "API_ERROR": "Error al consultar la API",
   "COWORKING_MARKER": "Ubicación del coworking",
+  "NO_RATIO": "La valoración debe ser entre 1 y 5",
   "COWORKING_CHART_SELECTION_LIMIT": "Puedes seleccionar hasta ",
   "COWORKING_CHART_ SELECTION_ERROR": "Error al cargar los datos de ocupación",
   "COWORKING_CHART_SELECTION": "Coworkings seleccionados: ",

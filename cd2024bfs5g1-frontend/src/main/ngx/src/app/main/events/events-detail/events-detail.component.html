@@ -120,7 +120,8 @@
           >
             {{ literalPlazas | oTranslate }}
           </p>
-          <div class="reservation-button" *ngIf="parsePermissions('date')">
+
+          <div class="reservation-button" *ngIf="parsePermissions('bookingButton')">
             <o-button
               #bookingButton
               attr="bookingButton"

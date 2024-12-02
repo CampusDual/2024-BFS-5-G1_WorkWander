@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
@@ -20,6 +19,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
+
 
   constructor(
     private service: OntimizeService,
@@ -74,6 +74,12 @@ export class EventsDetailComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+  checkAuthStatus() {
+    return !this.authService.isLoggedIn();
+  }
+
+
 
   showConfirm() {
     if(this.auth.isLoggedIn()){

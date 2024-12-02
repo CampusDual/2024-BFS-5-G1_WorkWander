@@ -135,22 +135,37 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.CW_QUERY_CAPACITY);
     }
 
-    // DOCUMENTAR DOCUMENTAR DOCUMENTAR DOCUMENTAR
-    public static boolean comprobacion(SQLStatementBuilder.BasicExpression basicExpression) {
+    /**
+     * Recorre una BasicExpression y todos sus operandos de forma recursiva mientras comprueba si uno de los operandos
+     * coincide con la cadena "date".
+     *
+     * @param basicExpression
+     * @return true si encuentra una cadena "date", false en caso contrario.
+     */
+    public static boolean dateCheckInFilters(SQLStatementBuilder.BasicExpression basicExpression) {
         boolean hasDate = false;
-
+        // Bucle que itera mientras hasDate sea false, es decir, mientras no se encuentren fechas.
         while (!hasDate) {
-            if (basicExpression.getLeftOperand().toString().equals("date") || (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().toString().equals("date"))) {
-                return true;
+            // Entra dentro del if cuando left operand o right operand son "date"
+            if (basicExpression.getLeftOperand().toString().equals("date") ||
+                    (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().toString().equals("date"))) {
+                hasDate = true;
             } else {
-
+                // Entra dentro del if si right operand existe y si right operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
                 if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
-                    hasDate = comprobacion((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
+                    // Llama a comprobacion pasándole el right operand como parámetro y recoge la booleana devuelta en hasDate
+                    hasDate = dateCheckInFilters((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
                 }
-                if (!hasDate && basicExpression.getLeftOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
-                    basicExpression = ((SQLStatementBuilder.BasicExpression) basicExpression.getLeftOperand());
-                } else {
-                    return false;
+                // Entra solo si hasDate sigue siendo false
+                if (!hasDate) {
+                    // Entra si left operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
+                    if (basicExpression.getLeftOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
+                        // Cambia la basicExpression con la que se trabaja a el left operand y da otra vuelta al bucle
+                        basicExpression = ((SQLStatementBuilder.BasicExpression) basicExpression.getLeftOperand());
+                    } else {
+                        // Si left operand no tiene más elementos, entonces devuelve false y para la función/recursión
+                        return false;
+                    }
                 }
             }
         }
@@ -170,7 +185,7 @@ public class CoworkingService implements ICoworkingService {
         final List<Integer> coworkingsSinDisponibilidad = new ArrayList<>();
         final List<Integer> coworkings = new ArrayList<>();
         final SQLStatementBuilder.BasicExpression basicExpression = (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
-        final boolean hasDate = basicExpression == null ? false : comprobacion(basicExpression);
+        final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
 
         System.out.print("a");
 

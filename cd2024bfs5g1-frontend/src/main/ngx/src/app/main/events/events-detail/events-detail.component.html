@@ -28,7 +28,7 @@
       </div>
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column">
-          <div class="image-container">
+          <div class="image-container image-container-details">
             <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
               <o-image
                 attr="image_event"
@@ -116,7 +116,7 @@
           </div>
           <p
             class="lblSeatsText"
-            style="margin-block-start: 55px; margin-bottom: 8px;"
+            style="margin-block-start: 55px; margin-bottom: 8px"
           >
             {{ literalPlazas | oTranslate }}
           </p>
@@ -128,6 +128,7 @@
               type="raised"
               color="primary"
               (click)="showConfirm()"
+              style="margin-left: 100px;"
             ></o-button>
           </div>
         </div>

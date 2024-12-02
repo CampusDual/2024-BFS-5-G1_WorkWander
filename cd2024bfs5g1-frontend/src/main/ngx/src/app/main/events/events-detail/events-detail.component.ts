@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: "app-events-detail",
@@ -19,7 +20,6 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
-
 
 
   constructor(

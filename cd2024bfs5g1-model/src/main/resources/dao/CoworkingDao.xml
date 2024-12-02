@@ -98,6 +98,7 @@
                 WITH temp_table AS (
                     SELECT
                         cw.cw_id as cw_id,
+                        cw.cw_name as cw_name,
                         bd.date as date,
                         cw.cw_capacity as cw_capacity,
                         public.city.city as cw_location,

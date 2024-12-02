@@ -46,7 +46,15 @@
         </div>
         <div class="capacity-price-container">
           <div class="price-container">
-            <div class="price" [innerHTML]="formatPrice(data.price)"></div>
+            <div
+              class="event-free"
+              *ngIf="!data.price || data.price == 0; else priceValue"
+            >
+              {{ "FREE_EVENT" | oTranslate }}
+            </div>
+            <ng-template #priceValue>
+              <div class="price">{{ data.price }} €</div>
+            </ng-template>
           </div>
         </div>
       </div>

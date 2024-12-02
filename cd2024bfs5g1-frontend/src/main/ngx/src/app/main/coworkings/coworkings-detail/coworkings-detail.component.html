@@ -347,7 +347,7 @@
       </o-column>
     </div>
     <!-- Reviews -->
-    <div style="width: 100%; margin-top: 5vh">
+    <o-column class="review">
       <h4 class="review-title">{{ "REVIEWS" | oTranslate }}</h4>
       <o-grid
         #coworkingValoration
@@ -363,15 +363,17 @@
         refresh-button="false"
         show-page-size="no"
         show-buttons-text="no"
-        cols="2"
+        cols="4"
+        grid-item-height="fit"
         gutter-size="8px"
         detail-mode="none"
-        grid-item-height="5:1"
+        grid-item-height="2:1"
         pagination-controls="no"
-        query-rows="2"
+        query-rows="1"
+        class="grid-booking-rate"
       >
         <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
-          <div class="review-container">
+          <div layout-padding class="review-container">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
               <p class="login-name">{{ rate.usr_login }}</p>
               <p-rating
@@ -380,12 +382,12 @@
                 [readonly]="true"
               />
             </div>
-            <o-row>
+            <div class="review-description-container">
               {{ rate.bkr_description }}
-            </o-row>
+            </div>
           </div>
         </o-grid-item>
       </o-grid>
-    </div>
+    </o-column>
   </o-form>
 </div>

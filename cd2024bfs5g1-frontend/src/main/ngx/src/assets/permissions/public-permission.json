@@ -38,6 +38,11 @@
         "enabled": false
       },
       {
+        "attr": "eventsHome",
+        "visible": false,
+        "enabled": false
+      },
+      {
         "attr": "myEvents",
         "visible": false,
         "enabled": false
@@ -76,6 +81,10 @@
       },
       {
         "permissionId": "coworkings-new-route",
+        "enabled": false
+      },
+      {
+        "permissionId": "eventsHome",
         "enabled": false
       },
       {

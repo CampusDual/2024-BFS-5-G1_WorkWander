@@ -31,17 +31,12 @@
   header-actions="new"
   show-header-navigation="no"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  class="form-section"
+  class="form-section form-new-event"
   show-header="no"
   ignore-default-navigation="yes"
   fxFlex
 >
-  <div
-    class="form-section form-new-event"
-    fxLayout="row"
-    fxLayoutGap="24px"
-    fxLayoutAlign="left start"
-  >
+  <div class="form-section" fxLayout="row" fxLayoutAlign="left start">
     <!-- General Information -->
     <o-column
       fxFlex
@@ -58,7 +53,7 @@
         required="yes"
         icon="business"
         placeholder="{{ 'COWORKINGS_NAME' | oTranslate }}"
-        max-length="25"
+        max-length="50"
         min-length="3"
       ></o-text-input>
       <o-textarea-input
@@ -72,36 +67,6 @@
         icon="description"
         placeholder="{{ 'COWORKINGS_DESCRIPTION' | oTranslate }}"
       ></o-textarea-input>
-      <!-- Direction and Locality -->
-      <o-combo
-        #combo
-        attr="cw_location"
-        service="cities"
-        entity="city"
-        keys="id_city"
-        value-column="id_city"
-        columns="id_city;city"
-        visible-columns="city"
-        null-selection="no"
-        required="yes"
-        label="LOCATION"
-        translate="yes"
-        searchable="true"
-        sort="ASC"
-        appearance="fill"
-      >
-      </o-combo>
-      <o-text-input
-        fxFlex
-        attr="cw_address"
-        fxFlex
-        label="ADDRESS"
-        required="yes"
-        icon="place"
-        placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
-        max-length="50"
-        min-length="3"
-      ></o-text-input>
       <!-- Capacity and Price -->
       <o-integer-input
         min="1"
@@ -117,7 +82,7 @@
         min="1"
         max="1000"
         attr="cw_daily_price"
-        label="DAILY_PRICE"
+        label="PRICE"
         required="yes"
         decimal-digits="2"
         icon="euro_symbol"
@@ -125,13 +90,7 @@
         style="--field-hover-color: #6200ea"
         class="price"
       ></o-real-input>
-      <!-- Imagen -->
-      <o-image
-        attr="cw_image"
-        sql-type="OTHER"
-        max-file-size="1048576"
-      ></o-image>
-      <!--Servicios-->
+
       <span
         >{{ "selected_services" | oTranslate }} {{ selectedServices }} / 6</span
       >
@@ -158,52 +117,124 @@
         <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
           <div
             class="srv"
-            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)"
-            title="{{ dato.srv_name | oTranslate }}"
-          >
+            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)">
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
               fxFlex="65px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
-                <mat-icon>desktop_windows</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">desktop_windows</mat-icon>
+                <!--<small>{{ dato.srv_name | oTranslate }}</small>-->
               </article>
               <article *ngIf="dato.srv_name == 'vending_machine'">
-                <mat-icon>kitchen</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">kitchen</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'coffee_bar'">
-                <mat-icon>local_cafe</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_cafe</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'water_dispenser'">
-                <mat-icon>local_drink</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_drink</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'ergonomic_chair'">
-                <mat-icon>event_seat</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">event_seat</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'parking'">
-                <mat-icon>local_parking</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_parking</mat-icon>
               </article>
+              {{ dato.srv_name | oTranslate }}
             </o-column>
           </div>
         </o-grid-item>
       </o-grid>
-      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
-        <div class="buttons">
-          <button mat-raised-button color="warn" (click)="cancel()">
-            {{ "cancel" | oTranslate }}
-          </button>
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="isInvalidForm()"
-            attr="save"
-            (click)="save()"
-          >
-            {{ "save" | oTranslate }}
-          </button>
-        </div>
+      <!-- Imagen Information -->
+      <!-- Imagen -->
+      <o-image
+        attr="cw_image"
+        sql-type="OTHER"
+        max-file-size="1048576"
+        class="imagen-mapa"
+      ></o-image>
+    </o-column>
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title=""
+      fxLayoutGap="24px"
+      style="padding: 0 15px"
+    >
+      <div class="rowCityDirection" fxLayoutGap="24px">
+        <!-- Direction and Locality -->
+        <o-combo
+          #combo
+          attr="cw_location"
+          service="cities"
+          entity="city"
+          keys="id_city"
+          value-column="id_city"
+          columns="id_city;city"
+          visible-columns="city"
+          null-selection="no"
+          required="yes"
+          label="LOCATION"
+          translate="yes"
+          searchable="true"
+          sort="ASC"
+          appearance="fill"
+          class="halfSize"
+        ></o-combo>
+        <o-text-input
+          #address
+          attr="cw_address"
+          fxFlex
+          label="ADDRESS"
+          required="yes"
+          icon="place"
+          placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
+          max-length="50"
+          min-length="3"
+          (onBlur)="onAddressBlur()"
+          class="halfSize"
+        ></o-text-input>
+      </div>
+      <!-- Map Information -->
+      <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">
+        <o-map
+          #coworking_map
+          attr="coworking_map"
+          center="40.416775, -3.703790"
+          zoom=6
+          min-zoom="6"
+          max-zoom="18"
+          zoom-control="yes"
+          search-control="no"
+          layer-panel-visible="no"
+          fxFlex
+        >
+        </o-map>
       </div>
     </o-column>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayoutGap="24px"
+    class="form-row"
+    fxFlex
+    fxLayoutAlign="end"
+    fxLayoutGap="30px"
+    class="buttons"
+  >
+    <button mat-raised-button color="warn" (click)="cancel()">
+      {{ "cancel" | oTranslate }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="isInvalidForm()"
+      attr="save"
+      (click)="save()"
+    >
+      {{ "save" | oTranslate }}
+    </button>
   </div>
 </o-form>

@@ -1,4 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import {
   DialogService,
@@ -9,6 +10,7 @@ import {
   SnackBarService,
 } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { BookingRateComponent } from "../booking-rate/booking-rate.component";
 
 @Component({
   selector: "app-bookings-home",
@@ -21,34 +23,53 @@ export class BookingsHomeComponent {
 
   @ViewChild("table") table: OTableComponent;
 
+
   constructor(
     private router: Router,
     private service: OntimizeService,
     private utils: UtilsService,
     private dialogService: DialogService,
     private translate: OTranslateService,
-    private snackBarService: SnackBarService
-  ) {}
+    private snackBarService: SnackBarService,
+    protected dialog: MatDialog,
+  ) { }
 
   toCoworkingDetail(event) {
-    console.log(event.row.bk_cw_id);
-    this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);
+    if (event.columnName == "rate") {
+      this.openValoration(event);
+    } else if (event.columnName == "cancelCWbooking") {
+      this.cancelBooking(event);
+    } else {
+      this.router.navigate(["/main/coworkings/" + event.row.bk_cw_id]);
+    }
   }
 
   cancelBooking(evt: any) {
     var confirmMessageTitle = this.translate.get("CANCEL");
     var confirmMessageBody = this.translate.get("VERIFY_CANCEL_BOOKING");
-    var cancelledMessage = this.translate.get("CANCELLED_BOOKING")
+    var cancelledMessage = this.translate.get("CANCELLED_BOOKING");
+    var cancelledMessage2 = this.translate.get("CANCELLED_BOOKING2");
+
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    var startDate = new Date(evt["dates"][0]);
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date(evt["dates"][evt["dates"].length - 1]);
+    endDate.setHours(0, 0, 0, 0);
 
     if (evt["bk_state"]) {
-      if (this.dialogService) {
-        this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
-        this.dialogService.dialogRef.afterClosed().subscribe((result) => {
-          if (result) {
-            this.updateState(evt["bk_id"]);
-            this.table.reloadData();
-          }
-        });
+      if (currentDate < startDate) {
+        if (this.dialogService) {
+          this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
+          this.dialogService.dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+              this.updateState(evt["bk_id"]);
+              this.table.reloadData();
+            }
+          });
+        }
+      } else {
+        this.showAvailableToast(cancelledMessage2);
       }
     } else {
       this.showAvailableToast(cancelledMessage);
@@ -77,4 +98,31 @@ export class BookingsHomeComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
+
+  openValoration(evt): void {
+
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    var startDate = new Date(evt.row.dates[0]);
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date(evt.row.dates[(evt.row.dates).length - 1]);
+    endDate.setHours(0, 0, 0, 0);
+
+    if (evt.row.bk_state && evt.row.bkr_ratio == undefined) {
+      if (currentDate > endDate) {
+        this.dialog.open(BookingRateComponent, {
+          height: '50%',
+          width: '40%',
+          data: {
+            name: evt.row.cw_name,
+            rate: evt.row.bkr_ratio,
+            bk_id: evt.row.bk_id,
+            cw_id: evt.row.bk_cw_id,
+            usr_id: evt.row.bk_usr_id
+          }
+        })
+      }
+    }
+  }
+
 }

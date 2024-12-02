@@ -38,7 +38,22 @@
         "enabled": false
       },
       {
+        "attr": "eventsHome",
+        "visible": false,
+        "enabled": false
+      },
+      {
         "attr": "myEvents",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr":"analytics",
+        "visible": false,
+        "enabled": false
+      },
+      {
+        "attr": "myCalendar",
         "visible": false,
         "enabled": false
       }
@@ -69,6 +84,10 @@
         "enabled": false
       },
       {
+        "permissionId": "eventsHome",
+        "enabled": false
+      },
+      {
         "permissionId":"MyEvents",
         "enabled": false
       },
@@ -87,6 +106,14 @@
       {
         "permissionId":"appearance",
         "enabled":false
+      },
+      {
+        "permissionId":"myCalendar",
+        "enabled": false
+      },
+      {
+        "permissionId":"analytics-occupation",
+        "enabled": false
       }
     ]
   }

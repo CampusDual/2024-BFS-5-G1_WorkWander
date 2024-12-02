@@ -38,12 +38,35 @@
                 "input": "node_modules/ontimize-web-ngx/assets",
                 "output": "/assets"
               },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-extended-pdf-viewer/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx-charts/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/ontimize-web-ngx-map/images",
+                "output": "/assets"
+              },
               "src/manifest.webmanifest"
             ],
             "styles": [
               "node_modules/ontimize-web-ngx/ontimize.scss",
               "src/assets/css/app.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ontimize-web-ngx-charts/styles.scss"
+              "src/styles.scss",
+              "node_modules/ontimize-web-ngx-map/styles.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -84,8 +107,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,
@@ -130,8 +153,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,
@@ -160,8 +183,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "35kb",
+                  "maximumError": "40kb"
                 }
               ],
               "serviceWorker": true,

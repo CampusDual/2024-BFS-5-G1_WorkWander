@@ -30,7 +30,8 @@ ontimize:
       upper-like: false
   security:
     mode: default
-    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search,/cw_services/servicePerCoworking/search,/coworkings/serviceCoworking/search,/coworkings/serviceCoworking/advancedsearch,/cities/city/search,/services/service/search,/bookings/getDatesDisponibility/search'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search,/cw_services/servicePerCoworking/search,/coworkings/serviceCoworking/search,/coworkings/serviceCoworking/advancedsearch,/cities/city/search,/services/service/search,/bookings/getDatesDisponibility/search,/events/homeEvents/advancedsearch,/events/event/search'
+    ignore-paths: '/index.html,/app/**,/error,/test,/ontimize/health,/restapi/**,/swagger-ui/**,/coworkings/coworking/search,/users/user/search,/users/user,/bookings/totalBookingsByDate/search,/cw_services/servicePerCoworking/search,/coworkings/serviceCoworking/search,/coworkings/serviceCoworking/advancedsearch,/cities/city/search,/services/service/search,/bookings/getDatesDisponibility/search,/bookingsRate/bookingValorationsPerCoworking/search,/bookingsRate/ratioAveragePerCoworking/search'
     jwt:
       password: cd2024bfs5g1-kGn.#76%W@1
     role-information-service:

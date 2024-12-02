@@ -16,7 +16,7 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;location;address;description"
+    columns="id_event;name;bookings;date_event;hour_event;location;address;description;price"
     show-header="false"
     layout-direction="row"
     stay-in-record-after-insert="true"
@@ -29,10 +29,7 @@
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column">
           <div class="image-container">
-            <!-- Campo para mostrar la imagen de evento -->
             <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
-              <!-- Ocultaremos el div cuando no exista "image_event" -->
-              <!-- Necesitamos el o-image para que se carge la imagen en el campo image_event del form, sino no existiría el image_event -->
               <o-image
                 attr="image_event"
                 show-controls="no"
@@ -42,7 +39,6 @@
                 auto-fit="no"
               ></o-image>
             </div>
-            <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
             <img
               *ngIf="!form.getFieldValue('image_event')"
               src="assets/images/event-default.jpg"
@@ -53,7 +49,7 @@
           </div>
           <div>
             <p>
-              <strong>{{ "DETAILS" | oTranslate }}:</strong>
+              <strong>{{ "DETAILS" | oTranslate }}</strong>
             </p>
             <p>{{ form.getFieldValue("description") }}</p>
           </div>
@@ -61,25 +57,30 @@
         <div fxLayout="column" class="detalles" fxLayoutGap="16px">
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>calendar_month</mat-icon>
+              <mat-icon [matTooltip]="'DATE_EVENT' | oTranslate"
+                >calendar_month</mat-icon
+              >
             </div>
             <span>
               {{ formatDate(form.getFieldValue("date_event")) }} -
-              {{ form.getFieldValue("hour_event") }}
+              {{ formatTime(form.getFieldValue("hour_event")) }}
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>hourglass_bottom</mat-icon>
+              <mat-icon [matTooltip]="'DURATION' | oTranslate"
+                >hourglass_bottom</mat-icon
+              >
             </div>
             <span>
-              {{ "DURATION" | oTranslate }}:
               {{ durationConvert(form.getFieldValue("duration")) }}
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>location_on</mat-icon>
+              <mat-icon [matTooltip]="'LOCATION' | oTranslate"
+                >location_on</mat-icon
+              >
             </div>
             <span>
               {{ form.getFieldValue("address") }},
@@ -88,13 +89,41 @@
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon>person</mat-icon>
+              <mat-icon [matTooltip]="'CAPACITY' | oTranslate">person</mat-icon>
             </div>
             <span>
               {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
+              ({{ numeroPlazas }} {{ "AVAILABLE" | oTranslate }})
             </span>
           </div>
-          <div class="reservation-button" >
+          <div fxLayoutAlign="start center" fxLayoutGap="8px">
+            <div>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
+            </div>
+
+            <span
+              *ngIf="
+                !form.getFieldValue('price') ||
+                  form.getFieldValue('price') === 0;
+                else priceValue
+              "
+            >
+              {{ "FREE_EVENT" | oTranslate }}
+            </span>
+            <ng-template #priceValue>
+              <span>{{ form.getFieldValue("price") }} €</span>
+            </ng-template>
+          </div>
+          <div class="reservation-button"
+          *ngIf="parsePermissions('bookingButton')">
+          <p
+            class="lblSeatsText"
+            style="margin-block-start: 55px; margin-bottom: 8px;"
+          >
+            {{ literalPlazas | oTranslate }}
+          </p>
+
+          <div class="reservation-button">
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -103,12 +132,10 @@
               color="primary"
               (click)="showConfirm()"
             ></o-button>
-          
           </div>
         </div>
       </div>
     </div>
-
     <o-integer-input oHidden #id attr="id_event"></o-integer-input>
     <o-text-input oHidden attr="name"></o-text-input>
     <o-text-input oHidden attr="description"></o-text-input>
@@ -118,5 +145,6 @@
     <o-text-input oHidden attr="hour_event"></o-text-input>
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
+    <o-text-input oHidden attr="price"></o-text-input>
   </o-form>
 </div>

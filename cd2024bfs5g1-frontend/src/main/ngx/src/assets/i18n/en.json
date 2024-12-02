@@ -212,5 +212,6 @@
   "ADDRESS_NOT_FOUND": "Address not found",
   "INVALID_LOCATION": "Select a valid location",
   "API_ERROR": "Query API error",
-  "COWORKING_MARKER": "Coworking location"
+  "COWORKING_MARKER": "Coworking location",
+  "NO_RATIO": "The rating must be between 1 and 5"
 }

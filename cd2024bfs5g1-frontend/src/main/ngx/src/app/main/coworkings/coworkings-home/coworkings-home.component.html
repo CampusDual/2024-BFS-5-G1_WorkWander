@@ -98,7 +98,7 @@
     service="coworkings"
     entity="serviceCoworking"
     keys="cw_id"
-    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services"
+    columns="cw_id;cw_name;cw_location;cw_address;cw_daily_price;cw_description;cw_image;services;ratio"
     quick-filter-columns="cw_name"
     pagination-controls="true"
     page-size-options="12;16;20"
@@ -124,7 +124,7 @@
 
         <div class="info">
           <h2 class="coworking-name">{{ data.cw_name }}</h2>
-          
+
           <section class="services">
             <article *ngFor="let service of serviceList(data.services)">
               <article *ngIf="service == 'additional_screen'">
@@ -172,6 +172,13 @@
             </article>
           </section>
           <p class="location">{{ data.cw_location }}</p>
+
+          <!-- Media Valoraciones -->
+          <p *ngIf="data.ratio" class="ratio">
+            <mat-icon>star</mat-icon>
+            {{ data.ratio }}
+          </p>
+          <!-- Fin media valoraciones -->
         </div>
         <div class="capacity-price-container">
           <div class="price-container">

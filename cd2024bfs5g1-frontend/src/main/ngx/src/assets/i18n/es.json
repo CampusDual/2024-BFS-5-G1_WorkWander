@@ -212,5 +212,6 @@
   "ADDRESS_NOT_FOUND": "Dirección no encontrada",
   "INVALID_LOCATION": "Seleccione una población válida",
   "API_ERROR": "Error al consultar la API",
-  "COWORKING_MARKER": "Ubicación del coworking"
+  "COWORKING_MARKER": "Ubicación del coworking",
+  "NO_RATIO": "La valoración debe ser entre 1 y 5"
 }

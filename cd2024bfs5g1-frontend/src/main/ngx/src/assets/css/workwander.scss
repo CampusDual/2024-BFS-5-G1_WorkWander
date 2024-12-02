@@ -920,6 +920,7 @@ o-data-toolbar {
     padding: 16px;
     border-radius: 16px;
     margin-bottom: 90px;
+    margin-right: 16px;
     box-shadow: 0px 0px 10px 0px $primaryClaro;
   }
 }
@@ -1013,13 +1014,13 @@ svg.p-icon.p-rating-icon {
         :hover{
           background-color: $accent;
         }
-    
+
       }
 
       +.p-highlight >button{
         background-color: $primary;
       }
-      
+
     }
   }
 }
@@ -1039,15 +1040,15 @@ svg.p-icon.p-rating-icon {
 /*- RATE -*/
 .bookingsRate{
   i.pi.pi-star-fill{
-    color: $amarillo; 
+    color: $amarillo;
     font-size: $fontSize20;
-  
+
   }
 
   i.pi.pi-star-half-fill{
-    color: $amarillo; 
+    color: $amarillo;
     font-size: $fontSize16;
-  
+
   }
 
 

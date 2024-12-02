@@ -797,7 +797,8 @@ o-column {
     }
   }
 }
-.event-date, .event-hour {
+.event-date,
+.event-hour {
   // Estilo de la hora y la fecha del evento
   color: $primary;
   margin: 0 0 8px 0;
@@ -824,7 +825,8 @@ o-snackbar .o-snackbar-message {
   flex-direction: column;
   justify-content: space-between;
 
-  .coworking-name, .event-name {
+  .coworking-name,
+  .event-name {
     // Estilo del nombre del coworking y de evento
     font-size: $fontSize24;
     font-weight: bold;
@@ -833,6 +835,14 @@ o-snackbar .o-snackbar-message {
     margin-bottom: 8px;
     margin-top: 0;
     display: inline-block; // Necesario para que el efecto funcione correctamente
+  }
+
+  p.event-date {
+    color: $verdeBoton;
+  }
+
+  p.event-hour {
+    color: $verdeBoton;
   }
 
   .last-tickets-container {
@@ -875,7 +885,7 @@ o-snackbar .o-snackbar-message {
   }
 
   .ratio {
-    color: $primary;
+    color: $verdeBoton;
     align-content: center;
     align-items: center;
     display: flex;
@@ -888,7 +898,7 @@ o-snackbar .o-snackbar-message {
 
   .capacity {
     // Estilo de la ubicación y capacidad
-    color: $primary;
+    color: $verdeBoton;
     margin: 0;
     font-size: $fontSize12;
     font-weight: $fontBlack;

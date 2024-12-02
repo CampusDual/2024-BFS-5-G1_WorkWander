@@ -15,7 +15,7 @@
   fxFlex
 >
   <div
-    class="form-section form-new-event"
+    class="form-section form-new-event form-coworking-detail"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="left start"
@@ -23,7 +23,7 @@
     <!-- General Information -->
     <o-column
       fxFlex
-      class="form-section form-new-event"
+      class="form-section form-new-event form-coworking-detail"
       title="EDIT_COWORKING"
       fxLayoutGap="24px"
     >
@@ -68,6 +68,7 @@
         searchable="true"
         sort="ASC"
         appearance="fill"
+        class="halfSize"
       >
       </o-combo>
 
@@ -81,6 +82,7 @@
         placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
         max-length="50"
         min-length="3"
+        class="halfSize"
       ></o-text-input>
       <!-- Capacity and Price -->
       <o-integer-input
@@ -115,6 +117,7 @@
       <span
         >{{ "selected_services" | oTranslate }} {{ selectedServices }} / 6</span
       >
+
       <o-grid
         attr="services"
         service="services"
@@ -139,35 +142,49 @@
         <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
           <div
             class="srv"
-            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)">
+            (click)="selectService(dato.srv_id, 'sel' + dato.srv_id)"
+          >
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
               fxFlex="65px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">desktop_windows</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >desktop_windows</mat-icon
+                >
               </article>
               <article *ngIf="dato.srv_name == 'vending_machine'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">kitchen</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >kitchen</mat-icon
+                >
               </article>
               <article *ngIf="dato.srv_name == 'coffee_bar'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_cafe</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >local_cafe</mat-icon
+                >
               </article>
               <article *ngIf="dato.srv_name == 'water_dispenser'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_drink</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >local_drink</mat-icon
+                >
               </article>
               <article *ngIf="dato.srv_name == 'ergonomic_chair'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">event_seat</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >event_seat</mat-icon
+                >
               </article>
               <article *ngIf="dato.srv_name == 'parking'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate">local_parking</mat-icon>
+                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
+                  >local_parking</mat-icon
+                >
               </article>
               {{ dato.srv_name | oTranslate }}
             </o-column>
           </div>
         </o-grid-item>
       </o-grid>
+
       <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
         <div class="buttons">
           <button

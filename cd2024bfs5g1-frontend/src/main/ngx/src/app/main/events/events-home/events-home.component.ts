@@ -77,6 +77,7 @@ getAvailability(reserved: any, capacity: any): number{
   return reserved / capacity
 }
 
+
 }
 
 

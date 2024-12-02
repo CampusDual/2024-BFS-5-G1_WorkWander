@@ -19,6 +19,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("form") form: OFormComponent;
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
+  auth: any;
 
   constructor(
     private service: OntimizeService,
@@ -74,6 +75,10 @@ export class EventsDetailComponent implements OnInit {
     this.location.back();
   }
 
+  checkAuthStatus() {
+    return !this.authService.isLoggedIn();
+  }
+
   parsePermissions(attr: any): boolean {
     if (!this.form || !Util.isDefined(this.form.oattr)) {
       return ;
@@ -127,22 +132,7 @@ export class EventsDetailComponent implements OnInit {
   }
 
 
-  checkAuthStatus() {
-    return !this.authService.isLoggedIn();
-  }
-  parsePermissions(attr: string): boolean {
-    // if oattr in form, it can have permissions
-    if (!this.form || !Util.isDefined(this.form.oattr)) {
-      return;
-    }
-    const permissions: OPermissions =
-      this.form.getFormComponentPermissions(attr);
 
-    if (!Util.isDefined(permissions)) {
-      return true;
-    }
-    return permissions.visible;
-  }
 
   checkBookingEvent() {
     const filter = {

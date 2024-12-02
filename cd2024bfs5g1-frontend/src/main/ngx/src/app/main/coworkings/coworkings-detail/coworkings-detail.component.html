@@ -82,6 +82,7 @@
             undo-button="no"
             stay-in-record-after-insert="true"
             editable-detail="no"
+            class="bookingsRate"
           >
             <o-text-input
               oHidden
@@ -101,18 +102,12 @@
                     | numberToArray
                 "
               >
-                <i
-                  class="pi pi-star-fill"
-                  style="color: rgb(202, 192, 50); font-size: 2rem"
-                ></i>
+                <i class="pi pi-star-fill"></i>
               </ng-container>
 
               <!-- Mostrar medio ícono si es necesario -->
               <ng-container *ngIf="calculateIcons(getAverage()).hasHalfIcon">
-                <i
-                  class="pi pi-star-half-fill"
-                  style="color: rgb(202, 192, 50); font-size: 2rem"
-                ></i>
+                <i class="pi pi-star-half-fill"></i>
               </ng-container>
 
               <!-- Mostrar la media como texto -->
@@ -122,7 +117,7 @@
             </div>
           </o-form>
         </div>
-        <div class="info-container" style="padding-top: 15px">
+        <div class="info-container">
           <div class="detail-container">
             <o-text-input
               #description
@@ -285,8 +280,9 @@
         ></o-text-input>
         <span class="ubicacion">
           <strong>{{ "ADDRESS" | oTranslate }}:</strong>
-          {{ form.getFieldValue("cw_address") }} -
-          {{ form.getFieldValue("location") }}
+          {{ form.getFieldValue("cw_address") }} ({{
+            form.getFieldValue("location")
+          }})
         </span>
 
         <!-- Map Information -->
@@ -330,15 +326,15 @@
                       />
                     </div>
                     <div>
-                      <span style="font-weight: 800">{{ event.name }}</span>
+                      <span class="nombre-evento">{{ event.name }}</span>
                       <br />
                       <!-- <mat-icon>calendar_month</mat-icon> //-->
-                      <span style="font-size: 12px; line-height: 10px">{{
+                      <span class="fecha-evento">{{
                         dateTransform(event.date_event)
                       }}</span>
                       <br />
                       <!-- <mat-icon>access_time</mat-icon> //-->
-                      <span style="font-size: 12px; line-height: 10px">{{
+                      <span class="hora-evento">{{
                         timeTransform(event.hour_event)
                       }}</span>
                     </div>
@@ -351,7 +347,7 @@
       </o-column>
     </div>
     <!-- Reviews -->
-    <div style="width: 100%; margin-top: 5vh">
+    <o-column class="review">
       <h4 class="review-title">{{ "REVIEWS" | oTranslate }}</h4>
       <o-grid
         #coworkingValoration
@@ -367,15 +363,17 @@
         refresh-button="false"
         show-page-size="no"
         show-buttons-text="no"
-        cols="2"
+        cols="4"
+        grid-item-height="fit"
         gutter-size="8px"
         detail-mode="none"
-        grid-item-height="5:1"
+        grid-item-height="2:1"
         pagination-controls="no"
-        query-rows="2"
+        query-rows="1"
+        class="grid-booking-rate"
       >
         <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
-          <div class="review-container">
+          <div layout-padding class="review-container">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
               <p class="login-name">{{ rate.usr_login }}</p>
               <p-rating
@@ -384,12 +382,12 @@
                 [readonly]="true"
               />
             </div>
-            <o-row>
+            <div class="review-description-container">
               {{ rate.bkr_description }}
-            </o-row>
+            </div>
           </div>
         </o-grid-item>
       </o-grid>
-    </div>
+    </o-column>
   </o-form>
 </div>

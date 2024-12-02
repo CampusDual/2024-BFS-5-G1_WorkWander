@@ -3,7 +3,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
-
+import {AuthService} from "ontimize-web-ngx";
+import {Util} from "ontimize-web-ngx";
+import {OPermissions} from "ontimize-web-ngx";
 @Component({
   selector: "app-events-detail",
   templateUrl: "./events-detail.component.html",
@@ -26,7 +28,8 @@ export class EventsDetailComponent implements OnInit {
     private utils: UtilsService,
     private location: Location,
     protected snackBarService: SnackBarService,
-    protected dialogService: DialogService
+    protected dialogService: DialogService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -105,6 +108,24 @@ export class EventsDetailComponent implements OnInit {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+
+  checkAuthStatus() {
+    return !this.authService.isLoggedIn();
+  }
+  parsePermissions(attr: string): boolean {
+    // if oattr in form, it can have permissions
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return;
+    }
+    const permissions: OPermissions =
+      this.form.getFormComponentPermissions(attr);
+
+    if (!Util.isDefined(permissions)) {
+      return true;
+    }
+    return permissions.visible;
   }
 
   checkBookingEvent() {

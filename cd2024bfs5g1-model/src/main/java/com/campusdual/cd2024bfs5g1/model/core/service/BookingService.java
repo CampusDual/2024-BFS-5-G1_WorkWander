@@ -196,6 +196,7 @@ public class BookingService implements IBookingService {
             final Map<String, Object> coworkingMap = new LinkedHashMap<>();
             keyMap.put("cw_id", id);
             keyMapB.put("bk_cw_id", id);
+            keyMapB.put("bk_state", true);
             //Sacar la capacidad de los coworkings
             final EntityResult capacidad = this.cs.coworkingCapacityQuery(keyMap, attrList);
             final int capacidadDisponible = ((ArrayList<Integer>) capacidad.get("cw_capacity")).get(0);

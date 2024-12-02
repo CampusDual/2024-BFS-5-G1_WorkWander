@@ -969,6 +969,12 @@ o-snackbar .o-snackbar-message {
   }
 }
 
+.event-free {
+  font-size: $fontSize25;
+  font-weight: bold;
+  color: $blanco;
+}
+
 .capacity-container {
   // Contenedor de la capacidad
   width: 15%;

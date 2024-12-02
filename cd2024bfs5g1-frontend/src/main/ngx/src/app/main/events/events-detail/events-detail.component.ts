@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { ActivatedRoute, Router } from '@angular/router';
+ 
 
 @Component({
   selector: "app-events-detail",
@@ -76,7 +77,7 @@ export class EventsDetailComponent implements OnInit {
   }
 
   checkAuthStatus() {
-    return !this.authService.isLoggedIn();
+    return !this.auth.isLoggedIn();
   }
 
 

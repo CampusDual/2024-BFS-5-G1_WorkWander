@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponentComponent } from './public-component/public-component.component';
 import { PermissionsGuardService } from 'ontimize-web-ngx';
 
+
 export const routes: Routes = [
   {
     component: PublicComponentComponent,
@@ -11,6 +12,7 @@ export const routes: Routes = [
     children: [
 
     { path: 'coworkings', loadChildren: () => import('src/app/main/coworkings/coworkings.module').then(m => m.CoworkingsModule) },
+    { path: 'events', loadChildren: () => import('src/app/main/events/events.module').then(m => m.EventsModule) },
     { path: '', redirectTo: 'coworkings', pathMatch: 'full' },
     { path: '**', redirectTo: 'coworkings', pathMatch: 'full' }
     ]

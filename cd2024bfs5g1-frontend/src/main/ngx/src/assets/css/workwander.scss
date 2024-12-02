@@ -767,6 +767,46 @@ o-column {
     }
   }
 }
+.event-card {
+  // Estilo general de la tarjeta de evento
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba($accent, 0.5);
+  border-radius: $borderRadius;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba($primary, 0.4);
+  min-height: 200px;
+  width: 100%;
+  padding: 0 15px 0 4px;
+
+  .image-container {
+    // Contenedor de la imagen
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+
+    .event-image {
+      // Estilo de la imagen de evento
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      cursor: pointer;
+      border-radius: $borderRadius;
+    }
+  }
+}
+.event-date, .event-hour {
+  // Estilo de la hora y la fecha del evento
+  color: $primary;
+  margin: 0 0 8px 0;
+  font-size: $fontSize18;
+}
+.material-icons {
+  color: $verdeBoton;
+  fill: $verdeBoton;
+}
 o-snackbar .material-icons {
   color: $blanco;
   fill: $blanco !important;
@@ -784,8 +824,8 @@ o-snackbar .o-snackbar-message {
   flex-direction: column;
   justify-content: space-between;
 
-  .coworking-name {
-    // Estilo del nombre del coworking
+  .coworking-name, .event-name {
+    // Estilo del nombre del coworking y de evento
     font-size: $fontSize24;
     font-weight: bold;
     color: $verdeBoton;
@@ -793,6 +833,17 @@ o-snackbar .o-snackbar-message {
     margin-bottom: 8px;
     margin-top: 0;
     display: inline-block; // Necesario para que el efecto funcione correctamente
+  }
+
+  .last-tickets-container {
+    margin-top: 20px;
+  }
+
+  .last-tickets {
+    padding: 5px;
+    color: white;
+    background-color: red;
+    border-radius: 8px;
   }
 
   .form-container {
@@ -822,6 +873,19 @@ o-snackbar .o-snackbar-message {
     margin: 0 0 8px 0;
     font-size: $fontSize18;
   }
+
+  .ratio {
+    color: $primary;
+    align-content: center;
+    align-items: center;
+    display: flex;
+
+    mat-icon {
+      color: #d3b403;
+      margin-right: 5px;
+    }
+  }
+
   .capacity {
     // Estilo de la ubicación y capacidad
     color: $primary;

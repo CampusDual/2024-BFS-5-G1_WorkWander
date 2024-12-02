@@ -53,7 +53,7 @@
         required="yes"
         icon="business"
         placeholder="{{ 'COWORKINGS_NAME' | oTranslate }}"
-        max-length="25"
+        max-length="50"
         min-length="3"
       ></o-text-input>
       <o-textarea-input
@@ -82,7 +82,7 @@
         min="1"
         max="1000"
         attr="cw_daily_price"
-        label="DAILY_PRICE"
+        label="PRICE"
         required="yes"
         decimal-digits="2"
         icon="euro_symbol"
@@ -204,8 +204,8 @@
           attr="coworking_map"
           center="40.416775, -3.703790"
           zoom=6
-          min-zoom="3"
-          max-zoom="20"
+          min-zoom="6"
+          max-zoom="18"
           zoom-control="yes"
           search-control="no"
           layer-panel-visible="no"

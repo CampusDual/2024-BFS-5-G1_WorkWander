@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { ActivatedRoute, Router } from '@angular/router';
- 
+
 
 @Component({
   selector: "app-events-detail",
@@ -30,8 +30,8 @@ export class EventsDetailComponent implements OnInit {
     private location: Location,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
-    protected auth:AuthService,
-    protected router:Router
+    protected auth: AuthService,
+    protected router: Router
   ) { }
 
   ngOnInit() {
@@ -83,7 +83,7 @@ export class EventsDetailComponent implements OnInit {
 
 
   showConfirm() {
-    if(this.auth.isLoggedIn()){
+    if (this.auth.isLoggedIn()) {
       const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
       const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
@@ -91,7 +91,7 @@ export class EventsDetailComponent implements OnInit {
           this.createBookingEvent();
         }
       });
-    }else{
+    } else {
       this.router.navigate(['/login']);
     }
   }

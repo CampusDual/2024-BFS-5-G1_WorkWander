@@ -21,6 +21,18 @@ export class UtilsService {
     return new Intl.DateTimeFormat(this.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(date);
   }
 
+  /**
+   * Método que retorna la fecha formateada según el idioma
+   * @param rawDate
+   * @returns string
+   */
+  formatShortDate(rawDate:number){
+    const date = new Date(rawDate);
+    this.language = this.translate.getCurrentLang();
+    this.language === "es" ? (this.language = "es-ES") : (this.language = "en-US");
+    return new Intl.DateTimeFormat(this.language, {year: 'numeric', month: 'numeric', day: 'numeric'}).format(date);
+  }
+
   dateStartFunction(rowData: Array<any>): any {
     return rowData["dates"][0];
   }

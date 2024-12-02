@@ -153,7 +153,7 @@ public class CoworkingService implements ICoworkingService {
             } else {
                 // Entra dentro del if si right operand existe y si right operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
                 if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
-                    // Llama a comprobacion pasándole el right operand como parámetro y recoge la booleana devuelta en hasDate
+                    // Llama a dateCheckInFilters pasándole el right operand como parámetro y recoge la booleana devuelta en hasDate
                     hasDate = dateCheckInFilters((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
                 }
                 // Entra solo si hasDate sigue siendo false

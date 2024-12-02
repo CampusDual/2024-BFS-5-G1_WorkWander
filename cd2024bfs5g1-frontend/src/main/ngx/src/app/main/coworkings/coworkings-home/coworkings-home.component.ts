@@ -228,57 +228,6 @@ export class CoworkingsHomeComponent implements OnInit {
     return date;
   }
 
-  // setDates() {
-  //   const startDate = new Date((this.bookingDate as any).value.value.startDate).toLocaleString("en-CA");
-  //   const endDate = new Date((this.bookingDate as any).value.value.endDate).toLocaleString("en-CA");
-
-  //   this.dateArray[0] = startDate;
-  //   this.dateArray[1] = endDate;
-
-  //   const filter = {
-  //     bk_cw_id: this.idCoworking.getValue(),
-  //     bk_date: this.dateArray,
-  //     bk_state: true,
-  //   };
-
-  //   const conf = this.service.getDefaultServiceConfiguration("bookings");
-  //   this.service.configureService(conf);
-  //   const columns = ["bk_id"];
-
-  //   this.service.query(filter, columns, "getDatesDisponibility").subscribe(
-  //     (resp) => {
-  //       const data = resp.data.data;
-  //       console.log(data);
-  //       const fechasDisponibles = Object.values(data).every(
-  //         (disponible: boolean) => disponible === true
-  //       );
-  //       if (fechasDisponibles) {
-  //         const fechasDisponibles = Object.entries(data)
-  //           .filter(([fecha, disponible]) => disponible === true)
-  //           .map(([fecha]) => new Date(fecha));
-  //         this.dateArray = fechasDisponibles;
-  //       } else {
-  //         const fechasNoDisponibles = Object.entries(data)
-  //           .filter(([fecha, disponible]) => disponible === false)
-  //           .map(([fecha]) => new Date(fecha));
-
-  //         const fechasFormateadas = fechasNoDisponibles.map((fecha) =>
-  //           this.changeFormatDate(fecha.getTime(), this.idioma)
-  //         );
-
-  //         const mensaje = `${this.translate.get(
-  //           "NO_PLAZAS_DISPONIBLES"
-  //         )}:\n - ${fechasFormateadas.join("\n - ")}`;
-  //         this.showAvailableToast(mensaje);
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error("Error al consultar capacidad:", error);
-  //     }
-  //   );
-  //   this.dateArray.splice(0,this.dateArray.length)
-  // }
-
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
     let fechaFormateada;

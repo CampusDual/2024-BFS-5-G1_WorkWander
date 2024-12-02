@@ -1,4 +1,4 @@
-UPDATE usr_rol
+UPDATE usr_role
 SET rol_json_client_permission = '{"menu":[{"attr":"admin","visible":false,"enabled":false},
 {"attr":"coworkingsPublic","visible":false,"enabled":false},{"attr":"login_public","visible":false,"enabled":false}
 ,{"attr":"myBookings","visible":false,"enabled":false},{"attr":"myCalendar","visible":false,"enabled":false}],

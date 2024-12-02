@@ -214,7 +214,7 @@ login {
   }
 }
 
-app-coworking-new{
+app-coworking-new {
   gap: 25px;
   flex-wrap: wrap;
 }
@@ -328,14 +328,13 @@ nav.ng-star-inserted:nth-last-child(2) {
     color: $blanco;
   }
 
-
-    .o-app-sidenav-menu-group a,
-    .o-app-sidenav-menu-item a {
-      padding-left: 4px;
-      padding-right: 4px !important;
-      border-left: 0px solid transparent !important;
-      color: $accent;
-    }
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-menu-item a {
+    padding-left: 4px;
+    padding-right: 4px !important;
+    border-left: 0px solid transparent !important;
+    color: $accent;
+  }
 
   :hover {
     border-left: 0px solid $accent !important;
@@ -426,19 +425,18 @@ div#innerCol {
     display: flex;
     place-content: left;
     align-items: flex-start;
-    margin:0 !important ;
+    margin: 0 !important ;
 
     img {
       width: 510px !important;
       height: 290px !important;
       object-fit: cover !important;
     }
-
   }
   .button-back {
     position: absolute;
   }
-  .dos-columnas{
+  .dos-columnas {
     width: 100%;
     padding: 0 15px;
   }
@@ -468,26 +466,26 @@ div#innerCol {
       flex-wrap: wrap;
 
       .bloque-reserva {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-          justify-content: flex-end;
-          flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        flex-wrap: wrap;
 
-          >div{
-              display: flex;
-              flex-wrap: wrap;
-              flex-direction: row;
-              width: 100%;
-              column-gap: 27px;
-              justify-content: flex-end;
-          }
+        > div {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row;
+          width: 100%;
+          column-gap: 27px;
+          justify-content: flex-end;
+        }
       }
     }
   }
 
   #carousel {
-    padding-top:35px;
+    padding-top: 35px;
   }
   .p-carousel {
     display: flex;
@@ -500,23 +498,23 @@ div#innerCol {
       flex-flow: wrap;
     }
   }
-    .map-container {
-      padding-top: 25px;
+  .map-container {
+    padding-top: 25px;
 
-      .ubicacion{
-        padding-top:30px;
-        font-size: $fontSize20;
-      }
-
-      o-map{
-        max-width: 700px;
-        min-width: 700px;
-        width: 700px;
-        max-height: 450px;
-        min-height: 450px;
-        height: 450px;
-      }
+    .ubicacion {
+      padding-top: 30px;
+      font-size: $fontSize20;
     }
+
+    o-map {
+      max-width: 700px;
+      min-width: 700px;
+      width: 700px;
+      max-height: 450px;
+      min-height: 450px;
+      height: 450px;
+    }
+  }
   o-button.o-button button {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
@@ -594,26 +592,26 @@ o-column {
 .form-container {
   width: 100vw;
 }
-.columna-imagen-mapa{
+.columna-imagen-mapa {
   display: flex;
   flex-direction: column;
   gap: 35px;
 
-  o-map{
+  o-map {
     width: 100%;
     height: 100%;
     max-height: 470px;
     min-height: 470px;
     height: 470px;
   }
-  o-image{
+  o-image {
     width: 100%;
     height: 100%;
     max-height: 270px;
     min-height: 270px;
   }
 }
-.map-container o-map{
+.map-container o-map {
   width: 100%;
   height: 100%;
   max-height: 470px;
@@ -628,7 +626,7 @@ o-column {
   width: 80vw;
   max-width: 80vw;
 
-  .form-section{
+  .form-section {
     min-width: 500px;
     flex-wrap: wrap;
   }
@@ -655,7 +653,7 @@ o-column {
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
-    o-image.imagen-mapa{
+    o-image.imagen-mapa {
       width: 150px;
       height: 150px;
       max-height: 150px;
@@ -690,7 +688,6 @@ o-column {
     o-row.o-row {
       background: $blanco;
     }
-
   }
   article.ng-star-inserted {
     align-self: center !important;
@@ -771,9 +768,14 @@ o-column {
   }
 }
 o-snackbar .material-icons {
-  color: $accent;
-  fill: $accent !important;
+  color: $blanco;
+  fill: $blanco !important;
 }
+
+o-snackbar .o-snackbar-message {
+  color: $blanco;
+}
+
 .info {
   // Contenedor de la información
   width: 70%;
@@ -968,13 +970,13 @@ svg.p-icon.p-rating-icon {
 
 .event-item {
   .event-item-content {
-      width: 60%;
-      padding: 10px;
-      border: 1px solid #dfe7ef;
-      border-radius: 25px 5px 25px 5px;
-      text-align: center;
-      height: 20%;
-      margin:0 auto;
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #dfe7ef;
+    border-radius: 25px 5px 25px 5px;
+    text-align: center;
+    height: 20%;
+    margin: 0 auto;
   }
 
   .event-item-content:hover {
@@ -982,10 +984,10 @@ svg.p-icon.p-rating-icon {
   }
 
   .event-image {
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      border-radius: 5px
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 5px;
   }
 }
 
@@ -998,11 +1000,11 @@ svg.p-icon.p-rating-icon {
   padding: 5px;
 }
 
-.header-container-re{
-  margin-bottom: 15px
+.header-container-re {
+  margin-bottom: 15px;
 }
 
-.header-recommended-events{
+.header-recommended-events {
   padding: 5px;
   background-color: $accent;
   color: $primary;
@@ -1016,19 +1018,17 @@ svg.p-icon.p-rating-icon {
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
-
-      o-combo.halfSize{
+      o-combo.halfSize {
         max-width: 27%;
         width: 27%;
         min-width: 27%;
       }
 
-      o-text-input.halfSize{
+      o-text-input.halfSize {
         max-width: 67%;
         width: 67%;
         min-width: 67%;
       }
-
 
       o-date-input,
       o-integer-input,
@@ -1070,7 +1070,7 @@ svg.p-icon.p-rating-icon {
     font-size: 12px;
     width: 12px;
     height: 12px;
-}
+  }
 }
 @media (max-width: 576px) {
   .full-page {
@@ -1136,9 +1136,9 @@ svg.p-icon.p-rating-icon {
       font-size: $fontSize18;
     }
   }
-  .dos-columnas{
+  .dos-columnas {
     flex-direction: column !important;
-   }
+  }
 }
 @media (min-width: 1000px) and (max-width: 1250px) {
   .coworking-card {
@@ -1188,17 +1188,17 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c {
-  background-color:$primary;
+  background-color: $primary;
   color: $accent;
   border: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   width: 80px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   margin-right: 1px;
   transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
@@ -1207,7 +1207,7 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c.selected {
-  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:first-child {
@@ -1221,9 +1221,9 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c:hover {
-  box-shadow: 0 5px 7px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:active {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

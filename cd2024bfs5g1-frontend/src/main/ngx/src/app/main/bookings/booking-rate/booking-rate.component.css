@@ -1,8 +1,6 @@
-.rate {
-  svg.p-icon.p-rating-icon {
+.rate svg .p-icon .p-rating-icon {
     width: 40px;
     height: 40px;
     color: #d3b403;
     padding-bottom: 16px;
   }
-}

@@ -53,7 +53,7 @@
               {{ "FREE_EVENT" | oTranslate }}
             </div>
             <ng-template #priceValue>
-              <div class="price">{{ data.price }} €</div>
+              <div class="price" [innerHTML]="formatPrice(data.price)"></div>
             </ng-template>
           </div>
         </div>

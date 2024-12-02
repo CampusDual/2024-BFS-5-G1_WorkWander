@@ -37,25 +37,30 @@ export class BookingRateComponent {
     @Inject(UserInfoService) private userInfoService: UserInfoService,
     private injector: Injector,
     private translate: OTranslateService
-  ) {}
+  ) { }
 
   createValoration() {
-    const filter = {
-      id_bkr: this.data.bk_id,
-      bkr_description: this.comment.getValue(),
-      bkr_ratio: this.ratio.value,
-      cw_id: this.data.cw_id,
-      usr_id: this.data.usr_id,
-    };
 
-    const conf = this.service.getDefaultServiceConfiguration("bookingsRate");
-    this.service.configureService(conf);
+    if (!this.ratio.value) {
+      this.showAvailableToast("NO_RATIO");
+    } else {
+      const filter = {
+        id_bkr: this.data.bk_id,
+        bkr_description: this.comment.getValue(),
+        bkr_ratio: this.ratio.value,
+        cw_id: this.data.cw_id,
+        usr_id: this.data.usr_id,
+      };
 
-    this.service.insert(filter, "bookingRate").subscribe((resp) => {
-      this.showAvailableToast("COWORKING_VALORATION");
-      this.dialogRef.close();
-      window.location.reload();
-    });
+      const conf = this.service.getDefaultServiceConfiguration("bookingsRate");
+      this.service.configureService(conf);
+
+      this.service.insert(filter, "bookingRate").subscribe((resp) => {
+        this.showAvailableToast("COWORKING_VALORATION");
+        this.dialogRef.close();
+        window.location.reload();
+      });
+    }
   }
 
   showAvailableToast(mensaje?: string) {

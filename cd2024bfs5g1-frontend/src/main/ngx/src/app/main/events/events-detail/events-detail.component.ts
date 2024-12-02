@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
 import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: "app-events-detail",
@@ -21,6 +21,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
 
+
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -29,8 +30,8 @@ export class EventsDetailComponent implements OnInit {
     private location: Location,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
-    protected auth:AuthService,
-    protected router:Router
+    protected auth: AuthService,
+    protected router: Router
   ) { }
 
   ngOnInit() {
@@ -75,20 +76,14 @@ export class EventsDetailComponent implements OnInit {
     this.location.back();
   }
 
-  parsePermissions(attr: any): boolean {
-    if (!this.form || !Util.isDefined(this.form.oattr)) {
-      return ;
-    }
-    const permissions: OPermissions =
-      this.form.getFormComponentPermissions(attr);
-    if (!Util.isDefined(permissions)) {
-      return true;
-    }
-    return permissions.enabled;
+  checkAuthStatus() {
+    return !this.auth.isLoggedIn();
   }
 
+
+
   showConfirm() {
-    if(this.auth.isLoggedIn()){
+    if (this.auth.isLoggedIn()) {
       const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
       const confirmMessage = this.translate.get("BOOKINGS_CONFIRMATION");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
@@ -96,7 +91,7 @@ export class EventsDetailComponent implements OnInit {
           this.createBookingEvent();
         }
       });
-    }else{
+    } else {
       this.router.navigate(['/login']);
     }
   }
@@ -125,6 +120,20 @@ export class EventsDetailComponent implements OnInit {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  parsePermissions(attr: string): boolean {
+    // if oattr in form, it can have permissions
+    if (!this.form || !Util.isDefined(this.form.oattr)) {
+      return;
+    }
+    const permissions: OPermissions =
+      this.form.getFormComponentPermissions(attr);
+
+    if (!Util.isDefined(permissions)) {
+      return true;
+    }
+    return permissions.visible;
   }
 
   checkBookingEvent() {

@@ -187,7 +187,7 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns la fecha formateada como string
    */
   dateTransform(date: number): string {
-    return this.utils.formatDate(date);
+    return this.utils.formatShortDate(date);
   }
 
   /**

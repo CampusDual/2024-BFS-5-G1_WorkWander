@@ -14,8 +14,20 @@ h6 {
   }
 }
 /* Colores personalizados */
+/*
+$primary: #8b5e3c;
+$accent: #e6d5c3;
+$blanco: #f8f6f4;
+$verdeBoton: #5f6f65;
 
-$borderRadius: 25px 5px 25px 5px;
+$primaryClaro: rgba($primary, 0.5);
+$accentClaro: rgba($accent, 0.5);
+$verdeBotonClaro: rgba($verdeBoton, 0.5);
+
+$colorDegradadoFuerte: $primary;
+$colorDegradadoSuave: $accent;*/
+
+$borderRadius: 16px 8px 16px 8px;
 $borderRadiusButton: 25px 5px 25px 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
 $borderRadiusEqual: 25px;
@@ -28,25 +40,25 @@ $linear-gradientLR: linear-gradient(
   90deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientRL: linear-gradient(
   270deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientTB: linear-gradient(
   180deg,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 $linear-gradientBT: linear-gradient(
   0,
   $colorDegradadoFuerte 0%,
   $colorDegradadoFuerte 5%,
-  $colorDegradadoSuave 100%
+  $colorDegradadoFuerte 100%
 );
 
 /* Margin personalizado */
@@ -114,7 +126,7 @@ ngx-material-timepicker-container
 }
 /*  Barra de navegación lateral  */
 .navMenu {
-  background-image: $linear-gradientBT;
+  background-color: $primary;
 }
 
 /* SnackBar */
@@ -202,10 +214,15 @@ login {
   }
 }
 
-app-coworking-new{
+app-coworking-new {
   gap: 25px;
   flex-wrap: wrap;
 }
+
+form{
+  overflow: hidden;
+}
+
 /* Formato Full page */
 .full-page {
   width: 100%;
@@ -297,7 +314,7 @@ app-coworking-new{
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $primary;
+  background-color: $verdeBoton;
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
@@ -308,14 +325,21 @@ nav.ng-star-inserted:nth-last-child(2) {
   right: 0;
   width: 96%;
 
+  span.o-app-sidenav-menuitem-title {
+    color: $blanco;
+  }
 
-    .o-app-sidenav-menu-group a,
-    .o-app-sidenav-menu-item a {
-      padding-left: 4px;
-      padding-right: 4px !important;
-      border-left: 0px solid transparent !important;
-      color: $accent;
-    }
+  mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+    color: $blanco;
+  }
+
+  .o-app-sidenav-menu-group a,
+  .o-app-sidenav-menu-item a {
+    padding-left: 4px;
+    padding-right: 4px !important;
+    border-left: 0px solid transparent !important;
+    color: $accent;
+  }
 
   :hover {
     border-left: 0px solid $accent !important;
@@ -337,10 +361,8 @@ nav.ng-star-inserted:nth-last-child(2) {
 
 // Formato barra lateral
 .o-app-sidenav {
-
   .o-app-sidenav-sidenav {
     background-image: $linear-gradientBT;
-    background-color: $primary;
   }
 
   .o-app-sidenav-container {
@@ -408,19 +430,18 @@ div#innerCol {
     display: flex;
     place-content: left;
     align-items: flex-start;
-    margin:0 !important ;
+    margin: 0 !important ;
 
     img {
       width: 510px !important;
       height: 290px !important;
       object-fit: cover !important;
     }
-
   }
   .button-back {
     position: absolute;
   }
-  .dos-columnas{
+  .dos-columnas {
     width: 100%;
     padding: 0 15px;
   }
@@ -450,26 +471,26 @@ div#innerCol {
       flex-wrap: wrap;
 
       .bloque-reserva {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-          justify-content: flex-end;
-          flex-wrap: wrap;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        flex-wrap: wrap;
 
-          >div{
-              display: flex;
-              flex-wrap: wrap;
-              flex-direction: row;
-              width: 100%;
-              column-gap: 27px;
-              justify-content: flex-end;
-          }
+        > div {
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: row;
+          width: 100%;
+          column-gap: 27px;
+          justify-content: flex-end;
+        }
       }
     }
   }
 
   #carousel {
-    padding-top:35px;
+    padding-top: 35px;
   }
   .p-carousel {
     display: flex;
@@ -481,25 +502,24 @@ div#innerCol {
     .inner-form .o-form-content-wrapper {
       flex-flow: wrap;
     }
-
   }
-    .map-container {
-      padding-top: 25px;
+  .map-container {
+    padding-top: 25px;
 
-      .ubicacion{
-        padding-top:30px;
-        font-size: $fontSize20;
-      }
-
-      o-map{
-        max-width: 700px;
-        min-width: 700px;
-        width: 700px;
-        max-height: 450px;
-        min-height: 450px;
-        height: 450px;
-      }
+    .ubicacion {
+      padding-top: 30px;
+      font-size: $fontSize20;
     }
+
+    o-map {
+      max-width: 700px;
+      min-width: 700px;
+      width: 700px;
+      max-height: 450px;
+      min-height: 450px;
+      height: 450px;
+    }
+  }
   o-button.o-button button {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
@@ -547,8 +567,10 @@ div#innerCol {
 }
 .reservation-button {
   text-align: center;
-  max-width: 170px;
-  width: 170px;
+  o-button{
+    margin-left: 0 !important;
+  }
+
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -577,26 +599,26 @@ o-column {
 .form-container {
   width: 100vw;
 }
-.columna-imagen-mapa{
+.columna-imagen-mapa {
   display: flex;
   flex-direction: column;
   gap: 35px;
 
-  o-map{
+  o-map {
     width: 100%;
     height: 100%;
     max-height: 470px;
     min-height: 470px;
     height: 470px;
   }
-  o-image{
+  o-image {
     width: 100%;
     height: 100%;
     max-height: 270px;
     min-height: 270px;
   }
 }
-.map-container o-map{
+.map-container o-map {
   width: 100%;
   height: 100%;
   max-height: 470px;
@@ -611,7 +633,7 @@ o-column {
   width: 80vw;
   max-width: 80vw;
 
-  .form-section{
+  .form-section {
     min-width: 500px;
     flex-wrap: wrap;
   }
@@ -638,7 +660,7 @@ o-column {
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
-    o-image.imagen-mapa{
+    o-image.imagen-mapa {
       width: 150px;
       height: 150px;
       max-height: 150px;
@@ -673,7 +695,6 @@ o-column {
     o-row.o-row {
       background: $blanco;
     }
-
   }
   article.ng-star-inserted {
     align-self: center !important;
@@ -716,7 +737,7 @@ o-column {
   font-weight: 700;
 }
 .application-layout-content-wrapper.header-layout {
-  background-image: url("assets/images/fondo_workwander.jpg");
+  // background-image: url("assets/images/fondo_workwander.jpg");
   background-position-y: bottom;
   background-position-x: right;
   background-repeat: no-repeat;
@@ -783,7 +804,8 @@ o-column {
     }
   }
 }
-.event-date, .event-hour {
+.event-date,
+.event-hour {
   // Estilo de la hora y la fecha del evento
   color: $primary;
   margin: 0 0 8px 0;
@@ -794,9 +816,14 @@ o-column {
   fill: $verdeBoton;
 }
 o-snackbar .material-icons {
-  color: $accent;
-  fill: $accent !important;
+  color: $blanco;
+  fill: $blanco !important;
 }
+
+o-snackbar .o-snackbar-message {
+  color: $blanco;
+}
+
 .info {
   // Contenedor de la información
   width: 70%;
@@ -805,15 +832,24 @@ o-snackbar .material-icons {
   flex-direction: column;
   justify-content: space-between;
 
-  .coworking-name, .event-name {
+  .coworking-name,
+  .event-name {
     // Estilo del nombre del coworking y de evento
     font-size: $fontSize24;
     font-weight: bold;
-    color: $primary;
+    color: $verdeBoton;
     cursor: pointer;
     margin-bottom: 8px;
     margin-top: 0;
     display: inline-block; // Necesario para que el efecto funcione correctamente
+  }
+
+  p.event-date {
+    color: $verdeBoton;
+  }
+
+  p.event-hour {
+    color: $verdeBoton;
   }
 
   .last-tickets-container {
@@ -850,13 +886,26 @@ o-snackbar .material-icons {
 
   .location {
     // Estilo de la ubicación
-    color: $primary;
+    color: $verdeBoton;
     margin: 0 0 8px 0;
     font-size: $fontSize18;
   }
+
+  .ratio {
+    color: $verdeBoton;
+    align-content: center;
+    align-items: center;
+    display: flex;
+
+    mat-icon {
+      color: #d3b403;
+      margin-right: 5px;
+    }
+  }
+
   .capacity {
     // Estilo de la ubicación y capacidad
-    color: $primary;
+    color: $verdeBoton;
     margin: 0;
     font-size: $fontSize12;
     font-weight: $fontBlack;
@@ -891,7 +940,7 @@ o-snackbar .material-icons {
 }
 
 .capacity-price-container {
-  border-left: solid 5px $primary;
+  // border-left: solid 5px $primary;
   padding: 0px 0 0 17px;
   min-width: 190px;
 
@@ -918,6 +967,12 @@ o-snackbar .material-icons {
       }
     }
   }
+}
+
+.event-free {
+  font-size: $fontSize25;
+  font-weight: bold;
+  color: $blanco;
 }
 
 .capacity-container {
@@ -971,23 +1026,29 @@ o-data-toolbar {
   margin: auto;
 
   .detalles {
-    background-color: #fff;
+    background-color: $blanco;
     padding: 16px;
     border-radius: 16px;
     margin-bottom: 90px;
-    box-shadow: 0px 0px 10px 0px rgba(139, 94, 6);
+    margin-right: 16px;
+    box-shadow: 0px 0px 10px 0px $primaryClaro;
+  }
+  .image-container.image-container-details img{
+    height: 420px !important;
+    width: 430px !important;
+
   }
 }
 
 // borde botón cancelar
 td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
   mat-icon.mat-icon {
-    border: 2px #9f2525 solid;
+    border: 2px $rojo solid;
     border-style: outset;
     border-radius: 8px;
-    color: white !important;
+    color: $blanco !important;
     margin: 5px 0 5px 0;
-    background-color: #9f2525 !important;
+    background-color: $rojo !important;
   }
 }
 //
@@ -996,19 +1057,20 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
 svg.p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
-  color: #d3b403;
+  color: $amarillo;
 }
 //
 
 .event-item {
+
   .event-item-content {
-      width: 60%;
-      padding: 10px;
-      border: 1px solid #dfe7ef;
-      border-radius: 25px 5px 25px 5px;
-      text-align: center;
-      height: 20%;
-      margin:0 auto;
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #dfe7ef;
+    border-radius: 25px 5px 25px 5px;
+    text-align: center;
+    height: 20%;
+    margin: 0 auto;
   }
 
   .event-item-content:hover {
@@ -1016,27 +1078,91 @@ svg.p-icon.p-rating-icon {
   }
 
   .event-image {
-      width: 100px;
-      height: 100px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      border-radius: 5px
+    width: 130px;
+    height: 70px;
+    object-fit: cover;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 5px;
+    }
+
+  .nombre-evento{
+    display: block;
+    font-size: $fontSize18;
+    font-weight: 800;
+    height: 23px;
+  }
+
+  .fecha-evento{
+    font-size: $fontSize12;
+  }
+
+  .hora-evento{
+    font-size: $fontSize12;
+  }
+}
+.grid-booking-rate .mat-grid-tile-content {
+  background-color: #e6d5c3;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 5px 10px;
+  border-radius: 7px;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+  -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+  box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
+}
+
+.review {
+  width: 100%;
+  padding-left: 25px !important;
+  padding-right: 25px !important;
+}
+
+#carousel{
+
+  padding-top:18px;
+
+  .p-carousel-items-container {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .p-carousel-item.ng-star-inserted .event-item .event-item-content {
+    background-color: $accent;
+}
+
+  .p-carousel-indicators {
+    overflow: hidden;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    .p-carousel-indicator {
+      list-style: none;
+      padding: 5px;
+      margin: 0%;
+
+      > button{
+
+        :hover{
+          background-color: $accent;
+        }
+
+      }
+
+      +.p-highlight >button{
+        background-color: $primary;
+      }
+
+    }
   }
 }
 
-.p-carousel-indicators {
-  margin: 0%;
+.header-container-re {
+  margin-bottom: 15px;
 }
 
-.p-carousel-indicator {
-  list-style: none;
-  padding: 5px;
-}
-
-.header-container-re{
-  margin-bottom: 15px
-}
-
-.header-recommended-events{
+.header-recommended-events {
   padding: 5px;
   background-color: $accent;
   color: $primary;
@@ -1044,25 +1170,49 @@ svg.p-icon.p-rating-icon {
   font-weight: bold;
 }
 
+/*- RATE -*/
+.bookingsRate{
+  i.pi.pi-star-fill{
+    color: $amarillo;
+    font-size: $fontSize20;
+
+  }
+
+  i.pi.pi-star-half-fill{
+    color: $amarillo;
+    font-size: $fontSize16;
+
+  }
+
+
+}
+.rate {
+  svg.p-icon.p-rating-icon {
+    width: 40px;
+    height: 40px;
+    color: $amarillo;
+    padding-bottom: 16px;
+  }
+}
+
+
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
-
-      o-combo.halfSize{
+      o-combo.halfSize {
         max-width: 27%;
         width: 27%;
         min-width: 27%;
       }
 
-      o-text-input.halfSize{
+      o-text-input.halfSize {
         max-width: 67%;
         width: 67%;
         min-width: 67%;
       }
-
 
       o-date-input,
       o-integer-input,
@@ -1104,7 +1254,7 @@ svg.p-icon.p-rating-icon {
     font-size: 12px;
     width: 12px;
     height: 12px;
-}
+  }
 }
 @media (max-width: 576px) {
   .full-page {
@@ -1170,9 +1320,9 @@ svg.p-icon.p-rating-icon {
       font-size: $fontSize18;
     }
   }
-  .dos-columnas{
+  .dos-columnas {
     flex-direction: column !important;
-   }
+  }
 }
 @media (min-width: 1000px) and (max-width: 1250px) {
   .coworking-card {
@@ -1222,17 +1372,17 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c {
-  background-color:$primary;
+  background-color: $primary;
   color: $accent;
   border: 0;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   width: 80px;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   margin-right: 1px;
   transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
   box-sizing: border-box;
 }
 
@@ -1241,7 +1391,7 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c.selected {
-  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:first-child {
@@ -1255,9 +1405,9 @@ svg.p-icon.p-rating-icon {
 }
 
 .button-c:hover {
-  box-shadow: 0 5px 7px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
 }
 
 .button-c:active {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

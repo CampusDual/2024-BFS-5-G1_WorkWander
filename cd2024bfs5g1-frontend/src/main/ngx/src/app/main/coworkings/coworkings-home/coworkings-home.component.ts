@@ -26,8 +26,7 @@ import {
   styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
-  @ViewChild("filterBuilder", { static: true })
-  filterBuilder: OFilterBuilderComponent;
+  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;

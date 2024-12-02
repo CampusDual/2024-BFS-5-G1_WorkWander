@@ -11,7 +11,7 @@
 }
 
 .login-name {
-  background-color: #5f6f65;
+  background-color: #7ba587;
   padding: 8px;
   border-radius: 16px 8px 16px 8px;
   color: white;
@@ -21,4 +21,9 @@
   color: #d3b403;
   transform: scale(1.5);
   padding-left: 8px;
+}
+
+::ng-deep .o-grid-footer.ng-star-inserted {
+  padding-bottom: 16px;
+  padding-left: 16px;
 }

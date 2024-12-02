@@ -28,7 +28,7 @@
       </div>
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column">
-          <div class="image-container">
+          <div class="image-container image-container-details">
             <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
               <o-image
                 attr="image_event"
@@ -92,15 +92,17 @@
               <mat-icon [matTooltip]="'CAPACITY' | oTranslate">person</mat-icon>
             </div>
             <span>
-              {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
-              ({{ numeroPlazas }} {{ "AVAILABLE" | oTranslate }})
+              {{ form.getFieldValue("bookings") }}
+              {{ "SLOTS" | oTranslate }} ({{ numeroPlazas }}
+              {{ "AVAILABLE" | oTranslate }})
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate"
+                >payments</mat-icon
+              >
             </div>
-
             <span
               *ngIf="
                 !form.getFieldValue('price') ||
@@ -114,16 +116,17 @@
               <span>{{ form.getFieldValue("price") }} €</span>
             </ng-template>
           </div>
-          <div class="reservation-button"
-          *ngIf="parsePermissions('bookingButton')">
           <p
             class="lblSeatsText"
-            style="margin-block-start: 55px; margin-bottom: 8px;"
+            style="margin-block-start: 55px; margin-bottom: 8px"
           >
             {{ literalPlazas | oTranslate }}
           </p>
 
-          <div class="reservation-button">
+          <div
+            class="reservation-button"
+            *ngIf="parsePermissions('bookingButton')"
+          >
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -131,6 +134,7 @@
               type="raised"
               color="primary"
               (click)="showConfirm()"
+              style="margin-left: 100px"
             ></o-button>
           </div>
         </div>
@@ -146,6 +150,5 @@
     <o-text-input oHidden attr="duration"></o-text-input>
     <o-text-input oHidden attr="location"></o-text-input>
     <o-text-input oHidden attr="price"></o-text-input>
-    </div>
   </o-form>
 </div>

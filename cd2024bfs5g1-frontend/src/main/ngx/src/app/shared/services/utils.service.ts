@@ -37,4 +37,24 @@ export class UtilsService {
   formatTime(time:string):string{
     return `${time.substring(0,2)}:${time.substring(3,5)}`
   }
+
+  calculateState(cellvalue: any, rowvalue?: Array<any>): string {
+    var currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    var startDate = new Date(rowvalue["dates"][0]);
+    startDate.setHours(0, 0, 0, 0);
+    var endDate = new Date(rowvalue["dates"][rowvalue["dates"].length - 1]);
+    endDate.setHours(0, 0, 0, 0);
+    var state = "Cancelada";
+    if (rowvalue["bk_state"] === true) {
+      if (currentDate < startDate) {
+        state = "Pendiente";
+      } else if (startDate <= currentDate && currentDate <= endDate) {
+        state = "En curso";
+      } else {
+        state = "Finalizada";
+      }
+    }
+    return state;
+  }
 }

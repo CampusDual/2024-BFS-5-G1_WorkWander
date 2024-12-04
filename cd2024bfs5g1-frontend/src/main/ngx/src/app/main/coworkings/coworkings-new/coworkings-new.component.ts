@@ -28,7 +28,7 @@ export class CoworkingsNewComponent implements OnInit {
   public selectedServices: number = 0;
   protected service: OntimizeService;
   leafletMap: any;
-  protected validAddress : boolean;
+  protected validAddress: boolean;
   protected mapLat: string = ""; //Latitud
   protected mapLon: string = ""; //Longitud
   protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
@@ -45,7 +45,7 @@ export class CoworkingsNewComponent implements OnInit {
     private translate: OTranslateService,
     protected injector: Injector,
     protected snackBarService: SnackBarService,
-        protected dialogService: DialogService,
+    protected dialogService: DialogService,
     private http: HttpClient
   ) {
     this.service = this.injector.get(OntimizeService);
@@ -105,12 +105,12 @@ export class CoworkingsNewComponent implements OnInit {
   }
 
   public async save() {
-     if (!this.validAddress) {
-       const confirmSave = await this.showConfirm();
-       if (!confirmSave) {
-         return;
-       }
-     }
+    if (!this.validAddress) {
+      const confirmSave = await this.showConfirm();
+      if (!confirmSave) {
+        return;
+      }
+    }
     //Ordenamos el array de coworkings
     this.arrayServices.sort((a: any, b: any) => a.id - b.id);
     const coworking = {
@@ -121,6 +121,8 @@ export class CoworkingsNewComponent implements OnInit {
       cw_capacity: this.coworkingForm.getFieldValue('cw_capacity'),
       cw_daily_price: this.coworkingForm.getFieldValue('cw_daily_price'),
       cw_image: this.coworkingForm.getFieldValue('cw_image'),
+      cw_lat: this.mapLat,
+      cw_lon: this.mapLon,
       services: this.arrayServices
     }
     this.insert(coworking);
@@ -169,27 +171,29 @@ export class CoworkingsNewComponent implements OnInit {
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
         let [lat, lon] = results.split(';')
-          if (this.coworking_map && this.coworking_map.getMapService()) {
-              if (this.leafletMap) {
-                this.leafletMap.setView([+lat, +lon], 16);
-              } else {
-                console.error('El mapa no está inicializado.');
-              }
+        this.mapLat = lat;
+        this.mapLon = lon;
+        if (this.coworking_map && this.coworking_map.getMapService()) {
+          if (this.leafletMap) {
+            this.leafletMap.setView([+lat, +lon], 16);
           } else {
-            console.error('El servicio del mapa no está disponible.');
+            console.error('El mapa no está inicializado.');
           }
-          this.validAddress = true;
-          this.coworking_map.addMarker(
-            'coworking_marker',           // id
-            lat,                 // latitude
-            lon,                 // longitude
-            { draggable: true },       // options
-            this.translate.get("COWORKING_MARKER"),     // popup
-            false,                     // hidden
-            true,                      // showInMenu
-            this.translate.get("COWORKING_MARKER")   // menuLabel
-          );
-      }else{
+        } else {
+          console.error('El servicio del mapa no está disponible.');
+        }
+        this.validAddress = true;
+        this.coworking_map.addMarker(
+          'coworking_marker',           // id
+          lat,                 // latitude
+          lon,                 // longitude
+          { draggable: true },       // options
+          this.translate.get("COWORKING_MARKER"),     // popup
+          false,                     // hidden
+          true,                      // showInMenu
+          this.translate.get("COWORKING_MARKER")   // menuLabel
+        );
+      } else {
         //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
         this.leafletMap.setView([40.416775, -3.703790], 6);
@@ -205,6 +209,8 @@ export class CoworkingsNewComponent implements OnInit {
       console.log(response);
       if (response?.length > 0) {
         const { lat, lon } = response[0];
+        this.mapLat = lat;
+        this.mapLon = lon;
         console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       }
@@ -222,7 +228,7 @@ export class CoworkingsNewComponent implements OnInit {
     });
   }
 
-private async showConfirm(): Promise<boolean> {
+  private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
       const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");

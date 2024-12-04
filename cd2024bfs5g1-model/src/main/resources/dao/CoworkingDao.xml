@@ -55,7 +55,9 @@
                         public.coworking.cw_location as cw_location,
                         public.city.city as location,
                         public.coworking.cw_daily_price as cw_daily_price,
-                        public.coworking.cw_image as cw_image
+                        public.coworking.cw_image as cw_image,
+                        public.coworking.cw_lat as cw_lat,
+                        public.coworking.cw_lon as cw_lon
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location
                     #WHERE#

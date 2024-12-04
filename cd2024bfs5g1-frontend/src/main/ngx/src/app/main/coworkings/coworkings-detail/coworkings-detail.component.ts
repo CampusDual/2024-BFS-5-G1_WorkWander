@@ -99,9 +99,13 @@ export class CoworkingsDetailComponent implements OnInit {
 
   ngOnInit() {
   }
-  iniciarPantalla(idLocation: number, city: string, address: string) {
+  iniciarPantalla(idLocation: number, city: string, address: string, lat: number, lon: number) {
     this.showEvents(idLocation);
-    this.mapaShow(city, address);
+    if (lat === undefined && lon === undefined) {
+      this.mapaShow(city, address);
+    } else {
+      this.mapaShow(lat, lon);
+    }
   }
 
   currentDate() {
@@ -114,11 +118,11 @@ export class CoworkingsDetailComponent implements OnInit {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let month = date.getMonth()+1;
+      let month = date.getMonth() + 1;
       let year = date.getFullYear();
       let day = date.getDate();
-      let m = month < 10 ? "0"+month.toString() : month.toString()
-      let d = day < 10 ? "0"+day.toString() : day.toString()
+      let m = month < 10 ? "0" + month.toString() : month.toString()
+      let d = day < 10 ? "0" + day.toString() : day.toString()
       let now = `${year}-${m}-${d}`;
       const filter = {
         "@basic_expression": {
@@ -153,7 +157,7 @@ export class CoworkingsDetailComponent implements OnInit {
         "duration",
         "image_event",
       ];
-      this.events=[];
+      this.events = [];
       this.service
         .query(filter, columns, "event", sqltypes)
         .subscribe((resp) => {
@@ -418,47 +422,60 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   // ---------------------- MAPA ----------------------
-  mapaShow(selectedCity: string, address: string): void {
-    const addressComplete = selectedCity + ", " + address;
+  mapaShow(selectedCity: string | number, address: string | number): void {
+    if (typeof selectedCity === "string" && (typeof address === "string")) {
 
-    this.getCoordinatesForCity(addressComplete).then((results) => {
-      if (results) {
-        const [lat, lon] = results.split(';')
-        this.center = lat + ";" + lon;
-        this.coworking_map.getMapService().setCenter(+lat, +lon);
-        this.coworking_map.getMapService().setZoom(18);
-        this.coworking_map.addMarker(
-          'custom_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          'Ubicacion del coworking',     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          'Marcador Personalizado'   // menuLabel
-        );
-      } else {
-        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
-        this.getCoordinatesForCity(selectedCity).then((results) => {
-          if (results) {
-            const [lat, lon] = results.split(';')
-            this.center = lat + ";" + lon;
-            this.coworking_map.getMapService().setCenter(+lat, +lon);
-            this.coworking_map.getMapService().setZoom(12);
-            this.coworking_map.addMarker(
-              'custom_marker',           // id
-              lat,                 // latitude
-              lon,                 // longitude
-              { draggable: true },       // options
-              'Ubicacion del coworking',     // popup
-              false,                     // hidden
-              true,                      // showInMenu
-              'Marcador Personalizado'   // menuLabel
-            );
-          }
-        });
-      }
-    });
+      const addressComplete = selectedCity + ", " + address;
+
+      this.getCoordinatesForCity(addressComplete).then((results) => {
+        if (results) {
+          const [lat, lon] = results.split(';')
+          this.center = lat + ";" + lon;
+          this.ubicarEnMapa(+lat, +lon);
+          /*
+          this.coworking_map.getMapService().setCenter(+lat, +lon);
+          this.coworking_map.getMapService().setZoom(18);
+          this.coworking_map.addMarker(
+            'custom_marker',           // id
+            lat,                 // latitude
+            lon,                 // longitude
+            { draggable: true },       // options
+            'Ubicacion del coworking',     // popup
+            false,                     // hidden
+            true,                      // showInMenu
+            'Marcador Personalizado'   // menuLabel
+          );
+          */
+        } else {
+          this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
+          this.getCoordinatesForCity(selectedCity).then((results) => {
+            if (results) {
+              const [lat, lon] = results.split(';')
+              this.center = lat + ";" + lon;
+              this.ubicarEnMapa(+lat, +lon);
+              /*
+              this.coworking_map.getMapService().setCenter(+lat, +lon);
+              this.coworking_map.getMapService().setZoom(12);
+              this.coworking_map.addMarker(
+                'custom_marker',           // id
+                lat,                 // latitude
+                lon,                 // longitude
+                { draggable: true },       // options
+                'Ubicacion del coworking',     // popup
+                false,                     // hidden
+                true,                      // showInMenu
+                'Marcador Personalizado'   // menuLabel
+              );
+              */
+            }
+          });
+        }
+      });
+    }
+    else {
+      this.ubicarEnMapa(+selectedCity, +address);
+    }
+
   }
 
   //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
@@ -483,5 +500,20 @@ export class CoworkingsDetailComponent implements OnInit {
       icon: 'error',
       iconPosition: 'left'
     });
+  }
+
+  private ubicarEnMapa(lat: number, lon: number) {
+    this.coworking_map.getMapService().setCenter(lat, lon);
+    this.coworking_map.getMapService().setZoom(18);
+    this.coworking_map.addMarker(
+      'custom_marker',           // id
+      lat,                 // latitude
+      lon,                 // longitude
+      { draggable: true },       // options
+      'Ubicacion del coworking',     // popup
+      false,                     // hidden
+      true,                      // showInMenu
+      'Marcador Personalizado'   // menuLabel
+    );
   }
 }

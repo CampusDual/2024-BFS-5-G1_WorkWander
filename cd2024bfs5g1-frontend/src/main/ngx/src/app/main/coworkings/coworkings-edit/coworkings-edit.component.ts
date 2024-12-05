@@ -42,9 +42,16 @@ export class CoworkingsEditComponent {
 
   ngOnInit(): void {
     this.configureService();
-    this.leafletMap = this.coworking_map.getMapService().getMap();
   }
   inicializarMapa(lat: number, lon: number): void {
+   this.leafletMap = this.coworking_map.getMapService().getMap();
+  
+    if(!lat === undefined && !lon === undefined){
+      this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingForm.getFieldValue('cw_name'));
+      console.log('Direccion por cooords');
+      return;
+    }
+
     // Esperar hasta que los datos estén listos
     this.waitForDataReady()
       .then(() => {
@@ -52,12 +59,6 @@ export class CoworkingsEditComponent {
         const address = this.address.getValue();
         const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
         const cityName = cityObject ? cityObject.city : null;
-        this.leafletMap = this.coworking_map.getMapService().getMap();
-
-        if(!lat === undefined && !lon === undefined){
-          this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingForm.getFieldValue('cw_name'));
-          return;
-        }
 
         if (!cityName || !address) {
           this.snackBar(this.translate.get("INVALID_LOCATION"));
@@ -65,6 +66,7 @@ export class CoworkingsEditComponent {
         }
 
         this.mapaShow(cityName, address);
+      console.log('Direccion por combo');
 
       })
       .catch((error) => {
@@ -285,7 +287,7 @@ async mapaShow(selectedCity: string, address: string): Promise<void> {
     });
   }
 
-  private waitForDataReady(maxRetries = 20, intervalMs = 1000): Promise<void> {
+  private waitForDataReady(maxRetries = 20, intervalMs = 500): Promise<void> {
     let retries = 0;
 
     return new Promise((resolve, reject) => {

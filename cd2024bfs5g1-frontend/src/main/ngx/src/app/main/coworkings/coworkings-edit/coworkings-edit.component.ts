@@ -243,7 +243,7 @@ async mapaShow(selectedCity: string, address: string): Promise<void> {
     zoom: number,
     markerLabel: string | null) {
     const [lat, lon] = coordinates.split(';').map(Number);
-    this.leafletMap.setView(lat,lon,zoom);
+    this.leafletMap.setView([+lat, +lon],zoom);
       if(markerLabel){
         this.mapLat = lat;
         this.mapLon = lon;

@@ -96,16 +96,17 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.leafletMap = this.coworking_map.getMapService().getMap();
   }
 
   iniciarPantalla(idLocation: number, city: string, address: string, lat: number, lon: number) {
     this.showEvents(idLocation);
-    if (lat && lon) {
-      this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingName.getValue());
-    } else {
-      this.mapaShow(city, address);
-    }
     this.leafletMap = this.coworking_map.getMapService().getMap();
+    if (lat === undefined && lon === undefined) {
+      this.mapaShow(city, address);
+    } else {
+      this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingName.getValue());
+    }
   }
 
   currentDate() {
@@ -423,8 +424,8 @@ export class CoworkingsDetailComponent implements OnInit {
 
   // ---------------------- MAPA ----------------------
   async mapaShow(selectedCity: string, address: string): Promise<void> {
-    const addressComplete = `${address}, ${selectedCity}`;
-    const name = this.getName()
+    const addressComplete = `${selectedCity}, ${address}`;
+    const name = this.getName();
   
     try {
       const addressResults = await this.getCoordinates(addressComplete);
@@ -469,7 +470,7 @@ export class CoworkingsDetailComponent implements OnInit {
   zoom: number,
   markerLabel: string | null) {
   const [lat, lon] = coordinates.split(';').map(Number);
-  this.leafletMap.setView(lat,lon,zoom);
+  this.leafletMap.setView([+lat, +lon],zoom);
     if(markerLabel){
       this.coworking_map.addMarker(
         'coworking_marker',           // id

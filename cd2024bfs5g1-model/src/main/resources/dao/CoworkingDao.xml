@@ -101,6 +101,7 @@
                         cw.cw_name as cw_name,
                         bd.date as date,
                         cw.cw_capacity as cw_capacity,
+                        cw.cw_daily_price as cw_daily_price,
                         public.city.city as cw_location,
                         STRING_AGG(service.srv_name, ',') as services,
                         COUNT(b.bk_id) as plazasOcupadas

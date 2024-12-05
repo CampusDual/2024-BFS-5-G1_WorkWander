@@ -17,9 +17,8 @@ export class CoworkingsEditComponent {
   protected service: OntimizeService;
   leafletMap: any;
   protected validAddress: boolean;
-  protected mapLat: string = ""; //Latitud
-  protected mapLon: string = ""; //Longitud
-  center: string = "42.240599;-8.720727";
+  protected mapLat: number; //Latitud
+  protected mapLon: number; //Longitud
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -27,7 +26,7 @@ export class CoworkingsEditComponent {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild('combo') combo: OComboComponent;
   @ViewChild('address') address: OTextInputComponent;
-  
+
   constructor(
     private translate: OTranslateService,
     private router: Router,
@@ -44,7 +43,7 @@ export class CoworkingsEditComponent {
   ngOnInit(): void {
     this.configureService();
   }
-  inicializarMapa(): void {
+  inicializarMapa(lat: number, lon: number): void {
     // Esperar hasta que los datos estén listos
     this.waitForDataReady()
       .then(() => {
@@ -53,12 +52,17 @@ export class CoworkingsEditComponent {
         const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
         const cityName = cityObject ? cityObject.city : null;
 
+        if(lat && lon){
+          this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingForm.getFieldValue('cw_name'));
+        }
+
         if (!cityName || !address) {
           this.snackBar(this.translate.get("INVALID_LOCATION"));
           return;
         }
 
-        this.setLocation(cityName, address);
+        this.mapaShow(cityName, address);
+
       })
       .catch((error) => {
         console.error("Error al inicializar el mapa:", error);
@@ -185,91 +189,38 @@ export class CoworkingsEditComponent {
     }
   }
 // ---------------------- MAPA ----------------------
-  setLocation(cityName: string, address: string): void {
-    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+onAddressBlur(){
+  const selectedCityId = this.combo.getValue();
+  const address = this.address.getValue();
+  const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+  const cityName = cityObject ? cityObject.city : null;
+  this.mapaShow(cityName, address);
+}
 
-    this.getCoordinates(addressComplete)
-      .then((results) => {
-        if (!results) {
-          this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-          if (this.leafletMap) {
-            this.leafletMap.setView([40.416775, -3.703790], 6); // Madrid por defecto
-          }
-          return;
-        }
+async mapaShow(selectedCity: string, address: string): Promise<void> {
+  const addressComplete = `${address}, ${selectedCity}`;
+  const name = this.coworkingForm.getFieldValue('cw_name')
 
-        const [lat, lon] = results.split(';');
-        if (this.coworking_map && this.coworking_map.getMapService()) {
-          this.leafletMap = this.coworking_map.getMapService().getMap();
-          if (this.leafletMap) {
-            this.leafletMap.setView([+lat, +lon], 16);
-            this.coworking_map.addMarker(
-              'coworking_marker',
-              +lat,
-              +lon,
-              {},
-              this.translate.get("COWORKING_MARKER"),
-              false,
-              true,
-              'Marcador Coworking'
-            );
-          } else {
-            console.error("El mapa no está inicializado.");
-          }
-        } else {
-          console.error("El servicio del mapa no está disponible.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error obteniendo coordenadas:", error);
-        this.snackBar(this.translate.get("ERROR_RETRIEVING_COORDINATES"));
-      });
-  }
-
-  onAddressBlur(): void {
-    const selectedCityId = this.combo.getValue();
-    const address = this.address.getValue();
-    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
-    const cityName = cityObject ? cityObject.city : null;
-
-    if (!cityName || !address) {
+  try {
+    const addressResults = await this.getCoordinates(addressComplete);
+    if (addressResults) {
+      this.updateMapAndMarker(addressResults, 16, name);
       return;
     }
+    console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
-    const addressComplete = address ? `${address}, ${cityName}` : cityName;
-    this.getCoordinates(addressComplete).then((results) => {
-      if (results) {
-        let [lat, lon] = results.split(';')
-        this.mapLat = lat;
-        this.mapLon =  lon;
-        if (this.coworking_map && this.coworking_map.getMapService()) {
-          this.leafletMap = this.coworking_map.getMapService().getMap();
-          if (this.leafletMap) {
-            this.leafletMap.setView([+lat, +lon], 18);
-          } else {
-            console.error('El mapa no está inicializado.');
-          }
-        } else {
-          console.error('El servicio del mapa no está disponible.');
-        }
-        this.validAddress = true;
-        this.coworking_map.addMarker(
-          'coworking_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          this.translate.get("COWORKING_MARKER"),     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          'Marcador Coworking'   // menuLabel
-        );
-      } else {
-        //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
-        this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-        this.leafletMap.setView([40.416775, -3.703790], 6);
-      }
-    });
+    const cityResults = await this.getCoordinates(selectedCity);
+    if (cityResults) {
+      this.updateMapAndMarker(cityResults,14, null);
+    } else {
+      console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
+      this.updateMapAndMarker("40.416775;-3.703790", 6, null);
+    }
+  } catch (error) {
+    console.error("Error al procesar la ubicación:", error);
+
   }
+}
 
   private async getCoordinates(location: string): Promise<string | null> {
     try {
@@ -286,6 +237,28 @@ export class CoworkingsEditComponent {
     }
     return null;
   }
+
+  private updateMapAndMarker(
+    coordinates: string,
+    zoom: number,
+    markerLabel: string | null) {
+    const [lat, lon] = coordinates.split(';').map(Number);
+    this.leafletMap.setView(lat,lon,zoom);
+      if(markerLabel){
+        this.mapLat = lat;
+        this.mapLon = lon;
+        this.coworking_map.addMarker(
+          'coworking_marker',           // id
+          lat,                          // latitude
+          lon,                          // longitude
+          {},                           // options
+          markerLabel,                  // popup
+          false,                        // hidden
+          true,                         // showInMenu
+          markerLabel                   // menuLabel
+        );
+      }
+    }
 
   private snackBar(message: string): void {
     this.snackBarService.open(message, {

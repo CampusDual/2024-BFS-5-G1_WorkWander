@@ -11,9 +11,9 @@ import { OMapComponent } from 'ontimize-web-ngx-map';
 })
 export class CoworkingsEditComponent {
   public today: string = new Date().toLocaleDateString();
-  public arrayServices:any[];
+  public arrayServices: any[];
   public exist = false;
-  public selectedServices:number = 0;
+  public selectedServices: number = 0;
   protected service: OntimizeService;
   leafletMap: any;
   protected validAddress: boolean;
@@ -31,7 +31,7 @@ export class CoworkingsEditComponent {
     private translate: OTranslateService,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    protected injector:Injector,
+    protected injector: Injector,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
     private http: HttpClient
@@ -44,10 +44,17 @@ export class CoworkingsEditComponent {
     this.configureService();
   }
   inicializarMapa(lat: number, lon: number): void {
-   this.leafletMap = this.coworking_map.getMapService().getMap();
-  
-    if(!lat === undefined && !lon === undefined){
-      this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingForm.getFieldValue('cw_name'));
+    this.leafletMap = this.coworking_map.getMapService().getMap();
+    let mapLat = lat;
+    let mapLon = lon;
+
+    if (!mapLat && !mapLon) {
+      mapLat = this.coworkingForm.getFieldValue('cw_lat');
+      mapLon = this.coworkingForm.getFieldValue('cw_lon');
+    }
+
+    if (mapLat && mapLon) {
+      this.updateMapAndMarker(`${lat};${lon}`, 16, this.coworkingForm.getFieldValue('cw_name'));
       console.log('Direccion por cooords');
       return;
     }
@@ -66,7 +73,7 @@ export class CoworkingsEditComponent {
         }
 
         this.mapaShow(cityName, address);
-      console.log('Direccion por combo');
+        console.log('Direccion por combo');
 
       })
       .catch((error) => {
@@ -74,7 +81,7 @@ export class CoworkingsEditComponent {
         this.snackBar(this.translate.get("ERROR_INITIALIZING_MAP"));
       });
   }
-  protected configureService(){
+  protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
   }
@@ -84,10 +91,10 @@ export class CoworkingsEditComponent {
     this.router.navigateByUrl("/main/mycoworkings")
   }
 
-  public selectService(id:number, serv:string):void{
+  public selectService(id: number, serv: string): void {
     this.exist = false;
     for (let i = 0; i < this.arrayServices.length; i++) {
-      if(this.arrayServices[i].id === id){
+      if (this.arrayServices[i].id === id) {
         this.exist = true;
         this.deleteService(i, id, serv);
       }
@@ -97,39 +104,39 @@ export class CoworkingsEditComponent {
     }
   }
 
-  public appendService(id:number, serv:string):void{
-    this.arrayServices.push({id:id});
+  public appendService(id: number, serv: string): void {
+    this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#e6d5c3";
     document.getElementById(serv).style.color = "black;";
-    this.selectedServices ++;
+    this.selectedServices++;
   }
 
-  public deleteService(index:number, id:number, serv:string):void{
+  public deleteService(index: number, id: number, serv: string): void {
     this.arrayServices.splice(index, 1)
     document.getElementById(serv).style.backgroundColor = "whitesmoke";
-    document.getElementById(serv).style.color ="black";
-    this.selectedServices --;
+    document.getElementById(serv).style.color = "black";
+    this.selectedServices--;
   }
 
   /**
    * Método que se llama desde el botón de guardado
    */
-  public save(){
+  public save() {
     //Ordenamos el array de coworkings
-    this.arrayServices.sort((a:any, b:any) => a.id - b.id);
+    this.arrayServices.sort((a: any, b: any) => a.id - b.id);
     //Creamos un objeto coworking
     const coworking = {
-      cw_id:this.coworkingForm.getFieldValue('cw_id'),
-      cw_name:this.coworkingForm.getFieldValue('cw_name'),
-      cw_description:this.coworkingForm.getFieldValue('cw_description'),
-      cw_address:this.coworkingForm.getFieldValue('cw_address'),
-      cw_location:this.coworkingForm.getFieldValue('cw_location'),
-      cw_capacity:+this.coworkingForm.getFieldValue('cw_capacity'),
-      cw_daily_price:+this.coworkingForm.getFieldValue('cw_daily_price'),
-      cw_image:this.coworkingForm.getFieldValue('cw_image'),
+      cw_id: this.coworkingForm.getFieldValue('cw_id'),
+      cw_name: this.coworkingForm.getFieldValue('cw_name'),
+      cw_description: this.coworkingForm.getFieldValue('cw_description'),
+      cw_address: this.coworkingForm.getFieldValue('cw_address'),
+      cw_location: this.coworkingForm.getFieldValue('cw_location'),
+      cw_capacity: +this.coworkingForm.getFieldValue('cw_capacity'),
+      cw_daily_price: +this.coworkingForm.getFieldValue('cw_daily_price'),
+      cw_image: this.coworkingForm.getFieldValue('cw_image'),
       cw_lat: this.mapLat,
       cw_lon: this.mapLon,
-      services:this.arrayServices
+      services: this.arrayServices
     }
     //Llamamos a la función para actualizar, enviando el objeto
     this.update(coworking);
@@ -142,8 +149,8 @@ export class CoworkingsEditComponent {
    * se llama desde save()
    * @param coworking
    */
-  public update(coworking:any):void{
-    const keyMap = {cw_id:this.coworkingForm.getFieldValue('cw_id')}
+  public update(coworking: any): void {
+    const keyMap = { cw_id: this.coworkingForm.getFieldValue('cw_id') }
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
     this.service.update(keyMap, coworking, 'coworking').subscribe(data => {
@@ -158,21 +165,21 @@ export class CoworkingsEditComponent {
   public showUpdated() {
     const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-        action: action,
-        milliseconds: 5000,
-        icon: 'check_circle',
-        iconPosition: 'left'
+      action: action,
+      milliseconds: 5000,
+      icon: 'check_circle',
+      iconPosition: 'left'
     };
     this.snackBarService.open('', configuration);
   }
 
-  showServices(cw_id: any):any{
+  showServices(cw_id: any): any {
     //Vaciamos el array
-    this.arrayServices=[];
+    this.arrayServices = [];
     /*Verificamos que cw_id no sea undefined
     para que aplique el filtro y así no traer todos los registros de la tabla pivote cw_service*/
-    if(cw_id != undefined){
-      const filter = {cw_id: cw_id}
+    if (cw_id != undefined) {
+      const filter = { cw_id: cw_id }
       //Creamos el servicio
       const conf = this.service.getDefaultServiceConfiguration("cw_services");
       this.service.configureService(conf);
@@ -180,52 +187,52 @@ export class CoworkingsEditComponent {
       //Hacemos la petición
       return this.service
         .query(filter, columns, "servicePerCoworking")
-        .subscribe((resp) =>{
+        .subscribe((resp) => {
           //Obtenemos resp (respuesta) del servidor, y recorremos el array de servicios (data)
           for (let index = 0; index < resp.data.length; index++) {
             document.getElementById('sel' + resp.data[index]['id']).style.backgroundColor = "#e6d5c3";
             //Guardamos el id que devuelve data situado en esa posición del array
             let obj = resp.data[index]['id'];
-            this.arrayServices.push({id:obj}); //Con el valor, creamos un objeto y lo guardamos en el array de servicios
+            this.arrayServices.push({ id: obj }); //Con el valor, creamos un objeto y lo guardamos en el array de servicios
             this.selectedServices++; //Sumamos 1 a los servicios seleccionados
           }
         }
-      );
+        );
     }
   }
-// ---------------------- MAPA ----------------------
-onAddressBlur(){
-  const selectedCityId = this.combo.getValue();
-  const address = this.address.getValue();
-  const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
-  const cityName = cityObject ? cityObject.city : null;
-  this.mapaShow(cityName, address);
-}
-
-async mapaShow(selectedCity: string, address: string): Promise<void> {
-  const addressComplete = `${address}, ${selectedCity}`;
-  const name = this.coworkingForm.getFieldValue('cw_name')
-
-  try {
-    const addressResults = await this.getCoordinates(addressComplete);
-    if (addressResults) {
-      this.updateMapAndMarker(addressResults, 16, name);
-      return;
-    }
-    console.log("Dirección no válida, intentando con la ciudad seleccionada...");
-
-    const cityResults = await this.getCoordinates(selectedCity);
-    if (cityResults) {
-      this.updateMapAndMarker(cityResults,14, null);
-    } else {
-      console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
-      this.updateMapAndMarker("40.416775;-3.703790", 6, null);
-    }
-  } catch (error) {
-    console.error("Error al procesar la ubicación:", error);
-
+  // ---------------------- MAPA ----------------------
+  onAddressBlur() {
+    const selectedCityId = this.combo.getValue();
+    const address = this.address.getValue();
+    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityName = cityObject ? cityObject.city : null;
+    this.mapaShow(cityName, address);
   }
-}
+
+  async mapaShow(selectedCity: string, address: string): Promise<void> {
+    const addressComplete = `${address}, ${selectedCity}`;
+    const name = this.coworkingForm.getFieldValue('cw_name')
+
+    try {
+      const addressResults = await this.getCoordinates(addressComplete);
+      if (addressResults) {
+        this.updateMapAndMarker(addressResults, 16, name);
+        return;
+      }
+      console.log("Dirección no válida, intentando con la ciudad seleccionada...");
+
+      const cityResults = await this.getCoordinates(selectedCity);
+      if (cityResults) {
+        this.updateMapAndMarker(cityResults, 14, null);
+      } else {
+        console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
+        this.updateMapAndMarker("40.416775;-3.703790", 6, null);
+      }
+    } catch (error) {
+      console.error("Error al procesar la ubicación:", error);
+
+    }
+  }
 
   private async getCoordinates(location: string): Promise<string | null> {
     try {
@@ -248,22 +255,22 @@ async mapaShow(selectedCity: string, address: string): Promise<void> {
     zoom: number,
     markerLabel: string | null) {
     const [lat, lon] = coordinates.split(';').map(Number);
-    this.leafletMap.setView([+lat, +lon],zoom);
-      if(markerLabel){
-        this.mapLat = lat;
-        this.mapLon = lon;
-        this.coworking_map.addMarker(
-          'coworking_marker',           // id
-          lat,                          // latitude
-          lon,                          // longitude
-          {},                           // options
-          markerLabel,                  // popup
-          false,                        // hidden
-          true,                         // showInMenu
-          markerLabel                   // menuLabel
-        );
-      }
+    this.leafletMap.setView([+lat, +lon], zoom);
+    if (markerLabel) {
+      this.mapLat = lat;
+      this.mapLon = lon;
+      this.coworking_map.addMarker(
+        'coworking_marker',           // id
+        lat,                          // latitude
+        lon,                          // longitude
+        {},                           // options
+        markerLabel,                  // popup
+        false,                        // hidden
+        true,                         // showInMenu
+        markerLabel                   // menuLabel
+      );
     }
+  }
 
   private snackBar(message: string): void {
     this.snackBarService.open(message, {

@@ -1214,10 +1214,12 @@ svg.p-icon.p-rating-icon {
 
 @media (min-width: 768px) {
   .form-new-event {
-    margin-top: 70px;
+    margin-top: 0;
+    // margin-left: 70px;
 
     +.no-margin-top{
       margin-top: 0;
+      margin-left: 0;
     }
 
     o-column.o-column:not(.service-column),

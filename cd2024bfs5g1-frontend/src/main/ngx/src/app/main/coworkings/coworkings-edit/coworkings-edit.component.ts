@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
+import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
+import { OMapComponent } from 'ontimize-web-ngx-map';
 
 @Component({
   selector: 'app-coworkings-edit',
@@ -13,17 +15,27 @@ export class CoworkingsEditComponent {
   public exist = false;
   public selectedServices:number = 0;
   protected service: OntimizeService;
+  leafletMap: any;
+  protected validAddress: boolean;
+  protected mapLat: string = ""; //Latitud
+  protected mapLon: string = ""; //Longitud
+  center: string = "42.240599;-8.720727";
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
   @ViewChild("endDate") coworkingEndDate: ODateInputComponent;
-
+  @ViewChild("coworking_map") coworking_map: OMapComponent;
+  @ViewChild('combo') combo: OComboComponent;
+  @ViewChild('address') address: OTextInputComponent;
+  
   constructor(
     private translate: OTranslateService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     protected injector:Injector,
-    protected snackBarService: SnackBarService
+    protected snackBarService: SnackBarService,
+    protected dialogService: DialogService,
+    private http: HttpClient
   ) {
     this.service = this.injector.get(OntimizeService);
     this.arrayServices = [];
@@ -32,7 +44,27 @@ export class CoworkingsEditComponent {
   ngOnInit(): void {
     this.configureService();
   }
+  inicializarMapa(): void {
+    // Esperar hasta que los datos estén listos
+    this.waitForDataReady()
+      .then(() => {
+        const selectedCityId = this.combo.getValue();
+        const address = this.address.getValue();
+        const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+        const cityName = cityObject ? cityObject.city : null;
 
+        if (!cityName || !address) {
+          this.snackBar(this.translate.get("INVALID_LOCATION"));
+          return;
+        }
+
+        this.setLocation(cityName, address);
+      })
+      .catch((error) => {
+        console.error("Error al inicializar el mapa:", error);
+        this.snackBar(this.translate.get("ERROR_INITIALIZING_MAP"));
+      });
+  }
   protected configureService(){
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
@@ -86,6 +118,8 @@ export class CoworkingsEditComponent {
       cw_capacity:+this.coworkingForm.getFieldValue('cw_capacity'),
       cw_daily_price:+this.coworkingForm.getFieldValue('cw_daily_price'),
       cw_image:this.coworkingForm.getFieldValue('cw_image'),
+      cw_lat: this.mapLat,
+      cw_lon: this.mapLon,
       services:this.arrayServices
     }
     //Llamamos a la función para actualizar, enviando el objeto
@@ -149,5 +183,152 @@ export class CoworkingsEditComponent {
         }
       );
     }
+  }
+// ---------------------- MAPA ----------------------
+  setLocation(cityName: string, address: string): void {
+    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+
+    this.getCoordinates(addressComplete)
+      .then((results) => {
+        if (!results) {
+          this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
+          if (this.leafletMap) {
+            this.leafletMap.setView([40.416775, -3.703790], 6); // Madrid por defecto
+          }
+          return;
+        }
+
+        const [lat, lon] = results.split(';');
+        if (this.coworking_map && this.coworking_map.getMapService()) {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
+          if (this.leafletMap) {
+            this.leafletMap.setView([+lat, +lon], 16);
+            this.coworking_map.addMarker(
+              'coworking_marker',
+              +lat,
+              +lon,
+              {},
+              this.translate.get("COWORKING_MARKER"),
+              false,
+              true,
+              'Marcador Coworking'
+            );
+          } else {
+            console.error("El mapa no está inicializado.");
+          }
+        } else {
+          console.error("El servicio del mapa no está disponible.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error obteniendo coordenadas:", error);
+        this.snackBar(this.translate.get("ERROR_RETRIEVING_COORDINATES"));
+      });
+  }
+
+  onAddressBlur(): void {
+    const selectedCityId = this.combo.getValue();
+    const address = this.address.getValue();
+    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityName = cityObject ? cityObject.city : null;
+
+    if (!cityName || !address) {
+      return;
+    }
+
+    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+    this.getCoordinates(addressComplete).then((results) => {
+      if (results) {
+        let [lat, lon] = results.split(';')
+        this.mapLat = lat;
+        this.mapLon =  lon;
+        if (this.coworking_map && this.coworking_map.getMapService()) {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
+          if (this.leafletMap) {
+            this.leafletMap.setView([+lat, +lon], 18);
+          } else {
+            console.error('El mapa no está inicializado.');
+          }
+        } else {
+          console.error('El servicio del mapa no está disponible.');
+        }
+        this.validAddress = true;
+        this.coworking_map.addMarker(
+          'coworking_marker',           // id
+          lat,                 // latitude
+          lon,                 // longitude
+          { draggable: true },       // options
+          this.translate.get("COWORKING_MARKER"),     // popup
+          false,                     // hidden
+          true,                      // showInMenu
+          'Marcador Coworking'   // menuLabel
+        );
+      } else {
+        //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
+        this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
+        this.leafletMap.setView([40.416775, -3.703790], 6);
+      }
+    });
+  }
+
+  private async getCoordinates(location: string): Promise<string | null> {
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const response = await this.http.get<any>(url).toPromise();
+      console.log(response);
+      if (response?.length > 0) {
+        const { lat, lon } = response[0];
+        console.log(`${lat};${lon}`);
+        return `${lat};${lon}`;
+      }
+    } catch (error) {
+      this.snackBar(this.translate.get("API_ERROR") + error);
+    }
+    return null;
+  }
+
+  private snackBar(message: string): void {
+    this.snackBarService.open(message, {
+      milliseconds: 5000,
+      icon: 'error',
+      iconPosition: 'left'
+    });
+  }
+
+  private async showConfirm(): Promise<boolean> {
+    return new Promise((resolve) => {
+      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
+      this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
+        if (result) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  }
+
+  private waitForDataReady(maxRetries = 20, intervalMs = 1000): Promise<void> {
+    let retries = 0;
+
+    return new Promise((resolve, reject) => {
+      const interval = setInterval(() => {
+        const selectedCityId = this.combo.getValue();
+        const address = this.address.getValue();
+        const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+        const cityName = cityObject ? cityObject.city : null;
+
+        if (cityName && address) {
+          clearInterval(interval);
+          resolve();
+        } else if (retries >= maxRetries) {
+          clearInterval(interval);
+          reject("Datos no disponibles después de múltiples intentos.");
+        }
+
+        retries++;
+      }, intervalMs);
+    });
   }
 }

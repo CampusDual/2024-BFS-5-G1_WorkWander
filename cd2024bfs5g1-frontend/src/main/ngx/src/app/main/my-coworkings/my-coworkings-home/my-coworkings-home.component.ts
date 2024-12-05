@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { DialogService, OntimizeService, OSnackBarConfig, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
+import { Component, ViewChild } from '@angular/core';
+import { DialogService, OntimizeService, OSnackBarConfig, OTableComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { UtilsService } from 'src/app/shared/services/utils.service';
 
 
@@ -9,6 +9,8 @@ import { UtilsService } from 'src/app/shared/services/utils.service';
   styleUrls: ['./my-coworkings-home.component.css']
 })
 export class MyCoworkingsHomeComponent {
+
+  @ViewChild("table") table: OTableComponent;
 
   constructor(
     private service: OntimizeService,
@@ -24,7 +26,7 @@ export class MyCoworkingsHomeComponent {
     const confirmMessageBody = this.translate.get("SURE_DELETE");
 
     if (this.dialogService) {
-      this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
+      this.dialogService.confirm(confirmMessageTitle, confirmMessageBody + evt["cw_name"] + '?');
       this.dialogService.dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           this.deleteCoworking(evt["cw_id"]);
@@ -40,25 +42,23 @@ export class MyCoworkingsHomeComponent {
 
     const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
-    this.service.delete(filter, "coworking").subscribe((data) => {
+    this.service.delete(filter, "coworking").subscribe((res) => {
 
-      console.log(data);
-      if (data != null) {
+      console.log(res);
+      if (res.message == "") {
         this.showInfoToast("COWORKING_DELETED");
         // window.location.reload();
+      } else {
+        this.showWarningToast("PENDING_BOOKINGS");
       }
-
-      // TODO: toast si no se puede eliminar
-      this.showWarningToast("HAY RESERVAS PENDIENTES");
-
+      this.table.reloadData();
     });
-
   }
 
   showInfoToast(mensaje?: string) {
     const availableMessage = mensaje;
     const configuration: OSnackBarConfig = {
-      milliseconds: 5000,
+      milliseconds: 3000,
       icon: "info",
       iconPosition: "left",
     };

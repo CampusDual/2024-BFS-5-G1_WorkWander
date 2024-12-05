@@ -11,7 +11,7 @@ public interface IBookingService {
     public EntityResult bookingQuery(Map<String, Object> keyMap, List<String> attrList);
 
 
-    //    TODO: query para traer si hay reservas posteriores para eliminar coworking
+
     EntityResult coworkingsWithBookingsQuery(Map<String, Object> keyMap, List<String> attrList);
 
     EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList);

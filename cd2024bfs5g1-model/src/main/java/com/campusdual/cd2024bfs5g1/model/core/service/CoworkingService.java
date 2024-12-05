@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -124,21 +125,21 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingDelete(final Map<String, Object> keyMap) {
         final Map<String, Object> date = new HashMap<>();
         date.put("cw_end_date", new Date());
-        //        TODO: comprobar si hay reservas posteriores
-        //        TODO: recuperar el cw_id de keyMap
+
         final Map<String, Object> cw_id = new HashMap<>();
         cw_id.put("cw_id", keyMap.get("cw_id"));
 
-        //        TODO: llamar a coworkingsWithBookingsQuery y pasarle el cw_id
         final List<String> columnas = new ArrayList<>();
         columnas.add("cw_name");
         final EntityResult result = this.bookingService.coworkingsWithBookingsQuery(cw_id, columnas);
-        //        TODO: si no hay resultados llamamos al update
 
         if (result.isEmpty()) {
             return this.coworkingUpdate(date, keyMap);
         } else {
-            return null;
+            final EntityResult noResult = new EntityResultMapImpl();
+            noResult.setCode(EntityResult.OPERATION_SUCCESSFUL);
+            noResult.setMessage("NO_DELETE");
+            return noResult;
         }
     }
 

@@ -7,6 +7,7 @@ import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
@@ -15,10 +16,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Servicio para gestionar las operaciones relacionadas con los coworkings.
@@ -36,6 +34,9 @@ public class CoworkingService implements ICoworkingService {
 
     @Autowired
     private CwServiceService cwServiceService;
+
+    @Autowired
+    private BookingService bookingService;
 
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
@@ -108,7 +109,9 @@ public class CoworkingService implements ICoworkingService {
         this.cwServiceService.cwServiceDelete(keyMap);
         // Bucle for para alta en la tabla pivote
         final int cwId = (int) keyMap.get("cw_id");
-        this.iterationPivotCwService(services, cwId);
+        if (services != null) {
+            this.iterationPivotCwService(services, cwId);
+        }
         return cwResult;
     }
 
@@ -120,7 +123,24 @@ public class CoworkingService implements ICoworkingService {
      */
     @Override
     public EntityResult coworkingDelete(final Map<String, Object> keyMap) {
-        return this.daoHelper.delete(this.coworkingDao, keyMap);
+        final Map<String, Object> date = new HashMap<>();
+        date.put("cw_end_date", new Date());
+
+        final Map<String, Object> cw_id = new HashMap<>();
+        cw_id.put("cw_id", keyMap.get("cw_id"));
+
+        final List<String> columnas = new ArrayList<>();
+        columnas.add("cw_name");
+        final EntityResult result = this.bookingService.coworkingsWithBookingsQuery(cw_id, columnas);
+
+        if (result.isEmpty()) {
+            return this.coworkingUpdate(date, keyMap);
+        } else {
+            final EntityResult noResult = new EntityResultMapImpl();
+            noResult.setCode(EntityResult.OPERATION_SUCCESSFUL);
+            noResult.setMessage("NO_DELETE");
+            return noResult;
+        }
     }
 
     /**
@@ -148,13 +168,19 @@ public class CoworkingService implements ICoworkingService {
         while (!hasDate) {
             // Entra dentro del if cuando left operand o right operand son "date"
             if (basicExpression.getLeftOperand().toString().equals("date") ||
-                    (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().toString().equals("date"))) {
+                    (basicExpression.getRightOperand() != null && basicExpression.getRightOperand()
+                            .toString()
+                            .equals("date"))) {
                 hasDate = true;
             } else {
-                // Entra dentro del if si right operand existe y si right operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
-                if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
-                    // Llama a dateCheckInFilters pasándole el right operand como parámetro y recoge la booleana devuelta en hasDate
-                    hasDate = dateCheckInFilters((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
+                // Entra dentro del if si right operand existe y si right operand es de clase BasicExpression (es
+                // decir, tiene más elementos a evaluar)
+                if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand()
+                        .getClass() == SQLStatementBuilder.BasicExpression.class) {
+                    // Llama a dateCheckInFilters pasándole el right operand como parámetro y recoge la booleana
+                    // devuelta en hasDate
+                    hasDate =
+                            dateCheckInFilters((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
                 }
                 // Entra solo si hasDate sigue siendo false
                 if (!hasDate) {
@@ -174,7 +200,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
 
         final List<String> datesAttributes = List.of("cw_id", "date", "cw_capacity", "cw_location", "services",
                 "plazasOcupadas");
@@ -184,7 +210,8 @@ public class CoworkingService implements ICoworkingService {
         attributes.remove("date");
         final List<Integer> coworkingsSinDisponibilidad = new ArrayList<>();
         final List<Integer> coworkings = new ArrayList<>();
-        final SQLStatementBuilder.BasicExpression basicExpression = (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
+        final SQLStatementBuilder.BasicExpression basicExpression =
+                (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
 
         System.out.print("a");

@@ -1,13 +1,8 @@
 <ng-template #rate let-cellvalue="cellvalue" let-rowvalue="rowvalue">
   <p-rating
-    [ngClass]="{
-      'disable': !checkstate(cellvalue, rowvalue),
-      'enable': checkstate(cellvalue, rowvalue)
-    }"
+    [ngClass]="checkstate(cellvalue, rowvalue) ? 'enable' : 'disable'"
     [(ngModel)]="rowvalue['bkr_ratio']"
     [cancel]="false"
     [readonly]="true"
   />
 </ng-template>
-
-<!--[ngClass]="checkstate(cellvalue, rowvalue) ? 'enable' : 'disable'"-->

@@ -10,9 +10,8 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 export class BookingsRateRenderComponent extends OBaseTableCellRenderer {
   @ViewChild("rate", { read: TemplateRef, static: false })
   public templateref: TemplateRef<any>;
-  public utilsService: UtilsService;
 
-  constructor(protected injector: Injector, utilsService: UtilsService) {
+  constructor(protected injector: Injector, protected utilsService: UtilsService) {
     super(injector);
   }
 

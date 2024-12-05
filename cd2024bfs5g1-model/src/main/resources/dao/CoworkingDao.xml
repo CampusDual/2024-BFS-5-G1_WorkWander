@@ -28,6 +28,8 @@
                         STRING_AGG(distinct service.srv_name, ',') as services,
                         public.coworking.cw_usr_id as cw_usr_id,
                         Round(AVG(br.bkr_ratio), 1) as ratio,
+                        public.coworking.cw_lat as cw_lat,
+                        public.coworking.cw_lon as cw_lon,
                         public.coworking.cw_end_date as cw_end_date
                     FROM coworking
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
@@ -57,7 +59,9 @@
                         public.coworking.cw_location as cw_location,
                         public.city.city as location,
                         public.coworking.cw_daily_price as cw_daily_price,
-                        public.coworking.cw_image as cw_image
+                        public.coworking.cw_image as cw_image,
+                        public.coworking.cw_lat as cw_lat,
+                        public.coworking.cw_lon as cw_lon
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location
                     #WHERE#

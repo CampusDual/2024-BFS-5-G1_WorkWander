@@ -23,7 +23,6 @@ export class BookingsHomeComponent {
 
   @ViewChild("table") table: OTableComponent;
 
-
   constructor(
     private router: Router,
     private service: OntimizeService,
@@ -31,10 +30,11 @@ export class BookingsHomeComponent {
     private dialogService: DialogService,
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
-    protected dialog: MatDialog,
-  ) { }
+    protected dialog: MatDialog
+  ) {}
 
   toCoworkingDetail(event) {
+    console.log(event);
     if (event.columnName == "rate") {
       this.openValoration(event);
     } else if (event.columnName == "cancelCWbooking") {
@@ -52,18 +52,18 @@ export class BookingsHomeComponent {
 
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    var startDate = new Date(evt["dates"][0]);
+    var startDate = new Date(evt.row.date_start);
     startDate.setHours(0, 0, 0, 0);
-    var endDate = new Date(evt["dates"][evt["dates"].length - 1]);
+    var endDate = new Date(evt.row.date_end);
     endDate.setHours(0, 0, 0, 0);
 
-    if (evt["bk_state"]) {
+    if (evt.row.bk_state) {
       if (currentDate < startDate) {
         if (this.dialogService) {
           this.dialogService.confirm(confirmMessageTitle, confirmMessageBody);
           this.dialogService.dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-              this.updateState(evt["bk_id"]);
+              this.updateState(evt.row.bk_id);
               this.table.reloadData();
             }
           });
@@ -100,29 +100,20 @@ export class BookingsHomeComponent {
   }
 
   openValoration(evt): void {
+    const stado = this.utils.calculateState(evt.row);
 
-    var currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    var startDate = new Date(evt.row.dates[0]);
-    startDate.setHours(0, 0, 0, 0);
-    var endDate = new Date(evt.row.dates[(evt.row.dates).length - 1]);
-    endDate.setHours(0, 0, 0, 0);
-
-    if (evt.row.bk_state && evt.row.bkr_ratio == undefined) {
-      if (currentDate > endDate) {
-        this.dialog.open(BookingRateComponent, {
-          height: '50%',
-          width: '40%',
-          data: {
-            name: evt.row.cw_name,
-            rate: evt.row.bkr_ratio,
-            bk_id: evt.row.bk_id,
-            cw_id: evt.row.bk_cw_id,
-            usr_id: evt.row.bk_usr_id
-          }
-        })
-      }
+    if (stado === "Finalizada" && evt.row.bkr_ratio == undefined) {
+      this.dialog.open(BookingRateComponent, {
+        height: "50%",
+        width: "40%",
+        data: {
+          name: evt.row.cw_name,
+          rate: evt.row.bkr_ratio,
+          bk_id: evt.row.bk_id,
+          cw_id: evt.row.bk_cw_id,
+          usr_id: evt.row.bk_usr_id,
+        },
+      });
     }
   }
-
 }

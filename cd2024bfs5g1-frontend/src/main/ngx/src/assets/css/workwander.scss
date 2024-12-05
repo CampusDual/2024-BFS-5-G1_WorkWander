@@ -1024,9 +1024,9 @@ o-data-toolbar {
   max-width : 480px;
 }
 
-.o-grid-no-results { 
-  display: none !important; 
-} 
+.o-grid-no-results {
+  display: none !important;
+}
 
 .events-details {
   margin: auto;
@@ -1047,26 +1047,42 @@ o-data-toolbar {
   }
 }
 
-// borde botón cancelar
-td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
-  mat-icon.mat-icon {
-    border: 2px $rojo solid;
-    border-style: outset;
-    border-radius: 8px;
-    color: $blanco !important;
-    margin: 5px 0 5px 0;
-    background-color: $rojo !important;
-  }
-}
-//
 
 // estrellas
-svg.p-icon.p-rating-icon {
+.enable .p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
   color: $amarillo;
 }
+.disable svg.p-icon.p-rating-icon {
+  width: 20px;
+  height: 20px;
+  color: grey;
+}
 //
+
+
+//cancelar
+.cancelEnable {
+  border: 2px #ea0000 solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color: #ea0000 !important;
+
+}
+.cancelDisable {
+  border: 2px #4c4c4c solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color:#4c4c4c !important;
+}
+
 
 .event-item {
 
@@ -1206,7 +1222,7 @@ svg.p-icon.p-rating-icon {
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;
-   
+
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize {

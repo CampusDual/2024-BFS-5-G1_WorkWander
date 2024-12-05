@@ -231,5 +231,6 @@
   "OCCUPANCY_PERCENTAGE_TITLE": "Porcentaje de ocupación",
   "ANALYTICS": "Análisis",
   "OCCUPATION": "Ocupación",
-  "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas."
+  "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
+  "NO_RESULTS": "No se han encontrado resultados"
 }

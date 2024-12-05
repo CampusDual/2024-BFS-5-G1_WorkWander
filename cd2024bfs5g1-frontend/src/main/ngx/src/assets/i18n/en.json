@@ -231,5 +231,6 @@
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
   "ANALYTICS": "Analytics",
   "OCCUPATION": "Occupation",
-  "DATERANGE_SELECTION_ERROR": "You must select a date range."
+  "DATERANGE_SELECTION_ERROR": "You must select a date range.",
+  "NO_RESULTS": "No results found"
 }

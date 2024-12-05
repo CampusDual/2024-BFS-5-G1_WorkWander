@@ -207,4 +207,10 @@
       </div>
     </o-grid-item>
   </o-grid>
+  <ng-container
+    *ngIf="coworkingsGrid.dataArray.length === 0 && !coworkingsGrid.loading"
+    class="no-results-container"
+  >
+    <span class="no-results">{{ "NO_RESULTS" | oTranslate }}</span>
+  </ng-container>
 </div>

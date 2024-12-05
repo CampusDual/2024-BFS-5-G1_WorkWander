@@ -202,7 +202,6 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
-
     return combinedExpression;
   }
 
@@ -234,24 +233,14 @@ export class CoworkingsHomeComponent implements OnInit {
     return fechaFormateada;
   }
 
-  showAvailableToast(mensaje?: string) {
-    const availableMessage =
-      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
-    const configuration: OSnackBarConfig = {
-      milliseconds: 7500,
-      icon: "info",
-      iconPosition: "left",
-    };
-    this.snackBarService.open(availableMessage, configuration);
-  }
-
-  loadGridData(event: any) {
-    const eventObject = event.map(JSON.stringify);
-    const eventSet = new Set(eventObject);
-    const eventProcessed = Array.from(eventSet).map((item: string) =>
-      JSON.parse(item)
-    );
-    this.data = eventProcessed;
-    this.coworkingsGrid.reloadData();
-  }
+  // showToast(mensaje?: string) {
+  //   const translatedMessage = this.translate.get(mensaje);
+  //   const configuration: OSnackBarConfig = {
+  //     milliseconds: 7500,
+  //     icon: "info",
+  //     iconPosition: "left",
+  //   };
+  //   this.snackBarService.open(translatedMessage, configuration);
+  // }
+  
 }

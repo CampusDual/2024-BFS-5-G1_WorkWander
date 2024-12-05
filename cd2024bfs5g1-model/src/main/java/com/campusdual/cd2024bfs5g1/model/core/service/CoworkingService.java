@@ -121,6 +121,7 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingDelete(final Map<String, Object> keyMap) {
         final Map<String, Object> date = new HashMap<>();
         date.put("cw_end_date", new Date());
+        //        TODO: comprobar si hay reservas posteriores
 
         return this.coworkingUpdate(date, keyMap);
     }

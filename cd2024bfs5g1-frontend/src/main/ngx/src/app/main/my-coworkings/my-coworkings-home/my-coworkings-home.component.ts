@@ -43,12 +43,13 @@ export class MyCoworkingsHomeComponent {
     const filter = {
       cw_id: id,
     };
-    // !ahora actualizaría sin comprobar si hay reservas pero hay error en el formato de la fecha
+    // !ahora actualizaría sin comprobar si hay reservas (comprobar en el back)
 
     const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
     this.service.delete(filter, "coworking").subscribe((data) => {
       this.showAvailableToast("COWORKING_DELETED");
+      // TODO: toast si no se puede eliminar
     });
 
   }

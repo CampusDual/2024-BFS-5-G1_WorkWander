@@ -41,6 +41,8 @@ public class BookingService implements IBookingService {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList);
     }
 
+//    TODO: query para traer si hay reservas posteriores para eliminar coworking
+
     @Override
     public EntityResult totalBookingsByDateQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.TOTAL_BOOKINGS_DATE_QUERY);

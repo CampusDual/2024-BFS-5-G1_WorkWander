@@ -34,6 +34,9 @@ public class CoworkingService implements ICoworkingService {
     @Autowired
     private CwServiceService cwServiceService;
 
+    @Autowired
+    private BookingService bookingService;
+
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
      *
@@ -122,8 +125,21 @@ public class CoworkingService implements ICoworkingService {
         final Map<String, Object> date = new HashMap<>();
         date.put("cw_end_date", new Date());
         //        TODO: comprobar si hay reservas posteriores
+        //        TODO: recuperar el cw_id de keyMap
+        final Map<String, Object> cw_id = new HashMap<>();
+        cw_id.put("cw_id", keyMap.get("cw_id"));
 
-        return this.coworkingUpdate(date, keyMap);
+        //        TODO: llamar a coworkingsWithBookingsQuery y pasarle el cw_id
+        final List<String> columnas = new ArrayList<>();
+        columnas.add("cw_name");
+        final EntityResult result = this.bookingService.coworkingsWithBookingsQuery(cw_id, columnas);
+        //        TODO: si no hay resultados llamamos al update
+
+        if (result.isEmpty()) {
+            return this.coworkingUpdate(date, keyMap);
+        } else {
+            return null;
+        }
     }
 
     /**

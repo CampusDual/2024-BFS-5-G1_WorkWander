@@ -18,8 +18,6 @@ export class MyCoworkingsHomeComponent {
     private utils: UtilsService,) { }
 
 
-  // TODO: esto solo es el esqueleto, falta hacer la consulta de si hay reservas para poder borrar
-
   delete(evt) {
     // TODO: traducciones
     const confirmMessageTitle = this.translate.get("DELETE_COWORKING");
@@ -36,25 +34,38 @@ export class MyCoworkingsHomeComponent {
   }
 
   deleteCoworking(id) {
-
-    console.log(new Date().toISOString().split('T')[0]);
-    console.log(new Date().getTime());
-
     const filter = {
       cw_id: id,
     };
-    // !ahora actualizaría sin comprobar si hay reservas (comprobar en el back)
 
     const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
     this.service.delete(filter, "coworking").subscribe((data) => {
-      this.showAvailableToast("COWORKING_DELETED");
+
+      console.log(data);
+      if (data != null) {
+        this.showInfoToast("COWORKING_DELETED");
+        // window.location.reload();
+      }
+
       // TODO: toast si no se puede eliminar
+      this.showWarningToast("HAY RESERVAS PENDIENTES");
+
     });
 
   }
 
-  showAvailableToast(mensaje?: string) {
+  showInfoToast(mensaje?: string) {
+    const availableMessage = mensaje;
+    const configuration: OSnackBarConfig = {
+      milliseconds: 5000,
+      icon: "info",
+      iconPosition: "left",
+    };
+    this.snackBarService.open(availableMessage, configuration);
+  }
+
+  showWarningToast(mensaje?: string) {
     const availableMessage = mensaje;
     const configuration: OSnackBarConfig = {
       milliseconds: 5000,

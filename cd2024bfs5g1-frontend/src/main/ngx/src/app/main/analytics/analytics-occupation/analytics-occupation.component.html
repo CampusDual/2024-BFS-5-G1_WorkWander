@@ -43,7 +43,9 @@
   <div class="chart-wrapper">
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart
+    
         type="line"
+        [matTooltip]=getChartParameters()
         [data]="getChartData()"
         color="vivid"
         x-label="{{ 'X-LABEL' | oTranslate }}"

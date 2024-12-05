@@ -23,8 +23,10 @@ import {
 export class AnalyticsOccupationComponent {
   selectedCoworkings: string[] = [];
   chartData: any[] = [];
+  tooltipData: any[]= [];
   isGraph: boolean = false;
   maxSelection = 3;
+  chartParameters: any;
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -96,6 +98,7 @@ export class AnalyticsOccupationComponent {
       (resp) => {
         if (resp.data && resp.data.length > 0) {
           this.chartData = resp.data[0].data;
+          this.tooltipData = resp.data[1].data;
           this.isGraph = this.chartData.length > 0;
         } else {
           this.isGraph = false;
@@ -125,5 +128,12 @@ export class AnalyticsOccupationComponent {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  getChartParameters(){
+    if (this.tooltipData) {
+      return this.tooltipData;
+    }
+
   }
 }

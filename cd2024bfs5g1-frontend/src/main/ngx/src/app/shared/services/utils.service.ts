@@ -38,7 +38,7 @@ export class UtilsService {
     return `${time.substring(0,2)}:${time.substring(3,5)}`
   }
 
-  calculateState(cellvalue: any, rowvalue?: Array<any>): string {
+  calculateState(rowvalue?: Array<any>): string {
     var currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     var startDate = new Date(rowvalue["dates"][0]);

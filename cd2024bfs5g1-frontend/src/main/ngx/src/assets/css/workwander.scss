@@ -928,18 +928,6 @@ o-data-toolbar {
   }
 }
 
-// borde botón cancelar
-td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
-  mat-icon.mat-icon {
-    border: 2px #9f2525 solid;
-    border-style: outset;
-    border-radius: 8px;
-    color: white !important;
-    margin: 5px 0 5px 0;
-    background-color: #9f2525 !important;
-  }
-}
-//
 
 // estrellas
 .enable .p-icon.p-rating-icon {
@@ -953,6 +941,24 @@ td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
   color: grey;
 }
 //
+
+.cancelEnable {
+  border: 2px #9f2525 solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  background-color: #9f2525 !important;
+}
+.cancelDisable {
+  border: 2px #5b4c4c solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  background-color: rgb(70, 64, 64) !important;
+}
+
 
 .event-item {
   .event-item-content {

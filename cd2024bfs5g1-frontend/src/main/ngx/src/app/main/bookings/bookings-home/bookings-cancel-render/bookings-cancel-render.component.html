@@ -1,0 +1,8 @@
+<ng-template #cancelCWbooking let-cellvalue="cellvalue" let-rowvalue="rowvalue" >
+    <span>
+        <mat-icon [ngClass]="checkCancelState(cellvalue, rowvalue) ? 'cancelEnable' : 'cancelDisable'"  >cancel</mat-icon>
+    </span>
+
+</ng-template>
+
+<!--<mat-icon (onClick)="click()">cancel</mat-icon>-->

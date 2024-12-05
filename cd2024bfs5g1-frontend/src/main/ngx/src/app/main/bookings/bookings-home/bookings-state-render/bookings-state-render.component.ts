@@ -19,6 +19,6 @@ export class BookingsStateRenderComponent extends OBaseTableCellRenderer {
   }
 
   getCellData(cellvalue: any, rowvalue?: Array<any>): string {
-    return this.utilsService.calculateState(cellvalue, rowvalue);
+    return this.utilsService.calculateState( rowvalue);
   }
 }

@@ -219,7 +219,7 @@ app-coworking-new {
   flex-wrap: wrap;
 }
 
-form{
+form {
   overflow: hidden;
 }
 
@@ -567,10 +567,9 @@ div#innerCol {
 }
 .reservation-button {
   text-align: center;
-  o-button{
+  o-button {
     margin-left: 0 !important;
   }
-
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -1020,17 +1019,16 @@ o-data-toolbar {
   background: transparent !important;
 }
 
-.column-events-details{
-  max-width : 480px;
+.column-events-details {
+  max-width: 480px;
 }
 
-.o-grid-no-results { 
-  display: none !important; 
-} 
+.o-grid-no-results {
+  display: none !important;
+}
 
 .events-details {
   margin: auto;
-
 
   .detalles {
     background-color: $blanco;
@@ -1040,10 +1038,9 @@ o-data-toolbar {
     margin-right: 16px;
     box-shadow: 0px 0px 10px 0px $primaryClaro;
   }
-  .image-container.image-container-details img{
+  .image-container.image-container-details img {
     height: 420px !important;
     width: 430px !important;
-
   }
 }
 
@@ -1068,8 +1065,15 @@ svg.p-icon.p-rating-icon {
 }
 //
 
-.event-item {
+// botón borrar coworking
+td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
+  mat-icon.mat-icon {
+    color: $rojo !important;
+  }
+}
+//
 
+.event-item {
   .event-item-content {
     width: 60%;
     padding: 10px;
@@ -1090,20 +1094,20 @@ svg.p-icon.p-rating-icon {
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 5px;
-    }
+  }
 
-  .nombre-evento{
+  .nombre-evento {
     display: block;
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
   }
 
-  .fecha-evento{
+  .fecha-evento {
     font-size: $fontSize12;
   }
 
-  .hora-evento{
+  .hora-evento {
     font-size: $fontSize12;
   }
 }
@@ -1124,9 +1128,8 @@ svg.p-icon.p-rating-icon {
   padding-right: 25px !important;
 }
 
-#carousel{
-
-  padding-top:18px;
+#carousel {
+  padding-top: 18px;
 
   .p-carousel-items-container {
     margin-top: 20px;
@@ -1135,7 +1138,7 @@ svg.p-icon.p-rating-icon {
 
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
     background-color: $accent;
-}
+  }
 
   .p-carousel-indicators {
     overflow: hidden;
@@ -1149,18 +1152,15 @@ svg.p-icon.p-rating-icon {
       padding: 5px;
       margin: 0%;
 
-      > button{
-
-        :hover{
+      > button {
+        :hover {
           background-color: $accent;
         }
-
       }
 
-      +.p-highlight >button{
+      + .p-highlight > button {
         background-color: $primary;
       }
-
     }
   }
 }
@@ -1178,20 +1178,16 @@ svg.p-icon.p-rating-icon {
 }
 
 /*- RATE -*/
-.bookingsRate{
-  i.pi.pi-star-fill{
+.bookingsRate {
+  i.pi.pi-star-fill {
     color: $amarillo;
     font-size: $fontSize20;
-
   }
 
-  i.pi.pi-star-half-fill{
+  i.pi.pi-star-half-fill {
     color: $amarillo;
     font-size: $fontSize16;
-
   }
-
-
 }
 .rate {
   svg.p-icon.p-rating-icon {
@@ -1202,11 +1198,10 @@ svg.p-icon.p-rating-icon {
   }
 }
 
-
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;
-   
+
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize {
@@ -1231,8 +1226,8 @@ svg.p-icon.p-rating-icon {
       }
     }
   }
-  .form-new-event.form-coworking-detail{
-    margin-top:0;
+  .form-new-event.form-coworking-detail {
+    margin-top: 0;
   }
 }
 @media (max-width: 850px) {

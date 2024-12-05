@@ -1,5 +1,5 @@
 <o-form
-  class="form-section form-new-event"
+  class="form-section form-new-event form-edit-modal"
   #coworkingForm
   attr="coworkingEdit"
   service="coworkings"
@@ -24,7 +24,7 @@
     <!-- General Information -->
     <o-column
       fxFlex
-      class="form-section form-new-event"
+      class="form-section form-new-event form-edit-modal"
       title="EDIT_COWORKING"
       fxLayoutGap="24px"
     >
@@ -152,16 +152,17 @@
         attr="cw_image"
         sql-type="OTHER"
         max-file-size="1048576"
+        class="imagen-mapa modal-form"
       ></o-image>
     </o-column>
     <o-column
       fxFlex
-      class="form-section form-new-event"
+      class="form-section form-new-event form-edit-modal"
       title=""
       fxLayoutGap="24px"
       style="padding: 0 15px"
     >
-      <div class="rowCityDirection" fxLayoutGap="24px">
+      <div class="rowCityDirection low-margin-top" fxLayoutGap="24px">
         <!-- Direction and Locality -->
         <o-combo
           #combo
@@ -198,18 +199,19 @@
       <!-- Map Information -->
       <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">
         <o-map
-            #coworking_map
-            attr="coworking_map"
-            [center]="center"
-            zoom="16"
-            min-zoom="6"
-            max-zoom="18"
-            zoom-control="yes"
-            search-control="no"
-            layer-panel-visible="no"
-            fxFlex
-          >
-          </o-map>
+          #coworking_map
+          attr="coworking_map"
+          [center]="center"
+          zoom="16"
+          min-zoom="6"
+          max-zoom="18"
+          zoom-control="yes"
+          search-control="no"
+          layer-panel-visible="no"
+          fxFlex
+          class="modal-form"
+        >
+        </o-map>
       </div>
     </o-column>
   </div>
@@ -220,7 +222,7 @@
     fxFlex
     fxLayoutAlign="end"
     fxLayoutGap="30px"
-    class="buttons"
+    class="buttons modal-form"
   >
     <button
       mat-raised-button

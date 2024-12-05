@@ -18,4 +18,5 @@ public class BookingDao extends OntimizeJdbcDaoSupport {
     public static final String TOTAL_BOOKINGS_DATE_QUERY = "totalBookingsByDate";
     public static final String DATES_BY_BOOKING_QUERY = "datesByBooking";
     public static final String OCCUPATION_BY_DATES = "occupationByDate";
+    public static final String COWORKINGS_WITH_BOOKINGS = "coworkingsWithBookings";
 }

@@ -5,6 +5,7 @@ import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
+import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 import com.ontimize.jee.common.services.user.UserInformation;
@@ -134,11 +135,85 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, CoworkingDao.CW_QUERY_CAPACITY);
     }
 
+    /**
+     * Recorre una BasicExpression y todos sus operandos de forma recursiva mientras comprueba si uno de los operandos
+     * coincide con la cadena "date".
+     *
+     * @param basicExpression
+     * @return true si encuentra una cadena "date", false en caso contrario.
+     */
+    public static boolean dateCheckInFilters(SQLStatementBuilder.BasicExpression basicExpression) {
+        boolean hasDate = false;
+        // Bucle que itera mientras hasDate sea false, es decir, mientras no se encuentren fechas.
+        while (!hasDate) {
+            // Entra dentro del if cuando left operand o right operand son "date"
+            if (basicExpression.getLeftOperand().toString().equals("date") ||
+                    (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().toString().equals("date"))) {
+                hasDate = true;
+            } else {
+                // Entra dentro del if si right operand existe y si right operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
+                if (basicExpression.getRightOperand() != null && basicExpression.getRightOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
+                    // Llama a dateCheckInFilters pasándole el right operand como parámetro y recoge la booleana devuelta en hasDate
+                    hasDate = dateCheckInFilters((SQLStatementBuilder.BasicExpression) basicExpression.getRightOperand());
+                }
+                // Entra solo si hasDate sigue siendo false
+                if (!hasDate) {
+                    // Entra si left operand es de clase BasicExpression (es decir, tiene más elementos a evaluar)
+                    if (basicExpression.getLeftOperand().getClass() == SQLStatementBuilder.BasicExpression.class) {
+                        // Cambia la basicExpression con la que se trabaja a el left operand y da otra vuelta al bucle
+                        basicExpression = ((SQLStatementBuilder.BasicExpression) basicExpression.getLeftOperand());
+                    } else {
+                        // Si left operand no tiene más elementos, entonces devuelve false y para la función/recursión
+                        return false;
+                    }
+                }
+            }
+        }
+        return hasDate;
+    }
+
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-                                                                final List<?> attributes,
-                                                                final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
-        return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, attributes, recordNumber, startIndex,
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+
+        final List<String> datesAttributes = List.of("cw_id", "date", "cw_capacity", "cw_location", "services",
+                "plazasOcupadas");
+
+        final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
+                this.coworkingDao.CW_QUERY_DATES);
+        attributes.remove("date");
+        final List<Integer> coworkingsSinDisponibilidad = new ArrayList<>();
+        final List<Integer> coworkings = new ArrayList<>();
+        final SQLStatementBuilder.BasicExpression basicExpression = (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
+        final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
+
+        System.out.print("a");
+
+        for (int i = 0; i < filteredResults.calculateRecordNumber(); i++) {
+            final int aux = (int) filteredResults.getRecordValues(i).get("cw_id");
+
+            final long plazasOcupadas = (long) filteredResults.getRecordValues(i).get("plazasOcupadas");
+            final int capacity = (int) filteredResults.getRecordValues(i).get("cw_capacity");
+            coworkings.add(aux);
+
+            if (hasDate && plazasOcupadas >= capacity && filteredResults.getRecordValues(i).get("date") != null) {
+                coworkingsSinDisponibilidad.add(aux);
+            }
+        }
+
+        coworkings.removeAll(coworkingsSinDisponibilidad);
+
+        final Map<String, Object> filter = new HashMap<>();
+
+        if (coworkings.size() > 0) {
+            final SQLStatementBuilder.BasicExpression filtroIds =
+                    new SQLStatementBuilder.BasicExpression(new SQLStatementBuilder.BasicField(CoworkingDao.CW_ID),
+                            SQLStatementBuilder.BasicOperator.IN_OP, coworkings);
+
+            filter.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, filtroIds);
+        }
+
+        return this.daoHelper.paginationQuery(this.coworkingDao, filter, attributes, recordNumber, startIndex,
                 orderBy, this.coworkingDao.CW_QUERY_SERVICES);
     }
 

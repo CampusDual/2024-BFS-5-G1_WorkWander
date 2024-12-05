@@ -114,8 +114,12 @@ export class CoworkingsDetailComponent implements OnInit {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let now = `${date.getFullYear()}-${date.getMonth() + 1
-        }-${date.getDate()}`;
+      let month = date.getMonth()+1;
+      let year = date.getFullYear();
+      let day = date.getDate();
+      let m = month < 10 ? "0"+month.toString() : month.toString()
+      let d = day < 10 ? "0"+day.toString() : day.toString()
+      let now = `${year}-${m}-${d}`;
       const filter = {
         "@basic_expression": {
           lop: {
@@ -149,10 +153,11 @@ export class CoworkingsDetailComponent implements OnInit {
         "duration",
         "image_event",
       ];
+      this.events=[];
       this.service
         .query(filter, columns, "event", sqltypes)
         .subscribe((resp) => {
-          if (resp.code === 0) {
+          if (resp.code === 0 && resp.data.length > 0) {
             this.events = resp.data;
             this.events.sort(function (a: any, b: any) {
               return a.date_event - b.date_event;
@@ -182,7 +187,7 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns la fecha formateada como string
    */
   dateTransform(date: number): string {
-    return this.utils.formatDate(date);
+    return this.utils.formatShortDate(date);
   }
 
   /**

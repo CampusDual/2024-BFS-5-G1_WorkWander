@@ -303,8 +303,10 @@
         </div>
         <!-- Carrusel que muestra los eventos -->
         <div id="carousel">
-          <div class="card" *ngIf="events.length > 0">
+          <div class="card">
+            <!-- Si hay eventos, mostramos el carousel -->
             <p-carousel
+              *ngIf="events.length > 0"
               [value]="events"
               [numVisible]="3"
               [numScroll]="1"
@@ -331,7 +333,8 @@
                       <!-- <mat-icon>calendar_month</mat-icon> //-->
                       <span class="fecha-evento">{{
                         dateTransform(event.date_event)
-                      }}</span>&nbsp;-
+                      }}</span
+                      >&nbsp;-
                       <!-- <mat-icon>access_time</mat-icon> //-->
                       <span class="hora-evento">{{
                         timeTransform(event.hour_event)
@@ -341,6 +344,11 @@
                 </div>
               </ng-template>
             </p-carousel>
+
+            <!-- Si no hay eventos, mostramos el mensaje -->
+            <div *ngIf="events.length === 0" class="empty-events-message">
+              <p>{{ "NO_EVENTS" | oTranslate }}</p>
+            </div>
           </div>
         </div>
       </o-column>

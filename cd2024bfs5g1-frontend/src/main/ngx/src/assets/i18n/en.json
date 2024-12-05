@@ -197,13 +197,13 @@
   "NO_BOOKING_ENABLED": "Not booking available!",
   "FREE": "Free",
   "LAST_CHANCES": "Last tickets!",
-  "MY_CALENDAR":"My calendar",
+  "MY_CALENDAR": "My calendar",
   "EVENT_PRICE": "Price",
   "FREE_EVENT": "Free event",
   "price": "Price",
-  "DAY":"Day",
-  "WEEK":"Week",
-  "MONTH":"Month",
+  "DAY": "Day",
+  "WEEK": "Week",
+  "MONTH": "Month",
   "EVENT_DISPONIBILITY_GT_90": "This event generates interest",
   "EVENT_DISPONIBILITY_GT_65": "This event is starting to fill up",
   "EVENT_DISPONIBILITY_GT_50": "Be here or not be here, this is the question",
@@ -231,5 +231,9 @@
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
   "ANALYTICS": "Analytics",
   "OCCUPATION": "Occupation",
-  "DATERANGE_SELECTION_ERROR": "You must select a date range."
+  "DATERANGE_SELECTION_ERROR": "You must select a date range.",
+  "DELETE_COWORKING": "Delete",
+  "SURE_DELETE": "Are you sure you want to delete the coworking ",
+  "COWORKING_DELETED": "Coworking deleted",
+  "PENDING_BOOKINGS": "You can't remove this coworking, it has pending bookings"
 }

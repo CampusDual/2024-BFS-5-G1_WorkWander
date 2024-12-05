@@ -9,13 +9,16 @@ import { BookingsStateRenderComponent } from './bookings-home/bookings-state-ren
 import { BookingsRateRenderComponent } from './bookings-home/bookings-rate-render/bookings-rate-render.component';
 import { RatingModule } from 'primeng/rating';
 import { BookingRateComponent } from './booking-rate/booking-rate.component';
+import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-render/bookings-cancel-render.component';
+
 
 @NgModule({
   declarations: [
     BookingsHomeComponent,
     BookingsStateRenderComponent,
     BookingsRateRenderComponent,
-    BookingRateComponent
+    BookingRateComponent,
+    BookingsCancelRenderComponent
   ],
   imports: [
     CommonModule,

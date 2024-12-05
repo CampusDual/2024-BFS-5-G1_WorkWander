@@ -13,19 +13,6 @@ h6 {
     animation: wave 1.5s ease-in-out;
   }
 }
-/* Colores personalizados */
-/*
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5f6f65;
-
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
-
-$colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;*/
 
 $borderRadius: 16px 8px 16px 8px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -610,6 +597,11 @@ o-column {
     min-height: 470px;
     height: 470px;
   }
+  o-map.modal-form {
+    max-height: 560px;
+    height: 560px;
+    min-height: 560px;
+  }
   o-image {
     width: 100%;
     height: 100%;
@@ -624,7 +616,11 @@ o-column {
   min-height: 470px;
   height: 470px;
 }
-
+.form-new-event.form-edit-modal {
+  .o-container-title {
+    display: none !important;
+  }
+}
 .form-new-event {
   background-color: transparent;
   border: solid 1px $verdeBoton;
@@ -668,6 +664,12 @@ o-column {
         padding: 5px;
       }
     }
+    o-image.imagen-mapa.modal-form {
+      width: 300px;
+      height: 300px;
+      max-height: 300px;
+      min-height: 300px;
+    }
 
     .rowCityDirection {
       flex-direction: row;
@@ -676,6 +678,10 @@ o-column {
       margin: 60px 0 25px 0;
       justify-content: space-between;
     }
+    .rowCityDirection.low-margin-top {
+      margin: 20px 0 25px 0;
+    }
+
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
       overflow: hidden;
@@ -712,6 +718,10 @@ o-column {
     justify-content: space-evenly;
     width: 100%;
     padding: 15px;
+  }
+  .buttons.modal-form {
+    background-color: transparent;
+    margin-top: -50px;
   }
   .o-image .o-image-content.o-image-auto-fit .o-image-display-container > img {
     max-width: 350px;
@@ -1044,24 +1054,44 @@ o-data-toolbar {
   }
 }
 
-// borde botón cancelar
-td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
-  mat-icon.mat-icon {
-    border: 2px $rojo solid;
-    border-style: outset;
-    border-radius: 8px;
-    color: $blanco !important;
-    margin: 5px 0 5px 0;
-    background-color: $rojo !important;
-  }
-}
-//
-
 // estrellas
-svg.p-icon.p-rating-icon {
+.enable .p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
   color: $amarillo;
+}
+.disable svg.p-icon.p-rating-icon {
+  width: 20px;
+  height: 20px;
+  color: grey;
+  }
+}
+
+//cancelar
+.cancelEnable {
+  border: 2px $rojo solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color: $rojo !important;
+}
+.cancelDisable {
+  border: 2px #4c4c4c solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color: #4c4c4c !important;
+}
+
+// botón borrar coworking
+td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
+  mat-icon.mat-icon {
+    color: $rojo !important;
+  }
 }
 //
 
@@ -1192,7 +1222,13 @@ svg.p-icon.p-rating-icon {
 
 @media (min-width: 768px) {
   .form-new-event {
-    margin-top: 60px;
+    margin-top: 0;
+    // margin-left: 70px;
+
+    + .no-margin-top {
+      margin-top: 0;
+      margin-left: 0;
+    }
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
@@ -1220,6 +1256,11 @@ svg.p-icon.p-rating-icon {
   }
   .form-new-event.form-coworking-detail {
     margin-top: 0;
+  }
+  .form-new-event.form-edit-modal {
+    margin-top: 0;
+    border: solid 0 transparent;
+    border-radius: unset;
   }
 }
 @media (max-width: 850px) {
@@ -1370,7 +1411,7 @@ svg.p-icon.p-rating-icon {
 
 .button-c {
   background-color: $primary;
-  color: $accent;
+  color: #ffffff;
   border: 0;
   padding: 0.5rem 1rem;
   width: 80px;

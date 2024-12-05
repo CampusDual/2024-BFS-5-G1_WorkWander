@@ -42,6 +42,7 @@ export class CoworkingsEditComponent {
 
   ngOnInit(): void {
     this.configureService();
+    this.leafletMap = this.coworking_map.getMapService().getMap();
   }
   inicializarMapa(lat: number, lon: number): void {
     // Esperar hasta que los datos estén listos
@@ -51,9 +52,11 @@ export class CoworkingsEditComponent {
         const address = this.address.getValue();
         const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
         const cityName = cityObject ? cityObject.city : null;
+        this.leafletMap = this.coworking_map.getMapService().getMap();
 
-        if(lat && lon){
+        if(!lat === undefined && !lon === undefined){
           this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingForm.getFieldValue('cw_name'));
+          return;
         }
 
         if (!cityName || !address) {

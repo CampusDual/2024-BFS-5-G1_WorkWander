@@ -1136,8 +1136,7 @@ svg.p-icon.p-rating-icon {
   padding-top: 18px;
 
   .p-carousel-items-container {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    justify-content: space-between;
   }
 
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
@@ -1154,17 +1153,44 @@ svg.p-icon.p-rating-icon {
     .p-carousel-indicator {
       list-style: none;
       padding: 5px;
-      margin: 0%;
+      margin: 0;
 
-      > button {
-        :hover {
+      button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid $primary;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
           background-color: $accent;
+          transform: scale(1.1);
         }
       }
 
-      + .p-highlight > button {
+      &.p-highlight button {
         background-color: $primary;
+        transform: scale(1.2);
       }
+    }
+  }
+  .p-carousel-prev,
+  .p-carousel-next {
+    background-color: $accent;
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $primary;
     }
   }
 }

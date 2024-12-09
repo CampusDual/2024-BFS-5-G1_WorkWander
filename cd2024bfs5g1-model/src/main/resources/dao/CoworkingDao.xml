@@ -29,8 +29,8 @@
                         public.coworking.cw_usr_id as cw_usr_id,
                         Round(AVG(br.bkr_ratio), 1) as ratio,
                         public.coworking.cw_lat as cw_lat,
-                        public.coworking.cw_lon as cw_lon
-
+                        public.coworking.cw_lon as cw_lon,
+                        public.coworking.cw_end_date as cw_end_date
                     FROM coworking
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
                     LEFT JOIN service on service.srv_id = cw_service.srv_id
@@ -41,7 +41,8 @@
                     #COLUMNS#
                     FROM
                         temp_table
-                    #WHERE#
+                    WHERE cw_end_date is null
+                    #WHERE_CONCAT#
                 ]]>
             </Sentence>
         </Query>

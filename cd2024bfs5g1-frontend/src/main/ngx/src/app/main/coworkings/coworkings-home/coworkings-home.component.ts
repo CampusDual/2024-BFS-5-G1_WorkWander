@@ -242,5 +242,12 @@ export class CoworkingsHomeComponent implements OnInit {
   //   };
   //   this.snackBarService.open(translatedMessage, configuration);
   // }
-  
+  noResults: boolean = false;
+
+  ngAfterViewInit() {
+    // Escucha los cambios en data del grid
+    this.coworkingsGrid.onDataLoaded.subscribe(() => {
+      this.noResults = this.coworkingsGrid.dataArray.length === 0;
+    });
+  }
 }

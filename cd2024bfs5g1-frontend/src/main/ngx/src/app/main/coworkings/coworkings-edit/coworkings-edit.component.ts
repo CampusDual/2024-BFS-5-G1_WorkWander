@@ -122,7 +122,14 @@ export class CoworkingsEditComponent {
   /**
    * Método que se llama desde el botón de guardado
    */
-  public save() {
+  public async save() {
+    if (!this.validAddress) {
+      const confirmSave = await this.showConfirm();
+      if (!confirmSave) {
+        return;
+      }
+    }
+
     //Ordenamos el array de coworkings
     this.arrayServices.sort((a: any, b: any) => a.id - b.id);
     //Creamos un objeto coworking
@@ -218,16 +225,19 @@ export class CoworkingsEditComponent {
       const addressResults = await this.getCoordinates(addressComplete);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
+        this.validAddress = true;
         return;
       }
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
       const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
-        this.updateMapAndMarker(cityResults, 14, null);
+        this.updateMapAndMarker(cityResults, 8, null);
+        this.snackBar(this.translate.get("INVALID_LOCATION"));
       } else {
         console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
         this.updateMapAndMarker("40.416775;-3.703790", 6, null);
+        this.validAddress = false;
       }
     } catch (error) {
       console.error("Error al procesar la ubicación:", error);
@@ -283,7 +293,7 @@ export class CoworkingsEditComponent {
 
   private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
-      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessageTitle = this.translate.get("CONFIRM");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
         if (result) {

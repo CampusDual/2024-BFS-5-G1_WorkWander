@@ -1,6 +1,6 @@
 @use "sass:map";
-@import "primeicons/primeicons.css";
 @import "./custom_font.scss";
+@import "primeicons/primeicons.css";
 @import "./custom_color.scss";
 
 h1,
@@ -751,14 +751,14 @@ o-column {
   background-size: cover;
 }
 /*  Coworking */
-.no-results{
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-    color: #5c5c5c;
-    text-align: center;
-    font-size: xx-large;
-    font-weight: bold;
+.no-results {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  color: #5c5c5c;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
 }
 
 .coworking-card {
@@ -1050,7 +1050,6 @@ o-data-toolbar {
 .events-details {
   margin: auto;
 
-
   .detalles {
     background-color: $blanco;
     padding: 16px;
@@ -1292,6 +1291,18 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         max-width: 47%;
         width: 47%;
         min-width: 47%;
+      }
+
+      o-integer-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+
+      o-real-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
       }
     }
   }

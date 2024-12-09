@@ -211,7 +211,7 @@ export class CoworkingsEditComponent {
   }
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
-    const addressComplete = `${address}, ${selectedCity}`;
+    const addressComplete = `${selectedCity}, ${address}`;
     const name = this.coworkingForm.getFieldValue('cw_name')
 
     try {
@@ -241,7 +241,7 @@ export class CoworkingsEditComponent {
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
       if (response?.length > 0) {
-        const { lat, lon } = response[0];
+        const { lat, lon } = response[response.length - 1];
         console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       }

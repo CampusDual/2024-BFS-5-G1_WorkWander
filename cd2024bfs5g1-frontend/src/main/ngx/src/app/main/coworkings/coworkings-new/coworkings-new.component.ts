@@ -208,7 +208,7 @@ export class CoworkingsNewComponent implements OnInit {
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
       if (response?.length > 0) {
-        const { lat, lon } = response[0];
+        const { lat, lon } = response[response.length - 1];
         this.mapLat = lat;
         this.mapLon = lon;
         console.log(`${lat};${lon}`);

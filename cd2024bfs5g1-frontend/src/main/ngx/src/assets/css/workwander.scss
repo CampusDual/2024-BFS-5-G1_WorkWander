@@ -1,6 +1,6 @@
 @use "sass:map";
-@import "primeicons/primeicons.css";
 @import "./custom_font.scss";
+@import "primeicons/primeicons.css";
 @import "./custom_color.scss";
 
 h1,
@@ -751,14 +751,14 @@ o-column {
   background-size: cover;
 }
 /*  Coworking */
-.no-results{
-    display: flex;
-    justify-content: center;
-    margin-top: 10%;
-    color: #5c5c5c;
-    text-align: center;
-    font-size: xx-large;
-    font-weight: bold;
+.no-results {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  color: #5c5c5c;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
 }
 
 .coworking-card {
@@ -1049,7 +1049,6 @@ o-data-toolbar {
 
 .events-details {
   margin: auto;
-
 
   .detalles {
     background-color: $blanco;

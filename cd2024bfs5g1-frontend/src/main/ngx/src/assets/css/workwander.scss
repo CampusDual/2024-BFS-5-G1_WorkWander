@@ -373,6 +373,12 @@ nav.ng-star-inserted:nth-last-child(2) {
         color: $primary;
         border-left: 8px solid $verdeBoton;
       }
+
+      a.o-app-sidenav-viewer-sidenav-item-selected {
+        color: rgba(0, 0, 0, 0.74);
+        background-color: $accent;
+        border-left: 8px solid $verdeBoton;
+      }
     }
     .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
       padding-bottom: 0px !important;
@@ -659,6 +665,7 @@ o-column {
       width: 100%;
       min-width: 100%;
     }
+
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }

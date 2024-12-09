@@ -3,7 +3,7 @@ import { MenuRootItem } from 'ontimize-web-ngx';
 export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'coworkingsHome', name: 'COWORKINGS', icon: 'home', route: '/main/coworkings' },
   { id: 'coworkingsPublic', name: 'COWORKINGS', icon: 'home', route: '/coworkings' },
-  { id: 'eventsHome', name: 'EVENTS', icon: 'event', route: 'main/events' },
+  { id: 'eventsHome', name: 'EVENTS', icon: 'event', route: '/main/events' },
   { id: 'myCalendar', name: 'MY_CALENDAR', route: '/main/mycalendar', icon: 'event' },
   {
     id: 'groupCoworkings', name: 'GROUP_COWORKINGS', icon: 'work',

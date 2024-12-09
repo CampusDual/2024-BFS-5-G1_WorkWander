@@ -237,7 +237,9 @@
   "COWORKING_DELETED": "Coworking borrado",
   "PENDING_BOOKINGS": "No puedes eliminar este coworking, tiene reservas pendientes",
   "NO_RESULTS": "No se han encontrado resultados",
-  "EVENT_CREATE": "¡Evento creado!"
+  "EVENT_CREATE": "¡Evento creado!",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
-  "SEARCH": "Buscar ubicación"
+  "SEARCH": "Buscar ubicación",
+  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localidaza?",
+  "CONFIRM": "Confirrmar dirección"
 }

@@ -8,13 +8,15 @@
   header-actions="R;U"
   show-header="no"
   show-header-navigation="no"
-  columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
-  visible-columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location"
+  columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location;cw_lon;cw_lat"
+  visible-columns="cw_id;cw_name;cw_description;cw_address;cw_capacity;cw_daily_price;cw_image;cw_location;cw_lon;cw_lat"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
-  (onDataLoaded)="inicializarMapa(
-    coworkingForm.getFieldValue('cw_lat'),
-    coworkingForm.getFieldValue('cw_lon')
-  )"
+  (onDataLoaded)="
+    inicializarMapa(
+      coworkingForm.getFieldValue('cw_lat'),
+      coworkingForm.getFieldValue('cw_lon')
+    )
+  "
   ignore-default-navigation="yes"
   fxFlex
 >
@@ -33,6 +35,8 @@
     >
       <!-- Name and Description-->
       <o-integer-input oHidden #id attr="cw_id"></o-integer-input>
+      <o-integer-input oHidden #cw_lon attr="cw_lon"></o-integer-input>
+      <o-integer-input oHidden #cw_lat attr="cw_lat"></o-integer-input>
       <o-text-input
         fxFlex
         attr="cw_name"
@@ -70,7 +74,7 @@
         min="1"
         max="1000"
         attr="cw_daily_price"
-        label="DAILY_PRICE"
+        label="PRICE"
         required="yes"
         decimal-digits="2"
         icon="euro_symbol"
@@ -102,7 +106,9 @@
         detail-mode="none"
         show-footer="no"
         grid-item-height="70px"
-        (onDataLoaded)="showServices(coworkingForm.getFieldValue('cw_id'))"
+        (onDataLoaded)="
+          this.showServices(this.coworkingForm.getFieldValue('cw_id'))
+        "
       >
         <o-grid-item *ngFor="let dato of servicesGrid.dataArray">
           <div
@@ -112,36 +118,30 @@
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
-              fxFlex="65px"
+              fxFlex="100px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >desktop_windows</mat-icon
+                <mat-icon>desktop_windows</mat-icon
                 >
               </article>
               <article *ngIf="dato.srv_name == 'vending_machine'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >kitchen</mat-icon
+                <mat-icon>kitchen</mat-icon
                 >
               </article>
               <article *ngIf="dato.srv_name == 'coffee_bar'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >local_cafe</mat-icon
+                <mat-icon>local_cafe</mat-icon
                 >
               </article>
               <article *ngIf="dato.srv_name == 'water_dispenser'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >local_drink</mat-icon
+                <mat-icon>local_drink</mat-icon
                 >
               </article>
               <article *ngIf="dato.srv_name == 'ergonomic_chair'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >event_seat</mat-icon
+                <mat-icon>event_seat</mat-icon
                 >
               </article>
               <article *ngIf="dato.srv_name == 'parking'">
-                <mat-icon [matTooltip]="dato.srv_name | oTranslate"
-                  >local_parking</mat-icon
+                <mat-icon>local_parking</mat-icon
                 >
               </article>
               <span class="icon-literal">{{ dato.srv_name | oTranslate }}</span>
@@ -202,18 +202,18 @@
       <!-- Map Information -->
       <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">
         <o-map
-            #coworking_map
-            attr="coworking_map"
-            zoom="16"
-            min-zoom="6"
-            max-zoom="18"
-            zoom-control="yes"
-            search-control="no"
-            layer-panel-visible="no"
-            fxFlex
-            class="modal-form"
-          >
-          </o-map>
+          #coworking_map
+          attr="coworking_map"
+          zoom="16"
+          min-zoom="6"
+          max-zoom="18"
+          zoom-control="yes"
+          search-control="no"
+          layer-panel-visible="no"
+          fxFlex
+          class="modal-form"
+        >
+        </o-map>
       </div>
     </o-column>
   </div>

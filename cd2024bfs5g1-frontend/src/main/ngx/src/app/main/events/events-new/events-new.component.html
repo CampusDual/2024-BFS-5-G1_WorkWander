@@ -37,7 +37,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
     <!-- Información General -->
     <o-column
       fxFlex
-      class="form-section column-new-event"
+      class="form-section column-new-event no-margin-top"
       title="EVENT_INFORMATION"
       fxLayoutGap="24px"
     >
@@ -81,6 +81,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         icon="event_seat"
         thousand-separator="."
         required="yes"
+        class="inline"
       ></o-integer-input>
       <!-- Duración -->
       <o-integer-input
@@ -90,9 +91,19 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         min="0"
         step="1"
         max="999"
+        class="inline"
       ></o-integer-input>
+      <!-- Precio -->
+      <o-real-input
+        attr="price"
+        required="no"
+        min="0"
+        max="1000"
+        placeholder="0"
+        decimal-digits="2"
+        class="inline"
+      ></o-real-input>
       <!-- Localidad -->
-
       <o-combo
         #combo
         attr="locality"
@@ -119,15 +130,6 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         required="yes"
         class="halfSize"
       ></o-text-input>
-
-      <o-real-input
-        attr="price"
-        required="no"
-        min="0"
-        max="1000"
-        placeholder="0"
-        decimal-digits="2"
-      ></o-real-input>
     </o-column>
     <o-column
       fxFlex

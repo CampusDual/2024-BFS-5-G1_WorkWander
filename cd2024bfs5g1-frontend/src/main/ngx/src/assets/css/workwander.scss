@@ -767,6 +767,16 @@ o-column {
   background-size: cover;
 }
 /*  Coworking */
+.no-results{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    color: #5c5c5c;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
@@ -1064,6 +1074,7 @@ o-data-toolbar {
 .events-details {
   margin: auto;
 
+
   .detalles {
     background-color: $blanco;
     padding: 16px;
@@ -1274,6 +1285,18 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         width: 47%;
         min-width: 47%;
       }
+
+      o-integer-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+
+      o-real-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
     }
   }
 
@@ -1439,7 +1462,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .button-c {
   background-color: $primary;
-  color: #ffffff;
+  color: $accent;
   border: 0;
   padding: 0.5rem 1rem;
   width: 80px;

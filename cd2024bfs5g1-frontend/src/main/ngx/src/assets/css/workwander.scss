@@ -1250,6 +1250,18 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         width: 47%;
         min-width: 47%;
       }
+
+      o-integer-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+
+      o-real-input.inline {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
     }
   }
 

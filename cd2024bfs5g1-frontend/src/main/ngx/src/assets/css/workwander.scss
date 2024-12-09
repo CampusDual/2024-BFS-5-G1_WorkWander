@@ -1,7 +1,7 @@
 @use "sass:map";
+@import "primeicons/primeicons.css";
 @import "./custom_font.scss";
 @import "./custom_color.scss";
-@import "primeicons/primeicons.css";
 
 h1,
 h2,
@@ -13,19 +13,6 @@ h6 {
     animation: wave 1.5s ease-in-out;
   }
 }
-/* Colores personalizados */
-/*
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5f6f65;
-
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
-
-$colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;*/
 
 $borderRadius: 16px 8px 16px 8px;
 $borderRadiusButton: 25px 5px 25px 25px;
@@ -219,7 +206,7 @@ app-coworking-new {
   flex-wrap: wrap;
 }
 
-form{
+form {
   overflow: hidden;
 }
 
@@ -567,10 +554,9 @@ div#innerCol {
 }
 .reservation-button {
   text-align: center;
-  o-button{
+  o-button {
     margin-left: 0 !important;
   }
-
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -611,6 +597,11 @@ o-column {
     min-height: 470px;
     height: 470px;
   }
+  o-map.modal-form {
+    max-height: 560px;
+    height: 560px;
+    min-height: 560px;
+  }
   o-image {
     width: 100%;
     height: 100%;
@@ -625,7 +616,11 @@ o-column {
   min-height: 470px;
   height: 470px;
 }
-
+.form-new-event.form-edit-modal {
+  .o-container-title {
+    display: none !important;
+  }
+}
 .form-new-event {
   background-color: transparent;
   border: solid 1px $verdeBoton;
@@ -669,6 +664,12 @@ o-column {
         padding: 5px;
       }
     }
+    o-image.imagen-mapa.modal-form {
+      width: 300px;
+      height: 300px;
+      max-height: 300px;
+      min-height: 300px;
+    }
 
     .rowCityDirection {
       flex-direction: row;
@@ -677,6 +678,10 @@ o-column {
       margin: 60px 0 25px 0;
       justify-content: space-between;
     }
+    .rowCityDirection.low-margin-top {
+      margin: 20px 0 25px 0;
+    }
+
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
       overflow: hidden;
@@ -714,6 +719,10 @@ o-column {
     width: 100%;
     padding: 15px;
   }
+  .buttons.modal-form {
+    background-color: transparent;
+    margin-top: -50px;
+  }
   .o-image .o-image-content.o-image-auto-fit .o-image-display-container > img {
     max-width: 350px;
   }
@@ -742,6 +751,16 @@ o-column {
   background-size: cover;
 }
 /*  Coworking */
+.no-results{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    color: #5c5c5c;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
@@ -1001,7 +1020,7 @@ o-snackbar .o-snackbar-message {
 .serviceDisable {
   cursor: pointer;
   background-color: $accent;
-  color: $primary;
+  color: $verdeBoton;
   padding: 5px 5px 5px 5px;
   font-size: 9px;
   width: 250px;
@@ -1020,8 +1039,8 @@ o-data-toolbar {
   background: transparent !important;
 }
 
-.column-events-details{
-  max-width : 480px;
+.column-events-details {
+  max-width: 480px;
 }
 
 .o-grid-no-results {
@@ -1031,7 +1050,6 @@ o-data-toolbar {
 .events-details {
   margin: auto;
 
-
   .detalles {
     background-color: $blanco;
     padding: 16px;
@@ -1040,13 +1058,11 @@ o-data-toolbar {
     margin-right: 16px;
     box-shadow: 0px 0px 10px 0px $primaryClaro;
   }
-  .image-container.image-container-details img{
+  .image-container.image-container-details img {
     height: 420px !important;
     width: 430px !important;
-
   }
 }
-
 
 // estrellas
 .enable .p-icon.p-rating-icon {
@@ -1059,19 +1075,16 @@ o-data-toolbar {
   height: 20px;
   color: grey;
 }
-//
-
 
 //cancelar
 .cancelEnable {
-  border: 2px #ea0000 solid;
+  border: 2px $rojo solid;
   border-style: outset;
   border-radius: 8px;
   color: white !important;
   margin: 5px 0 5px 0;
   padding: 5px;
-  background-color: #ea0000 !important;
-
+  background-color: $rojo !important;
 }
 .cancelDisable {
   border: 2px #4c4c4c solid;
@@ -1080,12 +1093,18 @@ o-data-toolbar {
   color: white !important;
   margin: 5px 0 5px 0;
   padding: 5px;
-  background-color:#4c4c4c !important;
+  background-color: #4c4c4c !important;
 }
 
+// botón borrar coworking
+td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
+  mat-icon.mat-icon {
+    color: $rojo !important;
+  }
+}
+//
 
 .event-item {
-
   .event-item-content {
     width: 60%;
     padding: 10px;
@@ -1106,20 +1125,20 @@ o-data-toolbar {
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 5px;
-    }
+  }
 
-  .nombre-evento{
+  .nombre-evento {
     display: block;
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
   }
 
-  .fecha-evento{
+  .fecha-evento {
     font-size: $fontSize12;
   }
 
-  .hora-evento{
+  .hora-evento {
     font-size: $fontSize12;
   }
 }
@@ -1140,9 +1159,8 @@ o-data-toolbar {
   padding-right: 25px !important;
 }
 
-#carousel{
-
-  padding-top:18px;
+#carousel {
+  padding-top: 18px;
 
   .p-carousel-items-container {
     margin-top: 20px;
@@ -1151,7 +1169,7 @@ o-data-toolbar {
 
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
     background-color: $accent;
-}
+  }
 
   .p-carousel-indicators {
     overflow: hidden;
@@ -1165,18 +1183,15 @@ o-data-toolbar {
       padding: 5px;
       margin: 0%;
 
-      > button{
-
-        :hover{
+      > button {
+        :hover {
           background-color: $accent;
         }
-
       }
 
-      +.p-highlight >button{
+      + .p-highlight > button {
         background-color: $primary;
       }
-
     }
   }
 }
@@ -1194,20 +1209,16 @@ o-data-toolbar {
 }
 
 /*- RATE -*/
-.bookingsRate{
-  i.pi.pi-star-fill{
+.bookingsRate {
+  i.pi.pi-star-fill {
     color: $amarillo;
     font-size: $fontSize20;
-
   }
 
-  i.pi.pi-star-half-fill{
+  i.pi.pi-star-half-fill {
     color: $amarillo;
     font-size: $fontSize16;
-
   }
-
-
 }
 .rate {
   svg.p-icon.p-rating-icon {
@@ -1218,10 +1229,14 @@ o-data-toolbar {
   }
 }
 
+.event-detail-container {
+  max-width: 40vw;
+}
 
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;
+    // margin-left: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
@@ -1247,8 +1262,19 @@ o-data-toolbar {
       }
     }
   }
-  .form-new-event.form-coworking-detail{
-    margin-top:0;
+
+  .form-new-event.no-margin-top {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .form-new-event.form-coworking-detail {
+    margin-top: 0;
+  }
+  .form-new-event.form-edit-modal {
+    margin-top: 0;
+    border: solid 0 transparent;
+    border-radius: unset;
   }
 }
 @media (max-width: 850px) {

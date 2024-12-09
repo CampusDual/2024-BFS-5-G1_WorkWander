@@ -477,6 +477,7 @@ div#innerCol {
 
   #carousel {
     padding-top: 35px;
+    max-width: 49vw;
   }
   .p-carousel {
     display: flex;
@@ -1230,14 +1231,8 @@ o-data-toolbar {
 
 @media (min-width: 768px) {
   .form-new-event {
-    margin-top: 0;
+    margin-top: 70px;
     // margin-left: 70px;
-
-    +.no-margin-top{
-      margin-top: 0;
-      margin-left: 0;
-    }
-
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize {
@@ -1261,6 +1256,10 @@ o-data-toolbar {
         min-width: 47%;
       }
     }
+  }
+  .form-new-event.no-margin-top{
+    margin-top: 0;
+    margin-left: 0;
   }
   .form-new-event.form-coworking-detail{
     margin-top:0;

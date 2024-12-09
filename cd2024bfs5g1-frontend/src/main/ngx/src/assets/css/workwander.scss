@@ -1050,6 +1050,7 @@ o-data-toolbar {
 .events-details {
   margin: auto;
 
+
   .detalles {
     background-color: $blanco;
     padding: 16px;
@@ -1425,7 +1426,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .button-c {
   background-color: $primary;
-  color: #ffffff;
+  color: $accent;
   border: 0;
   padding: 0.5rem 1rem;
   width: 80px;

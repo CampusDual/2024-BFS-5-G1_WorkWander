@@ -27,7 +27,10 @@
                         public.coworking.cw_image as cw_image,
                         STRING_AGG(distinct service.srv_name, ',') as services,
                         public.coworking.cw_usr_id as cw_usr_id,
-                        Round(AVG(br.bkr_ratio), 1) as ratio
+                        Round(AVG(br.bkr_ratio), 1) as ratio,
+                        public.coworking.cw_lat as cw_lat,
+                        public.coworking.cw_lon as cw_lon,
+                        public.coworking.cw_end_date as cw_end_date
                     FROM coworking
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
                     LEFT JOIN service on service.srv_id = cw_service.srv_id
@@ -38,7 +41,8 @@
                     #COLUMNS#
                     FROM
                         temp_table
-                    #WHERE#
+                    WHERE cw_end_date is null
+                    #WHERE_CONCAT#
                 ]]>
             </Sentence>
         </Query>
@@ -55,7 +59,9 @@
                         public.coworking.cw_location as cw_location,
                         public.city.city as location,
                         public.coworking.cw_daily_price as cw_daily_price,
-                        public.coworking.cw_image as cw_image
+                        public.coworking.cw_image as cw_image,
+                        public.coworking.cw_lat as cw_lat,
+                        public.coworking.cw_lon as cw_lon
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location
                     #WHERE#
@@ -95,28 +101,30 @@
         <Query id="filterDates">
             <Sentence>
                 <![CDATA[
-                WITH temp_table AS (
-                    SELECT
-                        cw.cw_id as cw_id,
-                        cw.cw_name as cw_name,
-                        bd.date as date,
-                        cw.cw_capacity as cw_capacity,
-                        cw.cw_daily_price as cw_daily_price,
-                        public.city.city as cw_location,
-                        STRING_AGG(service.srv_name, ',') as services,
-                        COUNT(b.bk_id) as plazasOcupadas
-                    FROM coworking cw
-                    LEFT JOIN booking b ON cw.cw_id = b.bk_cw_id
-                    LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
-                    LEFT JOIN cw_service on cw_service.cw_id = cw.cw_id
-                    LEFT JOIN service on service.srv_id = cw_service.srv_id
-                    LEFT JOIN city on city.id_city = cw.cw_location
-                    GROUP BY cw.cw_id, bd.date, city.city, cw.cw_capacity
-                    )
-                    SELECT
-                        #COLUMNS#
-                    FROM
-                        temp_table
+               WITH t1 AS(
+                SELECT
+                    cw.cw_id AS cw_id,
+                    cw.cw_name AS cw_name,
+                    cw.cw_capacity AS cw_capacity,
+                    cw.cw_daily_price as cw_daily_price,
+                    public.city.city AS cw_location,
+                    STRING_AGG(service.srv_name, ',') AS services
+                FROM coworking cw
+                LEFT JOIN cw_service on cw_service.cw_id = cw.cw_id
+                LEFT JOIN service on service.srv_id = cw_service.srv_id
+                LEFT JOIN city on city.id_city = cw.cw_location
+                GROUP BY cw.cw_id, city.city, cw.cw_capacity
+                ), t2 AS(
+                SELECT
+                    b.bk_cw_id AS t2_cw_id,
+                    bd.date AS date,
+                    COUNT(b.bk_id) AS plazasOcupadas
+                FROM booking b
+                LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
+                GROUP BY b.bk_cw_id, bd.date
+                )
+                SELECT #COLUMNS#
+                    FROM t1 LEFT JOIN t2 ON t1.cw_id = t2.t2_cw_id
                     #WHERE#
                 ]]>
             </Sentence>

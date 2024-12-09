@@ -237,5 +237,6 @@
   "COWORKING_DELETED": "Coworking borrado",
   "PENDING_BOOKINGS": "No puedes eliminar este coworking, tiene reservas pendientes",
   "NO_RESULTS": "No se han encontrado resultados",
-  "EVENT_CREATE": "¡Evento creado!"
+  "EVENT_CREATE": "¡Evento creado!",
+  "PRICE_RANGE":"Rango de precios"
 }

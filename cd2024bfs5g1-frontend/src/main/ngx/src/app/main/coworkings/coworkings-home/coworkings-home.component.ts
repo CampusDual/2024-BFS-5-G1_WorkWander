@@ -37,7 +37,7 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
-  public toPrice:number;
+  public toPrice:number=0;
 
   data: any[];
 
@@ -97,12 +97,10 @@ export class CoworkingsHomeComponent implements OnInit {
 
   click($event:any){
     this.toPrice = $event;
-    let slider = document.getElementById("slider")
-    console.log(this.toPrice, slider)
   }
 
-  formatLabelUntil() {
-
+  formatLabelUntil():any{
+    return this.toPrice + " €"
   }
 
   // Función para crear los filtros de busqueda avanzada
@@ -218,6 +216,7 @@ export class CoworkingsHomeComponent implements OnInit {
       locationExpression,
       serviceExpression,
       daterangeExpression,
+      priceExpression
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;

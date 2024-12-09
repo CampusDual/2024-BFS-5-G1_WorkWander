@@ -9,12 +9,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CarouselModule } from 'primeng/carousel';
 import { OMapModule } from 'ontimize-web-ngx-map';
 import { RatingModule } from 'primeng/rating';
+import { NearbyCoworkingComponent } from './nearby-coworking/nearby-coworking.component';
 
 
 @NgModule({
   declarations: [
     CoworkingsHomeComponent,
-    CoworkingsDetailComponent
+    CoworkingsDetailComponent,
+    NearbyCoworkingComponent
   ],
   imports: [
     CommonModule,

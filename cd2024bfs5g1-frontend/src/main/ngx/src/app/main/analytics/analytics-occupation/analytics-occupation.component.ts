@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewEncapsulation,
-} from "@angular/core";
-import { ViewChild } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
 import {
   OComboComponent,
   OntimizeService,
@@ -23,7 +19,7 @@ import {
 export class AnalyticsOccupationComponent {
   selectedCoworkings: string[] = [];
   chartData: any[] = [];
-  tooltipData: any[]= [];
+  tooltipData: any[] = [];
   isGraph: boolean = false;
   maxSelection = 3;
   chartParameters: any;
@@ -36,7 +32,7 @@ export class AnalyticsOccupationComponent {
   constructor(
     private service: OntimizeService,
     private snackBarService: SnackBarService,
-    private translate: OTranslateService,
+    private translate: OTranslateService
   ) {}
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
@@ -58,14 +54,16 @@ export class AnalyticsOccupationComponent {
 
   setDates() {
     try {
-      const startDateM = new Date((this.bookingDate as any).value.value.startDate)
-        .setHours(0, 0, 0, 0);
-        //.toLocaleString("en-CA");
+      const startDateM = new Date(
+        (this.bookingDate as any).value.value.startDate
+      ).setHours(0, 0, 0, 0);
+      //.toLocaleString("en-CA");
       const startDate = new Date(startDateM).toLocaleString("en-CA");
-      const endDateM = new Date((this.bookingDate as any).value.value.endDate)
-        .setHours(0, 0, 0, 0);
-        //.toLocaleString("en-CA");
-        const endDate = new Date(endDateM).toLocaleString("en-CA");
+      const endDateM = new Date(
+        (this.bookingDate as any).value.value.endDate
+      ).setHours(0, 0, 0, 0);
+      //.toLocaleString("en-CA");
+      const endDate = new Date(endDateM).toLocaleString("en-CA");
       if (startDate === endDate) {
         this.showAvailableToast(
           this.translate.get("DATERANGE_SELECTION_ERROR")
@@ -130,10 +128,12 @@ export class AnalyticsOccupationComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
-  getChartParameters(){
-    if (this.tooltipData) {
-      return this.tooltipData;
-    }
-
+  getChartParameters() {
+    this.tooltipData = this.getChartData();
+    return {
+      tooltipDisabled: false,
+      showTooltip: true,
+      tooltips: true,
+    };
   }
 }

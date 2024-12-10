@@ -195,6 +195,7 @@
           placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
           max-length="50"
           min-length="3"
+          (keyup.enter)="onAddressBlur()"
           (onBlur)="onAddressBlur()"
           class="halfSize"
         ></o-text-input>

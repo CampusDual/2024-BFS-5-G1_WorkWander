@@ -3,7 +3,7 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-
+import * as L from 'leaflet';
 @Component({
   selector: 'app-coworkings-edit',
   templateUrl: './coworkings-edit.component.html',
@@ -15,10 +15,12 @@ export class CoworkingsEditComponent {
   public exist = false;
   public selectedServices: number = 0;
   protected service: OntimizeService;
-  leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
   protected mapLon: number; //Longitud
+  private currentMarker: L.Marker | null = null; // Referencia al marcador actual
+  leafletMap: any; //Instancia mapa de Leaflet
+
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -211,18 +213,17 @@ export class CoworkingsEditComponent {
   }
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
-    const addressComplete = `${address}, ${selectedCity}`;
     const name = this.coworkingForm.getFieldValue('cw_name')
 
     try {
-      const addressResults = await this.getCoordinates(addressComplete);
+      const addressResults = await this.getCoordinates(selectedCity,address);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
         return;
       }
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
-      const cityResults = await this.getCoordinates(selectedCity);
+      const cityResults = await this.getCoordinates(selectedCity,"");
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 14, null);
       } else {
@@ -235,13 +236,17 @@ export class CoworkingsEditComponent {
     }
   }
 
-  private async getCoordinates(location: string): Promise<string | null> {
+  private async getCoordinates(city: string, street: string): Promise<string | null> {
+    const encodedCity= encodeURIComponent(city);
+    const encodedStreet = encodeURIComponent(street);
+    const encodedCountry = encodeURIComponent("Spain");
+
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const url = `https://nominatim.openstreetmap.org/search?city=${encodedCity}&street=${encodedStreet}&country=${encodedCountry}&format=json&addressdetails=1`;
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
       if (response?.length > 0) {
-        const { lat, lon } = response[0];
+        const { lat, lon } = response[response.length - 1];
         console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       }
@@ -254,22 +259,33 @@ export class CoworkingsEditComponent {
   private updateMapAndMarker(
     coordinates: string,
     zoom: number,
-    markerLabel: string | null) {
+    markerLabel: string | null
+  ) {
     const [lat, lon] = coordinates.split(';').map(Number);
     this.leafletMap.setView([+lat, +lon], zoom);
+      // Si recibe un markerLabel crea un marker
     if (markerLabel) {
       this.mapLat = lat;
       this.mapLon = lon;
-      this.coworking_map.addMarker(
-        'coworking_marker',           // id
-        lat,                          // latitude
-        lon,                          // longitude
-        {},                           // options
-        markerLabel,                  // popup
-        false,                        // hidden
-        true,                         // showInMenu
-        markerLabel                   // menuLabel
-      );
+      // Eliminar el marcador actual si existe
+    if (this.currentMarker) {
+      this.leafletMap.removeLayer(this.currentMarker);
+    }
+      // Crear y agregar el nuevo marcador
+      this.currentMarker = L.marker([lat, lon], { title: markerLabel, draggable: true }).addTo(this.leafletMap);
+      // Evento click del marcador
+      this.currentMarker.on('click', (event: any) => {
+        console.log('Marcador clickeado:', event);
+        alert(`Has clickeado en el marcador: ${markerLabel}`);
+      });
+      // Evento dragend del marcador
+      this.currentMarker.on('dragend', (event) => {
+        const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
+        this.mapLat = lat;
+        this.mapLon = lng;
+        console.log('Nueva posición: ' + lat + ' ' + lng);
+      });
+
     }
   }
 

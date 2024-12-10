@@ -14,8 +14,8 @@ h6 {
   }
 }
 
-$borderRadius: 16px 8px 16px 8px;
-$borderRadiusButton: 25px 5px 25px 25px;
+$borderRadius: 16px;
+$borderRadiusButton: 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
 $borderRadiusEqual: 25px;
 
@@ -406,8 +406,10 @@ div#innerCol {
   > div {
     column-gap: 15px;
     .btn-container {
+      background-color:$blanco;
       button {
         padding-top: 4px;
+        height: 78%;
       }
     }
   }
@@ -1126,14 +1128,46 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     color: $rojo !important;
   }
 }
-//
+//reviews
+.review {
+  .review-title {
+    margin-left: 16px;
+  }
+  .review-container {
+    border: solid 1px white;
+    padding: 16px;
+    border-radius: 8px;
+    width: 90%;
+    align-items: flex-start;
+    background-color: #f0f0f0;
+  }
+
+  .login-name {
+    background-color: #7ba587;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .media_rating {
+    color: #d3b403;
+    transform: scale(1.5);
+    padding-left: 8px;
+  }
+
+  ::ng-deep .o-grid-footer.ng-star-inserted {
+    padding-bottom: 16px;
+    padding-left: 16px;
+  }
+}
+
 
 .event-item {
   .event-item-content {
     width: 60%;
     padding: 10px;
     border: 1px solid #dfe7ef;
-    border-radius: 25px 5px 25px 5px;
+    border-radius: 20px;
     text-align: center;
     height: 20%;
     margin: 0 auto;
@@ -1148,7 +1182,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     height: 70px;
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border-radius: 5px;
+    border-radius: 10px;
   }
 
   .nombre-evento {
@@ -1498,4 +1532,20 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .button-c:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cancelBtn {
+    color: #ffffff !important;
+    background-color: $verdeBoton !important;
+}
+
+.price_range{
+  font-size: 11px;
+  font-weight:bold;
+  max-width: 150px;
+}
+
+.slider{
+  margin-right: 15px;
+  margin-left: 15px;
 }

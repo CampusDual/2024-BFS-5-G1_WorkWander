@@ -1,6 +1,5 @@
 <ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue">
-  <span fxLayout="row" fxLayoutAlign="space-around center">
-    {{ getCellData(cellvalue, rowvalue) }}
+
     <img
       src="assets/images/close.svg"
       *ngIf="getCellData(cellvalue, rowvalue) == 'Cancelada'"
@@ -17,5 +16,5 @@
       src="assets/images/play.svg "
       *ngIf="getCellData(cellvalue, rowvalue) == 'En curso'"
       title="{{ 'IN_PROGRESS' | oTranslate }}"
-  /></span>
+  />
 </ng-template>

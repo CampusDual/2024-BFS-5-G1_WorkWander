@@ -424,7 +424,6 @@ div#innerCol {
 .card-detalle {
   display: flex;
   gap: 25px;
-  flex-wrap: wrap;
   flex-direction: column;
   align-content: center;
 
@@ -1221,8 +1220,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   padding-top: 18px;
 
   .p-carousel-items-container {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    justify-content: space-between;
   }
 
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
@@ -1241,15 +1239,42 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       padding: 5px;
       margin: 0%;
 
-      > button {
-        :hover {
+      button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid $primary;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
+
+        &:hover {
           background-color: $accent;
+          transform: scale(1.1);
         }
       }
 
-      + .p-highlight > button {
+      &.p-highlight button {
         background-color: $primary;
+        transform: scale(1.2);
       }
+    }
+  }
+  .p-carousel-prev,
+  .p-carousel-next {
+    background-color: $accent;
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: $primary;
     }
   }
 }
@@ -1290,11 +1315,25 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .event-detail-container {
   max-width: 40vw;
 }
+.empty-events-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-color: $accent;
+  border-radius: $borderRadius;
+  margin: 10px;
+
+  p {
+    color: $primary;
+    font-size: $fontSize16;
+    font-weight: $fontSemiBold;
+  }
+}
 
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;
-    // margin-left: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
@@ -1332,6 +1371,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       }
     }
   }
+  .form-new-event.form-coworking-detail {
+    margin-top: 0;
 
   .form-new-event.no-margin-top {
     margin-top: 0;

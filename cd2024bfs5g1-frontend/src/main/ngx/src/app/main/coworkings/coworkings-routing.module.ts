@@ -1,9 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { EventsDetailComponent } from '../events/events-detail/events-detail.component';
+import { CoworkingsNewComponent } from "./coworkings-new/coworkings-new.component";
 import { CoworkingsDetailComponent } from "./coworkings-detail/coworkings-detail.component";
 import { CoworkingsHomeComponent } from "./coworkings-home/coworkings-home.component";
-import { CoworkingsNewComponent } from "./coworkings-new/coworkings-new.component";
+import { EventsDetailComponent } from '../events/events-detail/events-detail.component';
+import { NearbyCoworkingComponent } from './nearby-coworking/nearby-coworking.component';
 
 const routes: Routes = [
   { path: "", component: CoworkingsHomeComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
       },
     },
   },
+  { path: "nearby-coworking", component: NearbyCoworkingComponent },
   { path: ":cw_id", component: CoworkingsDetailComponent },
   //Ruta que permite navegar hacia EventsDetailComponent desde el evento seleccionado en CoworkingsDetailComponent
   { path: ":cw_id/:id_event", component: EventsDetailComponent }

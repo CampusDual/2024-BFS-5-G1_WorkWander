@@ -11,7 +11,7 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Subject,
+  Subject
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 
@@ -80,6 +80,8 @@ export class NearbyCoworkingComponent implements OnInit {
     const address = this.address.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
+
+    // this.customMapservice();
 
     if (!cityName || !address) {
       this.snackBar(this.translate.get("INVALID_LOCATION"));

@@ -123,11 +123,23 @@ export class CoworkingsEditComponent {
    * Método que se llama desde el botón de guardado
    */
   public async save() {
-    if (!this.validAddress) {
-      const confirmSave = await this.showConfirm();
-      if (!confirmSave) {
-        return;
-      }
+    const address = this.address.getValue();
+    const selectedCityId = this.combo.getValue();
+    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityName = cityObject ? cityObject.city : null;
+
+    // Forzar validación si la dirección ha sido modificada
+    if (!this.validAddress && cityName && address) {
+        await this.mapaShow(cityName, address);
+
+        // Si después de validar sigue siendo inválida
+        if (!this.validAddress) {
+            const confirmSave = await this.showConfirm();
+            if (!confirmSave) {
+                this.snackBar(this.translate.get("INVALID_LOCATION"));
+                return;
+            }
+        }
     }
 
     //Ordenamos el array de coworkings
@@ -210,12 +222,17 @@ export class CoworkingsEditComponent {
   }
   // ---------------------- MAPA ----------------------
   onAddressBlur() {
-    const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
+    this.validAddress = false; // Invalida la dirección por defecto
+    
+    const selectedCityId = this.combo.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
-    this.mapaShow(cityName, address);
-  }
+
+    if (cityName && address) {
+        this.mapaShow(cityName, address);
+    }
+}
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
     const addressComplete = `${selectedCity}, ${address}`;
@@ -237,12 +254,12 @@ export class CoworkingsEditComponent {
       } else {
         console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
         this.updateMapAndMarker("40.416775;-3.703790", 6, null);
-        this.validAddress = false;
       }
     } catch (error) {
       console.error("Error al procesar la ubicación:", error);
 
     }
+    this.validAddress = false;
   }
 
   private async getCoordinates(location: string): Promise<string | null> {

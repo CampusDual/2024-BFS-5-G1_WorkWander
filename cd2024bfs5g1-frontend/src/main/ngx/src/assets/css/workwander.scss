@@ -1603,9 +1603,18 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     color: #ffffff !important;
     font-weight: 500 !important;
     font-size: 16px !important;
+    height: 50px !important;
+    border-bottom: 3px solid $blanco !important;
   }
+}
+
+tr.mat-mdc-row {
+  height: 50px !important;
+  
 }
 
 .mat-mdc-cell {
   font-size: 14px !important;
+  line-height: 25px !important;
+  border-bottom: 3px solid $blanco !important;
 }

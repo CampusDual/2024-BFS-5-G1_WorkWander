@@ -122,3 +122,10 @@ o-chart {
   border-radius: $borderRadius;
   //padding: 15px;
 }
+
+.chart-legend .legend-label {
+  cursor:pointer;
+  font-size:90%;
+  margin:8px;
+  color:black !important;
+}

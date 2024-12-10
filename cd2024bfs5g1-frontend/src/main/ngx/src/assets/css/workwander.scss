@@ -420,7 +420,6 @@ div#innerCol {
 .card-detalle {
   display: flex;
   gap: 25px;
-  flex-wrap: wrap;
   flex-direction: column;
   align-content: center;
 
@@ -615,17 +614,6 @@ o-column {
     height: 100%;
     max-height: 270px;
     min-height: 270px;
-  }
-}
-.o-form-content-wrapper {
-  .dos-columnas {
-    .form-section.map-container.o-column {
-      .o-container-scroll {
-        &.o-scroll {
-          flex-direction: row-reverse;
-        }
-      }
-    }
   }
 }
 

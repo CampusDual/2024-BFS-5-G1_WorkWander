@@ -246,5 +246,11 @@
   "CANCELLED": "Cancelada",
   "FINISHED": "Finalizada",
   "PENDING": "Pendiente",
-  "IN_PROGRESS": "En curso"
+  "IN_PROGRESS": "En curso",
+  "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
+  "SEARCH": "Buscar ubicación",
+  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localidaza?",
+  "CONFIRM": "Confirrmar dirección",
+  "MY_SPACE": "Mi espacio",
+  "NO_EVENTS": "No hay eventos disponibles"
 }

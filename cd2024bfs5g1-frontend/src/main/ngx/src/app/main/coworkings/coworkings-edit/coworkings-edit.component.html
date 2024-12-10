@@ -190,6 +190,7 @@
             placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
             max-length="50"
             min-length="3"
+            (input)="validAddress = false"
             (keyup.enter)="onAddressBlur()"
             class="halfSize"
             style="width: calc(100% - 100px)"

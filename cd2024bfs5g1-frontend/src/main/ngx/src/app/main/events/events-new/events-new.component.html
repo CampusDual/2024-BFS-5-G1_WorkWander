@@ -26,9 +26,10 @@ This HTML file defines the structure of the "New Event" form component in an Ang
   class="form-section"
   ignore-default-navigation="yes"
   fxFlex
+  c
 >
   <div
-    class="form-section form-new-event"
+    class="form-section form-new-event no-margin-top"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="left start"
@@ -36,7 +37,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
     <!-- Información General -->
     <o-column
       fxFlex
-      class="form-section column-new-event"
+      class="form-section column-new-event no-margin-top"
       title="EVENT_INFORMATION"
       fxLayoutGap="24px"
     >
@@ -80,6 +81,7 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         icon="event_seat"
         thousand-separator="."
         required="yes"
+        class="inline"
       ></o-integer-input>
       <!-- Duración -->
       <o-integer-input
@@ -89,7 +91,18 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         min="0"
         step="1"
         max="999"
+        class="inline"
       ></o-integer-input>
+      <!-- Precio -->
+      <o-real-input
+        attr="price"
+        required="no"
+        min="0"
+        max="1000"
+        placeholder="0"
+        decimal-digits="2"
+        class="inline"
+      ></o-real-input>
       <!-- Localidad -->
       <o-combo
         #combo
@@ -107,29 +120,36 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         searchable="true"
         sort="ASC"
         appearance="fill"
+        class="halfSize"
       >
       </o-combo>
       <!-- Dirección -->
-      <o-text-input attr="address" icon="place" required="yes"></o-text-input>
-
-      <o-real-input
-        attr="price"
-        required="no"
-        min="0"
-        max="1000"
-        placeholder="0"
-        decimal-digits="2"
-      ></o-real-input>
-
+      <o-text-input
+        attr="address"
+        icon="place"
+        required="yes"
+        class="halfSize"
+      ></o-text-input>
+    </o-column>
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title=""
+      fxLayoutGap="24px"
+      style="padding: 0 15px"
+      fxLayoutAlign="space-between center"
+      class="image"
+    >
       <!-- Imagen -->
       <o-image
         attr="image_event"
         sql-type="OTHER"
         max-file-size="1048576"
+        height="350px"
       ></o-image>
       <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
         <div class="buttons">
-          <button mat-raised-button color="warn" (click)="cancel()">
+          <button mat-raised-button class="cancelBtn" (click)="cancel()">
             {{ "cancel" | oTranslate }}
           </button>
           <button

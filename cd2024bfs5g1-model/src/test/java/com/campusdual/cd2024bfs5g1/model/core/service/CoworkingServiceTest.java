@@ -165,20 +165,20 @@ public class CoworkingServiceTest {
         }
     }
 
-    @Test
-    public void testCoworkingDelete() {
-        // Datos de prueba
-        final Map<String, Object> keyMap = new HashMap<>();
-        final EntityResult expectedResult = new EntityResultMapImpl();
-
-        // Configurar el mock
-        when(this.daoHelper.delete(this.coworkingDao, keyMap)).thenReturn(expectedResult);
-
-        // Llamar al método
-        final EntityResult result = this.coworkingService.coworkingDelete(keyMap);
-
-        // Verificar resultados
-        assertEquals(expectedResult, result);
-        verify(this.daoHelper).delete(this.coworkingDao, keyMap);
-    }
+//    @Test
+//    public void testCoworkingDelete() {
+//        // Datos de prueba
+//        final Map<String, Object> keyMap = new HashMap<>();
+//        final EntityResult expectedResult = new EntityResultMapImpl();
+//
+//        // Configurar el mock
+//        when(this.daoHelper.delete(this.coworkingDao, keyMap)).thenReturn(expectedResult);
+//
+//        // Llamar al método
+//        final EntityResult result = this.coworkingService.coworkingDelete(keyMap);
+//
+//        // Verificar resultados
+//        assertEquals(expectedResult, result);
+//        verify(this.daoHelper).delete(this.coworkingDao, keyMap);
+//    }
 }

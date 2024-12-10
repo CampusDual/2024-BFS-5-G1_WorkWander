@@ -80,9 +80,7 @@ export class CoworkingsDetailComponent implements OnInit {
   public serviceList = [];
   public dateArray = [];
   public dateArrayF = [];
-
-  center: string = "42.240599;-8.720727";
-
+  leafletMap: any;
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
     const price_ = parseFloat(price);
@@ -98,10 +96,17 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.leafletMap = this.coworking_map.getMapService().getMap();
   }
-  iniciarPantalla(idLocation: number, city: string, address: string) {
+
+  iniciarPantalla(idLocation: number, city: string, address: string, lat: number, lon: number) {
     this.showEvents(idLocation);
-    this.mapaShow(city, address);
+    this.leafletMap = this.coworking_map.getMapService().getMap();
+    if (lat === undefined && lon === undefined) {
+      this.mapaShow(city, address);
+    } else {
+      this.updateMapAndMarker(`${lat};${lon}`, 16, this.coworkingName.getValue());
+    }
   }
 
   currentDate() {
@@ -114,11 +119,11 @@ export class CoworkingsDetailComponent implements OnInit {
   showEvents(cw_location: number): void {
     if (cw_location != undefined) {
       let date = new Date();
-      let month = date.getMonth()+1;
+      let month = date.getMonth() + 1;
       let year = date.getFullYear();
       let day = date.getDate();
-      let m = month < 10 ? "0"+month.toString() : month.toString()
-      let d = day < 10 ? "0"+day.toString() : day.toString()
+      let m = month < 10 ? "0" + month.toString() : month.toString()
+      let d = day < 10 ? "0" + day.toString() : day.toString()
       let now = `${year}-${m}-${d}`;
       const filter = {
         "@basic_expression": {
@@ -153,7 +158,7 @@ export class CoworkingsDetailComponent implements OnInit {
         "duration",
         "image_event",
       ];
-      this.events=[];
+      this.events = [];
       this.service
         .query(filter, columns, "event", sqltypes)
         .subscribe((resp) => {
@@ -418,64 +423,66 @@ export class CoworkingsDetailComponent implements OnInit {
   }
 
   // ---------------------- MAPA ----------------------
-  mapaShow(selectedCity: string, address: string): void {
-    const addressComplete = selectedCity + ", " + address;
+  async mapaShow(selectedCity: string, address: string): Promise<void> {
+    const addressComplete = `${selectedCity}, ${address}`;
+    const name = this.getName();
 
-    this.getCoordinatesForCity(addressComplete).then((results) => {
-      if (results) {
-        const [lat, lon] = results.split(';')
-        this.center = lat + ";" + lon;
-        this.coworking_map.getMapService().setCenter(+lat, +lon);
-        this.coworking_map.getMapService().setZoom(18);
-        this.coworking_map.addMarker(
-          'custom_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          'Ubicacion del coworking',     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          'Marcador Personalizado'   // menuLabel
-        );
-      } else {
-        this.snackBar(`No se pudo encontrar ${address ? 'la dirección' : 'el municipio'}.`);
-        this.getCoordinatesForCity(selectedCity).then((results) => {
-          if (results) {
-            const [lat, lon] = results.split(';')
-            this.center = lat + ";" + lon;
-            this.coworking_map.getMapService().setCenter(+lat, +lon);
-            this.coworking_map.getMapService().setZoom(12);
-            this.coworking_map.addMarker(
-              'custom_marker',           // id
-              lat,                 // latitude
-              lon,                 // longitude
-              { draggable: true },       // options
-              'Ubicacion del coworking',     // popup
-              false,                     // hidden
-              true,                      // showInMenu
-              'Marcador Personalizado'   // menuLabel
-            );
-          }
-        });
+    try {
+      const addressResults = await this.getCoordinates(addressComplete);
+      if (addressResults) {
+        this.updateMapAndMarker(addressResults, 16, name);
+        return;
       }
-    });
+
+      console.log("Dirección no válida, intentando con la ciudad seleccionada...");
+      const cityResults = await this.getCoordinates(selectedCity);
+      if (cityResults) {
+        this.updateMapAndMarker(cityResults, 14, null);
+      } else {
+        console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
+        this.updateMapAndMarker("40.416775;-3.703790", 6, null);
+
+      }
+    } catch (error) {
+      console.error("Error al procesar la ubicación:", error);
+
+    }
   }
 
-  //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
-  private async getCoordinatesForCity(location: string): Promise<string | null> {
+  private async getCoordinates(location: string): Promise<string | null> {
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       if (response?.length > 0) {
-        const { lat, lon } = response[0];
+        const { lat, lon } = response[response.length - 1];
         return `${lat};${lon}`;
       } else {
-        this.snackBar(`No se encontraron resultados para: ${location}`);
       }
     } catch (error) {
       this.snackBar(`Error al consultar la API: ${error}`);
     }
     return null;
+  }
+
+
+  private updateMapAndMarker(
+    coordinates: string,
+    zoom: number,
+    markerLabel: string | null) {
+    const [lat, lon] = coordinates.split(';').map(Number);
+    this.leafletMap.setView([+lat, +lon], zoom);
+    if (markerLabel) {
+      this.coworking_map.addMarker(
+        'coworking_marker',           // id
+        lat,                          // latitude
+        lon,                          // longitude
+        {},                           // options
+        markerLabel,                         // popup
+        false,                        // hidden
+        true,                         // showInMenu
+        markerLabel                          // menuLabel
+      );
+    }
   }
   private snackBar(message: string): void {
     this.snackBarService.open(message, {

@@ -6,14 +6,15 @@
   label-columns="cw_name"
 >
   <o-table
+    #table
     delete-button="no"
     insert-button="no"
     attr="myCoworkingsTable"
     service="coworkings"
     entity="myCoworking"
     keys="cw_id"
-    columns="cw_id;cw_name;cw_address;cw_location;cw_capacity;cw_daily_price"
-    visible-columns="cw_name;cw_address;cw_location;cw_capacity;cw_daily_price"
+    columns="cw_id;cw_name;cw_address;cw_location;cw_capacity;cw_daily_price;cw_lon;cw_lat"
+    visible-columns="cw_name;cw_address;cw_location;cw_capacity;cw_daily_price;deleteCoworking"
     query-rows="15"
     auto-adjust="true"
   >
@@ -42,6 +43,15 @@
       currency-symbol="€"
       decimal-digits="2"
       width="10%"
+    ></o-table-column>
+    <o-table-column
+      #cancelCWbooking
+      attr="deleteCoworking"
+      title="DELETE"
+      type="action"
+      icon="delete"
+      (onClick)="delete($event)"
+      content-align="center"
     ></o-table-column>
   </o-table>
 </o-form-layout-manager>

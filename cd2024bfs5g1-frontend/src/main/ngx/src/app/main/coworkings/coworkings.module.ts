@@ -5,11 +5,11 @@ import { ODateRangeInputModule, OntimizeWebModule } from 'ontimize-web-ngx';
 import { CoworkingsHomeComponent } from './coworkings-home/coworkings-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatRadioModule } from '@angular/material/radio';
-import { ODateRangeInputModule, OntimizeWebModule } from 'ontimize-web-ngx';
 import { OMapModule } from 'ontimize-web-ngx-map';
 import { CarouselModule } from 'primeng/carousel';
 import { RatingModule } from 'primeng/rating';
 import { NearbyCoworkingComponent } from './nearby-coworking/nearby-coworking.component';
+import { NgModule } from '@angular/core';
 
 
 @NgModule({

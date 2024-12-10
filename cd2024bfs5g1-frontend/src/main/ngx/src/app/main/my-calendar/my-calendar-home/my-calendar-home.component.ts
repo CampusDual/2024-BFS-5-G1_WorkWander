@@ -60,12 +60,14 @@ export class MyCalendarHomeComponent implements OnInit {
   configMonth: DayPilot.MonthConfig = {
     theme: "verde",
     eventMoveHandling: "Disabled",
+    eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today()
   };
 
   configWeek: DayPilot.CalendarConfig = {
     theme: "verde",
     eventMoveHandling: "Disabled",
+    eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
     viewType: "Week"
   };
@@ -73,6 +75,7 @@ export class MyCalendarHomeComponent implements OnInit {
   configDay: DayPilot.CalendarConfig = {
     theme: "verde",
     eventMoveHandling: "Disabled",
+    eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
     viewType: "Day"
   };

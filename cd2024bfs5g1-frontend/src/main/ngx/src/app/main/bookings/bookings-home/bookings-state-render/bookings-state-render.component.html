@@ -1,3 +1,8 @@
 <ng-template #templateref let-cellvalue="cellvalue" let-rowvalue="rowvalue" >
     {{getCellData(cellvalue, rowvalue)}}
+    <mat-icon *ngIf="getCellData(cellvalue,rowvalue)=='Cancelada'">block</mat-icon>
+    <mat-icon *ngIf="getCellData(cellvalue,rowvalue)=='Pendiente'">keyboard_double_arrow_right</mat-icon>
+    <mat-icon *ngIf="getCellData(cellvalue,rowvalue)=='Finalizada'">check</mat-icon>
+    <mat-icon *ngIf="getCellData(cellvalue,rowvalue)=='En curso'">update</mat-icon>
+
 </ng-template>

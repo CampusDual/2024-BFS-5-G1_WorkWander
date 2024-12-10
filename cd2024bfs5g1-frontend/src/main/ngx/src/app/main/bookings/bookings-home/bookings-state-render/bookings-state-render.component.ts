@@ -10,6 +10,7 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 export class BookingsStateRenderComponent extends OBaseTableCellRenderer {
   @ViewChild("templateref", { read: TemplateRef, static: false })
   public templateref: TemplateRef<any>;
+   
 
   constructor(
     protected injector: Injector,
@@ -21,4 +22,6 @@ export class BookingsStateRenderComponent extends OBaseTableCellRenderer {
   getCellData(cellvalue: any, rowvalue?: Array<any>): string {
     return this.utilsService.calculateState( rowvalue);
   }
+
+  
 }

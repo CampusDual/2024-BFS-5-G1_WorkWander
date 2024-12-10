@@ -13,8 +13,8 @@ import {
   SnackBarService,
   Subject
 } from "ontimize-web-ngx";
-import { MapService, OMapComponent } from "ontimize-web-ngx-map";
-import { ImapAddress } from 'src/app/shared/services/custom-map.service';
+import { OMapComponent } from "ontimize-web-ngx-map";
+import { ImapAddress, CustomMapService } from 'src/app/shared/services/custom-map.service';
 
 @Component({
   selector: 'app-nearby-coworking',
@@ -33,13 +33,13 @@ export class NearbyCoworkingComponent implements OnInit {
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();
 
-  private mapService: MapService;
-  private mapPosition: ImapAddress[] = [{
+  private mapService: CustomMapService;
+  public mapPosition: ImapAddress = {
     lat: 40.416775,
     lon: -3.703790,
     address: 'Calle de Alcalá, 50',
     city: 'Madrid'
-  }];
+  };
 
   leafletMap: any;
   protected validAddress: boolean;
@@ -91,16 +91,19 @@ export class NearbyCoworkingComponent implements OnInit {
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
 
-    this.mapPosition['lat'] = this.mapLat;
-    this.mapPosition['lon'] = this.mapLon;
-    this.mapPosition['address'] = address;
-    this.mapPosition['city'] = cityName;
+    let mapaLocal: OMapComponent = this.coworking_map;
+    let posicionMapa: ImapAddress = { lat: this.mapLat, lon: this.mapLon, address: address, city: cityName };
 
     try {
-      await this.mapService.getMap(this.coworking_map, this.mapPosition);
+      //await this.mapService.getMap(this.coworking_map, this.mapPosition);
+      await this.mapService.getMap(mapaLocal, posicionMapa);
+
+      this.showDiv(true);
     } catch (error) {
       console.error(error);
+      this.showDiv(false);
     }
+
   }
 
   onAddressBlur(): void {

@@ -561,18 +561,49 @@ div#innerCol {
 
 .card-detalle.nearby-detail {
   align-content: flex-start !important;
+  flex-wrap: wrap;
   flex-direction: row;
+
   o-form{
     padding:15px;
+    width: 100%;
   }
   o-row{
     width: 50vw;
     padding: 0 !important;
   }
+  h2 {
+    margin: 0 0 10px 0;
+    font-size: $fontSize18;
+  }
+  h3 {
+    margin: 0;
+    font-size: $fontSize16;
+    display: grid;
+
+    .precio{
+      margin-top: 10px;
+      text-align: right;
+    }
+  }
+  p {
+    margin: 0;
+    font-size: $fontSize12;
+  }
+  .columna-imagen-mapa {
+    width: 65%;
+  }
   .rowCityDirection{
     width: 100%;
     align-items: flex-end;
     margin-bottom: 15px;
+  }
+  .info-detalle-coworking {
+    max-width: 320px;
+    background-color: #b9cebf;
+    padding: 11px;
+    border-radius: 5px;
+    width: 30%;
   }
 }
 
@@ -609,7 +640,6 @@ o-column {
 
   o-map {
     width: 100%;
-    height: 100%;
     max-height: 470px;
     min-height: 470px;
     height: 470px;

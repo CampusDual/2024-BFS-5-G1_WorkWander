@@ -27,6 +27,8 @@ export class NearbyCoworkingComponent implements OnInit {
 
   protected service: OntimizeService;
 
+  public mostrarDiv: boolean = false;
+
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();
 
@@ -62,14 +64,16 @@ export class NearbyCoworkingComponent implements OnInit {
       }
     }, 500);
 
-
-
   }
+
   protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
   }
-
+  public showDiv(mostrar?: boolean) {
+    this.mostrarDiv = mostrar ? true : false;
+    return this.mostrarDiv;
+  }
   // ---------------------- MAPA ----------------------
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
@@ -109,10 +113,12 @@ export class NearbyCoworkingComponent implements OnInit {
           true,                      // showInMenu
           this.translate.get("COWORKING_MARKER")   // menuLabel
         );
+        this.showDiv(true);
       } else {
         //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
         this.leafletMap.setView([40.416775, -3.703790], 6);
+        this.showDiv(false);
       }
     });
   }

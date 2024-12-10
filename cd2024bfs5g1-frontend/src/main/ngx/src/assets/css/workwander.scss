@@ -508,10 +508,10 @@ div#innerCol {
     }
   }
   o-button.o-button button {
-    padding: 25px 35px;
-    border-radius: $borderRadiusButton;
-    border: none;
-    width: 150px;
+   // padding: 25px 35px;
+    // border-radius: $borderRadiusButton;
+    //border: none;
+    //width: 150px;
     -webkit-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     -moz-box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
@@ -556,6 +556,23 @@ div#innerCol {
   text-align: center;
   o-button {
     margin-left: 0 !important;
+  }
+}
+
+.card-detalle.nearby-detail {
+  align-content: flex-start !important;
+  flex-direction: row;
+  o-form{
+    padding:15px;
+  }
+  o-row{
+    width: 50vw;
+    padding: 0 !important;
+  }
+  .rowCityDirection{
+    width: 100%;
+    align-items: flex-end;
+    margin-bottom: 15px;
   }
 }
 

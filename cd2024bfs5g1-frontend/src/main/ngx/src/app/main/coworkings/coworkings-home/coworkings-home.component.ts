@@ -215,8 +215,8 @@ export class CoworkingsHomeComponent implements OnInit {
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
-      daterangeExpression,
-      priceExpression
+      priceExpression,
+      daterangeExpression
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;

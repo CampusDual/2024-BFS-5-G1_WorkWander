@@ -3,15 +3,19 @@
     {{ getCellData(cellvalue, rowvalue) }}
     <img
       src="assets/images/close.svg"
-      *ngIf="getCellData(cellvalue, rowvalue) == 'Cancelada'" />
+      *ngIf="getCellData(cellvalue, rowvalue) == 'Cancelada'"
+      title="{{ 'CANCELLED' | oTranslate }}" />
     <img
       src="assets/images/check.svg "
-      *ngIf="getCellData(cellvalue, rowvalue) == 'Finalizada'" />
+      *ngIf="getCellData(cellvalue, rowvalue) == 'Finalizada'"
+      title="{{ 'FINISHED' | oTranslate }}" />
     <img
       src="assets/images/update.svg "
-      *ngIf="getCellData(cellvalue, rowvalue) == 'Pendiente'" />
+      *ngIf="getCellData(cellvalue, rowvalue) == 'Pendiente'"
+      title="{{ 'PENDING' | oTranslate }}" />
     <img
       src="assets/images/play.svg "
       *ngIf="getCellData(cellvalue, rowvalue) == 'En curso'"
+      title="{{ 'IN_PROGRESS' | oTranslate }}"
   /></span>
 </ng-template>

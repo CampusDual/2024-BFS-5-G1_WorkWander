@@ -242,5 +242,9 @@
   "EVENT_CREATE": "Event created!",
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
-  "CONFIRM": "Confirm address"
+  "CONFIRM": "Confirm address",
+  "CANCELLED": "Cancelled",
+  "FINISHED": "Finished",
+  "PENDING": "Pending",
+  "IN_PROGRESS": "In progress"
 }

@@ -295,7 +295,7 @@ form {
   }
 }
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
-  background-color: $verdeBotonClaro !important;
+  background-color: $accent !important;
 }
 
 /* Boton salir */
@@ -1548,4 +1548,23 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .slider{
   margin-right: 15px;
   margin-left: 15px;
+}
+
+// Estilos tablas
+.o-table-body {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.o-table-container thead tr {
+  background-color: $primary !important;
+  th{
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+  }
+}
+
+.mat-mdc-cell {
+  font-size: 14px !important;
 }

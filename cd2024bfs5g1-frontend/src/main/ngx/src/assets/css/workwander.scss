@@ -1099,7 +1099,7 @@ o-data-toolbar {
 .disable svg.p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
-  color: grey;
+  color: #97939386;
 }
 
 //cancelar
@@ -1113,13 +1113,12 @@ o-data-toolbar {
   background-color: $rojo !important;
 }
 .cancelDisable {
-  border: 2px #4c4c4c solid;
-  border-style: outset;
+  border: 1px #97939386 solid;
   border-radius: 8px;
   color: white !important;
   margin: 5px 0 5px 0;
   padding: 5px;
-  background-color: #4c4c4c !important;
+  background-color: #97939386 !important;
 }
 
 // botón borrar coworking

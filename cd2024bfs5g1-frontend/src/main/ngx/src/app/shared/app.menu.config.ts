@@ -4,7 +4,13 @@ export const MENU_CONFIG: MenuRootItem[] = [
   { id: 'coworkingsHome', name: 'COWORKINGS', icon: 'home', route: '/main/coworkings' },
   { id: 'coworkingsPublic', name: 'COWORKINGS', icon: 'home', route: '/coworkings' },
   { id: 'eventsHome', name: 'EVENTS', icon: 'event', route: '/main/events' },
-  { id: 'myCalendar', name: 'MY_CALENDAR', route: '/main/mycalendar', icon: 'event' },
+  {
+    id: 'mySpace', name: 'MY_SPACE', icon: 'person',
+    items: [
+      { id: 'myCalendar', name: 'MY_CALENDAR', route: '/main/mycalendar', icon: 'event' },
+      { id: 'myBookings', name: 'MY_BOOKINGS', route: '/main/bookings', icon: 'bookmark' },
+    ]
+  },
   {
     id: 'groupCoworkings', name: 'GROUP_COWORKINGS', icon: 'work',
     items: [
@@ -27,7 +33,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
     ]
   },
   { id: 'eventsPublic', name: 'EVENTS', icon: 'event', route: '/events' },
-  { id: 'myBookings', name: 'MY_BOOKINGS', route: '/main/bookings', icon: 'bookmark' },
+
   {
     id: "analytics", name: "ANALYTICS", icon: "query_stats",
     items: [

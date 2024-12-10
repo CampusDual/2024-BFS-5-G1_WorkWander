@@ -231,6 +231,7 @@
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
   "ANALYTICS": "Analytics",
   "OCCUPATION": "Occupation",
+  "DATERANGE_SELECTION_ERROR": "You must select a date range.",
   "DELETE_COWORKING": "Delete",
   "SURE_DELETE": "Are you sure you want to delete the coworking ",
   "COWORKING_DELETED": "Coworking deleted",
@@ -243,10 +244,10 @@
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
   "CONFIRM": "Confirm address",
+  "MY_SPACE": "My space",
   "CANCELLED": "Cancelled",
   "FINISHED": "Finished",
   "PENDING": "Pending",
-  "IN_PROGRESS": "In progress"
-  "DATERANGE_SELECTION_ERROR": "You must select a date range.",
+  "IN_PROGRESS": "In progress",
   "NO_EVENTS": "No events available"
 }

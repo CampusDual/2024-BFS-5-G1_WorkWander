@@ -247,4 +247,6 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress"
+  "DATERANGE_SELECTION_ERROR": "You must select a date range.",
+  "NO_EVENTS": "No events available"
 }

@@ -243,5 +243,6 @@
   "DATERANGE_SELECTION_ERROR": "You must select a date range.",
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
-  "CONFIRM": "Confirm address"
+  "CONFIRM": "Confirm address",
+  "MY_SPACE": "My space"
 }

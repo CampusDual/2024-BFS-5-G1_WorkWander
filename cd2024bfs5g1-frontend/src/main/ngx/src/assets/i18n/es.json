@@ -240,8 +240,7 @@
   "NO_RESULTS": "No se han encontrado resultados",
   "PRICE_RANGE":"Rango de precios",
   "EVENT_CREATE": "¡Evento creado!",
-  "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
   "SEARCH": "Buscar ubicación",
-  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localidaza?",
+  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localizada?",
   "CONFIRM": "Confirrmar dirección"
 }

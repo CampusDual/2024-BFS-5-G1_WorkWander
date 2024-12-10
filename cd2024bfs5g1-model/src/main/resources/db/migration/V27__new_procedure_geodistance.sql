@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION public.geodistance(a_lat numeric, a_lon numeric, b_lat numeric, b_lon numeric)
-  RETURNS int4 AS
+  RETURNS numeric AS
 $BODY$
 SELECT cast(asin(
   sqrt(

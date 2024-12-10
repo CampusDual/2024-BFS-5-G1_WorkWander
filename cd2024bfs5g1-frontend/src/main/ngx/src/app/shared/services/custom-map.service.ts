@@ -3,15 +3,22 @@ import { Injectable } from '@angular/core';
 import { OTranslateService } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
 
+export interface ImapAddress {
+  lat: number
+  lon: number
+  address: string
+  city: string
+
+}
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class CustomMapService {
   constructor(private http: HttpClient, private translate: OTranslateService,) { }
   protected mp: any; //Mapa
 
-  public async getMap(mapa: OMapComponent, address: ImapAddress[]): Promise<[number, number]> {
+  public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
 
     if (address[0].lat && address[0].lon) {
       this.addMark(mapa, address[0].lat, address[0].lon);
@@ -65,13 +72,6 @@ export class CustomMapService {
       this.translate.get("COWORKING_MARKER")  // menuL);
     );
   }
-}
-export interface ImapAddress {
-  lat: number
-  lon: number
-  address: string
-  city: string
-
 }
 
 

@@ -56,12 +56,10 @@ export class AnalyticsOccupationComponent {
       const startDateM = new Date(
         (this.bookingDate as any).value.value.startDate
       ).setHours(0, 0, 0, 0);
-      //.toLocaleString("en-CA");
       const startDate = new Date(startDateM).toLocaleString("en-CA");
       const endDateM = new Date(
         (this.bookingDate as any).value.value.endDate
       ).setHours(0, 0, 0, 0);
-      //.toLocaleString("en-CA");
       const endDate = new Date(endDateM).toLocaleString("en-CA");
       if (startDate === endDate) {
         this.showAvailableToast(

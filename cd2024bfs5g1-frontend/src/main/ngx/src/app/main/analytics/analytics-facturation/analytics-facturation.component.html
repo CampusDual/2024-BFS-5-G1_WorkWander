@@ -1,0 +1,67 @@
+<o-form show-header="false" class="chart-container">
+  <!-- Añadir el título aquí -->
+  <div class="title">
+    <h1>{{ "FACTURATION_BY_COWORKING_TITLE" | oTranslate }}</h1>
+  </div>
+  <!-- Combobox para seleccionar coworkings -->
+  <div class="selector-container">
+    <o-combo
+      class="input-selector"
+      #comboCoworkingInput
+      attr="cw_name"
+      service="coworkings"
+      entity="coworkingByUser"
+      label="{{ 'SELECT_COWORKING' | oTranslate }} {{maxSelection}} {{' coworkings.'}}"
+      value-column="cw_id"
+      columns="cw_name"
+      visible-columns="cw_name"
+      required="yes"
+      formControlName="coworking"
+      (onValueChange)="onCoworkingChange($event)"
+      searchable="true"
+      [multiple]="true"
+      (onSelectionChange)="onCoworkingChange($event)"
+      multiple-trigger-label="true"
+    >
+    </o-combo>
+
+    <!-- Date Range Selector -->
+
+    <select
+      #comboMonthInput
+      id="month"
+      fxFlex
+      (click)="setMonth()"
+      value-type="date"
+    >
+    <option *ngFor="let month of months; let id=index" value="{{ id+1 }}">
+      {{ month | oTranslate }}</option>
+  </select>
+  </div>
+
+  <div class="chart-wrapper">
+    <ng-container *ngIf="isGraph; else noChartTemplate">
+      <o-chart
+        type="line"
+        [data]="getChartData()"
+        color="vivid"
+        x-label="{{ 'X-LABEL' | oTranslate }}"
+        y-label="{{ 'Y-LABEL' | oTranslate }}"
+        x-data-type="date"
+        y-data-type="percentage"
+        show-legend="true"
+        show-x-axis-label="true"
+        show-y-axis-label="true"
+        legend-position="below"
+        legend-title="Legend"
+        show-grid-lines="false"
+      ></o-chart>
+    </ng-container>
+  </div>
+  <ng-template #noChartTemplate>
+    <div class="noResults">
+      {{ "NO_CHART_AVAILABLE" | oTranslate }}
+    </div>
+  </ng-template>
+</o-form>
+

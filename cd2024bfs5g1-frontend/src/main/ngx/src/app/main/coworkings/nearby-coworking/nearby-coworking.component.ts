@@ -33,12 +33,12 @@ export class NearbyCoworkingComponent implements OnInit {
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();
 
-  private mapPosition: ImapAddress[] = [{
+  public mapPosition: ImapAddress = {
     lat: 40.416775,
     lon: -3.703790,
     address: 'Calle de Alcalá, 50',
     city: 'Madrid'
-  }];
+  };
   leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud

@@ -1373,8 +1373,19 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
-  .form-new-event.form-coworking-detail {
+  .form-new-event.form-coworking-detail,
+  .form-new-event.form-edit-modal {
+
     margin-top: 0;
+    o-map{
+        max-height: 450px;
+        height: 450px;
+        min-height: 450px;
+      }
+      o-image.modal-form {
+        max-height: 250px !important;
+        min-height: 250px !important;
+    }
 
     .form-new-event.no-margin-top {
       margin-top: 0;

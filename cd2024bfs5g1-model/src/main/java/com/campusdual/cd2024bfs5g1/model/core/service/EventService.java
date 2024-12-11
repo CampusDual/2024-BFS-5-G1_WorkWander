@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.IEventService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingEventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
@@ -99,11 +100,12 @@ public class EventService implements IEventService {
         return this.daoHelper.paginationQuery(this.eventDao, keyMap, attrList, recordNumber, startIndex,
                 orderBy, this.eventDao.HOMEEVENTS_QUERY);
     }
+
     @Override
     public EntityResult myEventsCalendarQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        keyMap.put(EventDao.USR_ID, userId);
+        keyMap.put(BookingEventDao.BKE_USR_ID, userId);
         return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTSCALENDAR_QUERY);
     }
 }

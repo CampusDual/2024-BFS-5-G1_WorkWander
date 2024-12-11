@@ -2,7 +2,7 @@
 @use '@angular/material'as mat;
 @use 'node_modules/ontimize-web-ngx/theming/ontimize-style.scss'as ontimize-style;
 @import './custom_color.scss';
-@import "primeicons/primeicons.css";
+
 
 
 //$mat-custom-primary: (50 : rgba($primary, 0.05), 100 : #f3af7a, 200 : #df9760, 300 : #d6925e, 400 : #d38f5c, 500 : #c28455, 600 : #b67b4f, 700 : #a36f48, 800 : #996843, 900 : #8b5e3c, A100 : #f3af7a, A200 : #c28455, A400 : #a36f48, A700 : #8b5e3c, contrast: (50 : #000000, 100 : #000000, 200 : #000000, 300 : #000000, 400 : #ffffff, 500 : #ffffff, 600 : #ffffff, 700 : #ffffff, 800 : #ffffff, 900 : #ffffff, A100 : #000000, A200 : #000000, A400 : #ffffff, A700 : #ffffff));

@@ -35,10 +35,14 @@ public class BookingService implements IBookingService {
     @Autowired
     private IBookingDateService bds;
 
-
     @Override
     public EntityResult bookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult coworkingsWithBookingsQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.COWORKINGS_WITH_BOOKINGS);
     }
 
     @Override
@@ -47,7 +51,8 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap, final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+    public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap,
+            final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingDao.BK_USR_ID, userId);

@@ -27,7 +27,7 @@
         <h1>{{ form.getFieldValue("name") }}</h1>
       </div>
       <div fxLayout="row" fxLayoutGap="16px">
-        <div fxLayout="column">
+        <div fxLayout="column" class="event-detail-container">
           <div class="image-container image-container-details">
             <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
               <o-image
@@ -92,15 +92,17 @@
               <mat-icon [matTooltip]="'CAPACITY' | oTranslate">person</mat-icon>
             </div>
             <span>
-              {{ form.getFieldValue("bookings") }} {{ "SLOTS" | oTranslate }}
-              ({{ numeroPlazas }} {{ "AVAILABLE" | oTranslate }})
+              {{ form.getFieldValue("bookings") }}
+              {{ "SLOTS" | oTranslate }} ({{ numeroPlazas }}
+              {{ "AVAILABLE" | oTranslate }})
             </span>
           </div>
           <div fxLayoutAlign="start center" fxLayoutGap="8px">
             <div>
-              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate">payments</mat-icon>
+              <mat-icon [matTooltip]="'EVENT_PRICE' | oTranslate"
+                >payments</mat-icon
+              >
             </div>
-
             <span
               *ngIf="
                 !form.getFieldValue('price') ||
@@ -121,7 +123,10 @@
             {{ literalPlazas | oTranslate }}
           </p>
 
-          <div class="reservation-button" *ngIf="parsePermissions('bookingButton')">
+          <div
+            class="reservation-button"
+            *ngIf="parsePermissions('bookingButton')"
+          >
             <o-button
               #bookingButton
               attr="bookingButton"
@@ -129,7 +134,7 @@
               type="raised"
               color="primary"
               (click)="showConfirm()"
-              style="margin-left: 100px;"
+              style="margin-left: 100px"
             ></o-button>
           </div>
         </div>

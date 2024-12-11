@@ -1,7 +1,7 @@
 @use "sass:map";
 @import "./custom_font.scss";
-@import "./custom_color.scss";
 @import "primeicons/primeicons.css";
+@import "./custom_color.scss";
 
 h1,
 h2,
@@ -13,22 +13,9 @@ h6 {
     animation: wave 1.5s ease-in-out;
   }
 }
-/* Colores personalizados */
-/*
-$primary: #8b5e3c;
-$accent: #e6d5c3;
-$blanco: #f8f6f4;
-$verdeBoton: #5f6f65;
 
-$primaryClaro: rgba($primary, 0.5);
-$accentClaro: rgba($accent, 0.5);
-$verdeBotonClaro: rgba($verdeBoton, 0.5);
-
-$colorDegradadoFuerte: $primary;
-$colorDegradadoSuave: $accent;*/
-
-$borderRadius: 16px 8px 16px 8px;
-$borderRadiusButton: 25px 5px 25px 25px;
+$borderRadius: 16px;
+$borderRadiusButton: 25px;
 $borderRadiusNav: 0px 0px 25px 0px;
 $borderRadiusEqual: 25px;
 
@@ -219,7 +206,7 @@ app-coworking-new {
   flex-wrap: wrap;
 }
 
-form{
+form {
   overflow: hidden;
 }
 
@@ -384,14 +371,29 @@ nav.ng-star-inserted:nth-last-child(2) {
         border-radius: $borderRadiusNav;
         background-color: $accent;
         color: $primary;
-        border-left: 8px solid $primary;
+        border-left: 8px solid $verdeBoton;
+      }
+
+      a.o-app-sidenav-viewer-sidenav-item-selected {
+        color: rgba(0, 0, 0, 0.74);
+        background-color: $accent;
+        border-left: 8px solid $verdeBoton;
       }
     }
     .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
       padding-bottom: 0px !important;
     }
   }
+
+  o-app-sidenav-image.o-app-sidenav-image {
+    background-color: $primary;
+  }
+
+  .sidenav-toggle-container.ng-star-inserted {
+    background-color: $primary;
+  }
 }
+
 .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
   background-color: $blanco;
   padding: 25px 25px 25px 0;
@@ -404,8 +406,10 @@ div#innerCol {
   > div {
     column-gap: 15px;
     .btn-container {
+      background-color: $blanco;
       button {
         padding-top: 4px;
+        height: 78%;
       }
     }
   }
@@ -420,7 +424,6 @@ div#innerCol {
 .card-detalle {
   display: flex;
   gap: 25px;
-  flex-wrap: wrap;
   flex-direction: column;
   align-content: center;
 
@@ -567,10 +570,9 @@ div#innerCol {
 }
 .reservation-button {
   text-align: center;
-  o-button{
+  o-button {
     margin-left: 0 !important;
   }
-
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -611,6 +613,11 @@ o-column {
     min-height: 470px;
     height: 470px;
   }
+  o-map.modal-form {
+    max-height: 560px;
+    height: 560px;
+    min-height: 560px;
+  }
   o-image {
     width: 100%;
     height: 100%;
@@ -625,13 +632,15 @@ o-column {
   min-height: 470px;
   height: 470px;
 }
-
+.form-new-event.form-edit-modal {
+  .o-container-title {
+    display: none !important;
+  }
+}
 .form-new-event {
   background-color: transparent;
   border: solid 1px $verdeBoton;
   border-radius: $borderRadius;
-  width: 80vw;
-  max-width: 80vw;
 
   .form-section {
     min-width: 500px;
@@ -657,6 +666,7 @@ o-column {
       width: 100%;
       min-width: 100%;
     }
+
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
@@ -671,6 +681,12 @@ o-column {
         padding: 5px;
       }
     }
+    o-image.imagen-mapa.modal-form {
+      width: 300px;
+      height: 300px;
+      max-height: 300px;
+      min-height: 300px;
+    }
 
     .rowCityDirection {
       flex-direction: row;
@@ -679,6 +695,10 @@ o-column {
       margin: 60px 0 25px 0;
       justify-content: space-between;
     }
+    .rowCityDirection.low-margin-top {
+      margin: 20px 0 25px 0;
+    }
+
     .o-container-scroll.o-scroll.o-container-gap {
       align-items: flex-start;
       overflow: hidden;
@@ -716,8 +736,13 @@ o-column {
     width: 100%;
     padding: 15px;
   }
-  .o-image .o-image-content.o-image-auto-fit .o-image-display-container > img {
-    max-width: 350px;
+  .buttons.modal-form {
+    background-color: transparent;
+    margin-top: -50px;
+  }
+  //columna imagen
+  .image {
+    max-width: 35%;
   }
 }
 .lblSeatsText {
@@ -744,6 +769,16 @@ o-column {
   background-size: cover;
 }
 /*  Coworking */
+.no-results {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  color: #5c5c5c;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
 .coworking-card {
   // Estilo general de la tarjeta de coworking
   display: flex;
@@ -969,6 +1004,12 @@ o-snackbar .o-snackbar-message {
   }
 }
 
+.event-free {
+  font-size: $fontSize25;
+  font-weight: bold;
+  color: $blanco;
+}
+
 .capacity-container {
   // Contenedor de la capacidad
   width: 15%;
@@ -997,7 +1038,7 @@ o-snackbar .o-snackbar-message {
 .serviceDisable {
   cursor: pointer;
   background-color: $accent;
-  color: $primary;
+  color: $verdeBoton;
   padding: 5px 5px 5px 5px;
   font-size: 9px;
   width: 250px;
@@ -1017,6 +1058,22 @@ o-data-toolbar {
 }
 
 .events-details {
+  margin-top: 50px !important;
+
+  .column-events-details {
+    max-width: 480px;
+  }
+
+  .detalles {
+    max-width: 480px;
+  }
+}
+
+.o-grid-no-results {
+  display: none !important;
+}
+
+.events-details {
   margin: auto;
 
   .detalles {
@@ -1027,41 +1084,88 @@ o-data-toolbar {
     margin-right: 16px;
     box-shadow: 0px 0px 10px 0px $primaryClaro;
   }
-  .image-container.image-container-details img{
+  .image-container.image-container-details img {
     height: 420px !important;
     width: 430px !important;
-
   }
 }
-
-// borde botón cancelar
-td.cdk-column-cancelCWbooking.mat-column-cancelCWbooking {
-  mat-icon.mat-icon {
-    border: 2px $rojo solid;
-    border-style: outset;
-    border-radius: 8px;
-    color: $blanco !important;
-    margin: 5px 0 5px 0;
-    background-color: $rojo !important;
-  }
-}
-//
 
 // estrellas
-svg.p-icon.p-rating-icon {
+.enable .p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
   color: $amarillo;
 }
-//
+.disable svg.p-icon.p-rating-icon {
+  width: 20px;
+  height: 20px;
+  color: #97939386;
+}
+
+//cancelar
+.cancelEnable {
+  border: 2px $rojo solid;
+  border-style: outset;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color: $rojo !important;
+}
+.cancelDisable {
+  border: 1px #97939386 solid;
+  border-radius: 8px;
+  color: white !important;
+  margin: 5px 0 5px 0;
+  padding: 5px;
+  background-color: #97939386 !important;
+}
+
+// botón borrar coworking
+td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
+  mat-icon.mat-icon {
+    color: $rojo !important;
+  }
+}
+//reviews
+.review {
+  .review-title {
+    margin-left: 16px;
+  }
+  .review-container {
+    border: solid 1px white;
+    padding: 16px;
+    border-radius: 8px;
+    width: 90%;
+    align-items: flex-start;
+    background-color: #f0f0f0;
+  }
+
+  .login-name {
+    background-color: #7ba587;
+    padding: 8px;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .media_rating {
+    color: #d3b403;
+    transform: scale(1.5);
+    padding-left: 8px;
+  }
+
+  ::ng-deep .o-grid-footer.ng-star-inserted {
+    padding-bottom: 16px;
+    padding-left: 16px;
+  }
+}
 
 .event-item {
-
   .event-item-content {
     width: 60%;
     padding: 10px;
     border: 1px solid #dfe7ef;
-    border-radius: 25px 5px 25px 5px;
+    border-radius: 20px;
     text-align: center;
     height: 20%;
     margin: 0 auto;
@@ -1076,21 +1180,21 @@ svg.p-icon.p-rating-icon {
     height: 70px;
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    border-radius: 5px;
-    }
+    border-radius: 10px;
+  }
 
-  .nombre-evento{
+  .nombre-evento {
     display: block;
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
   }
 
-  .fecha-evento{
+  .fecha-evento {
     font-size: $fontSize12;
   }
 
-  .hora-evento{
+  .hora-evento {
     font-size: $fontSize12;
   }
 }
@@ -1111,18 +1215,16 @@ svg.p-icon.p-rating-icon {
   padding-right: 25px !important;
 }
 
-#carousel{
-
-  padding-top:18px;
+#carousel {
+  padding-top: 18px;
 
   .p-carousel-items-container {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    justify-content: space-between;
   }
 
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
     background-color: $accent;
-}
+  }
 
   .p-carousel-indicators {
     overflow: hidden;
@@ -1136,18 +1238,42 @@ svg.p-icon.p-rating-icon {
       padding: 5px;
       margin: 0%;
 
-      > button{
+      button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid $primary;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        cursor: pointer;
 
-        :hover{
+        &:hover {
           background-color: $accent;
+          transform: scale(1.1);
         }
-
       }
 
-      +.p-highlight >button{
+      &.p-highlight button {
         background-color: $primary;
+        transform: scale(1.2);
       }
+    }
+  }
+  .p-carousel-prev,
+  .p-carousel-next {
+    background-color: $accent;
+    border: none;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
 
+    &:hover {
+      background-color: $primary;
     }
   }
 }
@@ -1165,20 +1291,16 @@ svg.p-icon.p-rating-icon {
 }
 
 /*- RATE -*/
-.bookingsRate{
-  i.pi.pi-star-fill{
+.bookingsRate {
+  i.pi.pi-star-fill {
     color: $amarillo;
     font-size: $fontSize20;
-
   }
 
-  i.pi.pi-star-half-fill{
+  i.pi.pi-star-half-fill {
     color: $amarillo;
     font-size: $fontSize16;
-
   }
-
-
 }
 .rate {
   svg.p-icon.p-rating-icon {
@@ -1189,6 +1311,24 @@ svg.p-icon.p-rating-icon {
   }
 }
 
+.event-detail-container {
+  max-width: 40vw;
+}
+.empty-events-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  background-color: $accent;
+  border-radius: $borderRadius;
+  margin: 10px;
+
+  p {
+    color: $primary;
+    font-size: $fontSize16;
+    font-weight: $fontSemiBold;
+  }
+}
 
 @media (min-width: 768px) {
   .form-new-event {
@@ -1216,192 +1356,247 @@ svg.p-icon.p-rating-icon {
         width: 47%;
         min-width: 47%;
       }
-    }
-  }
-}
-@media (max-width: 850px) {
-  .button-back {
-    display: none;
-  }
-  .card-detalle .image-container img {
-    height: 220px;
-  }
-  .card-detalle {
-    o-column.o-column,
-    o-row.o-row {
-      width: 100%;
-    }
-  }
-}
-@media (max-width: 767.9px) {
-  o-text-input,
-  o-integer-input,
-  o-real-input,
-  o-date-input,
-  o-hour-input,
-  o-image {
-    max-width: 100% !important;
-    width: 100% !important;
-    min-width: 100% !important;
-  }
-  .form-new-event article.ng-star-inserted mat-icon {
-    font-size: 12px;
-    width: 12px;
-    height: 12px;
-  }
-}
-@media (max-width: 576px) {
-  .full-page {
-    .footer-container {
-      div {
-        margin: 0 auto;
-        place-content: center !important;
+
+      o-date-input,
+      o-hour-input.inline {
+        max-width: 20%;
+        width: 20%;
+        min-width: 20%;
+      }
+
+      o-integer-input,
+      o-real-input.inline {
+        max-width: 15%;
+        width: 15%;
+        min-width: 15%;
       }
     }
   }
-}
-// Media para 1050px
-@media (max-width: 1150px) {
-  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
-    position: absolute;
-    background-color: transparent;
-    top: 0px;
-    left: 24px;
-  }
-  .mat-mdc-paginator-container {
-    position: absolute;
-    top: 41px;
-    right: unset;
-    width: 450px !important;
-    z-index: 1;
-    left: -80px;
-  }
-  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-    padding: 25px 25px 85px 0px;
-  }
-  o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
-    margin-bottom: 60px !important;
-  }
-}
+  .form-new-event.form-coworking-detail {
+    margin-top: 0;
 
-@media (max-width: 1500px) {
-  /*  Coworking */
-  .coworking-card {
-    // Estilo general de la tarjeta de coworking
-    .image-container {
-      // Contenedor de la imagen
-      padding: 12px;
+    .form-new-event.no-margin-top {
+      margin-top: 0;
+      margin-left: 0;
+    }
 
-      .coworking-image {
-        // Estilo de la imagen de coworking
-        width: 110px;
-        height: 110px;
+    .form-new-event.form-coworking-detail {
+      margin-top: 0;
+    }
+    .form-new-event.form-edit-modal {
+      margin-top: 0;
+      border: solid 0 transparent;
+      border-radius: unset;
+    }
+  }
+  @media (max-width: 850px) {
+    .button-back {
+      display: none;
+    }
+    .card-detalle .image-container img {
+      height: 220px;
+    }
+    .card-detalle {
+      o-column.o-column,
+      o-row.o-row {
+        width: 100%;
       }
     }
-    .info .coworking-name {
-      font-size: $fontSize18;
+  }
+  @media (max-width: 767.9px) {
+    o-text-input,
+    o-integer-input,
+    o-real-input,
+    o-date-input,
+    o-hour-input,
+    o-image {
+      max-width: 100% !important;
+      width: 100% !important;
+      min-width: 100% !important;
     }
-    .capacity-price-container .price-container .price {
-      font-size: $fontSize20;
-      .decimal {
-        font-size: $fontSize12;
-      }
-    }
-    .capacity-price-container {
-      min-width: 100px;
-    }
-    .material-icons {
-      font-size: $fontSize18;
+    .form-new-event article.ng-star-inserted mat-icon {
+      font-size: 12px;
+      width: 12px;
+      height: 12px;
     }
   }
-  .dos-columnas {
-    flex-direction: column !important;
-  }
-}
-@media (min-width: 1000px) and (max-width: 1250px) {
-  .coworking-card {
-    // Estilo general de la tarjeta de coworking
-    .image-container {
-      // Contenedor de la imagen
-      padding: 5px;
-
-      .coworking-image {
-        // Estilo de la imagen de coworking
-        width: 70px;
-        height: 70px;
+  @media (max-width: 576px) {
+    .full-page {
+      .footer-container {
+        div {
+          margin: 0 auto;
+          place-content: center !important;
+        }
       }
     }
-    .capacity-price-container .price-container .price {
-      font-size: $fontSize18;
-      .decimal {
-        font-size: $fontSize12;
-      }
+  }
+  // Media para 1050px
+  @media (max-width: 1150px) {
+    mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+      position: absolute;
+      background-color: transparent;
+      top: 0px;
+      left: 24px;
     }
-    .capacity-price-container {
-      min-width: 70px;
+    .mat-mdc-paginator-container {
+      position: absolute;
+      top: 41px;
+      right: unset;
+      width: 450px !important;
+      z-index: 1;
+      left: -80px;
     }
-    .material-icons {
-      font-size: $fontSize14;
+    .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+      padding: 25px 25px 85px 0px;
+    }
+    o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
+      margin-bottom: 60px !important;
     }
   }
-}
 
-.container {
-  display: grid;
-  grid-template-columns: 10% 80%;
-  gap: 2rem;
-}
+  @media (max-width: 1500px) {
+    /*  Coworking */
+    .coworking-card {
+      // Estilo general de la tarjeta de coworking
+      .image-container {
+        // Contenedor de la imagen
+        padding: 12px;
 
-.navigator {
-  margin-right: 10px;
-}
+        .coworking-image {
+          // Estilo de la imagen de coworking
+          width: 110px;
+          height: 110px;
+        }
+      }
+      .info .coworking-name {
+        font-size: $fontSize18;
+      }
+      .capacity-price-container .price-container .price {
+        font-size: $fontSize20;
+        .decimal {
+          font-size: $fontSize12;
+        }
+      }
+      .capacity-price-container {
+        min-width: 100px;
+      }
+      .material-icons {
+        font-size: $fontSize18;
+      }
+    }
+    .dos-columnas {
+      flex-direction: column !important;
+    }
+  }
+  @media (min-width: 1000px) and (max-width: 1250px) {
+    .coworking-card {
+      // Estilo general de la tarjeta de coworking
+      .image-container {
+        // Contenedor de la imagen
+        padding: 5px;
 
-.content {
-  flex-grow: 1;
-}
+        .coworking-image {
+          // Estilo de la imagen de coworking
+          width: 70px;
+          height: 70px;
+        }
+      }
+      .capacity-price-container .price-container .price {
+        font-size: $fontSize18;
+        .decimal {
+          font-size: $fontSize12;
+        }
+      }
+      .capacity-price-container {
+        min-width: 70px;
+      }
+      .material-icons {
+        font-size: $fontSize14;
+      }
+    }
+  }
 
-.buttons-c {
-  margin-bottom: 10px;
-  display: inline-flex;
-}
+  .container {
+    display: grid;
+    grid-template-columns: 10% 80%;
+    gap: 2rem;
+  }
 
-.button-c {
-  background-color: $primary;
-  color: $accent;
-  border: 0;
-  padding: 0.5rem 1rem;
-  width: 80px;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  margin-right: 1px;
-  transition: all 0.2s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-  box-sizing: border-box;
-}
+  .navigator {
+    margin-right: 10px;
+  }
 
-.button-c:last-child {
-  margin-right: 0;
-}
+  .content {
+    flex-grow: 1;
+  }
 
-.button-c.selected {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-}
+  .buttons-c {
+    margin-bottom: 10px;
+    display: inline-flex;
+  }
 
-.button-c:first-child {
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-}
+  .button-c {
+    background-color: $primary;
+    color: $accent;
+    border: 0;
+    padding: 0.5rem 1rem;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: 1px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+  }
 
-.button-c:last-child {
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-}
+  .button-c:last-child {
+    margin-right: 0;
+  }
 
-.button-c:hover {
-  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
-}
+  .button-c.selected {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  }
 
-.button-c:active {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .button-c:first-child {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+  }
+
+  .button-c:last-child {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+  }
+
+  .button-c:hover {
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+  }
+
+  .button-c:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .cancelBtn {
+    color: #ffffff !important;
+    background-color: $verdeBoton !important;
+  }
+
+  .price_range {
+    font-size: 11px;
+    font-weight: bold;
+    max-width: 150px;
+  }
+  .price_range {
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 150px;
+    display: flex;
+    align-items: center;
+  }
+
+  .slider {
+    margin-right: 15px;
+    margin-left: 15px;
+    max-width: 150px;
+  }
 }

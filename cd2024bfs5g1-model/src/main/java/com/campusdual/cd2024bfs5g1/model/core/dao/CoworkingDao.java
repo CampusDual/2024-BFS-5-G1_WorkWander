@@ -26,4 +26,6 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
     public static final String CW_QUERY_DATES = "filterDates";
     public static final String COWORKINGS_BY_USER = "coworkingsByUser";
     public static final String COWORKINGS_NAME_BY_NAME = "coworkingNameById";
+    public static final String COW_LAT = "cw_lat";
+    public static final String COW_LON = "cw_lon";
 }

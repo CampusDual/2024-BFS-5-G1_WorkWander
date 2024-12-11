@@ -15,6 +15,7 @@ import {
   OGridComponent,
   OIntegerInputComponent,
   OntimizeService,
+  OSliderComponent,
   OSnackBarConfig,
   OTranslateService,
   SnackBarService,
@@ -30,11 +31,13 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
+  @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
+  public toPrice:number=0;
 
   data: any[];
 
@@ -91,13 +94,22 @@ export class CoworkingsHomeComponent implements OnInit {
       return null;
     }
   }
+
+  click($event:any){
+    this.toPrice = $event;
+  }
+
+  formatLabelUntil():any{
+    return this.toPrice + " €"
+  }
+
   // Función para crear los filtros de busqueda avanzada
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let locationExpressions: Array<Expression> = [];
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
+    let priceExpressions: Array<Expression> = [];
     let dateNullExpression: Expression;
-
     values.forEach((fil) => {
       if (fil.value) {
         if (fil.attr === "cw_location") {
@@ -140,6 +152,8 @@ export class CoworkingsHomeComponent implements OnInit {
           dateNullExpression = FilterExpressionUtils.buildExpressionIsNull(
             fil.attr
           );
+        }else if (fil.attr == "cw_daily_price"){
+          priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
         }
       }
     });
@@ -185,11 +199,24 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
+    //Expresión AND para price
+    let priceExpression: Expression = null;
+    if (priceExpressions.length > 0) {
+      priceExpression = priceExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
+      );
+    }
+
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
-      daterangeExpression,
+      priceExpression,
+      daterangeExpression
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -202,7 +229,6 @@ export class CoworkingsHomeComponent implements OnInit {
         )
       );
     }
-
     return combinedExpression;
   }
 
@@ -234,24 +260,12 @@ export class CoworkingsHomeComponent implements OnInit {
     return fechaFormateada;
   }
 
-  showAvailableToast(mensaje?: string) {
-    const availableMessage =
-      mensaje || this.translate.get("PLAZAS_DISPONIBLES");
-    const configuration: OSnackBarConfig = {
-      milliseconds: 7500,
-      icon: "info",
-      iconPosition: "left",
-    };
-    this.snackBarService.open(availableMessage, configuration);
-  }
+  noResults: boolean = false;
 
-  loadGridData(event: any) {
-    const eventObject = event.map(JSON.stringify);
-    const eventSet = new Set(eventObject);
-    const eventProcessed = Array.from(eventSet).map((item: string) =>
-      JSON.parse(item)
-    );
-    this.data = eventProcessed;
-    this.coworkingsGrid.reloadData();
+  ngAfterViewInit() {
+    // Escucha los cambios en data del grid
+    this.coworkingsGrid.onDataLoaded.subscribe(() => {
+      this.noResults = this.coworkingsGrid.dataArray.length === 0;
+    });
   }
 }

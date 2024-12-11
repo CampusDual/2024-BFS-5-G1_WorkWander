@@ -298,19 +298,33 @@ form {
   background-color: $accent !important;
 }
 
+.mat-drawer-closed nav.ng-star-inserted:nth-last-child(2) {
+  margin: unset;
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px;
+  margin: 0% 1.5% 0% 1.5%;
+
+  a {
+    line-height: 40px !important;
+    margin: 0% 0% 15% 0%;
+  }
+
+}
+
+
 /* Boton salir */
-nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
   background-color: $verdeBoton;
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
-  margin: 0px 5px 0 5px;
+  margin: 0% 10% 0% 10% ;
   transition: all 0.2s;
   top: unset;
   bottom: 25px;
   right: 0;
-  width: 96%;
+  width: 80%;
 
   span.o-app-sidenav-menuitem-title {
     color: $blanco;
@@ -568,11 +582,41 @@ div#innerCol {
     //vertical-align: super; /* Opcional: sube un poco los decimales */
   }
 }
+
+
+//Botones
 .reservation-button {
   text-align: center;
+  margin-bottom: 5px;
   o-button {
     margin-left: 0 !important;
   }
+}
+
+.cancelBtn {
+  color: #ffffff !important;
+  background-color: $verdeBoton !important;
+  border-radius: 25px !important;
+}
+
+button.mat-mdc-button, button.mat-mdc-unelevated-button, button.mat-mdc-icon-button, button.mat-mdc-raised-button, button.mat-mdc-outlined-button {
+  border-radius: 25px !important;
+}
+
+.custom-button {
+  border-radius: 25px !important;
+  border: 1px solid grey;
+}
+
+.custom-button:hover {
+  background-color: $accent;
+  :hover {
+    color: $primary;
+  }
+};
+
+#button_valoration {
+  margin-bottom: 5px;
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -1587,16 +1631,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .cancelBtn {
-    color: #ffffff !important;
-    background-color: $verdeBoton !important;
-  }
-
-  .price_range {
-    font-size: 11px;
-    font-weight: bold;
-    max-width: 150px;
-  }
   .price_range {
     font-size: 14px;
     font-weight: 300;

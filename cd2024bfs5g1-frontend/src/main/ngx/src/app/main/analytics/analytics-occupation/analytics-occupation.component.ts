@@ -19,7 +19,6 @@ import {
 export class AnalyticsOccupationComponent {
   selectedCoworkings: string[] = [];
   chartData: any[] = [];
-  tooltipData: any[] = [];
   isGraph: boolean = false;
   maxSelection = 3;
   chartParameters: any;
@@ -96,7 +95,6 @@ export class AnalyticsOccupationComponent {
       (resp) => {
         if (resp.data && resp.data.length > 0) {
           this.chartData = resp.data[0].data;
-          this.tooltipData = resp.data[1].data;
           this.isGraph = this.chartData.length > 0;
         } else {
           this.isGraph = false;
@@ -129,7 +127,6 @@ export class AnalyticsOccupationComponent {
   }
 
   getChartParameters() {
-    this.tooltipData = this.getChartData();
     return {
       tooltipDisabled: false,
       showTooltip: true,

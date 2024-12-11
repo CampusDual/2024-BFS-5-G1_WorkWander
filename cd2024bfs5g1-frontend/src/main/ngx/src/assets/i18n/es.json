@@ -225,7 +225,7 @@
   "COWORKING_CHART_ SELECTION_ERROR": "Error al cargar los datos de ocupación",
   "COWORKING_CHART_SELECTION": "Coworkings seleccionados: ",
   "X-LABEL": "Fecha",
-  "Y-LABEL": "Ocupación",
+  "Y-LABEL": "Ocupación (%)",
   "SELECT_COWORKING": "Seleccione entre uno y tres coworkings:  ",
   "NO_CHART_AVAILABLE": "No hay ningún gráfico disponible. Seleccione coworking y fecha.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Porcentaje de ocupación",

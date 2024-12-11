@@ -196,8 +196,6 @@ public class BookingService implements IBookingService {
         final Map<String, Object> keyMapB = new HashMap<>();
         keyMapB.put("bk_cw_id", coworkingIds);
         final List<Map<String, Object>> listaCoworkings = new ArrayList<>();
-        final List<Map<String, Object>> listaTooltip = new ArrayList<>();
-
 
         for (final int id : coworkingIds) {
             final Map<String, Object> coworkingMap = new LinkedHashMap<>();
@@ -211,11 +209,9 @@ public class BookingService implements IBookingService {
 
             //Mpa de fechas y capacidad
             final List<Map<String, Object>> listaFechas = new ArrayList<>();
-            final List<Map<String, Object>> listaFechas2 = new ArrayList<>();
             //Recorrer hasta 7 días atrás
             for (final Date date : dates) {
                 final Map<String, Object> dateMap = new LinkedHashMap<>();
-                final Map<String, Object> dateMap2 = new LinkedHashMap<>();
                 keyMapB.put("date", date);
                 //Saco la ocupacion y la añado al mapa como porcentaje
                 final EntityResult ocupacion = this.occupationByDateQuery(keyMapB, attrList);
@@ -223,27 +219,21 @@ public class BookingService implements IBookingService {
                 final double ocupacionP = (double) ocupacionI / capacidadDisponible;
                 final String formattedDate = sdf.format(date);
                 dateMap.put("name", formattedDate);
-                dateMap2.put("name", formattedDate);
-                dateMap.put("value", ocupacionP);
-                dateMap2.put("value", "Reservado un " + ocupacionI + " de " + capacidadDisponible + " plazas");
+                dateMap.put("value", (int) (ocupacionP * 100));
                 listaFechas.add(dateMap);
-                listaFechas2.add(dateMap2);
             }
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
 
-            coworkingMap.put("name", coworkingName.get(0) + ". Capacidad total " + capacidadDisponible + ".");
-            capacityMap.put("name", coworkingName.get(0));
+            coworkingMap.put("name", coworkingName.get(0) + ". Max. " + capacidadDisponible + "p");
             coworkingMap.put("series", listaFechas);
-            capacityMap.put("series", listaFechas2);
             listaCoworkings.add(coworkingMap);
-            listaTooltip.add(capacityMap);
         }
 
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);
-        r.put("data", (List.of(listaCoworkings, listaTooltip)));
+        r.put("data", (List.of(listaCoworkings)));
         return r;
     }
 

@@ -11,7 +11,9 @@
       attr="cw_name"
       service="coworkings"
       entity="coworkingByUser"
-      label="{{ 'SELECT_COWORKING' | oTranslate }} {{maxSelection}} {{' coworkings.'}}"
+      label="{{ 'SELECT_COWORKING' | oTranslate }} {{ maxSelection }} {{
+        ' coworkings.'
+      }}"
       value-column="cw_id"
       columns="cw_name"
       visible-columns="cw_name"
@@ -44,6 +46,7 @@
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart
         type="line"
+        [chart-parameters]="getChartParameters()"
         [data]="getChartData()"
         color="vivid"
         x-label="{{ 'X-LABEL' | oTranslate }}"

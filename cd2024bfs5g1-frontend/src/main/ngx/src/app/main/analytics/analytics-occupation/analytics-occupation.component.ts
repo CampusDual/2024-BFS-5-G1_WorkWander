@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewEncapsulation,
-} from "@angular/core";
-import { ViewChild } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
 import {
   OComboComponent,
   OntimizeService,
@@ -25,6 +21,7 @@ export class AnalyticsOccupationComponent {
   chartData: any[] = [];
   isGraph: boolean = false;
   maxSelection = 3;
+  chartParameters: any;
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
@@ -34,7 +31,7 @@ export class AnalyticsOccupationComponent {
   constructor(
     private service: OntimizeService,
     private snackBarService: SnackBarService,
-    private translate: OTranslateService,
+    private translate: OTranslateService
   ) {}
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
@@ -56,14 +53,14 @@ export class AnalyticsOccupationComponent {
 
   setDates() {
     try {
-      const startDateM = new Date((this.bookingDate as any).value.value.startDate)
-        .setHours(0, 0, 0, 0);
-        //.toLocaleString("en-CA");
+      const startDateM = new Date(
+        (this.bookingDate as any).value.value.startDate
+      ).setHours(0, 0, 0, 0);
       const startDate = new Date(startDateM).toLocaleString("en-CA");
-      const endDateM = new Date((this.bookingDate as any).value.value.endDate)
-        .setHours(0, 0, 0, 0);
-        //.toLocaleString("en-CA");
-        const endDate = new Date(endDateM).toLocaleString("en-CA");
+      const endDateM = new Date(
+        (this.bookingDate as any).value.value.endDate
+      ).setHours(0, 0, 0, 0);
+      const endDate = new Date(endDateM).toLocaleString("en-CA");
       if (startDate === endDate) {
         this.showAvailableToast(
           this.translate.get("DATERANGE_SELECTION_ERROR")
@@ -125,5 +122,13 @@ export class AnalyticsOccupationComponent {
       iconPosition: "left",
     };
     this.snackBarService.open(availableMessage, configuration);
+  }
+
+  getChartParameters() {
+    return {
+      tooltipDisabled: false,
+      showTooltip: true,
+      tooltips: true,
+    };
   }
 }

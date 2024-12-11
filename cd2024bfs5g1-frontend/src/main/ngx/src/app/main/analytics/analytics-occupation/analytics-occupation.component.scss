@@ -5,27 +5,27 @@
   padding: 20px;
   background-color: rgba($blanco, 0.4);
   border-radius: $borderRadius;
-  margin: 20px;
 
   .title {
-    text-align: center;
-    margin: 35px auto;
+    text-align: left;
+    margin-bottom: 30px;
     max-width: 800px;
     width: 100%;
     h1 {
-      color: $primary;
+      color: black;
       font-size: $fontSize25;
-      text-align: center;
+      text-align: left;
     }
   }
 
   .selector-container {
     display: flex;
     flex-direction: column;
-    gap: 35px; // Aumentado el espacio entre selectores
-    margin: 45px auto; // Aumentado el margen superior e inferior
+    gap: 35px;
     max-width: 1200px;
     width: 90%;
+    text-align: left;
+    margin-bottom: 20px;
 
     .input-selector {
       width: 100%;
@@ -38,7 +38,6 @@
           width: 100%;
           background-color: $accentClaro;
           border-radius: $borderRadius;
-          padding: 5px 15px;
         }
       }
     }
@@ -46,27 +45,22 @@
 
   .chart-wrapper {
     width: 95%;
-    margin: 20px auto;
-    padding: 20px;
     o-chart {
       width: 100%;
       min-height: 500px;
       background-color: rgba($blanco, 0.6);
       border-radius: $borderRadius;
-      padding: 25px;
       display: block;
     }
   }
 }
 
 .noResults {
-  text-align: center;
-  margin: 35px auto;
+  text-align: left;
   max-width: 800px;
   width: 100%;
   color: $primary;
   font-size: $fontSize25;
-  text-align: center;
 }
 
 // Estilos responsive
@@ -90,8 +84,6 @@
 
 @media (max-width: 576px) {
   .chart-container {
-    margin: 10px;
-    padding: 15px;
 
     .title h1 {
       font-size: $fontSize20;
@@ -102,11 +94,9 @@
     }
 
     .chart-wrapper {
-      padding: 10px;
 
       o-chart {
         min-height: 300px;
-        padding: 15px;
       }
     }
   }
@@ -114,8 +104,13 @@
 
 // Estilos específicos para el gráfico
 o-chart {
-  margin-top: 20px;
   background-color: rgba($blanco, 0.6);
   border-radius: $borderRadius;
-  padding: 15px;
+}
+
+.chart-legend .legend-label {
+  cursor:pointer;
+  font-size:90%;
+  margin:8px;
+  color:black !important;
 }

@@ -1607,7 +1607,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     max-width: 150px;
   }
 
-
 // Estilos tablas
 .o-table-body {
   margin-top: 20px;
@@ -1643,3 +1642,22 @@ tr.mat-mdc-row {
 .column-filter-icon {
   color:#ffffff !important;
 }
+
+  .md-drppicker .calendar td.in-range,
+  .md-drppicker .calendar th.in-range {
+    color: #000000;
+  }
+
+  .md-drppicker td.active {
+    background-color: rgba(123, 165, 135, 0.6);
+    color: #000000;
+    font-weight: bold;
+  }
+
+  select,
+  button,
+  textarea,
+  input {
+    font-size: 100%;
+    background-color: #c0d4c6;
+  }

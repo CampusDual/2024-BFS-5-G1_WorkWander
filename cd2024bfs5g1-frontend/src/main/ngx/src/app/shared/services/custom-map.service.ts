@@ -2,23 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OTranslateService } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
-
-export interface ImapAddress {
-  lat: number
-  lon: number
-  address: string
-  city: string
-
-}
+import * as L from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class CustomMapService {
   constructor(private http: HttpClient, private translate: OTranslateService,) { }
   protected mp: any; //Mapa
 
-  public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
+  public async getMap(mapa: OMapComponent, address: ImapAddress[]): Promise<[number, number]> {
 
     if (address[0].lat && address[0].lon) {
       this.addMark(mapa, address[0].lat, address[0].lon);
@@ -72,6 +66,63 @@ export class CustomMapService {
       this.translate.get("COWORKING_MARKER")  // menuL);
     );
   }
+
+  public updateMapAndMarker(mapa: OMapComponent, lat: number, lon: number, markerLabel: string | null, marker: L.marker | null, latToSave: number | null, lonToSave: number | null ){
+    this.mp = mapa.getMapService().getMap();
+    this.mp.setView([+lat, +lon], 16);
+      // Eliminar el marcador actual si existe
+    if (marker) {
+      this.mp.removeLayer(marker);
+    }
+      // Crear y agregar el nuevo marcador
+      marker = L.marker([lat, lon], {title: markerLabel, draggable: true }).addTo(this.mp);
+      marker.options.id = 1; // Añadir la ID al marcador
+      // Evento click del marcador
+      marker.on('click', (event: any) => {
+        let id = event.target.options.id;
+        console.log('Marcador clickeado:', id);
+        alert(`Has clickeado en el marcador: ${markerLabel}`);
+      });
+      // Evento dragend del marcador
+      marker.on('dragend', (event) => {
+        const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
+        latToSave = lat;
+        lonToSave = lng;
+        console.log('Nueva posición: ' + lat + ' ' + lng);
+      });
+    }
+
+
+    public addMarkers(mapa: L.map, coworkings: Coworking[]){
+      coworkings.forEach(coworking => {
+        const marker = L.marker([coworking.lat, coworking.lon], {
+          title: coworking.name,
+          draggable: false
+        }).addTo(mapa);
+        // Asignar la id del coworking
+        marker.options.id = coworking.id;
+        // Evento click para este marcador
+        marker.on('click', (event: any) => {
+          const clickedId = event.target.options.id; // ID del coworking
+          console.log('Coworking clickeado:', clickedId);
+        });
+      });
+    }
+}
+
+export interface ImapAddress {
+  lat: number
+  lon: number
+  address: string
+  city: string
+
+}
+
+export interface Coworking {
+  id: number;
+  name: string;
+  lat: number;
+  lon: number;
 }
 
 

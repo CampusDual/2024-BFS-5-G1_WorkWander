@@ -14,7 +14,7 @@ import {
   Subject
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { ImapAddress, CustomMapService } from 'src/app/shared/services/custom-map.service';
+import { ImapAddress,CustomMapService } from 'src/app/shared/services/custom-map.service';
 
 @Component({
   selector: 'app-nearby-coworking',
@@ -33,14 +33,12 @@ export class NearbyCoworkingComponent implements OnInit {
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();
 
-  private mapService: CustomMapService;
-  public mapPosition: ImapAddress = {
+  private mapPosition: ImapAddress[] = [{
     lat: 40.416775,
     lon: -3.703790,
     address: 'Calle de Alcalá, 50',
     city: 'Madrid'
-  };
-
+  }];
   leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
@@ -52,7 +50,8 @@ export class NearbyCoworkingComponent implements OnInit {
     protected injector: Injector,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
-    private http: HttpClient
+    private http: HttpClient,
+    private mapService: CustomMapService
   ) {
     this.service = this.injector.get(OntimizeService);
   }

@@ -215,8 +215,8 @@ export class CoworkingsHomeComponent implements OnInit {
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
-      daterangeExpression,
-      priceExpression
+      priceExpression,
+      daterangeExpression
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -260,15 +260,6 @@ export class CoworkingsHomeComponent implements OnInit {
     return fechaFormateada;
   }
 
-  // showToast(mensaje?: string) {
-  //   const translatedMessage = this.translate.get(mensaje);
-  //   const configuration: OSnackBarConfig = {
-  //     milliseconds: 7500,
-  //     icon: "info",
-  //     iconPosition: "left",
-  //   };
-  //   this.snackBarService.open(translatedMessage, configuration);
-  // }
   noResults: boolean = false;
 
   ngAfterViewInit() {

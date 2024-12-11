@@ -195,6 +195,7 @@
             placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
             max-length="50"
             min-length="3"
+            (keyup.enter)="onAddressBlur()"
             (onBlur)="onAddressBlur()"
             style="width: calc(100% - 100px)"
           ></o-text-input>
@@ -238,7 +239,7 @@
     fxLayoutGap="30px"
     class="buttons"
   >
-    <button mat-raised-button color="warn" (click)="cancel()">
+    <button mat-raised-button class="cancelBtn" (click)="cancel()">
       {{ "cancel" | oTranslate }}
     </button>
     <button

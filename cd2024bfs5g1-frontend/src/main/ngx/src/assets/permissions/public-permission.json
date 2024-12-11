@@ -66,6 +66,11 @@
         "attr": "groupEvents",
         "visible": false,
         "enabled": false
+      },
+      {
+        "attr": "mySpace",
+        "visible": false,
+        "enabled": false
       }
     ],
     "routes": [

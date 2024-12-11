@@ -1,7 +1,7 @@
 @use "sass:map";
 @import "./custom_font.scss";
-@import "./custom_color.scss";
 @import "primeicons/primeicons.css";
+@import "./custom_color.scss";
 
 h1,
 h2,
@@ -1372,6 +1372,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       }
     }
   }
+}
   .form-new-event.form-coworking-detail,
   .form-new-event.form-edit-modal {
 
@@ -1400,7 +1401,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       border-radius: unset;
     }
   }
-}
   @media (max-width: 850px) {
     .button-back {
       display: none;
@@ -1593,18 +1593,13 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     background-color: $verdeBoton !important;
   }
 
-  .price_range {
-    font-size: 11px;
-    font-weight: bold;
-    max-width: 150px;
-  }
-  .price_range {
-    font-size: 14px;
-    font-weight: 300;
-    max-width: 150px;
-    display: flex;
-    align-items: center;
-  }
+.price_range{
+  font-size: 14px;
+  font-weight:300;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+}
 
   .slider {
     margin-right: 15px;

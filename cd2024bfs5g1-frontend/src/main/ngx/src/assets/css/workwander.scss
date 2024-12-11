@@ -1583,9 +1583,16 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-weight: bold;
     max-width: 150px;
   }
+.price_range{
+  font-size: 14px;
+  font-weight:300;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+}
 
-  .slider {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
+.slider{
+  margin-right: 15px;
+  margin-left: 15px;
+  max-width: 150px;
 }

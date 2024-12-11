@@ -67,8 +67,7 @@
           fxFlex.gt-sm="18"
         ></o-daterange-input>
         <div class="price_range">
-          <span>{{ "PRICE_RANGE" | oTranslate }}</span><br>
-          <span >&nbsp;0 € - {{ toPrice }}&nbsp;€</span>
+          <span>{{ "PRICE_RANGE" | oTranslate }}</span>
         </div>
         <div class="slider">
           <o-slider
@@ -81,7 +80,7 @@
           min="0.00"
           label="PRICE_SLIDER"
           [tooltip]="formatLabelUntil()"
-          tooltip-position="below"
+          tooltip-position="above"
           step="5"
         ></o-slider>
         </div>

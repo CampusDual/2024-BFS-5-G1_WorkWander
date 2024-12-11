@@ -41,6 +41,7 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
     public static final String CW_QUERY_DATES = "filterDates";
     public static final String COWORKINGS_BY_USER = "coworkingsByUser";
     public static final String COWORKINGS_NAME_BY_NAME = "coworkingNameById";
+    public static final String COWORKINGS_NEARBY = "coworkingNearby";
     public static final String COW_LAT = "cw_lat";
     public static final String COW_LON = "cw_lon";
     private EntityResultMapImpl inputAttributesValues;
@@ -57,21 +58,25 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
         for(final Map.Entry<?, ?> entry : keysValues.entrySet()) {
             String oKey = (String)entry.getKey();
             Object oValue = entry.getValue();
+            boolean grabar = true;
             if (Objects.equals(oKey, "LAT_ORIGEN")){
-                latOrigen = (String) entry.getValue();
-                oValue = null;
+                latOrigen = entry.getValue().toString();
+                grabar = false;
             }
             if (Objects.equals(oKey, "LON_ORIGEN")){
-                lonOrigen = (String) entry.getValue();
-                oValue = null;
+                lonOrigen = entry.getValue().toString();
+                grabar = false;
             }
             if (Objects.equals(oKey, "DISTANCE")){
-                distance = (String) entry.getValue();
-                oValue = null;
+                distance = entry.getValue().toString();
+                grabar = false;
             }
-            if (oValue != null && !(oValue instanceof NullValue)) {
-                hValidKeysValues.put(oKey, oValue);
+            if (grabar){
+                if (oValue != null && !(oValue instanceof NullValue)) {
+                    hValidKeysValues.put(oKey, oValue);
+                }
             }
+
         }
         
         this.checkCompiled();
@@ -84,13 +89,13 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
 
         /* Asignamos las variables para el parámetro de lat y longitud */
         if (latOrigen != null)  {
-            sqlQuery = queryTemplateInformation.getSqlTemplate().replaceAll("#LAT_ORIGEN#", latOrigen);
+            sqlQuery = sqlQuery.replace("#LAT_ORIGEN#", latOrigen);
         }
         if (lonOrigen != null){
-            sqlQuery = queryTemplateInformation.getSqlTemplate().replaceAll("#LON_ORIGEN#", lonOrigen);
+            sqlQuery = sqlQuery.replace("#LON_ORIGEN#", lonOrigen);
         }
         if (distance != null){
-            sqlQuery = queryTemplateInformation.getSqlTemplate().replaceAll("#DISTANCE#", distance);
+            sqlQuery = sqlQuery.replace("#DISTANCE#", distance);
         }
 
         // TODO los atributos que se pasan al entityresultsetextractor tienen que ir "desambiguados" porque

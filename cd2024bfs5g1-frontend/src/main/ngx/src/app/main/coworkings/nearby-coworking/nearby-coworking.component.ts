@@ -95,11 +95,14 @@ export class NearbyCoworkingComponent implements OnInit {
     const cityName = cityObject ? cityObject.city : null;
 
     let mapaLocal: OMapComponent = this.coworking_map;
+
     let posicionMapa: ImapAddress = { lat: this.mapLat, lon: this.mapLon, address: address, city: cityName };
 
     try {
       //await this.mapService.getMap(this.coworking_map, this.mapPosition);
       await this.mapService.getMap(mapaLocal, posicionMapa);
+
+
 
       this.showDiv(true);
     } catch (error) {
@@ -139,6 +142,9 @@ export class NearbyCoworkingComponent implements OnInit {
           console.error('El servicio del mapa no está disponible.');
         }
         this.validAddress = true;
+
+        this.obtenerCoworkings();
+
         this.coworking_map.addMarker(
           'coworking_marker',           // id
           lat,                 // latitude
@@ -183,6 +189,24 @@ export class NearbyCoworkingComponent implements OnInit {
       milliseconds: 5000,
       icon: 'error',
       iconPosition: 'left'
+    });
+  }
+
+  public obtenerCoworkings() {
+    const filter = {
+      'LAT_ORIGEN': this.mapLat,
+      'LON_ORIGEN': this.mapLon,
+      'DISTANCE': 5
+    };
+    const columns = ['cw_id', 'cw_lat', 'cw_lon', 'distancia_km']
+
+    const conf = this.service.getDefaultServiceConfiguration("coworkings");
+    this.service.configureService(conf);
+
+    this.service.query(filter, columns, 'coworkingNearby').subscribe(resp => {
+      if (resp.code == 0) {
+        console.log(resp.data)
+      }
     });
   }
 

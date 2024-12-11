@@ -132,18 +132,15 @@
             <Sentence>
                 <![CDATA[
                 SELECT
-                c.cw_id,
-                c.cw_lat,
-                c.cw_lon,
-                c.distancia_km
-                WHERE (
+                #COLUMNS#
+                FROM (
                 select
-                c.cw_id,
-                c.cw_lat,
-                c.cw_lon,
-                public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon)as distancia_km
-                WHERE
-                coworking c
+                cw_id,
+                cw_lat,
+                cw_lon,
+                cast(public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as numeric)as distancia_km
+                FROM
+                coworking
                 WHERE
                 cw_lat is not null and cw_lon is not null
                 ) as c

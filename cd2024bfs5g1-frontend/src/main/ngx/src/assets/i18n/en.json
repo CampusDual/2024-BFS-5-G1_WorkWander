@@ -249,5 +249,20 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
-  "NO_EVENTS": "No events available"
+  "NO_EVENTS": "No events available",
+  "FACTURATION": "Facturation",
+  "JANUARY":"January",
+  "FEBRUARY":"February",
+  "MARCH":"March",
+  "APRIL":"April",
+  "MAY":"May",
+  "JUNE":"June",
+  "JULY":"July",
+  "AUGUST":"August",
+  "SEPTEMBER":"September",
+  "OCTOBER":"October",
+  "NOVEMBER":"November",
+  "DECEMBER":"December",
+  "FACTURATION_BY_COWORKING_TITLE":"Facturation by coworking"
 }
+

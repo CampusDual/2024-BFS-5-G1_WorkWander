@@ -129,5 +129,24 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="coworkingFacturationChart">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+	                    coworking.cw_name AS coworking_name,
+	                    (coworking.cw_daily_price  * count(booking_date.*)) AS account,
+	                    coworking.cw_daily_price AS price,
+	                    count(booking_date.*) AS bookings,
+	                    date_part('month', public.booking_date.date) AS month
+                    FROM
+                        coworking
+			        LEFT JOIN booking on booking.bk_cw_id = coworking.cw_id
+			        INNER JOIN booking_date on booking_date.bk_id = booking.bk_id
+				    #WHERE#
+					GROUP BY coworking_name, price
+				    ORDER BY coworking_name;
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

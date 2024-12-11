@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
@@ -37,6 +38,9 @@ public class CoworkingService implements ICoworkingService {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private BookingDao bookingDao;
 
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
@@ -215,8 +219,9 @@ public class CoworkingService implements ICoworkingService {
 
         final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
                 this.coworkingDao.CW_QUERY_DATES);
-        if(filteredResults.calculateRecordNumber() == 0){
-            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber, startIndex,
+        if (filteredResults.calculateRecordNumber() == 0) {
+            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber,
+                    startIndex,
                     orderBy, this.coworkingDao.CW_QUERY_DATES);
         }
 
@@ -275,6 +280,15 @@ public class CoworkingService implements ICoworkingService {
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(CoworkingDao.CW_USER_ID, userId);
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
+    }
+
+    @Override
+    public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        keyMap.put(BookingDao.BK_STATE, "true");
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_FACTURATION);
     }
 
 }

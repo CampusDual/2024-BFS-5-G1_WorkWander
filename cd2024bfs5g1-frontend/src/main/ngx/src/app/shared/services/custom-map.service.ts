@@ -12,7 +12,7 @@ export class CustomMapService {
   constructor(private http: HttpClient, private translate: OTranslateService,) { }
   protected mp: any; //Mapa
 
-  public async getMap(mapa: OMapComponent, address: ImapAddress[]): Promise<[number, number]> {
+  public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
 
     if (address[0].lat && address[0].lon) {
       this.addMark(mapa, address[0].lat, address[0].lon);
@@ -111,11 +111,10 @@ export class CustomMapService {
 }
 
 export interface ImapAddress {
-  lat: number
-  lon: number
-  address: string
-  city: string
-
+  lat: number;
+  lon: number;
+  address: string;
+  city: string;
 }
 
 export interface Coworking {

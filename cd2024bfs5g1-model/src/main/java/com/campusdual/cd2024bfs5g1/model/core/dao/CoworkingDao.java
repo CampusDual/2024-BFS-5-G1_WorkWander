@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.ArgumentPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -51,22 +52,22 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
         String latOrigen = "";
         String lonOrigen = "";
         String distance = "";
+        final Map<String, Object> hValidKeysValues = new HashMap<>();
 
-
-        for(Map.Entry<String, ?> entry : inputAttributesValues.entrySet()) {
+        for(final Map.Entry<?, ?> entry : keysValues.entrySet()) {
             String oKey = (String)entry.getKey();
             Object oValue = entry.getValue();
             if (Objects.equals(oKey, "LAT_ORIGEN")){
                 latOrigen = (String) entry.getValue();
-                keysValues.remove(oKey);
+                oValue = null;
             }
             if (Objects.equals(oKey, "LON_ORIGEN")){
                 lonOrigen = (String) entry.getValue();
-                keysValues.remove(oKey);
+                oValue = null;
             }
             if (Objects.equals(oKey, "DISTANCE")){
                 distance = (String) entry.getValue();
-                keysValues.remove(oKey);
+                oValue = null;
             }
             if (oValue != null && !(oValue instanceof NullValue)) {
                 hValidKeysValues.put(oKey, oValue);

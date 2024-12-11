@@ -1176,8 +1176,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .event-image {
-    width: 130px;
-    height: 70px;
+    width: 100%;
+    height: auto;
+    max-width: 130px;
+    max-height: 70px;
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
@@ -1324,7 +1326,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   margin: 10px;
 
   p {
-    color: $primary;
+    color: $fontBlack;
     font-size: $fontSize16;
     font-weight: $fontSemiBold;
   }
@@ -1373,239 +1375,238 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
-  .form-new-event.form-coworking-detail,
-  .form-new-event.form-edit-modal {
+.form-new-event.form-coworking-detail,
+.form-new-event.form-edit-modal {
+  margin-top: 0;
+  o-map {
+    max-height: 450px;
+    height: 450px;
+    min-height: 450px;
+  }
+  o-image.modal-form {
+    max-height: 250px !important;
+    min-height: 250px !important;
+  }
 
+  .form-new-event.no-margin-top {
     margin-top: 0;
-    o-map{
-        max-height: 450px;
-        height: 450px;
-        min-height: 450px;
-      }
-      o-image.modal-form {
-        max-height: 250px !important;
-        min-height: 250px !important;
-    }
+    margin-left: 0;
+  }
 
-    .form-new-event.no-margin-top {
-      margin-top: 0;
-      margin-left: 0;
-    }
-
-    .form-new-event.form-coworking-detail {
-      margin-top: 0;
-    }
-    .form-new-event.form-edit-modal {
-      margin-top: 0;
-      border: solid 0 transparent;
-      border-radius: unset;
+  .form-new-event.form-coworking-detail {
+    margin-top: 0;
+  }
+  .form-new-event.form-edit-modal {
+    margin-top: 0;
+    border: solid 0 transparent;
+    border-radius: unset;
+  }
+}
+@media (max-width: 850px) {
+  .button-back {
+    display: none;
+  }
+  .card-detalle .image-container img {
+    height: 220px;
+  }
+  .card-detalle {
+    o-column.o-column,
+    o-row.o-row {
+      width: 100%;
     }
   }
-  @media (max-width: 850px) {
-    .button-back {
-      display: none;
-    }
-    .card-detalle .image-container img {
-      height: 220px;
-    }
-    .card-detalle {
-      o-column.o-column,
-      o-row.o-row {
-        width: 100%;
-      }
-    }
+}
+@media (max-width: 767.9px) {
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-hour-input,
+  o-image {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
   }
-  @media (max-width: 767.9px) {
-    o-text-input,
-    o-integer-input,
-    o-real-input,
-    o-date-input,
-    o-hour-input,
-    o-image {
-      max-width: 100% !important;
-      width: 100% !important;
-      min-width: 100% !important;
-    }
-    .form-new-event article.ng-star-inserted mat-icon {
-      font-size: 12px;
-      width: 12px;
-      height: 12px;
-    }
+  .form-new-event article.ng-star-inserted mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
   }
-  @media (max-width: 576px) {
-    .full-page {
-      .footer-container {
-        div {
-          margin: 0 auto;
-          place-content: center !important;
-        }
+}
+@media (max-width: 576px) {
+  .full-page {
+    .footer-container {
+      div {
+        margin: 0 auto;
+        place-content: center !important;
       }
     }
   }
-  // Media para 1050px
-  @media (max-width: 1150px) {
-    mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
-      position: absolute;
-      background-color: transparent;
-      top: 0px;
-      left: 24px;
-    }
-    .mat-mdc-paginator-container {
-      position: absolute;
-      top: 41px;
-      right: unset;
-      width: 450px !important;
-      z-index: 1;
-      left: -80px;
-    }
-    .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-      padding: 25px 25px 85px 0px;
-    }
-    o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
-      margin-bottom: 60px !important;
-    }
+}
+// Media para 1050px
+@media (max-width: 1150px) {
+  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+    position: absolute;
+    background-color: transparent;
+    top: 0px;
+    left: 24px;
   }
+  .mat-mdc-paginator-container {
+    position: absolute;
+    top: 41px;
+    right: unset;
+    width: 450px !important;
+    z-index: 1;
+    left: -80px;
+  }
+  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+    padding: 25px 25px 85px 0px;
+  }
+  o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
+    margin-bottom: 60px !important;
+  }
+}
 
-  @media (max-width: 1500px) {
-    /*  Coworking */
-    .coworking-card {
-      // Estilo general de la tarjeta de coworking
-      .image-container {
-        // Contenedor de la imagen
-        padding: 12px;
+@media (max-width: 1500px) {
+  /*  Coworking */
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 12px;
 
-        .coworking-image {
-          // Estilo de la imagen de coworking
-          width: 110px;
-          height: 110px;
-        }
-      }
-      .info .coworking-name {
-        font-size: $fontSize18;
-      }
-      .capacity-price-container .price-container .price {
-        font-size: $fontSize20;
-        .decimal {
-          font-size: $fontSize12;
-        }
-      }
-      .capacity-price-container {
-        min-width: 100px;
-      }
-      .material-icons {
-        font-size: $fontSize18;
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 110px;
+        height: 110px;
       }
     }
-    .dos-columnas {
-      flex-direction: column !important;
+    .info .coworking-name {
+      font-size: $fontSize18;
     }
-  }
-  @media (min-width: 1000px) and (max-width: 1250px) {
-    .coworking-card {
-      // Estilo general de la tarjeta de coworking
-      .image-container {
-        // Contenedor de la imagen
-        padding: 5px;
-
-        .coworking-image {
-          // Estilo de la imagen de coworking
-          width: 70px;
-          height: 70px;
-        }
-      }
-      .capacity-price-container .price-container .price {
-        font-size: $fontSize18;
-        .decimal {
-          font-size: $fontSize12;
-        }
-      }
-      .capacity-price-container {
-        min-width: 70px;
-      }
-      .material-icons {
-        font-size: $fontSize14;
+    .capacity-price-container .price-container .price {
+      font-size: $fontSize20;
+      .decimal {
+        font-size: $fontSize12;
       }
     }
+    .capacity-price-container {
+      min-width: 100px;
+    }
+    .material-icons {
+      font-size: $fontSize18;
+    }
   }
-
-  .container {
-    display: grid;
-    grid-template-columns: 10% 80%;
-    gap: 2rem;
+  .dos-columnas {
+    flex-direction: column !important;
   }
+}
+@media (min-width: 1000px) and (max-width: 1250px) {
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 5px;
 
-  .navigator {
-    margin-right: 10px;
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .capacity-price-container .price-container .price {
+      font-size: $fontSize18;
+      .decimal {
+        font-size: $fontSize12;
+      }
+    }
+    .capacity-price-container {
+      min-width: 70px;
+    }
+    .material-icons {
+      font-size: $fontSize14;
+    }
   }
+}
 
-  .content {
-    flex-grow: 1;
-  }
+.container {
+  display: grid;
+  grid-template-columns: 10% 80%;
+  gap: 2rem;
+}
 
-  .buttons-c {
-    margin-bottom: 10px;
-    display: inline-flex;
-  }
+.navigator {
+  margin-right: 10px;
+}
 
-  .button-c {
-    background-color: $primary;
-    color: $accent;
-    border: 0;
-    padding: 0.5rem 1rem;
-    width: 80px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-right: 1px;
-    transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
-  }
+.content {
+  flex-grow: 1;
+}
 
-  .button-c:last-child {
-    margin-right: 0;
-  }
+.buttons-c {
+  margin-bottom: 10px;
+  display: inline-flex;
+}
 
-  .button-c.selected {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-  }
+.button-c {
+  background-color: $primary;
+  color: $accent;
+  border: 0;
+  padding: 0.5rem 1rem;
+  width: 80px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 1px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
 
-  .button-c:first-child {
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
+.button-c:last-child {
+  margin-right: 0;
+}
 
-  .button-c:last-child {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
+.button-c.selected {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .button-c:hover {
-    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
-  }
+.button-c:first-child {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
 
-  .button-c:active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+.button-c:last-child {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
 
-  .cancelBtn {
-    color: #ffffff !important;
-    background-color: $verdeBoton !important;
-  }
+.button-c:hover {
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+}
 
-.price_range{
+.button-c:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cancelBtn {
+  color: #ffffff !important;
+  background-color: $verdeBoton !important;
+}
+
+.price_range {
   font-size: 14px;
-  font-weight:300;
+  font-weight: 300;
   max-width: 150px;
   display: flex;
   align-items: center;
 }
 
-  .slider {
-    margin-right: 15px;
-    margin-left: 15px;
-    max-width: 150px;
-  }
+.slider {
+  margin-right: 15px;
+  margin-left: 15px;
+  max-width: 150px;
+}
 
 // Estilos tablas
 .o-table-body {
@@ -1615,7 +1616,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .o-table-container thead tr {
   background-color: $primary !important;
-  th{
+  th {
     color: #ffffff !important;
     font-weight: 500 !important;
     font-size: 16px !important;
@@ -1626,7 +1627,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 tr.mat-mdc-row {
   height: 50px !important;
-
 }
 
 .mat-mdc-cell {
@@ -1640,24 +1640,24 @@ tr.mat-mdc-row {
 }
 
 .column-filter-icon {
-  color:#ffffff !important;
+  color: #ffffff !important;
 }
 
-  .md-drppicker .calendar td.in-range,
-  .md-drppicker .calendar th.in-range {
-    color: #000000;
-  }
+.md-drppicker .calendar td.in-range,
+.md-drppicker .calendar th.in-range {
+  color: #000000;
+}
 
-  .md-drppicker td.active {
-    background-color: rgba(123, 165, 135, 0.6);
-    color: #000000;
-    font-weight: bold;
-  }
+.md-drppicker td.active {
+  background-color: rgba(123, 165, 135, 0.6);
+  color: #000000;
+  font-weight: bold;
+}
 
-  select,
-  button,
-  textarea,
-  input {
-    font-size: 100%;
-    background-color: #c0d4c6;
-  }
+select,
+button,
+textarea,
+input {
+  font-size: 100%;
+  background-color: #c0d4c6;
+}

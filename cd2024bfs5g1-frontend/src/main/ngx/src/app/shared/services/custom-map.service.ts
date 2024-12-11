@@ -67,10 +67,10 @@ export class CustomMapService {
     );
   }
 
-  public updateMapAndMarker(mapa: OMapComponent, lat: number, lon: number, markerLabel: string | null, marker: L.marker | null, latToSave: number | null, lonToSave: number | null ){
+  public updateMapAndMarker(mapa: OMapComponent, lat: number, lon: number, markerLabel: string | null, marker: L.marker | null, latToSave: number | null, lonToSave: number | null) {
     this.mp = mapa.getMapService().getMap();
     this.mp.setView([+lat, +lon], 16);
-      // Eliminar el marcador actual si existe
+    // Eliminar el marcador actual si existe
     if (marker) {
       this.mp.removeLayer(marker);
     }

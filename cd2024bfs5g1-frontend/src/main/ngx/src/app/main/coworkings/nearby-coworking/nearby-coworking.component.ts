@@ -14,7 +14,7 @@ import {
   Subject
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { ImapAddress,CustomMapService } from 'src/app/shared/services/custom-map.service';
+import { ImapAddress, CustomMapService } from 'src/app/shared/services/custom-map.service';
 
 @Component({
   selector: 'app-nearby-coworking',
@@ -29,6 +29,10 @@ export class NearbyCoworkingComponent implements OnInit {
   protected service: OntimizeService;
 
   public mostrarDiv: boolean = false;
+  /*  Variables de información del coworking   */
+  public nombre_coworking: string = "";
+  public descripcion_coworking: string = "";
+  public precio_coworking: number = 0;
 
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();

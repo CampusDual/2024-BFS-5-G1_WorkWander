@@ -79,7 +79,7 @@
   </div>
 
   <div *ngIf="mostrarDiv" class="info-detalle-coworking">
-    <h2>Coworking</h2>
+    <h2>{{ nombre_coworking }}</h2>
     <img
       style="max-width: 100%"
       src="./assets/images/coworking-default.jpg"
@@ -87,11 +87,11 @@
     />
     <h3>Descripción</h3>
     <p>
-      Lorem fistrum está la cosa muy malar apetecan no puedor ahorarr amatomaa
-      va usté muy cargadoo. Papaar papaar jarl no te digo trigo por no llamarte
-      Rodrigor ese hombree va usté muy cargadoo de la pradera.
+      {{ descripcion_coworking }}
     </p>
     <h3>Servicios</h3>
-    <h3><span class="precio">25€/dia</span></h3>
+    <h3>
+      <span class="precio"> {{ precio_coworking }}€/dia</span>
+    </h3>
   </div>
 </div>

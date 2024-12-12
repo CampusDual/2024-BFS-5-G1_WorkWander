@@ -342,6 +342,15 @@ nav.ng-star-inserted:nth-last-child(2) {
 
   :hover {
     border-left: 0px solid $accent !important;
+
+    //cambio de color del icono y del tex
+    span.o-app-sidenav-menuitem-title {
+      color: black;
+    }
+
+    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+      color: black;
+    }
   }
   .mdc-button__label > div {
     justify-content: center !important;
@@ -975,7 +984,7 @@ o-snackbar .o-snackbar-message {
     display: flex;
 
     mat-icon {
-      color: #d3b403;
+      color: $amarillo;
       margin-right: 5px;
     }
   }
@@ -1171,6 +1180,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
+  p-rating{
+    color: $amarillo;
+  }
+
   .review-title {
     margin-left: 16px;
   }
@@ -1191,7 +1204,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .media_rating {
-    color: #d3b403;
+    color: $amarillo;
     transform: scale(1.5);
     padding-left: 8px;
   }

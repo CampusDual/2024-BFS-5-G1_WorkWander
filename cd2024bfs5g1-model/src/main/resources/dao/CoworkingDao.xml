@@ -145,7 +145,7 @@
                 FROM
                 coworking
                 WHERE
-                cw_lat is not null and cw_lon is not null
+                cw_lat is not null and cw_lon is not null and cw_end_date is null
                 ) as c
                 #WHERE#
                 ]]>

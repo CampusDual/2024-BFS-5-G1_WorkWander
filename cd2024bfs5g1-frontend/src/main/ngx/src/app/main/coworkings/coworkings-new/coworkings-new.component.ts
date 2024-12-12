@@ -91,7 +91,7 @@ export class CoworkingsNewComponent implements OnInit {
     this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#b9cebf";
     document.getElementById(serv).style.color = "black";
-    document.getElementById(serv).style.borderRadius = "6px";
+    document.getElementById(serv).style.borderRadius = "10px";
     this.selectedServices++;
     this.availableServices--;
   }

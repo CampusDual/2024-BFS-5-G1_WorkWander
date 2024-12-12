@@ -182,14 +182,12 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
-    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-      action: action,
       milliseconds: 5000,
       icon: 'check_circle',
       iconPosition: 'left'
     };
-    this.snackBarService.open('', configuration);
+    this.snackBarService.open(this.translate.get('COWORKING_UPDATE'), configuration);
   }
 
   showServices(cw_id: any): any {

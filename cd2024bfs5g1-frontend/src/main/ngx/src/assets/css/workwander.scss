@@ -295,22 +295,36 @@ form {
   }
 }
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
-  background-color: $verdeBotonClaro !important;
+  background-color: $accent !important;
 }
 
+.mat-drawer-closed nav.ng-star-inserted:nth-last-child(2) {
+  margin: unset;
+  min-width: 40px !important;
+  width: 40px !important;
+  height: 40px;
+  margin: 0% 1.5% 0% 1.5%;
+
+  a {
+    line-height: 40px !important;
+    margin: 0% 0% 15% 0%;
+  }
+
+}
+
+
 /* Boton salir */
-nav.ng-star-inserted:nth-last-child(1),
 nav.ng-star-inserted:nth-last-child(2) {
   background-color: $verdeBoton;
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
-  margin: 0px 5px 0 5px;
+  margin: 0% 10% 0% 10% ;
   transition: all 0.2s;
   top: unset;
   bottom: 25px;
   right: 0;
-  width: 96%;
+  width: 80%;
 
   span.o-app-sidenav-menuitem-title {
     color: $blanco;
@@ -568,11 +582,40 @@ div#innerCol {
     //vertical-align: super; /* Opcional: sube un poco los decimales */
   }
 }
+
+//Botones
 .reservation-button {
   text-align: center;
+  margin-bottom: 5px;
   o-button {
     margin-left: 0 !important;
   }
+}
+
+.cancelBtn {
+  color: #ffffff !important;
+  background-color: $verdeBoton !important;
+  border-radius: 25px !important;
+}
+
+button.mat-mdc-button, button.mat-mdc-unelevated-button, button.mat-mdc-icon-button, button.mat-mdc-raised-button, button.mat-mdc-outlined-button {
+  border-radius: 25px !important;
+}
+
+.custom-button {
+  border-radius: 25px !important;
+  border: 1px solid grey;
+}
+
+.custom-button:hover {
+  background-color: $accent;
+  :hover {
+    color: $primary;
+  }
+};
+
+#button_valoration {
+  margin-bottom: 5px;
 }
 
 o-form-layout-tabgroup .card-detalle div.button-back {
@@ -740,8 +783,9 @@ o-column {
     background-color: transparent;
     margin-top: -50px;
   }
-  .o-image .o-image-content.o-image-auto-fit .o-image-display-container > img {
-    max-width: 350px;
+  //columna imagen
+  .image {
+    max-width: 35%;
   }
 }
 .lblSeatsText {
@@ -1175,8 +1219,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .event-image {
-    width: 130px;
-    height: 70px;
+    width: 100%;
+    height: auto;
+    max-width: 130px;
+    max-height: 70px;
     object-fit: cover;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     border-radius: 10px;
@@ -1323,7 +1369,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   margin: 10px;
 
   p {
-    color: $primary;
+    color: $fontBlack;
     font-size: $fontSize16;
     font-weight: $fontSemiBold;
   }
@@ -1356,236 +1402,300 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         min-width: 47%;
       }
 
-      o-integer-input.inline {
-        max-width: 30%;
-        width: 30%;
-        min-width: 30%;
+      o-date-input,
+      o-hour-input.inline {
+        max-width: 20%;
+        width: 20%;
+        min-width: 20%;
       }
 
+      o-integer-input,
       o-real-input.inline {
-        max-width: 30%;
-        width: 30%;
-        min-width: 30%;
+        max-width: 15%;
+        width: 15%;
+        min-width: 15%;
       }
     }
   }
+}
+.form-new-event.form-coworking-detail,
+.form-new-event.form-edit-modal {
+  margin-top: 0;
+  o-map {
+    max-height: 450px;
+    height: 450px;
+    min-height: 450px;
+  }
+  o-image.modal-form {
+    max-height: 250px !important;
+    min-height: 250px !important;
+  }
+
+  .form-new-event.no-margin-top {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
   .form-new-event.form-coworking-detail {
     margin-top: 0;
-
-    .form-new-event.no-margin-top {
-      margin-top: 0;
-      margin-left: 0;
-    }
-
-    .form-new-event.form-coworking-detail {
-      margin-top: 0;
-    }
-    .form-new-event.form-edit-modal {
-      margin-top: 0;
-      border: solid 0 transparent;
-      border-radius: unset;
+  }
+  .form-new-event.form-edit-modal {
+    margin-top: 0;
+    border: solid 0 transparent;
+    border-radius: unset;
+  }
+}
+@media (max-width: 850px) {
+  .button-back {
+    display: none;
+  }
+  .card-detalle .image-container img {
+    height: 220px;
+  }
+  .card-detalle {
+    o-column.o-column,
+    o-row.o-row {
+      width: 100%;
     }
   }
-  @media (max-width: 850px) {
-    .button-back {
-      display: none;
-    }
-    .card-detalle .image-container img {
-      height: 220px;
-    }
-    .card-detalle {
-      o-column.o-column,
-      o-row.o-row {
-        width: 100%;
+}
+@media (max-width: 767.9px) {
+  o-text-input,
+  o-integer-input,
+  o-real-input,
+  o-date-input,
+  o-hour-input,
+  o-image {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+  .form-new-event article.ng-star-inserted mat-icon {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+  }
+}
+@media (max-width: 576px) {
+  .full-page {
+    .footer-container {
+      div {
+        margin: 0 auto;
+        place-content: center !important;
       }
     }
   }
-  @media (max-width: 767.9px) {
-    o-text-input,
-    o-integer-input,
-    o-real-input,
-    o-date-input,
-    o-hour-input,
-    o-image {
-      max-width: 100% !important;
-      width: 100% !important;
-      min-width: 100% !important;
-    }
-    .form-new-event article.ng-star-inserted mat-icon {
-      font-size: 12px;
-      width: 12px;
-      height: 12px;
-    }
+}
+// Media para 1050px
+@media (max-width: 1150px) {
+  mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
+    position: absolute;
+    background-color: transparent;
+    top: 0px;
+    left: 24px;
   }
-  @media (max-width: 576px) {
-    .full-page {
-      .footer-container {
-        div {
-          margin: 0 auto;
-          place-content: center !important;
-        }
+  .mat-mdc-paginator-container {
+    position: absolute;
+    top: 41px;
+    right: unset;
+    width: 450px !important;
+    z-index: 1;
+    left: -80px;
+  }
+  .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
+    padding: 25px 25px 85px 0px;
+  }
+  o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
+    margin-bottom: 60px !important;
+  }
+}
+
+@media (max-width: 1500px) {
+  /*  Coworking */
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 12px;
+
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 110px;
+        height: 110px;
       }
     }
-  }
-  // Media para 1050px
-  @media (max-width: 1150px) {
-    mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
-      position: absolute;
-      background-color: transparent;
-      top: 0px;
-      left: 24px;
+    .info .coworking-name {
+      font-size: $fontSize18;
     }
-    .mat-mdc-paginator-container {
-      position: absolute;
-      top: 41px;
-      right: unset;
-      width: 450px !important;
-      z-index: 1;
-      left: -80px;
-    }
-    .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
-      padding: 25px 25px 85px 0px;
-    }
-    o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
-      margin-bottom: 60px !important;
-    }
-  }
-
-  @media (max-width: 1500px) {
-    /*  Coworking */
-    .coworking-card {
-      // Estilo general de la tarjeta de coworking
-      .image-container {
-        // Contenedor de la imagen
-        padding: 12px;
-
-        .coworking-image {
-          // Estilo de la imagen de coworking
-          width: 110px;
-          height: 110px;
-        }
-      }
-      .info .coworking-name {
-        font-size: $fontSize18;
-      }
-      .capacity-price-container .price-container .price {
-        font-size: $fontSize20;
-        .decimal {
-          font-size: $fontSize12;
-        }
-      }
-      .capacity-price-container {
-        min-width: 100px;
-      }
-      .material-icons {
-        font-size: $fontSize18;
+    .capacity-price-container .price-container .price {
+      font-size: $fontSize20;
+      .decimal {
+        font-size: $fontSize12;
       }
     }
-    .dos-columnas {
-      flex-direction: column !important;
+    .capacity-price-container {
+      min-width: 100px;
+    }
+    .material-icons {
+      font-size: $fontSize18;
     }
   }
-  @media (min-width: 1000px) and (max-width: 1250px) {
-    .coworking-card {
-      // Estilo general de la tarjeta de coworking
-      .image-container {
-        // Contenedor de la imagen
-        padding: 5px;
+  .dos-columnas {
+    flex-direction: column !important;
+  }
+}
+@media (min-width: 1000px) and (max-width: 1250px) {
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 5px;
 
-        .coworking-image {
-          // Estilo de la imagen de coworking
-          width: 70px;
-          height: 70px;
-        }
-      }
-      .capacity-price-container .price-container .price {
-        font-size: $fontSize18;
-        .decimal {
-          font-size: $fontSize12;
-        }
-      }
-      .capacity-price-container {
-        min-width: 70px;
-      }
-      .material-icons {
-        font-size: $fontSize14;
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 70px;
+        height: 70px;
       }
     }
+    .capacity-price-container .price-container .price {
+      font-size: $fontSize18;
+      .decimal {
+        font-size: $fontSize12;
+      }
+    }
+    .capacity-price-container {
+      min-width: 70px;
+    }
+    .material-icons {
+      font-size: $fontSize14;
+    }
   }
+}
 
-  .container {
-    display: grid;
-    grid-template-columns: 10% 80%;
-    gap: 2rem;
-  }
+.container {
+  display: grid;
+  grid-template-columns: 10% 80%;
+  gap: 2rem;
+}
 
-  .navigator {
-    margin-right: 10px;
-  }
+.navigator {
+  margin-right: 10px;
+}
 
-  .content {
-    flex-grow: 1;
-  }
+.content {
+  flex-grow: 1;
+}
 
-  .buttons-c {
-    margin-bottom: 10px;
-    display: inline-flex;
-  }
+.buttons-c {
+  margin-bottom: 10px;
+  display: inline-flex;
+}
 
-  .button-c {
-    background-color: $primary;
-    color: $accent;
-    border: 0;
-    padding: 0.5rem 1rem;
-    width: 80px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-right: 1px;
-    transition: all 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
-    box-sizing: border-box;
-  }
+.button-c {
+  background-color: $primary;
+  color: $accent;
+  border: 0;
+  padding: 0.5rem 1rem;
+  width: 80px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 1px;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+}
 
-  .button-c:last-child {
-    margin-right: 0;
-  }
+.button-c:last-child {
+  margin-right: 0;
+}
 
-  .button-c.selected {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-  }
+.button-c.selected {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .button-c:first-child {
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-  }
+.button-c:first-child {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
 
-  .button-c:last-child {
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-  }
+.button-c:last-child {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
 
-  .button-c:hover {
-    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
-  }
+.button-c:hover {
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+}
 
-  .button-c:active {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .cancelBtn {
-    color: #ffffff !important;
-    background-color: $verdeBoton !important;
-  }
+.button-c:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
   .price_range {
-    font-size: 11px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 300;
     max-width: 150px;
+    display: flex;
+    align-items: center;
   }
 
-  .slider {
-    margin-right: 15px;
-    margin-left: 15px;
+.slider {
+  margin-right: 15px;
+  margin-left: 15px;
+  max-width: 150px;
+}
+
+// Estilos tablas
+.o-table-body {
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.o-table-container thead tr {
+  background-color: $primary !important;
+  th {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    font-size: 16px !important;
+    height: 50px !important;
+    border-bottom: 3px solid $blanco !important;
   }
+}
+
+tr.mat-mdc-row {
+  height: 50px !important;
+}
+
+.mat-mdc-cell {
+  font-size: 14px !important;
+  line-height: 25px !important;
+  border-bottom: 3px solid $blanco !important;
+}
+
+.mat-sort-header-arrow {
+  color: #ffffff !important;
+}
+
+.column-filter-icon {
+  color: #ffffff !important;
+}
+
+.md-drppicker .calendar td.in-range,
+.md-drppicker .calendar th.in-range {
+  color: #000000;
+}
+
+.md-drppicker td.active {
+  background-color: rgba(123, 165, 135, 0.6);
+  color: #000000;
+  font-weight: bold;
+}
+
+select,
+button,
+textarea,
+input {
+  font-size: 100%;
+  background-color: #c0d4c6;
 }

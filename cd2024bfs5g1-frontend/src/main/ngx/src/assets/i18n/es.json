@@ -242,7 +242,7 @@
   "EVENT_CREATE": "¡Evento creado!",
   "SEARCH": "Buscar ubicación",
   "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localizada?",
-  "CONFIRM": "Confirmar dirección",
+  "CONFIRM2": "Confirmar dirección",
   "CANCELLED": "Cancelada",
   "FINISHED": "Finalizada",
   "PENDING": "Pendiente",

@@ -309,7 +309,7 @@ export class CoworkingsEditComponent {
 
   private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
-      const confirmMessageTitle = this.translate.get("CONFIRM");
+      const confirmMessageTitle = this.translate.get("CONFIRM2");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
         if (result) {

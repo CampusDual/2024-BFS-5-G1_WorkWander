@@ -311,6 +311,7 @@
             <!-- Si hay eventos, mostramos el carousel -->
             <p-carousel
               #carousel
+              *ngIf="events.length > 0"
               [value]="events"
               [numVisible]="3"
               [numScroll]="1"

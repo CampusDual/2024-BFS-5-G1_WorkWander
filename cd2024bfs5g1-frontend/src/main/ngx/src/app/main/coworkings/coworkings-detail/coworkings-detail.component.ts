@@ -1,5 +1,11 @@
 import { DecimalPipe, Location } from "@angular/common";
-import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -26,9 +32,7 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: "./coworkings-detail.component.html",
   styleUrls: ["./coworkings-detail.component.css"],
 })
-export class CoworkingsDetailComponent implements OnInit {
-  events: any = [];
-  responsiveOptions!: any;
+export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -62,6 +66,7 @@ export class CoworkingsDetailComponent implements OnInit {
     ];
   }
 
+  @ViewChild("carousel") carousel: any;
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
@@ -69,7 +74,7 @@ export class CoworkingsDetailComponent implements OnInit {
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
-  @ViewChild('formAverage', { static: true }) formAverage!: OFormComponent; // Garantiza que esta propiedad no será undefined al usarla.
+  @ViewChild("formAverage", { static: true }) formAverage!: OFormComponent;
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
@@ -81,6 +86,10 @@ export class CoworkingsDetailComponent implements OnInit {
   public dateArray = [];
   public dateArrayF = [];
   leafletMap: any;
+  events: any = [];
+  responsiveOptions!: any;
+  public autoplayInterval: number = 3000;
+
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
     const price_ = parseFloat(price);
@@ -99,21 +108,44 @@ export class CoworkingsDetailComponent implements OnInit {
     this.leafletMap = this.coworking_map.getMapService().getMap();
   }
 
-  iniciarPantalla(idLocation: number, city: string, address: string, lat: number, lon: number) {
+  ngAfterViewInit(): void {}
+
+  iniciarPantalla(
+    idLocation: number,
+    city: string,
+    address: string,
+    lat: number,
+    lon: number
+  ) {
     this.showEvents(idLocation);
     this.leafletMap = this.coworking_map.getMapService().getMap();
     if (lat === undefined && lon === undefined) {
       this.mapaShow(city, address);
     } else {
-      this.updateMapAndMarker(`${lat};${lon}`, 16, this.coworkingName.getValue());
+      this.updateMapAndMarker(
+        `${lat};${lon}`,
+        16,
+        this.coworkingName.getValue()
+      );
     }
   }
 
   currentDate() {
     let date = new Date();
-    date.setHours(0, 0, 0, 0)
+    date.setHours(0, 0, 0, 0);
 
     return date;
+  }
+  pauseAutoPlay(): void {
+    if (this.carousel) {
+      this.carousel.stopAutoplay();
+    }
+  }
+
+  resumeAutoPlay(): void {
+    if (this.carousel) {
+      this.carousel.startAutoplay();
+    }
   }
 
   showEvents(cw_location: number): void {
@@ -122,8 +154,8 @@ export class CoworkingsDetailComponent implements OnInit {
       let month = date.getMonth() + 1;
       let year = date.getFullYear();
       let day = date.getDate();
-      let m = month < 10 ? "0" + month.toString() : month.toString()
-      let d = day < 10 ? "0" + day.toString() : day.toString()
+      let m = month < 10 ? "0" + month.toString() : month.toString();
+      let d = day < 10 ? "0" + day.toString() : day.toString();
       let now = `${year}-${m}-${d}`;
       const filter = {
         "@basic_expression": {
@@ -180,8 +212,8 @@ export class CoworkingsDetailComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-        "data:image/*;base64," + base64
-      )
+          "data:image/*;base64," + base64
+        )
       : "./assets/images/event-default.jpg";
   }
 
@@ -311,7 +343,8 @@ export class CoworkingsDetailComponent implements OnInit {
         if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${this.dateArrayF
+            `${confirmMessageBody}  ${
+              this.dateArrayF
             } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
         } else {
@@ -390,11 +423,9 @@ export class CoworkingsDetailComponent implements OnInit {
     const hasHalfIcon = average % 1 >= 0.5; // Determina si se necesita un medio ícono
     const totalIcons = 5; // Número máximo de íconos (por ejemplo, 5 estrellas)
 
-
     return {
       fullIcons,
       hasHalfIcon,
-
     };
   }
 
@@ -403,8 +434,8 @@ export class CoworkingsDetailComponent implements OnInit {
    * @returns Número (media).
    */
   getAverage(): number {
-
-    let media: number = Math.round((this.formAverage.getFieldValue('average_ratio')) * 10) / 10;
+    let media: number =
+      Math.round(this.formAverage.getFieldValue("average_ratio") * 10) / 10;
 
     return media;
   }
@@ -434,24 +465,28 @@ export class CoworkingsDetailComponent implements OnInit {
         return;
       }
 
-      console.log("Dirección no válida, intentando con la ciudad seleccionada...");
+      console.log(
+        "Dirección no válida, intentando con la ciudad seleccionada..."
+      );
       const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 14, null);
       } else {
-        console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
+        console.error(
+          "No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa..."
+        );
         this.updateMapAndMarker("40.416775;-3.703790", 6, null);
-
       }
     } catch (error) {
       console.error("Error al procesar la ubicación:", error);
-
     }
   }
 
   private async getCoordinates(location: string): Promise<string | null> {
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        location
+      )}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       if (response?.length > 0) {
         const { lat, lon } = response[response.length - 1];
@@ -464,31 +499,31 @@ export class CoworkingsDetailComponent implements OnInit {
     return null;
   }
 
-
   private updateMapAndMarker(
     coordinates: string,
     zoom: number,
-    markerLabel: string | null) {
-    const [lat, lon] = coordinates.split(';').map(Number);
+    markerLabel: string | null
+  ) {
+    const [lat, lon] = coordinates.split(";").map(Number);
     this.leafletMap.setView([+lat, +lon], zoom);
     if (markerLabel) {
       this.coworking_map.addMarker(
-        'coworking_marker',           // id
-        lat,                          // latitude
-        lon,                          // longitude
-        {},                           // options
-        markerLabel,                         // popup
-        false,                        // hidden
-        true,                         // showInMenu
-        markerLabel                          // menuLabel
+        "coworking_marker", // id
+        lat, // latitude
+        lon, // longitude
+        {}, // options
+        markerLabel, // popup
+        false, // hidden
+        true, // showInMenu
+        markerLabel // menuLabel
       );
     }
   }
   private snackBar(message: string): void {
     this.snackBarService.open(message, {
       milliseconds: 5000,
-      icon: 'error',
-      iconPosition: 'left'
+      icon: "error",
+      iconPosition: "left",
     });
   }
 }

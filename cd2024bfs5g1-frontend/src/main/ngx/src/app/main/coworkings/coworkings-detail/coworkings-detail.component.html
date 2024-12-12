@@ -319,7 +319,7 @@
               [autoplayInterval]="5000"
             >
               <ng-template pTemplate="header">
-                <strong>{{ "NEAR_EVENTS" | oTranslate }}</strong>
+                <h3>{{ "NEAR_EVENTS" | oTranslate }}</h3>
               </ng-template>
               <ng-template let-event pTemplate="item">
                 <div class="event-item" (click)="goEvent(event.id_event)">
@@ -359,7 +359,7 @@
     </div>
     <!-- Reviews -->
     <o-column class="review">
-      <h4 class="review-title">{{ "REVIEWS" | oTranslate }}</h4>
+      <h3 class="review-title">{{ "REVIEWS" | oTranslate }}</h3>
       <o-grid
         #coworkingValoration
         attr="coworkingValoration"

@@ -309,9 +309,7 @@ form {
     line-height: 40px !important;
     margin: 0% 0% 15% 0%;
   }
-
 }
-
 
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(2) {
@@ -319,7 +317,7 @@ nav.ng-star-inserted:nth-last-child(2) {
   position: absolute;
   border-radius: 25px;
   border-left: 0px solid $primary !important;
-  margin: 0% 10% 0% 10% ;
+  margin: 0% 10% 0% 10%;
   transition: all 0.2s;
   top: unset;
   bottom: 25px;
@@ -594,7 +592,11 @@ div#innerCol {
   border-radius: 25px !important;
 }
 
-button.mat-mdc-button, button.mat-mdc-unelevated-button, button.mat-mdc-icon-button, button.mat-mdc-raised-button, button.mat-mdc-outlined-button {
+button.mat-mdc-button,
+button.mat-mdc-unelevated-button,
+button.mat-mdc-icon-button,
+button.mat-mdc-raised-button,
+button.mat-mdc-outlined-button {
   border-radius: 25px !important;
 }
 
@@ -608,7 +610,7 @@ button.mat-mdc-button, button.mat-mdc-unelevated-button, button.mat-mdc-icon-but
   :hover {
     color: $primary;
   }
-};
+}
 
 #button_valoration {
   margin-bottom: 5px;
@@ -1263,9 +1265,15 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .p-carousel-items-container {
     justify-content: space-between;
   }
-
+  .p-carousel-content {
+    width: 690px;
+  }
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
     background-color: $accent;
+  }
+
+  .card .empty-events-message.ng-star-inserted {
+    width: 690px;
   }
 
   .p-carousel-indicators {
@@ -1507,6 +1515,34 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
+@media (min-width: 1000px) and (max-width: 1250px) {
+  .coworking-card {
+    // Estilo general de la tarjeta de coworking
+    .image-container {
+      // Contenedor de la imagen
+      padding: 5px;
+
+      .coworking-image {
+        // Estilo de la imagen de coworking
+        width: 70px;
+        height: 70px;
+      }
+    }
+    .capacity-price-container .price-container .price {
+      font-size: $fontSize18;
+      .decimal {
+        font-size: $fontSize12;
+      }
+    }
+    .capacity-price-container {
+      min-width: 70px;
+    }
+    .material-icons {
+      font-size: $fontSize14;
+    }
+  }
+}
+
 @media (max-width: 1500px) {
   /*  Coworking */
   .coworking-card {
@@ -1539,33 +1575,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
   .dos-columnas {
     flex-direction: column !important;
-  }
-}
-@media (min-width: 1000px) and (max-width: 1250px) {
-  .coworking-card {
-    // Estilo general de la tarjeta de coworking
-    .image-container {
-      // Contenedor de la imagen
-      padding: 5px;
-
-      .coworking-image {
-        // Estilo de la imagen de coworking
-        width: 70px;
-        height: 70px;
-      }
-    }
-    .capacity-price-container .price-container .price {
-      font-size: $fontSize18;
-      .decimal {
-        font-size: $fontSize12;
-      }
-    }
-    .capacity-price-container {
-      min-width: 70px;
-    }
-    .material-icons {
-      font-size: $fontSize14;
-    }
   }
 }
 
@@ -1629,13 +1638,13 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-  .price_range {
-    font-size: 14px;
-    font-weight: 300;
-    max-width: 150px;
-    display: flex;
-    align-items: center;
-  }
+.price_range {
+  font-size: 14px;
+  font-weight: 300;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+}
 
 .slider {
   margin-right: 15px;
@@ -1697,10 +1706,8 @@ tr.mat-mdc-row {
   font-weight: bold;
 }
 
-select,
-button,
-textarea,
-input {
-  font-size: 100%;
-  background-color: #c0d4c6;
+button.mat-primary.mat-stroked-button {
+  border: solid 0 transparent;
+  border-radius: 15px;
+  padding: 5px 25px 6px 25px;
 }

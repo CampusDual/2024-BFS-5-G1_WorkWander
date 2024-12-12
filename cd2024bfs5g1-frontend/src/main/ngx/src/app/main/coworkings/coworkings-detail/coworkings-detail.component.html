@@ -310,13 +310,16 @@
           <div class="card">
             <!-- Si hay eventos, mostramos el carousel -->
             <p-carousel
+              #carousel
               *ngIf="events.length > 0"
               [value]="events"
               [numVisible]="3"
               [numScroll]="1"
               [responsiveOptions]="responsiveOptions"
               [circular]="true"
-              [autoplayInterval]="5000"
+              [autoplayInterval]="autoplayInterval"
+              (mouseenter)="pauseAutoPlay()"
+              (mouseleave)="resumeAutoPlay()"
             >
               <ng-template pTemplate="header">
                 <h3>{{ "NEAR_EVENTS" | oTranslate }}</h3>

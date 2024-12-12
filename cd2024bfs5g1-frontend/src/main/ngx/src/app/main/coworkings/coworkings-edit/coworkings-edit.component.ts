@@ -114,7 +114,7 @@ export class CoworkingsEditComponent {
 
   public deleteService(index: number, id: number, serv: string): void {
     this.arrayServices.splice(index, 1)
-    document.getElementById(serv).style.backgroundColor = "#ffffff";
+    document.getElementById(serv).style.backgroundColor = "#e9e9e9";
     document.getElementById(serv).style.color = "black";
     this.selectedServices--;
   }
@@ -224,7 +224,7 @@ export class CoworkingsEditComponent {
   onAddressBlur() {
     const address = this.address.getValue();
     this.validAddress = false; // Invalida la dirección por defecto
-    
+
     const selectedCityId = this.combo.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;

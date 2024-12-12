@@ -26,7 +26,7 @@
     <o-table-column
       attr="cw_name"
       title="COWORKINGS_NAME"
-      width="15%"
+      width="30%"
     ></o-table-column>
     <o-table-column-calculated
       #start_date
@@ -43,21 +43,30 @@
       [operation-function]="dateEnd"
       type="date"
       format="LL"
+      
     ></o-table-column-calculated>
-    <o-table-column attr="states" title="BOOKING_STATE" #states>
+    <o-table-column
+      attr="states"
+      title="BOOKING_STATE"
+      content-align="center"
+      orderable="no"
+      #states
+      width="14%"
+    >
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
-    <o-table-column attr="rate" title="REVIEWS" content-align="center">
+    <o-table-column attr="rate" title="REVIEWS" content-align="center" orderable="no">
       <app-bookings-rate-render></app-bookings-rate-render>
     </o-table-column>
     <o-table-column
-      #cancelCWbooking
       attr="cancelCWbooking"
       title="CANCEL"
-      type="action"
-      icon="close"
-      (onClick)="cancelBooking($event)"
+      content-align="center"
+      #cancelCWbooking
+      orderable="no"
+      width="10%"
     >
+      <app-bookings-cancel-render></app-bookings-cancel-render>
     </o-table-column>
   </o-table>
 </o-form-layout-manager>

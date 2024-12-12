@@ -35,10 +35,14 @@ public class BookingService implements IBookingService {
     @Autowired
     private IBookingDateService bds;
 
-
     @Override
     public EntityResult bookingQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList);
+    }
+
+    @Override
+    public EntityResult coworkingsWithBookingsQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.COWORKINGS_WITH_BOOKINGS);
     }
 
     @Override
@@ -47,7 +51,8 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap, final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+    public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap,
+            final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingDao.BK_USR_ID, userId);
@@ -194,6 +199,7 @@ public class BookingService implements IBookingService {
 
         for (final int id : coworkingIds) {
             final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+            final Map<String, Object> capacityMap = new LinkedHashMap<>();
             keyMap.put("cw_id", id);
             keyMapB.put("bk_cw_id", id);
             keyMapB.put("bk_state", true);
@@ -213,16 +219,17 @@ public class BookingService implements IBookingService {
                 final double ocupacionP = (double) ocupacionI / capacidadDisponible;
                 final String formattedDate = sdf.format(date);
                 dateMap.put("name", formattedDate);
-                dateMap.put("value", ocupacionP);
+                dateMap.put("value", (int) (ocupacionP * 100));
                 listaFechas.add(dateMap);
             }
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
 
-            coworkingMap.put("name", coworkingName.get(0));
+            coworkingMap.put("name", coworkingName.get(0) + ". Max. " + capacidadDisponible + "p");
             coworkingMap.put("series", listaFechas);
             listaCoworkings.add(coworkingMap);
         }
+
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);

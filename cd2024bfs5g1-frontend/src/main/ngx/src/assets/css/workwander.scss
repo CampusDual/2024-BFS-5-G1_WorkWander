@@ -309,9 +309,7 @@ form {
     line-height: 40px !important;
     margin: 0% 0% 15% 0%;
   }
-
 }
-
 
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(2) {
@@ -1708,10 +1706,8 @@ tr.mat-mdc-row {
   font-weight: bold;
 }
 
-select,
-button,
-textarea,
-input {
-  font-size: 100%;
-  background-color: #c0d4c6;
+button.mat-primary.mat-stroked-button {
+  border: solid 0 transparent;
+  border-radius: 15px;
+  padding: 5px 25px 6px 25px;
 }

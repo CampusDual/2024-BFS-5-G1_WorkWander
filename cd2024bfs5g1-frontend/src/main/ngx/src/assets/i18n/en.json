@@ -226,7 +226,7 @@
   "COWORKING_CHART_SELECTION": "Selected coworkings: ",
   "X-LABEL": "Date",
   "Y-LABEL": "Occupation (%)",
-  "SELECT_COWORKING": "Select up to three coworkings ",
+  "SELECT_COWORKING": "Select up to ",
   "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
   "ANALYTICS": "Analytics",

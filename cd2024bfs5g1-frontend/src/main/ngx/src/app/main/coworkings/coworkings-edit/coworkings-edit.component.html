@@ -105,7 +105,7 @@
         gutter-size="2px"
         detail-mode="none"
         show-footer="no"
-        grid-item-height="70px"
+        grid-item-height="80px"
         (onDataLoaded)="
           this.showServices(this.coworkingForm.getFieldValue('cw_id'))
         "
@@ -118,7 +118,7 @@
             <o-column
               id="{{ 'sel' + dato.srv_id }}"
               class="serviceDisable service-column"
-              fxFlex="100px"
+              fxFlex="85px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
                 <mat-icon>desktop_windows</mat-icon>

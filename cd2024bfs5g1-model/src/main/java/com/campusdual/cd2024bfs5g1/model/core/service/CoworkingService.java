@@ -286,6 +286,7 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        final ArrayList<Integer> arrayCw_id = new ArrayList<>((ArrayList<Integer>) keyMap.get("cw_id"));
         keyMap.put(CoworkingDao.CW_USER_ID, userId);
         keyMap.put(BookingDao.BK_STATE, "true");
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.CW_QUERY_FACTURATION);

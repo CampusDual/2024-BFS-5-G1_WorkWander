@@ -266,5 +266,6 @@
   "OCTOBER":"Octobre",
   "NOVEMBER":"Noviembre",
   "DECEMBER":"Deciembre",
-  "FACTURATION_BY_COWORKING_TITLE":"Facturación por coworking"
+  "FACTURATION_BY_COWORKING_TITLE":"Facturación por coworking",
+  "SELECT_MONTH":"Seleccione un mes"
 }

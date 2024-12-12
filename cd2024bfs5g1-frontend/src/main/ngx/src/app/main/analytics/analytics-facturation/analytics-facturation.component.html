@@ -25,24 +25,29 @@
     >
     </o-combo>
 
-    <!-- Date Range Selector -->
+    <!-- Months Selector -->
+    <o-combo
+    class="input-selector"
+    #comboMonthInput    
+    data="{{'JANUARY' | oTranslate}}"
+    attr="comboMonthInput"
+    label="{{ 'SELECT_MONTH' | oTranslate }}"
+    [static-data]="listOfMonths"
+    required="yes"
+    value-column="id"
+    columns="id;name"
+    visible-columns="name"
+    (onValueChange)="setMonth()"
+    (onSelectionChange)="setMonth()"
+  >
+  </o-combo>
 
-    <select
-      #comboMonthInput
-      id="month"
-      fxFlex
-      (click)="setMonth()"
-      value-type="date"
-    >
-    <option *ngFor="let month of months; let id=index" value="{{ id+1 }}">
-      {{ month | oTranslate }}</option>
-  </select>
   </div>
 
   <div class="chart-wrapper">
     <ng-container *ngIf="isGraph; else noChartTemplate">
       <o-chart
-        type="line"
+        type="discreteBar"
         [data]="getChartData()"
         color="vivid"
         x-label="{{ 'X-LABEL' | oTranslate }}"

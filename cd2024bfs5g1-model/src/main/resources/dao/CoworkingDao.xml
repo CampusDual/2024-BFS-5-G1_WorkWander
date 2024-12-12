@@ -101,11 +101,12 @@
         <Query id="filterDates">
             <Sentence>
                 <![CDATA[
-               WITH t1 AS(
+                WITH t1 AS(
                 SELECT
                     cw.cw_id AS cw_id,
                     cw.cw_name AS cw_name,
                     cw.cw_capacity AS cw_capacity,
+                    cw.cw_daily_price as cw_daily_price,
                     public.city.city AS cw_location,
                     STRING_AGG(service.srv_name, ',') AS services
                 FROM coworking cw
@@ -118,11 +119,13 @@
                     b.bk_cw_id AS t2_cw_id,
                     bd.date AS date,
                     COUNT(b.bk_id) AS plazasOcupadas
-                c booking b
-                LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
+                from coworking cw
+                inner join booking b on cw.cw_id = b.bk_cw_id
+                inner JOIN booking_date bd ON b.bk_id = bd.bk_id
+                #WHERE#
                 GROUP BY b.bk_cw_id, bd.date
                 )
-                SELECT #COLUMNS#
+                SELECT *
                     FROM t1 LEFT JOIN t2 ON t1.cw_id = t2.t2_cw_id
                     #WHERE#
                 ]]>

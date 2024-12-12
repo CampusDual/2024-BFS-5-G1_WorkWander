@@ -80,7 +80,7 @@ export class CoworkingsDetailComponent implements OnInit {
   public serviceList = [];
   public dateArray = [];
   public dateArrayF = [];
-  leafletMap : any;
+  leafletMap: any;
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
   public formatPrice(price: string): string {
     const price_ = parseFloat(price);
@@ -105,7 +105,7 @@ export class CoworkingsDetailComponent implements OnInit {
     if (lat === undefined && lon === undefined) {
       this.mapaShow(city, address);
     } else {
-      this.updateMapAndMarker(`${lat};${lon}`,16,this.coworkingName.getValue());
+      this.updateMapAndMarker(`${lat};${lon}`, 16, this.coworkingName.getValue());
     }
   }
 
@@ -426,18 +426,18 @@ export class CoworkingsDetailComponent implements OnInit {
   async mapaShow(selectedCity: string, address: string): Promise<void> {
     const addressComplete = `${selectedCity}, ${address}`;
     const name = this.getName();
-  
+
     try {
       const addressResults = await this.getCoordinates(addressComplete);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
         return;
       }
-  
+
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
       const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
-        this.updateMapAndMarker(cityResults,14, null);
+        this.updateMapAndMarker(cityResults, 14, null);
       } else {
         console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
         this.updateMapAndMarker("40.416775;-3.703790", 6, null);
@@ -445,7 +445,7 @@ export class CoworkingsDetailComponent implements OnInit {
       }
     } catch (error) {
       console.error("Error al procesar la ubicación:", error);
-    
+
     }
   }
 
@@ -454,7 +454,7 @@ export class CoworkingsDetailComponent implements OnInit {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       if (response?.length > 0) {
-        const { lat, lon } = response[0];
+        const { lat, lon } = response[response.length - 1];
         return `${lat};${lon}`;
       } else {
       }
@@ -466,12 +466,12 @@ export class CoworkingsDetailComponent implements OnInit {
 
 
   private updateMapAndMarker(
-  coordinates: string,
-  zoom: number,
-  markerLabel: string | null) {
-  const [lat, lon] = coordinates.split(';').map(Number);
-  this.leafletMap.setView([+lat, +lon],zoom);
-    if(markerLabel){
+    coordinates: string,
+    zoom: number,
+    markerLabel: string | null) {
+    const [lat, lon] = coordinates.split(';').map(Number);
+    this.leafletMap.setView([+lat, +lon], zoom);
+    if (markerLabel) {
       this.coworking_map.addMarker(
         'coworking_marker',           // id
         lat,                          // latitude

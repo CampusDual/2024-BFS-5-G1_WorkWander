@@ -199,6 +199,7 @@ public class BookingService implements IBookingService {
 
         for (final int id : coworkingIds) {
             final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+            final Map<String, Object> capacityMap = new LinkedHashMap<>();
             keyMap.put("cw_id", id);
             keyMapB.put("bk_cw_id", id);
             keyMapB.put("bk_state", true);
@@ -218,16 +219,17 @@ public class BookingService implements IBookingService {
                 final double ocupacionP = (double) ocupacionI / capacidadDisponible;
                 final String formattedDate = sdf.format(date);
                 dateMap.put("name", formattedDate);
-                dateMap.put("value", ocupacionP);
+                dateMap.put("value", (int) (ocupacionP * 100));
                 listaFechas.add(dateMap);
             }
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
 
-            coworkingMap.put("name", coworkingName.get(0));
+            coworkingMap.put("name", coworkingName.get(0) + ". Max. " + capacidadDisponible + "p");
             coworkingMap.put("series", listaFechas);
             listaCoworkings.add(coworkingMap);
         }
+
         //Envuelvo coworkingMap pa mandarlo al frontend
         final EntityResult r = new EntityResultMapImpl();
         r.setCode(0);

@@ -16,6 +16,7 @@ export class CoworkingsEditComponent {
   public exist = false;
   public selectedServices: number = 0;
   protected service: OntimizeService;
+  leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
   protected mapLon: number; //Longitud
@@ -215,23 +216,29 @@ export class CoworkingsEditComponent {
     const address = this.address.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
-    this.mapaShow(cityName, address);
-  }
+
+    if (cityName && address) {
+        this.mapaShow(cityName, address);
+    }
+}
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
+    const addressComplete = `${selectedCity}, ${address}`;
     const name = this.coworkingForm.getFieldValue('cw_name')
 
     try {
       const addressResults = await this.getCoordinates(selectedCity,address);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
+        this.validAddress = true;
         return;
       }
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
       const cityResults = await this.getCoordinates(selectedCity,"");
       if (cityResults) {
-        this.updateMapAndMarker(cityResults, 14, null);
+        this.updateMapAndMarker(cityResults, 8, null);
+        this.snackBar(this.translate.get("INVALID_LOCATION"));
       } else {
         console.error("No se pudo obtener coordenadas para la ciudad, seleccionando Madrid como centro del mapa...");
         this.updateMapAndMarker("40.416775;-3.703790", 6, null);
@@ -240,6 +247,7 @@ export class CoworkingsEditComponent {
       console.error("Error al procesar la ubicación:", error);
 
     }
+    this.validAddress = false;
   }
 
   private async getCoordinates(city: string, street: string): Promise<string | null> {
@@ -269,7 +277,6 @@ export class CoworkingsEditComponent {
   ) {
     const [lat, lon] = coordinates.split(';').map(Number);
     this.leafletMap.setView([+lat, +lon], zoom);
-      // Si recibe un markerLabel crea un marker
     if (markerLabel) {
       this.mapLat = lat;
       this.mapLon = lon;
@@ -309,7 +316,7 @@ export class CoworkingsEditComponent {
 
   private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
-      const confirmMessageTitle = this.translate.get("BOOKINGS_INSERT");
+      const confirmMessageTitle = this.translate.get("CONFIRM");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
         if (result) {

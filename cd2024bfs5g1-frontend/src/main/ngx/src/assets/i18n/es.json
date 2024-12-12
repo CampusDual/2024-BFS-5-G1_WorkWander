@@ -226,7 +226,7 @@
   "COWORKING_CHART_SELECTION": "Coworkings seleccionados: ",
   "X-LABEL": "Fecha",
   "Y-LABEL": "Ocupación (%)",
-  "SELECT_COWORKING": "Seleccione entre uno y tres coworkings:  ",
+  "SELECT_COWORKING": "Seleccione entre 1 y ",
   "NO_CHART_AVAILABLE": "No hay ningún gráfico disponible. Seleccione coworking y fecha.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Porcentaje de ocupación",
   "ANALYTICS": "Análisis",
@@ -248,9 +248,6 @@
   "PENDING": "Pendiente",
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
-  "SEARCH": "Buscar ubicación",
-  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localidaza?",
-  "CONFIRM": "Confirrmar dirección",
   "MY_SPACE": "Mi espacio",
   "NO_EVENTS": "No hay eventos disponibles"
 }

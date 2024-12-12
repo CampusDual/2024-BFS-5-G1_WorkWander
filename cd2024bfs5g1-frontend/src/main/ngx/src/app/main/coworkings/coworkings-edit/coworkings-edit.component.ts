@@ -107,14 +107,13 @@ export class CoworkingsEditComponent {
   public appendService(id: number, serv: string): void {
     this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#b9cebf";
-    document.getElementById(serv).style.color = "black";
-    document.getElementById(serv).style.borderRadius = "6px";
+    document.getElementById(serv).style.color = "black";    
     this.selectedServices++;
   }
 
   public deleteService(index: number, id: number, serv: string): void {
     this.arrayServices.splice(index, 1)
-    document.getElementById(serv).style.backgroundColor = "#ffffff";
+    document.getElementById(serv).style.backgroundColor = "#e9e9e9";
     document.getElementById(serv).style.color = "black";
     this.selectedServices--;
   }
@@ -183,14 +182,12 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
-    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-      action: action,
       milliseconds: 5000,
       icon: 'check_circle',
       iconPosition: 'left'
     };
-    this.snackBarService.open('', configuration);
+    this.snackBarService.open(this.translate.get('COWORKING_UPDATE'), configuration);
   }
 
   showServices(cw_id: any): any {
@@ -224,7 +221,7 @@ export class CoworkingsEditComponent {
   onAddressBlur() {
     const address = this.address.getValue();
     this.validAddress = false; // Invalida la dirección por defecto
-    
+
     const selectedCityId = this.combo.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;

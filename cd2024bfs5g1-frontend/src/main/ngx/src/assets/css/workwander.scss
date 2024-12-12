@@ -309,7 +309,9 @@ form {
     line-height: 40px !important;
     margin: 0% 0% 15% 0%;
   }
+
 }
+
 
 /* Boton salir */
 nav.ng-star-inserted:nth-last-child(2) {
@@ -367,10 +369,6 @@ nav.ng-star-inserted:nth-last-child(2) {
   .o-app-sidenav-container {
     .o-app-header {
       background-image: $linear-gradientRL;
-    }
-
-    .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container nav a {
-      border-radius: $borderRadius;
     }
 
     .o-app-sidenav-menu-item:not([disabled="true"]) {
@@ -523,7 +521,7 @@ div#innerCol {
 
     .ubicacion {
       padding-top: 30px;
-      font-size: $fontSize18;
+      font-size: $fontSize16;
     }
 
     o-map {
@@ -683,7 +681,7 @@ o-column {
   }
 }
 .form-new-event {
-  background-color: transparent;
+  background-color: $blanco;
   border: solid 1px $verdeBoton;
   border-radius: $borderRadius;
 
@@ -694,6 +692,7 @@ o-column {
 
   o-column.o-column:not(.service-column),
   o-row.o-row:not(.service-column) {
+    margin-top: 0;
     background: transparent;
     padding: 5px;
     border: solid 0px $verdeBoton;
@@ -1440,8 +1439,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .form-new-event.no-margin-top {
-    margin-top: 0;
-    margin-left: 0;
+    margin-top: 0px;
+    margin-left: 0px;
   }
 
   .form-new-event.form-coworking-detail {
@@ -1670,6 +1669,14 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     height: 50px !important;
     border-bottom: 3px solid $blanco !important;
   }
+}
+
+//Unificacion color en modal de Mis coworkings en coworking-edit
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #e9e9e9 !important;
+  --mdc-dialog-with-divider-divider-color: rgba(0, 0, 0, 0.12);
+  --mdc-dialog-subhead-color: rgba(0, 0, 0, 0.87);
+  --mdc-dialog-supporting-text-color: rgba(0, 0, 0, 0.6);
 }
 
 tr.mat-mdc-row {

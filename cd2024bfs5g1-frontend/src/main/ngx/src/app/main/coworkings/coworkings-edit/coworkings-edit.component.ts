@@ -108,7 +108,7 @@ export class CoworkingsEditComponent {
     this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#b9cebf";
     document.getElementById(serv).style.color = "black";
-    document.getElementById(serv).style.borderRadius = "6px";
+    document.getElementById(serv).style.borderRadius = "10px";
     this.selectedServices++;
   }
 
@@ -183,14 +183,12 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
-    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-      action: action,
       milliseconds: 5000,
       icon: 'check_circle',
       iconPosition: 'left'
     };
-    this.snackBarService.open('', configuration);
+    this.snackBarService.open(this.translate.get('COWORKING_UPDATE'), configuration);
   }
 
   showServices(cw_id: any): any {
@@ -211,6 +209,7 @@ export class CoworkingsEditComponent {
           //Obtenemos resp (respuesta) del servidor, y recorremos el array de servicios (data)
           for (let index = 0; index < resp.data.length; index++) {
             document.getElementById('sel' + resp.data[index]['id']).style.backgroundColor = "#b9cebf";
+            document.getElementById('sel' + resp.data[index]['id']).style.borderRadius = "10px";
             //Guardamos el id que devuelve data situado en esa posición del array
             let obj = resp.data[index]['id'];
             this.arrayServices.push({ id: obj }); //Con el valor, creamos un objeto y lo guardamos en el array de servicios

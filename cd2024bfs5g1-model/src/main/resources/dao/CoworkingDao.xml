@@ -138,13 +138,13 @@
                 cw_id,
                 cw_lat,
                 cw_lon,
-                cast(public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as numeric)as distancia_km
+                public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as distancia_km
                 FROM
                 coworking
                 WHERE
                 cw_lat is not null and cw_lon is not null
                 ) as c
-                WHERE distancia_km <= #DISTANCE#
+                #WHERE#
                 ]]>
             </Sentence>
         </Query>

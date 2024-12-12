@@ -1,6 +1,5 @@
 package com.campusdual.cd2024bfs5g1.model.core.dao;
 
-import com.ontimize.jee.common.db.NullValue;
 import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Repository(value = "CoworkingDao")
 @Lazy
@@ -48,67 +46,47 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
 
     @Override
     public EntityResult query(final Map<?, ?> keysValues, final List<?> attributes, final List<?> sort,
-            final String queryId, ISQLQueryAdapter queryAdapter) {
-        /*  Recuperamos los parámetros de Longitud y Latitud */
-        String latOrigen = "";
-        String lonOrigen = "";
-        String distance = "";
+            final String queryId, final ISQLQueryAdapter queryAdapter) {
         final Map<String, Object> hValidKeysValues = new HashMap<>();
-
-        for(final Map.Entry<?, ?> entry : keysValues.entrySet()) {
-            String oKey = (String)entry.getKey();
-            Object oValue = entry.getValue();
-            boolean grabar = true;
-            if (Objects.equals(oKey, "LAT_ORIGEN")){
-                latOrigen = entry.getValue().toString();
-                grabar = false;
-            }
-            if (Objects.equals(oKey, "LON_ORIGEN")){
-                lonOrigen = entry.getValue().toString();
-                grabar = false;
-            }
-            if (Objects.equals(oKey, "DISTANCE")){
-                distance = entry.getValue().toString();
-                grabar = false;
-            }
-            if (grabar){
-                if (oValue != null && !(oValue instanceof NullValue)) {
-                    hValidKeysValues.put(oKey, oValue);
-                }
-            }
-
+        final int distance = (int) keysValues.remove("DISTANCE");
+        if (distance != 0) {
+            final SQLStatementBuilder.BasicField field = new SQLStatementBuilder.BasicField("distancia_km");
+            final SQLStatementBuilder.BasicExpression ex = new SQLStatementBuilder.BasicExpression(field,
+                    SQLStatementBuilder.BasicOperator.LESS_EQUAL_OP, distance);
+            hValidKeysValues.put(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY, ex);
         }
-        
+
         this.checkCompiled();
         final QueryTemplateInformation queryTemplateInformation = this.getQueryTemplateInformation(queryId);
 
-        final SQLStatementBuilder.SQLStatement stSQL = this.composeQuerySql(queryId, attributes, keysValues, sort, null, queryAdapter);
+        final SQLStatementBuilder.SQLStatement stSQL = this.composeQuerySql(queryId, attributes, hValidKeysValues, sort,
+                null, queryAdapter);
 
         String sqlQuery = stSQL.getSQLStatement();
         final List<?> vValues = stSQL.getValues();
 
-        /* Asignamos las variables para el parámetro de lat y longitud */
-        if (latOrigen != null)  {
-            sqlQuery = sqlQuery.replace("#LAT_ORIGEN#", latOrigen);
-        }
-        if (lonOrigen != null){
-            sqlQuery = sqlQuery.replace("#LON_ORIGEN#", lonOrigen);
-        }
-        if (distance != null){
-            sqlQuery = sqlQuery.replace("#DISTANCE#", distance);
-        }
-
         // TODO los atributos que se pasan al entityresultsetextractor tienen que ir "desambiguados" porque
         // cuando el DefaultSQLStatementHandler busca
         // las columnas toUpperCase y toLowerCase no tiene en cuenta el '.'
-        Chronometer chrono = new Chronometer().start();
+        final Chronometer chrono = new Chronometer().start();
         try {
 
-            JdbcTemplate jdbcTemplate = this.getJdbcTemplate();
+            final JdbcTemplate jdbcTemplate = this.getJdbcTemplate();
 
             if (jdbcTemplate != null) {
 
-                ArgumentPreparedStatementSetter pss = new ArgumentPreparedStatementSetter(vValues.toArray());
+                final ArgumentPreparedStatementSetter pss = new ArgumentPreparedStatementSetter(vValues.toArray());
+                /*  Recuperamos los parámetros de Longitud y Latitud */
+                final String latOrigen = keysValues.remove("LAT_ORIGEN").toString();
+                final String lonOrigen = keysValues.remove("LON_ORIGEN").toString();
+
+                /* Asignamos las variables para el parámetro de lat y longitud */
+                if (latOrigen != null) {
+                    sqlQuery = sqlQuery.replace("#LAT_ORIGEN#", latOrigen);
+                }
+                if (lonOrigen != null) {
+                    sqlQuery = sqlQuery.replace("#LON_ORIGEN#", lonOrigen);
+                }
 
                 return jdbcTemplate.query(sqlQuery, pss,
                         new EntityResultResultSetExtractor(this.getStatementHandler(), queryTemplateInformation,

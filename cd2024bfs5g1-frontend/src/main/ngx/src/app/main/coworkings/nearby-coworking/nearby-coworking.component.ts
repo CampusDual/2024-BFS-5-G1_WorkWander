@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { Component, Injector, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import {
@@ -7,24 +7,28 @@ import {
   ODateInputComponent,
   OFormComponent,
   OGridComponent,
-  OntimizeService, OSnackBarConfig,
+  OntimizeService,
+  OSnackBarConfig,
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Subject
+  Subject,
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { ImapAddress, CustomMapService } from 'src/app/shared/services/custom-map.service';
+import {
+  ImapAddress,
+  CustomMapService,
+} from "src/app/shared/services/custom-map.service";
 
 @Component({
-  selector: 'app-nearby-coworking',
-  templateUrl: './nearby-coworking.component.html',
-  styleUrls: ['./nearby-coworking.component.css']
+  selector: "app-nearby-coworking",
+  templateUrl: "./nearby-coworking.component.html",
+  styleUrls: ["./nearby-coworking.component.css"],
 })
 export class NearbyCoworkingComponent implements OnInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
-  @ViewChild('combo') combo: OComboComponent;
-  @ViewChild('address') address: OTextInputComponent;
+  @ViewChild("combo") combo: OComboComponent;
+  @ViewChild("address") address: OTextInputComponent;
 
   protected service: OntimizeService;
 
@@ -34,14 +38,14 @@ export class NearbyCoworkingComponent implements OnInit {
   public descripcion_coworking: string = "";
   public precio_coworking: number = 0;
 
-  private location$ = new Subject<{ latitude: number, longitude: number }>;
+  private location$ = new Subject<{ latitude: number; longitude: number }>();
   private location = this.location$.asObservable();
 
   public mapPosition: ImapAddress = {
     lat: 40.416775,
-    lon: -3.703790,
-    address: 'Calle de Alcalá, 50',
-    city: 'Madrid'
+    lon: -3.70379,
+    address: "Calle de Alcalá, 50",
+    city: "Madrid",
   };
   leafletMap: any;
   protected validAddress: boolean;
@@ -60,26 +64,23 @@ export class NearbyCoworkingComponent implements OnInit {
     this.service = this.injector.get(OntimizeService);
   }
 
-
   ngOnInit(): void {
-
     this.configureService();
 
     // Usa un timeout para asegurarte de que el mapa esté listo
     setTimeout(() => {
       this.leafletMap = this.coworking_map.getMapService().getMap();
       if (this.leafletMap) {
-        console.log('Mapa inicializado correctamente:', this.leafletMap);
+        console.log("Mapa inicializado correctamente:", this.leafletMap);
         this.getUserGeolocation();
       } else {
-        console.error('El mapa aún no está listo.');
+        console.error("El mapa aún no está listo.");
       }
     }, 500);
-
   }
 
   protected configureService() {
-    const conf = this.service.getDefaultServiceConfiguration('coworkings');
+    const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
   }
   public showDiv(mostrar?: boolean) {
@@ -91,31 +92,37 @@ export class NearbyCoworkingComponent implements OnInit {
     // Verficamos si tenemos las direcciones rellenas y la lat & lon
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
-    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityObject = this.combo.dataArray.find(
+      (city) => city.id_city === selectedCityId
+    );
     const cityName = cityObject ? cityObject.city : null;
 
     let mapaLocal: OMapComponent = this.coworking_map;
 
-    let posicionMapa: ImapAddress = { lat: this.mapLat, lon: this.mapLon, address: address, city: cityName };
+    let posicionMapa: ImapAddress = {
+      lat: this.mapLat,
+      lon: this.mapLon,
+      address: address,
+      city: cityName,
+    };
 
     try {
       //await this.mapService.getMap(this.coworking_map, this.mapPosition);
       await this.mapService.getMap(mapaLocal, posicionMapa);
-
-
 
       this.showDiv(true);
     } catch (error) {
       console.error(error);
       this.showDiv(false);
     }
-
   }
 
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
-    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityObject = this.combo.dataArray.find(
+      (city) => city.id_city === selectedCityId
+    );
     const cityName = cityObject ? cityObject.city : null;
 
     // this.customMapservice();
@@ -129,46 +136,50 @@ export class NearbyCoworkingComponent implements OnInit {
 
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
-        let [lat, lon] = results.split(';')
+        let [lat, lon] = results.split(";");
         this.mapLat = +lat;
         this.mapLon = +lon;
         if (this.coworking_map && this.coworking_map.getMapService()) {
           if (this.leafletMap) {
             this.leafletMap.setView([+lat, +lon], 16);
           } else {
-            console.error('El mapa no está inicializado.');
+            console.error("El mapa no está inicializado.");
           }
         } else {
-          console.error('El servicio del mapa no está disponible.');
+          console.error("El servicio del mapa no está disponible.");
         }
         this.validAddress = true;
 
         this.obtenerCoworkings();
 
         this.coworking_map.addMarker(
-          'coworking_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          this.translate.get("COWORKING_MARKER"),     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          this.translate.get("COWORKING_MARKER")   // menuLabel
+          "coworking_marker", // id
+          lat, // latitude
+          lon, // longitude
+          { draggable: true }, // options
+          this.translate.get("COWORKING_MARKER"), // popup
+          false, // hidden
+          true, // showInMenu
+          this.translate.get("COWORKING_MARKER") // menuLabel
         );
         this.showDiv(true);
       } else {
         //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-        this.leafletMap.setView([40.416775, -3.703790], 6);
+        this.leafletMap.setView([40.416775, -3.70379], 6);
         this.showDiv(false);
       }
     });
   }
 
   //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
-  private async getCoordinatesForCity(location: string): Promise<string | null> {
+  private async getCoordinatesForCity(
+    location: string
+  ): Promise<string | null> {
     try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+        location
+      )}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
       if (response?.length > 0) {
@@ -187,25 +198,25 @@ export class NearbyCoworkingComponent implements OnInit {
   private snackBar(message: string): void {
     this.snackBarService.open(message, {
       milliseconds: 5000,
-      icon: 'error',
-      iconPosition: 'left'
+      icon: "error",
+      iconPosition: "left",
     });
   }
 
   public obtenerCoworkings() {
     const filter = {
-      'LAT_ORIGEN': this.mapLat,
-      'LON_ORIGEN': this.mapLon,
-      'DISTANCE': 5
+      LAT_ORIGEN: this.mapLat,
+      LON_ORIGEN: this.mapLon,
+      DISTANCE: 5,
     };
-    const columns = ['cw_id', 'cw_lat', 'cw_lon', 'distancia_km']
+    const columns = ["cw_id", "cw_lat", "cw_lon", "distancia_km"];
 
     const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);
 
-    this.service.query(filter, columns, 'coworkingNearby').subscribe(resp => {
+    this.service.query(filter, columns, "coworkingNearby").subscribe((resp) => {
       if (resp.code == 0) {
-        console.log(resp.data)
+        console.log(resp.data);
       }
     });
   }
@@ -232,6 +243,5 @@ export class NearbyCoworkingComponent implements OnInit {
 
   public setLocation(latitude: number, longitude: number) {
     this.location$.next({ latitude: latitude, longitude: longitude });
-
   }
 }

@@ -108,13 +108,13 @@ export class CoworkingsEditComponent {
     this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#b9cebf";
     document.getElementById(serv).style.color = "black";
-    document.getElementById(serv).style.borderRadius = "6px";
+    document.getElementById(serv).style.borderRadius = "10px";
     this.selectedServices++;
   }
 
   public deleteService(index: number, id: number, serv: string): void {
     this.arrayServices.splice(index, 1)
-    document.getElementById(serv).style.backgroundColor = "#ffffff";
+    document.getElementById(serv).style.backgroundColor = "#e9e9e9";
     document.getElementById(serv).style.color = "black";
     this.selectedServices--;
   }
@@ -183,14 +183,12 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
-    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-      action: action,
       milliseconds: 5000,
       icon: 'check_circle',
       iconPosition: 'left'
     };
-    this.snackBarService.open('', configuration);
+    this.snackBarService.open(this.translate.get('COWORKING_UPDATE'), configuration);
   }
 
   showServices(cw_id: any): any {
@@ -211,6 +209,7 @@ export class CoworkingsEditComponent {
           //Obtenemos resp (respuesta) del servidor, y recorremos el array de servicios (data)
           for (let index = 0; index < resp.data.length; index++) {
             document.getElementById('sel' + resp.data[index]['id']).style.backgroundColor = "#b9cebf";
+            document.getElementById('sel' + resp.data[index]['id']).style.borderRadius = "10px";
             //Guardamos el id que devuelve data situado en esa posición del array
             let obj = resp.data[index]['id'];
             this.arrayServices.push({ id: obj }); //Con el valor, creamos un objeto y lo guardamos en el array de servicios
@@ -224,7 +223,7 @@ export class CoworkingsEditComponent {
   onAddressBlur() {
     const address = this.address.getValue();
     this.validAddress = false; // Invalida la dirección por defecto
-    
+
     const selectedCityId = this.combo.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
@@ -310,7 +309,7 @@ export class CoworkingsEditComponent {
 
   private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
-      const confirmMessageTitle = this.translate.get("CONFIRM");
+      const confirmMessageTitle = this.translate.get("CONFIRM2");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
         if (result) {

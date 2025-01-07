@@ -237,7 +237,7 @@
   "PENDING_BOOKINGS": "No puedes eliminar este coworking, tiene reservas pendientes",
   "NO_RESULTS": "No se han encontrado resultados",
   "EVENT_CREATE": "¡Evento creado!",
-  "NEARBY_COWORKINGS": "Coworkings cercanos"
+  "NEARBY_COWORKINGS": "Coworkings cercanos",
   "GROUP_COWORKINGS": "Gestionar coworkings",
   "GROUP_EVENTS": "Gestionar eventos",
   "SEARCH": "Buscar ubicación",

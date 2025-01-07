@@ -139,6 +139,7 @@
                 FROM (
                 select
                 cw_id,
+                cw_name,
                 cw_lat,
                 cw_lon,
                 public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as distancia_km

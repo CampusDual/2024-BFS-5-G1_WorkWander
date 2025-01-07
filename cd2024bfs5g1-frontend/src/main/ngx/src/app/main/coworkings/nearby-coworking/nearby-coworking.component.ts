@@ -93,35 +93,6 @@ export class NearbyCoworkingComponent implements OnInit {
   }
 
   // ---------------------- MAPA ----------------------
-  async natalyBlur(): Promise<void> {
-    // Verficamos si tenemos las direcciones rellenas y la lat & lon
-    const selectedCityId = this.combo.getValue();
-    const address = this.address.getValue();
-    const cityObject = this.combo.dataArray.find(
-      (city) => city.id_city === selectedCityId
-    );
-    const cityName = cityObject ? cityObject.city : null;
-
-    let mapaLocal: OMapComponent = this.coworking_map;
-
-    let posicionMapa: ImapAddress = {
-      lat: this.mapLat,
-      lon: this.mapLon,
-      address: address,
-      city: cityName,
-    };
-
-    try {
-      //await this.mapService.getMap(this.coworking_map, this.mapPosition);
-      await this.mapService.getMap(mapaLocal, posicionMapa);
-
-      this.showDiv(true);
-    } catch (error) {
-      console.error(error);
-      this.showDiv(false);
-    }
-  }
-
   onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
@@ -212,7 +183,7 @@ export class NearbyCoworkingComponent implements OnInit {
       LON_ORIGEN: this.mapLon,
       DISTANCE: 5,
     };
-    const columns = ["cw_id", "cw_lat", "cw_lon", "distancia_km"];
+    const columns = ["cw_id", "cw_name", "cw_lat", "cw_lon", "distancia_km"];
 
     const conf = this.service.getDefaultServiceConfiguration("coworkings");
     this.service.configureService(conf);

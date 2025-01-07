@@ -10,6 +10,7 @@ import { BookingsRateRenderComponent } from './bookings-home/bookings-rate-rende
 import { RatingModule } from 'primeng/rating';
 import { BookingRateComponent } from './booking-rate/booking-rate.component';
 import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-render/bookings-cancel-render.component';
+import { BookingsAccessQrComponent } from './bookings-home/bookings-access-qr/bookings-access-qr.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-r
     BookingsStateRenderComponent,
     BookingsRateRenderComponent,
     BookingRateComponent,
-    BookingsCancelRenderComponent
+    BookingsCancelRenderComponent,
+    BookingsAccessQrComponent
   ],
   imports: [
     CommonModule,

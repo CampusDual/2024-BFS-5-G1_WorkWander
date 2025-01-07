@@ -3,7 +3,7 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { Coworking,CustomMapService } from 'src/app/shared/services/custom-map.service';
+import { Coworking, CustomMapService } from 'src/app/shared/services/custom-map.service';
 import * as L from 'leaflet';
 @Component({
   selector: 'app-coworkings-edit',
@@ -16,17 +16,16 @@ export class CoworkingsEditComponent {
   public exist = false;
   public selectedServices: number = 0;
   protected service: OntimizeService;
-  leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
   protected mapLon: number; //Longitud
   private currentMarker: L.Marker | null = null; // Referencia al marcador actual
   leafletMap: any; //Instancia mapa de Leaflet
   public coworkings: Coworking[] = [
-        { id: 1, name: 'Coworking A', lat: 42.211466407880074, lon: -8.736047102783205 },
-        { id: 2, name: 'Coworking B', lat: 42.211466407880074, lon: -8.737047102783205 },
-        { id: 3, name: 'Coworking C', lat: 42.211466407880074, lon: -8.738047102783205 }
-      ];
+    { id: 1, name: 'Coworking A', lat: 42.211466407880074, lon: -8.736047102783205 },
+    { id: 2, name: 'Coworking B', lat: 42.211466407880074, lon: -8.737047102783205 },
+    { id: 3, name: 'Coworking C', lat: 42.211466407880074, lon: -8.738047102783205 }
+  ];
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -218,16 +217,16 @@ export class CoworkingsEditComponent {
     const cityName = cityObject ? cityObject.city : null;
 
     if (cityName && address) {
-        this.mapaShow(cityName, address);
+      this.mapaShow(cityName, address);
     }
-}
+  }
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
     const addressComplete = `${selectedCity}, ${address}`;
     const name = this.coworkingForm.getFieldValue('cw_name')
 
     try {
-      const addressResults = await this.getCoordinates(selectedCity,address);
+      const addressResults = await this.getCoordinates(selectedCity, address);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
         this.validAddress = true;
@@ -235,7 +234,7 @@ export class CoworkingsEditComponent {
       }
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
-      const cityResults = await this.getCoordinates(selectedCity,"");
+      const cityResults = await this.getCoordinates(selectedCity, "");
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 8, null);
         this.snackBar(this.translate.get("INVALID_LOCATION"));
@@ -251,7 +250,7 @@ export class CoworkingsEditComponent {
   }
 
   private async getCoordinates(city: string, street: string): Promise<string | null> {
-    const encodedCity= encodeURIComponent(city);
+    const encodedCity = encodeURIComponent(city);
     const encodedStreet = encodeURIComponent(street);
     const encodedCountry = encodeURIComponent("Spain");
 
@@ -281,18 +280,18 @@ export class CoworkingsEditComponent {
       this.mapLat = lat;
       this.mapLon = lon;
       // Eliminar el marcador actual si existe
-    if (this.currentMarker) {
-      this.leafletMap.removeLayer(this.currentMarker);
-    }
+      if (this.currentMarker) {
+        this.leafletMap.removeLayer(this.currentMarker);
+      }
       // Crear y agregar el nuevo marcador
-      this.currentMarker = L.marker([lat, lon], {title: markerLabel, draggable: true }).addTo(this.leafletMap);
+      this.currentMarker = L.marker([lat, lon], { title: markerLabel, draggable: true }).addTo(this.leafletMap);
       this.currentMarker.options.id = 1; // Añadir la ID al marcador
       // Evento click del marcador
       this.currentMarker.on('click', (event: any) => {
         let id = event.target.options.id;
         console.log('Marcador clickeado:', id);
         alert(`Has clickeado en el marcador: ${markerLabel}`);
-        this.MapService.addMarkers(this.leafletMap,this.coworkings);
+        this.MapService.addMarkers(this.leafletMap, this.coworkings);
       });
       // Evento dragend del marcador
       this.currentMarker.on('dragend', (event) => {
@@ -328,7 +327,7 @@ export class CoworkingsEditComponent {
     });
   }
 
-  public addMarkers(coworkings: any){
+  public addMarkers(coworkings: any) {
     coworkings.forEach(coworking => {
       const marker = L.marker([coworking.lat, coworking.lon], {
         title: coworking.name,

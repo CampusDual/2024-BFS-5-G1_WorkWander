@@ -78,20 +78,24 @@
     </o-map>
   </div>
 
-  <div *ngIf="mostrarDiv" class="info-detalle-coworking">
-    <h2>Coworking</h2>
+  <div *ngIf="mostrarDiv && selectedCoworking" class="info-detalle-coworking">
+    <h2>{{ selectedCoworking.cw_name }}</h2>
     <img
       style="max-width: 100%"
-      src="./assets/images/coworking-default.jpg"
-      alt=""
+      [src]="getImageSrc(selectedCoworking.cw_image)"
+      alt="{{ selectedCoworking.cw_name }}"
     />
     <h3>Descripción</h3>
-    <p>
-      Lorem fistrum está la cosa muy malar apetecan no puedor ahorarr amatomaa
-      va usté muy cargadoo. Papaar papaar jarl no te digo trigo por no llamarte
-      Rodrigor ese hombree va usté muy cargadoo de la pradera.
-    </p>
+    <p>{{ selectedCoworking.cw_description }}</p>
     <h3>Servicios</h3>
-    <h3><span class="precio">25€/dia</span></h3>
+    <p *ngIf="selectedCoworking.services; else noServices">{{ selectedCoworking.services }}</p>
+    <ng-template #noServices>
+      <p>No hay servicios disponibles para este coworking.</p>
+    </ng-template>
+    <h3>
+      <span class="precio">{{ selectedCoworking.cw_daily_price | number:'1.2-2' }} €/día</span>
+    </h3>
   </div>
+  
+  
 </div>

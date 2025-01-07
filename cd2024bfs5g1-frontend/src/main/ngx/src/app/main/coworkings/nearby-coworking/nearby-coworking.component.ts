@@ -14,7 +14,7 @@ import {
   Subject
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { ImapAddress,CustomMapService } from 'src/app/shared/services/custom-map.service';
+import { Coworking,ImapAddress,CustomMapService } from 'src/app/shared/services/custom-map.service';
 
 @Component({
   selector: 'app-nearby-coworking',
@@ -27,11 +27,10 @@ export class NearbyCoworkingComponent implements OnInit {
   @ViewChild('address') address: OTextInputComponent;
 
   protected service: OntimizeService;
-
   public mostrarDiv: boolean = false;
-
   private location$ = new Subject<{ latitude: number, longitude: number }>;
   private location = this.location$.asObservable();
+  selectedCoworking: any = null;
 
   public mapPosition: ImapAddress = {
     lat: 40.416775,
@@ -39,6 +38,11 @@ export class NearbyCoworkingComponent implements OnInit {
     address: 'Calle de Alcalá, 50',
     city: 'Madrid'
   };
+  public coworkings: Coworking[] = [
+    { id: 1, name: 'Coworking A', lat: 42.211466407880074, lon: -8.736047102783205 },
+    { id: 2, name: 'Coworking B', lat: 42.211466407880074, lon: -8.737047102783205 },
+    { id: 3, name: 'Coworking C', lat: 42.211466407880074, lon: -8.738047102783205 }
+  ];
   leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
@@ -70,10 +74,17 @@ export class NearbyCoworkingComponent implements OnInit {
       } else {
         console.error('El mapa aún no está listo.');
       }
-    }, 500);
+    }, 1000);
 
   }
-
+  
+  getImageSrc(base64Image: string): string {
+    if (!base64Image) {
+      return './assets/images/coworking-default.jpg';
+    }
+    const mimeType = base64Image.charAt(0) === '/' ? 'image/jpeg' : 'image/png';
+    return `data:${mimeType};base64,${base64Image}`;
+  }  
   protected configureService() {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
@@ -82,6 +93,7 @@ export class NearbyCoworkingComponent implements OnInit {
     this.mostrarDiv = mostrar ? true : false;
     return this.mostrarDiv;
   }
+  
   // ---------------------- MAPA ----------------------
   async natalyBlur(): Promise<void> {
     // Verficamos si tenemos las direcciones rellenas y la lat & lon
@@ -190,7 +202,31 @@ export class NearbyCoworkingComponent implements OnInit {
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
           if (this.leafletMap) {
-            this.leafletMap.setView([this.mapLat, this.mapLon], 16);
+            this.leafletMap.setView([this.mapLat, this.mapLon], 14);
+            this.mapService.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
+
+              const columns = [
+                "cw_id",
+                "cw_name",
+                "cw_description",
+                "cw_daily_price",
+                "cw_image"
+              ];
+              
+              this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
+                (resp) => {
+                  const coworkingData = resp.data;
+                  if (coworkingData) {
+                    this.selectedCoworking = coworkingData[0];
+                    console.log(this.selectedCoworking);  
+                    this.mostrarDiv = true; 
+                  }
+                },
+                (error) => {
+                  console.error("Error al consultar los detalles del coworking:", error);
+                }
+              );
+            });
           }
         },
         (err) => {
@@ -203,7 +239,7 @@ export class NearbyCoworkingComponent implements OnInit {
   }
 
   public setLocation(latitude: number, longitude: number) {
-    this.location$.next({ latitude: latitude, longitude: longitude });
+    this.location$.next({ latitude, longitude});
 
   }
 }

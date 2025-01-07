@@ -128,5 +128,20 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="getAllCoworkings">
+            <Sentence>
+                <![CDATA[
+        SELECT
+            cw_id,
+            cw_name,
+            cw_lat,
+            cw_lon
+        FROM
+            ${mainschema}.coworking
+        WHERE
+            cw_end_date IS NULL
+        ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

@@ -93,22 +93,31 @@ export class CustomMapService {
     }
 
 
-    public addMarkers(mapa: L.map, coworkings: Coworking[]){
-      coworkings.forEach(coworking => {
+    public addMarkers(
+      mapa: L.Map,
+      coworkings: Coworking[],
+      onClick: (coworking: Coworking) => void
+    ): void {
+      coworkings.forEach((coworking) => {
         const marker = L.marker([coworking.lat, coworking.lon], {
           title: coworking.name,
-          draggable: false
+          draggable: false,
         }).addTo(mapa);
-        // Asignar la id del coworking
+    
+        // Asignar la ID del coworking
         marker.options.id = coworking.id;
+    
         // Evento click para este marcador
-        marker.on('click', (event: any) => {
-          const clickedId = event.target.options.id; // ID del coworking
-          console.log('Coworking clickeado:', clickedId);
+        marker.on('click', () => {
+          // Llamar al callback con los datos del coworking
+          onClick(coworking);
         });
       });
     }
+    
 }
+
+
 
 export interface ImapAddress {
   lat: number;

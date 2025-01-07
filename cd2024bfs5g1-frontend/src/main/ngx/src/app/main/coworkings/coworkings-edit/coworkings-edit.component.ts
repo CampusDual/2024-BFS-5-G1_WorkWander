@@ -3,7 +3,7 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { Coworking,CustomMapService } from 'src/app/shared/services/custom-map.service';
+import { CustomMapService } from 'src/app/shared/services/custom-map.service';
 import * as L from 'leaflet';
 @Component({
   selector: 'app-coworkings-edit',
@@ -21,11 +21,6 @@ export class CoworkingsEditComponent {
   protected mapLon: number; //Longitud
   private currentMarker: L.Marker | null = null; // Referencia al marcador actual
   leafletMap: any; //Instancia mapa de Leaflet
-  public coworkings: Coworking[] = [
-        { id: 1, name: 'Coworking A', lat: 42.211466407880074, lon: -8.736047102783205 },
-        { id: 2, name: 'Coworking B', lat: 42.211466407880074, lon: -8.737047102783205 },
-        { id: 3, name: 'Coworking C', lat: 42.211466407880074, lon: -8.738047102783205 }
-      ];
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -55,6 +50,7 @@ export class CoworkingsEditComponent {
     this.leafletMap = this.coworking_map.getMapService().getMap();
     let mapLat = lat;
     let mapLon = lon;
+    
 
     if (!mapLat && !mapLon) {
       mapLat = this.coworkingForm.getFieldValue('cw_lat');
@@ -285,7 +281,6 @@ export class CoworkingsEditComponent {
         let id = event.target.options.id;
         console.log('Marcador clickeado:', id);
         alert(`Has clickeado en el marcador: ${markerLabel}`);
-        this.MapService.addMarkers(this.leafletMap,this.coworkings);
       });
       // Evento dragend del marcador
       this.currentMarker.on('dragend', (event) => {
@@ -319,23 +314,6 @@ export class CoworkingsEditComponent {
         }
       });
     });
-  }
-
-  public addMarkers(coworkings: any){
-    coworkings.forEach(coworking => {
-      const marker = L.marker([coworking.lat, coworking.lon], {
-        title: coworking.name,
-        draggable: false
-      }).addTo(this.leafletMap);
-      // Asignar la id del coworking
-      marker.options.id = coworking.id;
-      // Evento click para este marcador
-      marker.on('click', (event: any) => {
-        const clickedId = event.target.options.id; // ID del coworking
-        console.log('Coworking clickeado:', clickedId);
-      });
-    });
-
   }
 
   private waitForDataReady(maxRetries = 20, intervalMs = 500): Promise<void> {

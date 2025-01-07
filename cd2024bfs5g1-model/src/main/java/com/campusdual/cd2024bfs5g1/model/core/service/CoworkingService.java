@@ -50,6 +50,8 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
+
+
     /**
      * Inserta un nuevo registro de coworking en la base de datos.
      * Añade automáticamente el ID del usuario autenticado al registro.

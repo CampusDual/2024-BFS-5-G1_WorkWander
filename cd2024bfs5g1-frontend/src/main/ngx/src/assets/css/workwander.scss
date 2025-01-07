@@ -1186,9 +1186,14 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
   .review-title {
     margin-left: 16px;
+    padding: 10px;
+    background-color: #7ba587;
+    color: white;
+    display: inline;
+    border-radius: 8px;
   }
   .review-container {
-    border: solid 1px white;
+    border: solid 1px gray;
     padding: 16px;
     border-radius: 8px;
     width: 90%;
@@ -1207,6 +1212,15 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     color: $amarillo;
     transform: scale(1.5);
     padding-left: 8px;
+  }
+
+  .no-reviews-container {
+    background-color: white;
+    border-radius: 8px;
+    border: solid 1px gray;
+    padding: 12px;
+    width: fit-content;
+    margin-left: 16px;
   }
 
   ::ng-deep .o-grid-footer.ng-star-inserted {

@@ -249,5 +249,6 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
-  "NO_EVENTS": "No events available"
+  "NO_EVENTS": "No events available",
+  "NO_REVIEWS": "There's no reviews, be the first to write one"
 }

@@ -103,10 +103,10 @@ export class CustomMapService {
           title: coworking.name,
           draggable: false,
         }).addTo(mapa);
-    
+
         // Asignar la ID del coworking
         marker.options.id = coworking.id;
-    
+
         // Evento click para este marcador
         marker.on('click', () => {
           // Llamar al callback con los datos del coworking
@@ -114,7 +114,7 @@ export class CustomMapService {
         });
       });
     }
-    
+
 }
 
 
@@ -131,6 +131,7 @@ export interface Coworking {
   name: string;
   lat: number;
   lon: number;
+  distance: number;
 }
 
 

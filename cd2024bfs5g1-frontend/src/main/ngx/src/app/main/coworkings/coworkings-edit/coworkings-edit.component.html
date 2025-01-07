@@ -74,7 +74,7 @@
         min="1"
         max="1000"
         attr="cw_daily_price"
-        label="DAILY_PRICE"
+        label="PRICE"
         required="yes"
         decimal-digits="2"
         icon="euro_symbol"
@@ -121,28 +121,22 @@
               fxFlex="100px"
             >
               <article *ngIf="dato.srv_name == 'additional_screen'">
-                <mat-icon>desktop_windows</mat-icon
-                >
+                <mat-icon>desktop_windows</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'vending_machine'">
-                <mat-icon>kitchen</mat-icon
-                >
+                <mat-icon>kitchen</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'coffee_bar'">
-                <mat-icon>local_cafe</mat-icon
-                >
+                <mat-icon>local_cafe</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'water_dispenser'">
-                <mat-icon>local_drink</mat-icon
-                >
+                <mat-icon>local_drink</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'ergonomic_chair'">
-                <mat-icon>event_seat</mat-icon
-                >
+                <mat-icon>event_seat</mat-icon>
               </article>
               <article *ngIf="dato.srv_name == 'parking'">
-                <mat-icon>local_parking</mat-icon
-                >
+                <mat-icon>local_parking</mat-icon>
               </article>
               <span class="icon-literal">{{ dato.srv_name | oTranslate }}</span>
             </o-column>
@@ -165,7 +159,7 @@
       fxLayoutGap="24px"
       style="padding: 0 15px"
     >
-      <div class="rowCityDirection low-margin-top" fxLayoutGap="24px">
+      <div class="rowCityDirection low-margin-top" fxLayoutGap="8px" fxFlex>
         <!-- Direction and Locality -->
         <o-combo
           #combo
@@ -185,20 +179,33 @@
           appearance="fill"
           class="halfSize"
         ></o-combo>
-        <o-text-input
-          #address
-          attr="cw_address"
-          fxFlex
-          label="ADDRESS"
-          required="yes"
-          icon="place"
-          placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
-          max-length="50"
-          min-length="3"
-          (keyup.enter)="onAddressBlur()"
-          (onBlur)="onAddressBlur()"
-          class="halfSize"
-        ></o-text-input>
+        <div fxFlex="1 1 auto">
+          <o-text-input
+            #address
+            attr="cw_address"
+            label="ADDRESS"
+            required="yes"
+            icon="place"
+            placeholder="{{ 'COWORKINGS_ADDRESS' | oTranslate }}"
+            max-length="50"
+            min-length="3"
+            (input)="validAddress = false"
+            (keyup.enter)="onAddressBlur()"
+            class="halfSize"
+            style="width: calc(100% - 100px)"
+          ></o-text-input>
+        </div>
+        <div fxFlex="none">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="onAddressBlur()"
+            type="button"
+            style="padding: 8px 16px; font-size: 14px"
+          >
+            {{ "SEARCH" | oTranslate }}
+          </button>
+        </div>
       </div>
       <!-- Map Information -->
       <div title="" fxLayoutGap="24px" class="columna-imagen-mapa">

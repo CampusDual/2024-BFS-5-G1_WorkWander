@@ -225,7 +225,7 @@
   "COWORKING_CHART_ SELECTION_ERROR": "Error while charging occupation data.",
   "COWORKING_CHART_SELECTION": "Selected coworkings: ",
   "X-LABEL": "Date",
-  "Y-LABEL": "Occupation",
+  "Y-LABEL": "Occupation (%)",
   "SELECT_COWORKING": "Select up to three coworkings ",
   "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
@@ -236,7 +236,19 @@
   "SURE_DELETE": "Are you sure you want to delete the coworking ",
   "COWORKING_DELETED": "Coworking deleted",
   "PENDING_BOOKINGS": "You can't remove this coworking, it has pending bookings",
+  "GROUP_COWORKINGS": "Manage coworkings",
+  "GROUP_EVENTS": "Manage events",
   "NO_RESULTS": "No results found",
   "EVENT_CREATE": "Event created!",
   "NEARBY_COWORKINGS": "Coworkings nearby"
+  "PRICE_RANGE":"Price",
+  "SEARCH": "Search address",
+  "INVALID_LOCATION_CONFIRM": "Save invalid address?",
+  "CONFIRM": "Confirm address",
+  "MY_SPACE": "My space",
+  "CANCELLED": "Cancelled",
+  "FINISHED": "Finished",
+  "PENDING": "Pending",
+  "IN_PROGRESS": "In progress",
+  "NO_EVENTS": "No events available"
 }

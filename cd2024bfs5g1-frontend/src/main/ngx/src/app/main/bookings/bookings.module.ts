@@ -10,6 +10,7 @@ import { BookingsRateRenderComponent } from './bookings-home/bookings-rate-rende
 import { RatingModule } from 'primeng/rating';
 import { BookingRateComponent } from './booking-rate/booking-rate.component';
 import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-render/bookings-cancel-render.component';
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-r
     OntimizeWebModule,
     OPermissionsModule,
     SharedModule,
-    RatingModule
+    RatingModule,
+    OMapModule,
   ]
 })
 export class BookingsModule { }

@@ -11,62 +11,86 @@
       attr="cw_name"
       service="coworkings"
       entity="coworkingByUser"
-      label="{{ 'SELECT_COWORKING' | oTranslate }} {{maxSelection}} {{' coworkings.'}}"
+      label="{{ 'SELECT_COWORKING_FACT' | oTranslate }}"
       value-column="cw_id"
       columns="cw_name"
       visible-columns="cw_name"
-      required="yes"
       formControlName="coworking"
       (onValueChange)="onCoworkingChange($event)"
-      searchable="true"
       [multiple]="true"
       (onSelectionChange)="onCoworkingChange($event)"
+      selected="allCoworkNames"
       multiple-trigger-label="true"
     >
     </o-combo>
 
     <!-- Months Selector -->
     <o-combo
-    class="input-selector"
-    #comboMonthInput    
-    data="{{'JANUARY' | oTranslate}}"
-    attr="comboMonthInput"
-    label="{{ 'SELECT_MONTH' | oTranslate }}"
-    [static-data]="listOfMonths"
+      class="input-selector"
+      #comboMonthInput
+      attr="comboMonthInput"
+      label="{{ 'SELECT_MONTH' | oTranslate }}"
+      [static-data] = "listOfMonths"
+      [data] = "listOfMonths"
+      (onDataLoaded) = "languageChange()"
+      value-column="id"
+      columns="id;name"
+      visible-columns="name"
+      (onValueChange)="setMonth($event)"
+      (onSelectionChange)="setMonth($event)"
+      [multiple]="true"
+      multiple-trigger-label="true"
+      fxFlex="25"
+    >
+    </o-combo>
+    <o-integer-input
+    fxFlex="10"
+    #inputYear
+    attr="inputYear"
+    icon="hourglass_empty"
+    label="{{ 'YEAR' | oTranslate }}"
+    value="year"
+    class="inline"
+    min="1"
+    step="1"
+    max="9999"
     required="yes"
-    value-column="id"
-    columns="id;name"
-    visible-columns="name"
-    (onValueChange)="setMonth()"
-    (onSelectionChange)="setMonth()"
-  >
-  </o-combo>
-
+    data="{{ year }}"
+    thousand-separator=""
+  ></o-integer-input>
   </div>
-
-  <div class="chart-wrapper">
-    <ng-container *ngIf="isGraph; else noChartTemplate">
-      <o-chart
-        type="discreteBar"
-        [data]="getChartData()"
-        color="vivid"
-        x-label="{{ 'X-LABEL' | oTranslate }}"
-        y-label="{{ 'Y-LABEL' | oTranslate }}"
-        x-data-type="date"
-        y-data-type="percentage"
-        show-legend="true"
-        show-x-axis-label="true"
-        show-y-axis-label="true"
-        legend-position="below"
-        legend-title="Legend"
-        show-grid-lines="false"
-      ></o-chart>
+  <ng-container *ngIf="resolveData; else chart">
+    <article class="noResults">
+      {{ "AWAITING_DATA" | oTranslate }}<span id="txt-rotate" class="txt-rotate" data-period="2000"></span>
+    </article>
+  </ng-container>
+  <ng-template #chart>
+    <ng-container  *ngIf="isGraph; else noChart">
+      <div class="chart-wrapper">
+        <o-chart
+          type="multiBar"
+          duration="1"
+          #multiBarChart
+          [data]="showData()"
+          x-data-type="string"
+          y-data-type="string"
+          x-label="{{ 'X-AXIS-COWORKING' | oTranslate }}"
+          y-label="{{ 'Y-AXIS-AMOUNT' | oTranslate }}"
+          [chart-parameters]="configureChart()"
+          [color]="colorScheme"
+          show-x-axis-label="true"
+          show-y-axis-label="true"
+          show-legend="true"
+          legend-position="below"
+          legend-title="{{ typeData | oTranslate }}"
+        >
+        </o-chart>
+      </div>
     </ng-container>
-  </div>
-  <ng-template #noChartTemplate>
+  </ng-template>
+  <ng-template #noChart>
     <div class="noResults">
-      {{ "NO_CHART_AVAILABLE" | oTranslate }}
+      {{ "NO_DATA_GRAPHIC" | oTranslate }}
     </div>
   </ng-template>
 </o-form>
-

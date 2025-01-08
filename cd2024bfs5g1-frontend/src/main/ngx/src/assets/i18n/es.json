@@ -260,9 +260,20 @@
   "JULY":"Julio",
   "AUGUST":"Agosto",
   "SEPTEMBER":"Septiembre",
-  "OCTOBER":"Octobre",
+  "OCTOBER":"Octubre",
   "NOVEMBER":"Noviembre",
-  "DECEMBER":"Deciembre",
+  "DECEMBER":"Diciembre",
   "FACTURATION_BY_COWORKING_TITLE":"Facturación por coworking",
-  "SELECT_MONTH":"Seleccione un mes"
+  "SELECT_MONTH":"Seleccione un mes...",
+  "X-AXIS-COWORKING":"Coworking",
+  "Y-AXIS-AMOUNT":"Cantidad €",
+  "SELECT_COWORKING_FACT": "Seleccione un coworking...",
+  "SOLD":"Vendido",
+  "ALL":"Todos",
+  "LEGEND":"Leyenda",
+  "YEAR":"Escoja un año",
+  "MONTHS":"Meses",
+  "DAYS":"Días",
+  "NO_DATA_GRAPHIC":"No hay datos para el gráfico, seleccione coworking y mes.",
+  "AWAITING_DATA":"Solicitando información, espere un momento por favor"
 }

@@ -21,11 +21,6 @@ export class CoworkingsEditComponent {
   protected mapLon: number; //Longitud
   private currentMarker: L.Marker | null = null; // Referencia al marcador actual
   leafletMap: any; //Instancia mapa de Leaflet
-  public coworkings: Coworking[] = [
-    { id: 1, name: 'Coworking A', lat: 42.211466407880074, lon: -8.736047102783205 },
-    { id: 2, name: 'Coworking B', lat: 42.211466407880074, lon: -8.737047102783205 },
-    { id: 3, name: 'Coworking C', lat: 42.211466407880074, lon: -8.738047102783205 }
-  ];
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -286,13 +281,6 @@ export class CoworkingsEditComponent {
       // Crear y agregar el nuevo marcador
       this.currentMarker = L.marker([lat, lon], { title: markerLabel, draggable: true }).addTo(this.leafletMap);
       this.currentMarker.options.id = 1; // Añadir la ID al marcador
-      // Evento click del marcador
-      this.currentMarker.on('click', (event: any) => {
-        let id = event.target.options.id;
-        console.log('Marcador clickeado:', id);
-        alert(`Has clickeado en el marcador: ${markerLabel}`);
-        this.MapService.addMarkers(this.leafletMap, this.coworkings);
-      });
       // Evento dragend del marcador
       this.currentMarker.on('dragend', (event) => {
         const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
@@ -325,23 +313,6 @@ export class CoworkingsEditComponent {
         }
       });
     });
-  }
-
-  public addMarkers(coworkings: any) {
-    coworkings.forEach(coworking => {
-      const marker = L.marker([coworking.lat, coworking.lon], {
-        title: coworking.name,
-        draggable: false
-      }).addTo(this.leafletMap);
-      // Asignar la id del coworking
-      marker.options.id = coworking.id;
-      // Evento click para este marcador
-      marker.on('click', (event: any) => {
-        const clickedId = event.target.options.id; // ID del coworking
-        console.log('Coworking clickeado:', clickedId);
-      });
-    });
-
   }
 
   private waitForDataReady(maxRetries = 20, intervalMs = 500): Promise<void> {

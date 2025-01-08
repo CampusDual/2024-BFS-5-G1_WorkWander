@@ -128,10 +128,10 @@ export interface ImapAddress {
 
 export interface Coworking {
   id: number;
-  name: string;
   lat: number;
   lon: number;
-  distance: number;
+  name: string;
+  distance_km: number;
 }
 
 

@@ -275,5 +275,11 @@
   "MONTHS":"Meses",
   "DAYS":"Días",
   "NO_DATA_GRAPHIC":"No hay datos para el gráfico, seleccione coworking y mes.",
-  "AWAITING_DATA":"Solicitando información, espere un momento por favor"
+  "AWAITING_DATA":"Solicitando información, espere un momento por favor",
+  "QR_ACCESS": "Acceso",
+  "QR_DOWNLOAD": "Descargar Qr",
+  "BOOKING_QR": "Reserva en",
+  "START": "Inicio",
+  "END": "Final",
+  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking"
 }

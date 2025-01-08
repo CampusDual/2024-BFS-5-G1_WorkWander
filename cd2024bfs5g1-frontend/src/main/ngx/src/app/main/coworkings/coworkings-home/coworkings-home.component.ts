@@ -278,18 +278,15 @@ export class CoworkingsHomeComponent implements OnInit {
   //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
-
-    if (this.mapVisible) {
-      this.mapService.getUserGeolocation();
-      // mandar el mapa al que se dene incluir la marca
-
-    }
   }
+
   nearOfMe() {
     if (this.mapVisible) {
       this.mapService.getUserGeolocation();
-      // mandar el mapa al que se dene incluir la marca
-      console.log(this.mapService.getLocation);
     }
+  }
+
+  setCityPosition() {
+    // getCityCoordinates
   }
 }

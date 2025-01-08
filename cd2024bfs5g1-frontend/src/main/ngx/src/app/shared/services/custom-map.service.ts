@@ -43,6 +43,24 @@ export class CustomMapService {
 
     }
   }
+
+  public async getCityCoordinates(city: string): Promise<string | null> {
+    const encodedCity = encodeURIComponent(city);
+    const encodedCountry = encodeURIComponent("Spain");
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?city=${encodedCity}&country=${encodedCountry}&format=json&addressdetails=1`;
+      const response = await this.http.get<any>(url).toPromise();
+      if (response?.length > 0) {
+        const { lat, lon } = response[response.length - 1]; //Obtiene la última posición de la respuesta que es la más precisa
+        return `${lat};${lon}`;
+      }
+    } catch (error) {
+      console.log("API_ERROR" + error);
+    }
+    return null;
+  }
+
   public async getCoordinates(city: string, street: string): Promise<string | null> {
     const encodedCity = encodeURIComponent(city);
     const encodedStreet = encodeURIComponent(street);
@@ -132,7 +150,7 @@ export class CustomMapService {
   }
 
   public getUserGeolocation() {
-    console.log("Obteniendo geolocalización del usuario...");
+    // console.log("Obteniendo geolocalización del usuario...");
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -140,7 +158,7 @@ export class CustomMapService {
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
 
-          console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
+          //   console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
 
           if (this.leafletMap) {
             this.leafletMap.setView([this.mapLat, this.mapLon], 14);
@@ -184,6 +202,7 @@ export class CustomMapService {
   public setLocation(latitude: number, longitude: number) {
     this.location$.next({ latitude: latitude, longitude: longitude });
   }
+
   public getLocation() {
     let location = new Map<string, string>();
     location.set("Lat", this.mapLat.toString());
@@ -217,8 +236,6 @@ export class CustomMapService {
     });
   }
 }
-
-
 
 export interface ImapAddress {
   lat: number;

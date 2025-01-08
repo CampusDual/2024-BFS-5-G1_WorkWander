@@ -56,7 +56,7 @@
           icon="search"
           layout-padding
           color="primary"
-          (click)="natalyBlur()"
+          (click)="onAddressBlur()"
         ></o-button>
       </div>
     </o-row>
@@ -88,14 +88,16 @@
     <h3>Descripción</h3>
     <p>{{ selectedCoworking.cw_description }}</p>
     <h3>Servicios</h3>
-    <p *ngIf="selectedCoworking.services; else noServices">{{ selectedCoworking.services }}</p>
+    <p *ngIf="selectedCoworking.services; else noServices">
+      {{ selectedCoworking.services }}
+    </p>
     <ng-template #noServices>
       <p>No hay servicios disponibles para este coworking.</p>
     </ng-template>
     <h3>
-      <span class="precio">{{ selectedCoworking.cw_daily_price | number:'1.2-2' }} €/día</span>
+      <span class="precio"
+        >{{ selectedCoworking.cw_daily_price | number : "1.2-2" }} €/día</span
+      >
     </h3>
   </div>
-
-
 </div>

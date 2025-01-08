@@ -37,7 +37,8 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
-  public toPrice:number=0;
+  public toPrice: number = 0;
+  public mapVisible: boolean = false;
 
   data: any[];
 
@@ -77,8 +78,8 @@ export class CoworkingsHomeComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
+        "data:image/*;base64," + base64
+      )
       : "./assets/images/coworking-default.jpg";
   }
 
@@ -95,11 +96,11 @@ export class CoworkingsHomeComponent implements OnInit {
     }
   }
 
-  click($event:any){
+  click($event: any) {
     this.toPrice = $event;
   }
 
-  formatLabelUntil():any{
+  formatLabelUntil(): any {
     return this.toPrice + " €"
   }
 
@@ -152,7 +153,7 @@ export class CoworkingsHomeComponent implements OnInit {
           dateNullExpression = FilterExpressionUtils.buildExpressionIsNull(
             fil.attr
           );
-        }else if (fil.attr == "cw_daily_price"){
+        } else if (fil.attr == "cw_daily_price") {
           priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
         }
       }
@@ -267,5 +268,9 @@ export class CoworkingsHomeComponent implements OnInit {
     this.coworkingsGrid.onDataLoaded.subscribe(() => {
       this.noResults = this.coworkingsGrid.dataArray.length === 0;
     });
+  }
+
+  showHideMap() {
+    this.mapVisible = !this.mapVisible;
   }
 }

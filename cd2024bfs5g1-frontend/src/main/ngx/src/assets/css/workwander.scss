@@ -1202,10 +1202,9 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .login-name {
-    background-color: #7ba587;
+    font-weight: bold;
     padding: 8px;
     border-radius: 8px;
-    color: white;
   }
 
   .media_rating {
@@ -1222,6 +1221,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     width: fit-content;
     margin-left: 16px;
   }
+
+  .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base{
+    background-color: #B9CEBF;
+   }
 
   ::ng-deep .o-grid-footer.ng-star-inserted {
     padding-bottom: 16px;

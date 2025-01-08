@@ -281,7 +281,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
     if (this.mapVisible) {
       this.mapService.getUserGeolocation();
-      // mandar el mapa al que se dene incluir la marca 
+      // mandar el mapa al que se dene incluir la marca
 
     }
   }

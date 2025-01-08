@@ -136,6 +136,9 @@ export class CustomMapService {
           this.setLocation(position.coords.latitude, position.coords.longitude);
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
+
+          console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
+
           if (this.leafletMap) {
             this.leafletMap.setView([this.mapLat, this.mapLon], 14);
             this.obtenerCoworkings();

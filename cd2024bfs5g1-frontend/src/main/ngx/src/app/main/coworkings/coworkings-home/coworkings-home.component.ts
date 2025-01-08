@@ -19,6 +19,7 @@ import {
   OTranslateService,
   SnackBarService
 } from "ontimize-web-ngx";
+import { OMapComponent } from "ontimize-web-ngx-map";
 import { CustomMapService } from "src/app/shared/services/custom-map.service";
 
 @Component({
@@ -27,11 +28,13 @@ import { CustomMapService } from "src/app/shared/services/custom-map.service";
   styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
+
   @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
+  @ViewChild("coworking_map") coworking_map: OMapComponent;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
@@ -49,7 +52,8 @@ export class CoworkingsHomeComponent implements OnInit {
     protected router: Router,
     private translate: OTranslateService,
     protected snackBarService: SnackBarService,
-    private mapService: CustomMapService
+    private mapService: CustomMapService,
+
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -274,6 +278,14 @@ export class CoworkingsHomeComponent implements OnInit {
   //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
-    this.mapService.getUserGeolocation();
+
+    if (this.mapVisible) {
+      this.mapService.getUserGeolocation();
+      // mandar el mapa al que se dene incluir la marca 
+
+    }
+  }
+  getCoordenadas(arg0: any, arg1: any): any {
+    console.log(arg0, arg1);
   }
 }

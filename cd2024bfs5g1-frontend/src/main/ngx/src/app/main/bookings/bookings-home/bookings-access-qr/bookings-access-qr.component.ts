@@ -4,6 +4,7 @@ import {
   TemplateRef,
   ViewChild,
   ChangeDetectorRef,
+
 } from "@angular/core";
 import { DialogService, OBaseTableCellRenderer } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
@@ -11,6 +12,7 @@ import { SafeUrl } from "@angular/platform-browser";
 import { QRCodeComponent } from "angularx-qrcode";
 import { MatDialog } from "@angular/material/dialog";
 import { QrDialogComponent } from "../qr-dialog/qr-dialog.component";
+import { OTranslateService } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-bookings-access-qr",
@@ -29,7 +31,8 @@ export class BookingsAccessQrComponent extends OBaseTableCellRenderer {
     private dialogService: DialogService,
     private utilsService: UtilsService,
     private cd: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: OTranslateService,
   ) {
     super(injector);
   }

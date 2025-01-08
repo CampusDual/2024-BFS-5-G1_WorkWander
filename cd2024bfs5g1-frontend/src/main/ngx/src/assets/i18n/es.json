@@ -249,5 +249,7 @@
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
   "MY_SPACE": "Mi espacio",
-  "NO_EVENTS": "No hay eventos disponibles"
+  "NO_EVENTS": "No hay eventos disponibles",
+  "QR_ACCESS": "Acceso",
+  "QR_DOWNLOAD": "Descargar Qr"
 }

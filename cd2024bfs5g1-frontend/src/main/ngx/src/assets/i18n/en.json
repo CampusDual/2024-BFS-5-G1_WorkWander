@@ -249,5 +249,7 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
-  "NO_EVENTS": "No events available"
+  "NO_EVENTS": "No events available",
+  "QR_ACCESS": "Access",
+  "QR_DOWNLOAD": "Download Qr"
 }

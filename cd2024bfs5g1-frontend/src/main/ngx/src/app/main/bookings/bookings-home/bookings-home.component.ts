@@ -33,7 +33,7 @@ export class BookingsHomeComponent {
   constructor(
     private router: Router,
     private service: OntimizeService,
-    private utils: UtilsService,
+    protected utils: UtilsService,
     private dialogService: DialogService,
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
@@ -194,7 +194,6 @@ export class BookingsHomeComponent {
         if (this.utils.calculateState(resp.data[index]) == 'Pendiente' || this.utils.calculateState(resp.data[index]) == 'En curso') {
 
           this.dates.push(resp.data[index]);
-
 
           this.inicializarMapa(resp.data[index]['cw_lat'], resp.data[index]['cw_lon'], resp.data[index]['cw_name']);
         }

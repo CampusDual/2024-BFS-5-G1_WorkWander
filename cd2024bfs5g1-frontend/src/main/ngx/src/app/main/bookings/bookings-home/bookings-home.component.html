@@ -14,7 +14,7 @@
     entity="datesByBooking"
     keys="bk_id"
     columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
-    visible-columns="states;cw_name;date_start;date_end;rate;cancelCWbooking"
+    visible-columns="states;cw_name;date_start;date_end;rate;qrTemplate;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     (onClick)="toCoworkingDetail($event)"
@@ -43,7 +43,6 @@
       [operation-function]="dateEnd"
       type="date"
       format="LL"
-      
     ></o-table-column-calculated>
     <o-table-column
       attr="states"
@@ -55,7 +54,12 @@
     >
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
-    <o-table-column attr="rate" title="REVIEWS" content-align="center" orderable="no">
+    <o-table-column
+      attr="rate"
+      title="REVIEWS"
+      content-align="center"
+      orderable="no"
+    >
       <app-bookings-rate-render></app-bookings-rate-render>
     </o-table-column>
     <o-table-column
@@ -67,6 +71,16 @@
       width="10%"
     >
       <app-bookings-cancel-render></app-bookings-cancel-render>
+    </o-table-column>
+    <o-table-column
+      attr="qrTemplate"
+      title="QR_ACCESS"
+      content-align="center"
+      #qrTemplate
+      orderable="no"
+      width="10%"
+    >
+      <app-bookings-access-qr></app-bookings-access-qr>
     </o-table-column>
   </o-table>
 </o-form-layout-manager>

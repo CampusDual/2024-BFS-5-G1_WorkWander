@@ -319,10 +319,10 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
         if (translation) {
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
           const element = this.elementRef.nativeElement;
-          let item = element.querySelectorAll('.legend-label-text');
-          for (let i = 0; i < item.length; i++) {
-            item[i].innerText = data[i].series[x].name;
-          }          
+          let legend = element.querySelectorAll('.legend-label-text');
+          for (let i = 0; i < legend.length; i++) {
+            legend[i].innerText = data[i].series[x].name;
+          }
         }else{
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].name].name);
         }

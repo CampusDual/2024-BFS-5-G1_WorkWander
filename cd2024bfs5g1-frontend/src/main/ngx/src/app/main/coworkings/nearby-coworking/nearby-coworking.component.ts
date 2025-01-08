@@ -201,7 +201,7 @@ export class NearbyCoworkingComponent implements OnInit {
             "cw_daily_price",
             "cw_image"
           ];
-
+          console.log(selectedCoworking.id);
           this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
             (resp) => {
               const coworkingData = resp.data;

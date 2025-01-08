@@ -1,14 +1,14 @@
-// qr-dialog.component.ts
 import { Component, Inject, ChangeDetectorRef } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { SafeUrl } from "@angular/platform-browser";
-import { DatePipe } from "@angular/common"; // Importa el DatePipe
+import { DatePipe } from "@angular/common";
+import { OTranslateService } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-qr-dialog",
   templateUrl: "./qr-dialog.component.html",
   styleUrls: ["./qr-dialog.component.css"],
-  providers: [DatePipe], // Provee el DatePipe en el componente
+  providers: [DatePipe],
 })
 export class QrDialogComponent {
   public qrCodeData: string = "";
@@ -17,7 +17,8 @@ export class QrDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cd: ChangeDetectorRef,
-    private datePipe: DatePipe // Inyecta el DatePipe
+    private datePipe: DatePipe,
+    private translateService: OTranslateService
   ) {
     this.qrCodeData = this.buildQrData(data);
   }
@@ -31,15 +32,20 @@ export class QrDialogComponent {
   }
 
   private buildQrData(data: any): string {
-    const coworkingName = data.cw_name || "Nombre del Coworking";
+    const coworkingName = data.cw_name;
     const startDate = this.formatDate(new Date(data.date_start));
     const endDate = this.formatDate(new Date(data.date_end));
 
-    return `Reserva en: ${coworkingName}\nInicio: ${startDate}\nFin: ${endDate}`;
+    const labelReserva = this.translateService.get("BOOKING_QR");
+    const labelInicio = this.translateService.get("START");
+    const labelFin = this.translateService.get("END");
+
+    return `${labelReserva} ${coworkingName}\n${labelInicio} ${startDate}\n${labelFin} ${endDate}`;
   }
 
   private formatDate(date: Date): string {
-    // Utiliza el DatePipe para formatear la fecha
-    return this.datePipe.transform(date, "dd/MM/yyyy") || "";
+    return this.translateService.getCurrentLang() === "en"
+      ? this.datePipe.transform(date, "MM/dd/yyyy") || ""
+      : this.datePipe.transform(date, "dd/MM/yyyy") || "";
   }
 }

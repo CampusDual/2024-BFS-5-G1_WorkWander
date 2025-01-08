@@ -1,9 +1,8 @@
 import { Component, Injector, TemplateRef, ViewChild } from "@angular/core";
-import { OBaseTableCellRenderer, OTranslateModule } from "ontimize-web-ngx";
+import { OBaseTableCellRenderer } from "ontimize-web-ngx";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { MatDialog } from "@angular/material/dialog";
 import { QrDialogComponent } from "../qr-dialog/qr-dialog.component";
-import { OTranslateService } from "ontimize-web-ngx";
 
 @Component({
   selector: "app-bookings-access-qr",
@@ -17,8 +16,7 @@ export class BookingsAccessQrComponent extends OBaseTableCellRenderer {
   constructor(
     protected injector: Injector,
     private utilsService: UtilsService,
-    private dialog: MatDialog,
-    private translate: OTranslateModule
+    private dialog: MatDialog
   ) {
     super(injector);
   }

@@ -238,7 +238,7 @@
   "GROUP_COWORKINGS": "Gestionar coworkings",
   "GROUP_EVENTS": "Gestionar eventos",
   "NO_RESULTS": "No se han encontrado resultados",
-  "PRICE_RANGE":"Precio",
+  "PRICE_RANGE": "Precio",
   "EVENT_CREATE": "¡Evento creado!",
   "SEARCH": "Buscar ubicación",
   "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localizada?",
@@ -251,5 +251,8 @@
   "MY_SPACE": "Mi espacio",
   "NO_EVENTS": "No hay eventos disponibles",
   "QR_ACCESS": "Acceso",
-  "QR_DOWNLOAD": "Descargar Qr"
+  "QR_DOWNLOAD": "Descargar Qr",
+  "BOOKING_QR": "Reserva en",
+  "START": "Inicio",
+  "END": "Final"
 }

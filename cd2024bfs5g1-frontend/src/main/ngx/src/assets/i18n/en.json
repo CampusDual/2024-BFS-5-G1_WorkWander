@@ -239,7 +239,7 @@
   "GROUP_COWORKINGS": "Manage coworkings",
   "GROUP_EVENTS": "Manage events",
   "NO_RESULTS": "No results found",
-  "PRICE_RANGE":"Price",
+  "PRICE_RANGE": "Price",
   "EVENT_CREATE": "Event created!",
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
@@ -251,5 +251,8 @@
   "IN_PROGRESS": "In progress",
   "NO_EVENTS": "No events available",
   "QR_ACCESS": "Access",
-  "QR_DOWNLOAD": "Download Qr"
+  "QR_DOWNLOAD": "Download Qr",
+  "BOOKING_QR": "Booking on",
+  "START": "Start",
+  "END": "End"
 }

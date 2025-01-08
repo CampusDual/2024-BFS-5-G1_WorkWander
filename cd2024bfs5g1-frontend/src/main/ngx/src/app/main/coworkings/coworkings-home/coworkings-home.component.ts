@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import {
   Component,
   HostListener,
@@ -8,6 +9,7 @@ import {
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import {
+  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -27,7 +29,8 @@ import {
   styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
-  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
+  @ViewChild("filterBuilder", { static: true })
+  filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
@@ -37,7 +40,7 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
-  public toPrice:number=0;
+  public toPrice: number = 0;
 
   data: any[];
 
@@ -95,12 +98,12 @@ export class CoworkingsHomeComponent implements OnInit {
     }
   }
 
-  click($event:any){
+  click($event: any) {
     this.toPrice = $event;
   }
 
-  formatLabelUntil():any{
-    return this.toPrice + " €"
+  formatLabelUntil(): any {
+    return this.toPrice + " €";
   }
 
   // Función para crear los filtros de busqueda avanzada
@@ -152,8 +155,10 @@ export class CoworkingsHomeComponent implements OnInit {
           dateNullExpression = FilterExpressionUtils.buildExpressionIsNull(
             fil.attr
           );
-        }else if (fil.attr == "cw_daily_price"){
-          priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
+        } else if (fil.attr == "cw_daily_price") {
+          priceExpressions.push(
+            FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
+          );
         }
       }
     });
@@ -216,7 +221,7 @@ export class CoworkingsHomeComponent implements OnInit {
       locationExpression,
       serviceExpression,
       priceExpression,
-      daterangeExpression
+      daterangeExpression,
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -267,5 +272,17 @@ export class CoworkingsHomeComponent implements OnInit {
     this.coworkingsGrid.onDataLoaded.subscribe(() => {
       this.noResults = this.coworkingsGrid.dataArray.length === 0;
     });
+  }
+
+  // Compara la fecha del coworking con la fecha actual y
+  // devuelve true si la diferencia es menor a 7 días
+  compareDate(startDate: any): boolean {
+
+    // El primer valor representa los dias, en caso de querer 
+    // modificar la cantidad de días a comparar basta con 
+    // modificar ese número.
+    let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
+    let diferencia = this.currentDate().getTime() - startDate;
+    return sieteDiasEnMilisegundos > diferencia;
   }
 }

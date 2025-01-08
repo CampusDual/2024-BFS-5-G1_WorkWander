@@ -25,6 +25,9 @@ export class BookingsHomeComponent {
   @ViewChild("table") table: OTableComponent;
   @ViewChild("coworking_map") coworking_map: OMapComponent;
 
+  public dates = [];
+  public mapVisible = false;
+
   leafletMap: any;
 
   constructor(
@@ -34,32 +37,8 @@ export class BookingsHomeComponent {
     private dialogService: DialogService,
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
-    protected dialog: MatDialog
+    protected dialog: MatDialog,
   ) { }
-
-  ngOnInit(): void {
-    const filter = {
-      bk_state: true,
-    };
-    const columns = [
-      "cw_name",
-      "cw_lat",
-      "cw_lon",
-      "bk_state",
-    ];
-
-    const conf = this.service.getDefaultServiceConfiguration("bookings");
-    this.service.configureService(conf);
-
-    this.service.query(filter, columns, "datesByBooking").subscribe((resp) => {
-
-      this.leafletMap = this.coworking_map.getMapService().getMap();
-
-      for (let index = 0; index < resp.data.length; index++) {
-        this.inicializarMapa(resp.data[index]['cw_lat'], resp.data[index]['cw_lon'], resp.data[index]['cw_name']);
-      }
-    });
-  }
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -146,7 +125,6 @@ export class BookingsHomeComponent {
   }
 
   inicializarMapa(lat, lon, name): void {
-    console.log(name);
 
     // this.leafletMap = this.coworking_map.getMapService().getMap();
     let mapLat = lat;
@@ -158,7 +136,7 @@ export class BookingsHomeComponent {
     }
   }
 
-  private updateMapAndMarker(
+  protected updateMapAndMarker(
     coordinates: string,
     zoom: number,
     markerLabel: string | null
@@ -177,5 +155,50 @@ export class BookingsHomeComponent {
         markerLabel         // menuLabel
       );
     }
+  }
+
+  acercar(data) {
+
+    this.coworking_map.getMapService().setCenter(data['cw_lat'], data['cw_lon']);
+    this.coworking_map.getMapService().setZoom(16);
+  }
+
+  showHideMap() {
+    this.mapVisible = !this.mapVisible;
+
+    if (!this.mapVisible) {
+      this.dates = [];
+    }
+
+    const filter = {
+      bk_state: true,
+    };
+    const columns = [
+      "cw_name",
+      "cw_lat",
+      "cw_lon",
+      "bk_state",
+      "dates"
+    ];
+
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+
+    this.service.query(filter, columns, "datesByBooking").subscribe((resp) => {
+
+
+      this.leafletMap = this.coworking_map.getMapService().getMap();
+
+      for (let index = 0; index < resp.data.length; index++) {
+
+        if (this.utils.calculateState(resp.data[index]) == 'Pendiente' || this.utils.calculateState(resp.data[index]) == 'En curso') {
+
+          this.dates.push(resp.data[index]);
+
+
+          this.inicializarMapa(resp.data[index]['cw_lat'], resp.data[index]['cw_lon'], resp.data[index]['cw_name']);
+        }
+      }
+    });
   }
 }

@@ -1,26 +1,85 @@
-<o-form-layout-manager attr="myBookingsHome" title="{{ 'MY_BOOKINGS' | oTranslate }}" separator=" " mode="none"
-  label-columns="bk_id">
-  <o-table delete-button="no" insert-button="no" #table attr="myCoworkingsTable" service="bookings"
-    entity="datesByBooking" keys="bk_id" columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
-    visible-columns="states;cw_name;date_start;date_end;rate;qrTemplate;cancelCWbooking" query-rows="15"
-    auto-adjust="true" (onClick)="toCoworkingDetail($event)" detail-mode="none">
-    <o-table-columns-filter columns="cw_name;date_start;date_end"></o-table-columns-filter>
-    <o-table-column attr="cw_name" title="COWORKINGS_NAME" width="30%"></o-table-column>
-    <o-table-column-calculated #start_date attr="date_start" title="START_DATE" [operation-function]="dateStart"
-      type="date" format="LL"></o-table-column-calculated>
-    <o-table-column-calculated #end_date attr="date_end" title="END_DATE" [operation-function]="dateEnd" type="date"
-      format="LL"></o-table-column-calculated>
-    <o-table-column attr="states" title="BOOKING_STATE" content-align="center" orderable="no" #states width="14%">
+<o-form-layout-manager
+  attr="myBookingsHome"
+  title="{{ 'MY_BOOKINGS' | oTranslate }}"
+  separator=" "
+  mode="none"
+  label-columns="bk_id"
+>
+  <o-table
+    delete-button="no"
+    insert-button="no"
+    #table
+    attr="myCoworkingsTable"
+    service="bookings"
+    entity="datesByBooking"
+    keys="bk_id"
+    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
+    visible-columns="states;cw_name;date_start;date_end;rate;qrTemplate;cancelCWbooking"
+    query-rows="15"
+    auto-adjust="true"
+    (onClick)="toCoworkingDetail($event)"
+    detail-mode="none"
+  >
+    <o-table-columns-filter
+      columns="cw_name;date_start;date_end"
+    ></o-table-columns-filter>
+    <o-table-column
+      attr="cw_name"
+      title="COWORKINGS_NAME"
+      width="30%"
+    ></o-table-column>
+    <o-table-column-calculated
+      #start_date
+      attr="date_start"
+      title="START_DATE"
+      [operation-function]="dateStart"
+      type="date"
+      format="LL"
+    ></o-table-column-calculated>
+    <o-table-column-calculated
+      #end_date
+      attr="date_end"
+      title="END_DATE"
+      [operation-function]="dateEnd"
+      type="date"
+      format="LL"
+    ></o-table-column-calculated>
+    <o-table-column
+      attr="states"
+      title="BOOKING_STATE"
+      content-align="center"
+      orderable="no"
+      #states
+      width="14%"
+    >
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
-    <o-table-column attr="rate" title="REVIEWS" content-align="center" orderable="no">
+    <o-table-column
+      attr="rate"
+      title="REVIEWS"
+      content-align="center"
+      orderable="no"
+    >
       <app-bookings-rate-render></app-bookings-rate-render>
     </o-table-column>
-    <o-table-column attr="cancelCWbooking" title="CANCEL" content-align="center" #cancelCWbooking orderable="no"
-      width="10%">
+    <o-table-column
+      attr="cancelCWbooking"
+      title="CANCEL"
+      content-align="center"
+      #cancelCWbooking
+      orderable="no"
+      width="10%"
+    >
       <app-bookings-cancel-render></app-bookings-cancel-render>
     </o-table-column>
-    <o-table-column attr="qrTemplate" title="QR_ACCESS" content-align="center" #qrTemplate orderable="no" width="10%">
+    <o-table-column
+      attr="qrTemplate"
+      title="QR_ACCESS"
+      content-align="center"
+      #qrTemplate
+      orderable="no"
+      width="10%"
+    >
       <app-bookings-access-qr></app-bookings-access-qr>
     </o-table-column>
   </o-table>

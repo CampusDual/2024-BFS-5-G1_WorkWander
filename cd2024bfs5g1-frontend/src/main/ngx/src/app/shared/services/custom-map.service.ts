@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OTranslateService } from 'ontimize-web-ngx';
-import { OMapComponent } from "ontimize-web-ngx-map";
 import * as L from 'leaflet';
+import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
+import { OMapComponent } from "ontimize-web-ngx-map";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,18 @@ import * as L from 'leaflet';
 export class CustomMapService {
   constructor(private http: HttpClient, private translate: OTranslateService,) { }
   protected mp: any; //Mapa
+
+  protected service: OntimizeService;
+  public mostrarDiv: boolean = false;
+  private location$ = new Subject<{ latitude: number, longitude: number }>;
+  private location = this.location$.asObservable();
+  selectedCoworking: any = null;
+
+  protected mapLat: number; //Latitud
+  protected mapLon: number; //Longitud
+
+  public coworkings: Coworking[] = [];
+  leafletMap: any;
 
   public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
 
@@ -74,47 +86,123 @@ export class CustomMapService {
     if (marker) {
       this.mp.removeLayer(marker);
     }
-      // Crear y agregar el nuevo marcador
-      marker = L.marker([lat, lon], {title: markerLabel, draggable: true }).addTo(this.mp);
-      marker.options.id = 1; // Añadir la ID al marcador
-      // Evento click del marcador
-      marker.on('click', (event: any) => {
-        let id = event.target.options.id;
-        console.log('Marcador clickeado:', id);
-        alert(`Has clickeado en el marcador: ${markerLabel}`);
+    // Crear y agregar el nuevo marcador
+    marker = L.marker([lat, lon], { title: markerLabel, draggable: true }).addTo(this.mp);
+    marker.options.id = 1; // Añadir la ID al marcador
+    // Evento click del marcador
+    marker.on('click', (event: any) => {
+      let id = event.target.options.id;
+      console.log('Marcador clickeado:', id);
+      alert(`Has clickeado en el marcador: ${markerLabel}`);
+    });
+    // Evento dragend del marcador
+    marker.on('dragend', (event) => {
+      const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
+      latToSave = lat;
+      lonToSave = lng;
+      console.log('Nueva posición: ' + lat + ' ' + lng);
+    });
+  }
+
+
+  public addMarkers(
+    mapa: L.Map,
+    coworkings: Coworking[],
+    onClick: (coworking: Coworking) => void
+  ): void {
+    coworkings.forEach((coworking) => {
+      const marker = L.marker([coworking.lat, coworking.lon], {
+        title: coworking.name,
+        draggable: false,
+      }).addTo(mapa);
+
+      // Asignar la ID del coworking
+      marker.options.id = coworking.id;
+
+      // Evento click para este marcador
+      marker.on('click', () => {
+        // Llamar al callback con los datos del coworking
+        onClick(coworking);
       });
-      // Evento dragend del marcador
-      marker.on('dragend', (event) => {
-        const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
-        latToSave = lat;
-        lonToSave = lng;
-        console.log('Nueva posición: ' + lat + ' ' + lng);
-      });
+    });
+  }
+
+
+  public getUserGeolocation() {
+    console.log("Obteniendo geolocalización del usuario...");
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.setLocation(position.coords.latitude, position.coords.longitude);
+          this.mapLat = position.coords.latitude;
+          this.mapLon = position.coords.longitude;
+          if (this.leafletMap) {
+            this.leafletMap.setView([this.mapLat, this.mapLon], 14);
+            this.obtenerCoworkings();
+
+            this.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
+
+              const columns = [
+                "cw_id",
+                "cw_name",
+                "cw_description",
+                "cw_daily_price",
+                "cw_image"
+              ];
+
+              this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
+                (resp) => {
+                  const coworkingData = resp.data;
+                  if (coworkingData) {
+                    this.selectedCoworking = coworkingData[0];
+                    console.log(this.selectedCoworking);
+                    this.mostrarDiv = true;
+                  }
+                },
+                (error) => {
+                  console.error("Error al consultar los detalles del coworking:", error);
+                }
+              );
+            });
+          }
+        },
+        (err) => {
+          console.error(`Error: ${err.message}`);
+        }
+      );
+    } else {
+      console.error("Geolocalización no compatible en este navegador.");
     }
+  }
 
+  public setLocation(latitude: number, longitude: number) {
+    this.location$.next({ latitude: latitude, longitude: longitude });
+  }
+  public obtenerCoworkings() {
+    const filter = {
+      LAT_ORIGEN: this.mapLat,
+      LON_ORIGEN: this.mapLon,
+      DISTANCE: 5,
+    };
+    const columns = ["cw_id", "cw_name", "cw_lat", "cw_lon", "distancia_km"];
 
-    public addMarkers(
-      mapa: L.Map,
-      coworkings: Coworking[],
-      onClick: (coworking: Coworking) => void
-    ): void {
-      coworkings.forEach((coworking) => {
-        const marker = L.marker([coworking.lat, coworking.lon], {
-          title: coworking.name,
-          draggable: false,
-        }).addTo(mapa);
+    const conf = this.service.getDefaultServiceConfiguration("coworkings");
+    this.service.configureService(conf);
 
-        // Asignar la ID del coworking
-        marker.options.id = coworking.id;
-
-        // Evento click para este marcador
-        marker.on('click', () => {
-          // Llamar al callback con los datos del coworking
-          onClick(coworking);
-        });
-      });
-    }
-
+    this.service.query(filter, columns, "coworkingNearby").subscribe((resp) => {
+      if (resp.code == 0) {
+        console.log(resp.data);
+        this.coworkings = resp.data.map(item => ({
+          id: item.cw_id,
+          name: item.cw_name,
+          lat: +item.cw_lat,
+          lon: +item.cw_lon,
+          distance_km: item.distancia_km
+        }));
+        console.log(this.coworkings);
+      }
+    });
+  }
 }
 
 

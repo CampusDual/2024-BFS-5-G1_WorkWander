@@ -16,10 +16,10 @@ import {
   OIntegerInputComponent,
   OntimizeService,
   OSliderComponent,
-  OSnackBarConfig,
   OTranslateService,
-  SnackBarService,
+  SnackBarService
 } from "ontimize-web-ngx";
+import { CustomMapService } from "src/app/shared/services/custom-map.service";
 
 @Component({
   selector: "app-coworkings-home",
@@ -48,7 +48,8 @@ export class CoworkingsHomeComponent implements OnInit {
     protected sanitizer: DomSanitizer,
     protected router: Router,
     private translate: OTranslateService,
-    protected snackBarService: SnackBarService
+    protected snackBarService: SnackBarService,
+    private mapService: CustomMapService
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -270,7 +271,9 @@ export class CoworkingsHomeComponent implements OnInit {
     });
   }
 
+  //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
+    this.mapService.getUserGeolocation();
   }
 }

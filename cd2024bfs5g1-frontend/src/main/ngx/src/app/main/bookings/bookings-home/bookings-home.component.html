@@ -13,8 +13,8 @@
     service="bookings"
     entity="datesByBooking"
     keys="bk_id"
-    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates;"
-    visible-columns="states;cw_name;date_start;date_end;rate;cancelCWbooking;"
+    columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
+    visible-columns="states;cw_name;date_start;date_end;rate;qrTemplate;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     (onClick)="toCoworkingDetail($event)"
@@ -73,10 +73,12 @@
       <app-bookings-cancel-render></app-bookings-cancel-render>
     </o-table-column>
     <o-table-column
-      attr="bk_id"
-      tittle="QR_CODE"
+      attr="qrTemplate"
+      title="QR_CODE"
       content-align="center"
+      #qrTemplate
       orderable="no"
+      width="10%"
     >
       <app-bookings-access-qr></app-bookings-access-qr>
     </o-table-column>

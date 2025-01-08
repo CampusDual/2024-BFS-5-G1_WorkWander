@@ -1,14 +1,10 @@
-<ng-template>
-  <o-button
-    attr="qrButton"
-    type="RAISED"
-    label="SHOW_QR"
-    (click)="showQRDialog()"
-  >
-    <mat-icon>qr_code</mat-icon>
-  </o-button>
+<ng-template #qrTemplate let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+  <span>
+    <mat-icon
+      [ngClass]="isBookingActive(rowvalue) ? 'qrEnable' : 'qrDisable'"
+      (click)="isBookingActive(rowvalue) && showQRDialog(rowvalue)"
+    >
+      qr_code
+    </mat-icon>
+  </span>
 </ng-template>
-
-<ng-template let-row="row"
-  ><button mat-button (click)="onButtonClick(row)">Click</button></ng-template
->

@@ -1,39 +1,54 @@
-import { Component, Inject, Input } from "@angular/core";
-import { DialogService } from "ontimize-web-ngx";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import {
+  Component,
+  Injector,
+  TemplateRef,
+  ViewChild,
+  ChangeDetectorRef,
+} from "@angular/core";
+import { DialogService, OBaseTableCellRenderer } from "ontimize-web-ngx";
+import { UtilsService } from "src/app/shared/services/utils.service";
+import { SafeUrl } from "@angular/platform-browser";
+import { QRCodeComponent } from "angularx-qrcode";
+import { MatDialog } from "@angular/material/dialog";
+import { QrDialogComponent } from "../qr-dialog/qr-dialog.component";
 
 @Component({
   selector: "app-bookings-access-qr",
   templateUrl: "./bookings-access-qr.component.html",
   styleUrls: ["./bookings-access-qr.component.css"],
 })
-export class BookingsAccessQrComponent {
-  @Input() bookingId: number;
-  public qrData: string = "";
+export class BookingsAccessQrComponent extends OBaseTableCellRenderer {
+  @ViewChild("qrTemplate", { read: TemplateRef, static: true })
+  public templateref: TemplateRef<any>;
 
-  constructor(private dialogService: DialogService) {}
+  public qrCodeData: string = "";
+  public qrCodeDownloadLink: SafeUrl = "";
 
-  ngOnInit() {
-    if (this.bookingId) {
-      this.qrData = JSON.stringify({
-        bookingId: this.bookingId,
-        timestamp: new Date().getTime(),
-      });
-    }
+  constructor(
+    protected injector: Injector,
+    private dialogService: DialogService,
+    private utilsService: UtilsService,
+    private cd: ChangeDetectorRef,
+    private dialog: MatDialog
+  ) {
+    super(injector);
   }
 
-  public showQRDialog(): void {
-    const dialogContent = `
-      <div fxLayout="column" fxLayoutAlign="center center" style="padding: 24px">
-        <qrcode
-          [qrdata]="${this.qrData}"
-          [width]="300"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
-        <span class="qr-info">${"SCAN_QR_MESSAGE"}</span>
-      </div>
-    `;
+  public showQRDialog(rowData: any): void {
+    this.dialog.open(QrDialogComponent, { data: rowData });
+  }
 
-    this.dialogService.info("ACCESS_QR", dialogContent);
+  onChangeURL(url: SafeUrl) {
+    this.qrCodeDownloadLink = url;
+    setTimeout(() => {
+      this.cd.detectChanges();
+    });
+  }
+
+  public isBookingActive(rowData: any): boolean {
+    if (!rowData) return false;
+
+    const estado = this.utilsService.calculateState(rowData);
+    return estado === "Pendiente" || estado === "En curso";
   }
 }

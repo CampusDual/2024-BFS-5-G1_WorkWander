@@ -7,7 +7,7 @@ import { OTranslateService } from "ontimize-web-ngx";
 @Component({
   selector: "app-qr-dialog",
   templateUrl: "./qr-dialog.component.html",
-  styleUrls: ["./qr-dialog.component.css"],
+  styleUrls: ["./qr-dialog.component.scss"],
   providers: [DatePipe],
 })
 export class QrDialogComponent {

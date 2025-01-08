@@ -254,5 +254,6 @@
   "QR_DOWNLOAD": "Download Qr",
   "BOOKING_QR": "Booking on",
   "START": "Start",
-  "END": "End"
+  "END": "End",
+  "QR_INFO_MESSAGE": "Show this QR code at the entrance of the coworking"
 }

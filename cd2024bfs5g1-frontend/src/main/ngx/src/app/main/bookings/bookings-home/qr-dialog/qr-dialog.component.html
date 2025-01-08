@@ -1,0 +1,19 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="padding: 24px">
+  <qrcode
+    [qrdata]="qrCodeData"
+    [elementType]="'canvas'"
+    [errorCorrectionLevel]="'M'"
+    [width]="300"
+    [imageSrc]="'./assets/images/sidenav-closed.svg'"
+    (qrCodeURL)="onChangeURL($event)"
+  ></qrcode>
+
+  <a
+    *ngIf="qrCodeDownloadLink"
+    [href]="qrCodeDownloadLink"
+    [download]="'qr_booking_' + data.bk_id + '.png'"
+    class="download-link"
+  >
+    Descargar QR
+  </a>
+</div>

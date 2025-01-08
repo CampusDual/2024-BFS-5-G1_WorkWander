@@ -47,9 +47,10 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
     @Override
     public EntityResult query(final Map<?, ?> keysValues, final List<?> attributes, final List<?> sort,
             final String queryId, final ISQLQueryAdapter queryAdapter) {
-        final Map<String, Object> hValidKeysValues = new HashMap<>();
-        final int distance = (int) keysValues.remove("DISTANCE");
-        if (distance != 0) {
+        Map<String, Object> hValidKeysValues = (Map<String,Object>) keysValues;
+        if (keysValues.containsKey("DISTANCE")) {
+            hValidKeysValues = new HashMap<>();
+            final int distance = (int) keysValues.remove("DISTANCE");
             final SQLStatementBuilder.BasicField field = new SQLStatementBuilder.BasicField("distancia_km");
             final SQLStatementBuilder.BasicExpression ex = new SQLStatementBuilder.BasicExpression(field,
                     SQLStatementBuilder.BasicOperator.LESS_EQUAL_OP, distance);
@@ -73,20 +74,21 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
 
             final JdbcTemplate jdbcTemplate = this.getJdbcTemplate();
 
-            if (jdbcTemplate != null) {
+            if (jdbcTemplate != null ) {
 
                 final ArgumentPreparedStatementSetter pss = new ArgumentPreparedStatementSetter(vValues.toArray());
+                if(queryId == "coworkingNearby"){
                 /*  Recuperamos los parámetros de Longitud y Latitud */
-                final String latOrigen = keysValues.remove("LAT_ORIGEN").toString();
-                final String lonOrigen = keysValues.remove("LON_ORIGEN").toString();
+                    if (keysValues.containsKey("LAT_ORIGEN")) {
+                        sqlQuery = sqlQuery.replace("#LAT_ORIGEN#", keysValues.remove("LAT_ORIGEN").toString());
+                    }
 
                 /* Asignamos las variables para el parámetro de lat y longitud */
-                if (latOrigen != null) {
-                    sqlQuery = sqlQuery.replace("#LAT_ORIGEN#", latOrigen);
+
+                if (keysValues.containsKey("LON_ORIGEN")) {
+                    sqlQuery = sqlQuery.replace("#LON_ORIGEN#", keysValues.remove("LON_ORIGEN").toString());
                 }
-                if (lonOrigen != null) {
-                    sqlQuery = sqlQuery.replace("#LON_ORIGEN#", lonOrigen);
-                }
+            }
 
                 return jdbcTemplate.query(sqlQuery, pss,
                         new EntityResultResultSetExtractor(this.getStatementHandler(), queryTemplateInformation,

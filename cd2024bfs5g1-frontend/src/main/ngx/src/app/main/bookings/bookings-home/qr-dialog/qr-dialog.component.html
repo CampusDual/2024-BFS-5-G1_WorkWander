@@ -1,0 +1,24 @@
+<div fxLayout="column" fxLayoutAlign="center center" style="padding: 24px">
+  <div class="info-message">
+    {{ "QR_INFO_MESSAGE" | oTranslate }}
+  </div>
+  <qrcode
+    [qrdata]="qrCodeData"
+    [elementType]="'canvas'"
+    [errorCorrectionLevel]="'M'"
+    [width]="300"
+    [imageSrc]="'./assets/images/sidenav-closed.svg'"
+    [imageHeight]="100"
+    [imageWidth]="100"
+    (qrCodeURL)="onChangeURL($event)"
+  ></qrcode>
+
+  <a
+    *ngIf="qrCodeDownloadLink"
+    [href]="qrCodeDownloadLink"
+    [download]="'qr_booking_' + data.bk_id + '.png'"
+    class="download-link"
+  >
+    {{ "QR_DOWNLOAD" | oTranslate }}
+  </a>
+</div>

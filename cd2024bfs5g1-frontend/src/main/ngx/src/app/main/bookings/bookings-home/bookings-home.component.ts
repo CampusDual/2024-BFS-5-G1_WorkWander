@@ -37,8 +37,8 @@ export class BookingsHomeComponent {
     private dialogService: DialogService,
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
-    protected dialog: MatDialog,
-  ) { }
+    protected dialog: MatDialog
+  ) {}
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -125,7 +125,6 @@ export class BookingsHomeComponent {
   }
 
   inicializarMapa(lat, lon, name): void {
-
     // this.leafletMap = this.coworking_map.getMapService().getMap();
     let mapLat = lat;
     let mapLon = lon;
@@ -145,24 +144,29 @@ export class BookingsHomeComponent {
     this.leafletMap.setView([+lat, +lon], zoom);
     if (markerLabel) {
       this.coworking_map.addMarker(
-        markerLabel,        // id
-        lat,                // latitude
-        lon,                // longitude
-        {},                 // options
-        markerLabel,        // popup
-        false,              // hidden
-        true,               // showInMenu
-        markerLabel         // menuLabel
+        markerLabel, // id
+        lat, // latitude
+        lon, // longitude
+        {}, // options
+        markerLabel, // popup
+        false, // hidden
+        true, // showInMenu
+        markerLabel // menuLabel
       );
     }
   }
 
-  acercar(data) {
-
-    this.coworking_map.getMapService().setCenter(data['cw_lat'], data['cw_lon']);
+  async acercar(data) {
+    this.coworking_map
+      .getMapService()
+      .setCenter(data["cw_lat"], data["cw_lon"]);
+    await this.delay(300);
     this.coworking_map.getMapService().setZoom(16);
   }
 
+  async delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
   showHideMap() {
     this.mapVisible = !this.mapVisible;
 
@@ -173,29 +177,26 @@ export class BookingsHomeComponent {
     const filter = {
       bk_state: true,
     };
-    const columns = [
-      "cw_name",
-      "cw_lat",
-      "cw_lon",
-      "bk_state",
-      "dates"
-    ];
+    const columns = ["cw_name", "cw_lat", "cw_lon", "bk_state", "dates"];
 
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
 
     this.service.query(filter, columns, "datesByBooking").subscribe((resp) => {
-
-
       this.leafletMap = this.coworking_map.getMapService().getMap();
 
       for (let index = 0; index < resp.data.length; index++) {
-
-        if (this.utils.calculateState(resp.data[index]) == 'Pendiente' || this.utils.calculateState(resp.data[index]) == 'En curso') {
-
+        if (
+          this.utils.calculateState(resp.data[index]) == "Pendiente" ||
+          this.utils.calculateState(resp.data[index]) == "En curso"
+        ) {
           this.dates.push(resp.data[index]);
 
-          this.inicializarMapa(resp.data[index]['cw_lat'], resp.data[index]['cw_lon'], resp.data[index]['cw_name']);
+          this.inicializarMapa(
+            resp.data[index]["cw_lat"],
+            resp.data[index]["cw_lon"],
+            resp.data[index]["cw_name"]
+          );
         }
       }
     });

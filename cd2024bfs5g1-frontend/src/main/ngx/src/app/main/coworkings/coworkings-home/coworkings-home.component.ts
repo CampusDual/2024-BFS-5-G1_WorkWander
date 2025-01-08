@@ -65,7 +65,8 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-    //this.setFormatPrice();
+    this.mapService.setUserMap(this.coworking_map);
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -261,8 +262,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
-    let fechaFormateada;
-    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
+    let fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
     return fechaFormateada;
   }
 
@@ -285,7 +285,11 @@ export class CoworkingsHomeComponent implements OnInit {
 
     }
   }
-  getCoordenadas(arg0: any, arg1: any): any {
-    console.log(arg0, arg1);
+  nearOfMe() {
+    if (this.mapVisible) {
+      this.mapService.getUserGeolocation();
+      // mandar el mapa al que se dene incluir la marca
+      console.log(this.mapService.getLocation);
+    }
   }
 }

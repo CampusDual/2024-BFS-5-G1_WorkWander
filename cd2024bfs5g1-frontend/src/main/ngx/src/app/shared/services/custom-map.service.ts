@@ -127,6 +127,9 @@ export class CustomMapService {
     });
   }
 
+  public setUserMap(mapaLocal: OMapComponent) {
+    this.leafletMap = mapaLocal.getMapService().getMap();
+  }
 
   public getUserGeolocation() {
     console.log("Obteniendo geolocalización del usuario...");
@@ -181,6 +184,13 @@ export class CustomMapService {
   public setLocation(latitude: number, longitude: number) {
     this.location$.next({ latitude: latitude, longitude: longitude });
   }
+  public getLocation() {
+    let location = new Map<string, string>();
+    location.set("Lat", this.mapLat.toString());
+    location.set("Lan", this.mapLon.toString());
+    return location;
+  }
+
   public obtenerCoworkings() {
     const filter = {
       LAT_ORIGEN: this.mapLat,

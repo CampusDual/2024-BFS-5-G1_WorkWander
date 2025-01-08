@@ -19,6 +19,17 @@
           >
             <mat-icon class="material-icons">map</mat-icon>
           </button>
+          <button
+            *ngIf="mapVisible"
+            class="button-filter"
+            type="RAISED"
+            label="NEAR"
+            class="button btn-outline-light custom-button"
+            matTooltip="{{ 'Position' | oTranslate }}"
+            (click)="nearOfMe()"
+          >
+            <mat-icon class="material-icons">my_location</mat-icon>
+          </button>
         </o-row>
         <o-combo
           #locationField
@@ -135,12 +146,11 @@
         </o-filter-builder>
       </div>
 
-      <div
+      <o-row
         *ngIf="mapVisible"
         title=""
         fxLayoutGap="24px"
         class="columna-imagen-mapa"
-        style="max-height: 40vh"
       >
         <o-map
           #coworking_map
@@ -155,7 +165,7 @@
           fxFlex
         >
         </o-map>
-      </div>
+      </o-row>
     </o-column-collapsible>
   </o-form>
 

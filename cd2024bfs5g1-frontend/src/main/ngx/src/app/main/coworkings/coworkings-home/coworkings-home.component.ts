@@ -274,6 +274,8 @@ export class CoworkingsHomeComponent implements OnInit {
   //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
-    this.mapService.getUserGeolocation();
+    if (this.mapVisible) {
+
+    }
   }
 }

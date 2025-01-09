@@ -250,5 +250,11 @@
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
   "NO_EVENTS": "No events available",
-  "NEXT_BOOKINGS": "My next bookings on route"
+  "NEXT_BOOKINGS": "My next bookings on route",
+  "QR_ACCESS": "Access",
+  "QR_DOWNLOAD": "Download Qr",
+  "BOOKING_QR": "Booking on",
+  "START": "Start",
+  "END": "End",
+  "QR_INFO_MESSAGE": "Show this QR code at the entrance of the coworking"
 }

@@ -1,0 +1,31 @@
+@use "sass:map";
+@import "../../../../../assets/css/workwander.scss";
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.info-message {
+  margin-bottom: 16px;
+  color: $verdeBoton;
+  font-size: $fontSize24;
+  font-weight: bold;
+  text-align: center;
+}
+
+.download-link {
+  color: $verdeBoton;
+  border: 1px solid $verdeBoton;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.download-link:hover {
+  background-color: $verdeBoton;
+  color: #fff;
+}

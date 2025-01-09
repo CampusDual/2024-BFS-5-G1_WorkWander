@@ -1180,15 +1180,20 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
-  p-rating{
+  p-rating {
     color: $amarillo;
   }
 
   .review-title {
     margin-left: 16px;
+    padding: 10px;
+    background-color: #7ba587;
+    color: white;
+    display: inline;
+    border-radius: 8px;
   }
   .review-container {
-    border: solid 1px white;
+    border: solid 1px gray;
     padding: 16px;
     border-radius: 8px;
     width: 90%;
@@ -1197,10 +1202,9 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .login-name {
-    background-color: #7ba587;
+    font-weight: bold;
     padding: 8px;
     border-radius: 8px;
-    color: white;
   }
 
   .media_rating {
@@ -1208,6 +1212,19 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     transform: scale(1.5);
     padding-left: 8px;
   }
+
+  .no-reviews-container {
+    background-color: white;
+    border-radius: 8px;
+    border: solid 1px gray;
+    padding: 12px;
+    width: fit-content;
+    margin-left: 16px;
+  }
+
+  .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base{
+    background-color: #B9CEBF;
+   }
 
   ::ng-deep .o-grid-footer.ng-star-inserted {
     padding-bottom: 16px;
@@ -1391,6 +1408,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize16;
     font-weight: $fontSemiBold;
   }
+}
+
+.btn-bookings-map {
+  border: none;
+  text-align: left;
+  padding: 4px;
+  background-color: transparent;
+}
+
+.btn-bookings-map:hover {
+  background-color: $primaryClaro;
 }
 
 @media (min-width: 768px) {
@@ -1592,9 +1620,21 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 
 .container {
+  max-width: 1200px;
   display: grid;
-  grid-template-columns: 10% 80%;
-  gap: 2rem;
+  gap: 3rem;
+}
+
+@media(min-width:600px){
+  .container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media(min-width:900px){
+  .container {
+    grid-template-columns: repeat(2, 1fr 100%);
+  }
 }
 
 .navigator {

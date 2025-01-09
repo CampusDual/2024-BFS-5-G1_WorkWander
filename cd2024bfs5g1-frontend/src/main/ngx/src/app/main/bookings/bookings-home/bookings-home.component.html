@@ -5,6 +5,62 @@
   mode="none"
   label-columns="bk_id"
 >
+  <div
+    fxLayout="row"
+    fxLayoutGap="16px"
+    style="align-items: center; padding-bottom: 8px"
+  >
+    <span>{{ "NEXT_BOOKINGS" | oTranslate }}</span>
+    <button
+      class="button-filter button btn-outline-light custom-button"
+      type="RAISED"
+      label="POSITIOM"
+      (click)="showHideMap()"
+    >
+      <mat-icon class="mat-icon" style="margin: 0 8px">map</mat-icon>
+    </button>
+  </div>
+  <div
+    *ngIf="mapVisible"
+    title=""
+    fxLayout="row"
+    fxLayoutGap="24px"
+    class="columna-imagen-mapa"
+  >
+    <div fxLayout="column" style="width: 70%">
+      <o-map
+        #coworking_map
+        attr="coworking_map"
+        zoom="16"
+        min-zoom="6"
+        max-zoom="18"
+        zoom-control="yes"
+        search-control="no"
+        layer-panel-visible="no"
+        fxFlex
+        class="modal-form"
+      >
+      </o-map>
+    </div>
+    <div
+      fxLayout="column"
+      fxLayoutGap="16px"
+      style="max-height: 500px; overflow-y: scroll"
+    >
+      <button
+        *ngFor="let item of dates"
+        (click)="acercar(item)"
+        class="button-filter button btn-outline-light custom-button btn-bookings-map"
+      >
+        {{ utils.formatShortDate(item.dates[0]) }}
+        <span>-</span>
+        {{ utils.formatShortDate(item.dates[item.dates.length - 1]) }}
+        <span>|</span>
+        {{ item.cw_name }}
+      </button>
+    </div>
+  </div>
+
   <o-table
     delete-button="no"
     insert-button="no"
@@ -14,7 +70,7 @@
     entity="datesByBooking"
     keys="bk_id"
     columns="bk_id;bk_usr_id;bk_cw_id;cw_name;bk_state;bkr_ratio;dates"
-    visible-columns="states;cw_name;date_start;date_end;rate;cancelCWbooking"
+    visible-columns="states;cw_name;date_start;date_end;rate;qrTemplate;cancelCWbooking"
     query-rows="15"
     auto-adjust="true"
     (onClick)="toCoworkingDetail($event)"
@@ -43,7 +99,6 @@
       [operation-function]="dateEnd"
       type="date"
       format="LL"
-      
     ></o-table-column-calculated>
     <o-table-column
       attr="states"
@@ -55,7 +110,12 @@
     >
       <app-bookings-state-render></app-bookings-state-render>
     </o-table-column>
-    <o-table-column attr="rate" title="REVIEWS" content-align="center" orderable="no">
+    <o-table-column
+      attr="rate"
+      title="REVIEWS"
+      content-align="center"
+      orderable="no"
+    >
       <app-bookings-rate-render></app-bookings-rate-render>
     </o-table-column>
     <o-table-column
@@ -67,6 +127,16 @@
       width="10%"
     >
       <app-bookings-cancel-render></app-bookings-cancel-render>
+    </o-table-column>
+    <o-table-column
+      attr="qrTemplate"
+      title="QR_ACCESS"
+      content-align="center"
+      #qrTemplate
+      orderable="no"
+      width="10%"
+    >
+      <app-bookings-access-qr></app-bookings-access-qr>
     </o-table-column>
   </o-table>
 </o-form-layout-manager>

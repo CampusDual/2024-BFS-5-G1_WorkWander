@@ -1,0 +1,114 @@
+@use "sass:map";
+@import "../../../../assets/css/workwander.scss";
+
+.chart-container {
+  padding: 20px;
+  background-color: rgba($blanco, 0.4);
+  border-radius: $borderRadius;
+
+  .title {
+    text-align: left;
+    margin-bottom: 30px;
+    max-width: 800px;
+    width: 100%;
+    h1 {
+      color: black;
+      font-size: $fontSize25;
+      text-align: left;
+    }
+  }
+
+  .selector-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    max-width: 1200px;
+    width: 90%;
+    text-align: left;
+    margin-bottom: 20px;
+
+    .input-selector {
+      width: 100%;
+
+      o-combo,
+      o-daterange-input {
+        width: 100%;
+
+        .mat-mdc-form-field {
+          width: 100%;
+          background-color: $accentClaro;
+          border-radius: $borderRadius;
+        }
+      }
+    }
+  }
+
+  .chart-wrapper {
+    width: 95%;
+    o-chart {
+      width: 100%;
+      min-height: 500px;
+      background-color: rgba($blanco, 0.6);
+      border-radius: $borderRadius;
+      display: block;
+    }
+  }
+}
+
+.noResults {
+  text-align: left;
+  max-width: 800px;
+  width: 100%;
+  color: $primary;
+  font-size: $fontSize25;
+}
+
+// Estilos responsive
+@media (min-width: 768px) {
+  .chart-container {
+    .selector-container {
+      flex-direction: row;
+
+      .input-selector {
+        width: 48%;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .chart-container .chart-wrapper o-chart {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-container {
+    .title h1 {
+      font-size: $fontSize20;
+    }
+
+    .selector-container {
+      gap: 15px;
+    }
+
+    .chart-wrapper {
+      o-chart {
+        min-height: 300px;
+      }
+    }
+  }
+}
+
+// Estilos específicos para el gráfico
+o-chart {
+  background-color: rgba($blanco, 0.6);
+  border-radius: $borderRadius;
+}
+
+.chart-legend .legend-label {
+  cursor: pointer;
+  font-size: 90%;
+  margin: 8px;
+  color: black !important;
+}

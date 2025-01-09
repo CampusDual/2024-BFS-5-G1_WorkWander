@@ -79,7 +79,7 @@ export class CustomMapService {
     return null;
   }
 
-  private addMark(mapa: OMapComponent, lat: number, lon: number): void {
+  public addMark(mapa: OMapComponent, lat: number, lon: number): void {
     this.mp = mapa.getMapService().getMap();
     if (!this.mp) {
       console.error('El mapa no está inicializado.');
@@ -150,7 +150,7 @@ export class CustomMapService {
   }
 
   public getUserGeolocation() {
-    // console.log("Obteniendo geolocalización del usuario...");
+    console.log("Obteniendo geolocalización del usuario...");
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -158,7 +158,7 @@ export class CustomMapService {
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
 
-          //   console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
+          console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
 
           if (this.leafletMap) {
             this.leafletMap.setView([this.mapLat, this.mapLon], 14);
@@ -206,7 +206,7 @@ export class CustomMapService {
   public getLocation() {
     let location = new Map<string, string>();
     location.set("Lat", this.mapLat.toString());
-    location.set("Lan", this.mapLon.toString());
+    location.set("Lon", this.mapLon.toString());
     return location;
   }
 

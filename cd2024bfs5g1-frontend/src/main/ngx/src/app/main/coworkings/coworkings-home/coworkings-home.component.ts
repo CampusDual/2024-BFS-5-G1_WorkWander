@@ -65,7 +65,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-    this.mapService.setUserMap(this.coworking_map);
+
 
   }
 
@@ -282,11 +282,20 @@ export class CoworkingsHomeComponent implements OnInit {
 
   nearOfMe() {
     if (this.mapVisible) {
+      this.mapService.setUserMap(this.coworking_map);
       this.mapService.getUserGeolocation();
+      // recuperamos la latitud y longitud para mandarla por parámetro
+      const latLon = this.mapService.getLocation();
+      const lat = +latLon.get('Lat');
+      const lon = +latLon.get('Lon');
+
+      this.mapService.addMark(this.coworking_map, lat, lon);
+      console.log(this.coworkingsGrid.dataArray.length);
     }
   }
 
   setCityPosition() {
     // getCityCoordinates
+
   }
 }

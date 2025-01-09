@@ -15,9 +15,6 @@ import { MainService } from './shared/services/main.service';
 
 import { O_GEOCODING_SERVICE, OMapModule } from 'ontimize-web-ngx-map';
 import { CustomGeocodingService } from './shared/services/custom-geocoding.service';
-import { OMapModule } from "ontimize-web-ngx-map";
-import { CustomGeocodingService } from "./shared/services/custom-geocoding.service";
-import { O_GEOCODING_SERVICE } from "ontimize-web-ngx-map";
 import { QRCodeModule } from "angularx-qrcode";
 
 // Standard providers...

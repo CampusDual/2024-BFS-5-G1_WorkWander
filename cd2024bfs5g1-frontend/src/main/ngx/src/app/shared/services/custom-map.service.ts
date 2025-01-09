@@ -86,15 +86,15 @@ export class CustomMapService {
     const markerOptions = {
       draggable: true,
       icon: L.icon({
-        iconUrl: 'assets/icons/ubicacion.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
+        iconUrl: 'assets/icons/pocoyo.gif',
+        iconSize: [48, 48],
+        iconAnchor: [16, 16],
       }),
     };
 
     const marker = L.marker([lat, lon], markerOptions);
     marker.bindPopup(this.translate.get("MY_UBICATION"), {
-      offset: L.point(0, -25), // Mueve el popup
+      offset: L.point(0, -15), // Mueve el popup
     }).openPopup();
     marker.addTo(this.leafletMap);
     console.log(`Marcador añadido en: Latitud ${lat}, Longitud ${lon}`);

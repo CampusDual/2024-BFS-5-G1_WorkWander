@@ -249,6 +249,8 @@
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
   "MY_SPACE": "Mi espacio",
+  "NO_EVENTS": "No hay eventos disponibles",
+  "NEXT_BOOKINGS": "Mis próximas reservas en ruta",
   "FACTURATION": "Facturación",
   "JANUARY":"Enero",
   "FEBRUARY":"Febrero",
@@ -280,6 +282,5 @@
   "BOOKING_QR": "Reserva en",
   "START": "Inicio",
   "END": "Final",
-  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
-  "NO_EVENTS": "No hay eventos disponibles"
+  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking"
 }

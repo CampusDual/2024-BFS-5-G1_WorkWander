@@ -1180,7 +1180,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
-  p-rating{
+  p-rating {
     color: $amarillo;
   }
 
@@ -1391,6 +1391,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize16;
     font-weight: $fontSemiBold;
   }
+}
+
+.btn-bookings-map {
+  border: none;
+  text-align: left;
+  padding: 4px;
+  background-color: transparent;
+}
+
+.btn-bookings-map:hover {
+  background-color: $primaryClaro;
 }
 
 @media (min-width: 768px) {

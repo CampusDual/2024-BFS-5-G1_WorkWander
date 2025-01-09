@@ -164,6 +164,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   onCoworkingChange(selectedNames: OValueChangeEvent) {
     if (selectedNames.type === 0) {
       this.selectedCoworkings = selectedNames.newValue;
+      this.setMonth();
     }
   }
 

@@ -284,5 +284,8 @@
   "END": "Final",
   "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
   "NO_EVENTS": "No hay eventos disponibles",
+  "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
+  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
+  "NO_EVENTS": "No hay eventos disponibles",
   "MY_UBICATION": "Su posición"
 }

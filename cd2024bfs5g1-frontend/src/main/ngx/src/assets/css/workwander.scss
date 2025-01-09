@@ -1234,9 +1234,14 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
   .review-title {
     margin-left: 16px;
+    padding: 10px;
+    background-color: #7ba587;
+    color: white;
+    display: inline;
+    border-radius: 8px;
   }
   .review-container {
-    border: solid 1px white;
+    border: solid 1px gray;
     padding: 16px;
     border-radius: 8px;
     width: 90%;
@@ -1245,10 +1250,9 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .login-name {
-    background-color: #7ba587;
+    font-weight: bold;
     padding: 8px;
     border-radius: 8px;
-    color: white;
   }
 
   .media_rating {
@@ -1256,6 +1260,19 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     transform: scale(1.5);
     padding-left: 8px;
   }
+
+  .no-reviews-container {
+    background-color: white;
+    border-radius: 8px;
+    border: solid 1px gray;
+    padding: 12px;
+    width: fit-content;
+    margin-left: 16px;
+  }
+
+  .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base{
+    background-color: #B9CEBF;
+   }
 
   ::ng-deep .o-grid-footer.ng-star-inserted {
     padding-bottom: 16px;
@@ -1349,19 +1366,42 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       padding: 5px;
       margin: 0%;
 
+      /*Generalizacion de la visualización de los indicadores del carrusel para diferentes navegadores*/
       button {
-        width: 7px;
-        height: 14px;
+        all: unset; /*Resetea los estilos predeterminados*/
+        display: inline-block;
+        width: 3px;
+        height: 3px;
         border-radius: 50%;
-        border: 2px solid $primary;
-        background-color: transparent;
+        border: 2px solid rgba($primary, 0.1);
+        background-color: gray;
         transition: all 0.3s ease;
         cursor: pointer;
+        outline: none; 
+      }
+      
+      button:hover {
+        background-color: gray;
+        transform: scale(1.1);
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+      }
+      
+      button:focus {
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+      }
 
-        &:hover {
-          background-color: $accent;
-          transform: scale(1.1);
-        }
+      /*Elimina la sombra azul del primer botón cuando no está activo*/
+      button:not(:focus):not(:hover) {
+        box-shadow: none;
+      }
+
+      button.active {
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+      }
+
+      /*Cuando el segundo botón está seleccionado, se le aplica la sombra*/
+      button.active:hover {
+        box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
       }
 
       &.p-highlight button {

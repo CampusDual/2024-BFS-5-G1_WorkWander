@@ -242,7 +242,7 @@ public class BookingService implements IBookingService {
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, BookingDao.OCCUPATION_BY_DATES);
     }
 
-    private static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
+    public static ArrayList<Date> getIntermediateDates(final ArrayList<Date> dates) {
         final Date startDate = dates.get(0);
         final Date finalDate = dates.get(1);
         dates.clear();

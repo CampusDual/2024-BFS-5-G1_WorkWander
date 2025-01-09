@@ -38,6 +38,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
     id: "analytics", name: "ANALYTICS", icon: "query_stats",
     items: [
       { id: "occupation", name: "OCCUPATION", route: "/main/analytics/occupation", icon: "show_chart" },
+      { id: "analyticsFacturation", name: "FACTURATION", route: "/main/analytics/facturation", icon: "savings" },
     ],
   },
   { id: 'nearbyCoworking', name: 'NEARBY_COWORKINGS', tooltip: 'NEARBY_COWORKINGS', route: '/main/coworkings/nearby-coworking', icon: 'map-location-dot' },

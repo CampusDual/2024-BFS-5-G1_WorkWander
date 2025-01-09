@@ -1,14 +1,15 @@
 <div class="grid-container">
   <h1>{{ "MY_CALENDAR" | oTranslate }}</h1>
 </div>
-<main class="container">  
+<main class="container">
   <daypilot-navigator
+  class="navigator"
     [config]="configNavigator"
     [events]="events"
     [(date)]="date"
     (dateChange)="changeDate($event)"
     #navigator
-  ></daypilot-navigator>  
+  ></daypilot-navigator>
   <div class="content">
     <div class="buttons-c">
       <button class="button-c"
@@ -44,6 +45,6 @@
       [config]="configMonth"
       [events]="events"
       #month
-    ></daypilot-month>    
-  </div>  
+    ></daypilot-month>
+  </div>
 </main>

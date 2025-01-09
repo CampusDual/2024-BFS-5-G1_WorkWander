@@ -15,13 +15,17 @@ import { MainService } from './shared/services/main.service';
 
 import { O_GEOCODING_SERVICE, OMapModule } from 'ontimize-web-ngx-map';
 import { CustomGeocodingService } from './shared/services/custom-geocoding.service';
+import { OMapModule } from "ontimize-web-ngx-map";
+import { CustomGeocodingService } from "./shared/services/custom-geocoding.service";
+import { O_GEOCODING_SERVICE } from "ontimize-web-ngx-map";
+import { QRCodeModule } from "angularx-qrcode";
 
 // Standard providers...
 // Defining custom providers (if needed)...
 export const customProviders: any = [
   MainService,
-  { provide: O_MAT_ERROR_OPTIONS, useValue: { type: 'lite' } },
-  { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }
+  { provide: O_MAT_ERROR_OPTIONS, useValue: { type: "lite" } },
+  { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: "fill" } },
 ];
 
 @NgModule({
@@ -31,23 +35,22 @@ export const customProviders: any = [
     OntimizeWebModule.forRoot(CONFIG),
     OntimizeWebModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register("ngsw-worker.js", {
+      enabled: environment.production,
+    }),
     MatIconModule,
-    OMapModule
+    OMapModule,
+    QRCodeModule,
   ],
-  declarations: [
-    AppComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
   providers: [
     { provide: APP_CONFIG, useValue: CONFIG },
     ONTIMIZE_PROVIDERS,
     { provide: O_PERMISSION_SERVICE, useValue: CustomPermissionsService },
-    { provide: O_FORM_GLOBAL_CONFIG, useValue: { headersActions: 'C,U' } },
+    { provide: O_FORM_GLOBAL_CONFIG, useValue: { headersActions: "C,U" } },
     ...customProviders,
-    { provide: O_GEOCODING_SERVICE, useValue: CustomGeocodingService }
+    { provide: O_GEOCODING_SERVICE, useValue: CustomGeocodingService },
   ],
 })
-export class AppModule { }
+export class AppModule {}

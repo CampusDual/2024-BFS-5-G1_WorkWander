@@ -120,48 +120,6 @@ export class MyCalendarHomeComponent implements OnInit {
           this.events.push(object);
         }
       });
-
-
-    const bk_filter = {
-      bk_state: true,
-    };
-    const bk_columns = ["cw_name", "bk_state", "dates"];
-
-    const conf = this.service.getDefaultServiceConfiguration("bookings");
-    this.service.configureService(conf);
-
-    this.service.query(bk_filter, bk_columns, "datesByBooking").subscribe((resp) => {
-
-      for (let index = 0; index < resp.data.length; index++) {
-        for (let f = 0; f < resp.data[index].dates.length; f++) {
-
-          const date = new Date(resp.data[index].dates[f]);
-
-          if (this.utils.calculateState(resp.data[index]) == 'En curso') {
-            this.color = "#9B5278"
-          } else if (this.utils.calculateState(resp.data[index]) == 'Pendiente') {
-            this.color = "#DA954B"
-          } else {
-            this.color = "#4d4d4d"
-          }
-
-          const object = {
-            id: index + 1,
-            start: this.createInitDate(date) + 'T08:00:00',
-            end: this.createInitDate(date) + 'T22:00:00',
-            text: resp.data[index].cw_name,
-            backColor: this.color,
-            barColor: this.color
-          }
-          this.events.push(object);
-        }
-      }
-
-    });
-
-
-
-
   }
 
   createInitDate(date: any): string {

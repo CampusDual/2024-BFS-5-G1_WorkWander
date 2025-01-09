@@ -1180,7 +1180,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
-  p-rating{
+  p-rating {
     color: $amarillo;
   }
 
@@ -1319,8 +1319,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       margin: 0%;
 
       button {
-        width: 12px;
-        height: 12px;
+        width: 7px;
+        height: 14px;
         border-radius: 50%;
         border: 2px solid $primary;
         background-color: transparent;
@@ -1408,6 +1408,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize16;
     font-weight: $fontSemiBold;
   }
+}
+
+.btn-bookings-map {
+  border: none;
+  text-align: left;
+  padding: 4px;
+  background-color: transparent;
+}
+
+.btn-bookings-map:hover {
+  background-color: $primaryClaro;
 }
 
 @media (min-width: 768px) {

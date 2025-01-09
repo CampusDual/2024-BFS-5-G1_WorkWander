@@ -1,0 +1,23 @@
+.qrEnable {
+  color: #1464a5;
+  cursor: pointer;
+}
+
+.qrDisable {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.download-link {
+  margin-top: 16px;
+  color: #1464a5;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 1px solid #1464a5;
+  border-radius: 4px;
+}
+
+.download-link:hover {
+  background-color: #1464a5;
+  color: white;
+}

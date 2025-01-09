@@ -81,7 +81,6 @@ export class CustomMapService {
   }
 
   public addMyMarker(leafletMap: L, lat: number, lon: number) {
-    leafletMap.setView([lat, lon], 4);
 
     // Agregar marcador personalizado al realizar la búsqueda
     const markerOptions = {
@@ -181,6 +180,7 @@ export class CustomMapService {
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
           this.leafletMap.setView([this.mapLat, this.mapLon], 14);
+          this.addMyMarker(this.leafletMap, this.mapLat, this.mapLon);
           resolve();
         },
         (error) => {

@@ -250,5 +250,6 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
-  "NO_EVENTS": "No events available"
+  "NO_EVENTS": "No events available",
+  "MY_UBICATION": "Your position"
 }

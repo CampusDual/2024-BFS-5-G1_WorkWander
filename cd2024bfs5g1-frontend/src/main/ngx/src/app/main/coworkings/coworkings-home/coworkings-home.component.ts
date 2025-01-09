@@ -55,7 +55,6 @@ export class CoworkingsHomeComponent implements OnInit {
     protected snackBarService: SnackBarService,
     private mapService: CustomMapService,
 
-
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -265,8 +264,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
-    let fechaFormateada;
-    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
+    let fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
     return fechaFormateada;
   }
 
@@ -294,4 +292,23 @@ export class CoworkingsHomeComponent implements OnInit {
       });
     }
   }
+  nearOfMe() {
+    if (this.mapVisible) {
+      this.mapService.setUserMap(this.coworking_map);
+      this.mapService.getUserGeolocation();
+      // recuperamos la latitud y longitud para mandarla por parámetro
+      const latLon = this.mapService.getLocation();
+      const lat = +latLon.get('Lat');
+      const lon = +latLon.get('Lon');
+
+      this.mapService.addMark(this.coworking_map, lat, lon);
+      console.log(this.coworkingsGrid.dataArray.length);
+    }
+  }
+
+  setCityPosition() {
+    // getCityCoordinates
+
+  }
+
 }

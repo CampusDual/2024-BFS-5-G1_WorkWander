@@ -42,6 +42,24 @@ export class CustomMapService {
 
     }
   }
+
+  public async getCityCoordinates(city: string): Promise<string | null> {
+    const encodedCity = encodeURIComponent(city);
+    const encodedCountry = encodeURIComponent("Spain");
+
+    try {
+      const url = `https://nominatim.openstreetmap.org/search?city=${encodedCity}&country=${encodedCountry}&format=json&addressdetails=1`;
+      const response = await this.http.get<any>(url).toPromise();
+      if (response?.length > 0) {
+        const { lat, lon } = response[response.length - 1]; //Obtiene la última posición de la respuesta que es la más precisa
+        return `${lat};${lon}`;
+      }
+    } catch (error) {
+      console.log("API_ERROR" + error);
+    }
+    return null;
+  }
+
   public async getCoordinates(city: string, street: string): Promise<string | null> {
     const encodedCity = encodeURIComponent(city);
     const encodedStreet = encodeURIComponent(street);
@@ -126,6 +144,9 @@ export class CustomMapService {
     });
   }
 
+  public setUserMap(mapaLocal: OMapComponent) {
+    this.leafletMap = mapaLocal.getMapService().getMap();
+  }
 
   public getUserGeolocation(coworkingMap: L.map) {
     console.log("Obteniendo geolocalización del usuario...");
@@ -180,6 +201,14 @@ export class CustomMapService {
   public setLocation(latitude: number, longitude: number) {
     this.location$.next({ latitude: latitude, longitude: longitude });
   }
+
+  public getLocation() {
+    let location = new Map<string, string>();
+    location.set("Lat", this.mapLat.toString());
+    location.set("Lon", this.mapLon.toString());
+    return location;
+  }
+
   public obtenerCoworkings() {
     const filter = {
       LAT_ORIGEN: this.mapLat,
@@ -206,8 +235,6 @@ export class CustomMapService {
     });
   }
 }
-
-
 
 export interface ImapAddress {
   lat: number;

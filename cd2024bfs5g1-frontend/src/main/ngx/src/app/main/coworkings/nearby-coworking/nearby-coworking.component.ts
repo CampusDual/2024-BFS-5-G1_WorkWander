@@ -15,6 +15,7 @@ import {
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 import { Coworking,ImapAddress,CustomMapService } from 'src/app/shared/services/custom-map.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: "app-nearby-coworking",
@@ -66,9 +67,7 @@ export class NearbyCoworkingComponent implements OnInit {
         console.error("El mapa aún no está listo.");
       }
     }, 1000);
-
   }
-
   getImageSrc(base64Image: string): string {
     if (!base64Image) {
       return './assets/images/coworking-default.jpg';
@@ -94,8 +93,6 @@ export class NearbyCoworkingComponent implements OnInit {
     );
     const cityName = cityObject ? cityObject.city : null;
 
-    // this.customMapservice();
-
     if (!cityName || !address) {
       this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
@@ -108,32 +105,39 @@ export class NearbyCoworkingComponent implements OnInit {
         let [lat, lon] = results.split(";");
         this.mapLat = +lat;
         this.mapLon = +lon;
+
         if (this.coworking_map && this.coworking_map.getMapService()) {
           if (this.leafletMap) {
             this.leafletMap.setView([+lat, +lon], 16);
+
+            // Agregar marcador personalizado al realizar la búsqueda
+            const markerOptions = {
+              draggable: true,
+              icon: L.icon({
+                iconUrl: 'assets/icons/ubicacion.png',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+              }),
+            };
+
+            const marker = L.marker([+lat, +lon], markerOptions);
+            marker.bindPopup(this.translate.get("MY_UBICATION"), {
+              offset: L.point(0, -25), // Mueve el popup
+            }).openPopup();
+            marker.addTo(this.leafletMap);
+            console.log(`Marcador añadido en: Latitud ${lat}, Longitud ${lon}`);
           } else {
             console.error("El mapa no está inicializado.");
           }
         } else {
           console.error("El servicio del mapa no está disponible.");
         }
+
         this.validAddress = true;
-
         this.obtenerCoworkings();
-
-        this.coworking_map.addMarker(
-          "coworking_marker", // id
-          lat, // latitude
-          lon, // longitude
-          { draggable: true }, // options
-          this.translate.get("COWORKING_MARKER"), // popup
-          false, // hidden
-          true, // showInMenu
-          this.translate.get("COWORKING_MARKER") // menuLabel
-        );
         this.showDiv(true);
       } else {
-        //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
+        // Si se ingresa una dirección que la API no reconoce -> Reseteo de la vista a Madrid y zoom 6
         this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
         this.leafletMap.setView([40.416775, -3.70379], 6);
         this.showDiv(false);

@@ -294,14 +294,26 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   nearOfMe() {
     if (this.mapVisible) {
-      this.mapService.setUserMap(this.coworking_map);
-      this.mapService.getUserGeolocation();
+      setTimeout(() => {
+        this.leafletMap = this.coworking_map.getMapService().getMap();
+        if (this.leafletMap) {
+          console.log("Mapa inicializado correctamente:", this.leafletMap);
+          this.mapService.setUserMap(this.coworking_map);
+          this.mapService.getUserGeolocation();
+        } else {
+          console.error("El mapa aún no está listo.");
+        }
+      }, 1000);
+      // this.mapService.setUserMap(this.coworking_map);
+      // this.mapService.getUserGeolocation();
+
       // recuperamos la latitud y longitud para mandarla por parámetro
+
       const latLon = this.mapService.getLocation();
       const lat = +latLon.get('Lat');
       const lon = +latLon.get('Lon');
+      this.mapService.addMyMarker(this.leafletMap, lat, lon);
 
-      this.mapService.addMark(this.coworking_map, lat, lon);
       console.log(this.coworkingsGrid.dataArray.length);
     }
   }

@@ -78,13 +78,34 @@ export class CustomMapService {
     return null;
   }
 
+  public addMyMarker(leafletMap: L, lat: number, lon: number) {
+    leafletMap.setView([lat, lon], 4);
+
+    // Agregar marcador personalizado al realizar la búsqueda
+    const markerOptions = {
+      draggable: true,
+      icon: L.icon({
+        iconUrl: 'assets/icons/ubicacion.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+      }),
+    };
+
+    const marker = L.marker([lat, lon], markerOptions);
+    marker.bindPopup(this.translate.get("MY_UBICATION"), {
+      offset: L.point(0, -25), // Mueve el popup
+    }).openPopup();
+    marker.addTo(this.leafletMap);
+    console.log(`Marcador añadido en: Latitud ${lat}, Longitud ${lon}`);
+  }
+
   public addMark(mapa: OMapComponent, lat: number, lon: number): void {
     this.mp = mapa.getMapService().getMap();
     if (!this.mp) {
       console.error('El mapa no está inicializado.');
       return
     }
-    this.mp.setView([+lat, +lon], 16);
+    this.mp.setView([+lat, +lon], 4);
     mapa.addMarker('coworking_marker',           // id
       lat,                        // latitude
       lon,                        // longitude
@@ -148,7 +169,7 @@ export class CustomMapService {
     this.leafletMap = mapaLocal.getMapService().getMap();
   }
 
-  public getUserGeolocation(coworkingMap: L.map) {
+  public getUserGeolocation() {
     console.log("Obteniendo geolocalización del usuario...");
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(

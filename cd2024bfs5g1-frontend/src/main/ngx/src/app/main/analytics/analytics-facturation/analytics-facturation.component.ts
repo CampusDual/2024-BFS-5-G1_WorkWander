@@ -37,7 +37,6 @@ import moment, { locale } from "moment";
 export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   selectedCoworkings: string[] = [];
   allCowork: number[] = [];
-  allCoworkNames:string[] = [];
   selectedMonths: number[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
@@ -117,7 +116,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.typeData ="MONTHS"
     this.allMonths();
     this.points = "...";
-    this.allCoworkings();
     this.locale=this.translate.getCurrentLang();
     this.comboCoworkingInput.onDataLoaded.subscribe((rest: any) => {
       const data = this.comboCoworkingInput.getDataArray()
@@ -126,24 +124,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
       this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']])
     })
 
-  }
-
-  /**
-   * Recupera todos los coworkings para hacer la solicitud de datos por defecto
-  */
-  allCoworkings() {
-    let configurationService =
-      this.service.getDefaultServiceConfiguration("coworkings");
-    this.service.configureService(configurationService);
-    let filter = {};
-    let columns = ["cw_id", "cw_name"];
-    this.service.query(filter, columns, "coworkingByUser").subscribe((data) => {
-      this.comboCoworkingInput.data=data.data
-      for (let d = 0; d < data.data.length; d++) {
-        this.allCowork.push(data.data[d]["cw_id"]);
-      }
-      this.setMonth();
-    });
   }
 
   /**
@@ -325,11 +305,11 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
           }
         }else{
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].name].name);
+
         }
       }
     }
   }
-
 
   /**
    * Se muestra el mensaje en el toast

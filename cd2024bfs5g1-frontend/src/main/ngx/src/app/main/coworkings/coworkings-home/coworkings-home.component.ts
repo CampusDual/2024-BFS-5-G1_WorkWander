@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
+import * as L from 'leaflet';
 import {
   Expression,
   FilterExpressionUtils,
@@ -42,7 +43,7 @@ export class CoworkingsHomeComponent implements OnInit {
   public idioma: string;
   public toPrice: number = 0;
   public mapVisible: boolean = false;
-
+  leafletMap: L;
   data: any[];
 
   // Creamos constructor
@@ -53,6 +54,7 @@ export class CoworkingsHomeComponent implements OnInit {
     private translate: OTranslateService,
     protected snackBarService: SnackBarService,
     private mapService: CustomMapService,
+
 
   ) {
     this.service = this.injector.get(OntimizeService);
@@ -65,7 +67,9 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
+    this.leafletMap = this.coworking_map.getMapService().getMap();
     //this.setFormatPrice();
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -272,20 +276,22 @@ export class CoworkingsHomeComponent implements OnInit {
     // Escucha los cambios en data del grid
     this.coworkingsGrid.onDataLoaded.subscribe(() => {
       this.noResults = this.coworkingsGrid.dataArray.length === 0;
+      this.updateMapMarkers();
     });
   }
 
   //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
-
-    if (this.mapVisible) {
-      this.mapService.getUserGeolocation();
-      // mandar el mapa al que se dene incluir la marca
-
-    }
   }
-  getCoordenadas(arg0: any, arg1: any): any {
-    console.log(arg0, arg1);
+
+  updateMapMarkers() {
+    if (this.mapVisible) {
+      const coworkings = this.coworkingsGrid.dataArray;
+
+      coworkings.forEach((coworking) => {
+        this.mapService.addMark(this.coworking_map, coworking.cw_lat, coworking.cw_lon)
+      });
+    }
   }
 }

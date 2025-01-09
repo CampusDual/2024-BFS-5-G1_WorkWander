@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +21,7 @@ export class CustomMapService {
   protected mapLon: number; //Longitud
 
   public coworkings: Coworking[] = [];
-  leafletMap: any;
+  leafletMap: L;
 
   public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
 
@@ -61,7 +60,7 @@ export class CustomMapService {
     return null;
   }
 
-  private addMark(mapa: OMapComponent, lat: number, lon: number): void {
+  public addMark(mapa: OMapComponent, lat: number, lon: number): void {
     this.mp = mapa.getMapService().getMap();
     if (!this.mp) {
       console.error('El mapa no está inicializado.');
@@ -128,17 +127,17 @@ export class CustomMapService {
   }
 
 
-  public getUserGeolocation() {
+  public getUserGeolocation(coworkingMap: L.map) {
     console.log("Obteniendo geolocalización del usuario...");
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          this.setLocation(position.coords.latitude, position.coords.longitude);
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
 
           console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
 
+          console.log("Mapa obtenido:", this.leafletMap);
           if (this.leafletMap) {
             this.leafletMap.setView([this.mapLat, this.mapLon], 14);
             this.obtenerCoworkings();

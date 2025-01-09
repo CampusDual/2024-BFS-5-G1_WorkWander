@@ -76,6 +76,14 @@ public class CoworkingService implements ICoworkingService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_resized_image", cwResizedImage);
+
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
@@ -92,6 +100,7 @@ public class CoworkingService implements ICoworkingService {
         return cwResult;
     }
 
+
     /**
      * Actualiza los registros de coworking que coinciden con las claves proporcionadas.
      *
@@ -103,6 +112,14 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_image_resized", cwResizedImage);
         // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
         // Borrado de los servicios
@@ -200,7 +217,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -215,7 +232,7 @@ public class CoworkingService implements ICoworkingService {
 
         final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
                 this.coworkingDao.CW_QUERY_DATES);
-        if(filteredResults.calculateRecordNumber() == 0){
+        if (filteredResults.calculateRecordNumber() == 0) {
             return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber, startIndex,
                     orderBy, this.coworkingDao.CW_QUERY_DATES);
         }

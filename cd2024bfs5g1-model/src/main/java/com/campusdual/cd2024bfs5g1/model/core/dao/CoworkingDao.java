@@ -42,6 +42,7 @@ public class CoworkingDao extends OntimizeJdbcDaoSupport {
     public static final String COWORKINGS_NEARBY = "coworkingNearby";
     public static final String COW_LAT = "cw_lat";
     public static final String COW_LON = "cw_lon";
+    public static final String CW_QUERY_FACTURATION_BY_MONTH = "coworkingFacturationChartByMonth";
     private EntityResultMapImpl inputAttributesValues;
 
     @Override

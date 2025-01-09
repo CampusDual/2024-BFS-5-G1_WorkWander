@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable,Injector } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -8,7 +8,7 @@ import { OMapComponent } from "ontimize-web-ngx-map";
 })
 
 export class CustomMapService {
-  constructor(protected injector: Injector,private http: HttpClient, private translate: OTranslateService,) {
+  constructor(protected injector: Injector, private http: HttpClient, private translate: OTranslateService,) {
     this.service = this.injector.get(OntimizeService);
   }
   protected mp: any; //Mapa
@@ -84,17 +84,17 @@ export class CustomMapService {
 
     // Agregar marcador personalizado al realizar la búsqueda
     const markerOptions = {
-      draggable: true,
+      draggable: false,
       icon: L.icon({
         iconUrl: 'assets/icons/pocoyo.gif',
         iconSize: [48, 48],
-        iconAnchor: [16, 16],
+        iconAnchor: [24, 0],
       }),
     };
 
     const marker = L.marker([lat, lon], markerOptions);
     marker.bindPopup(this.translate.get("MY_UBICATION"), {
-      offset: L.point(0, -15), // Mueve el popup
+      offset: L.point(0, 0), // Mueve el popup
     }).openPopup();
     marker.addTo(this.leafletMap);
     console.log(`Marcador añadido en: Latitud ${lat}, Longitud ${lon}`);

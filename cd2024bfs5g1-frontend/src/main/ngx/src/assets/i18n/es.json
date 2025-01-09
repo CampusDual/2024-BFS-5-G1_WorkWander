@@ -248,6 +248,8 @@
   "PENDING": "Pendiente",
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
+  "SEARCH": "Buscar ubicación",
+  "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localidaza?",
   "CONFIRM": "Confirrmar dirección",
   "MY_SPACE": "Mi espacio",
   "NO_EVENTS": "No hay eventos disponibles",
@@ -283,6 +285,7 @@
   "BOOKING_QR": "Reserva en",
   "START": "Inicio",
   "END": "Final",
-  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
+  "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking"
+  "NO_EVENTS": "No hay eventos disponibles",
   "MY_UBICATION": "Su posición"
 }

@@ -88,7 +88,7 @@ export class CustomMapService {
       icon: L.icon({
         iconUrl: 'assets/icons/pocoyo.gif',
         iconSize: [48, 48],
-        iconAnchor: [24, 0],
+        iconAnchor: [-25, -10],
       }),
     };
 

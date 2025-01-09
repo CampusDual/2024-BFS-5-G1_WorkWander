@@ -27,7 +27,8 @@ import {
   styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
-  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
+  @ViewChild("filterBuilder", { static: true })
+  filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
@@ -37,7 +38,8 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
-  public toPrice:number=0;
+  public toPrice: number = 0;
+  public starSearchValue: number = 0;
 
   data: any[];
 
@@ -95,12 +97,12 @@ export class CoworkingsHomeComponent implements OnInit {
     }
   }
 
-  click($event:any){
+  click($event: any) {
     this.toPrice = $event;
   }
 
-  formatLabelUntil():any{
-    return this.toPrice + " €"
+  formatLabelUntil(): any {
+    return this.toPrice + " €";
   }
 
   // Función para crear los filtros de busqueda avanzada
@@ -109,6 +111,7 @@ export class CoworkingsHomeComponent implements OnInit {
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
+    let starsExpressions: Array<Expression> = [];
     let dateNullExpression: Expression;
     values.forEach((fil) => {
       if (fil.value) {
@@ -152,8 +155,17 @@ export class CoworkingsHomeComponent implements OnInit {
           dateNullExpression = FilterExpressionUtils.buildExpressionIsNull(
             fil.attr
           );
-        }else if (fil.attr == "cw_daily_price"){
-          priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
+        } else if (fil.attr == "cw_daily_price") {
+          priceExpressions.push(
+            FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
+          );
+        } else if (fil.attr === "bkr_ratio" && fil.value > 0) {
+          starsExpressions.push(
+            FilterExpressionUtils.buildExpressionMoreEqual(
+              "bkr_ratio",
+              fil.value
+            )
+          );
         }
       }
     });
@@ -211,13 +223,30 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
+    // Construir expresión AND para stars
+    let starsExpression: Expression = null;
+    if (starsExpressions.length > 0) {
+      starsExpression = starsExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
+      );
+    }
+
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
       priceExpression,
-      daterangeExpression
+      daterangeExpression,
     ].filter((exp) => exp !== null);
+
+    // Añadimos la expresión de estrellas al resto de filtros
+    if (starsExpression) {
+      expressionsToCombine.push(starsExpression);
+    }
 
     let combinedExpression: Expression = null;
     if (expressionsToCombine.length > 0) {

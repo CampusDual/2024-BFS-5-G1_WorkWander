@@ -32,13 +32,15 @@
                             booking.bk_cw_id,
                             booking.bk_state,
                             coworking.cw_name,
+                            coworking.cw_lat,
+                            coworking.cw_lon,
                             booking_rate.bkr_ratio,
                             ARRAY_AGG (date ORDER BY date ASC) AS dates
                     FROM  ${mainschema}.booking
                         JOIN  ${mainschema}.booking_date ON booking.bk_id = booking_date.bk_id
                         JOIN  ${mainschema}.coworking ON booking.bk_cw_id = coworking.cw_id
                         LEFT JOIN  ${mainschema}.booking_rate ON booking.bk_id = booking_rate.id_bkr
-                        GROUP BY booking.bk_id, coworking.cw_name , booking_rate.bkr_ratio
+                        GROUP BY booking.bk_id, coworking.cw_name, booking_rate.bkr_ratio, coworking.cw_lat, coworking.cw_lon
                         ORDER BY dates DESC)
                     SELECT
                     #COLUMNS#

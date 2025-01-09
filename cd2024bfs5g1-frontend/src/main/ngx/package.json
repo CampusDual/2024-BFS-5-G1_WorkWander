@@ -36,6 +36,7 @@
     "@angular/service-worker": "^15.2.10",
     "@angular/upgrade": "^15.2.10",
     "@daypilot/daypilot-lite-angular": "^3.30.1",
+    "angularx-qrcode": "^15.0.1",
     "cd2024bfs5g1": "file:",
     "core-js": "^3.6.4",
     "ngx-material-timepicker": "5.4.3",

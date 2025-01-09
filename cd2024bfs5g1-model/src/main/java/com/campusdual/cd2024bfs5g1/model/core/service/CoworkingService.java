@@ -16,6 +16,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -158,6 +165,24 @@ public class CoworkingService implements ICoworkingService {
             noResult.setMessage("NO_DELETE");
             return noResult;
         }
+    }
+
+    static String resizeImage(final String base64Image) throws IOException {
+        BufferedImage image = null;
+        try {
+            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(outputImage, "png", baos);
+        final byte[] imageBytes = baos.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
     /**

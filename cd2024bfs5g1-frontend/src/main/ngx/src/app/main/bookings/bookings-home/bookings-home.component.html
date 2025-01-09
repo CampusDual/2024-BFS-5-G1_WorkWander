@@ -5,14 +5,21 @@
   mode="none"
   label-columns="bk_id"
 >
-  <button
-    class="button-filter button btn-outline-light custom-button"
-    type="RAISED"
-    label="POSITIOM"
-    (click)="showHideMap()"
+  <div
+    fxLayout="row"
+    fxLayoutGap="16px"
+    style="align-items: center; padding-bottom: 8px"
   >
-    <p>{{ "NEXT_BOOKINGS" | oTranslate }}</p>
-  </button>
+    <span>{{ "NEXT_BOOKINGS" | oTranslate }}</span>
+    <button
+      class="button-filter button btn-outline-light custom-button"
+      type="RAISED"
+      label="POSITIOM"
+      (click)="showHideMap()"
+    >
+      <mat-icon class="mat-icon" style="margin: 0 8px">map</mat-icon>
+    </button>
+  </div>
   <div
     *ngIf="mapVisible"
     title=""
@@ -35,17 +42,21 @@
       >
       </o-map>
     </div>
-    <div fxLayout="column" fxLayoutGap="16px" style="max-height: 500px; overflow-y: scroll;" >
+    <div
+      fxLayout="column"
+      fxLayoutGap="16px"
+      style="max-height: 500px; overflow-y: scroll"
+    >
       <button
         *ngFor="let item of dates"
         (click)="acercar(item)"
-        class="button-filter button btn-outline-light custom-button"
+        class="button-filter button btn-outline-light custom-button btn-bookings-map"
       >
-        {{ item.cw_name }}
-        <span>|</span>
         {{ utils.formatShortDate(item.dates[0]) }}
         <span>-</span>
-        {{ utils.formatShortDate(item.dates[item.dates.length-1]) }}
+        {{ utils.formatShortDate(item.dates[item.dates.length - 1]) }}
+        <span>|</span>
+        {{ item.cw_name }}
       </button>
     </div>
   </div>

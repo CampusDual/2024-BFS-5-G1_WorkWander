@@ -38,7 +38,7 @@ export class BookingsHomeComponent {
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
     protected dialog: MatDialog
-  ) {}
+  ) { }
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -190,7 +190,7 @@ export class BookingsHomeComponent {
           this.utils.calculateState(resp.data[index]) == "Pendiente" ||
           this.utils.calculateState(resp.data[index]) == "En curso"
         ) {
-          this.dates.push(resp.data[index]);
+          this.dates.unshift(resp.data[index]);
 
           this.inicializarMapa(
             resp.data[index]["cw_lat"],
@@ -199,6 +199,7 @@ export class BookingsHomeComponent {
           );
         }
       }
+      // this.dates.reverse();
     });
   }
 }

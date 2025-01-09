@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
@@ -37,6 +38,9 @@ public class CoworkingService implements ICoworkingService {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private BookingDao bookingDao;
 
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
@@ -215,8 +219,9 @@ public class CoworkingService implements ICoworkingService {
 
         final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
                 this.coworkingDao.CW_QUERY_DATES);
-        if(filteredResults.calculateRecordNumber() == 0){
-            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber, startIndex,
+        if (filteredResults.calculateRecordNumber() == 0) {
+            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber,
+                    startIndex,
                     orderBy, this.coworkingDao.CW_QUERY_DATES);
         }
 
@@ -277,4 +282,79 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
     }
 
+    /**
+     * Obtiene la info para generar el gráfico de facturación
+     *
+     * @param keyMap
+     * @param attrList
+     * @return response
+     */
+    @Override
+    public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final ArrayList<Integer> arrayCw_id = new ArrayList<>((ArrayList<Integer>) keyMap.remove("cw_id"));
+        ArrayList<Integer> months = null;
+        final Object daysObj = null;
+        final ArrayList<Date> days = null;
+        final List<Map> listaCoworkings = new ArrayList<>();
+        int year = 0;
+        year = (int) keyMap.remove("year");
+        months = new ArrayList<>((ArrayList<Integer>) keyMap.remove("month"));
+        for (int i = 0; i < arrayCw_id.size(); i++) {
+            final int cw = arrayCw_id.get(i);
+            keyMap.put(CoworkingDao.CW_ID, cw);
+            keyMap.put(BookingDao.BK_STATE, true);
+            keyMap.put("date_part('year',booking_date.date)", year);
+            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, months);
+            if (dataMonths != null) {
+                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, months));
+            }
+        }
+        final EntityResult response = new EntityResultMapImpl();
+        response.setCode(0);
+        response.put("data", (List.of(listaCoworkings)));
+        return response;
+    }
+
+    /**
+     * Devuelve un Map de String Object con la info de los meses
+     *
+     * @param keys,
+     * @param attrList,
+     * @param months
+     * @return coworkingMap
+     */
+    public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
+            final ArrayList<Integer> months) {
+        final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+        List<String> coworkingName = new ArrayList<>();
+        final List<Map> monthsList = new ArrayList<>();
+        Map<String, Object> m = null;
+        EntityResult er = null;
+        for (int j = 0; j < months.size(); j++) {
+            List<Integer> month = new ArrayList<>();
+            List<Integer> in = new ArrayList<>();
+            List<Double> account = new ArrayList<>();
+            m = new HashMap<>(); //mapa del mes y del importe
+            keys.put("date_part('month',booking_date.date)", months.get(j));
+            er = this.daoHelper.query(this.coworkingDao, keys, attrList,
+                    this.coworkingDao.CW_QUERY_FACTURATION_BY_MONTH);
+            month = (List<Integer>) er.get("m");
+            in = (List<Integer>) er.get("m");
+            account = (List<Double>) er.get("account");
+            if (month != null) {
+                m.put("i", in.get(0));
+                m.put("name", month.get(0));
+                m.put("value", account.get(0));
+                monthsList.add(m);
+                coworkingName = (List<String>) er.get("coworking_name");
+                coworkingMap.put("name", coworkingName.get(0));
+                coworkingMap.put("series", monthsList);
+            }
+        }
+        if (!coworkingMap.isEmpty()) {
+            return coworkingMap;
+        } else {
+            return null;
+        }
+    }
 }

@@ -21,7 +21,7 @@ import {
   SnackBarService
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { CustomMapService } from "src/app/shared/services/custom-map.service";
+import { CustomMapService, Coworking } from "src/app/shared/services/custom-map.service";
 
 @Component({
   selector: "app-coworkings-home",
@@ -43,8 +43,10 @@ export class CoworkingsHomeComponent implements OnInit {
   public idioma: string;
   public toPrice: number = 0;
   public mapVisible: boolean = false;
-  leafletMap: L;
+  leafletMap: any;
+  selectedCoworking: any = null;
   data: any[];
+  coworkings: Coworking[];
 
   // Creamos constructor
   constructor(
@@ -280,9 +282,16 @@ export class CoworkingsHomeComponent implements OnInit {
 
   //------------------------------- MAPA -------------------------------
   showHideMap() {
-    this.mapVisible = !this.mapVisible;
-  }
+      this.mapVisible = !this.mapVisible;
 
+      if (this.mapVisible) {
+        // mandar el mapa al que se dene incluir la marca
+        setTimeout(() => {
+          this.leafletMap = this.coworking_map.getMapService().getMap();
+          this.mapService.setUserMap(this.coworking_map);
+        }, 500);
+      }
+    }
   updateMapMarkers() {
     if (this.mapVisible) {
       const coworkings = this.coworkingsGrid.dataArray;
@@ -292,35 +301,33 @@ export class CoworkingsHomeComponent implements OnInit {
       });
     }
   }
-  nearOfMe() {
-    if (this.mapVisible) {
-      setTimeout(() => {
-        this.leafletMap = this.coworking_map.getMapService().getMap();
-        if (this.leafletMap) {
-          console.log("Mapa inicializado correctamente:", this.leafletMap);
-          this.mapService.setUserMap(this.coworking_map);
-          this.mapService.getUserGeolocation();
-        } else {
-          console.error("El mapa aún no está listo.");
+
+
+  async nearOfMe() {
+  await this.mapService.getUserGeolocation();
+
+  this.coworkings = await this.mapService.obtenerCoworkings()
+
+  this.mapService.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
+    const columns = [
+      "cw_id",
+      "cw_name",
+      "cw_description",
+      "cw_daily_price",
+      "cw_image"
+    ];
+    this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
+      (resp) => {
+        const coworkingData = resp.data;
+        if (coworkingData) {
+          this.selectedCoworking = coworkingData[0];
+          console.log(this.selectedCoworking);
         }
-      }, 1000);
-      // this.mapService.setUserMap(this.coworking_map);
-      // this.mapService.getUserGeolocation();
-
-      // recuperamos la latitud y longitud para mandarla por parámetro
-
-      const latLon = this.mapService.getLocation();
-      const lat = +latLon.get('Lat');
-      const lon = +latLon.get('Lon');
-      this.mapService.addMyMarker(this.leafletMap, lat, lon);
-
-      console.log(this.coworkingsGrid.dataArray.length);
-    }
-  }
-
-  setCityPosition() {
-    // getCityCoordinates
-
-  }
-
+      },
+      (error) => {
+        console.error("Error al consultar los detalles del coworking:", error);
+      }
+    );
+  });
+}
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable,Injector } from '@angular/core';
 import * as L from 'leaflet';
 import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -8,7 +8,9 @@ import { OMapComponent } from "ontimize-web-ngx-map";
 })
 
 export class CustomMapService {
-  constructor(private http: HttpClient, private translate: OTranslateService,) { }
+  constructor(protected injector: Injector,private http: HttpClient, private translate: OTranslateService,) {
+    this.service = this.injector.get(OntimizeService);
+  }
   protected mp: any; //Mapa
 
   protected service: OntimizeService;
@@ -21,7 +23,7 @@ export class CustomMapService {
   protected mapLon: number; //Longitud
 
   public coworkings: Coworking[] = [];
-  leafletMap: L;
+  leafletMap: any;
 
   public async getMap(mapa: OMapComponent, address: ImapAddress): Promise<[number, number]> {
 
@@ -148,6 +150,7 @@ export class CustomMapService {
     coworkings: Coworking[],
     onClick: (coworking: Coworking) => void
   ): void {
+    console.log(coworkings);
     coworkings.forEach((coworking) => {
       const marker = L.marker([coworking.lat, coworking.lon], {
         title: coworking.name,
@@ -169,54 +172,22 @@ export class CustomMapService {
     this.leafletMap = mapaLocal.getMapService().getMap();
   }
 
-  public getUserGeolocation() {
-    console.log("Obteniendo geolocalización del usuario...");
-    if ("geolocation" in navigator) {
+  public async getUserGeolocation(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // Suponiendo que usas navigator.geolocation para obtener la geolocalización
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          this.setLocation(position.coords.latitude, position.coords.longitude);
           this.mapLat = position.coords.latitude;
           this.mapLon = position.coords.longitude;
-
-          console.log("Latitud: " + this.mapLat + " Longitud: " + this.mapLon);
-
-          console.log("Mapa obtenido:", this.leafletMap);
-          if (this.leafletMap) {
-            this.leafletMap.setView([this.mapLat, this.mapLon], 14);
-            this.obtenerCoworkings();
-
-            this.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
-
-              const columns = [
-                "cw_id",
-                "cw_name",
-                "cw_description",
-                "cw_daily_price",
-                "cw_image"
-              ];
-
-              this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
-                (resp) => {
-                  const coworkingData = resp.data;
-                  if (coworkingData) {
-                    this.selectedCoworking = coworkingData[0];
-                    console.log(this.selectedCoworking);
-                    this.mostrarDiv = true;
-                  }
-                },
-                (error) => {
-                  console.error("Error al consultar los detalles del coworking:", error);
-                }
-              );
-            });
-          }
+          this.leafletMap.setView([this.mapLat, this.mapLon], 14);
+          resolve();
         },
-        (err) => {
-          console.error(`Error: ${err.message}`);
+        (error) => {
+          reject(error);
         }
       );
-    } else {
-      console.error("Geolocalización no compatible en este navegador.");
-    }
+    });
   }
 
   public setLocation(latitude: number, longitude: number) {
@@ -230,29 +201,41 @@ export class CustomMapService {
     return location;
   }
 
-  public obtenerCoworkings() {
-    const filter = {
-      LAT_ORIGEN: this.mapLat,
-      LON_ORIGEN: this.mapLon,
-      DISTANCE: 5,
-    };
-    const columns = ["cw_id", "cw_name", "cw_lat", "cw_lon", "distancia_km"];
+  public async obtenerCoworkings(): Promise<Coworking[]> {
+    return new Promise((resolve, reject) => {
+      let coworkings: Coworking[] = [];
+      console.log(this.mapLat, this.mapLon);
+      const filter = {
+        LAT_ORIGEN: this.mapLat,
+        LON_ORIGEN: this.mapLon,
+        DISTANCE: 5,
+      };
+      const columns = ["cw_id", "cw_name", "cw_lat", "cw_lon", "distancia_km"];
 
-    const conf = this.service.getDefaultServiceConfiguration("coworkings");
-    this.service.configureService(conf);
+      const conf = this.service.getDefaultServiceConfiguration("coworkings");
+      this.service.configureService(conf);
 
-    this.service.query(filter, columns, "coworkingNearby").subscribe((resp) => {
-      if (resp.code == 0) {
-        console.log(resp.data);
-        this.coworkings = resp.data.map(item => ({
-          id: item.cw_id,
-          name: item.cw_name,
-          lat: +item.cw_lat,
-          lon: +item.cw_lon,
-          distance_km: item.distancia_km
-        }));
-        console.log(this.coworkings);
-      }
+      this.service.query(filter, columns, "coworkingNearby").subscribe(
+        (resp) => {
+          if (resp.code == 0) {
+            console.log(resp.data);
+            coworkings = resp.data.map(item => ({
+              id: item.cw_id,
+              name: item.cw_name,
+              lat: +item.cw_lat,
+              lon: +item.cw_lon,
+              distance_km: item.distancia_km
+            }));
+            console.log(coworkings);
+            resolve(coworkings);
+          } else {
+            reject(new Error('Error en la consulta de coworkings'));
+          }
+        },
+        (error) => {
+          reject(error);
+        }
+      );
     });
   }
 }

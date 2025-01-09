@@ -3,8 +3,7 @@ import { Component, Injector, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogService, OComboComponent, ODateInputComponent, OFormComponent, OntimizeService, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService } from 'ontimize-web-ngx';
 import { OMapComponent } from 'ontimize-web-ngx-map';
-import { Coworking, CustomMapService } from 'src/app/shared/services/custom-map.service';
-import * as L from 'leaflet';
+
 @Component({
   selector: 'app-coworkings-edit',
   templateUrl: './coworkings-edit.component.html',
@@ -16,11 +15,10 @@ export class CoworkingsEditComponent {
   public exist = false;
   public selectedServices: number = 0;
   protected service: OntimizeService;
+  leafletMap: any;
   protected validAddress: boolean;
   protected mapLat: number; //Latitud
   protected mapLon: number; //Longitud
-  private currentMarker: L.Marker | null = null; // Referencia al marcador actual
-  leafletMap: any; //Instancia mapa de Leaflet
 
   @ViewChild("coworkingForm") coworkingForm: OFormComponent;
   @ViewChild("startDate") coworkingStartDate: ODateInputComponent;
@@ -36,8 +34,7 @@ export class CoworkingsEditComponent {
     protected injector: Injector,
     protected snackBarService: SnackBarService,
     protected dialogService: DialogService,
-    private http: HttpClient,
-    private MapService: CustomMapService
+    private http: HttpClient
   ) {
     this.service = this.injector.get(OntimizeService);
     this.arrayServices = [];
@@ -111,13 +108,13 @@ export class CoworkingsEditComponent {
     this.arrayServices.push({ id: id });
     document.getElementById(serv).style.backgroundColor = "#b9cebf";
     document.getElementById(serv).style.color = "black";
-    document.getElementById(serv).style.borderRadius = "6px";
+    document.getElementById(serv).style.borderRadius = "10px";
     this.selectedServices++;
   }
 
   public deleteService(index: number, id: number, serv: string): void {
     this.arrayServices.splice(index, 1)
-    document.getElementById(serv).style.backgroundColor = "#ffffff";
+    document.getElementById(serv).style.backgroundColor = "#e9e9e9";
     document.getElementById(serv).style.color = "black";
     this.selectedServices--;
   }
@@ -125,7 +122,26 @@ export class CoworkingsEditComponent {
   /**
    * Método que se llama desde el botón de guardado
    */
-  public save() {
+  public async save() {
+    const address = this.address.getValue();
+    const selectedCityId = this.combo.getValue();
+    const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
+    const cityName = cityObject ? cityObject.city : null;
+
+    // Forzar validación si la dirección ha sido modificada
+    if (!this.validAddress && cityName && address) {
+        await this.mapaShow(cityName, address);
+
+        // Si después de validar sigue siendo inválida
+        if (!this.validAddress) {
+            const confirmSave = await this.showConfirm();
+            if (!confirmSave) {
+                this.snackBar(this.translate.get("INVALID_LOCATION"));
+                return;
+            }
+        }
+    }
+
     //Ordenamos el array de coworkings
     this.arrayServices.sort((a: any, b: any) => a.id - b.id);
     //Creamos un objeto coworking
@@ -167,14 +183,12 @@ export class CoworkingsEditComponent {
   }
 
   public showUpdated() {
-    const action = this.translate.get('COWORKING_UPDATE')
     const configuration: OSnackBarConfig = {
-      action: action,
       milliseconds: 5000,
       icon: 'check_circle',
       iconPosition: 'left'
     };
-    this.snackBarService.open('', configuration);
+    this.snackBarService.open(this.translate.get('COWORKING_UPDATE'), configuration);
   }
 
   showServices(cw_id: any): any {
@@ -195,6 +209,7 @@ export class CoworkingsEditComponent {
           //Obtenemos resp (respuesta) del servidor, y recorremos el array de servicios (data)
           for (let index = 0; index < resp.data.length; index++) {
             document.getElementById('sel' + resp.data[index]['id']).style.backgroundColor = "#b9cebf";
+            document.getElementById('sel' + resp.data[index]['id']).style.borderRadius = "10px";
             //Guardamos el id que devuelve data situado en esa posición del array
             let obj = resp.data[index]['id'];
             this.arrayServices.push({ id: obj }); //Con el valor, creamos un objeto y lo guardamos en el array de servicios
@@ -206,22 +221,24 @@ export class CoworkingsEditComponent {
   }
   // ---------------------- MAPA ----------------------
   onAddressBlur() {
-    const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
+    this.validAddress = false; // Invalida la dirección por defecto
+
+    const selectedCityId = this.combo.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
 
     if (cityName && address) {
-      this.mapaShow(cityName, address);
+        this.mapaShow(cityName, address);
     }
-  }
+}
 
   async mapaShow(selectedCity: string, address: string): Promise<void> {
     const addressComplete = `${selectedCity}, ${address}`;
     const name = this.coworkingForm.getFieldValue('cw_name')
 
     try {
-      const addressResults = await this.getCoordinates(selectedCity, address);
+      const addressResults = await this.getCoordinates(addressComplete);
       if (addressResults) {
         this.updateMapAndMarker(addressResults, 16, name);
         this.validAddress = true;
@@ -229,7 +246,7 @@ export class CoworkingsEditComponent {
       }
       console.log("Dirección no válida, intentando con la ciudad seleccionada...");
 
-      const cityResults = await this.getCoordinates(selectedCity, "");
+      const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 8, null);
         this.snackBar(this.translate.get("INVALID_LOCATION"));
@@ -244,13 +261,9 @@ export class CoworkingsEditComponent {
     this.validAddress = false;
   }
 
-  private async getCoordinates(city: string, street: string): Promise<string | null> {
-    const encodedCity = encodeURIComponent(city);
-    const encodedStreet = encodeURIComponent(street);
-    const encodedCountry = encodeURIComponent("Spain");
-
+  private async getCoordinates(location: string): Promise<string | null> {
     try {
-      const url = `https://nominatim.openstreetmap.org/search?city=${encodedCity}&street=${encodedStreet}&country=${encodedCountry}&format=json&addressdetails=1`;
+      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
       if (response?.length > 0) {
@@ -267,31 +280,24 @@ export class CoworkingsEditComponent {
   private updateMapAndMarker(
     coordinates: string,
     zoom: number,
-    markerLabel: string | null
-  ) {
+    markerLabel: string | null) {
     const [lat, lon] = coordinates.split(';').map(Number);
     this.leafletMap.setView([+lat, +lon], zoom);
     if (markerLabel) {
       this.mapLat = lat;
       this.mapLon = lon;
-      // Eliminar el marcador actual si existe
-      if (this.currentMarker) {
-        this.leafletMap.removeLayer(this.currentMarker);
-      }
-      // Crear y agregar el nuevo marcador
-      this.currentMarker = L.marker([lat, lon], { title: markerLabel, draggable: true }).addTo(this.leafletMap);
-      this.currentMarker.options.id = 1; // Añadir la ID al marcador
-      // Evento dragend del marcador
-      this.currentMarker.on('dragend', (event) => {
-        const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
-        this.mapLat = lat;
-        this.mapLon = lng;
-        console.log('Nueva posición: ' + lat + ' ' + lng);
-      });
+      this.coworking_map.addMarker(
+        'coworking_marker',           // id
+        lat,                          // latitude
+        lon,                          // longitude
+        {},                           // options
+        markerLabel,                  // popup
+        false,                        // hidden
+        true,                         // showInMenu
+        markerLabel                   // menuLabel
+      );
     }
   }
-
-
 
   private snackBar(message: string): void {
     this.snackBarService.open(message, {
@@ -303,7 +309,7 @@ export class CoworkingsEditComponent {
 
   private async showConfirm(): Promise<boolean> {
     return new Promise((resolve) => {
-      const confirmMessageTitle = this.translate.get("CONFIRM");
+      const confirmMessageTitle = this.translate.get("CONFIRM2");
       const confirmMessage = this.translate.get("INVALID_LOCATION_CONFIRM");
       this.dialogService.confirm(confirmMessageTitle, confirmMessage).then((result) => {
         if (result) {

@@ -93,7 +93,7 @@
             type="RAISED"
             label="SEARCH"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'SEARCH' | oTranslate }}"
+            matTooltip="{{ 'Search' | oTranslate }}"
           >
             <mat-icon class="material-icons">search</mat-icon>
           </button>
@@ -104,7 +104,7 @@
             type="RAISED"
             label="CLEAR"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'CLEAR' | oTranslate }}"
+            matTooltip="{{ 'Clear' | oTranslate }}"
             (click)="clearFilters()"
           >
             <mat-icon class="material-icons">clear</mat-icon>
@@ -159,32 +159,11 @@
         </div>
 
         <div class="data-container">
-          <h2 class="coworking-name">{{ data.cw_name }}</h2>
-          
-          <div class="ratio-tags-container">
-            <!-- Media Valoraciones -->
-            <p *ngIf="data.ratio" class="ratio">
-              <mat-icon>star</mat-icon>
-              {{ data.ratio }}
-            </p>
-            <!-- div necesario para que el space between funcione 
-            correctamente y las etiquetas se pongan siempre a la 
-            derecha aunque no haya rating -->
-            <div *ngIf="!data.ratio" class="ratio"></div>
-            <!-- Fin media valoraciones -->
-            <div class="tags-container">
-              <span *ngIf="data.ratio >= 4.5" class="recomended-tag">{{ "RECOMENDED" | oTranslate }}</span>
-              <span *ngIf="compareDate(data.cw_start_date)" class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
-              <span *ngIf="data.cw_daily_price <= 10" class="low-price-tag">{{ "LOW_PRICE" | oTranslate }}</span>
-              
-              <!-- <span class="recomended-tag">{{ "RECOMENDED" | oTranslate }}</span>
-              <span class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
-              <span class="low-price-tag">{{ "LOW_PRICE" | oTranslate }}</span> -->
-            </div>
-          </div>
+
           <div class="info-price-container">
             <div class="info">
-  
+              <h2 class="coworking-name">{{ data.cw_name }}</h2>
+
               <section class="services">
                 <article *ngFor="let service of serviceList(data.services)">
                   <article *ngIf="service == 'additional_screen'">
@@ -240,7 +219,24 @@
               ></div>
             </div>
           </div>
+
+          <div class="ratio-tags-container">
+            <!-- Media Valoraciones -->
+            <p *ngIf="data.ratio" class="ratio">
+              <mat-icon>star</mat-icon>
+              {{ data.ratio }}
+            </p>
+            <p></p>
+            <!-- Fin media valoraciones -->
+            <div class="tags-container">
+              <span *ngIf="data.ratio >= 4.5" class="recomended-tag">{{ "RECOMENDED" | oTranslate }}</span>
+              <span *ngIf="compareDate(data.cw_start_date)" class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
+              <span *ngIf="data.cw_daily_price <= 10" class="low-price-tag">{{ "LOW_PRICE" | oTranslate }}</span>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </o-grid-item>
   </o-grid>

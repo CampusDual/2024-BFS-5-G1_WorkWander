@@ -362,7 +362,16 @@
     </div>
     <!-- Reviews -->
     <o-column class="review">
-      <h3 class="review-title">{{ "REVIEWS" | oTranslate }}</h3>
+      <h3>
+        <span class="review-title">{{ "REVIEWS" | oTranslate }}</span>
+      </h3>
+
+      <div
+        *ngIf="coworkingValoration.dataArray.length == 0"
+        class="no-reviews-container"
+      >
+        <p>{{ "NO_REVIEWS" | oTranslate }}</p>
+      </div>
       <o-grid
         #coworkingValoration
         attr="coworkingValoration"

@@ -20,7 +20,6 @@ import {
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
-import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -34,7 +33,6 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
-  @ViewChild("ratio") ratio: Rating;
 
   public arrayServices: any = [];
   protected service: OntimizeService;

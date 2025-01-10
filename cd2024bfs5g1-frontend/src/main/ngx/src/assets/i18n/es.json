@@ -283,5 +283,8 @@
   "END": "Final",
   "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
   "NO_EVENTS": "No hay eventos disponibles",
-  "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una"
+  "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
+  "SEARCH_FILTERS":"Buscar",
+  "CLEAR_FILTERS": "Limpiar",
+  "RATING_FILTER":"Búsqueda por valoración"
 }

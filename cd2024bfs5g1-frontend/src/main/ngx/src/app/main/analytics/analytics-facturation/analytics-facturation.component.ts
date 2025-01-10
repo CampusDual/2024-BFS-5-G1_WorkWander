@@ -172,8 +172,8 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   /**
    * Efecto de espera de recepción de datos
    */
-  efects(){
-    let elements = document.getElementsByClassName("txt-rotate");
+  efects(){    
+    let elements = document.getElementsByClassName("txt-rotate");     
     for (let ir = 0; ir < elements.length; ir++) {
       let toRotate = this.points;
       if (toRotate) {

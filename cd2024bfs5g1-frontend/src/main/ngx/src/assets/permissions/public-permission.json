@@ -129,6 +129,10 @@
       {
         "permissionId": "analytics-occupation",
         "enabled": false
+      },
+      {
+        "permissionId": "analyticsEvents",
+        "enabled": false
       }
     ]
   }

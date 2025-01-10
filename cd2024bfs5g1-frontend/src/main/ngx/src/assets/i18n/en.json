@@ -227,6 +227,7 @@
   "X-LABEL": "Date",
   "Y-LABEL": "Occupation (%)",
   "SELECT_COWORKING": "Select up to ",
+  "SELECT_COWORKING_EVENT_INFLUENCE": "Select 1 coworking.",
   "NO_CHART_AVAILABLE": "No charts avaliable. Select coworking and date.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Occupancy Percentage",
   "ANALYTICS": "Analytics",

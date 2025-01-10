@@ -36,4 +36,5 @@ public interface IBookingService {
     public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMapB, final List<String> attrList);
 
     public EntityResult occupationByDateQuery(Map<String, Object> keyMap, List<String> attrList);
+    public EntityResult bookingsByDayQuery(Map<String, Object> keyMap, List<String> attrList);
 }

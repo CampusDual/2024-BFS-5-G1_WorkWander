@@ -1650,6 +1650,12 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .button-c:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+.selector-container{
+  .selector{
+    width: 30%;
+    margin-bottom: 15px;
+  }
+}
 
 .price_range {
   font-size: 14px;

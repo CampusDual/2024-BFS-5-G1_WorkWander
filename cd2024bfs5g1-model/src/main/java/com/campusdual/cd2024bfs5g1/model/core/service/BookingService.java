@@ -4,6 +4,7 @@ import com.campusdual.cd2024bfs5g1.api.core.service.IBookingDateService;
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingService;
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
+import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -258,6 +259,19 @@ public class BookingService implements IBookingService {
             dates.add(calendar.getTime());
         }
         return dates;
+    }
+    @Override
+    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(EventDao.USR_ID, userId);
+        System.out.println("KeyMap: " + keyMap);
+        System.out.println("AttrList: " + attrList);
+        final Object datesObjCow = keyMap.get("coworking_id");
+        System.out.println("Coworking ID: " + datesObjCow);
+//        final Object datesObjLoc = keyMap.get("cw_location");
+//        System.out.println("Location: " + datesObjLoc);
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_DAY_QUERY);
     }
 
 }

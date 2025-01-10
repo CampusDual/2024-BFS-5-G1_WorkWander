@@ -68,6 +68,19 @@
                 WHERE b.bk_state = true and bd.date >= current_date
                 #WHERE_CONCAT#
             </Sentence>
+        </Query>  <Query id="bookingsByDay">
+            <Sentence>
+                SELECT count(bd.bk_id) as "dayDates",
+                c.cw_capacity
+                FROM ${mainschema}.coworking c
+                JOIN ${mainschema}.booking b on c.cw_id = b.bk_cw_id
+                JOIN ${mainschema}.booking_date bd on b.bk_id = bd.bk_id
+                WHERE b.bk_state = true
+                and bd.date = :booking_date
+                and b.bk_cw_id = :coworking_id
+                group by c.cw_capacity;
+                #WHERE_CONCAT#
+            </Sentence>
         </Query>
     </Queries>
 </JdbcEntitySetup>

@@ -227,6 +227,7 @@
   "X-LABEL": "Fecha",
   "Y-LABEL": "Ocupación (%)",
   "SELECT_COWORKING": "Seleccione entre 1 y ",
+  "SELECT_COWORKING_EVENT_INFLUENCE": "Selecciona 1 coworking.",
   "NO_CHART_AVAILABLE": "No hay ningún gráfico disponible. Seleccione coworking y fecha.",
   "OCCUPANCY_PERCENTAGE_TITLE": "Porcentaje de ocupación",
   "ANALYTICS": "Análisis",

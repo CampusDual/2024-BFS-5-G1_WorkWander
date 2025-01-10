@@ -1,0 +1,34 @@
+<div class="grid-container">
+  <div class="selector-container">
+    <o-form show-header="false" class="selector">
+      <o-combo class="input-selector" #comboCoworkingInput attr="cw_name" service="coworkings" entity="coworkingByUser"
+        label="{{ 'SELECT_COWORKING_EVENT_INFLUENCE' | oTranslate }}" value-column="cw_id" columns="cw_name"
+        visible-columns="cw_name" required="yes" formControlName="coworking" (onValueChange)="onCoworkingChange($event)"
+        searchable="true" (onSelectionChange)="onCoworkingChange($event)" multiple-trigger-label="true">
+      </o-combo>
+    </o-form>
+  </div>
+  <main class="container">
+    <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
+      #navigator></daypilot-navigator>
+    <div class="content">
+      <div class="buttons-c">
+        <button class="button-c" (click)="viewDay()"
+          [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''">
+          {{ "DAY" | oTranslate }}
+        </button>
+        <button class="button-c" (click)="viewWeek()"
+          [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">
+          {{ "WEEK" | oTranslate }}
+        </button>
+        <button class="button-c" (click)="viewMonth()"
+          [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">
+          {{ "MONTH" | oTranslate }}
+        </button>
+      </div>
+      <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
+      <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar>
+      <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
+    </div>
+  </main>
+</div>

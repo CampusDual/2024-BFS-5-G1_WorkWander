@@ -108,5 +108,16 @@ public class EventService implements IEventService {
         keyMap.put(BookingEventDao.BKE_USR_ID, userId);
         return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTSCALENDAR_QUERY);
     }
+    @Override
+    public EntityResult eventsNearCoworkingQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+//        keyMap.put(EventDao.USR_ID, userId);
+//        System.out.println("KeyMap: " + keyMap);
+//        System.out.println("AttrList: " + attrList);
+        final Object datesObjCow = keyMap.get("cw_id");
+        System.out.println("Coworking ID: " + datesObjCow);
+        return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.EVENTSNEARCOWORKING_QUERY);
+    }
 }
 

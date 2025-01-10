@@ -57,7 +57,7 @@ export const routes: Routes = [
         loadChildren: () =>
           import("./bookings/bookings.module").then((m) => m.BookingsModule),
       },
-    { path: "analytics", loadChildren: () => import("./analytics/analytics.module").then((m) => m.AnalyticsModule), }
+      { path: "analytics", loadChildren: () => import("./analytics/analytics.module").then((m) => m.AnalyticsModule), }
 
     ],
   },
@@ -67,4 +67,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MainRoutingModule {}
+export class MainRoutingModule { }

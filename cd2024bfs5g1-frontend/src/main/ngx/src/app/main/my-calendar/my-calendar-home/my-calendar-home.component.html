@@ -3,7 +3,7 @@
 </div>
 <main class="container">
   <daypilot-navigator
-  class="navigator"
+    class="navigator"
     [config]="configNavigator"
     [events]="events"
     [(date)]="date"
@@ -51,3 +51,27 @@
     ></daypilot-month>
   </div>
 </main>
+<hr />
+<div class="leyenda container">
+  <div fxLayout="column" fxFlex>
+    <div fxLayout="row" fxFlex>
+      <h3>Leyenda</h3>
+    </div>
+    <div fxLayout="row" fxFlex>
+      <ul>
+        <li>
+          <span class="tipo1-color"></span>
+          {{ "BOOKING_FINISHED" | oTranslate }}
+        </li>
+        <li>
+          <span class="tipo2-color"></span> {{ "BOOKING_PENDING" | oTranslate }}
+        </li>
+        <li>
+          <span class="tipo3-color"></span>
+          {{ "BOOKING_INPROGRESS" | oTranslate }}
+        </li>
+        <li><span class="tipo4-color"></span> {{ "EVENTS" | oTranslate }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

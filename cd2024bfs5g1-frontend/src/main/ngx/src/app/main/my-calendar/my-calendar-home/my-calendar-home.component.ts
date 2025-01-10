@@ -22,6 +22,7 @@ export class MyCalendarHomeComponent implements OnInit {
   @ViewChild("month") day!: DayPilotMonthComponent;
   @ViewChild("month") week!: DayPilotMonthComponent;
   events: DayPilot.EventData[] = [];
+
   service: OntimizeService;
   date = DayPilot.Date.today();
   private translateServiceSubscription: Subscription;
@@ -72,7 +73,6 @@ export class MyCalendarHomeComponent implements OnInit {
       }
     },
   };
-
 
   configWeek: DayPilot.CalendarConfig = {
     theme: "verde",
@@ -162,7 +162,6 @@ export class MyCalendarHomeComponent implements OnInit {
           this.events.push(object);
         }
       }
-
     });
   }
 

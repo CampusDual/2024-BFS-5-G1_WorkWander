@@ -149,21 +149,28 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         max-file-size="1048576"
         height="250px"
       ></o-image>
-      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
-        <div class="buttons">
-          <button mat-raised-button class="cancelBtn" (click)="cancel()">
-            {{ "cancel" | oTranslate }}
-          </button>
-          <button
-            mat-raised-button
-            color="primary"
-            [disabled]="isInvalidForm()"
-            attr="save"
-            (click)="save()"
-          >
-            {{ "save" | oTranslate }}
-          </button>
-        </div>
+
+      <div
+        fxLayout="row"
+        fxLayoutGap="24px"
+        class="form-row"
+        fxFlex
+        fxLayoutAlign="end"
+        fxLayoutGap="30px"
+        class="buttons"
+      >
+        <button mat-raised-button class="cancelBtn" (click)="cancel()">
+          {{ "cancel" | oTranslate }}
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="isInvalidForm()"
+          attr="save"
+          (click)="save()"
+        >
+          {{ "save" | oTranslate }}
+        </button>
       </div>
     </o-column>
   </div>

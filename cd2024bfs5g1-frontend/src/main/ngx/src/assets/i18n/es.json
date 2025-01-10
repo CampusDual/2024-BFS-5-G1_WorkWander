@@ -286,5 +286,5 @@
   "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
   "SEARCH_FILTERS":"Buscar",
   "CLEAR_FILTERS": "Limpiar",
-  "RATING_FILTER":"Búsqueda por valoración"
+  "RATING_FILTER":"Búsqueda por valoración mínima"
 }

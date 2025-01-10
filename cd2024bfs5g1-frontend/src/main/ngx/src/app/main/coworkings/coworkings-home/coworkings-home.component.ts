@@ -20,6 +20,7 @@ import {
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
+import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -33,6 +34,7 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
+  @ViewChild("bkr_ratio") bkr_ratio: Rating;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
@@ -224,6 +226,7 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
+
     // Construir expresión AND para stars
     let starsExpression: Expression = null;
     if (starsExpressions.length > 0) {
@@ -265,6 +268,7 @@ export class CoworkingsHomeComponent implements OnInit {
   //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
+    this.starSearchValue=0;
   }
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking

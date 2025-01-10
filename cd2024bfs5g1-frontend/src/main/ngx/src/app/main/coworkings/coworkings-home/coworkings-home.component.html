@@ -90,6 +90,7 @@
           [cancel]="false"
           stars="5"
           style="margin: 0.5em 0"
+          matTooltip="{{ 'RATING_FILTER' | oTranslate }}"
         ></p-rating>
         <o-text-input attr="ratio" [data]="getRatio()" oHidden></o-text-input>
         <o-row class="btn-container" layout-gap="10px">
@@ -101,7 +102,7 @@
             type="RAISED"
             label="SEARCH"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'Search' | oTranslate }}"
+            matTooltip="{{ 'SEARCH_FILTERS' | oTranslate }}"
           >
             <mat-icon class="material-icons">search</mat-icon>
           </button>
@@ -112,7 +113,7 @@
             type="RAISED"
             label="CLEAR"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'Clear' | oTranslate }}"
+            matTooltip="{{ 'CLEAR_FILTERS' | oTranslate }}"
             (click)="clearFilters()"
           >
             <mat-icon class="material-icons">clear</mat-icon>

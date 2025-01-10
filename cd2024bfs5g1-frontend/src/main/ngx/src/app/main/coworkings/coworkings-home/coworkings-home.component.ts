@@ -281,7 +281,6 @@ export class CoworkingsHomeComponent implements OnInit {
     // El primer valor representa los dias, en caso de querer 
     // modificar la cantidad de días a comparar basta con 
     // modificar ese número.
-    console.log("StartDate: ",startDate);
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;

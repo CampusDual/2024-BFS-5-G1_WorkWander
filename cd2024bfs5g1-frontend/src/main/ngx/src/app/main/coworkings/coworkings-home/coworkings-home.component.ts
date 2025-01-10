@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import {
   Component,
   HostListener,
@@ -8,6 +9,7 @@ import {
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import {
+  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -300,5 +302,17 @@ export class CoworkingsHomeComponent implements OnInit {
     this.coworkingsGrid.onDataLoaded.subscribe(() => {
       this.noResults = this.coworkingsGrid.dataArray.length === 0;
     });
+  }
+
+  // Compara la fecha del coworking con la fecha actual y
+  // devuelve true si la diferencia es menor a 7 días
+  compareDate(startDate: any): boolean {
+
+    // El primer valor representa los dias, en caso de querer
+    // modificar la cantidad de días a comparar basta con
+    // modificar ese número.
+    let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
+    let diferencia = this.currentDate().getTime() - startDate;
+    return sieteDiasEnMilisegundos > diferencia;
   }
 }

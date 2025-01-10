@@ -1,0 +1,172 @@
+<!--
+
+This HTML file defines the structure of the "New Event" form component in an Angular application. The form is created using custom form elements and Angular Flex Layout for responsive design. Key features include:
+
+- **Form Configuration**: The form is configured with attributes such as `attr`, `service`, `entity`, `keys`, and `header-actions`. It also includes event handling for the `onInsert` event.
+- **General Information Section**: Contains input fields for event details:
+    - **Name**: Text input with validation to disallow special characters.
+    - **Bookings**: Integer input for the number of bookings, with a minimum value of 0.
+    - **Date**: Date input with a minimum value set to the current date.
+    - **Hour**: Hour input for the event time.
+    - **Locality**: Text input for the locality with validation to disallow special characters.
+    - **Address**: Text input for the address with validation to disallow special characters.
+    - **Description**: Text input for the event description with a maximum length of 250 characters.
+- **Layout**: Utilizes Angular Flex Layout directives (`fxLayout`, `fxFlex`, `fxLayoutGap`, `fxLayoutAlign`) to arrange the form elements responsively.
+-->
+<o-form
+  #form
+  attr="eventNew"
+  service="events"
+  entity="event"
+  keys="id_event"
+  header-actions="R;U"
+  show-header="no"
+  show-header-navigation="no"
+  class="form-section"
+  ignore-default-navigation="yes"
+  fxFlex
+  columns="id_event;name;description;date_event;hour_event;address;duration;image_event;price"
+  visible-columns="name;description;date_event;hour_event;address;duration;image_event;price"
+  (onInsert)="OnInsertSuccess();$event.stopPropagation()"
+>
+  <div
+    class="form-section form-new-event no-margin-top"
+    fxLayout="row"
+    fxLayoutGap="24px"
+    fxLayoutAlign="left start"
+  >
+    <o-integer-input oHidden attr="id_event"></o-integer-input>
+    <!-- Información General -->
+    <o-column
+      fxFlex
+      class="form-section column-new-event no-margin-top"
+      title="EVENT_INFORMATION"
+      fxLayoutGap="24px"
+    >
+      <!-- Nombre -->
+      <o-text-input
+        #nameInput
+        attr="name"
+        icon="business"
+        required="yes"
+      ></o-text-input>
+      <o-textarea-input
+        fxFlex
+        attr="description"
+        fxFlex
+        label="DESCRIPTION"
+        required="yes"
+        icon="description"
+        max-length="250"
+        icon="description"
+      ></o-textarea-input>
+      <!-- Fecha -->
+      <o-date-input
+        #dateInput
+        attr="date_event"
+        [min]="currentDate()"
+        value-type="date"
+        icon="event"
+        required="yes"
+        class="inline"
+      ></o-date-input>
+      <!-- Hora -->
+      <o-hour-input
+        attr="hour_event"
+        icon="schedule"
+        required="yes"
+        class="inline"
+      ></o-hour-input>
+      <!-- Duración -->
+      <o-integer-input
+        fxFlex="30"
+        attr="duration"
+        icon="hourglass_empty"
+        min="0"
+        step="1"
+        max="999"
+        class="inline"
+      ></o-integer-input>
+      <!-- Plazas -->
+      <o-integer-input
+        attr="bookings"
+        min="0"
+        step="1"
+        icon="event_seat"
+        thousand-separator="."
+        required="yes"
+        class="inline"
+      ></o-integer-input>
+      <!-- Precio -->
+      <o-real-input
+        attr="price"
+        required="no"
+        min="0"
+        max="1000"
+        placeholder="0"
+        decimal-digits="2"
+        class="inline"
+      ></o-real-input>
+      <!-- Localidad -->
+      <o-combo
+        #combo
+        attr="locality"
+        service="cities"
+        entity="city"
+        keys="id_city"
+        value-column="id_city"
+        columns="id_city;city"
+        visible-columns="city"
+        null-selection="no"
+        required="yes"
+        label="LOCALITY"
+        translate="yes"
+        searchable="true"
+        sort="ASC"
+        appearance="fill"
+        class="halfSize"
+      >
+      </o-combo>
+      <!-- Dirección -->
+      <o-text-input
+        attr="address"
+        icon="place"
+        required="yes"
+        class="halfSize"
+      ></o-text-input>
+    </o-column>
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title=""
+      fxLayoutGap="24px"
+      style="padding: 0 15px"
+      fxLayoutAlign="space-between center"
+      class="image"
+    >
+      <!-- Imagen -->
+      <o-image
+        attr="image_event"
+        sql-type="OTHER"
+        max-file-size="1048576"
+        height="250px"
+      ></o-image>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+        <div class="buttons">
+          <button mat-raised-button class="cancelBtn" >
+            {{ "cancel" | oTranslate }}
+          </button>
+          <button
+            mat-raised-button
+            color="primary"
+            
+            attr="save"
+            
+          >
+            {{ "save" | oTranslate }}
+          </button>
+        </div>
+      </div>
+    </o-column>
+  </div>
+</o-form>

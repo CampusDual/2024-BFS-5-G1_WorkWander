@@ -21,7 +21,7 @@ import {
   SnackBarService
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { CustomMapService, Coworking } from "src/app/shared/services/custom-map.service";
+import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
 
 @Component({
   selector: "app-coworkings-home",
@@ -47,6 +47,7 @@ export class CoworkingsHomeComponent implements OnInit {
   selectedCoworking: any = null;
   data: any[];
   coworkings: Coworking[];
+  markerGroup: any;
 
   // Creamos constructor
   constructor(
@@ -294,11 +295,28 @@ export class CoworkingsHomeComponent implements OnInit {
   }
   updateMapMarkers() {
     if (this.mapVisible) {
+      // Inicializar markerGroup si no está inicializado
+      if (!this.markerGroup) {
+        this.markerGroup = L.layerGroup();
+      }
+
+      // Eliminar todas las marcas previas
+      this.markerGroup.clearLayers();
+
       const coworkings = this.coworkingsGrid.dataArray;
 
       coworkings.forEach((coworking) => {
-        this.mapService.addMark(this.coworking_map, coworking.cw_lat, coworking.cw_lon)
+        const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
+          draggable: false
+        }).bindPopup(coworking.cw_name);
+
+        this.markerGroup.addLayer(marker);
       });
+
+      // Añadir el grupo de capas al mapa (si no está ya añadido)
+      if (!this.leafletMap.hasLayer(this.markerGroup)) {
+        this.markerGroup.addTo(this.leafletMap);
+      }
     }
   }
 

@@ -34,7 +34,6 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
-  @ViewChild("bkr_ratio") bkr_ratio: Rating;
 
   public arrayServices: any = [];
   protected service: OntimizeService;

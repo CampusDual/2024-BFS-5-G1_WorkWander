@@ -1263,9 +1263,9 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     margin-left: 16px;
   }
 
-  .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base{
-    background-color: #B9CEBF;
-   }
+  .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base {
+    background-color: #b9cebf;
+  }
 
   ::ng-deep .o-grid-footer.ng-star-inserted {
     padding-bottom: 16px;
@@ -1370,15 +1370,15 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         background-color: gray;
         transition: all 0.3s ease;
         cursor: pointer;
-        outline: none; 
+        outline: none;
       }
-      
+
       button:hover {
         background-color: gray;
         transform: scale(1.1);
         box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
       }
-      
+
       button:focus {
         box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
       }
@@ -1483,6 +1483,59 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .btn-bookings-map:hover {
   background-color: $primaryClaro;
+}
+
+// leyenda calendario
+.leyenda {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-left: 230px;
+}
+
+.leyenda h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.leyenda ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leyenda li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.leyenda span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.tipo1-color {
+  background-color: #4d4d4d;
+}
+
+.tipo2-color {
+  background-color: #9b5278;
+}
+
+.tipo3-color {
+  background-color: #da954b;
+}
+
+.tipo4-color {
+  background-color: #7ba587;
 }
 
 @media (min-width: 768px) {
@@ -1691,13 +1744,13 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   gap: 3rem;
 }
 
-@media(min-width:600px){
+@media (min-width: 600px) {
   .container {
     grid-template-columns: repeat(1, 1fr);
   }
 }
 
-@media(min-width:900px){
+@media (min-width: 900px) {
   .container {
     grid-template-columns: repeat(2, 1fr 100%);
   }

@@ -1509,6 +1509,59 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   background-color: $primaryClaro;
 }
 
+// leyenda calendario
+.leyenda {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-left: 230px;
+}
+
+.leyenda h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.leyenda ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leyenda li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.leyenda span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.tipo1-color {
+  background-color: #4d4d4d;
+}
+
+.tipo2-color {
+  background-color: #9b5278;
+}
+
+.tipo3-color {
+  background-color: #da954b;
+}
+
+.tipo4-color {
+  background-color: #7ba587;
+}
+
 @media (min-width: 768px) {
   .form-new-event {
     margin-top: 70px;

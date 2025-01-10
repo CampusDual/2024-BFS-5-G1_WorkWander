@@ -9,6 +9,7 @@ import { UtilsService } from './services/utils.service';
 import { CoworkingsEditComponent } from '../main/coworkings/coworkings-edit/coworkings-edit.component';
 import { NumberToArrayPipe } from '../pipes/number-to-array.pipe';
 import { OMapModule } from 'ontimize-web-ngx-map';
+import { EventsEditComponent } from '../main/events/events-edit/events-edit.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { OMapModule } from 'ontimize-web-ngx-map';
     CoworkingsNewComponent,
     EventsDetailComponent,
     CoworkingsEditComponent,
+    EventsEditComponent,
     NumberToArrayPipe
   ],
   exports: [

@@ -108,5 +108,10 @@ public class EventService implements IEventService {
         keyMap.put(BookingEventDao.BKE_USR_ID, userId);
         return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTSCALENDAR_QUERY);
     }
+
+    @Override
+    public EntityResult myEventUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
+        return this.daoHelper.update(this.eventDao, keyMap, attrMap);
+    }
 }
 

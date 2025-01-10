@@ -29,7 +29,6 @@ export class CustomMapService {
 
     if (address[0].lat && address[0].lon) {
       this.addMark(mapa, address[0].lat, address[0].lon);
-      console.log("Latitud: " + address[0].lat + " Longitud: " + address[0].lon);
     } else {
       const coordinates = await this.getCoordinates(address[0].city, address[0].address);
       if (!coordinates[0] || !coordinates[1]) {
@@ -86,24 +85,24 @@ export class CustomMapService {
     const markerOptions = {
       draggable: false,
       icon: L.icon({
-        iconUrl: 'assets/icons/pocoyo.gif',
-        iconSize: [48, 48],
-        iconAnchor: [-25, -10],
+        //iconUrl: 'assets/icons/pocoyo.gif',
+        //iconUrl: 'assets/icons/location.gif',
+        iconUrl: 'assets/icons/ubicacion.gif',
+        iconSize: [42, 42],
+        iconAnchor: [-40, -20],
       }),
     };
 
     const marker = L.marker([lat, lon], markerOptions);
     marker.bindPopup(this.translate.get("MY_UBICATION"), {
-      offset: L.point(0, 0), // Mueve el popup
+      offset: L.point(60, 20), // Mueve el popup
     }).openPopup();
     marker.addTo(this.leafletMap);
-    console.log(`Marcador añadido en: Latitud ${lat}, Longitud ${lon}`);
   }
 
   public addMark(mapa: OMapComponent, lat: number, lon: number): void {
     this.mp = mapa.getMapService().getMap();
     if (!this.mp) {
-      console.error('El mapa no está inicializado.');
       return
     }
     this.mp.setView([+lat, +lon], 4);
@@ -131,15 +130,12 @@ export class CustomMapService {
     // Evento click del marcador
     marker.on('click', (event: any) => {
       let id = event.target.options.id;
-      console.log('Marcador clickeado:', id);
-      alert(`Has clickeado en el marcador: ${markerLabel}`);
     });
     // Evento dragend del marcador
     marker.on('dragend', (event) => {
       const { lat, lng } = event.target.getLatLng(); // Obtener latitud y longitud
       latToSave = lat;
       lonToSave = lng;
-      console.log('Nueva posición: ' + lat + ' ' + lng);
     });
   }
 
@@ -149,7 +145,6 @@ export class CustomMapService {
     coworkings: Coworking[],
     onClick: (coworking: Coworking) => void
   ): void {
-    console.log(coworkings);
     coworkings.forEach((coworking) => {
       const marker = L.marker([coworking.lat, coworking.lon], {
         title: coworking.name,
@@ -204,7 +199,7 @@ export class CustomMapService {
   public async obtenerCoworkings(): Promise<Coworking[]> {
     return new Promise((resolve, reject) => {
       let coworkings: Coworking[] = [];
-      console.log(this.mapLat, this.mapLon);
+
       const filter = {
         LAT_ORIGEN: this.mapLat,
         LON_ORIGEN: this.mapLon,
@@ -218,7 +213,7 @@ export class CustomMapService {
       this.service.query(filter, columns, "coworkingNearby").subscribe(
         (resp) => {
           if (resp.code == 0) {
-            console.log(resp.data);
+
             coworkings = resp.data.map(item => ({
               id: item.cw_id,
               name: item.cw_name,
@@ -226,7 +221,7 @@ export class CustomMapService {
               lon: +item.cw_lon,
               distance_km: item.distancia_km
             }));
-            console.log(coworkings);
+
             resolve(coworkings);
           } else {
             reject(new Error('Error en la consulta de coworkings'));

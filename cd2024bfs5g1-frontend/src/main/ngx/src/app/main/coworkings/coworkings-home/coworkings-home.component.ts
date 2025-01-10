@@ -282,16 +282,16 @@ export class CoworkingsHomeComponent implements OnInit {
 
   //------------------------------- MAPA -------------------------------
   showHideMap() {
-      this.mapVisible = !this.mapVisible;
+    this.mapVisible = !this.mapVisible;
 
-      if (this.mapVisible) {
-        // mandar el mapa al que se dene incluir la marca
-        setTimeout(() => {
-          this.leafletMap = this.coworking_map.getMapService().getMap();
-          this.mapService.setUserMap(this.coworking_map);
-        }, 500);
-      }
+    if (this.mapVisible) {
+      // mandar el mapa al que se dene incluir la marca
+      setTimeout(() => {
+        this.leafletMap = this.coworking_map.getMapService().getMap();
+        this.mapService.setUserMap(this.coworking_map);
+      }, 500);
     }
+  }
   updateMapMarkers() {
     if (this.mapVisible) {
       const coworkings = this.coworkingsGrid.dataArray;
@@ -304,30 +304,30 @@ export class CoworkingsHomeComponent implements OnInit {
 
 
   async nearOfMe() {
-  await this.mapService.getUserGeolocation();
+    await this.mapService.getUserGeolocation();
 
-  this.coworkings = await this.mapService.obtenerCoworkings()
+    this.coworkings = await this.mapService.obtenerCoworkings()
 
-  this.mapService.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
-    const columns = [
-      "cw_id",
-      "cw_name",
-      "cw_description",
-      "cw_daily_price",
-      "cw_image"
-    ];
-    this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
-      (resp) => {
-        const coworkingData = resp.data;
-        if (coworkingData) {
-          this.selectedCoworking = coworkingData[0];
-          console.log(this.selectedCoworking);
+    this.mapService.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
+      const columns = [
+        "cw_id",
+        "cw_name",
+        "cw_description",
+        "cw_daily_price",
+        "cw_image"
+      ];
+      this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
+        (resp) => {
+          const coworkingData = resp.data;
+          if (coworkingData) {
+            this.selectedCoworking = coworkingData[0];
+
+          }
+        },
+        (error) => {
+          console.error("Error al consultar los detalles del coworking:", error);
         }
-      },
-      (error) => {
-        console.error("Error al consultar los detalles del coworking:", error);
-      }
-    );
-  });
-}
+      );
+    });
+  }
 }

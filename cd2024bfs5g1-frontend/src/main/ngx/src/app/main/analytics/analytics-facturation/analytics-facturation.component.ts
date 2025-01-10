@@ -172,8 +172,8 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   /**
    * Efecto de espera de recepción de datos
    */
-  efects(){    
-    let elements = document.getElementsByClassName("txt-rotate");     
+  efects(){
+    let elements = document.getElementsByClassName("txt-rotate");
     for (let ir = 0; ir < elements.length; ir++) {
       let toRotate = this.points;
       if (toRotate) {
@@ -226,18 +226,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama desde el onInit y en el combo de meses
    * @param selectMonths
    */
-  setMonth(selectMonths?: any) {    
-    if(!this.languageChoose){      
-      this.efects();      
-      if (this.comboMonthInput.getSelectedItems().length == 0 || this.selectedCoworkings.length == 0) {                
+  setMonth(selectMonths?: any) {
+    if(!this.languageChoose){
+      this.efects();
+      if (this.comboMonthInput.getSelectedItems().length == 0 || this.selectedCoworkings.length == 0) {
         this.resolveData=false
         this.isGraph=false
-      } else if(this.comboMonthInput.getSelectedItems()[0]==0){          
+      } else if(this.comboMonthInput.getSelectedItems()[0]==0){
         this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
         selectMonths.newValue = this.selectedMonths;
-        this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);        
-      } else {          
-          this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);        
+        this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
+      } else {
+          this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
       }
     }else{
       this.languageChoose = false;

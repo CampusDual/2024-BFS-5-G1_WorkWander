@@ -9,6 +9,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import {
+  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -17,6 +18,7 @@ import {
   OIntegerInputComponent,
   OntimizeService,
   OSliderComponent,
+  OSnackBarConfig,
   OTranslateService,
   SnackBarService
 } from "ontimize-web-ngx";
@@ -29,8 +31,8 @@ import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.
   styleUrls: ["./coworkings-home.component.css"],
 })
 export class CoworkingsHomeComponent implements OnInit {
-
-  @ViewChild('filterBuilder', { static: true }) filterBuilder: OFilterBuilderComponent;
+  @ViewChild("filterBuilder", { static: true })
+  filterBuilder: OFilterBuilderComponent;
   @ViewChild("coworkingsGrid") protected coworkingsGrid: OGridComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
@@ -41,6 +43,8 @@ export class CoworkingsHomeComponent implements OnInit {
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
+  public toPrice: number = 0;
+
   public toPrice: number = 0;
   public mapVisible: boolean = false;
   leafletMap: any;
@@ -71,7 +75,6 @@ export class CoworkingsHomeComponent implements OnInit {
     this.configureService();
     this.leafletMap = this.coworking_map.getMapService().getMap();
     //this.setFormatPrice();
-
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -165,7 +168,9 @@ export class CoworkingsHomeComponent implements OnInit {
             fil.attr
           );
         } else if (fil.attr == "cw_daily_price") {
-          priceExpressions.push(FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value));
+          priceExpressions.push(
+            FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
+          );
         }
       }
     });
@@ -228,7 +233,7 @@ export class CoworkingsHomeComponent implements OnInit {
       locationExpression,
       serviceExpression,
       priceExpression,
-      daterangeExpression
+      daterangeExpression,
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -347,5 +352,18 @@ export class CoworkingsHomeComponent implements OnInit {
         }
       );
     });
+  }
+
+  // Compara la fecha del coworking con la fecha actual y
+  // devuelve true si la diferencia es menor a 7 días
+  compareDate(startDate: any): boolean {
+
+    // El primer valor representa los dias, en caso de querer
+    // modificar la cantidad de días a comparar basta con
+    // modificar ese número.
+    console.log("StartDate: ",startDate);
+    let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
+    let diferencia = this.currentDate().getTime() - startDate;
+    return sieteDiasEnMilisegundos > diferencia;
   }
 }

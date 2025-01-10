@@ -286,5 +286,8 @@
   "END": "End",
   "QR_INFO_MESSAGE": "Show this QR code at the entrance of the coworking",
   "NO_EVENTS": "No events available",
-  "NO_REVIEWS": "There's no reviews, be the first to write one"
+  "NO_REVIEWS": "There's no reviews, be the first to write one",
+  "BOOKING_FINISHED": "Booking in coworking finished",
+  "BOOKING_PENDING": "Booking in coworking pending",
+  "BOOKING_INPROGRESS": "Booking in coworking in progress"
 }

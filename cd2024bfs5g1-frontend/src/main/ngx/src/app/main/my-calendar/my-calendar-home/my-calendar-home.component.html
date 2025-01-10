@@ -60,13 +60,17 @@
     <div fxLayout="row" fxFlex>
       <ul>
         <li>
-          <span class="tipo1-color"></span> Reserva en coworking finalizada
+          <span class="tipo1-color"></span>
+          {{ "BOOKING_FINISHED" | oTranslate }}
         </li>
-        <li><span class="tipo2-color"></span> Reserva en coworking en curso</li>
         <li>
-          <span class="tipo3-color"></span> Reserva en coworking pendiente
+          <span class="tipo2-color"></span> {{ "BOOKING_PENDING" | oTranslate }}
         </li>
-        <li><span class="tipo4-color"></span> Evento</li>
+        <li>
+          <span class="tipo3-color"></span>
+          {{ "BOOKING_INPROGRESS" | oTranslate }}
+        </li>
+        <li><span class="tipo4-color"></span> {{ "EVENTS" | oTranslate }}</li>
       </ul>
     </div>
   </div>

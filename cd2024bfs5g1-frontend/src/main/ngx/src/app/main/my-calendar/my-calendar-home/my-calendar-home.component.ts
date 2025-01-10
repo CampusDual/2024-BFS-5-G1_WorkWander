@@ -1,13 +1,11 @@
 import { Component, Injector, OnInit, ViewChild } from "@angular/core";
 import {
   DayPilot,
-  DayPilotCalendarComponent,
   DayPilotMonthComponent,
   DayPilotNavigatorComponent,
 } from "@daypilot/daypilot-lite-angular";
 import {
   OTranslateService,
-  OFormComponent,
   OntimizeService,
 } from "ontimize-web-ngx";
 import { Subscription } from "rxjs";
@@ -26,14 +24,15 @@ export class MyCalendarHomeComponent implements OnInit {
   events: DayPilot.EventData[] = [];
 
   service: OntimizeService;
-  color: string = "";
   date = DayPilot.Date.today();
   private translateServiceSubscription: Subscription;
+
+  color: string = "";
 
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
-    private injector: Injector
+    private injector: Injector,
   ) {
     this.service = this.injector.get(OntimizeService);
     this.translateServiceSubscription = this.translate.onLanguageChanged.subscribe(() => {
@@ -63,7 +62,16 @@ export class MyCalendarHomeComponent implements OnInit {
     theme: "verde",
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
-    startDate: DayPilot.Date.today()
+    startDate: DayPilot.Date.today(),
+    onBeforeCellRender: (args) => {
+      const today = DayPilot.Date.today(); // Día actual en formato DayPilot.Date
+      if (args.cell.start.getDatePart() < today) {
+        // Aplica estilos personalizados
+        args.cell.properties.backColor = "#c0c0c0"; // Fondo amarillo
+      } else if (args.cell.start.getDatePart().equals(today)) {
+        args.cell.properties.backColor = "#f3f3cc"
+      }
+    },
   };
 
   configWeek: DayPilot.CalendarConfig = {
@@ -105,7 +113,6 @@ export class MyCalendarHomeComponent implements OnInit {
       .query(filter, columns, "myEventsCalendar")
       .subscribe((response) => {
         for (let i = 0; i < response.data.length; i++) {
-
           const hour = "T" + this.utils.formatTime(response.data[i].hour_event) + ":00"
           const finalTime = this.createFinalTime(hour, response.data[i].duration)
           const date = new Date(response.data[i].date_event);
@@ -120,6 +127,42 @@ export class MyCalendarHomeComponent implements OnInit {
           this.events.push(object);
         }
       });
+
+    const bk_filter = {
+      bk_state: true,
+    };
+    const bk_columns = ["cw_name", "bk_state", "dates"];
+
+    const conf = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(conf);
+
+    this.service.query(bk_filter, bk_columns, "datesByBooking").subscribe((resp) => {
+
+      for (let index = 0; index < resp.data.length; index++) {
+        for (let f = 0; f < resp.data[index].dates.length; f++) {
+
+          const date = new Date(resp.data[index].dates[f]);
+
+          if (this.utils.calculateState(resp.data[index]) == 'En curso') {
+            this.color = "#9B5278"
+          } else if (this.utils.calculateState(resp.data[index]) == 'Pendiente') {
+            this.color = "#DA954B"
+          } else {
+            this.color = "#4d4d4d"
+          }
+
+          const object = {
+            id: index + 1,
+            start: this.createInitDate(date) + 'T00:00:00',
+            end: this.createInitDate(date) + 'T23:59:59',
+            text: resp.data[index].cw_name,
+            backColor: this.color,
+            barColor: this.color
+          }
+          this.events.push(object);
+        }
+      }
+    });
   }
 
   createInitDate(date: any): string {

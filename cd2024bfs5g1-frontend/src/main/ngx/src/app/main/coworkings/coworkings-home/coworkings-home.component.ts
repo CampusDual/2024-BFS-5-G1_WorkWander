@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import {
   Component,
   HostListener,
@@ -9,6 +10,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import {
+  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -19,7 +21,7 @@ import {
   OSliderComponent,
   OSnackBarConfig,
   OTranslateService,
-  SnackBarService
+  SnackBarService,
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
@@ -68,7 +70,6 @@ export class CoworkingsHomeComponent implements OnInit {
   // Creamos una variable para pasarle al html el número de columnas, por defecto 2
   public gridCols: number = 2;
 
-
   ngOnInit() {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
@@ -116,7 +117,7 @@ export class CoworkingsHomeComponent implements OnInit {
   }
 
   formatLabelUntil(): any {
-    return this.toPrice + " €"
+    return this.toPrice + " €";
   }
 
   // Función para crear los filtros de busqueda avanzada
@@ -371,4 +372,3 @@ export class CoworkingsHomeComponent implements OnInit {
     return sieteDiasEnMilisegundos > diferencia;
   }
 }
-

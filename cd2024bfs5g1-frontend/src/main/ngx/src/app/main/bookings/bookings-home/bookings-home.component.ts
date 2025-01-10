@@ -38,7 +38,7 @@ export class BookingsHomeComponent {
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
     protected dialog: MatDialog
-  ) { }
+  ) {}
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -157,11 +157,12 @@ export class BookingsHomeComponent {
   }
 
   async acercar(data) {
+    this.coworking_map.getMapService().setZoom(16);
+
+    await this.delay(300);
     this.coworking_map
       .getMapService()
       .setCenter(data["cw_lat"], data["cw_lon"]);
-    await this.delay(300);
-    this.coworking_map.getMapService().setZoom(16);
   }
 
   async delay(ms: number) {

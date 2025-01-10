@@ -20,6 +20,7 @@ import {
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
+import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -33,6 +34,7 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
+  @ViewChild("ratio") ratio: Rating;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
@@ -101,6 +103,10 @@ export class CoworkingsHomeComponent implements OnInit {
     this.toPrice = $event;
   }
 
+  getRatio() {
+    return this.starSearchValue;
+  }
+
   formatLabelUntil(): any {
     return this.toPrice + " €";
   }
@@ -159,12 +165,9 @@ export class CoworkingsHomeComponent implements OnInit {
           priceExpressions.push(
             FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
           );
-        } else if (fil.attr === "bkr_ratio" && fil.value > 0) {
+        } else if (fil.attr == "ratio") {
           starsExpressions.push(
-            FilterExpressionUtils.buildExpressionMoreEqual(
-              "bkr_ratio",
-              fil.value
-            )
+            FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value)
           );
         }
       }

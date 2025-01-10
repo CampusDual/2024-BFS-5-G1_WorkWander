@@ -139,9 +139,8 @@ export class CustomMapService {
     });
   }
 
-
   public addMarkers(
-    mapa: L.Map,
+    layerGroup: L.LayerGroup,
     coworkings: Coworking[],
     onClick: (coworking: Coworking) => void
   ): void {
@@ -149,8 +148,7 @@ export class CustomMapService {
       const marker = L.marker([coworking.lat, coworking.lon], {
         title: coworking.name,
         draggable: false,
-      }).addTo(mapa);
-
+      });
       // Asignar la ID del coworking
       marker.options.id = coworking.id;
 
@@ -159,6 +157,8 @@ export class CustomMapService {
         // Llamar al callback con los datos del coworking
         onClick(coworking);
       });
+      // Añadir el marcador al LayerGroup
+      layerGroup.addLayer(marker);
     });
   }
 

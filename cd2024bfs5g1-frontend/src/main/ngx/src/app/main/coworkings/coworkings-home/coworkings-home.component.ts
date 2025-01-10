@@ -9,7 +9,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import {
-  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -51,7 +50,7 @@ export class CoworkingsHomeComponent implements OnInit {
   data: any[];
   coworkings: Coworking[];
   markerGroup: any;
-
+  nearMeMarkerGroup: any;
   // Creamos constructor
   constructor(
     protected injector: Injector,
@@ -72,8 +71,9 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
+
     this.leafletMap = this.coworking_map.getMapService().getMap();
-    //this.setFormatPrice();
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -265,7 +265,6 @@ export class CoworkingsHomeComponent implements OnInit {
   currentDate() {
     let date = new Date();
     date.setHours(0, 0, 0, 0);
-
     return date;
   }
 
@@ -288,7 +287,6 @@ export class CoworkingsHomeComponent implements OnInit {
   //------------------------------- MAPA -------------------------------
   showHideMap() {
     this.mapVisible = !this.mapVisible;
-
     if (this.mapVisible) {
       // mandar el mapa al que se dene incluir la marca
       setTimeout(() => {
@@ -297,23 +295,23 @@ export class CoworkingsHomeComponent implements OnInit {
       }, 500);
     }
   }
+
   updateMapMarkers() {
     if (this.mapVisible) {
-      // Inicializar markerGroup si no está inicializado
-      if (!this.markerGroup) {
-        this.markerGroup = L.layerGroup();
-      }
 
+      //Inicializar markerGroup si no está inicializado
+      if (!this.markerGroup) {
+        this.markerGroup = L.layerGroup().addTo(this.leafletMap);
+      }
       // Eliminar todas las marcas previas
       this.markerGroup.clearLayers();
-
+      this.nearMeMarkerGroup.clearLayers();
+      // Añadir una marca por cada coworking
       const coworkings = this.coworkingsGrid.dataArray;
-
       coworkings.forEach((coworking) => {
         const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
           draggable: false
         }).bindPopup(coworking.cw_name);
-
         this.markerGroup.addLayer(marker);
       });
 
@@ -326,11 +324,17 @@ export class CoworkingsHomeComponent implements OnInit {
 
 
   async nearOfMe() {
+
     await this.mapService.getUserGeolocation();
 
     this.coworkings = await this.mapService.obtenerCoworkings()
 
-    this.mapService.addMarkers(this.leafletMap, this.coworkings, (selectedCoworking) => {
+    // Inicializar nearMeMarkerGroup si no está inicializado
+    if (!this.nearMeMarkerGroup) {
+      this.nearMeMarkerGroup = L.layerGroup().addTo(this.leafletMap);
+    }
+
+    this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings, (selectedCoworking) => {
       const columns = [
         "cw_id",
         "cw_name",
@@ -343,7 +347,6 @@ export class CoworkingsHomeComponent implements OnInit {
           const coworkingData = resp.data;
           if (coworkingData) {
             this.selectedCoworking = coworkingData[0];
-
           }
         },
         (error) => {

@@ -45,7 +45,6 @@ export class CoworkingsHomeComponent implements OnInit {
   public idioma: string;
   public toPrice: number = 0;
 
-  public toPrice: number = 0;
   public mapVisible: boolean = false;
   leafletMap: any;
   selectedCoworking: any = null;
@@ -361,7 +360,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // El primer valor representa los dias, en caso de querer
     // modificar la cantidad de días a comparar basta con
     // modificar ese número.
-    console.log("StartDate: ",startDate);
+    console.log("StartDate: ", startDate);
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;

@@ -1,13 +1,11 @@
 import { Component, Injector, OnInit, ViewChild } from "@angular/core";
 import {
   DayPilot,
-  DayPilotCalendarComponent,
   DayPilotMonthComponent,
   DayPilotNavigatorComponent,
 } from "@daypilot/daypilot-lite-angular";
 import {
   OTranslateService,
-  OFormComponent,
   OntimizeService,
 } from "ontimize-web-ngx";
 import { Subscription } from "rxjs";
@@ -33,7 +31,7 @@ export class MyCalendarHomeComponent implements OnInit {
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
-    private injector: Injector
+    private injector: Injector,
   ) {
     this.service = this.injector.get(OntimizeService);
     this.translateServiceSubscription = this.translate.onLanguageChanged.subscribe(() => {
@@ -63,8 +61,18 @@ export class MyCalendarHomeComponent implements OnInit {
     theme: "verde",
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
-    startDate: DayPilot.Date.today()
+    startDate: DayPilot.Date.today(),
+    onBeforeCellRender: (args) => {
+      const today = DayPilot.Date.today(); // Día actual en formato DayPilot.Date
+      if (args.cell.start.getDatePart() < today) {
+        // Aplica estilos personalizados
+        args.cell.properties.backColor = "#c0c0c0"; // Fondo amarillo
+      } else if (args.cell.start.getDatePart().equals(today)) {
+        args.cell.properties.backColor = "#f3f3cc"
+      }
+    },
   };
+
 
   configWeek: DayPilot.CalendarConfig = {
     theme: "verde",
@@ -145,8 +153,8 @@ export class MyCalendarHomeComponent implements OnInit {
 
           const object = {
             id: index + 1,
-            start: this.createInitDate(date) + 'T08:00:00',
-            end: this.createInitDate(date) + 'T22:00:00',
+            start: this.createInitDate(date) + 'T00:00:00',
+            end: this.createInitDate(date) + 'T23:59:59',
             text: resp.data[index].cw_name,
             backColor: this.color,
             barColor: this.color

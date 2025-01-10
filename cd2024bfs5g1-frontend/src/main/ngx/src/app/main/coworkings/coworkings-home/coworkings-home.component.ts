@@ -49,6 +49,7 @@ export class CoworkingsHomeComponent implements OnInit {
   selectedCoworking: any = null;
   data: any[];
   coworkings: Coworking[];
+  //coworkingLayerGroup: L.layerGroup = L.layerGroup();
   markerGroup: any;
   nearMeMarkerGroup: any;
   // Creamos constructor
@@ -66,6 +67,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
   // Creamos una variable para pasarle al html el número de columnas, por defecto 2
   public gridCols: number = 2;
+
 
   ngOnInit() {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
@@ -369,3 +371,4 @@ export class CoworkingsHomeComponent implements OnInit {
     return sieteDiasEnMilisegundos > diferencia;
   }
 }
+

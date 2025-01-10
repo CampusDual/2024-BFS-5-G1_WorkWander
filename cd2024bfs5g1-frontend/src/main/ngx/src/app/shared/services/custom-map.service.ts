@@ -82,12 +82,15 @@ export class CustomMapService {
   public addMyMarker(leafletMap: L, lat: number, lon: number) {
 
     // Agregar marcador personalizado al realizar la búsqueda
+    /*
     const markerOptions = {
       draggable: false,
+
       icon: L.icon({
-        //iconUrl: 'assets/icons/pocoyo.gif',
-        //iconUrl: 'assets/icons/location.gif',
-        iconUrl: 'assets/icons/ubicacion.gif',
+        //iconUrl: 'assets/icons/ubicacion.png',
+        iconUrl: 'assets/icons/pocoyo.gif',
+        //iconUrl: 'assets/icons/cw_location.gif',
+        //iconUrl: 'assets/icons/ubicacion.gif',
         iconSize: [42, 42],
         iconAnchor: [-40, -20],
       }),
@@ -97,7 +100,28 @@ export class CustomMapService {
     marker.bindPopup(this.translate.get("MY_UBICATION"), {
       offset: L.point(60, 20), // Mueve el popup
     }).openPopup();
-    marker.addTo(this.leafletMap);
+    marker.addTo(this.leafletMap);*/
+
+    const myIcon = L.divIcon({
+      className: 'custom-icon',
+      html: '<img src="assets/icons/pocoyo.gif" style="width: 42px; height: 42px;" />',
+      iconSize: [42, 42],
+      iconAnchor: [20, 42], // Ajustar el ancla del icono para que la punta esté en la posición correcta
+    });
+
+    // Crear el marcador con el icono personalizado
+    const marker = L.marker([lat, lon], {
+      icon: myIcon,
+      draggable: false,
+    });
+
+    // Añadir un popup al marcador
+    marker.bindPopup(this.translate.get("MY_UBICATION"), {
+      offset: L.point(0, -42), // Ajustar el offset del popup para que aparezca sobre el icono
+    }).openPopup();
+
+    // Añadir el marcador al mapa
+    marker.addTo(leafletMap);
   }
 
   public addMark(mapa: OMapComponent, lat: number, lon: number): void {

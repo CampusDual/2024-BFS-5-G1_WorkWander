@@ -124,10 +124,9 @@
                 from coworking cw
                 inner join booking b on cw.cw_id = b.bk_cw_id
                 inner JOIN booking_date bd ON b.bk_id = bd.bk_id
-                #WHERE#
                 GROUP BY b.bk_cw_id, bd.date
                 )
-                SELECT *
+                SELECT #COLUMNS#
                     FROM t1 LEFT JOIN t2 ON t1.cw_id = t2.t2_cw_id
                     #WHERE#
                 ]]>

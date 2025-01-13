@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EventsDetailComponent implements OnInit {
+  buttonBooking!:boolean;
   bookingEvents: any = [];
   literalNumeroPlazas: string;
   numeroPlazas: string;
@@ -35,7 +36,8 @@ export class EventsDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.checkBookingEvent();
+    this.buttonBooking=true;
+    this.checkBookingEvent();    
   }
 
   formatDate(rawDate: number): string {
@@ -80,7 +82,9 @@ export class EventsDetailComponent implements OnInit {
     return !this.auth.isLoggedIn();
   }
 
-
+  isInvalidButton(){
+    return !this.buttonBooking;
+  }
 
   showConfirm() {
     if (this.auth.isLoggedIn()) {
@@ -157,12 +161,12 @@ export class EventsDetailComponent implements OnInit {
           this.bookingEvents = resp.data;
           console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
           if (this.bookingEvents.totalEventBookings > 0) {
-
+            this.buttonBooking=true;
             cantidadPlazasLibres = this.bookingEvents.availableEventBookings / this.bookingEvents.totalEventBookings;
             this.literalNumeroPlazas = "BOOKINGS_LEFT"
             this.numeroPlazas = this.bookingEvents.availableEventBookings;
             switch (true) {
-
+              
               case (cantidadPlazasLibres > 0.9):
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";
                 break;
@@ -179,6 +183,7 @@ export class EventsDetailComponent implements OnInit {
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_00";
                 break;
               case (cantidadPlazasLibres == 0):
+                this.buttonBooking=false;
                 this.literalPlazas = "EVENT_DISPONIBILITY_EQ_00";
                 break;
             }
@@ -186,6 +191,7 @@ export class EventsDetailComponent implements OnInit {
           return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
 
         } else {
+          this.buttonBooking=false;
           return this.translate.get("NO_BOOKING_ENABLED")
         }
       });

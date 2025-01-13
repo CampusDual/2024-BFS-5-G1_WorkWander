@@ -286,7 +286,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
           this.buttonBooking=true;
-          //this.bookingButton.enabled = true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -300,13 +299,11 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          //this.bookingButton.enabled = false;
           this.buttonBooking=false;
         }
       },
       (error) => {
         console.error("Error al consultar capacidad:", error);
-        //this.bookingButton.enabled = false;
         this.buttonBooking=false;
       }
     );

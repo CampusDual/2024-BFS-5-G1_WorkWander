@@ -277,7 +277,7 @@
             <!-- Fin media valoraciones -->
             <div class="tags-container">
               <span *ngIf="data.ratio >= 4.5" class="recomended-tag">{{ "RECOMENDED" | oTranslate }}</span>
-              <span *ngIf="compareDate(data.date)" class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
+              <span *ngIf="compareDate(data.cw_start_date)" class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
               <span *ngIf="data.cw_daily_price <= 10" class="low-price-tag">{{ "LOW_PRICE" | oTranslate }}</span>
             </div>
           </div>

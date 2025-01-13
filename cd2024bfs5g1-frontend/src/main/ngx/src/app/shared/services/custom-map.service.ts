@@ -80,28 +80,6 @@ export class CustomMapService {
   }
 
   public addMyMarker(leafletMap: L, lat: number, lon: number) {
-
-    // Agregar marcador personalizado al realizar la búsqueda
-    /*
-    const markerOptions = {
-      draggable: false,
-
-      icon: L.icon({
-        //iconUrl: 'assets/icons/ubicacion.png',
-        iconUrl: 'assets/icons/pocoyo.gif',
-        //iconUrl: 'assets/icons/cw_location.gif',
-        //iconUrl: 'assets/icons/ubicacion.gif',
-        iconSize: [42, 42],
-        iconAnchor: [-40, -20],
-      }),
-    };
-
-    const marker = L.marker([lat, lon], markerOptions);
-    marker.bindPopup(this.translate.get("MY_UBICATION"), {
-      offset: L.point(60, 20), // Mueve el popup
-    }).openPopup();
-    marker.addTo(this.leafletMap);*/
-
     const myIcon = L.divIcon({
       className: 'custom-icon',
       html: '<img src="assets/icons/pocoyo.gif" style="width: 42px; height: 42px;" />',

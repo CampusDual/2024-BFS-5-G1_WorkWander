@@ -51,7 +51,6 @@ export class CoworkingsHomeComponent implements OnInit {
   selectedCoworking: any = null;
   data: any[];
   coworkings: Coworking[];
-  //coworkingLayerGroup: L.layerGroup = L.layerGroup();
   markerGroup: any;
   nearMeMarkerGroup: any;
   // Creamos constructor

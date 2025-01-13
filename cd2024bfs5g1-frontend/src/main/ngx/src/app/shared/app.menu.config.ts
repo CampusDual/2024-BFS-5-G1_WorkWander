@@ -41,7 +41,6 @@ export const MENU_CONFIG: MenuRootItem[] = [
       { id: "analyticsFacturation", name: "FACTURATION", route: "/main/analytics/facturation", icon: "savings" },
     ],
   },
-  { id: 'nearbyCoworking', name: 'NEARBY_COWORKINGS', tooltip: 'NEARBY_COWORKINGS', route: '/main/coworkings/nearby-coworking', icon: 'map-location-dot' },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' },
   { id: 'login_public', name: 'LOGIN', route: '/login', icon: 'power_settings_new', confirm: 'no' }
 ];

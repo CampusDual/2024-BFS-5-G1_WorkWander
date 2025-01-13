@@ -244,6 +244,7 @@
   "NO_RESULTS": "No results found",
   "PRICE_RANGE": "Price",
   "EVENT_CREATE": "Event created!",
+  "NEARBY_COWORKINGS": "Coworkings nearby",
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
   "CONFIRM2": "Confirm address",
@@ -290,6 +291,9 @@
   "BOOKING_FINISHED": "Booking in coworking finished",
   "BOOKING_PENDING": "Booking in coworking pending",
   "BOOKING_INPROGRESS": "Booking in coworking in progress",
+  "MY_UBICATION": "Your position",
   "EVENT_UPDATED": "Event updated",
   "EVENT_WITH_BOOKINGS": "There are one or more bookings for this event, you can't set this field to zero"
 }
+
+

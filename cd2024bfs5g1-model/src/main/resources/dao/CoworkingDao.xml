@@ -124,10 +124,9 @@
                 from coworking cw
                 inner join booking b on cw.cw_id = b.bk_cw_id
                 inner JOIN booking_date bd ON b.bk_id = bd.bk_id
-                #WHERE#
                 GROUP BY b.bk_cw_id, bd.date
                 )
-                SELECT *
+                SELECT #COLUMNS#
                     FROM t1 LEFT JOIN t2 ON t1.cw_id = t2.t2_cw_id
                     #WHERE#
                 ]]>
@@ -147,6 +146,27 @@
 				    #WHERE#
 					GROUP BY coworking_name, date_part('month', booking_date.date), coworking.cw_daily_price
 				    ORDER BY coworking_name, m ASC;
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coworkingNearby">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                #COLUMNS#
+                FROM (
+                select
+                cw_id,
+                cw_name,
+                cw_lat,
+                cw_lon,
+                public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as distancia_km
+                FROM
+                coworking
+                WHERE
+                cw_lat is not null and cw_lon is not null and cw_end_date is null
+                ) as c
+                #WHERE#
                 ]]>
             </Sentence>
         </Query>

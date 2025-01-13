@@ -289,5 +289,7 @@
   "NO_REVIEWS": "There's no reviews, be the first to write one",
   "BOOKING_FINISHED": "Booking in coworking finished",
   "BOOKING_PENDING": "Booking in coworking pending",
-  "BOOKING_INPROGRESS": "Booking in coworking in progress"
+  "BOOKING_INPROGRESS": "Booking in coworking in progress",
+  "EVENT_UPDATED": "Event updated",
+  "EVENT_WITH_BOOKINGS": "There are one or more bookings for this event, you can't set this field to zero"
 }

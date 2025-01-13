@@ -289,5 +289,7 @@
   "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
   "BOOKING_FINISHED": "Booking en coworking finalizada",
   "BOOKING_PENDING": "Booking en coworking pendiente",
-  "BOOKING_INPROGRESS": "Booking en coworking en proceso"
+  "BOOKING_INPROGRESS": "Booking en coworking en proceso",
+  "EVENT_UPDATED": "Evento actualizado",
+  "EVENT_WITH_BOOKINGS": "Hay una o más reservas para este evento, no puedes poner las plazas a cero"
 }

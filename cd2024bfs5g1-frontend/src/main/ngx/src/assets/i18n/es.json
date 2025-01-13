@@ -294,5 +294,5 @@
   "MY_UBICATION": "Su posición",
   "NEARBY_COWORKINGS": "Coworkings cercanos",
   "EVENT_UPDATED": "Evento actualizado",
-  "EVENT_WITH_BOOKINGS": "Hay una o más reservas para este evento, no puedes poner las plazas a cero"
+  "EVENT_WITH_BOOKINGS": "No es posible reducir la capacidad ya que existen reservas para este evento"
 }

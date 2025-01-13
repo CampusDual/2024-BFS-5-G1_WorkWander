@@ -225,7 +225,7 @@ public class BookingService implements IBookingService {
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
 
-            coworkingMap.put("name", coworkingName.get(0) + ". Max. " + capacidadDisponible + "p");
+            coworkingMap.put("name", coworkingName.get(0) + " (Max.) " + capacidadDisponible + "p");
             coworkingMap.put("series", listaFechas);
             listaCoworkings.add(coworkingMap);
         }

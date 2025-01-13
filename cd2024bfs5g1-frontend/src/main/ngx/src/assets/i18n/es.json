@@ -251,6 +251,7 @@
   "PENDING": "Pendiente",
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
+  "CONFIRM": "Confirmar dirección",
   "MY_SPACE": "Mi espacio",
   "NEXT_BOOKINGS": "Mis próximas reservas en ruta",
   "FACTURATION": "Facturación",
@@ -287,7 +288,9 @@
   "QR_INFO_MESSAGE": "Muestra este código QR en la entrada del coworking",
   "NO_EVENTS": "No hay eventos disponibles",
   "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
-  "BOOKING_FINISHED": "Reservas en coworking finalizada",
-  "BOOKING_PENDING": "Reservas en coworking pendiente",
-  "BOOKING_INPROGRESS": "Reservas en coworking en proceso"
+  "BOOKING_FINISHED": "Booking en coworking finalizada",
+  "BOOKING_PENDING": "Booking en coworking pendiente",
+  "BOOKING_INPROGRESS": "Booking en coworking en proceso",
+  "MY_UBICATION": "Su posición",
+  "NEARBY_COWORKINGS": "Coworkings cercanos"
 }

@@ -295,5 +295,6 @@
   "BOOKING_PENDING": "Booking en coworking pendiente",
   "BOOKING_INPROGRESS": "Booking en coworking en proceso",
   "MY_UBICATION": "Su posición",
-  "NEARBY_COWORKINGS": "Coworkings cercanos"
+  "NEARBY_COWORKINGS": "Coworkings cercanos",
+  "MAXIMUM_PRICE_SLIDER": "Precio máximo: "
 }

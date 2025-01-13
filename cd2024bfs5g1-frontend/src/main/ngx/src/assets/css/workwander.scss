@@ -831,9 +831,10 @@ o-column {
         gap: 25px;
         flex-direction: row !important;
         flex-wrap: wrap;
-        justify-content: space-between !important;
       }
     }
+
+
 
     o-column.o-column,
     o-row.o-row {
@@ -869,6 +870,7 @@ o-column {
     max-width: 35%;
   }
 }
+
 .lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;

@@ -75,6 +75,7 @@ export class CoworkingsHomeComponent implements OnInit {
     this.configureService();
 
     this.leafletMap = this.coworking_map.getMapService().getMap();
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -306,6 +307,7 @@ export class CoworkingsHomeComponent implements OnInit {
       }
       // Eliminar todas las marcas previas
       this.markerGroup.clearLayers();
+      if (this.nearMeMarkerGroup) { this.nearMeMarkerGroup.clearLayers(); }
       // Añadir una marca por cada coworking
       const coworkings = this.coworkingsGrid.dataArray;
       coworkings.forEach((coworking) => {
@@ -341,7 +343,6 @@ export class CoworkingsHomeComponent implements OnInit {
     if (!this.nearMeMarkerGroup) {
       this.nearMeMarkerGroup = L.layerGroup().addTo(this.leafletMap);
     }
-    this.nearMeMarkerGroup.clearLayers();
 
     this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings, (selectedCoworking) => {
       const columns = [

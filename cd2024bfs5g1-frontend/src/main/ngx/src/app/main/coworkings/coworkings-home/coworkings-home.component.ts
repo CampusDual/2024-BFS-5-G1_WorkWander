@@ -246,12 +246,8 @@ export class CoworkingsHomeComponent implements OnInit {
       serviceExpression,
       priceExpression,
       daterangeExpression,
+      starsExpression,
     ].filter((exp) => exp !== null);
-
-    // Añadimos la expresión de estrellas al resto de filtros
-    if (starsExpression) {
-      expressionsToCombine.push(starsExpression);
-    }
 
     let combinedExpression: Expression = null;
     if (expressionsToCombine.length > 0) {

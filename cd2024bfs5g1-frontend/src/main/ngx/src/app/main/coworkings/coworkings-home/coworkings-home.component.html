@@ -107,6 +107,14 @@
             step="5"
           ></o-slider>
         </div>
+        <p-rating
+          class="rate"
+          [(ngModel)]="starSearchValue"
+          [cancel]="false"
+          stars="5"
+          matTooltip="{{ 'RATING_FILTER' | oTranslate }}"
+        ></p-rating>
+        <o-text-input attr="ratio" [data]="getRatio()" oHidden></o-text-input>
         <o-row class="btn-container" layout-gap="10px">
           <button
             class="button-filter"
@@ -116,7 +124,7 @@
             type="RAISED"
             label="SEARCH"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'Search' | oTranslate }}"
+            matTooltip="{{ 'SEARCH_FILTERS' | oTranslate }}"
           >
             <mat-icon class="material-icons">search</mat-icon>
           </button>
@@ -127,7 +135,7 @@
             type="RAISED"
             label="CLEAR"
             class="button btn-outline-light custom-button"
-            matTooltip="{{ 'Clear' | oTranslate }}"
+            matTooltip="{{ 'CLEAR_FILTERS' | oTranslate }}"
             (click)="clearFilters()"
           >
             <mat-icon class="material-icons">clear</mat-icon>
@@ -137,7 +145,7 @@
         <o-filter-builder
           #filterBuilder
           attr="thefilter"
-          filters="cw_location:city;services:srv_name;date:daterange;cw_daily_price:cw_daily_price"
+          filters="cw_location:city;services:srv_name;date:daterange;cw_daily_price:cw_daily_price;ratio:ratio"
           [target]="coworkingsGrid"
           query-on-change="no"
           query-on-change-delay="500"

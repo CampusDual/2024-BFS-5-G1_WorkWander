@@ -25,6 +25,7 @@ import {
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
+import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -45,6 +46,7 @@ export class CoworkingsHomeComponent implements OnInit {
   public dateArray = [];
   public idioma: string;
   public toPrice: number = 0;
+  public starSearchValue: number = 0;
 
   public mapVisible: boolean = false;
   leafletMap: any;
@@ -115,6 +117,10 @@ export class CoworkingsHomeComponent implements OnInit {
     this.toPrice = $event;
   }
 
+  getRatio() {
+    return this.starSearchValue;
+  }
+
   formatLabelUntil(): any {
     return this.toPrice + " €";
   }
@@ -125,6 +131,7 @@ export class CoworkingsHomeComponent implements OnInit {
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
+    let starsExpressions: Array<Expression> = [];
     let dateNullExpression: Expression;
     values.forEach((fil) => {
       if (fil.value) {
@@ -171,6 +178,10 @@ export class CoworkingsHomeComponent implements OnInit {
         } else if (fil.attr == "cw_daily_price") {
           priceExpressions.push(
             FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
+          );
+        } else if (fil.attr == "ratio") {
+          starsExpressions.push(
+            FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value)
           );
         }
       }
@@ -229,12 +240,26 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
+
+    // Construir expresión AND para stars
+    let starsExpression: Expression = null;
+    if (starsExpressions.length > 0) {
+      starsExpression = starsExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
+      );
+    }
+
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
       priceExpression,
       daterangeExpression,
+      starsExpression,
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -253,6 +278,7 @@ export class CoworkingsHomeComponent implements OnInit {
   //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
+    this.starSearchValue=0;
   }
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking

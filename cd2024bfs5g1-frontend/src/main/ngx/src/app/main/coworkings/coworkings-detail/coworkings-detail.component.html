@@ -238,15 +238,14 @@
                 class="reservation-button"
                 *ngIf="parsePermissions('bookingButton')"
               >
-                <o-button
+                <button
+                  mat-raised-button
                   #bookingButton
-                  attr="bookingButton"
-                  label="{{ 'BOOKING' | oTranslate }}"
-                  type="raised"
+                  [disabled]="isInvalidButton()"
+                  attr="bookingButton"                                    
                   color="primary"
-                  (click)="showConfirm($event)"
-                  enabled="FALSE"
-                ></o-button>
+                  (click)="showConfirm($event)"                  
+                >{{ 'BOOKING' | oTranslate }}</button>
               </div>
             </div>
           </div>

@@ -175,7 +175,7 @@
   "SERVICES": "Services",
   "FILTER": "Filter",
   "CLEAR": "Clear",
-  "RECOMENDED": "Recomended",
+  "RECOMENDED": "Recommended",
   "NEW_COWORKING": "New",
   "LOW_PRICE": "Low price",
   "PLAZAS_DISPONIBLES": "Available places",
@@ -244,6 +244,7 @@
   "NO_RESULTS": "No results found",
   "PRICE_RANGE": "Price",
   "EVENT_CREATE": "Event created!",
+  "NEARBY_COWORKINGS": "Coworkings nearby",
   "SEARCH": "Search address",
   "INVALID_LOCATION_CONFIRM": "Save invalid address?",
   "CONFIRM2": "Confirm address",
@@ -286,8 +287,14 @@
   "END": "End",
   "QR_INFO_MESSAGE": "Show this QR code at the entrance of the coworking",
   "NO_EVENTS": "No events available",
+  "SEARCH_FILTERS":"Search",
+  "CLEAR_FILTERS": "Clear",
+  "RATING_FILTER":"Search by minimum rating",
   "NO_REVIEWS": "There's no reviews, be the first to write one",
   "BOOKING_FINISHED": "Booking in coworking finished",
   "BOOKING_PENDING": "Booking in coworking pending",
-  "BOOKING_INPROGRESS": "Booking in coworking in progress"
+  "BOOKING_INPROGRESS": "Booking in coworking in progress",
+  "MY_UBICATION": "Your position"
 }
+
+

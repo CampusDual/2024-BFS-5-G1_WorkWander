@@ -121,6 +121,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
       const data = this.comboCoworkingInput.getDataArray()
       this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']])
       this.selectedCoworkings.push(data[0]['cw_id']);
+      this.selectedMonths.push(this.listOfMonths[0]);
       this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']])
     })
 
@@ -164,7 +165,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   onCoworkingChange(selectedNames: OValueChangeEvent) {
     if (selectedNames.type === 0) {
       this.selectedCoworkings = selectedNames.newValue;
-      this.setMonth();
+      this.setMonth(this.comboMonthInput.getSelectedItems());
     }
   }
 
@@ -174,14 +175,14 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   efects(){
     let elements = document.getElementsByClassName("txt-rotate");
     for (let ir = 0; ir < elements.length; ir++) {
-        let toRotate = this.points;
-        if (toRotate) {
-            let period = 1000;
-            let loopNumber = 0;
-            let txt = "";
-            let isDeleting = false;
-            this.tick(loopNumber, txt, toRotate, isDeleting, elements[ir], period);
-        }
+      let toRotate = this.points;
+      if (toRotate) {
+          let period = 1000;
+          let loopNumber = 0;
+          let txt = "";
+          let isDeleting = false;
+          this.tick(loopNumber, txt, toRotate, isDeleting, elements[ir], period);
+      }
     }
   }
 
@@ -225,18 +226,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama desde el onInit y en el combo de meses
    * @param selectMonths
    */
-  setMonth(selectMonths?: OValueChangeEvent) {
+  setMonth(selectMonths?: any) {
     if(!this.languageChoose){
       this.efects();
-      if((selectMonths == undefined || selectMonths.newValue == 0 || this.selectedMonths.length == 0) && (this.selectedCoworkings.length > 0)){
-        this.selectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        this.requestDataMonths(this.selectedMonths, this.selectedCoworkings);
-      }else if((this.selectedMonths.length > 0 || selectMonths.newValue >= 0 )  && this.selectedCoworkings.length == 0 ){
-        this.selectedMonths = selectMonths.newValue;
-        this.requestDataMonths(this.selectedMonths, this.allCowork);
-      }else if(selectMonths.type === 0 && this.selectedCoworkings.length > 0){
-        this.selectedMonths = selectMonths.newValue;
-        this.requestDataMonths(this.selectedMonths, this.selectedCoworkings);
+      if (this.comboMonthInput.getSelectedItems().length == 0 || this.selectedCoworkings.length == 0) {
+        this.resolveData=false
+        this.isGraph=false
+      } else if(this.comboMonthInput.getSelectedItems()[0]==0){
+        this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
+        selectMonths.newValue = this.selectedMonths;
+        this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
+      } else {
+          this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
       }
     }else{
       this.languageChoose = false;

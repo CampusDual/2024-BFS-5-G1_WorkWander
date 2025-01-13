@@ -71,7 +71,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
-  //@ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;

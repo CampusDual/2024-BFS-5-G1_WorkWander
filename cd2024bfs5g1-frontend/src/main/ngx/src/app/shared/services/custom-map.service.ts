@@ -100,7 +100,9 @@ export class CustomMapService {
 
     // Añadir el marcador al mapa
     marker.addTo(leafletMap);
+
   }
+
 
   public addMark(mapa: OMapComponent, lat: number, lon: number): void {
     this.mp = mapa.getMapService().getMap();

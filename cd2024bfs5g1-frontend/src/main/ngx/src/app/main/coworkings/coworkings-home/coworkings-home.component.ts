@@ -21,7 +21,7 @@ import {
   OSliderComponent,
   OSnackBarConfig,
   OTranslateService,
-  SnackBarService,
+  SnackBarService
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
@@ -75,7 +75,6 @@ export class CoworkingsHomeComponent implements OnInit {
     this.configureService();
 
     this.leafletMap = this.coworking_map.getMapService().getMap();
-
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -307,7 +306,6 @@ export class CoworkingsHomeComponent implements OnInit {
       }
       // Eliminar todas las marcas previas
       this.markerGroup.clearLayers();
-      this.nearMeMarkerGroup.clearLayers();
       // Añadir una marca por cada coworking
       const coworkings = this.coworkingsGrid.dataArray;
       coworkings.forEach((coworking) => {
@@ -320,6 +318,14 @@ export class CoworkingsHomeComponent implements OnInit {
       // Añadir el grupo de capas al mapa (si no está ya añadido)
       if (!this.leafletMap.hasLayer(this.markerGroup)) {
         this.markerGroup.addTo(this.leafletMap);
+      }
+      // Ajustar el nivel de zoom y centrar el mapa
+      if (coworkings.length > 0) {
+        const latitudes = coworkings.map(c => c.cw_lat);
+        const longitudes = coworkings.map(c => c.cw_lon);
+        const avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
+        const avgLon = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
+        this.leafletMap.setView([avgLat, avgLon], 6); // Ajusta el nivel de zoom según sea necesario
       }
     }
   }
@@ -335,6 +341,7 @@ export class CoworkingsHomeComponent implements OnInit {
     if (!this.nearMeMarkerGroup) {
       this.nearMeMarkerGroup = L.layerGroup().addTo(this.leafletMap);
     }
+    this.nearMeMarkerGroup.clearLayers();
 
     this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings, (selectedCoworking) => {
       const columns = [
@@ -365,7 +372,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // El primer valor representa los dias, en caso de querer
     // modificar la cantidad de días a comparar basta con
     // modificar ese número.
-    console.log("StartDate: ", startDate);
+
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;

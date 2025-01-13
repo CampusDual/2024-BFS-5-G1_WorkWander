@@ -210,11 +210,9 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    return base64
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
-      : "./assets/images/event-default.jpg";
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      "data:image/*;base64," + base64
+    )
   }
 
   /**

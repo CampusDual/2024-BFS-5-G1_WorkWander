@@ -61,13 +61,14 @@
               show-controls="no"
               read-only="yes"
               auto-fit="no"
+              oHidden
             ></o-image>
           </div>
           <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
           <img
-            *ngIf="!form.getFieldValue('cw_image')"
-            src="assets/images/coworking-default.jpg"
-            alt="Imagen predeterminada"
+            class="coworking-image"
+            [src]="getImageSrc(form.getFieldValue('cw_image'))"
+            alt="{{form.getFieldValue('cw_image')}}"
           />
           <!-- Media valoración -->
           <o-form

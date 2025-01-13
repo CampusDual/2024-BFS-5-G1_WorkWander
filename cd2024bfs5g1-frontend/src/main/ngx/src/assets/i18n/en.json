@@ -289,5 +289,6 @@
   "NO_REVIEWS": "There's no reviews, be the first to write one",
   "BOOKING_FINISHED": "Booking in coworking finished",
   "BOOKING_PENDING": "Booking in coworking pending",
-  "BOOKING_INPROGRESS": "Booking in coworking in progress"
+  "BOOKING_INPROGRESS": "Booking in coworking in progress",
+  "LEGEND": "Map legend"
 }

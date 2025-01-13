@@ -289,5 +289,6 @@
   "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
   "BOOKING_FINISHED": "Reservas en coworking finalizada",
   "BOOKING_PENDING": "Reservas en coworking pendiente",
-  "BOOKING_INPROGRESS": "Reservas en coworking en proceso"
+  "BOOKING_INPROGRESS": "Reservas en coworking en proceso",
+  "LEGEND": "Leyenda"
 }

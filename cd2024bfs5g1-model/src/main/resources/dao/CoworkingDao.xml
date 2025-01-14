@@ -30,7 +30,8 @@
                         Round(AVG(br.bkr_ratio), 1) as ratio,
                         public.coworking.cw_lat as cw_lat,
                         public.coworking.cw_lon as cw_lon,
-                        public.coworking.cw_end_date as cw_end_date
+                        public.coworking.cw_end_date as cw_end_date,
+                        public.coworking.cw_start_date as cw_start_date
                     FROM coworking
                     LEFT JOIN cw_service on cw_service.cw_id = coworking.cw_id
                     LEFT JOIN service on service.srv_id = cw_service.srv_id
@@ -61,7 +62,8 @@
                         public.coworking.cw_daily_price as cw_daily_price,
                         public.coworking.cw_image as cw_image,
                         public.coworking.cw_lat as cw_lat,
-                        public.coworking.cw_lon as cw_lon
+                        public.coworking.cw_lon as cw_lon,
+                        public.coworking.cw_start_date as cw_start_date
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location
                     #WHERE#
@@ -122,12 +124,49 @@
                 from coworking cw
                 inner join booking b on cw.cw_id = b.bk_cw_id
                 inner JOIN booking_date bd ON b.bk_id = bd.bk_id
-                #WHERE#
                 GROUP BY b.bk_cw_id, bd.date
                 )
-                SELECT *
+                SELECT #COLUMNS#
                     FROM t1 LEFT JOIN t2 ON t1.cw_id = t2.t2_cw_id
                     #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coworkingFacturationChartByMonth">
+            <Sentence>
+                <![CDATA[
+                    SELECT
+	                    coworking.cw_name AS coworking_name,
+	                    (coworking.cw_daily_price  * count(booking_date.*)) AS account,
+	                    date_part('month', booking_date.date) AS m
+                    FROM
+                        coworking
+			        LEFT JOIN booking on booking.bk_cw_id = coworking.cw_id
+			        JOIN booking_date on booking_date.bk_id = booking.bk_id
+				    #WHERE#
+					GROUP BY coworking_name, date_part('month', booking_date.date), coworking.cw_daily_price
+				    ORDER BY coworking_name, m ASC;
+                ]]>
+            </Sentence>
+        </Query>
+        <Query id="coworkingNearby">
+            <Sentence>
+                <![CDATA[
+                SELECT
+                #COLUMNS#
+                FROM (
+                select
+                cw_id,
+                cw_name,
+                cw_lat,
+                cw_lon,
+                public.geodistance(#LAT_ORIGEN#, #LON_ORIGEN# ,cw_lat, cw_lon) as distancia_km
+                FROM
+                coworking
+                WHERE
+                cw_lat is not null and cw_lon is not null and cw_end_date is null
+                ) as c
+                #WHERE#
                 ]]>
             </Sentence>
         </Query>

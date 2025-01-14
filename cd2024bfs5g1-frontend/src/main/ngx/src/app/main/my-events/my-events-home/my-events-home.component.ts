@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService, OTableComponent } from 'ontimize-web-ngx';
 
 @Component({
   selector: 'app-my-events-home',
@@ -8,12 +9,14 @@ import { Router } from '@angular/router';
 })
 
 export class MyEventsHomeComponent {
-constructor(private router: Router) {
+constructor(private router: Router,
+  protected dialogService: DialogService,
+) {
 
 }
+@ViewChild("table") table: OTableComponent;
+  openEditWindow(event){
 
-  openDetail(event: any) {
-    this.router.navigate(["/main/myevents/" + event.row.id_event]);
   }
 
 }

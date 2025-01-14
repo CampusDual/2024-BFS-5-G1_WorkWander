@@ -57,8 +57,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import("./bookings/bookings.module").then((m) => m.BookingsModule),
       },
-    { path: "analytics", loadChildren: () => import("./analytics/analytics.module").then((m) => m.AnalyticsModule), }
-
+      {
+        path: "analytics",
+        loadChildren: () =>
+          import("./analytics/analytics.module").then((m) => m.AnalyticsModule),
+      },
     ],
   },
 ];

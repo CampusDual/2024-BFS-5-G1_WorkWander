@@ -506,12 +506,12 @@ div#innerCol {
             color: $blanco;
             padding: 10px 20px;
             margin: 0px;
-    
+
             .decimal {
               font-size: $fontSize18; /* Tamaño reducido para decimales */
               //vertical-align: super; /* Opcional: sube un poco los decimales */
             }
-          
+
         }
       }
 
@@ -1250,15 +1250,23 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .review-title {
-    margin-left: 16px;
+    margin-left: 27px;
     padding: 10px;
     background-color: #7ba587;
     color: white;
     display: inline;
     border-radius: 8px;
   }
+
+  o-grid{
+    margin: 10px 0px 10px 0px;
+  }
+
+  button{
+    margin: 10px 0px 0px 27px;
+  }
+
   .review-container {
-    border: solid 1px gray;
     padding: 12px;
     border-radius: 8px;
     width: 90%;
@@ -1282,10 +1290,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .no-reviews-container {
     background-color: white;
     border-radius: 8px;
-    border: solid 1px gray;
     padding: 12px;
     width: fit-content;
-    margin-left: 22px;
+    margin-left: 27px;
+    margin-top: 10px;
   }
 
   .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base {

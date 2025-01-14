@@ -18,4 +18,6 @@ public interface IEventService {
             final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException;
 
     public EntityResult myEventsCalendarQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
+
+    EntityResult myEventUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
 }

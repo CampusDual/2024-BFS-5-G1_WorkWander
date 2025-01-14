@@ -335,7 +335,7 @@ export class CoworkingsHomeComponent implements OnInit {
       const coworkings = this.coworkingsGrid.dataArray;
 
       coworkings.forEach((coworking) => {
-        const htmlMarker = `<a href=/coworkings/${coworking.cw_id}?isdetail=true>${coworking.cw_name}</a>`;
+        const htmlMarker = `<a href="${location.origin}/coworkings/${coworking.cw_id}?isdetail=true">${coworking.cw_name}</a>`;
         const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
           draggable: false
         }).bindPopup(htmlMarker);

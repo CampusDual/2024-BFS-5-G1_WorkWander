@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -8,7 +9,8 @@ import { OMapComponent } from "ontimize-web-ngx-map";
 })
 
 export class CustomMapService {
-  constructor(protected injector: Injector, private http: HttpClient, private translate: OTranslateService,) {
+
+  constructor(protected injector: Injector, private http: HttpClient, protected router: Router, private translate: OTranslateService,) {
     this.service = this.injector.get(OntimizeService);
   }
   protected mp: any; //Mapa
@@ -147,10 +149,13 @@ export class CustomMapService {
     coworkings: Coworking[]
   ): void {
     coworkings.forEach((coworking) => {
-      const htmlMarker = `<a href=/coworkings/${coworking.id}?isdetail=true>${coworking.name}</a>`;
       const marker = L.marker([coworking.lat, coworking.lon], {
         draggable: false
-      }).bindPopup(htmlMarker);
+      }).bindTooltip(coworking.name, { permanent: false, direction: 'top' });
+
+      marker.on('click', () => {
+        this.router.navigate(['/main/coworkings', coworking.id]);
+      });
       layerGroup.addLayer(marker);
     });
   }

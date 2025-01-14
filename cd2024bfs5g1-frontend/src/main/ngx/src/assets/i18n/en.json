@@ -297,5 +297,6 @@
   "MY_UBICATION": "Your position",
   "LEGEND": "Map legend",
   "EVENT_UPDATED": "Event updated",
-  "EVENT_WITH_BOOKINGS": "It is not possible to reduce the capacity as there are bookings for this event"
+  "EVENT_WITH_BOOKINGS": "It is not possible to reduce the capacity as there are bookings for this event",
+  "MAXIMUM_PRICE_SLIDER": "Maximum price: "
 }

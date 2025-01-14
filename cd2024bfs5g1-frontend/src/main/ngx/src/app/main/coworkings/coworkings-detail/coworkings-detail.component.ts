@@ -89,6 +89,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   leafletMap: any;
   events: any = [];
   responsiveOptions!: any;
+  public hasImage : boolean = true;
   public autoplayInterval: number = 3000;
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -119,6 +120,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
     lat: number,
     lon: number
   ) {
+    this.activateImage();
     this.showEvents(idLocation);
     this.leafletMap = this.coworking_map.getMapService().getMap();
     if (lat === undefined && lon === undefined) {
@@ -212,11 +214,13 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    return base64
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
-      : "./assets/images/event-default.jpg";
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      "data:image/*;base64," + base64
+    )
+  }
+
+  public activateImage() {
+    this.hasImage = !!this.form.getFieldValue("cw_image");
   }
 
   /**

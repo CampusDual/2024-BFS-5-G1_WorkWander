@@ -102,7 +102,7 @@
             (onChange)="click($event)"
             min="0.00"
             label="PRICE_SLIDER"
-            [tooltip]="formatLabelUntil()"
+            [tooltip]= "('MAXIMUM_PRICE_SLIDER' | oTranslate) + formatLabelUntil()"
             tooltip-position="above"
             step="5"
           ></o-slider>

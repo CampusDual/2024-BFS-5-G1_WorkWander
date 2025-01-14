@@ -297,5 +297,6 @@
   "MY_UBICATION": "Su posición",
   "NEARBY_COWORKINGS": "Coworkings cercanos",
   "EVENT_UPDATED": "Evento actualizado",
-  "EVENT_WITH_BOOKINGS": "No es posible reducir la capacidad ya que existen reservas para este evento"
+  "EVENT_WITH_BOOKINGS": "No es posible reducir la capacidad ya que existen reservas para este evento",
+  "MAXIMUM_PRICE_SLIDER": "Precio máximo: "
 }

@@ -23,6 +23,20 @@ export class QrDialogComponent {
     this.qrCodeData = this.buildQrData(data);
   }
 
+  public getFileName(): string {
+    const coworkingName = this.data.cw_name
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-zA-Z0-9\s]/g, "");
+
+    const formattedName = coworkingName
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+
+    return `Entrada para ${formattedName}`;
+  }
+
   public onChangeURL(url: SafeUrl): void {
     this.qrCodeDownloadLink = url;
 

@@ -1,4 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="padding: 24px">
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  style="padding: 24px"
+  class="qr-dialog-content"
+>
+  <h2 class="dialog-title">{{ "ENTRY" | oTranslate }}</h2>
   <div class="info-message">
     {{ "QR_INFO_MESSAGE" | oTranslate }}
   </div>
@@ -13,7 +19,7 @@
   <a
     *ngIf="qrCodeDownloadLink"
     [href]="qrCodeDownloadLink"
-    [download]="'qr_booking_' + data.bk_id + '.png'"
+    [download]="getFileName() + '.png'"
     class="download-link"
   >
     {{ "QR_DOWNLOAD" | oTranslate }}

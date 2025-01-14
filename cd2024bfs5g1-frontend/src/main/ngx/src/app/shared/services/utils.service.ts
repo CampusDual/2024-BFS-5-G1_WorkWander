@@ -5,7 +5,7 @@ import { OTranslateService } from 'ontimize-web-ngx';
   providedIn: 'root'
 })
 export class UtilsService {
-  language:string
+  language: string
 
   constructor(private translate: OTranslateService) { }
 
@@ -14,11 +14,11 @@ export class UtilsService {
    * @param rawDate
    * @returns string
    */
-  formatDate(rawDate:number){
+  formatDate(rawDate: number) {
     const date = new Date(rawDate);
     this.language = this.translate.getCurrentLang();
     this.language === "es" ? (this.language = "es-ES") : (this.language = "en-US");
-    return new Intl.DateTimeFormat(this.language, {year: 'numeric', month: 'long', day: 'numeric'}).format(date);
+    return new Intl.DateTimeFormat(this.language, { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
   }
 
   /**
@@ -26,11 +26,11 @@ export class UtilsService {
    * @param rawDate
    * @returns string
    */
-  formatShortDate(rawDate:number){
+  formatShortDate(rawDate: number) {
     const date = new Date(rawDate);
     this.language = this.translate.getCurrentLang();
     this.language === "es" ? (this.language = "es-ES") : (this.language = "en-US");
-    return new Intl.DateTimeFormat(this.language, {year: 'numeric', month: 'numeric', day: 'numeric'}).format(date);
+    return new Intl.DateTimeFormat(this.language, { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
   }
 
   dateStartFunction(rowData: Array<any>): any {
@@ -46,8 +46,8 @@ export class UtilsService {
    * @param time
    * @returns string
    */
-  formatTime(time:string):string{
-    return `${time.substring(0,2)}:${time.substring(3,5)}`
+  formatTime(time: string): string {
+    return `${time.substring(0, 2)}:${time.substring(3, 5)}`
   }
 
   calculateState(rowvalue?: Array<any>): string {

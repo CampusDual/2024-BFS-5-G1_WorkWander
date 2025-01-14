@@ -497,22 +497,21 @@ div#innerCol {
         justify-content: space-between;
         margin: 15px 0px;
 
-          .price {
-            // Estilo del precio
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: $fontSize20;
-            font-weight: bold;
-            color: $blanco;
-            padding: 10px 20px;
-            margin: 0px;
+        .price {
+          // Estilo del precio
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $fontSize20;
+          font-weight: bold;
+          color: $blanco;
+          padding: 10px 20px;
+          margin: 0px;
 
-            .decimal {
-              font-size: $fontSize18; /* Tamaño reducido para decimales */
-              //vertical-align: super; /* Opcional: sube un poco los decimales */
-            }
-
+          .decimal {
+            font-size: $fontSize18; /* Tamaño reducido para decimales */
+            //vertical-align: super; /* Opcional: sube un poco los decimales */
+          }
         }
       }
 
@@ -626,11 +625,11 @@ div#innerCol {
   flex-wrap: wrap;
   flex-direction: row;
 
-  o-form{
-    padding:15px;
+  o-form {
+    padding: 15px;
     width: 100%;
   }
-  o-row{
+  o-row {
     width: 50vw;
     padding: 0 !important;
   }
@@ -643,7 +642,7 @@ div#innerCol {
     font-size: $fontSize16;
     display: grid;
 
-    .precio{
+    .precio {
       margin-top: 10px;
       text-align: right;
     }
@@ -655,7 +654,7 @@ div#innerCol {
   .columna-imagen-mapa {
     width: 65%;
   }
-  .rowCityDirection{
+  .rowCityDirection {
     width: 100%;
     align-items: flex-end;
     margin-bottom: 15px;
@@ -833,8 +832,6 @@ o-column {
         flex-wrap: wrap;
       }
     }
-
-
 
     o-column.o-column,
     o-row.o-row {
@@ -1300,15 +1297,23 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .review-title {
-    margin-left: 16px;
+    margin-left: 27px;
     padding: 10px;
     background-color: #7ba587;
     color: white;
     display: inline;
     border-radius: 8px;
   }
+
+  o-grid{
+    margin: 10px 0px 10px 0px;
+  }
+
+  button{
+    margin: 20px 0px 0px 27px;
+  }
+
   .review-container {
-    border: solid 1px gray;
     padding: 12px;
     border-radius: 8px;
     width: 90%;
@@ -1332,10 +1337,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .no-reviews-container {
     background-color: white;
     border-radius: 8px;
-    border: solid 1px gray;
     padding: 12px;
     width: fit-content;
-    margin-left: 22px;
+    margin-left: 27px;
+    margin-top: 10px;
   }
 
   .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base {
@@ -1620,15 +1625,15 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize {
-        max-width: 27%;
-        width: 27%;
-        min-width: 27%;
+        max-width: 29%;
+        width: 29%;
+        min-width: 29%;
       }
 
       o-text-input.halfSize {
-        max-width: 67%;
-        width: 67%;
-        min-width: 67%;
+        max-width: 68%;
+        width: 68%;
+        min-width: 68%;
       }
 
       o-date-input,
@@ -1642,16 +1647,16 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
       o-date-input,
       o-hour-input.inline {
-        max-width: 17%;
-        width: 17%;
-        min-width: 17%;
+        max-width: 13.5%;
+        width: 13.5%;
+        min-width: 13.5%;
       }
 
       o-integer-input,
       o-real-input.inline {
-        max-width: 17%;
-        width: 17%;
-        min-width: 17%;
+        max-width: 21%;
+        width: 21%;
+        min-width: 21%;
       }
     }
   }
@@ -1964,9 +1969,9 @@ button.mat-primary.mat-stroked-button {
   color: #d3b403;
   padding-bottom: 0px;
 }
-.p-rating{
- margin-top:8px;
+.p-rating {
+  margin-top: 8px;
 }
-.price_range{
-  margin-bottom:7px;
+.price_range {
+  margin-bottom: 7px;
 }

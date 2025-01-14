@@ -335,11 +335,16 @@ export class CoworkingsHomeComponent implements OnInit {
       const coworkings = this.coworkingsGrid.dataArray;
 
       coworkings.forEach((coworking) => {
-        const htmlMarker = `<a href="${this.router.url + "/coworkings/" + coworking.cw_id}">${coworking.cw_name}</a>`;
 
         const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
-          draggable: false
-        }).bindPopup(htmlMarker);
+          draggable: false,
+          clickable: true,
+        }).bindTooltip(coworking.cw_name, { permanent: false, direction: 'top' });
+
+        marker.on('click', () => {
+          this.router.navigate(['/main/coworkings', coworking.cw_id]);
+        });
+
         this.markerGroup.addLayer(marker);
       });
 

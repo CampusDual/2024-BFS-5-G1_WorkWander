@@ -39,16 +39,31 @@ export class EventsEditComponent {
 
   public async save() {
 
+    let hora = (this.form.getFieldValue('hour_event')).toString();
+    let event = {};
+    let hour_event;
 
-    //Creamos un objeto evento
-    const event = {
+    if (hora.includes(':')) {
+      hour_event = this.form.getFieldValue("hour_event");
+    } else {
+      hour_event = new Date(
+        this.form.getFieldValue("hour_event")
+      ).toLocaleTimeString("en-CA", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      })
+    }
+
+    event = {
       id_event: this.form.getFieldValue('id_event'),
       name: this.form.getFieldValue('name'),
       description: this.form.getFieldValue('description'),
       date_event: new Date(
         this.form.getFieldValue("date_event")
       ).toLocaleDateString("en-CA"),
-      hour_event: this.form.getFieldValue("hour_event"),
+      hour_event: hour_event,
       duration: +this.form.getFieldValue('duration'),
       bookings: +this.form.getFieldValue('bookings'),
       price: +this.form.getFieldValue('price'),
@@ -57,12 +72,7 @@ export class EventsEditComponent {
       image_event: this.form.getFieldValue('image_event')
     }
 
-    if (+this.form.getFieldValue('bookings') == 0) {
-      this.plazasUsadas(event);
-    } else {
-      this.update(event);
-      console.log("updateamos no se ponen las plazas a 0");
-    }
+    this.plazasUsadas(event);
 
     this.form._clearAndCloseFormAfterInsert();
   }
@@ -82,9 +92,6 @@ export class EventsEditComponent {
     });
   }
 
-
-
-
   plazasUsadas(event) {
 
     const filter = {
@@ -103,24 +110,14 @@ export class EventsEditComponent {
       .query(filter, columns, "getEventDisponibility")
       .subscribe((resp) => {
 
-        console.log('used: ' + resp.data['usedEventBookings']);
-        console.log('available: ' + resp.data['availableEventBookings']);
-        console.log('total: ' + resp.data['totalEventBookings']);
-        if (resp.data['usedEventBookings'] <= 0) {
+        if (this.form.getFieldValue('bookings') >= resp.data['usedEventBookings']) {
           this.update(event);
         } else {
           this.showWarningToast('EVENT_WITH_BOOKINGS');
         }
 
       });
-
-
-
   }
-
-
-
-
 
   isInvalidForm(): boolean {
     return !this.form || this.form.formGroup.invalid;

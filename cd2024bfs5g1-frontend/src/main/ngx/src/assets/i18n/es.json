@@ -295,5 +295,7 @@
   "BOOKING_PENDING": "Reserva en coworking pendiente",
   "BOOKING_INPROGRESS": "Reserva en coworking en proceso",
   "MY_UBICATION": "Su posición",
-  "NEARBY_COWORKINGS": "Coworkings cercanos"
+  "NEARBY_COWORKINGS": "Coworkings cercanos",
+  "EVENT_UPDATED": "Evento actualizado",
+  "EVENT_WITH_BOOKINGS": "No es posible reducir la capacidad ya que existen reservas para este evento"
 }

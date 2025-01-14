@@ -241,10 +241,12 @@
                   mat-raised-button
                   #bookingButton
                   [disabled]="isInvalidButton()"
-                  attr="bookingButton"                                    
+                  attr="bookingButton"
                   color="primary"
-                  (click)="showConfirm($event)"                  
-                >{{ 'BOOKING' | oTranslate }}</button>
+                  (click)="showConfirm($event)"
+                >
+                  {{ "BOOKING" | oTranslate }}
+                </button>
               </div>
             </div>
           </div>

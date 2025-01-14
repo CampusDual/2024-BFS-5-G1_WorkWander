@@ -1,4 +1,3 @@
-import { formatDate } from "@angular/common";
 import {
   Component,
   HostListener,
@@ -10,7 +9,6 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import {
-  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -19,7 +17,6 @@ import {
   OIntegerInputComponent,
   OntimizeService,
   OSliderComponent,
-  OSnackBarConfig,
   OTranslateService,
   SnackBarService
 } from "ontimize-web-ngx";
@@ -353,16 +350,13 @@ export class CoworkingsHomeComponent implements OnInit {
         const longitudes = coworkings.map(c => c.cw_lon);
         const avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
         const avgLon = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
-        this.leafletMap.setView([avgLat, avgLon], 6); // Ajusta el nivel de zoom según sea necesario
+        this.leafletMap.setView([avgLat, avgLon], 6);
       }
     }
   }
 
-
   async nearOfMe() {
-
     await this.mapService.getUserGeolocation();
-
     this.coworkings = await this.mapService.obtenerCoworkings()
 
     // Inicializar nearMeMarkerGroup si no está inicializado
@@ -392,14 +386,11 @@ export class CoworkingsHomeComponent implements OnInit {
     });
   }
 
-  // Compara la fecha del coworking con la fecha actual y
-  // devuelve true si la diferencia es menor a 7 días
+  // Compara la fecha del coworking con la fecha actual y devuelve true si la diferencia es menor a 7 días
   compareDate(startDate: any): boolean {
-
     // El primer valor representa los dias, en caso de querer
     // modificar la cantidad de días a comparar basta con
     // modificar ese número.
-
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;

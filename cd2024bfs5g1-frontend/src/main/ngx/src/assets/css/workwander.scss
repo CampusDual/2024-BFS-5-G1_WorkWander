@@ -1306,11 +1306,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     border-radius: 8px;
   }
 
-  o-grid{
+  o-grid {
     margin: 10px 0px 10px 0px;
   }
 
-  button{
+  button {
     margin: 20px 0px 0px 27px;
   }
 
@@ -1586,18 +1586,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   color: #333;
 }
 
-.leyenda ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.leyenda li {
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-}
-
 .leyenda span {
   display: inline-block;
   width: 20px;
@@ -1662,6 +1650,48 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         max-width: 21%;
         width: 21%;
         min-width: 21%;
+      }
+    }
+  }
+
+  .edit-event {
+    margin-top: 70px;
+
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-combo.halfSize {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+
+      o-text-input.halfSize {
+        max-width: 61%;
+        width: 61%;
+        min-width: 61%;
+      }
+
+      o-date-input,
+      o-integer-input,
+      o-real-input,
+      o-hour-input {
+        max-width: 47%;
+        width: 47%;
+        min-width: 47%;
+      }
+
+      o-date-input,
+      o-hour-input.inline {
+        max-width: 13.5%;
+        width: 13.5%;
+        min-width: 13.5%;
+      }
+
+      o-integer-input,
+      o-real-input.inline {
+        max-width: 18%;
+        width: 18%;
+        min-width: 18%;
       }
     }
   }

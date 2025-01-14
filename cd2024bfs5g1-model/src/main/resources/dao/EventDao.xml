@@ -108,7 +108,7 @@
                         count(public.booking_event.bke_event_id) as reserved
                     FROM event
                     LEFT JOIN public.booking_event on public.booking_event.bke_id_event = public.event.id_event
-                    WHERE date_event >= now()
+                    WHERE date_event >= now() AND bookings > 0
                     GROUP BY name, date_event, address, bookings, image_event, hour_event, id_event, price
 					ORDER BY date_event)
                 SELECT

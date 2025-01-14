@@ -53,7 +53,7 @@
         </div>
         <div class="image-container">
           <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{ hidden: !form.getFieldValue('cw_image') }">
+          <div [ngClass]="{ hidden: !hasImage }">
             <!-- Ocultaremos el div cuando no exista "cw_image" -->
             <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
             <o-image
@@ -61,14 +61,13 @@
               show-controls="no"
               read-only="yes"
               auto-fit="no"
-              oHidden
             ></o-image>
           </div>
           <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
           <img
-            class="coworking-image"
-            [src]="getImageSrc(form.getFieldValue('cw_image'))"
-            alt="{{form.getFieldValue('cw_image')}}"
+            *ngIf="!hasImage"
+            src="assets/images/coworking-default.jpg"
+            alt="Imagen predeterminada"
           />
           <!-- Media valoración -->
           <o-form

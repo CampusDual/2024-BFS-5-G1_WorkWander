@@ -158,9 +158,7 @@ export class CoworkingsEditComponent {
       cw_lon: this.mapLon,
       services: this.arrayServices
     }
-    if(coworking.cw_image==null){
-      coworking.cw_image= "./assets/images/coworking-default.jpg";
-    }
+
     //Llamamos a la función para actualizar, enviando el objeto
     this.update(coworking);
     this.showUpdated();

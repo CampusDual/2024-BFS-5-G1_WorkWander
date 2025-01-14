@@ -125,9 +125,7 @@ export class CoworkingsNewComponent implements OnInit {
       cw_lon: this.mapLon,
       services: this.arrayServices
     }
-    if(coworking.cw_image==null){
-      coworking.cw_image= "./assets/images/coworking-default.jpg";
-    }
+
     this.insert(coworking);
     this.coworkingForm.clearData();
     this.router.navigateByUrl("/main/mycoworkings");

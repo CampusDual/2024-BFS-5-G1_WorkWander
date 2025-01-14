@@ -53,25 +53,25 @@
 </main>
 <hr />
 <div class="leyenda container">
-  <div fxLayout="column" fxFlex>
+  <div fxLayout="column" fxFlex fxLayoutGap="8px">
     <div fxLayout="row" fxFlex>
       <h3>{{ "LEGEND" | oTranslate }}</h3>
     </div>
     <div fxLayout="row" fxFlex>
-      <ul>
-        <li>
-          <span class="tipo1-color"></span>
-          {{ "BOOKING_FINISHED" | oTranslate }}
-        </li>
-        <li>
-          <span class="tipo2-color"></span> {{ "BOOKING_PENDING" | oTranslate }}
-        </li>
-        <li>
-          <span class="tipo3-color"></span>
-          {{ "BOOKING_INPROGRESS" | oTranslate }}
-        </li>
-        <li><span class="tipo4-color"></span> {{ "EVENTS" | oTranslate }}</li>
-      </ul>
+      <div fxLayout="row" fxFlex>
+        <span class="tipo1-color"></span>
+        {{ "BOOKING_FINISHED" | oTranslate }}
+      </div>
+      <div fxLayout="row" fxFlex>
+        <span class="tipo2-color"></span> {{ "BOOKING_PENDING" | oTranslate }}
+      </div>
+      <div fxLayout="row" fxFlex>
+        <span class="tipo3-color"></span>
+        {{ "BOOKING_INPROGRESS" | oTranslate }}
+      </div>
+    </div>
+    <div fxLayout="row" fxFlex>
+      <span class="tipo4-color"></span> {{ "EVENTS" | oTranslate }}
     </div>
   </div>
 </div>

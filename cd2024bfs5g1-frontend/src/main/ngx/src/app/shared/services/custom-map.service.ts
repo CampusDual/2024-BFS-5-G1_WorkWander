@@ -144,13 +144,13 @@ export class CustomMapService {
 
   public addMarkers(
     layerGroup: L.LayerGroup,
-    coworkings: Coworking[],
-    onClick: (coworking: Coworking) => void
+    coworkings: Coworking[]
   ): void {
     coworkings.forEach((coworking) => {
+      const htmlMarker = `<a href=/coworkings/${coworking.id}?isdetail=true>${coworking.name}</a>`;
       const marker = L.marker([coworking.lat, coworking.lon], {
-        draggable: false,
-      }).bindPopup(coworking.name);
+        draggable: false
+      }).bindPopup(htmlMarker);
       layerGroup.addLayer(marker);
     });
   }

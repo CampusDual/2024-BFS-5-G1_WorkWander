@@ -275,7 +275,7 @@ export class CoworkingsHomeComponent implements OnInit {
   //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
-    this.starSearchValue=0;
+    this.starSearchValue = 0;
   }
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -333,10 +333,12 @@ export class CoworkingsHomeComponent implements OnInit {
       if (this.nearMeMarkerGroup) { this.nearMeMarkerGroup.clearLayers(); }
       // Añadir una marca por cada coworking
       const coworkings = this.coworkingsGrid.dataArray;
+
       coworkings.forEach((coworking) => {
+        const htmlMarker = `<a href=/coworkings/${coworking.cw_id}?isdetail=true>${coworking.cw_name}</a>`;
         const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
           draggable: false
-        }).bindPopup(coworking.cw_name);
+        }).bindPopup(htmlMarker);
         this.markerGroup.addLayer(marker);
       });
 
@@ -363,27 +365,8 @@ export class CoworkingsHomeComponent implements OnInit {
     if (!this.nearMeMarkerGroup) {
       this.nearMeMarkerGroup = L.layerGroup().addTo(this.leafletMap);
     }
-
-    this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings, (selectedCoworking) => {
-      const columns = [
-        "cw_id",
-        "cw_name",
-        "cw_description",
-        "cw_daily_price",
-        "cw_image"
-      ];
-      this.service.query({ cw_id: selectedCoworking.id }, columns, "coworking").subscribe(
-        (resp) => {
-          const coworkingData = resp.data;
-          if (coworkingData) {
-            this.selectedCoworking = coworkingData[0];
-          }
-        },
-        (error) => {
-          console.error("Error al consultar los detalles del coworking:", error);
-        }
-      );
-    });
+    this.nearMeMarkerGroup.clearLayers();
+    this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings);
   }
 
   // Compara la fecha del coworking con la fecha actual y devuelve true si la diferencia es menor a 7 días

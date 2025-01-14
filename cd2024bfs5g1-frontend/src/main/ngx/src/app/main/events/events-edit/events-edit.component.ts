@@ -64,9 +64,9 @@ export class EventsEditComponent {
         this.form.getFieldValue("date_event")
       ).toLocaleDateString("en-CA"),
       hour_event: hour_event,
-      duration: +this.form.getFieldValue('duration'),
+      duration: this.form.getFieldValue('duration') ? +this.form.getFieldValue('duration') : 0,
       bookings: +this.form.getFieldValue('bookings'),
-      price: +this.form.getFieldValue('price'),
+      price: +this.form.getFieldValue("price"),
       locality: this.form.getFieldValue('locality'),
       address: this.form.getFieldValue('address'),
       image_event: this.form.getFieldValue('image_event')

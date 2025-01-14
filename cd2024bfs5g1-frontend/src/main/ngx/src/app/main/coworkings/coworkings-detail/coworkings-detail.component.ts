@@ -33,7 +33,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./coworkings-detail.component.css"],
 })
 export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
-  buttonBooking!:boolean
+  buttonBooking!: boolean
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -78,7 +78,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
-  @ViewChild("coworkingDetail") coworkingDetail:OFormComponent;
+  @ViewChild("coworkingDetail") coworkingDetail: OFormComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -89,7 +89,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   leafletMap: any;
   events: any = [];
   responsiveOptions!: any;
-  public hasImage : boolean = true;
+  public hasImage: boolean = true;
   public autoplayInterval: number = 3000;
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -107,11 +107,14 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.buttonBooking=false;
+
+    this.buttonBooking = false;
+    setTimeout(() => { this.deleteLoader() }, 500);
     this.leafletMap = this.coworking_map.getMapService().getMap();
+
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   iniciarPantalla(
     idLocation: number,
@@ -256,7 +259,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   setDates() {
-    this.buttonBooking=false;
+    this.buttonBooking = false;
     const startDate = new Date(
       (this.bookingDate as any).value.value.startDate
     ).toLocaleString("en-CA");
@@ -289,7 +292,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             .map(([fecha]) => new Date(fecha));
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-          this.buttonBooking=true;
+          this.buttonBooking = true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -303,12 +306,12 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          this.buttonBooking=false;
+          this.buttonBooking = false;
         }
       },
       (error) => {
         console.error("Error al consultar capacidad:", error);
-        this.buttonBooking=false;
+        this.buttonBooking = false;
       }
     );
     this.dateArray.splice(0, this.dateArray.length);
@@ -354,8 +357,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${
-              this.dateArrayF
+            `${confirmMessageBody}  ${this.dateArrayF
             } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
         } else {
@@ -393,7 +395,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
         //this.bookingButton.enabled = false;
-        this.buttonBooking=false;
+        this.buttonBooking = false;
         this.bookingDate.clearValue();
       }
     });
@@ -537,5 +539,11 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
       icon: "error",
       iconPosition: "left",
     });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

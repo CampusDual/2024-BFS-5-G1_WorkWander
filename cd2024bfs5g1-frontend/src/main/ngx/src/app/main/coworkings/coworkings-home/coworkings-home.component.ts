@@ -75,6 +75,7 @@ export class CoworkingsHomeComponent implements OnInit {
 
     this.leafletMap = this.coworking_map.getMapService().getMap();
 
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -384,4 +385,6 @@ export class CoworkingsHomeComponent implements OnInit {
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;
   }
+
+
 }

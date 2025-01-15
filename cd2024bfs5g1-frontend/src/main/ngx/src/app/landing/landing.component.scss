@@ -49,6 +49,33 @@
     }
   }
 
+  .login-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 3;
+    background-color: transparent;
+    border: 2px solid $blanco;
+    color: $blanco;
+    padding: 0.5rem 1rem;
+    border-radius: $borderRadiusButton;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon {
+      font-size: $fontSize20;
+    }
+
+    &:hover {
+      background-color: $blanco;
+      color: $verdeBoton;
+      transform: translateY(-2px);
+    }
+  }
+
   .hero-content {
     width: 90%;
     max-width: 800px;

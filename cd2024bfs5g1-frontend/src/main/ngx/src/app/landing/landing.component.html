@@ -4,13 +4,22 @@
     <div class="logo-container">
       <img src="../../assets/images/sidenav-opened.png" alt="WorkWander Logo" />
     </div>
+    <button class="login-button" (click)="goToLogin()">
+      <span class="icon">🗝️</span>
+      Iniciar sesión
+    </button>
     <div class="hero-content">
       <h1>Encuentra tu espacio ideal para trabajar y conectar</h1>
       <p>
         Descubre los mejores espacios de coworking y eventos para profesionales
         y empresas
       </p>
-      <button class="btn-primary">Explorar Espacios</button>
+      <button
+        class="btn-primary"
+        (click)="entradaSinLogin(); $event.preventDefault()"
+      >
+        Explorar Espacios
+      </button>
     </div>
   </header>
   <!-- Features Section -->
@@ -66,7 +75,7 @@
           de trabajo mientras viajas por el mundo. Que el trabajo no marque tus
           limites.
         </p>
-        <button class="btn-primary">Regístrate</button>
+        <button class="btn-primary" (click)="registerUser()">Regístrate</button>
       </div>
     </div>
   </section>

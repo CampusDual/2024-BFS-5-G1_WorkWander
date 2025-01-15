@@ -101,6 +101,13 @@ export class LandingComponent {
 
   constructor(private router: Router) {}
 
+  entradaSinLogin() {
+    this.router.navigate([" "]);
+  }
+  registerUser() {
+    this.router.navigate(["register/user/new"]);
+  }
+
   goToLogin() {
     this.router.navigate(["/login"]);
   }

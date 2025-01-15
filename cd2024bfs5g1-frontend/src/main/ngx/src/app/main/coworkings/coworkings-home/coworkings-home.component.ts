@@ -22,7 +22,6 @@ import {
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
 import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
-import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -343,7 +342,9 @@ export class CoworkingsHomeComponent implements OnInit {
         }).bindTooltip(coworking.cw_name, { permanent: false, direction: 'top' });
 
         marker.on('click', () => {
-          this.router.navigate(['/main/coworkings', coworking.cw_id]);
+          this.router.navigate(['/coworkings', coworking.cw_id], {
+            queryParams: { isdetail: true }
+          });
         });
 
         this.markerGroup.addLayer(marker);

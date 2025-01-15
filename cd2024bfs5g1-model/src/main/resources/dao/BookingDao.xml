@@ -82,7 +82,7 @@
                 group by c.cw_capacity, bd.date
             </Sentence>
         </Query>
-        <Query id="bookingsByMonthQuery">
+        <Query id="bookingsByMonth">
             <Sentence>
                 SELECT
                 cw.cw_capacity,

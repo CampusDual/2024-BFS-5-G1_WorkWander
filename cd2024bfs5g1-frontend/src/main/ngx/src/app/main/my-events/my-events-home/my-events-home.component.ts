@@ -9,14 +9,23 @@ import { DialogService, OTableComponent } from 'ontimize-web-ngx';
 })
 
 export class MyEventsHomeComponent {
-constructor(private router: Router,
-  protected dialogService: DialogService,
-) {
-
-}
-@ViewChild("table") table: OTableComponent;
-  openEditWindow(event){
+  constructor(private router: Router,
+    protected dialogService: DialogService,
+  ) {
 
   }
+  @ViewChild("table") table: OTableComponent;
+  openEditWindow(event) {
 
+  }
+  ngOnInit() {
+    setTimeout(() => { this.deleteLoader() }, 250);
+  }
+
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
+  }
 }

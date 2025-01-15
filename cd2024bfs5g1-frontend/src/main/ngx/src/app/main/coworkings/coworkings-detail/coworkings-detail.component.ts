@@ -78,7 +78,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
-  @ViewChild("coworkingDetail") coworkingDetail:OFormComponent;
+  @ViewChild("coworkingDetail") coworkingDetail: OFormComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -89,6 +89,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   leafletMap: any;
   events: any = [];
   responsiveOptions!: any;
+  public hasImage: boolean = true;
   public autoplayInterval: number = 3000;
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -106,11 +107,12 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.buttonBooking=false;
+    this.buttonBooking = false;
+    setTimeout(() => { this.deleteLoader() }, 250);
     this.leafletMap = this.coworking_map.getMapService().getMap();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   iniciarPantalla(
     idLocation: number,
@@ -119,6 +121,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
     lat: number,
     lon: number
   ) {
+    this.activateImage();
     this.showEvents(idLocation);
     this.leafletMap = this.coworking_map.getMapService().getMap();
     if (lat === undefined && lon === undefined) {
@@ -212,11 +215,13 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    return base64
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
-      : "./assets/images/event-default.jpg";
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      "data:image/*;base64," + base64
+    )
+  }
+
+  public activateImage() {
+    this.hasImage = !!this.form.getFieldValue("cw_image");
   }
 
   /**
@@ -304,7 +309,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
       },
       (error) => {
         console.error("Error al consultar capacidad:", error);
-        this.buttonBooking=false;
+        this.buttonBooking = false;
       }
     );
     this.dateArray.splice(0, this.dateArray.length);
@@ -350,8 +355,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         if (startDate == endDate) {
           this.dialogService.confirm(
             confirmMessageTitle,
-            `${confirmMessageBody}  ${
-              this.dateArrayF
+            `${confirmMessageBody}  ${this.dateArrayF
             } ${confirmMessageBody2} ${this.coworkingName.getValue()} ?`
           );
         } else {
@@ -389,7 +393,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
         //this.bookingButton.enabled = false;
-        this.buttonBooking=false;
+        this.buttonBooking = false;
         this.bookingDate.clearValue();
       }
     });
@@ -533,5 +537,11 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
       icon: "error",
       iconPosition: "left",
     });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

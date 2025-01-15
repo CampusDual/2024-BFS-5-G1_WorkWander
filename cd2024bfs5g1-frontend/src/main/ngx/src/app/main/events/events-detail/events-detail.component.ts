@@ -22,6 +22,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
 
+  public hasImage : boolean = true;
 
   constructor(
     private service: OntimizeService,
@@ -37,13 +38,18 @@ export class EventsDetailComponent implements OnInit {
 
   ngOnInit() {
     this.buttonBooking=true;
-    this.checkBookingEvent();    
+    this.checkBookingEvent();
+    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   formatDate(rawDate: number): string {
     if (rawDate) {
       return this.utils.formatDate(rawDate);
     }
+  }
+
+  public activateImage() {
+    this.hasImage = !!this.form.getFieldValue("cw_image");
   }
 
   formatTime(time: string): string {
@@ -195,6 +201,12 @@ export class EventsDetailComponent implements OnInit {
           return this.translate.get("NO_BOOKING_ENABLED")
         }
       });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }
 

@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="card-detalle">
   <div class="button-back">
     <o-button
@@ -29,7 +37,7 @@
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column" class="event-detail-container">
           <div class="image-container image-container-details">
-            <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
+            <div [ngClass]="{ hidden: !hasImage }">
               <o-image
                 attr="image_event"
                 show-controls="no"
@@ -40,7 +48,7 @@
               ></o-image>
             </div>
             <img
-              *ngIf="!form.getFieldValue('image_event')"
+              *ngIf="!hasImage"
               src="assets/images/event-default.jpg"
               alt="Imagen predeterminada"
               height="480px"
@@ -131,9 +139,9 @@
           mat-raised-button
           #bookingButton
           [disabled]="isInvalidButton()"
-          attr="bookingButton"                        
+          attr="bookingButton"
           color="primary"
-          (click)="showConfirm()"              
+          (click)="showConfirm()"
           >{{ 'BOOKING' | oTranslate }}</button>
           </div>
         </div>

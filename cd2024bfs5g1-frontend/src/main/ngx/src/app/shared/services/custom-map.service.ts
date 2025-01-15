@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { Router } from "@angular/router";
 import * as L from 'leaflet';
 import { OntimizeService, OTranslateService, Subject } from 'ontimize-web-ngx';
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -8,7 +9,8 @@ import { OMapComponent } from "ontimize-web-ngx-map";
 })
 
 export class CustomMapService {
-  constructor(protected injector: Injector, private http: HttpClient, private translate: OTranslateService,) {
+
+  constructor(protected injector: Injector, private http: HttpClient, protected router: Router, private translate: OTranslateService,) {
     this.service = this.injector.get(OntimizeService);
   }
   protected mp: any; //Mapa
@@ -40,7 +42,6 @@ export class CustomMapService {
         this.addMark(mapa, lat, lon);
         return [lat, lon];
       }
-
     }
   }
 
@@ -145,23 +146,19 @@ export class CustomMapService {
 
   public addMarkers(
     layerGroup: L.LayerGroup,
-    coworkings: Coworking[],
-    onClick: (coworking: Coworking) => void
+    coworkings: Coworking[]
   ): void {
     coworkings.forEach((coworking) => {
       const marker = L.marker([coworking.lat, coworking.lon], {
-        title: coworking.name,
-        draggable: false,
-      });
-      // Asignar la ID del coworking
-      marker.options.id = coworking.id;
+        draggable: false
+      }).bindTooltip(coworking.name, { permanent: false, direction: 'top' });
 
-      // Evento click para este marcador
+
+
+
       marker.on('click', () => {
-        // Llamar al callback con los datos del coworking
-        onClick(coworking);
+        this.router.navigate(['/coworkings', coworking.id], { queryParams: { isdetail: true } });
       });
-      // Añadir el marcador al LayerGroup
       layerGroup.addLayer(marker);
     });
   }

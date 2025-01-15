@@ -33,7 +33,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./coworkings-detail.component.css"],
 })
 export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
-  buttonBooking!: boolean
+  buttonBooking!:boolean
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -257,7 +257,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   setDates() {
-    this.buttonBooking = false;
+    this.buttonBooking=false;
     const startDate = new Date(
       (this.bookingDate as any).value.value.startDate
     ).toLocaleString("en-CA");
@@ -290,7 +290,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             .map(([fecha]) => new Date(fecha));
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-          this.buttonBooking = true;
+          this.buttonBooking=true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -304,7 +304,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          this.buttonBooking = false;
+          this.buttonBooking=false;
         }
       },
       (error) => {

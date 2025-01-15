@@ -342,7 +342,9 @@ export class CoworkingsHomeComponent implements OnInit {
         }).bindTooltip(coworking.cw_name, { permanent: false, direction: 'top' });
 
         marker.on('click', () => {
-          this.router.navigate(['/main/coworkings', coworking.cw_id]);
+          this.router.navigate(['/coworkings', coworking.cw_id], {
+            queryParams: { isdetail: true }
+          });
         });
 
         this.markerGroup.addLayer(marker);

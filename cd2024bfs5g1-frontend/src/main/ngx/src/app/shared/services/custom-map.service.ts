@@ -153,8 +153,11 @@ export class CustomMapService {
         draggable: false
       }).bindTooltip(coworking.name, { permanent: false, direction: 'top' });
 
+
+
+
       marker.on('click', () => {
-        this.router.navigate(['/main/coworkings', coworking.id]);
+        this.router.navigate(['/coworkings', coworking.id], { queryParams: { isdetail: true } });
       });
       layerGroup.addLayer(marker);
     });

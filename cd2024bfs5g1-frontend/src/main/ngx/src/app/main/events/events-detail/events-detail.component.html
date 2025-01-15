@@ -29,7 +29,7 @@
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column" class="event-detail-container">
           <div class="image-container image-container-details">
-            <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
+            <div [ngClass]="{ hidden: !hasImage }">
               <o-image
                 attr="image_event"
                 show-controls="no"
@@ -40,7 +40,7 @@
               ></o-image>
             </div>
             <img
-              *ngIf="!form.getFieldValue('image_event')"
+              *ngIf="!hasImage"
               src="assets/images/event-default.jpg"
               alt="Imagen predeterminada"
               height="480px"
@@ -127,15 +127,14 @@
             class="reservation-button"
             *ngIf="parsePermissions('bookingButton')"
           >
-            <o-button
-              #bookingButton
-              attr="bookingButton"
-              label="{{ 'BOOKING' | oTranslate }}"
-              type="raised"
-              color="primary"
-              (click)="showConfirm()"
-              style="margin-left: 100px"
-            ></o-button>
+          <button
+          mat-raised-button
+          #bookingButton
+          [disabled]="isInvalidButton()"
+          attr="bookingButton"
+          color="primary"
+          (click)="showConfirm()"
+          >{{ 'BOOKING' | oTranslate }}</button>
           </div>
         </div>
       </div>

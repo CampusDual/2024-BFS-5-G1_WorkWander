@@ -125,6 +125,7 @@ export class CoworkingsNewComponent implements OnInit {
       cw_lon: this.mapLon,
       services: this.arrayServices
     }
+
     this.insert(coworking);
     this.coworkingForm.clearData();
     this.router.navigateByUrl("/main/mycoworkings");

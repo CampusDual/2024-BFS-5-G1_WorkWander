@@ -120,18 +120,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   entradaSinLogin() {
-    // Modificar para que vaya a la landing page
-    this.router.navigate(["/landing"]);
+    this.router.navigate([" "]);
   }
-
-  goBack() {
-    // Nuevo método para volver a la landing page
-    this.router.navigate(["/landing"]);
-  }
-
   registerUser() {
     this.router.navigate(["register/user/new"]);
   }
+  goBack() {
+    this.router.navigate(["/landing"]);
+  }
+
   ngAfterViewInit(): void {
     this.setupVideoPlayback();
   }

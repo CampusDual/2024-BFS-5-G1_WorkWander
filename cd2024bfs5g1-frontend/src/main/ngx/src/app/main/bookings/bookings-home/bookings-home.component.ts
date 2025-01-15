@@ -9,6 +9,7 @@ import {
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
+import * as L from "leaflet";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { BookingRateComponent } from "../booking-rate/booking-rate.component";
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -124,36 +125,34 @@ export class BookingsHomeComponent {
     }
   }
 
-  inicializarMapa(lat, lon, name): void {
-    // this.leafletMap = this.coworking_map.getMapService().getMap();
-    let mapLat = lat;
-    let mapLon = lon;
-
-    if (mapLat && mapLon) {
-      this.updateMapAndMarker(`${lat};${lon}`, 6, name);
-      return;
-    }
+  inicializarMapa(lat, lon, id, name): void {
+    this.updateMapAndMarker(lat, lon, 6, id, name);
   }
 
   protected updateMapAndMarker(
-    coordinates: string,
+    lat: number,
+    lon: number,
     zoom: number,
+    id: number,
     markerLabel: string | null
   ) {
-    const [lat, lon] = coordinates.split(";").map(Number);
-    this.leafletMap.setView([+lat, +lon], zoom);
-    if (markerLabel) {
-      this.coworking_map.addMarker(
-        markerLabel, // id
-        lat, // latitude
-        lon, // longitude
-        {}, // options
-        markerLabel, // popup
-        false, // hidden
-        true, // showInMenu
-        markerLabel // menuLabel
-      );
-    }
+    this.leafletMap.setView([lat, lon], zoom);
+
+    const marker = L.marker([lat, lon], {
+      draggable: false, // El marcador no se puede arrastrar
+    })
+
+    // Añadir tooltip para mostrar información al pasar el ratón
+    marker.bindTooltip(markerLabel, {
+      permanent: false, // Muestra solo al pasar el ratón
+      direction: "top", // Ubica el tooltip encima del marcador
+    });
+    // Añadir evento click para redirección
+    marker.on("click", () => {
+      window.location.href = `/coworkings/${id}?isdetail=true">${markerLabel}`;
+    });
+    // Añadir marcador al mapa
+    marker.addTo(this.leafletMap);
   }
 
   async acercar(data) {
@@ -178,7 +177,14 @@ export class BookingsHomeComponent {
     const filter = {
       bk_state: true,
     };
-    const columns = ["cw_name", "cw_lat", "cw_lon", "bk_state", "dates"];
+    const columns = [
+      "cw_id",
+      "cw_name",
+      "cw_lat",
+      "cw_lon",
+      "bk_state",
+      "dates",
+    ];
 
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
@@ -196,11 +202,11 @@ export class BookingsHomeComponent {
           this.inicializarMapa(
             resp.data[index]["cw_lat"],
             resp.data[index]["cw_lon"],
+            resp.data[index]["cw_id"],
             resp.data[index]["cw_name"]
           );
         }
       }
-      // this.dates.reverse();
     });
   }
 }

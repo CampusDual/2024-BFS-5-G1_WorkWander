@@ -39,6 +39,7 @@ export class EventsDetailComponent implements OnInit {
   ngOnInit() {
     this.buttonBooking=true;
     this.checkBookingEvent();
+    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   formatDate(rawDate: number): string {
@@ -200,6 +201,12 @@ export class EventsDetailComponent implements OnInit {
           return this.translate.get("NO_BOOKING_ENABLED")
         }
       });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }
 

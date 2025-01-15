@@ -36,7 +36,7 @@ import moment, { locale } from "moment";
 })
 export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   selectedCoworkings: string[] = [];
-  allCowork: number[] = [];
+  numberOfMonths: number[] = [];
   selectedMonths: number[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
@@ -298,18 +298,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
  * Muestra el nombre de los meses en la leyenda
  * @param data
  */
-  adaptResult(data?: Array<any>, translation?:boolean){
-    for (let i = 0; i < data.length; i++) {
-      for (let x = 0; x < data[i].series.length; x++) {
-        if (translation) {
+  adaptResult(data?:Array<any>, translation?:boolean){
+    const element = this.elementRef.nativeElement;
+    let legend = element.querySelectorAll('.legend-label-text');
+    if (translation) {
+      legend.forEach((item, index) => {
+        legend[index].innerText = this.translate.get(this.listOfMonths[this.numberOfMonths[index]].name);
+      });
+    }else{
+      for (let i = 0; i < data.length; i++) {
+        for (let x = 0; x < data[i].series.length; x++) {
+          this.numberOfMonths.push(data[i].series[x].i);
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
-          const element = this.elementRef.nativeElement;
-          let legend = element.querySelectorAll('.legend-label-text');
-          for (let i = 0; i < legend.length; i++) {
-            legend[i].innerText = data[i].series[x].name;
-          }
-        }else{
-          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].name].name);
           this.colorScheme.domain.push((this.colors[data[i].series[x].i]));
         }
       }

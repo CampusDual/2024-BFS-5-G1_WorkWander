@@ -441,6 +441,7 @@ div#innerCol {
 .card-detalle {
   display: flex;
   gap: 25px;
+  flex-wrap: wrap;
   flex-direction: column;
   align-content: center;
 
@@ -496,22 +497,21 @@ div#innerCol {
         justify-content: space-between;
         margin: 15px 0px;
 
-          .price {
-            // Estilo del precio
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: $fontSize20;
-            font-weight: bold;
-            color: $blanco;
-            padding: 10px 20px;
-            margin: 0px;
+        .price {
+          // Estilo del precio
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $fontSize20;
+          font-weight: bold;
+          color: $blanco;
+          padding: 10px 20px;
+          margin: 0px;
 
-            .decimal {
-              font-size: $fontSize18; /* Tamaño reducido para decimales */
-              //vertical-align: super; /* Opcional: sube un poco los decimales */
-            }
-
+          .decimal {
+            font-size: $fontSize18; /* Tamaño reducido para decimales */
+            //vertical-align: super; /* Opcional: sube un poco los decimales */
+          }
         }
       }
 
@@ -620,6 +620,54 @@ div#innerCol {
   }
 }
 
+.card-detalle.nearby-detail {
+  align-content: flex-start !important;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  o-form {
+    padding: 15px;
+    width: 100%;
+  }
+  o-row {
+    width: 50vw;
+    padding: 0 !important;
+  }
+  h2 {
+    margin: 0 0 10px 0;
+    font-size: $fontSize18;
+  }
+  h3 {
+    margin: 0;
+    font-size: $fontSize16;
+    display: grid;
+
+    .precio {
+      margin-top: 10px;
+      text-align: right;
+    }
+  }
+  p {
+    margin: 0;
+    font-size: $fontSize12;
+  }
+  .columna-imagen-mapa {
+    width: 65%;
+  }
+  .rowCityDirection {
+    width: 100%;
+    align-items: flex-end;
+    margin-bottom: 15px;
+  }
+  .info-detalle-coworking {
+    max-width: 320px;
+    background-color: #b9cebf;
+    padding: 11px;
+    border-radius: 5px;
+    width: 30%;
+  }
+}
+
 .cancelBtn {
   color: #ffffff !important;
   background-color: $verdeBoton !important;
@@ -683,7 +731,6 @@ o-column {
 
   o-map {
     width: 100%;
-    height: 100%;
     max-height: 470px;
     min-height: 470px;
     height: 470px;
@@ -783,7 +830,6 @@ o-column {
         gap: 25px;
         flex-direction: row !important;
         flex-wrap: wrap;
-        justify-content: space-between !important;
       }
     }
 
@@ -821,6 +867,7 @@ o-column {
     max-width: 35%;
   }
 }
+
 .lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;
@@ -1247,18 +1294,27 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .review {
   p-rating {
     color: $amarillo;
+    margin: -5px 0px 7px 0px;
   }
 
   .review-title {
-    margin-left: 16px;
+    margin-left: 27px;
     padding: 10px;
     background-color: #7ba587;
     color: white;
     display: inline;
     border-radius: 8px;
   }
+
+  o-grid {
+    margin: 10px 0px 10px 0px;
+  }
+
+  button {
+    margin: 20px 0px 0px 27px;
+  }
+
   .review-container {
-    border: solid 1px gray;
     padding: 12px;
     border-radius: 8px;
     width: 90%;
@@ -1269,8 +1325,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
   .login-name {
     font-weight: bold;
-    padding: 8px;
-    border-radius: 8px;
+    padding: 8px 8px 8px 0px;
+    margin: 5px 5px 10px 5px;
   }
 
   .media_rating {
@@ -1279,13 +1335,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     padding-left: 8px;
   }
 
+  .review-description-container {
+    margin-left: 5px;
+  }
+
   .no-reviews-container {
     background-color: white;
     border-radius: 8px;
-    border: solid 1px gray;
     padding: 12px;
     width: fit-content;
-    margin-left: 22px;
+    margin-left: 27px;
+    margin-top: 10px;
   }
 
   .o-grid .o-grid-footer button:not([disabled]).mat-mdc-button-base {
@@ -1526,18 +1586,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   color: #333;
 }
 
-.leyenda ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.leyenda li {
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-}
-
 .leyenda span {
   display: inline-block;
   width: 20px;
@@ -1570,15 +1618,15 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize {
-        max-width: 27%;
-        width: 27%;
-        min-width: 27%;
+        max-width: 29%;
+        width: 29%;
+        min-width: 29%;
       }
 
       o-text-input.halfSize {
-        max-width: 67%;
-        width: 67%;
-        min-width: 67%;
+        max-width: 68%;
+        width: 68%;
+        min-width: 68%;
       }
 
       o-date-input,
@@ -1592,16 +1640,58 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
       o-date-input,
       o-hour-input.inline {
-        max-width: 17%;
-        width: 17%;
-        min-width: 17%;
+        max-width: 13.5%;
+        width: 13.5%;
+        min-width: 13.5%;
       }
 
       o-integer-input,
       o-real-input.inline {
-        max-width: 17%;
-        width: 17%;
-        min-width: 17%;
+        max-width: 21%;
+        width: 21%;
+        min-width: 21%;
+      }
+    }
+  }
+
+  .edit-event {
+    margin-top: 70px;
+
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-combo.halfSize {
+        max-width: 30%;
+        width: 30%;
+        min-width: 30%;
+      }
+
+      o-text-input.halfSize {
+        max-width: 61%;
+        width: 61%;
+        min-width: 61%;
+      }
+
+      o-date-input,
+      o-integer-input,
+      o-real-input,
+      o-hour-input {
+        max-width: 47%;
+        width: 47%;
+        min-width: 47%;
+      }
+
+      o-date-input,
+      o-hour-input.inline {
+        max-width: 13.5%;
+        width: 13.5%;
+        min-width: 13.5%;
+      }
+
+      o-integer-input,
+      o-real-input.inline {
+        max-width: 18%;
+        width: 18%;
+        min-width: 18%;
       }
     }
   }
@@ -1849,8 +1939,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   max-width: 150px;
 }
 
-
-
 // Estilos tablas
 .o-table-body {
   margin-top: 20px;
@@ -1911,15 +1999,16 @@ button.mat-primary.mat-stroked-button {
   padding: 5px 25px 6px 25px;
 }
 .rate svg.p-icon.p-rating-icon {
-  width: 25px;
+  width: 22px;
   height: auto;
   color: #d3b403;
+  padding-bottom: 0px;
 }
-.p-rating{
- margin-top:8px;
+.p-rating {
+  margin-top: 8px;
 }
-.price_range{
-  margin-bottom:7px;
+.price_range {
+  margin-bottom: 7px;
 }
 
 .valoracion{

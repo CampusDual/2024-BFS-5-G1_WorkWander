@@ -33,6 +33,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./coworkings-detail.component.css"],
 })
 export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
+  buttonBooking!:boolean
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -70,7 +71,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("sites") coworkingsSites: OIntegerInputComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("realCapacity") realCapacity: OIntegerInputComponent;
-  @ViewChild("bookingButton") bookingButton: OButtonComponent;
   @ViewChild("name") coworkingName: OTextInputComponent;
   @ViewChild("form") form: OFormComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
@@ -78,6 +78,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   @ViewChild("coworking_map") coworking_map: OMapComponent;
   @ViewChild("cw_city") cw_city: OTextInputComponent;
   @ViewChild("cw_address") cw_address: OTextInputComponent;
+  @ViewChild("coworkingDetail") coworkingDetail:OFormComponent;
 
   plazasOcupadas: number;
   public idiomaActual: string;
@@ -88,6 +89,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   leafletMap: any;
   events: any = [];
   responsiveOptions!: any;
+  public hasImage : boolean = true;
   public autoplayInterval: number = 3000;
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -105,6 +107,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.buttonBooking=false;
     this.leafletMap = this.coworking_map.getMapService().getMap();
   }
 
@@ -117,6 +120,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
     lat: number,
     lon: number
   ) {
+    this.activateImage();
     this.showEvents(idLocation);
     this.leafletMap = this.coworking_map.getMapService().getMap();
     if (lat === undefined && lon === undefined) {
@@ -210,11 +214,13 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
    * @returns la imagen almacenada o la imagen por defecto
    */
   public getImageSrc(base64: any): any {
-    return base64
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
-      : "./assets/images/event-default.jpg";
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      "data:image/*;base64," + base64
+    )
+  }
+
+  public activateImage() {
+    this.hasImage = !!this.form.getFieldValue("cw_image");
   }
 
   /**
@@ -250,6 +256,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   setDates() {
+    this.buttonBooking=false;
     const startDate = new Date(
       (this.bookingDate as any).value.value.startDate
     ).toLocaleString("en-CA");
@@ -282,7 +289,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             .map(([fecha]) => new Date(fecha));
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-          this.bookingButton.enabled = true;
+          this.buttonBooking=true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -296,12 +303,12 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          this.bookingButton.enabled = false;
+          this.buttonBooking=false;
         }
       },
       (error) => {
         console.error("Error al consultar capacidad:", error);
-        this.bookingButton.enabled = false;
+        this.buttonBooking=false;
       }
     );
     this.dateArray.splice(0, this.dateArray.length);
@@ -323,6 +330,10 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
     let fechaFormateada;
     fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
     return fechaFormateada;
+  }
+
+  isInvalidButton(): boolean {
+    return !this.buttonBooking;
   }
 
   showConfirm(evt: any) {
@@ -381,7 +392,8 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
     this.service.insert(filter, "rangeBooking").subscribe((resp) => {
       if (resp.code === 0) {
         this.showAvailableToast("BOOKINGS_CONFIRMED");
-        this.bookingButton.enabled = false;
+        //this.bookingButton.enabled = false;
+        this.buttonBooking=false;
         this.bookingDate.clearValue();
       }
     });

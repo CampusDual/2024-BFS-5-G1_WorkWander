@@ -8,24 +8,39 @@
   <div
     fxLayout="row"
     fxLayoutGap="16px"
-    style="align-items: center; padding-bottom: 8px"
+    style="
+      flex-direction: row;
+      box-sizing: border-box;
+      display: flex;
+      place-content: stretch flex-start;
+      align-items: stretch;
+      flex: 1 1 100%;
+      max-width: 100%;
+      padding-bottom: 16px;
+      align-items: center;
+    "
   >
-    <span>{{ "NEXT_BOOKINGS" | oTranslate }}</span>
+    <span style="padding-left: 10px">{{ "NEXT_BOOKINGS" | oTranslate }}</span>
     <button
-      class="button-filter button btn-outline-light custom-button"
+      class="mat-mdc-tooltip-trigger button btn-outline-light custom-button"
       type="RAISED"
       label="POSITIOM"
       (click)="showHideMap()"
     >
-      <mat-icon class="mat-icon" style="margin: 0 8px">map</mat-icon>
+      <mat-icon
+        class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color"
+        style="margin-top: 3px"
+        >map</mat-icon
+      >
     </button>
   </div>
   <div
     *ngIf="mapVisible"
     title=""
     fxLayout="row"
-    fxLayoutGap="24px"
+    fxLayoutGap="16px"
     class="columna-imagen-mapa"
+    style="margin-left: 15px"
   >
     <div fxLayout="column" style="width: 70%">
       <o-map

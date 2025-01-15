@@ -9,7 +9,7 @@ import { EventsHomeComponent } from './events-home/events-home.component';
 @NgModule({
   declarations: [
     EventsNewComponent,
-    EventsHomeComponent
+    EventsHomeComponent,
   ],
   imports: [
     CommonModule,

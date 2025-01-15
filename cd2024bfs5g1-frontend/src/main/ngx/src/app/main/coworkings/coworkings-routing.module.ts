@@ -7,22 +7,22 @@ import { EventsDetailComponent } from '../events/events-detail/events-detail.com
 
 const routes: Routes = [
   { path: "", component: CoworkingsHomeComponent },
-    {
-      path: "new",
-      component: CoworkingsNewComponent,
-      data: {
-            oPermission: {
-              permissionId: "coworkings-new-route",
-              restrictedPermissionsRedirect: "403",
-            },
-          },
+  {
+    path: "new",
+    component: CoworkingsNewComponent,
+    data: {
+      oPermission: {
+        permissionId: "coworkings-new-route",
+        restrictedPermissionsRedirect: "403",
+      },
     },
+  },
   { path: ":cw_id", component: CoworkingsDetailComponent },
   //Ruta que permite navegar hacia EventsDetailComponent desde el evento seleccionado en CoworkingsDetailComponent
-  { path: ":cw_id/:id_event", component: EventsDetailComponent } 
+  { path: ":cw_id/:id_event", component: EventsDetailComponent }
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoworkingsRoutingModule {}
+export class CoworkingsRoutingModule { }

@@ -22,6 +22,13 @@ export class AnalyticsOccupationComponent {
   isGraph: boolean = false;
   maxSelection = 3;
   chartParameters: any;
+  colorScheme = {
+    domain: [
+    "#5D8736",
+    "#008DDA",
+    "#FF6700",
+    ],
+  };
 
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;

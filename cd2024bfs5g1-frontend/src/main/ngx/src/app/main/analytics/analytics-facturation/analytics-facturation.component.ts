@@ -49,8 +49,8 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   resolveData = true;
   locale:string;
   points:string;
-  colorScheme = {
-    domain: [
+  colors:string[]=[
+    "#F0C05A",
     "#A49377",
     "#66477B",
     "#92CCD1",
@@ -62,7 +62,10 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     "#D3DBF2",
     " #1C2A34",
     "#7E1617",
-    "#BABEC9"],
+    "#BABEC9"];
+
+  colorScheme = {
+    domain: [],
   };
 
   chartParameters: PieChartConfiguration;
@@ -307,7 +310,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
           }
         }else{
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].name].name);
-
+          this.colorScheme.domain.push((this.colors[data[i].series[x].i]));
         }
       }
     }

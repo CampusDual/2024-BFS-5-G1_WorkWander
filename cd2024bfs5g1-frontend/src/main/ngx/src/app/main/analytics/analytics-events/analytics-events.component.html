@@ -7,7 +7,11 @@
         searchable="true" (onSelectionChange)="onCoworkingChange($event)" multiple-trigger-label="true">
       </o-combo>
     </o-form>
-  </div>
+    <!-- <o-filter-builder #filterBuilder attr="thefilter"
+      filters="cw_id:cw_id; date:daterange;"
+      [target]="date" query-on-change="no" query-on-change-delay="500"
+      [expression-builder]="createFilter"></o-filter-builder>
+  </div> -->
   <main class="container">
     <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
       #navigator></daypilot-navigator>

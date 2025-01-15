@@ -4,7 +4,6 @@ import com.campusdual.cd2024bfs5g1.api.core.service.IBookingDateService;
 import com.campusdual.cd2024bfs5g1.api.core.service.IBookingService;
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
 import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
-import com.campusdual.cd2024bfs5g1.model.core.dao.EventDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
@@ -271,6 +270,15 @@ public class BookingService implements IBookingService {
         final Object objectID = keyMap.get("bk_cw_id");
         System.out.println("objectID: " + objectID);
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_DAY_QUERY);
+    }
+    @Override
+//    public EntityResult bookingsByMonth(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(BookingDao.BK_USR_ID, userId);
+//        System.out.println("KeyMapMonth: " + attributes);
+        return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_MONTH_QUERY);
     }
 
 }

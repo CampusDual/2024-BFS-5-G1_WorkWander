@@ -1,44 +1,31 @@
-<!--
-
-This HTML file defines the structure of the "New Event" form component in an Angular application. The form is created using custom form elements and Angular Flex Layout for responsive design. Key features include:
-
-- **Form Configuration**: The form is configured with attributes such as `attr`, `service`, `entity`, `keys`, and `header-actions`. It also includes event handling for the `onInsert` event.
-- **General Information Section**: Contains input fields for event details:
-    - **Name**: Text input with validation to disallow special characters.
-    - **Bookings**: Integer input for the number of bookings, with a minimum value of 0.
-    - **Date**: Date input with a minimum value set to the current date.
-    - **Hour**: Hour input for the event time.
-    - **Locality**: Text input for the locality with validation to disallow special characters.
-    - **Address**: Text input for the address with validation to disallow special characters.
-    - **Description**: Text input for the event description with a maximum length of 250 characters.
-- **Layout**: Utilizes Angular Flex Layout directives (`fxLayout`, `fxFlex`, `fxLayoutGap`, `fxLayoutAlign`) to arrange the form elements responsively.
--->
 <o-form
   #form
-  attr="eventNew"
+  attr="eventEdit"
   service="events"
   entity="event"
   keys="id_event"
-  header-actions="new"
+  header-actions="R;U"
   show-header="no"
   show-header-navigation="no"
-  (onInsert)="createEvent(); $event.stopPropagation()"
   class="form-section"
   ignore-default-navigation="yes"
   fxFlex
-  c
+  columns="id_event;name;description;date_event;hour_event;address;duration;image_event;price"
+  visible-columns="name;description;date_event;hour_event;address;duration;image_event;price"
+  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
 >
   <div
-    class="form-section form-new-event no-margin-top"
+    class="form-section form-new-event no-margin-top edit-event"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="left start"
   >
+    <o-integer-input oHidden attr="id_event"></o-integer-input>
     <!-- Información General -->
     <o-column
       fxFlex
-      class="form-section column-new-event no-margin-top"
-      title="EVENT_INFORMATION"
+      class="form-section form-new-event form-edit-modal"
+      title="EDIT_EVENT"
       fxLayoutGap="24px"
     >
       <!-- Nombre -->
@@ -148,29 +135,20 @@ This HTML file defines the structure of the "New Event" form component in an Ang
         sql-type="OTHER"
         max-file-size="1048576"
         height="250px"
+        style="padding-top: 20px"
       ></o-image>
-
-      <div
-        fxLayout="row"
-        fxLayoutGap="24px"
-        class="form-row"
-        fxFlex
-        fxLayoutAlign="end"
-        fxLayoutGap="30px"
-        class="buttons"
-      >
-        <button mat-raised-button class="cancelBtn" (click)="cancel()">
-          {{ "cancel" | oTranslate }}
-        </button>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="isInvalidForm()"
-          attr="save"
-          (click)="save()"
-        >
-          {{ "save" | oTranslate }}
-        </button>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+        <div class="buttons" style="justify-content: end">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isInvalidForm()"
+            attr="save"
+            (click)="save()"
+          >
+            {{ "save" | oTranslate }}
+          </button>
+        </div>
       </div>
     </o-column>
   </div>

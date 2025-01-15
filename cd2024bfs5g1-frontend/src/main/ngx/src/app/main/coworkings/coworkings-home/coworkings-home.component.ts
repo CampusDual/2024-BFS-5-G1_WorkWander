@@ -1,4 +1,3 @@
-import { formatDate } from "@angular/common";
 import {
   Component,
   HostListener,
@@ -8,8 +7,8 @@ import {
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
+import * as L from 'leaflet';
 import {
-  dateFormatFactory,
   Expression,
   FilterExpressionUtils,
   ODateRangeInputComponent,
@@ -18,10 +17,12 @@ import {
   OIntegerInputComponent,
   OntimizeService,
   OSliderComponent,
-  OSnackBarConfig,
   OTranslateService,
-  SnackBarService,
+  SnackBarService
 } from "ontimize-web-ngx";
+import { OMapComponent } from "ontimize-web-ngx-map";
+import { Coworking, CustomMapService } from "src/app/shared/services/custom-map.service";
+import { Rating } from "primeng/rating";
 
 @Component({
   selector: "app-coworkings-home",
@@ -35,22 +36,31 @@ export class CoworkingsHomeComponent implements OnInit {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("id") idCoworking: OIntegerInputComponent;
   @ViewChild("cw_daily_price") cw_daily_price: OSliderComponent;
+  @ViewChild("coworking_map") coworking_map: OMapComponent;
 
   public arrayServices: any = [];
   protected service: OntimizeService;
   public dateArray = [];
   public idioma: string;
   public toPrice: number = 0;
+  public starSearchValue: number = 0;
 
+  public mapVisible: boolean = false;
+  leafletMap: any;
+  selectedCoworking: any = null;
   data: any[];
-
+  coworkings: Coworking[];
+  markerGroup: any;
+  nearMeMarkerGroup: any;
   // Creamos constructor
   constructor(
     protected injector: Injector,
     protected sanitizer: DomSanitizer,
     protected router: Router,
     private translate: OTranslateService,
-    protected snackBarService: SnackBarService
+    protected snackBarService: SnackBarService,
+    private mapService: CustomMapService,
+
   ) {
     this.service = this.injector.get(OntimizeService);
   }
@@ -62,7 +72,9 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-    //this.setFormatPrice();
+    setTimeout(() => { this.deleteLoader() }, 250);
+    this.leafletMap = this.coworking_map.getMapService().getMap();
+
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
@@ -80,8 +92,8 @@ export class CoworkingsHomeComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
+        "data:image/*;base64," + base64
+      )
       : "./assets/images/coworking-default.jpg";
   }
 
@@ -102,6 +114,10 @@ export class CoworkingsHomeComponent implements OnInit {
     this.toPrice = $event;
   }
 
+  getRatio() {
+    return this.starSearchValue;
+  }
+
   formatLabelUntil(): any {
     return this.toPrice + " €";
   }
@@ -112,6 +128,7 @@ export class CoworkingsHomeComponent implements OnInit {
     let serviceExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
     let priceExpressions: Array<Expression> = [];
+    let starsExpressions: Array<Expression> = [];
     let dateNullExpression: Expression;
     values.forEach((fil) => {
       if (fil.value) {
@@ -158,6 +175,10 @@ export class CoworkingsHomeComponent implements OnInit {
         } else if (fil.attr == "cw_daily_price") {
           priceExpressions.push(
             FilterExpressionUtils.buildExpressionLessEqual(fil.attr, fil.value)
+          );
+        } else if (fil.attr == "ratio") {
+          starsExpressions.push(
+            FilterExpressionUtils.buildExpressionMoreEqual(fil.attr, fil.value)
           );
         }
       }
@@ -216,12 +237,26 @@ export class CoworkingsHomeComponent implements OnInit {
       );
     }
 
+
+    // Construir expresión AND para stars
+    let starsExpression: Expression = null;
+    if (starsExpressions.length > 0) {
+      starsExpression = starsExpressions.reduce((exp1, exp2) =>
+        FilterExpressionUtils.buildComplexExpression(
+          exp1,
+          exp2,
+          FilterExpressionUtils.OP_AND
+        )
+      );
+    }
+
     // Construir expresión para combinar filtros avanzados
     const expressionsToCombine = [
       locationExpression,
       serviceExpression,
       priceExpression,
       daterangeExpression,
+      starsExpression,
     ].filter((exp) => exp !== null);
 
     let combinedExpression: Expression = null;
@@ -240,6 +275,7 @@ export class CoworkingsHomeComponent implements OnInit {
   //Reinicia los valores de los filtros
   clearFilters(): void {
     this.coworkingsGrid.reloadData();
+    this.starSearchValue = 0;
   }
 
   // Formatea los decimales del precio y añade simbolo de euro en las card de coworking
@@ -254,14 +290,12 @@ export class CoworkingsHomeComponent implements OnInit {
   currentDate() {
     let date = new Date();
     date.setHours(0, 0, 0, 0);
-
     return date;
   }
 
   changeFormatDate(milis: number, idioma: string) {
     const fecha = new Date(milis);
-    let fechaFormateada;
-    fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
+    let fechaFormateada = new Intl.DateTimeFormat(idioma).format(fecha);
     return fechaFormateada;
   }
 
@@ -271,18 +305,90 @@ export class CoworkingsHomeComponent implements OnInit {
     // Escucha los cambios en data del grid
     this.coworkingsGrid.onDataLoaded.subscribe(() => {
       this.noResults = this.coworkingsGrid.dataArray.length === 0;
+      this.updateMapMarkers();
     });
   }
 
-  // Compara la fecha del coworking con la fecha actual y
-  // devuelve true si la diferencia es menor a 7 días
-  compareDate(startDate: any): boolean {
+  //------------------------------- MAPA -------------------------------
+  showHideMap() {
+    this.mapVisible = !this.mapVisible;
+    if (this.mapVisible) {
+      // mandar el mapa al que se dene incluir la marca
+      setTimeout(() => {
+        this.leafletMap = this.coworking_map.getMapService().getMap();
+        this.mapService.setUserMap(this.coworking_map);
+      }, 500);
+    }
+  }
 
-    // El primer valor representa los dias, en caso de querer 
-    // modificar la cantidad de días a comparar basta con 
+  updateMapMarkers() {
+    if (this.mapVisible) {
+
+      //Inicializar markerGroup si no está inicializado
+      if (!this.markerGroup) {
+        this.markerGroup = L.layerGroup().addTo(this.leafletMap);
+      }
+      // Eliminar todas las marcas previas
+      this.markerGroup.clearLayers();
+      if (this.nearMeMarkerGroup) { this.nearMeMarkerGroup.clearLayers(); }
+      // Añadir una marca por cada coworking
+      const coworkings = this.coworkingsGrid.dataArray;
+
+      coworkings.forEach((coworking) => {
+
+        const marker = L.marker([coworking.cw_lat, coworking.cw_lon], {
+          draggable: false,
+          clickable: true,
+        }).bindTooltip(coworking.cw_name, { permanent: false, direction: 'top' });
+
+        marker.on('click', () => {
+          this.router.navigate(['/main/coworkings', coworking.cw_id]);
+        });
+
+        this.markerGroup.addLayer(marker);
+      });
+
+      // Añadir el grupo de capas al mapa (si no está ya añadido)
+      if (!this.leafletMap.hasLayer(this.markerGroup)) {
+        this.markerGroup.addTo(this.leafletMap);
+      }
+      // Ajustar el nivel de zoom y centrar el mapa
+      if (coworkings.length > 0) {
+        const latitudes = coworkings.map(c => c.cw_lat);
+        const longitudes = coworkings.map(c => c.cw_lon);
+        const avgLat = latitudes.reduce((a, b) => a + b, 0) / latitudes.length;
+        const avgLon = longitudes.reduce((a, b) => a + b, 0) / longitudes.length;
+        this.leafletMap.setView([avgLat, avgLon], 6);
+      }
+    }
+  }
+
+  async nearOfMe() {
+    await this.mapService.getUserGeolocation();
+    this.coworkings = await this.mapService.obtenerCoworkings()
+
+    // Inicializar nearMeMarkerGroup si no está inicializado
+    if (!this.nearMeMarkerGroup) {
+      this.nearMeMarkerGroup = L.layerGroup().addTo(this.leafletMap);
+    }
+    this.nearMeMarkerGroup.clearLayers();
+    this.mapService.addMarkers(this.nearMeMarkerGroup, this.coworkings);
+  }
+
+  // Compara la fecha del coworking con la fecha actual y devuelve true si la diferencia es menor a 7 días
+  compareDate(startDate: any): boolean {
+    // El primer valor representa los dias, en caso de querer
+    // modificar la cantidad de días a comparar basta con
     // modificar ese número.
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;
+  }
+
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

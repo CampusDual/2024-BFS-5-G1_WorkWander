@@ -292,5 +292,6 @@
   "RATING_FILTER":"Búsqueda por valoración mínima",
   "BOOKING_FINISHED": "Reservas en coworking finalizada",
   "BOOKING_PENDING": "Reservas en coworking pendiente",
-  "BOOKING_INPROGRESS": "Reservas en coworking en proceso"
+  "BOOKING_INPROGRESS": "Reservas en coworking en proceso",
+  "RATING_TITLE": "Valoración "
 }

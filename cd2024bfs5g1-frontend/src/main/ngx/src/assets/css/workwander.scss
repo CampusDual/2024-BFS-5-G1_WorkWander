@@ -506,12 +506,12 @@ div#innerCol {
             color: $blanco;
             padding: 10px 20px;
             margin: 0px;
-    
+
             .decimal {
               font-size: $fontSize18; /* Tamaño reducido para decimales */
               //vertical-align: super; /* Opcional: sube un poco los decimales */
             }
-          
+
         }
       }
 
@@ -1849,6 +1849,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   max-width: 150px;
 }
 
+
+
 // Estilos tablas
 .o-table-body {
   margin-top: 20px;
@@ -1918,4 +1920,12 @@ button.mat-primary.mat-stroked-button {
 }
 .price_range{
   margin-bottom:7px;
+}
+
+.valoracion{
+  margin-bottom: 7px;
+  font-size:14px;
+  display:flex;
+  align-items: center;
+  font-weight: 300;
 }

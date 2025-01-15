@@ -18,7 +18,7 @@
           service="cities"
           entity="city"
           keys="id_city"
-          value-column="city"
+          value-column="city"km
           sort="ASC"
           columns="city"
           searchable="true"
@@ -70,6 +70,7 @@
           <span>{{ "PRICE_RANGE" | oTranslate }}</span>
         </div>
         <div class="slider">
+
           <o-slider
             id="slider"
             #cw_daily_price
@@ -83,6 +84,9 @@
             tooltip-position="above"
             step="5"
           ></o-slider>
+        </div>
+        <div class="valoracion">
+        <span >{{ 'RATING_TITLE' | oTranslate }} </span>
         </div>
         <p-rating
           class="rate"

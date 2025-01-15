@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="grid-container">
   <!-- Grid que muestra los datos de los events -->
   <o-grid
@@ -41,7 +49,9 @@
               getAvailability(data.reserved, data.bookings) < 1
             "
           >
-            <span class="last-tickets-tag">{{ "LAST_CHANCES" | oTranslate }}</span>
+            <span class="last-tickets-tag">{{
+              "LAST_CHANCES" | oTranslate
+            }}</span>
           </div>
         </div>
         <div class="price-container">

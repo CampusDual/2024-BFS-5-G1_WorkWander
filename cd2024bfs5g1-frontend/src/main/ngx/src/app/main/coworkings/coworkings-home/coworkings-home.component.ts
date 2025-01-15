@@ -72,7 +72,7 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-
+    setTimeout(() => { this.deleteLoader() }, 250);
     this.leafletMap = this.coworking_map.getMapService().getMap();
 
   }
@@ -342,7 +342,9 @@ export class CoworkingsHomeComponent implements OnInit {
         }).bindTooltip(coworking.cw_name, { permanent: false, direction: 'top' });
 
         marker.on('click', () => {
-          this.router.navigate(['/main/coworkings', coworking.cw_id]);
+          this.router.navigate(['/coworkings', coworking.cw_id], {
+            queryParams: { isdetail: true }
+          });
         });
 
         this.markerGroup.addLayer(marker);
@@ -383,5 +385,12 @@ export class CoworkingsHomeComponent implements OnInit {
     let sieteDiasEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
     let diferencia = this.currentDate().getTime() - startDate;
     return sieteDiasEnMilisegundos > diferencia;
+  }
+
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

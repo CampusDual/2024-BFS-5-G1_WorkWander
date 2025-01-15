@@ -1,26 +1,46 @@
-import { DomSanitizer } from '@angular/platform-browser';
-import { AfterViewInit, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, NavigationService, ServiceResponse, OUserInfoService } from 'ontimize-web-ngx';
-import { Observable } from 'rxjs';
-import { MainService } from '../shared/services/main.service';
-import { UserInfoService } from '../shared/services/user-info.service';
+import { DomSanitizer } from "@angular/platform-browser";
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnInit,
+  ViewEncapsulation,
+} from "@angular/core";
+import {
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import {
+  AuthService,
+  NavigationService,
+  ServiceResponse,
+  OUserInfoService,
+} from "ontimize-web-ngx";
+import { Observable } from "rxjs";
+import { MainService } from "../shared/services/main.service";
+import { UserInfoService } from "../shared/services/user-info.service";
 
 @Component({
-  selector: 'login',
-  styleUrls: ['./login.component.scss'],
-  templateUrl: './login.component.html',
-  encapsulation: ViewEncapsulation.None
+  selector: "login",
+  styleUrls: ["./login.component.scss"],
+  templateUrl: "./login.component.html",
+  encapsulation: ViewEncapsulation.None,
 })
-export class LoginComponent implements OnInit, AfterViewInit{
-
+export class LoginComponent implements OnInit, AfterViewInit {
   public loginForm: UntypedFormGroup = new UntypedFormGroup({});
-  public userCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
-  public pwdCtrl: UntypedFormControl = new UntypedFormControl('', Validators.required);
+  public userCtrl: UntypedFormControl = new UntypedFormControl(
+    "",
+    Validators.required
+  );
+  public pwdCtrl: UntypedFormControl = new UntypedFormControl(
+    "",
+    Validators.required
+  );
 
   public sessionExpired = false;
-  private redirect = '/main';
+  private redirect = "/main";
 
   constructor(
     private actRoute: ActivatedRoute,
@@ -33,13 +53,13 @@ export class LoginComponent implements OnInit, AfterViewInit{
     @Inject(DomSanitizer) private domSanitizer: DomSanitizer
   ) {
     const qParamObs: Observable<any> = this.actRoute.queryParams;
-    qParamObs.subscribe(params => {
+    qParamObs.subscribe((params) => {
       if (params) {
-        if (params['session-expired']) {
-          this.sessionExpired = (params['session-expired'] === 'true');
+        if (params["session-expired"]) {
+          this.sessionExpired = params["session-expired"] === "true";
         } else {
-          if (params['redirect']) {
-            this.redirect = params['redirect'];
+          if (params["redirect"]) {
+            this.redirect = params["redirect"];
           }
           this.sessionExpired = false;
         }
@@ -50,8 +70,8 @@ export class LoginComponent implements OnInit, AfterViewInit{
   ngOnInit(): any {
     this.navigationService.setVisible(false);
 
-    this.loginForm.addControl('username', this.userCtrl);
-    this.loginForm.addControl('password', this.pwdCtrl);
+    this.loginForm.addControl("username", this.userCtrl);
+    this.loginForm.addControl("password", this.pwdCtrl);
 
     if (this.authService.isLoggedIn()) {
       this.router.navigate([this.redirect]);
@@ -65,65 +85,77 @@ export class LoginComponent implements OnInit, AfterViewInit{
     const password = this.loginForm.value.password;
     if (userName && userName.length > 0 && password && password.length > 0) {
       const self = this;
-      this.authService.login(userName, password)
-        .subscribe(() => {
-          self.sessionExpired = false;
-          this.loadUserInfo();
-          self.router.navigate([this.redirect]);
-        }, this.handleError);
+      this.authService.login(userName, password).subscribe(() => {
+        self.sessionExpired = false;
+        this.loadUserInfo();
+        self.router.navigate([this.redirect]);
+      }, this.handleError);
     }
   }
 
   private loadUserInfo() {
-    this.mainService.getUserInfo()
-      .subscribe(
-        (result: ServiceResponse) => {
-          this.userInfoService.storeUserInfo(result.data);
-          let avatar = './assets/images/user_profile.png';
-          if (result.data['usr_photo']) {
-            (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl('data:image/*;base64,' + result.data['usr_photo']);
-          }
-          this.oUserInfoService.setUserInfo({
-            username: result.data['usr_name'],
-            avatar: avatar
-          });
-        }
-      );
+    this.mainService.getUserInfo().subscribe((result: ServiceResponse) => {
+      this.userInfoService.storeUserInfo(result.data);
+      let avatar = "./assets/images/user_profile.png";
+      if (result.data["usr_photo"]) {
+        (avatar as any) = this.domSanitizer.bypassSecurityTrustResourceUrl(
+          "data:image/*;base64," + result.data["usr_photo"]
+        );
+      }
+      this.oUserInfoService.setUserInfo({
+        username: result.data["usr_name"],
+        avatar: avatar,
+      });
+    });
   }
 
   private handleError(error) {
     switch (error.status) {
       case 401:
-        console.error('Email or password is wrong.');
+        console.error("Email or password is wrong.");
         break;
-      default: break;
+      default:
+        break;
     }
   }
 
   entradaSinLogin() {
-    this.router.navigate([" "])
+    // Modificar para que vaya a la landing page
+    this.router.navigate(["/landing"]);
   }
+
+  goBack() {
+    // Nuevo método para volver a la landing page
+    this.router.navigate(["/landing"]);
+  }
+
   registerUser() {
-    this.router.navigate(['register/user/new']);
+    this.router.navigate(["register/user/new"]);
   }
   ngAfterViewInit(): void {
     this.setupVideoPlayback();
   }
- 
+
   setupVideoPlayback(): void {
-    const videoElement = document.getElementById('background-video') as HTMLVideoElement;
+    const videoElement = document.getElementById(
+      "background-video"
+    ) as HTMLVideoElement;
     if (videoElement) {
       videoElement.muted = true; // Asegúrate de que el video esté silenciado
       videoElement.currentTime = 0; // Reinicia el video
-      videoElement.play().catch(error => {
-        console.log('Video playback failed:', error);
+      videoElement.play().catch((error) => {
+        console.log("Video playback failed:", error);
       });
- 
-      document.addEventListener('click', () => {
-        videoElement.play().catch(error => {
-          console.log('Video playback failed:', error);
-        });
-      }, { once: true });
+
+      document.addEventListener(
+        "click",
+        () => {
+          videoElement.play().catch((error) => {
+            console.log("Video playback failed:", error);
+          });
+        },
+        { once: true }
+      );
     }
   }
 }

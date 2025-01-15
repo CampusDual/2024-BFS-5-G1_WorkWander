@@ -12,6 +12,9 @@
         class="login-inner-container"
       >
         <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <button mat-icon-button class="back-button" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
           <div class="login-title-container" fxLayout="column">
             <p class="session-expired text" *ngIf="sessionExpired">
               {{ "ERROR_SESSION_EXPIRED" | oTranslate }}

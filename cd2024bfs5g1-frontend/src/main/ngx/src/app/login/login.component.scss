@@ -125,6 +125,20 @@
     }
   }
 }
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
 .noLogin {
   text-align: center;
   justify-content: center;

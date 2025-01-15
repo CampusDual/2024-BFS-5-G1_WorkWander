@@ -38,7 +38,11 @@ export class BookingsHomeComponent {
     private translate: OTranslateService,
     private snackBarService: SnackBarService,
     protected dialog: MatDialog
-  ) {}
+  ) { }
+
+  ngOnInit() {
+    setTimeout(() => { this.deleteLoader() }, 250);
+  }
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -202,5 +206,11 @@ export class BookingsHomeComponent {
       }
       // this.dates.reverse();
     });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

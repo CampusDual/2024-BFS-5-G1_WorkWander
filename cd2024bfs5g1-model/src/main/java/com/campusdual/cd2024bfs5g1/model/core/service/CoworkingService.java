@@ -54,8 +54,6 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList);
     }
 
-
-
     /**
      * Inserta un nuevo registro de coworking en la base de datos.
      * Añade automáticamente el ID del usuario autenticado al registro.
@@ -283,6 +281,7 @@ public class CoworkingService implements ICoworkingService {
         keyMap.put(CoworkingDao.CW_USER_ID, userId);
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
     }
+
     @Override
     public EntityResult coworkingNearbyQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NEARBY);
@@ -299,8 +298,6 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final ArrayList<Integer> arrayCw_id = new ArrayList<>((ArrayList<Integer>) keyMap.remove("cw_id"));
         ArrayList<Integer> months = null;
-        final Object daysObj = null;
-        final ArrayList<Date> days = null;
         final List<Map> listaCoworkings = new ArrayList<>();
         int year = 0;
         year = (int) keyMap.remove("year");

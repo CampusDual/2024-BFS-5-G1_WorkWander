@@ -15,7 +15,7 @@
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
 >
   <div
-    class="form-section form-new-event no-margin-top"
+    class="form-section form-new-event no-margin-top edit-event"
     fxLayout="row"
     fxLayoutGap="24px"
     fxLayoutAlign="left start"
@@ -24,8 +24,8 @@
     <!-- Información General -->
     <o-column
       fxFlex
-      class="form-section column-new-event no-margin-top"
-      title="EVENT_INFORMATION"
+      class="form-section form-new-event form-edit-modal"
+      title="EDIT_EVENT"
       fxLayoutGap="24px"
     >
       <!-- Nombre -->
@@ -135,7 +135,7 @@
         sql-type="OTHER"
         max-file-size="1048576"
         height="250px"
-        style="padding-top: 60px"
+        style="padding-top: 20px"
       ></o-image>
       <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
         <div class="buttons" style="justify-content: end">

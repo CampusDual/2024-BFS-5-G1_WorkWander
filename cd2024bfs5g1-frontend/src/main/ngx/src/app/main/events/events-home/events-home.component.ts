@@ -36,6 +36,7 @@ export class EventsHomeComponent implements OnInit {
   ngOnInit() {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
+    setTimeout(() => { this.deleteLoader() }, 250);
     this.configureService();
     //this.setFormatPrice();
   }
@@ -49,8 +50,8 @@ export class EventsHomeComponent implements OnInit {
   public getImageSrc(base64: any): any {
     return base64
       ? this.sanitizer.bypassSecurityTrustResourceUrl(
-          "data:image/*;base64," + base64
-        )
+        "data:image/*;base64," + base64
+      )
       : "./assets/images/event-default.jpg";
   }
 
@@ -82,5 +83,11 @@ export class EventsHomeComponent implements OnInit {
 
   getAvailability(reserved: any, capacity: any): number {
     return reserved / capacity;
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

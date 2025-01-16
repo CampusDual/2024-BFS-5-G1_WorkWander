@@ -10,7 +10,7 @@
   class="form-section"
   ignore-default-navigation="yes"
   fxFlex
-  columns="id_event;name;description;date_event;hour_event;address;duration;image_event;price"
+  columns="id_event;name;description;date_event;hour_event;address;duration;image_event;price;reserved"
   visible-columns="name;description;date_event;hour_event;address;duration;image_event;price"
   (onInsert)="onInsertSuccess(); $event.stopPropagation()"
 >
@@ -119,6 +119,13 @@
         required="yes"
         class="halfSize"
       ></o-text-input>
+      <o-integer-input oHidden #reserved attr="reserved"></o-integer-input>
+      <div>
+        <strong>
+          <span>{{ "USED_BOOKINGS" | oTranslate }}: </span>
+          {{ form.getFieldValue("reserved") }}
+        </strong>
+      </div>
     </o-column>
     <o-column
       fxFlex

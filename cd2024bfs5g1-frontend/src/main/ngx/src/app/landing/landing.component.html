@@ -45,15 +45,17 @@
     </button>
     <div class="hero-content">
       <h1>Coworking is the way</h1>
-      <button class="btn-primary" (click)="registerUser(); $event.preventDefault()">
+      <button
+        class="btn-primary"
+        (click)="registerUser(); $event.preventDefault()"
+      >
         {{ "L_REGISTER" | oTranslate }}
       </button>
     </div>
   </header>
   <!-- Features Section -->
   <section class="features">
-    <h2>{{ "L_FEATURES" | oTranslate }}
-    </h2>
+    <h2>{{ "L_FEATURES" | oTranslate }}</h2>
     <div class="features-cards">
       <div class="feature-card">
         <span class="icon">🏢</span>
@@ -185,8 +187,7 @@
     <div class="expand-your-business">
       <div class="content">
         <h2>{{ "L_ANALYTICS_TITLE" | oTranslate }}</h2>
-        <p>{{ "L_ANALYTICS_CONTENT" | oTranslate }}
-        </p>
+        <p>{{ "L_ANALYTICS_CONTENT" | oTranslate }}</p>
       </div>
     </div>
     <div class="business-container">
@@ -196,7 +197,11 @@
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-info">
-        <img src="../../assets/images/sidenav-opened.png" alt="WorkWander Logo" class="footer-logo"/>
+        <img
+          src="../../assets/images/sidenav-opened.png"
+          alt="WorkWander Logo"
+          class="footer-logo"
+        />
       </div>
       <div class="footer-links">
         <h4>Enlaces Rápidos</h4>
@@ -215,9 +220,9 @@
       </div>
     </div>
     <div class="footer-bottom">
-          <span>{{ "FOOTER_CREATED_BY" | oTranslate }}</span>
-          <span> &copy; 2025 </span>
-          <span>{{ "FOOTER_RIGHTS" | oTranslate }}</span>
+      <span>{{ "FOOTER_CREATED_BY" | oTranslate }}</span>
+      <span> &copy; 2025 </span>
+      <span>{{ "FOOTER_RIGHTS" | oTranslate }}</span>
     </div>
   </footer>
 </div>

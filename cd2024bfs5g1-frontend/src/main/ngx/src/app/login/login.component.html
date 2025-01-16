@@ -5,6 +5,9 @@
         <source src="assets/video/home_video_fondo.mp4" type="video/mp4" />
       </video>
     </div>
+    <button class="back-button" (click)="goBack()">
+      <img src="assets/images/sidenav-opened.png" alt="Logo">
+    </button>
     <div class="wrapp-login">
       <div
         fxLayout="row"
@@ -12,9 +15,6 @@
         class="login-inner-container"
       >
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <button mat-icon-button class="back-button" (click)="goBack()">
-            <mat-icon>arrow_back</mat-icon>
-          </button>
           <div class="login-title-container" fxLayout="column">
             <p class="session-expired text" *ngIf="sessionExpired">
               {{ "ERROR_SESSION_EXPIRED" | oTranslate }}

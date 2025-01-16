@@ -74,6 +74,10 @@
     padding: 5rem;
     position: relative;
     z-index: 2;
+    
+    .o-language-selector-text {
+      color: white;
+    }
 
     h1 {
       font-size: 5rem;

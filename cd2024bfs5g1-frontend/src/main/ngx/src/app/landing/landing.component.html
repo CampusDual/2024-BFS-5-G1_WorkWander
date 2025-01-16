@@ -4,6 +4,41 @@
     <div class="logo-container">
       <img src="../../assets/images/sidenav-opened.png" alt="WorkWander Logo" />
     </div>
+    <o-language-selector class="o-language-selector ng-star-inserted">
+      <div
+        fxlayout=""
+        fxlayoutalign="center center"
+        fxfill=""
+        style="
+          height: 100%;
+          min-height: 100%;
+          min-width: 100%;
+          width: 100%;
+          flex-direction: row;
+          box-sizing: border-box;
+          display: flex;
+          place-content: center;
+          align-items: center;
+        "
+      >
+        <!----><button
+          type="button"
+          mat-button=""
+          class="mat-mdc-menu-trigger menu-button o-language-selector-text mdc-button mat-mdc-button mat-unthemed mat-mdc-button-base ng-star-inserted"
+          aria-haspopup="menu"
+          aria-expanded="false"
+        >
+          <span
+            class="mat-mdc-button-persistent-ripple mdc-button__ripple"
+          ></span
+          ><span class="mdc-button__label"><span>ES</span></span
+          ><span class="mat-mdc-focus-indicator"></span
+          ><span matripple="" class="mat-ripple mat-mdc-button-ripple"></span
+          ><span class="mat-mdc-button-touch-target"></span></button
+        ><!----><!---->
+      </div>
+      <mat-menu yposition="below" class="ng-star-inserted"><!----></mat-menu>
+    </o-language-selector>
     <button class="login-button" (click)="goToLogin()">
       <span class="icon">🗝️</span>
       Iniciar sesión
@@ -12,9 +47,9 @@
       <h1>Coworking is the way</h1>
       <button
         class="btn-primary"
-        (click)="entradaSinLogin(); $event.preventDefault()"
+        (click)="registerUser(); $event.preventDefault()"
       >
-        Explorar Espacios
+        Registrar
       </button>
     </div>
   </header>

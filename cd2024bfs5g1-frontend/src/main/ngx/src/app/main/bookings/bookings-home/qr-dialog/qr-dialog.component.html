@@ -15,17 +15,14 @@
     [width]="300"
     (qrCodeURL)="onChangeURL($event)"
   ></qrcode>
-<button
-mat-raised-button
-color="primary"
-class="download-button">
-  <a
-    *ngIf="qrCodeDownloadLink"
-    [href]="qrCodeDownloadLink"
-    [download]="getFileName() + '.png'"
-    class="download-link"
-  >
-    {{ "QR_DOWNLOAD" | oTranslate }}
-  </a>
-</button>
+  <button mat-raised-button color="primary">
+    <a
+      *ngIf="qrCodeDownloadLink"
+      [href]="qrCodeDownloadLink"
+      [download]="getFileName() + '.png'"
+      class="download-link"
+    >
+      {{ "QR_DOWNLOAD" | oTranslate }}
+    </a>
+  </button>
 </div>

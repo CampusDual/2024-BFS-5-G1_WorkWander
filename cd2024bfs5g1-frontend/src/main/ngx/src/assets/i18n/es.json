@@ -250,5 +250,8 @@
   "IN_PROGRESS": "En curso",
   "DATERANGE_SELECTION_ERROR": "Debes seleccionar un rango de fechas.",
   "MY_SPACE": "Mi espacio",
-  "NO_EVENTS": "No hay eventos disponibles"
+  "NO_EVENTS": "No hay eventos disponibles",
+  "LOW_OCCUPATION": "Baja ocupación",
+  "MEDIUM_OCCUPATION": "Media ocupación",
+  "HIGH_OCCUPATION": "Alta ocupación"
 }

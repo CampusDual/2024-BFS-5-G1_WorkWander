@@ -41,13 +41,9 @@ export class AnalyticsEventsComponent implements OnInit {
   @ViewChild("month") day!: DayPilotMonthComponent;
   @ViewChild("month") week!: DayPilotMonthComponent;
   events: DayPilot.EventData[] = [];
-  // eventDays: Date[] = [];
   bookingsDataArray: DateData[] = [];
-  // occupationByDay: Object[] = [];
-  // daysInMonth: number;
   service: OntimizeService;
   date = DayPilot.Date.today();
-
   backColor: string;
   percentage: number;
   private translateServiceSubscription: Subscription;
@@ -56,9 +52,6 @@ export class AnalyticsEventsComponent implements OnInit {
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("calendar") calendar: DayPilot.Month;
-
-  // public dateArray = [];
-
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
@@ -81,81 +74,27 @@ export class AnalyticsEventsComponent implements OnInit {
     this.translateServiceSubscription.unsubscribe();
   }
 
-  // formatShortDate(rawDate: number): string {
-  //   if (rawDate) {
-  //     return this.utils.formatShortDate(rawDate);
-  //   }
-  // }
-
   languageChange() {
     let lang = this.translate.getCurrentLang() == "es" ? "es-ES" : "en-US";
-    // this.configDay.locale = lang;
     this.configMonth.locale = lang;
-    // this.configWeek.locale = lang;
     this.configNavigator.locale = lang;
   }
 
-  //PUERTO DE FERROl
-  //    public bookingsDataArray = [
-  //     {
-  //         "date": 1736895600000,
-  //         "plazasOcupadas": 1,
-  //         "cw_capacity": 15
-  //     },
-  //     {
-  //         "date": 1736982000000,
-  //         "plazasOcupadas": 1,
-  //         "cw_capacity": 15
-  //     },
-  //     {
-  //         "date": 1737068400000,
-  //         "plazasOcupadas": 1,
-  //         "cw_capacity": 15
-  //     }
-  // ]
   configMonth: DayPilot.MonthConfig = {
     theme: "verde",
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
     onBeforeCellRender: (args) => {
-      // if (!this.bookingsDataArray || this.bookingsDataArray.length === 0) {
-      //   console.log("Esperando datos... reintentando en 100ms");
-        
-      //   // Reintenta actualizar el calendario después de un breve tiempo
-      //   setTimeout(() => {
-      //     if (this.calendar) {
-      //       this.calendar.update();
-      //     }
-      //   }, 100);
-    
-      //   return; // No hace nada en esta ejecución si no hay datos
-      // }
-      console.log("onBefore-bookingsDataArray", this.bookingsDataArray);
-      // const cellDate = args.cell.start.toString("yyyy-MM-dd");
       // Normalizar la fecha de la celda eliminando la hora
       const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
       if (this.bookingsDataArray.length > 0) {
-        // args.cell.properties.backColor = "#ffffff";
         const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
-
-        // const cellData = this.bookingsDataArray.find((item) => {
-        //   const bookingDate = new Date(item.date).setHours(0, 0, 0, 0); // Convertir timestamp a Date y eliminar hora
-        //   return item.date === cellDate; // Comparar fechas normalizadas
-        // });
-        //   const cellData = {
-        //     "date": 1737068400000,
-        //     "plazasOcupadas": 15,
-        //     "cw_capacity": 15
-        // }
-        // console.log("args.cell.start", args.cell.start);
-        // console.log("cellDate", cellDate, cellData);
-        let color = "#000000"
+        let color = "rgba(226, 28, 0, 0.7)"
         if (cellData) {
           const percentage =
             (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
           color = this.getColorForPercentage(percentage);
-          // this.calendar.update();
         }
         args.cell.properties.backColor = color;
       }
@@ -183,40 +122,15 @@ export class AnalyticsEventsComponent implements OnInit {
     return `rgba(${r}, ${g}, ${b}, 0.7)`;
   }
 
-  // configWeek: DayPilot.CalendarConfig = {
-  //   theme: "verde",
-  //   eventMoveHandling: "Disabled",
-  //   eventResizeHandling: "Disabled",
-  //   startDate: DayPilot.Date.today(),
-  //   viewType: "Week",
-  // };
-
-  // configDay: DayPilot.CalendarConfig = {
-  //   theme: "verde",
-  //   eventMoveHandling: "Disabled",
-  //   eventResizeHandling: "Disabled",
-  //   startDate: DayPilot.Date.today(),
-  //   viewType: "Day",
-  // };
-
   configNavigator: DayPilot.NavigatorConfig = {
     showMonths: 3,
     cellWidth: 25,
     cellHeight: 25,
     onTimeRangeSelected: (args) => {
       this.date = args.start;
-      console.log("Mes seleccionado:", this.date.toString());
       this.bookingsDataArray = this.getOccupationByMonth();
-      // this.getOccupationByMonth();
       this.getCoworkingEventsData();
-    },
-    onVisibleRangeChanged: (args) => {
-      // this.onTimeRangeSelected(args);
-      // this.date = args.start;
-      // this.getCoworkingEventsData();
-      console.log("Visible range start:", args.start.toString());
-      console.log("Visible range end:", args.end.toString());
-    },
+    }
   };
 
   configureService(serviceName: string) {
@@ -302,57 +216,24 @@ export class AnalyticsEventsComponent implements OnInit {
     return "T" + finalHour + ":" + restMinutes + ":" + "00";
   }
 
-  // viewDay(): void {
-  //   this.configNavigator.selectMode = "Day";
-  //   this.configDay.visible = true;
-  //   this.configWeek.visible = false;
-  //   this.configMonth.visible = false;
-  //   this.getCoworkingEventsData();
-  // }
-
-  // viewWeek(): void {
-  //   this.configNavigator.selectMode = "Week";
-  //   this.configDay.visible = false;
-  //   this.configWeek.visible = true;
-  //   this.configMonth.visible = false;
-  //   this.getCoworkingEventsData();
-  // }
-
   viewMonth(): void {
     this.configNavigator.selectMode = "Month";
-    // this.configDay.visible = false;
-    // this.configWeek.visible = false;
     this.configMonth.visible = true;
     this.getCoworkingEventsData();
-    // this.onTimeRangeSelected(this.configMonth);
   }
 
   changeDate(date: DayPilot.Date): void {
-    // this.configDay.startDate = date;
-    // this.configWeek.startDate = date;
     this.configMonth.startDate = date;
   }
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
     if (selectedNames.type === 0) {
-      console.log("YYY-Date", this.date);
       this.bookingsDataArray = [];
       this.selectedCoworking = selectedNames.newValue;
-      console.log("selectedCoworking", selectedNames.newValue, this.date);
       this.bookingsDataArray = this.getOccupationByMonth();
       this.getCoworkingEventsData();
     }
   }
-
-  // showAvailableToast(mensaje?: string) {
-  //   const availableMessage = mensaje;
-  //   const configuration: OSnackBarConfig = {
-  //     milliseconds: 7500,
-  //     icon: "info",
-  //     iconPosition: "left",
-  //   };
-  //   this.snackBarService.open(availableMessage, configuration);
-  // }
   /**
    * @notice Función para construir la expresión de filtrado
    * @param values es un array de objetos para los filtros avanzados
@@ -426,7 +307,6 @@ export class AnalyticsEventsComponent implements OnInit {
    * @notices Obtiene la ocupacion de los coworkings para todos los dias de un mes
    */
   getOccupationByMonth() {
-    // this.bookingsDataArray = [];
     let occupationByDate: DateData[] = [];
     const year = this.date.getYear();
     const month = this.date.getMonth();
@@ -434,8 +314,6 @@ export class AnalyticsEventsComponent implements OnInit {
     const firstDay = new Date(year, month, 1);
     // Obtener el último día del mes
     const lastDay = new Date(year, month + 1, 0);
-    console.log("LASTDAY - FALLA debido al error de UNA HORA MENOS", lastDay);
-
     const filterValues = [
       {
         attr: "cw_id",
@@ -469,16 +347,6 @@ export class AnalyticsEventsComponent implements OnInit {
         plazasOcupadas: 1,
       },
     ];
-    // for (let i = 0; i < resp_data.length; i++) {
-    //   // resp_data[i].date = new Date(resp_data[i].date);
-    //   if (resp_data && resp_data.length > 0) {
-    //     console.log("occupationByDate: ", resp_data[i]);
-    //     // return this.occupationByDate = resp.data[0];
-    //     this.bookingsDataArray.push(resp_data[i]);
-    //   } else {
-    //     return null;
-    //   }
-    // }
 
     const filter = { "@basic_expression": this.createFilter(filterValues) };
     const sqlTypes = { date: 91 };
@@ -488,9 +356,7 @@ export class AnalyticsEventsComponent implements OnInit {
     this.service.query(filter, columns, "bookingsByMonth", sqlTypes).subscribe(
       (resp) => {
         if (resp.data || resp_data) {
-          // console.log("occupationResp: ", resp);
           console.log("getOccupationByMonth-Resp.data: ", resp.data);
-          // this.bookingsDataArray.push(resp.data);
           occupationByDate = resp.data;
           this.bookingsDataArray = resp.data;
           // **Aquí forzamos la actualización del calendario una vez los datos están listos**
@@ -510,16 +376,6 @@ export class AnalyticsEventsComponent implements OnInit {
         );
       }
     );
-    // console.log("occupationByDate", this.occupationByDate);
     return occupationByDate;
   }
 }
-// rgba(226, 28, 0, 0.7)
-// rgba(198, 56, 0, 0.7)
-// rgba(170, 85, 0, 0.7)
-// rgba(141, 113, 0, 0.7)
-// rgba(113, 141, 0, 0.7)
-// rgba(85, 170, 0, 0.7)
-// rgba(56, 198, 0, 0.7)
-// rgba(28, 226, 0, 0.7)
-// rgba(0, 255, 0, 0.7)

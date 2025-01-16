@@ -23,30 +23,22 @@ $padding: 25px 25px 25px 25px;
 $paddingInterno: 12px 16px;
 
 // Gradientes de colores
-$linear-gradientLR: linear-gradient(
-  90deg,
-  $colorDegradadoFuerte 0%,
-  $colorDegradadoFuerte 5%,
-  $colorDegradadoFuerte 100%
-);
-$linear-gradientRL: linear-gradient(
-  270deg,
-  $colorDegradadoFuerte 0%,
-  $colorDegradadoFuerte 5%,
-  $colorDegradadoFuerte 100%
-);
-$linear-gradientTB: linear-gradient(
-  180deg,
-  $colorDegradadoFuerte 0%,
-  $colorDegradadoFuerte 5%,
-  $colorDegradadoFuerte 100%
-);
-$linear-gradientBT: linear-gradient(
-  0,
-  $colorDegradadoFuerte 0%,
-  $colorDegradadoFuerte 5%,
-  $colorDegradadoFuerte 100%
-);
+$linear-gradientLR: linear-gradient(90deg,
+    $colorDegradadoFuerte 0%,
+    $colorDegradadoFuerte 5%,
+    $colorDegradadoFuerte 100%);
+$linear-gradientRL: linear-gradient(270deg,
+    $colorDegradadoFuerte 0%,
+    $colorDegradadoFuerte 5%,
+    $colorDegradadoFuerte 100%);
+$linear-gradientTB: linear-gradient(180deg,
+    $colorDegradadoFuerte 0%,
+    $colorDegradadoFuerte 5%,
+    $colorDegradadoFuerte 100%);
+$linear-gradientBT: linear-gradient(0,
+    $colorDegradadoFuerte 0%,
+    $colorDegradadoFuerte 5%,
+    $colorDegradadoFuerte 100%);
 
 /* Margin personalizado */
 .m-top-24 {
@@ -56,28 +48,22 @@ $linear-gradientBT: linear-gradient(
 mat-icon.mat-icon.notranslate.mat-mdc-tooltip-trigger.material-icons.mat-ligature-font.mat-icon-no-color {
   color: $verdeBoton;
 }
-ngx-material-timepicker-container
-  ngx-material-timepicker-content
-  header.timepicker__header {
+
+ngx-material-timepicker-container ngx-material-timepicker-content header.timepicker__header {
   background-color: $primary !important;
 }
-.o-column-collapsible
-  > .o-container.mat-expansion-panel
-  .mat-expansion-panel-header,
-.o-row-collapsible
-  > .o-container.mat-expansion-panel
-  .mat-expansion-panel-header {
+
+.o-column-collapsible>.o-container.mat-expansion-panel .mat-expansion-panel-header,
+.o-row-collapsible>.o-container.mat-expansion-panel .mat-expansion-panel-header {
   padding-left: 0px;
 }
 
-.mat-mdc-tab-group.o-tab-ontimize
-  > .mat-mdc-tab-header
-  .mat-mdc-tab-label-container
-  div.mat-mdc-tab.mdc-tab--active {
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container div.mat-mdc-tab.mdc-tab--active {
   background-color: transparent;
   font-size: $fontSize20;
   font-weight: $fontBold;
 }
+
 /*   Video home page  */
 #background-video {
   width: 100vw;
@@ -111,6 +97,7 @@ ngx-material-timepicker-container
     }
   }
 }
+
 /*  Barra de navegación lateral  */
 .navMenu {
   background-color: $primary;
@@ -127,19 +114,23 @@ ngx-material-timepicker-container
     padding: 15px 25px;
     border-radius: $borderRadius;
   }
+
   .mdc-snackbar__label {
     color: $accent;
     font-size: $fontSize14;
     padding: 0;
   }
+
   span.mdc-button__label {
     color: $verdeBoton;
     font: $fontSize12;
   }
+
   .mat-mdc-snack-bar-actions.mdc-snackbar__actions.ng-star-inserted {
     background-color: $accent;
     border-radius: 15px;
   }
+
   button.mat-simple-snackbar-action.ng-star-inserted {
     border-radius: 15px;
     padding: 5px 15px;
@@ -174,9 +165,11 @@ login {
       color: $blanco;
       margin-bottom: 40px;
     }
+
     .register-button {
       background-color: $accent;
     }
+
     .enter-without-account-button {
       background-color: $blanco;
       color: $primary;
@@ -195,6 +188,7 @@ login {
         margin-top: unset;
       }
     }
+
     .login-inner-container {
       background-color: unset;
     }
@@ -279,6 +273,7 @@ form {
       color: $blanco;
       margin-bottom: 40px;
     }
+
     .go-back-button {
       background-color: $accent;
     }
@@ -294,6 +289,7 @@ form {
     }
   }
 }
+
 .o-table .mat-mdc-table .mat-mdc-row:hover:not(.o-table-group-row) {
   background-color: $accent !important;
 }
@@ -352,7 +348,8 @@ nav.ng-star-inserted:nth-last-child(2) {
       color: black;
     }
   }
-  .mdc-button__label > div {
+
+  .mdc-button__label>div {
     justify-content: center !important;
   }
 
@@ -361,7 +358,8 @@ nav.ng-star-inserted:nth-last-child(2) {
     border-left: 0px solid $accent;
     transition: none;
   }
-  .mat-mdc-button > .mat-icon {
+
+  .mat-mdc-button>.mat-icon {
     margin-left: 0;
     margin-right: 0px;
   }
@@ -397,6 +395,7 @@ nav.ng-star-inserted:nth-last-child(2) {
         border-left: 8px solid $verdeBoton;
       }
     }
+
     .mat-drawer.o-app-sidenav-sidenav .mat-drawer-inner-container {
       padding-bottom: 0px !important;
     }
@@ -420,10 +419,13 @@ nav.ng-star-inserted:nth-last-child(2) {
 
 div#innerCol {
   padding: 10px 0 1px 0;
-  > div {
+
+  >div {
     column-gap: 15px;
+
     .btn-container {
       background-color: $blanco;
+
       button {
         padding-top: 4px;
         height: 78%;
@@ -431,6 +433,7 @@ div#innerCol {
     }
   }
 }
+
 .mat-mdc-select-panel {
   .mat-pseudo-checkbox-checked {
     background-color: $primary !important;
@@ -450,7 +453,7 @@ div#innerCol {
     display: flex;
     place-content: left;
     align-items: flex-start;
-    margin: 0 !important ;
+    margin: 0 !important;
 
     img {
       width: 510px !important;
@@ -458,9 +461,11 @@ div#innerCol {
       object-fit: cover !important;
     }
   }
+
   .button-back {
     position: absolute;
   }
+
   .dos-columnas {
     width: 100%;
     padding: 0 15px;
@@ -474,7 +479,8 @@ div#innerCol {
 
     div.o-container-gap {
       padding: unset !important;
-      > div {
+
+      >div {
         flex-wrap: wrap;
       }
     }
@@ -497,7 +503,7 @@ div#innerCol {
         justify-content: flex-end;
         flex-wrap: wrap;
 
-        > div {
+        >div {
           display: flex;
           flex-wrap: wrap;
           flex-direction: row;
@@ -512,6 +518,7 @@ div#innerCol {
   #carousel {
     padding-top: 35px;
   }
+
   .p-carousel {
     display: flex;
     flex-direction: column;
@@ -523,6 +530,7 @@ div#innerCol {
       flex-flow: wrap;
     }
   }
+
   .map-container {
     padding-top: 25px;
 
@@ -540,6 +548,7 @@ div#innerCol {
       height: 450px;
     }
   }
+
   o-button.o-button button {
     padding: 25px 35px;
     border-radius: $borderRadiusButton;
@@ -552,10 +561,12 @@ div#innerCol {
 
   .image-container {
     margin-right: 25px;
+
     .hidden {
       display: none;
       /* Oculta el div que envuelve o-image */
     }
+
     img {
       width: 480px !important;
       height: 280px !important;
@@ -567,6 +578,7 @@ div#innerCol {
       box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
     }
   }
+
   .price {
     // Estilo del precio
     font-size: $fontSize18;
@@ -581,7 +593,8 @@ div#innerCol {
   }
 
   .price .decimal {
-    font-size: $fontSize16; /* Tamaño reducido para decimales */
+    font-size: $fontSize16;
+    /* Tamaño reducido para decimales */
     //vertical-align: super; /* Opcional: sube un poco los decimales */
   }
 }
@@ -590,6 +603,7 @@ div#innerCol {
 .reservation-button {
   text-align: center;
   margin-bottom: 5px;
+
   o-button {
     margin-left: 0 !important;
   }
@@ -616,6 +630,7 @@ button.mat-mdc-outlined-button {
 
 .custom-button:hover {
   background-color: $accent;
+
   :hover {
     color: $primary;
   }
@@ -635,22 +650,28 @@ o-column.o-column,
 o-row.o-row {
   background: transparent;
 }
+
 o-column {
   background: transparent;
 }
+
 .o-container {
   background: transparent;
 }
+
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: $accentClaro !important;
 }
+
 .form-row {
   margin-top: 24px;
   align-items: flex-end;
 }
+
 .form-container {
   width: 100vw;
 }
+
 .columna-imagen-mapa {
   display: flex;
   flex-direction: column;
@@ -663,11 +684,13 @@ o-column {
     min-height: 470px;
     height: 470px;
   }
+
   o-map.modal-form {
     max-height: 560px;
     height: 560px;
     min-height: 560px;
   }
+
   o-image {
     width: 100%;
     height: 100%;
@@ -675,6 +698,7 @@ o-column {
     min-height: 270px;
   }
 }
+
 .map-container o-map {
   width: 100%;
   height: 100%;
@@ -682,11 +706,13 @@ o-column {
   min-height: 470px;
   height: 470px;
 }
+
 .form-new-event.form-edit-modal {
   .o-container-title {
     display: none !important;
   }
 }
+
 .form-new-event {
   background-color: $blanco;
   border: solid 1px $verdeBoton;
@@ -721,6 +747,7 @@ o-column {
     .o-image .o-image-content .o-image-display-container.o-image-drag-and-drop {
       padding: 10px;
     }
+
     o-image.imagen-mapa {
       width: 150px;
       height: 150px;
@@ -732,6 +759,7 @@ o-column {
         padding: 5px;
       }
     }
+
     o-image.imagen-mapa.modal-form {
       width: 300px;
       height: 300px;
@@ -746,6 +774,7 @@ o-column {
       margin: 60px 0 25px 0;
       justify-content: space-between;
     }
+
     .rowCityDirection.low-margin-top {
       margin: 20px 0 25px 0;
     }
@@ -754,7 +783,7 @@ o-column {
       align-items: flex-start;
       overflow: hidden;
 
-      > div {
+      >div {
         gap: 25px;
         flex-direction: row !important;
         flex-wrap: wrap;
@@ -767,35 +796,42 @@ o-column {
       background: $blanco;
     }
   }
+
   article.ng-star-inserted {
     align-self: center !important;
     padding: 5px;
     color: $verdeBoton;
     fill: $verdeBoton;
+
     :hover {
       cursor: pointer;
     }
+
     mat-icon {
       font-size: $fontSize35;
       width: $fontSize35;
       height: $fontSize35;
     }
   }
+
   .buttons {
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     padding: 15px;
   }
+
   .buttons.modal-form {
     background-color: transparent;
     margin-top: -50px;
   }
+
   //columna imagen
   .image {
     max-width: 35%;
   }
 }
+
 .lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;
@@ -805,13 +841,12 @@ o-column {
   margin-top: -30px;
   padding: 5px;
 }
-.mat-mdc-tab-group.o-tab-ontimize
-  > .mat-mdc-tab-header
-  .mat-mdc-tab-label-container
-  div.mat-mdc-tab.mdc-tab--active {
+
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-header .mat-mdc-tab-label-container div.mat-mdc-tab.mdc-tab--active {
   font-size: 8px;
   font-weight: 700;
 }
+
 .application-layout-content-wrapper.header-layout {
   // background-image: url("assets/images/fondo_workwander.jpg");
   background-position-y: bottom;
@@ -819,6 +854,7 @@ o-column {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 /*  Coworking */
 .no-results {
   display: flex;
@@ -860,6 +896,7 @@ o-column {
     }
   }
 }
+
 .event-card {
   // Estilo general de la tarjeta de evento
   display: flex;
@@ -890,6 +927,7 @@ o-column {
     }
   }
 }
+
 .event-date,
 .event-hour {
   // Estilo de la hora y la fecha del evento
@@ -897,10 +935,12 @@ o-column {
   margin: 0 0 8px 0;
   font-size: $fontSize18;
 }
+
 .material-icons {
   color: $verdeBoton;
   fill: $verdeBoton;
 }
+
 o-snackbar .material-icons {
   color: $blanco;
   fill: $blanco !important;
@@ -1000,6 +1040,7 @@ o-snackbar .o-snackbar-message {
     padding: 2px;
     text-align: center;
   }
+
   .services {
     // Contenedor de los servicios
     display: flex;
@@ -1048,7 +1089,8 @@ o-snackbar .o-snackbar-message {
       color: $blanco;
 
       .decimal {
-        font-size: $fontSize18; /* Tamaño reducido para decimales */
+        font-size: $fontSize18;
+        /* Tamaño reducido para decimales */
         //vertical-align: super; /* Opcional: sube un poco los decimales */
       }
     }
@@ -1104,7 +1146,7 @@ o-data-toolbar {
 }
 
 .ontimize-table.o-table,
-.mat-mdc-tab-group.o-tab-ontimize > .mat-mdc-tab-body-wrapper {
+.mat-mdc-tab-group.o-tab-ontimize>.mat-mdc-tab-body-wrapper {
   background: transparent !important;
 }
 
@@ -1135,6 +1177,7 @@ o-data-toolbar {
     margin-right: 16px;
     box-shadow: 0px 0px 10px 0px $primaryClaro;
   }
+
   .image-container.image-container-details img {
     height: 420px !important;
     width: 430px !important;
@@ -1147,6 +1190,7 @@ o-data-toolbar {
   height: 20px;
   color: $amarillo;
 }
+
 .disable svg.p-icon.p-rating-icon {
   width: 20px;
   height: 20px;
@@ -1163,6 +1207,7 @@ o-data-toolbar {
   padding: 5px;
   background-color: $rojo !important;
 }
+
 .cancelDisable {
   border: 1px #97939386 solid;
   border-radius: 8px;
@@ -1178,15 +1223,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     color: $rojo !important;
   }
 }
+
 //reviews
 .review {
-  p-rating{
+  p-rating {
     color: $amarillo;
   }
 
   .review-title {
     margin-left: 16px;
   }
+
   .review-container {
     border: solid 1px white;
     padding: 16px;
@@ -1255,6 +1302,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize12;
   }
 }
+
 .grid-booking-rate .mat-grid-tile-content {
   background-color: #e6d5c3;
   justify-content: flex-start;
@@ -1278,9 +1326,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .p-carousel-items-container {
     justify-content: space-between;
   }
+
   .p-carousel-content {
     width: 690px;
   }
+
   .p-carousel-item.ng-star-inserted .event-item .event-item-content {
     background-color: $accent;
   }
@@ -1322,6 +1372,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
       }
     }
   }
+
   .p-carousel-prev,
   .p-carousel-next {
     background-color: $accent;
@@ -1365,6 +1416,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize16;
   }
 }
+
 .rate {
   svg.p-icon.p-rating-icon {
     width: 40px;
@@ -1377,6 +1429,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .event-detail-container {
   max-width: 40vw;
 }
+
 .empty-events-message {
   display: flex;
   justify-content: center;
@@ -1436,14 +1489,17 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
+
 .form-new-event.form-coworking-detail,
 .form-new-event.form-edit-modal {
   margin-top: 0;
+
   o-map {
     max-height: 450px;
     height: 450px;
     min-height: 450px;
   }
+
   o-image.modal-form {
     max-height: 250px !important;
     min-height: 250px !important;
@@ -1457,27 +1513,34 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .form-new-event.form-coworking-detail {
     margin-top: 0;
   }
+
   .form-new-event.form-edit-modal {
     margin-top: 0;
     border: solid 0 transparent;
     border-radius: unset;
   }
 }
+
 @media (max-width: 850px) {
   .button-back {
     display: none;
   }
+
   .card-detalle .image-container img {
     height: 220px;
   }
+
   .card-detalle {
+
     o-column.o-column,
     o-row.o-row {
       width: 100%;
     }
   }
 }
+
 @media (max-width: 767.9px) {
+
   o-text-input,
   o-integer-input,
   o-real-input,
@@ -1488,12 +1551,14 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     width: 100% !important;
     min-width: 100% !important;
   }
+
   .form-new-event article.ng-star-inserted mat-icon {
     font-size: 12px;
     width: 12px;
     height: 12px;
   }
 }
+
 @media (max-width: 576px) {
   .full-page {
     .footer-container {
@@ -1504,6 +1569,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
+
 // Media para 1050px
 @media (max-width: 1150px) {
   mat-paginator.mat-mdc-paginator.o-mat-paginator.ng-star-inserted {
@@ -1512,6 +1578,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     top: 0px;
     left: 24px;
   }
+
   .mat-mdc-paginator-container {
     position: absolute;
     top: 41px;
@@ -1520,9 +1587,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     z-index: 1;
     left: -80px;
   }
+
   .o-data-toolbar.o-data-toolbar.o-grid-toolbar.ng-star-inserted {
     padding: 25px 25px 85px 0px;
   }
+
   o-data-toolbar.o-data-toolbar.o-table-toolbar.ng-star-inserted {
     margin-bottom: 60px !important;
   }
@@ -1530,6 +1599,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 @media (min-width: 1000px) and (max-width: 1250px) {
   .coworking-card {
+
     // Estilo general de la tarjeta de coworking
     .image-container {
       // Contenedor de la imagen
@@ -1541,15 +1611,19 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         height: 70px;
       }
     }
+
     .capacity-price-container .price-container .price {
       font-size: $fontSize18;
+
       .decimal {
         font-size: $fontSize12;
       }
     }
+
     .capacity-price-container {
       min-width: 70px;
     }
+
     .material-icons {
       font-size: $fontSize14;
     }
@@ -1557,8 +1631,10 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 
 @media (max-width: 1500px) {
+
   /*  Coworking */
   .coworking-card {
+
     // Estilo general de la tarjeta de coworking
     .image-container {
       // Contenedor de la imagen
@@ -1570,22 +1646,28 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         height: 110px;
       }
     }
+
     .info .coworking-name {
       font-size: $fontSize18;
     }
+
     .capacity-price-container .price-container .price {
       font-size: $fontSize20;
+
       .decimal {
         font-size: $fontSize12;
       }
     }
+
     .capacity-price-container {
       min-width: 100px;
     }
+
     .material-icons {
       font-size: $fontSize18;
     }
   }
+
   .dos-columnas {
     flex-direction: column !important;
   }
@@ -1650,8 +1732,9 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 .button-c:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.selector-container{
-  .selector{
+
+.selector-container {
+  .selector {
     width: 30%;
     margin-bottom: 15px;
   }
@@ -1679,6 +1762,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .o-table-container thead tr {
   background-color: $primary !important;
+
   th {
     color: #ffffff !important;
     font-weight: 500 !important;
@@ -1730,3 +1814,53 @@ button.mat-primary.mat-stroked-button {
   border-radius: 15px;
   padding: 5px 25px 6px 25px;
 }
+
+// .analytics-event-container {
+//   .verde_cell .verde_cell_inner {
+//     margin: 2px;
+//     border-radius: 5px;
+//   }
+
+//   .legend-container {
+//     width: 100%;
+//   }
+
+//   .gradient-bar {
+//     width: 100%;
+//     height: 30px;
+//     background: linear-gradient(to right, rgba(226, 28, 0, 0.7), rgba(255, 255, 0, 0.7), rgba(28, 226, 0, 0.7));
+//     border-radius: 15px;
+//     margin-top: 10px;
+//   }
+
+//   .legend-texts {
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-between;
+//     font-weight: bold;
+//     font-size: 15px;
+//   }
+
+//   .verde_cell_header {
+//     padding-left: 3px;
+//     padding-top: 2px;
+//     font-weight: bold;
+//   }
+
+//   .verde_event_inner {
+//     width: 90%;
+//     margin: auto;
+//     font-weight: bold;
+//     font-size: 15px;
+//     background-color: rgba(26, 25, 27, 0.8)
+//   }
+
+//   .verde_event_bar {
+//     visibility: hidden;
+//   }
+
+//   .verde_header_inner {
+//     font-weight: bold;
+//     font-size: 15px;
+//   }
+// }

@@ -262,9 +262,6 @@ public class BookingService implements IBookingService {
 
     @Override
     public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-//        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-//        keyMap.put(BookingDao.BK_USR_ID, userId);
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_DAY_QUERY);
     }
 

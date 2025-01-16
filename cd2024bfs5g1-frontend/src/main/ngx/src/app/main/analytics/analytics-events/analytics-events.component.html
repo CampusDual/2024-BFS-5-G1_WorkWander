@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div class="analytics-event-container">
   <div class="selector-container">
     <o-form show-header="false" class="selector">
       <o-combo class="input-selector" #comboCoworkingInput attr="cw_name" service="coworkings" entity="coworkingByUser"
@@ -7,38 +7,20 @@
         searchable="true" (onSelectionChange)="onCoworkingChange($event)" multiple-trigger-label="true">
       </o-combo>
     </o-form>
-    <!-- <o-filter-builder #filterBuilder attr="thefilter"
-      filters="cw_id:cw_id; date:daterange;"
-      [target]="date" query-on-change="no" query-on-change-delay="500"
-      [expression-builder]="createFilter"></o-filter-builder>
-  </div> -->
   <main class="container">
     <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
       #navigator></daypilot-navigator>
     <div class="content">
-      <!-- <div class="buttons-c">
-         <button class="button-c" (click)="viewDay()"
-          [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''">
-          {{ "DAY" | oTranslate }}
-        </button>
-        <button class="button-c" (click)="viewWeek()"
-          [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">
-          {{ "WEEK" | oTranslate }}
-        </button> 
-         <button class="button-c" (click)="viewMonth()"
-          [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">
-          {{ "MONTH" | oTranslate }}
-        </button> 
-      </div> -->
-      <!-- <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
-      <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar> -->
       <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
-    </div>
-    <div id="legend">
-      <div><span style="background-color: #f63427 ;">&nbsp;&nbsp;&nbsp;&nbsp;</span> Baja ocupación (0-25%)</div>
-      <div><span style="background-color: #f49542;">&nbsp;&nbsp;&nbsp;&nbsp;</span> Media/baja ocupación (25-50%)</div>
-      <div><span style="background-color: #988c0a;">&nbsp;&nbsp;&nbsp;&nbsp;</span> Media/alta ocupación (50-75%)</div>
-      <div><span style="background-color: #6c9678;">&nbsp;&nbsp;&nbsp;&nbsp;</span> Alta ocupación (75-100%)</div>
+      <div id="legend"><div class="legend-container">
+          <div class="gradient-bar"></div>
+          <div class="legend-texts">
+            <p>{{ "LOW_OCCUPATION" | oTranslate }}</p>
+            <p>{{ "MEDIUM_OCCUPATION" | oTranslate }}</p>
+            <p>{{ "HIGH_OCCUPATION" | oTranslate }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 </div>

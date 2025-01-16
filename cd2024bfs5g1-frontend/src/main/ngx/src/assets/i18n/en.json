@@ -250,5 +250,8 @@
   "FINISHED": "Finished",
   "PENDING": "Pending",
   "IN_PROGRESS": "In progress",
-  "NO_EVENTS": "No events available"
+  "NO_EVENTS": "No events available",
+  "LOW_OCCUPATION": "Low occupancy",
+  "MEDIUM_OCCUPATION": "Medium occupancy",
+  "HIGH_OCCUPATION": "High occupancy"
 }

@@ -74,7 +74,7 @@
     padding: 5rem;
     position: relative;
     z-index: 2;
-    
+
     .o-language-selector-text {
       color: white;
     }
@@ -443,6 +443,95 @@
         display: block;
         color: $primary;
       }
+    }
+  }
+}
+
+/* ===========================
+    BUSINESS
+  ============================ */
+.company-section {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 0;
+  align-items: flex-start;
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("https://picsum.photos/1920/1080");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 4rem calc((100vw - 1200px) / 2);
+
+  .business-container {
+    flex: 2;
+
+    img {
+      border-radius: 8px;
+      margin-top: 6rem;
+    }
+  }
+
+  .expand-your-business {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 240px;
+    padding: 4rem;
+    background: $primary;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 6rem;
+    margin-left: 4rem;
+
+    .content {
+      text-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: $blanco;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+        color: $blanco;
+        line-height: 1.7em;
+      }
+
+      .btn-primary {
+        width: 100%;
+        background-color: $amarillo;
+        color: $verdeBoton;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: darken($amarillo, 10%);
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+
+    .business-container {
+      width: 100%;
+    }
+    .expand-your-business {
+      width: 100%;
+      max-width: none;
+      margin-top: 1rem;
     }
   }
 }

@@ -49,18 +49,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   locale:string;
   points:string;
   colors:string[]=[
-    "#98FB98",
-    "#7FFF00",
-    "#7FFFD4",
-    "#00FF7F",
-    "#6A9A32",
+    "#9ACD32",
+    "#6B8E23",
+    "#556B2F",
     "#8FBC8F",
+    "#32CD32",
     "#3CB371",
     "#2E8B57",
     "#228B22",
     "#00FF00",
     "#006400",
-    "#66CDAA"
+    "#66CDAA",
+    "#20B2AA"
   ]
   colorScheme = {
     domain: [],
@@ -315,8 +315,8 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
           data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
           }
       }
-      this.colorScheme.domain=[];
       this.numberOfMonths.sort(function(a, b){return a - b});
+      this.colorScheme.domain=[];
       this.numberOfMonths.forEach((e,i)=>{
         this.colorScheme.domain[i]=this.colors[e-1];
       })

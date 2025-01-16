@@ -38,7 +38,7 @@
     z-index: 3;
 
     img {
-      height: 50px;
+      height: 100px;
       width: auto;
       filter: brightness(0) invert(1);
     }
@@ -216,6 +216,10 @@
   .spaces-container {
     flex: 2;
 
+    h2 {
+      color: #fff;
+    }
+
     #carousel {
       padding-top: 18px;
 
@@ -253,7 +257,7 @@
 
               &:hover {
                 background-color: gray;
-                transform: scale(1.1);
+
                 box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
               }
               &:focus {
@@ -345,7 +349,6 @@
           }
 
           &:hover {
-            transform: translateY(-5px);
             transition: transform 0.3s ease;
           }
         }
@@ -357,14 +360,18 @@
     flex: 1;
     min-width: 300px;
     max-width: 400px;
-    padding: 1.5rem;
+    min-height: 240px;
+    padding: 4rem;
     background: $primary;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 3.5rem;
+    margin-top: 6rem;
 
     .content {
       text-align: center;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
 
       h2 {
         font-size: 1.5rem;

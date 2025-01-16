@@ -71,7 +71,7 @@
       <div id="carousel">
         <p-carousel
           [value]="featuredSpaces"
-          [numVisible]="3"
+          [numVisible]="1"
           [numScroll]="1"
           [circular]="true"
           [responsiveOptions]="responsiveOptions"
@@ -90,7 +90,6 @@
                 <h3>{{ space.title }}</h3>
                 <p>📍 {{ space.location }}</p>
                 <p>⭐ {{ space.rating }}</p>
-                <p class="price">{{ space.price }}€<span>/día</span></p>
               </div>
             </div>
           </ng-template>
@@ -106,7 +105,9 @@
           de trabajo mientras viajas por el mundo. Que el trabajo no marque tus
           limites.
         </p>
-        <button class="btn-primary" (click)="registerUser()">Regístrate</button>
+        <button class="btn-primary" (click)="registerUser()">
+          Comienza tu ruta
+        </button>
       </div>
     </div>
   </section>

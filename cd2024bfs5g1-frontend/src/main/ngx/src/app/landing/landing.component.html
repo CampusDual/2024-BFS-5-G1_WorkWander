@@ -34,8 +34,8 @@
           ><span class="mdc-button__label"><span>ES</span></span
           ><span class="mat-mdc-focus-indicator"></span
           ><span matripple="" class="mat-ripple mat-mdc-button-ripple"></span
-          ><span class="mat-mdc-button-touch-target"></span></button
-        ><!----><!---->
+          ><span class="mat-mdc-button-touch-target"></span>
+        </button>
       </div>
       <mat-menu yposition="below" class="ng-star-inserted"><!----></mat-menu>
     </o-language-selector>
@@ -111,6 +111,40 @@
       </div>
     </div>
   </section>
+
+  <section class="events-section">
+    <div class="spaces-container">
+      <h2>Eventos Destacados</h2>
+      <div id="carousel">
+        <p-carousel
+          [value]="events"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          [autoplayInterval]="3000"
+        >
+          <ng-template let-space pTemplate="item">
+            <div class="space-card">
+              <div>
+                <img
+                  [src]="space.image"
+                  alt="Coworking Space"
+                  class="space-image"
+                />
+              </div>
+              <div class="space-info">
+                <h3>{{ space.title }}</h3>
+                <p>📍 {{ space.location }}</p>
+                <p>📆 {{ space.date }}</p>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
+  </section>
+
   <section class="testimonials">
     <div class="testimonial-cards">
       <div class="testimonial-card">

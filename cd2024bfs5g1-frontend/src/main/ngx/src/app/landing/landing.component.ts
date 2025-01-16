@@ -75,10 +75,37 @@ export class LandingComponent {
     },
   ];
 
+
+
   events = [
-    { title: "Evento número 1", location: "Madrid", date: "25/02/2025" },
-    { title: "Evento número 2", location: "Barcelona", date: "25/02/2025" },
-    { title: "Evento número 3", location: "Valencia", date: "25/02/2025" },
+    {
+      image:
+        "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80",
+      title: "Networking Coffee & Code",
+      location: "Madrid Tech Hub",
+      date: "25/02/2025",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80",
+      title: "Workshop: Emprendimiento Digital",
+      location: "Barcelona Innovation Center",
+      date: "25/02/2025",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80",
+      title: "Startup Weekend",
+      location: "Valencia Coworking Space",
+      date: "25/02/2025",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80",
+      title: "Tech Meetup",
+      location: "Sevilla Digital Hub",
+      date: "25/02/2025",
+    },
   ];
 
   responsiveOptions = [
@@ -99,7 +126,7 @@ export class LandingComponent {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   entradaSinLogin() {
     this.router.navigate([" "]);

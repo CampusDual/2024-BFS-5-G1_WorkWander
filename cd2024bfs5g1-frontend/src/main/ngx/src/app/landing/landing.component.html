@@ -77,16 +77,22 @@
     <div class="spaces-container">
       <h2>{{ "L_SPACES" | oTranslate }}</h2>
       <div id="carousel">
-        <p-carousel [value]="featuredSpaces" [numVisible]="1" [numScroll]="1" [circular]="true"
-          [responsiveOptions]="responsiveOptions" [autoplayInterval]="3000">
+        <p-carousel
+          [value]="featuredSpaces"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          [autoplayInterval]="3000"
+        >
           <ng-template let-space pTemplate="item">
             <div class="space-card">
               <div>
                 <img
-                [src]="space.image"
-                alt="Coworking Space"
-                class="space-image"
-              />
+                  [src]="space.image"
+                  alt="Coworking Space"
+                  class="space-image"
+                />
               </div>
               <div class="space-info">
                 <h3>{{ space.title }}</h3>
@@ -118,7 +124,7 @@
       <div id="carousel">
         <p-carousel
           [value]="events"
-          [numVisible]="1"
+          [numVisible]="3"
           [numScroll]="1"
           [circular]="true"
           [responsiveOptions]="responsiveOptions"

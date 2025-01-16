@@ -16,6 +16,8 @@ import {
 export class EventsEditComponent {
 
   @ViewChild("form") form: OFormComponent;
+  public used: number;
+  public plazas = 0;
 
   constructor(
     private router: Router,
@@ -116,7 +118,12 @@ export class EventsEditComponent {
           this.showWarningToast('EVENT_WITH_BOOKINGS');
         }
 
+        this.used = resp.data['usedEventBookings'];
       });
+  }
+
+  ngAfterViewInit() {
+    this.plazas = this.used;
   }
 
   isInvalidForm(): boolean {

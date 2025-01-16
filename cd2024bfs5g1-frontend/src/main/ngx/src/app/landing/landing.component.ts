@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-
+import { OTranslateService } from "ontimize-web-ngx";
 @Component({
   selector: "app-landing",
   templateUrl: "./landing.component.html",
@@ -40,21 +40,21 @@ export class LandingComponent {
   features = [
     {
       icon: "🏢", // Edificio para espacios de calidad
-      title: "Espacios de Calidad",
+      title: this.translate.get("L_FEATURES_TITLE_1"),
       description:
-        "Accede a espacios de trabajo profesionales y completamente equipados",
+        this.translate.get("L_FEATURES_CONTENT_1"),
     },
     {
       icon: "🤝", // Apretón de manos para networking
-      title: "Eventos y Networking",
+      title: this.translate.get("L_FEATURES_TITLE_2"),
       description:
-        "Participa en eventos exclusivos y conecta con otros profesionales",
+      this.translate.get("L_FEATURES_CONTENT_2"),
     },
     {
       icon: "📈", // Gráfico ascendente para métricas
-      title: "Métricas y Análisis",
+      title: this.translate.get("L_FEATURES_TITLE_3"),
       description:
-        "Gestiona y optimiza el rendimiento de tus espacios con datos detallados",
+      this.translate.get("L_FEATURES_CONTENT_3"),
     },
   ];
   testimonials = [
@@ -126,7 +126,10 @@ export class LandingComponent {
     },
   ];
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private translate: OTranslateService
+  ) {}
 
   entradaSinLogin() {
     this.router.navigate([" "]);

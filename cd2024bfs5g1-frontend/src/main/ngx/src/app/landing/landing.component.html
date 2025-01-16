@@ -41,55 +41,58 @@
     </o-language-selector>
     <button class="login-button" (click)="goToLogin()">
       <span class="icon">🗝️</span>
-      Iniciar sesión
+      {{ "L_LOGIN" | oTranslate }}
     </button>
     <div class="hero-content">
       <h1>Coworking is the way</h1>
-      <button
-        class="btn-primary"
-        (click)="registerUser(); $event.preventDefault()"
-      >
-        Registrar
+      <button class="btn-primary" (click)="registerUser(); $event.preventDefault()">
+        {{ "L_REGISTER" | oTranslate }}
       </button>
     </div>
   </header>
   <!-- Features Section -->
   <section class="features">
-    <h2>Todo lo que necesitas en un solo lugar</h2>
+    <h2>{{ "L_FEATURES" | oTranslate }}
+    </h2>
     <div class="features-cards">
-      <div class="feature-card" *ngFor="let feature of features">
-        <span class="icon" [innerHTML]="feature.icon"></span>
-        <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
+      <div class="feature-card">
+        <span class="icon">🏢</span>
+        <h3>{{ "L_FEATURES_TITLE_1" | oTranslate }}</h3>
+        <p>{{ "L_FEATURES_CONTENT_1" | oTranslate }}</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🤝</span>
+        <h3>{{ "L_FEATURES_TITLE_2" | oTranslate }}</h3>
+        <p>{{ "L_FEATURES_CONTENT_2" | oTranslate }}</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📈</span>
+        <h3>{{ "L_FEATURES_TITLE_3" | oTranslate }}</h3>
+        <p>{{ "L_FEATURES_CONTENT_3" | oTranslate }}</p>
       </div>
     </div>
   </section>
   <!-- Spaces Preview & Work Anywhere Section -->
   <section class="spaces-work-section">
     <div class="spaces-container">
-      <h2>Espacios Destacados</h2>
+      <h2>{{ "L_SPACES" | oTranslate }}</h2>
       <div id="carousel">
-        <p-carousel
-          [value]="featuredSpaces"
-          [numVisible]="1"
-          [numScroll]="1"
-          [circular]="true"
-          [responsiveOptions]="responsiveOptions"
-          [autoplayInterval]="3000"
-        >
+        <p-carousel [value]="featuredSpaces" [numVisible]="1" [numScroll]="1" [circular]="true"
+          [responsiveOptions]="responsiveOptions" [autoplayInterval]="3000">
           <ng-template let-space pTemplate="item">
             <div class="space-card">
               <div>
                 <img
-                  [src]="space.image"
-                  alt="Coworking Space"
-                  class="space-image"
-                />
+                [src]="space.image"
+                alt="Coworking Space"
+                class="space-image"
+              />
               </div>
               <div class="space-info">
                 <h3>{{ space.title }}</h3>
                 <p>📍 {{ space.location }}</p>
                 <p>⭐ {{ space.rating }}</p>
+                <!-- <p class="price">{{ space.price }}€<span>/{{ "DAILY_PRICE" | oTranslate }}</span></p> -->
               </div>
             </div>
           </ng-template>
@@ -99,15 +102,12 @@
 
     <div class="work-anywhere">
       <div class="content">
-        <h2>Trabaja en cualquier lugar</h2>
+        <h2>
+          {{ "L_WORK_ANYWHERE_TITLE" | oTranslate }}</h2>
         <p>
-          Encuentra coworkings y eventos, planifica tus rutas y reserva espacios
-          de trabajo mientras viajas por el mundo. Que el trabajo no marque tus
-          limites.
+          {{"L_WORK_ANYWHERE_CONTENT" | oTranslate }}
         </p>
-        <button class="btn-primary" (click)="registerUser()">
-          Comienza tu ruta
-        </button>
+        <button class="btn-primary" (click)="registerUser()">{{ "L_REGISTER" | oTranslate }}</button>
       </div>
     </div>
   </section>
@@ -152,8 +152,7 @@
         <p>
           ⭐⭐⭐⭐⭐
           <br />
-          "Muchos espacios de calidad en Madrid. Todo perfecto, atención
-          genial."
+          "{{ "L_TESTIMONIAL_1" | oTranslate }}"
         </p>
       </div>
       <div class="testimonial-card">
@@ -161,7 +160,7 @@
         <p>
           ⭐⭐⭐⭐
           <br />
-          "Totalmente recomendable, siempre limpio y con buena atención."
+          "{{ "L_TESTIMONIAL_2" | oTranslate }}"
         </p>
       </div>
       <div class="testimonial-card">
@@ -169,7 +168,7 @@
         <p>
           ⭐⭐⭐⭐⭐
           <br />
-          "Super profesionales, el mejor coworking que he probado."
+          "{{ "L_TESTIMONIAL_3" | oTranslate }}"
         </p>
       </div>
     </div>
@@ -179,11 +178,8 @@
   <section class="company-section">
     <div class="expand-your-business">
       <div class="content">
-        <h2>Expande tu negocio</h2>
-        <p>
-          Si eres una empresa y tienes uno o más coworkings podrás llevar un
-          control total de la facturación y ocupación de todos ellos en
-          cualquier momento.
+        <h2>{{ "L_ANALYTICS_TITLE" | oTranslate }}</h2>
+        <p>{{ "L_ANALYTICS_CONTENT" | oTranslate }}
         </p>
       </div>
     </div>

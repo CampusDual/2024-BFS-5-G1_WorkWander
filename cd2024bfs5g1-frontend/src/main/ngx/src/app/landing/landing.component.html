@@ -1,21 +1,111 @@
-<div class="landing-container">
-  <video id="background-video" autoplay muted loop>
-    <source src="assets/video/home_video_fondo.mp4" type="video/mp4" />
-  </video>
-  <div id="content">
-    <div id="slider-superior">
-      <h1>Bienvenido a WorkWander</h1>
-      <p>Tu plataforma para encontrar el espacio de coworking perfecto</p>
-      <button mat-raised-button (click)="goToLogin()">Comenzar</button>
+<div class="main-container">
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="logo-container">
+      <img src="../../assets/images/sidenav-opened.png" alt="WorkWander Logo" />
     </div>
-    <div id="recuadro-funciones"></div>
+    <button class="login-button" (click)="goToLogin()">
+      <span class="icon">🗝️</span>
+      Iniciar sesión
+    </button>
+    <div class="hero-content">
+      <h1>Encuentra tu espacio ideal para trabajar y conectar</h1>
+      <p>
+        Descubre los mejores espacios de coworking y eventos para profesionales
+        y empresas
+      </p>
+      <button
+        class="btn-primary"
+        (click)="entradaSinLogin(); $event.preventDefault()"
+      >
+        Explorar Espacios
+      </button>
+    </div>
+  </header>
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Todo lo que necesitas en un solo lugar</h2>
+    <div class="features-cards">
+      <div class="feature-card" *ngFor="let feature of features">
+        <span class="icon" [innerHTML]="feature.icon"></span>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+  <!-- Spaces Preview & Work Anywhere Section -->
+  <section class="spaces-work-section">
+    <div class="spaces-container">
+      <h2>Espacios Destacados</h2>
+      <div id="carousel">
+        <p-carousel
+          [value]="featuredSpaces"
+          [numVisible]="3"
+          [numScroll]="1"
+          [circular]="true"
+          [responsiveOptions]="responsiveOptions"
+          [autoplayInterval]="3000"
+        >
+          <ng-template let-space pTemplate="item">
+            <div class="space-card">
+              <div>
+                <img
+                  [src]="space.image"
+                  alt="Coworking Space"
+                  class="space-image"
+                />
+              </div>
+              <div class="space-info">
+                <h3>{{ space.title }}</h3>
+                <p>📍 {{ space.location }}</p>
+                <p>⭐ {{ space.rating }}</p>
+                <p class="price">{{ space.price }}€<span>/día</span></p>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </div>
+    </div>
 
-    <div id="info-coworking"></div>
-
-    <div id="reviews-coworking"></div>
-
-    <div id="events"></div>
-
-    <div id="company"></div>
-  </div>
+    <div class="work-anywhere">
+      <div class="content">
+        <h2>Trabaja en cualquier lugar</h2>
+        <p>
+          Encuentra coworkings y eventos, planifica tus rutas y reserva espacios
+          de trabajo mientras viajas por el mundo. Que el trabajo no marque tus
+          limites.
+        </p>
+        <button class="btn-primary" (click)="registerUser()">Regístrate</button>
+      </div>
+    </div>
+  </section>
+  <section class="testimonials">
+    <div class="testimonial-cards">
+      <div class="testimonial-card">
+        <h3>Ana I. Ibáñez Manzano</h3>
+        <p>
+          ⭐⭐⭐⭐⭐
+          <br />
+          "Muchos espacios de calidad en Madrid. Todo perfecto, atención
+          genial."
+        </p>
+      </div>
+      <div class="testimonial-card">
+        <h3>Borja R.</h3>
+        <p>
+          ⭐⭐⭐⭐
+          <br />
+          "Totalmente recomendable, siempre limpio y con buena atención."
+        </p>
+      </div>
+      <div class="testimonial-card">
+        <h3>Gabriela Vidal</h3>
+        <p>
+          ⭐⭐⭐⭐⭐
+          <br />
+          "Super profesionales, el mejor coworking que he probado."
+        </p>
+      </div>
+    </div>
+  </section>
 </div>

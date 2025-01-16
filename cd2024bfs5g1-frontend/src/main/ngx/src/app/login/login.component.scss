@@ -128,8 +128,8 @@
 
 .back-button {
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 32px;
+  left: 28px;
   z-index: 2;
   color: white;
   display: flex;
@@ -139,6 +139,10 @@
   padding: 0;
   border: none;
   cursor: pointer;
+  img {
+    height: 100px;
+    width: auto;
+  }
   &:hover {
     opacity: 0.8;
   }

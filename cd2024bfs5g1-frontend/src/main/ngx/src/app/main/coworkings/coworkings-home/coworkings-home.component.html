@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="grid-container">
   <o-form class="filters" show-header="no">
     <o-column-collapsible
@@ -93,6 +101,7 @@
           <span>{{ "PRICE_RANGE" | oTranslate }}</span>
         </div>
         <div class="slider">
+
           <o-slider
             id="slider"
             #cw_daily_price
@@ -102,10 +111,15 @@
             (onChange)="click($event)"
             min="0.00"
             label="PRICE_SLIDER"
-            [tooltip]= "('MAXIMUM_PRICE_SLIDER' | oTranslate) + formatLabelUntil()"
+            [tooltip]="
+              ('MAXIMUM_PRICE_SLIDER' | oTranslate) + formatLabelUntil()
+            "
             tooltip-position="above"
             step="5"
           ></o-slider>
+        </div>
+        <div class="valoracion">
+        <span >{{ 'RATING_TITLE' | oTranslate }} </span>
         </div>
         <p-rating
           class="rate"
@@ -194,6 +208,7 @@
     [cols]="gridCols"
     gutter-size="40px"
     pageable="yes"
+    (onDataLoaded)="deleteLoader()"
   >
     <o-grid-item
       *ngFor="let data of coworkingsGrid.dataArray"
@@ -221,46 +236,43 @@
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >desktop_windows
+                      >desktop_windows
                     </mat-icon>
                   </article>
                   <article *ngIf="service == 'vending_machine'">
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >kitchen
-                    </mat-icon
-                    >
+                      >kitchen
+                    </mat-icon>
                   </article>
                   <article *ngIf="service == 'coffee_bar'">
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >local_cafe
-                    </mat-icon
-                    >
+                      >local_cafe
+                    </mat-icon>
                   </article>
                   <article *ngIf="service == 'water_dispenser'">
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >local_drink
+                      >local_drink
                     </mat-icon>
                   </article>
                   <article *ngIf="service == 'ergonomic_chair'">
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >event_seat
+                      >event_seat
                     </mat-icon>
                   </article>
                   <article *ngIf="service == 'parking'">
                     <mat-icon
                       style="vertical-align: middle"
                       [matTooltip]="service | oTranslate"
-                    >local_parking
-                    </mat-icon
-                    >
+                      >local_parking
+                    </mat-icon>
                   </article>
                 </article>
               </section>
@@ -283,9 +295,17 @@
             <p></p>
             <!-- Fin media valoraciones -->
             <div class="tags-container">
-              <span *ngIf="data.ratio >= 4.5" class="recomended-tag">{{ "RECOMENDED" | oTranslate }}</span>
-              <span *ngIf="compareDate(data.cw_start_date)" class="new-coworking-tag">{{ "NEW_COWORKING" | oTranslate }}</span>
-              <span *ngIf="data.cw_daily_price <= 10" class="low-price-tag">{{ "LOW_PRICE" | oTranslate }}</span>
+              <span *ngIf="data.ratio >= 4.5" class="recomended-tag">{{
+                "RECOMENDED" | oTranslate
+              }}</span>
+              <span
+                *ngIf="compareDate(data.cw_start_date)"
+                class="new-coworking-tag"
+                >{{ "NEW_COWORKING" | oTranslate }}</span
+              >
+              <span *ngIf="data.cw_daily_price <= 10" class="low-price-tag">{{
+                "LOW_PRICE" | oTranslate
+              }}</span>
             </div>
           </div>
         </div>

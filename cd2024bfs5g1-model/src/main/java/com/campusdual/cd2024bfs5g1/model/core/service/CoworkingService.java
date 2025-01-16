@@ -298,8 +298,6 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         final ArrayList<Integer> arrayCw_id = new ArrayList<>((ArrayList<Integer>) keyMap.remove("cw_id"));
         ArrayList<Integer> months = null;
-        //final Object daysObj = null;
-        //final ArrayList<Date> days = null;
         final List<Map> listaCoworkings = new ArrayList<>();
         int year = 0;
         year = (int) keyMap.remove("year");

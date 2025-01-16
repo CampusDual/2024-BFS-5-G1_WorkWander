@@ -38,27 +38,6 @@ qrcode {
   border-radius: $borderRadius;
   box-shadow: 0 4px 6px rgba($primary, 0.2);
 }
-/**
-.download-link {
-  font-family: $typography;
-  background-color: $blanco;
-  color: $verdeBoton;
-  border: 2px solid $verdeBoton;
-  padding: 12px 24px;
-  border-radius: $borderRadiusButton;
-  font-weight: $fontSemiBold;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  margin-top: 8px;
-
-  &:hover {
-    background-color: $primary;
-    color: $blanco;
-    box-shadow: 0px 0px 10px 0px rgba($primary, 0.45);
-  }
-}*/
 
 .download-button:focus{
   display: contents;

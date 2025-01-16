@@ -52,7 +52,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap,
-            final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                              final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingDao.BK_USR_ID, userId);
@@ -259,25 +259,17 @@ public class BookingService implements IBookingService {
         }
         return dates;
     }
+
     @Override
     public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 //        keyMap.put(BookingDao.BK_USR_ID, userId);
-//        System.out.println("KeyMap: " + keyMap);
-        final Object objectDate = keyMap.get("date");
-        System.out.println("datesDate: " + objectDate);
-        final Object objectID = keyMap.get("bk_cw_id");
-        System.out.println("objectID: " + objectID);
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_DAY_QUERY);
     }
+
     @Override
-//    public EntityResult bookingsByMonth(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
     public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        keyMap.put(BookingDao.BK_USR_ID, userId);
-//        System.out.println("KeyMapMonth: " + attributes);
         return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_MONTH_QUERY);
     }
 

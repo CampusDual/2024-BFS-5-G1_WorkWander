@@ -16,22 +16,22 @@
     <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
       #navigator></daypilot-navigator>
     <div class="content">
-      <div class="buttons-c">
-        <button class="button-c" (click)="viewDay()"
+      <!-- <div class="buttons-c">
+         <button class="button-c" (click)="viewDay()"
           [class]="this.configNavigator.selectMode == 'Day' ? 'selected' : ''">
           {{ "DAY" | oTranslate }}
         </button>
         <button class="button-c" (click)="viewWeek()"
           [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">
           {{ "WEEK" | oTranslate }}
-        </button>
-        <button class="button-c" (click)="viewMonth()"
+        </button> 
+         <button class="button-c" (click)="viewMonth()"
           [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">
           {{ "MONTH" | oTranslate }}
-        </button>
-      </div>
-      <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
-      <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar>
+        </button> 
+      </div> -->
+      <!-- <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
+      <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar> -->
       <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
     </div>
     <div id="legend">

@@ -87,6 +87,17 @@
                 SELECT
                 cw.cw_capacity,
                 bd.date,
+                COUNT(DISTINCT b.bk_id) AS plazasOcupadas
+                FROM coworking cw
+                LEFT JOIN booking b ON cw.cw_id = b.bk_cw_id
+                LEFT JOIN booking_date bd ON b.bk_id = bd.bk_id
+                #WHERE#
+                GROUP BY cw.cw_capacity, bd.date
+                ORDER BY bd.date
+            <!--</Sentence> <Sentence>
+                SELECT
+                cw.cw_capacity,
+                bd.date,
                 COALESCE(COUNT(DISTINCT b.bk_id), 0) AS plazasOcupadas
                 FROM coworking cw
                 LEFT JOIN booking b ON cw.cw_id = b.bk_cw_id
@@ -94,6 +105,7 @@
                 #WHERE#
                 GROUP BY cw.cw_capacity, bd.date
                 ORDER BY bd.date
+            </Sentence>-->
             </Sentence>
         </Query>
     </Queries>

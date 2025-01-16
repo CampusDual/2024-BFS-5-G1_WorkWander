@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import {
   DayPilot,
-  DayPilotCalendarComponent,
   DayPilotMonthComponent,
   DayPilotNavigatorComponent,
 } from "@daypilot/daypilot-lite-angular";
@@ -18,7 +17,6 @@ import {
   OValueChangeEvent,
   OTranslateService,
   ODateRangeInputComponent,
-  OSnackBarConfig,
   SnackBarService,
   FilterExpressionUtils,
   Expression,
@@ -28,7 +26,7 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 
 interface DateData {
   cw_capacity: number;
-  date: string;
+  date: number;
   plazasOcupadas: number;
 }
 @Component({
@@ -43,14 +41,13 @@ export class AnalyticsEventsComponent implements OnInit {
   @ViewChild("month") day!: DayPilotMonthComponent;
   @ViewChild("month") week!: DayPilotMonthComponent;
   events: DayPilot.EventData[] = [];
-  eventDays: Date[] = [];
-  dataArray: DateData[] = [];
-  occupationByDay: Object[] = [];
-  daysInMonth: number;
+  // eventDays: Date[] = [];
+  bookingsDataArray: DateData[] = [];
+  // occupationByDay: Object[] = [];
+  // daysInMonth: number;
   service: OntimizeService;
   date = DayPilot.Date.today();
 
-  occupationByDate: number;
   backColor: string;
   percentage: number;
   private translateServiceSubscription: Subscription;
@@ -58,8 +55,9 @@ export class AnalyticsEventsComponent implements OnInit {
   coworkingLocation: string = "";
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
+  @ViewChild("calendar") calendar: DayPilot.Month;
 
-  public dateArray = [];
+  // public dateArray = [];
 
   constructor(
     private translate: OTranslateService,
@@ -75,7 +73,6 @@ export class AnalyticsEventsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataArray = [];
     this.languageChange();
     this.viewMonth();
   }
@@ -84,93 +81,141 @@ export class AnalyticsEventsComponent implements OnInit {
     this.translateServiceSubscription.unsubscribe();
   }
 
-  formatShortDate(rawDate: number): string {
-    if (rawDate) {
-      return this.utils.formatShortDate(rawDate);
-    }
-  }
+  // formatShortDate(rawDate: number): string {
+  //   if (rawDate) {
+  //     return this.utils.formatShortDate(rawDate);
+  //   }
+  // }
 
   languageChange() {
     let lang = this.translate.getCurrentLang() == "es" ? "es-ES" : "en-US";
-    this.configDay.locale = lang;
+    // this.configDay.locale = lang;
     this.configMonth.locale = lang;
-    this.configWeek.locale = lang;
+    // this.configWeek.locale = lang;
     this.configNavigator.locale = lang;
   }
-  public respdata = [
-    {
-      cw_capacity: 40,
-      date: "2025-01-13",
-      plazasOcupadas: 13,
-    },
-    {
-      cw_capacity: 40,
-      date: "2025-01-14",
-      plazasOcupadas: 3,
-    },
-    {
-      cw_capacity: 40,
-      date: "2025-01-15",
-      plazasOcupadas: 29,
-    },
-    {
-      cw_capacity: 40,
-      date: "2025-01-16",
-      plazasOcupadas: 39,
-    },
-  ];
 
+  //PUERTO DE FERROl
+  //    public bookingsDataArray = [
+  //     {
+  //         "date": 1736895600000,
+  //         "plazasOcupadas": 1,
+  //         "cw_capacity": 15
+  //     },
+  //     {
+  //         "date": 1736982000000,
+  //         "plazasOcupadas": 1,
+  //         "cw_capacity": 15
+  //     },
+  //     {
+  //         "date": 1737068400000,
+  //         "plazasOcupadas": 1,
+  //         "cw_capacity": 15
+  //     }
+  // ]
   configMonth: DayPilot.MonthConfig = {
     theme: "verde",
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
     onBeforeCellRender: (args) => {
-      console.log("dataArray", this.dataArray);
-      const cellDate = args.cell.start.toString("yyyy-MM-dd");
-      // const cellData = this.respdata.find(item => item.date === cellDate);
-      const cellData = this.dataArray.find((item) => item.date === cellDate);
-      // const cellData = this.dataArray.find(d => "2025-01-13" === date);
-      if (cellData) {
-        const percentage =
-          (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
-        // Asigna el color basado en el porcentaje
-        if (percentage <= 25) {
-          args.cell.properties.backColor = "red";
-        } else if (percentage <= 50) {
-          args.cell.properties.backColor = "orange";
-        } else if (percentage <= 75) {
-          args.cell.properties.backColor = "yellow";
-        } else {
-          args.cell.properties.backColor = "green";
+      // if (!this.bookingsDataArray || this.bookingsDataArray.length === 0) {
+      //   console.log("Esperando datos... reintentando en 100ms");
+        
+      //   // Reintenta actualizar el calendario después de un breve tiempo
+      //   setTimeout(() => {
+      //     if (this.calendar) {
+      //       this.calendar.update();
+      //     }
+      //   }, 100);
+    
+      //   return; // No hace nada en esta ejecución si no hay datos
+      // }
+      console.log("onBefore-bookingsDataArray", this.bookingsDataArray);
+      // const cellDate = args.cell.start.toString("yyyy-MM-dd");
+      // Normalizar la fecha de la celda eliminando la hora
+      const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
+      if (this.bookingsDataArray.length > 0) {
+        // args.cell.properties.backColor = "#ffffff";
+        const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
+
+        // const cellData = this.bookingsDataArray.find((item) => {
+        //   const bookingDate = new Date(item.date).setHours(0, 0, 0, 0); // Convertir timestamp a Date y eliminar hora
+        //   return item.date === cellDate; // Comparar fechas normalizadas
+        // });
+        //   const cellData = {
+        //     "date": 1737068400000,
+        //     "plazasOcupadas": 15,
+        //     "cw_capacity": 15
+        // }
+        // console.log("args.cell.start", args.cell.start);
+        // console.log("cellDate", cellDate, cellData);
+        let color = "#000000"
+        if (cellData) {
+          const percentage =
+            (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
+          color = this.getColorForPercentage(percentage);
+          // this.calendar.update();
         }
+        args.cell.properties.backColor = color;
       }
     },
   };
+  /**
+   * @notices Obtiene el color para un porcentaje de ocupacion
+   * @param percentage es el porcentaje de ocupacion del coworking en un dia
+   */
+  getColorForPercentage(percentage: number) {
+    let r, g, b;
 
-  configWeek: DayPilot.CalendarConfig = {
-    theme: "verde",
-    eventMoveHandling: "Disabled",
-    eventResizeHandling: "Disabled",
-    startDate: DayPilot.Date.today(),
-    viewType: "Week",
-  };
+    if (percentage <= 50) {
+      // De rojo (255, 0, 0) a amarillo (255, 255, 0)
+      r = 255;
+      g = Math.round(255 * (percentage / 50));
+      b = 0;
+    } else {
+      // De amarillo (255, 255, 0) a verde (0, 255, 0)
+      r = Math.round(255 * ((100 - percentage) / 50));
+      g = 255;
+      b = 0;
+    }
 
-  configDay: DayPilot.CalendarConfig = {
-    theme: "verde",
-    eventMoveHandling: "Disabled",
-    eventResizeHandling: "Disabled",
-    startDate: DayPilot.Date.today(),
-    viewType: "Day",
-  };
+    return `rgba(${r}, ${g}, ${b}, 0.7)`;
+  }
+
+  // configWeek: DayPilot.CalendarConfig = {
+  //   theme: "verde",
+  //   eventMoveHandling: "Disabled",
+  //   eventResizeHandling: "Disabled",
+  //   startDate: DayPilot.Date.today(),
+  //   viewType: "Week",
+  // };
+
+  // configDay: DayPilot.CalendarConfig = {
+  //   theme: "verde",
+  //   eventMoveHandling: "Disabled",
+  //   eventResizeHandling: "Disabled",
+  //   startDate: DayPilot.Date.today(),
+  //   viewType: "Day",
+  // };
 
   configNavigator: DayPilot.NavigatorConfig = {
     showMonths: 3,
     cellWidth: 25,
     cellHeight: 25,
-    onVisibleRangeChanged: (args) => {
-      this.onTimeRangeSelected(args);
+    onTimeRangeSelected: (args) => {
+      this.date = args.start;
+      console.log("Mes seleccionado:", this.date.toString());
+      this.bookingsDataArray = this.getOccupationByMonth();
+      // this.getOccupationByMonth();
       this.getCoworkingEventsData();
+    },
+    onVisibleRangeChanged: (args) => {
+      // this.onTimeRangeSelected(args);
+      // this.date = args.start;
+      // this.getCoworkingEventsData();
+      console.log("Visible range start:", args.start.toString());
+      console.log("Visible range end:", args.end.toString());
     },
   };
 
@@ -178,70 +223,36 @@ export class AnalyticsEventsComponent implements OnInit {
     const conf = this.service.getDefaultServiceConfiguration(serviceName);
     this.service.configureService(conf);
   }
-  // onBeforeCellRender(args: any) {
-  //   const cell = args.cell;
-  //   const date = cell.date;
-
-  //   // Ejemplo: Cambiar el color de fondo de la celda de un día específico
-  //   if (date.day() === 1) {
-  //     // Cambiar la clase CSS de la celda
-  //     cell.cssClass = "special-day";
-  //   } else {
-  //     cell.cssClass = "regular-day";
-  //   }
-
-  //   cell.style.backgroundColor = 'lightblue'; // Establece un color específico
-  // }
-
+  /**
+   * @notices Obtiene los eventos en la misma localidad de un coworking
+   */
   getCoworkingEventsData() {
+    console.log("Month-DATE", this.date);
     if (this.selectedCoworking == undefined || this.selectedCoworking == null)
       return;
     this.events = [];
-    this.eventDays = [];
     const filter = { cw_id: this.selectedCoworking };
     const columns = ["name", "date_event", "hour_event", "duration"];
-    // const serviceConfig = this.configureService("eventsNearCoworking");
-    // const conf = this.service.getDefaultServiceConfiguration("events");
-    // this.service.configureService(conf);
     this.configureService("events");
 
     this.service
       .query(filter, columns, "eventsNearCoworking")
       .subscribe((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          this.eventDays.push(new Date(response.data[i].date_event));
-          const hour =
-            "T" + this.utils.formatTime(response.data[i].hour_event) + ":00";
-          const finalTime = this.createFinalTime(
-            hour,
-            response.data[i].duration
-          );
-          const date = new Date(response.data[i].date_event);
-          let init = this.createInitDate(date) + hour;
-          let last = this.createInitDate(date) + finalTime;
-          // const event_Date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-          // const event_Date = "2024-12-04";
-          // const formattedDate = event_Date.replace(/\//g, "-");
-
-          // console.log("event_Date", event_Date);
-          // console.log("response.data[i].date_event", response.data[i].date_event);
-          // console.log("date", date);
-          // const {bookings, capacity, percentage, backColor} = this.getBookingOccupation(this.selectedCoworking, date);
-          const object = {
-            id: i + 1,
-            start: init,
-            end: last,
-            text: response.data[i].name,
-            // text: `${response.data[i].name}  ${percentage}%`,
-            // // tooltip: percentage,
-            // tooltip: "PORRAS",
-            // bookings: bookings,
-            // capacity: capacity,
-            // // backColor: "#7ba587"
-            // backColor: backColor
-          };
-          // console.log("response.data.length", response.data.length);
-          this.events.push(object);
+        if (response.data && response.data.length > 0) {
+          for (let i = 0; i < response.data.length; i++) {
+            const hour = "T" + this.utils.formatTime(response.data[i].hour_event) + ":00"
+            const finalTime = this.createFinalTime(hour, response.data[i].duration)
+            const date = new Date(response.data[i].date_event);
+            let init = this.createInitDate(date) + hour;
+            let last = this.createInitDate(date) + finalTime;
+            const object = {
+              id: i + 1,
+              start: init,
+              end: last,
+              text: response.data[i].name,
+            };
+            this.events.push(object);
+          }
         }
       });
   }
@@ -291,174 +302,45 @@ export class AnalyticsEventsComponent implements OnInit {
     return "T" + finalHour + ":" + restMinutes + ":" + "00";
   }
 
-  viewDay(): void {
-    this.configNavigator.selectMode = "Day";
-    this.configDay.visible = true;
-    this.configWeek.visible = false;
-    this.configMonth.visible = false;
-    this.getCoworkingEventsData();
-  }
+  // viewDay(): void {
+  //   this.configNavigator.selectMode = "Day";
+  //   this.configDay.visible = true;
+  //   this.configWeek.visible = false;
+  //   this.configMonth.visible = false;
+  //   this.getCoworkingEventsData();
+  // }
 
-  viewWeek(): void {
-    this.configNavigator.selectMode = "Week";
-    this.configDay.visible = false;
-    this.configWeek.visible = true;
-    this.configMonth.visible = false;
-    this.getCoworkingEventsData();
-  }
+  // viewWeek(): void {
+  //   this.configNavigator.selectMode = "Week";
+  //   this.configDay.visible = false;
+  //   this.configWeek.visible = true;
+  //   this.configMonth.visible = false;
+  //   this.getCoworkingEventsData();
+  // }
 
   viewMonth(): void {
     this.configNavigator.selectMode = "Month";
-    this.configDay.visible = false;
-    this.configWeek.visible = false;
+    // this.configDay.visible = false;
+    // this.configWeek.visible = false;
     this.configMonth.visible = true;
     this.getCoworkingEventsData();
-    this.onTimeRangeSelected(this.configMonth);
+    // this.onTimeRangeSelected(this.configMonth);
   }
 
   changeDate(date: DayPilot.Date): void {
-    this.configDay.startDate = date;
-    this.configWeek.startDate = date;
+    // this.configDay.startDate = date;
+    // this.configWeek.startDate = date;
     this.configMonth.startDate = date;
   }
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
     if (selectedNames.type === 0) {
-      this.dataArray = [];
+      console.log("YYY-Date", this.date);
+      this.bookingsDataArray = [];
       this.selectedCoworking = selectedNames.newValue;
-      console.log("selectedNames.newValue: ", this.selectedCoworking);
-      // this.occupationByDay = [];
-      // this.getOccupation(this.selectedCoworking, this.configMonth.startDate);
-      this.getOccupationByMonth();
+      console.log("selectedCoworking", selectedNames.newValue, this.date);
+      this.bookingsDataArray = this.getOccupationByMonth();
       this.getCoworkingEventsData();
-      // this.showEvents(4560);
-      // this.getOccupation(this.selectedCoworking, this.configMonth.startDate);
-      // this.getOcuppationByDay(this.selectedCoworking, '2025-02-22');
-    }
-  }
-  onTimeRangeSelected(args: any) {
-    console.log("HOLA2");
-    // console.log("onTimeRangeSelected", args);
-    const startDate = args.startDate; // Fecha inicial seleccionada
-    if (!startDate) return;
-    // Convierte DayPilot.Date a un objeto Date nativo de JavaScript
-    const nativeDate = startDate.toDate(); // Convierte a un objeto Date
-
-    // Accede al año y mes
-    const year = nativeDate.getFullYear(); // Obtiene el año completo
-    const month = nativeDate.getMonth() + 1; // Obtiene el mes (base 0, por lo que sumamos 1)
-
-    // Calcula los días en el mes
-    // this.daysInMonth = this.getDaysInMonth(year, month);
-    this.daysInMonth = new Date(year, month, 0).getDate();
-    console.log(
-      `El mes ${month} del año ${year} tiene ${this.daysInMonth} días.`
-    );
-  }
-
-  async getOccupation(bk_cw_id: number, date: any) {
-    console.log("DATA-getOccupation", bk_cw_id, date);
-    try {
-      console.log("this.daysInMonth", this.daysInMonth);
-      // Limpiar el array antes de llenarlo con los nuevos valores
-      this.occupationByDay = [];
-
-      // Obtener el año y el mes de la fecha proporcionada
-      const year = date.getYear();
-      const month = date.getMonth();
-      const monthString = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
-      // Determinar el número de días en el mes
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      console.log("year-month", year, month, monthString, daysInMonth);
-
-      // Obtener el primer día del mes
-      const firstDay = new Date(year, month, 1);
-      // Obtener el último día del mes
-      const lastDay = new Date(year, month + 1, 0);
-      console.log("firstDay", firstDay, "lastDay", lastDay);
-      const array = [
-        { cw_capacity: 40, date: 1738710000000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1738796400000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1738882800000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740006000000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740092400000, plazasOcupadas: 2 },
-        { cw_capacity: 40, date: 1740178800000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740438000000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740524400000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740610800000, plazasOcupadas: 1 },
-        { cw_capacity: 40, date: 1740697200000, plazasOcupadas: 1 },
-      ];
-      const convertedArray = array.map((item) => {
-        const date = new Date(item.date);
-        const formattedDate = date.toISOString().split("T")[0];
-        return { ...item, date: formattedDate };
-      });
-      // Loop para recorrer los días del mes
-      for (let i = 1; i <= convertedArray.length; i++) {
-        // const day = i < 10 ? `0${i}` : i.toString();
-        // Asegura de que el día esté en el formato correcto
-        const dayString = i < 10 ? `0${i}` : `${i}`;
-
-        // Construir la fecha en formato 'YYYY-MM-DD'
-        const searchedDate = `${year}-${monthString}-${dayString}`;
-
-        // Esperamos la respuesta de getBookingOccupation de manera asincrónica
-        //---**** const result = await this.getBookingOccupation(bk_cw_id, searchedDate);---****//IMPORTANTE
-        const result = [0];
-        if (result) {
-          // const { bookings, cw_capacity, date } = result;  // Desestructuración solo si result no es null
-          // const plazasOcupadas =  bookings;
-          // const percentage = parseFloat(((plazasOcupadas / cw_capacity) * 100).toFixed(2));
-
-          // let backColor = "";
-          // if (percentage <= 25) {
-          //   backColor = "#f63427";
-          // } else if (percentage <= 50) {
-          //   backColor = "#f49542";
-          // } else if (percentage <= 75) {
-          //   backColor = "#988c0a";
-          // } else {
-          //   backColor = "#6c9678";
-          // }
-
-          // // const object = {
-          // //   capacity: cw_capacity,
-          // //   dates:  bookings,
-          // //   percentage: percentage,
-          // //   backColor: backColor
-          // // };
-          // const object={
-          //   "cw_capacity": cw_capacity,
-          //   "date": date,
-          //   "plazasOcupadas": plazasOcupadas
-          // }
-
-          // // Agregamos el objeto al array
-          // this.occupationByDay.push(object);
-          // this.dataArray.push(object);
-          const date = new Date(array[i].date);
-          console.log(
-            "date",
-            date,
-            "date.getTime()",
-            date.getTime(),
-            "searchedDate",
-            searchedDate
-          );
-          if (convertedArray[i].date === searchedDate) {
-            console.log("array[i]", convertedArray[i]);
-            this.dataArray.push(convertedArray[i]);
-          } else {
-            this.occupationByDay.push(null);
-            console.log(`Skipping ${searchedDate} as no data was returned.`);
-          }
-        }
-      }
-
-      console.log("this.occupationByDay", this.occupationByDay);
-    } catch (error) {
-      console.error("Error while fetching occupation data:", error);
     }
   }
 
@@ -471,7 +353,10 @@ export class AnalyticsEventsComponent implements OnInit {
   //   };
   //   this.snackBarService.open(availableMessage, configuration);
   // }
-
+  /**
+   * @notice Función para construir la expresión de filtrado
+   * @param values es un array de objetos para los filtros avanzados
+   */
   createFilter(values: Array<{ attr: string; value: any }>): Expression {
     let coworkingExpressions: Array<Expression> = [];
     let daterangeExpressions: Array<Expression> = [];
@@ -537,24 +422,20 @@ export class AnalyticsEventsComponent implements OnInit {
     }
     return combinedExpression;
   }
+  /**
+   * @notices Obtiene la ocupacion de los coworkings para todos los dias de un mes
+   */
   getOccupationByMonth() {
-    // const filter = { bk_cw_id: cw_id, date: new Date('2024-11-13').toISOString().split('T')[0]};
-    // const filter = { coworking_id: this.selectedCoworking, date: new Date().toISOString().split('T')[0] };
+    // this.bookingsDataArray = [];
+    let occupationByDate: DateData[] = [];
     const year = this.date.getYear();
     const month = this.date.getMonth();
-    const monthString = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
-    // Determinar el número de días en el mes
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    console.log("year-month", year, month, monthString, daysInMonth);
     // Obtener el primer día del mes
     const firstDay = new Date(year, month, 1);
     // Obtener el último día del mes
     const lastDay = new Date(year, month + 1, 0);
-    console.log("firstDay", firstDay, "lastDay", lastDay);
-    // const startDate = DayPilot.Date.today();
-    // const endDate = DayPilot.Date.today().addMonths(1);
-    // console.log("startDate", startDate, "endDate", endDate);
-    console.log("startDate", firstDay, "endDate", lastDay);
+    console.log("LASTDAY - FALLA debido al error de UNA HORA MENOS", lastDay);
+
     const filterValues = [
       {
         attr: "cw_id",
@@ -562,18 +443,7 @@ export class AnalyticsEventsComponent implements OnInit {
       },
       {
         attr: "date",
-        value: { startDate: firstDay, endDate: lastDay },
-      },
-    ];
-    console.log("filterValues", filterValues);
-    const _filterValues = [
-      { attr: "cw_id", value: 40 }, // Filtrar por IDs específicos
-      {
-        attr: "date",
-        value: {
-          startDate: "2025-01-01",
-          endDate: "2025-01-31",
-        },
+        value: { startDate: firstDay.toLocaleDateString("en-Ca"), endDate: lastDay },
       },
     ];
 
@@ -599,60 +469,36 @@ export class AnalyticsEventsComponent implements OnInit {
         plazasOcupadas: 1,
       },
     ];
-    for (let i = 0; i < resp_data.length; i++) {
-      // resp_data[i].date = new Date(resp_data[i].date);
-      if (resp_data && resp_data.length > 0) {
-        console.log("occupationByDate: ", resp_data[i]);
-        // return this.occupationByDate = resp.data[0];
-        this.dataArray.push(resp_data[i]);
-      } else {
-        return null;
-      }
-    }
+    // for (let i = 0; i < resp_data.length; i++) {
+    //   // resp_data[i].date = new Date(resp_data[i].date);
+    //   if (resp_data && resp_data.length > 0) {
+    //     console.log("occupationByDate: ", resp_data[i]);
+    //     // return this.occupationByDate = resp.data[0];
+    //     this.bookingsDataArray.push(resp_data[i]);
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
     const filter = { "@basic_expression": this.createFilter(filterValues) };
-    const _filter = {
-      "@basic_expression": {
-        lop: {
-          lop: "cw_id",
-          op: "=",
-          rop: this.selectedCoworking,
-        },
-        op: "AND",
-        rop: {
-          lop: {
-            lop: "startDate",
-            op: ">=",
-            rop: "2025-01-01",
-          },
-          op: "AND",
-          rop: {
-            lop: {
-              lop: "endDate",
-              op: "<=",
-              rop: "2025-01-31",
-            },
-          },
-        },
-      },
-    };
-    let sqltypes = {
-      date_event: 91,
-    };
-    // const filter = { cw_id: 40, startDate:'2025-01-01', endDate:'2025-01-31'};
     const sqlTypes = { date: 91 };
-    // const conf = this.service.getDefaultServiceConfiguration("bookings");
-    // this.service.configureService(conf);
     this.configureService("bookings");
     const columns = ["cw_capacity", "date", "plazasOcupadas"];
-
-    // Realizamos la consulta al backend con el nuevo rango de fechas
+    // Realiza la consulta al backend con el rango de fechas
     this.service.query(filter, columns, "bookingsByMonth", sqlTypes).subscribe(
       (resp) => {
-        console.log("RESPONSE.data: ", resp.data);
-        if (resp.data && resp.data.length > 0) {
-          console.log("occupationByDate: ", resp.data[0]);
-          // return this.occupationByDate = resp.data[0];
+        if (resp.data || resp_data) {
+          // console.log("occupationResp: ", resp);
+          console.log("getOccupationByMonth-Resp.data: ", resp.data);
+          // this.bookingsDataArray.push(resp.data);
+          occupationByDate = resp.data;
+          this.bookingsDataArray = resp.data;
+          // **Aquí forzamos la actualización del calendario una vez los datos están listos**
+          if (this.calendar) {
+            console.log("Actualizando el calendario después de obtener datos");
+            this.calendar.update();
+          }
+          return resp.data;
         } else {
           return null;
         }
@@ -664,93 +510,16 @@ export class AnalyticsEventsComponent implements OnInit {
         );
       }
     );
-    console.log("occupationByDate", this.occupationByDate);
-    return this.occupationByDate;
-  }
-
-  // getOcuppationByDay(bk_cw_id: number, date_event: String) {
-  getOcuppationByDay(
-    bk_cw_id: number,
-    date_event: String,
-    callback: (data: any) => void
-  ) {
-    console.log("Hola");
-    // console.log("DATA: ", bk_cw_id, date_event);
-    if (
-      bk_cw_id == undefined ||
-      bk_cw_id == null ||
-      date_event == undefined ||
-      date_event == null
-    )
-      return;
-    // const filter = { bk_cw_id: cw_id, date: new Date('2024-11-13').toISOString().split('T')[0]};
-    const filter = { bk_cw_id: bk_cw_id, date: date_event };
-    const sqlTypes = { date: 91 };
-    // const conf = this.service.getDefaultServiceConfiguration("bookings");
-    // this.service.configureService(conf);
-    this.configureService("bookings");
-    const columns = ["bookings", "cw_capacity", "date"]; // Solo se trae la columna necesaria
-
-    // Realizamos la consulta al backend con el nuevo rango de fechas
-    // this.service.query(filter, columns, "occupationByDate").subscribe(
-    this.service.query(filter, columns, "bookingsByDay", sqlTypes).subscribe(
-      (resp) => {
-        console.log("RESPONSE.data: ", resp.data);
-        if (resp.data && resp.data.length > 0) {
-          console.log("occupationByDate: ", resp.data[0]);
-          // return this.occupationByDate = resp.data[0];
-          callback(this.occupationByDate);
-        } else {
-          // return null;
-          callback(null);
-        }
-      },
-      (error) => {
-        console.error(
-          this.translate.get("COWORKING_EVENTS_SELECTION_ERROR"),
-          error
-        );
-        callback(null);
-      }
-    );
-    // console.log("occupationByDate", this.occupationByDate)
-    // return this.occupationByDate;
-  }
-  getBookingOccupation(bk_cw_id: number, date: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      // console.log("bk_cw_id", bk_cw_id, "date", date);
-      const filter = { bk_cw_id: bk_cw_id, date: date };
-      const sqlTypes = { date: 91 };
-      this.configureService("bookings");
-      const columns = ["bookings", "cw_capacity", "date"];
-
-      this.service.query(filter, columns, "bookingsByDay", sqlTypes).subscribe(
-        (resp) => {
-          // console.log("RESP:", resp);
-          if (resp.data && resp.data.length > 0) {
-            // console.log("resp.data", resp.data);
-            resolve(resp.data[0]); // Resolvemos la promesa con los datos
-          } else {
-            console.error("No data found");
-            // reject('No data found');
-            resolve(null);
-          }
-        },
-        (error) => {
-          console.error("Error in service query:", error);
-          reject(error);
-        }
-      );
-    });
+    // console.log("occupationByDate", this.occupationByDate);
+    return occupationByDate;
   }
 }
-// {lop: "cw_location", op: "LIKE", rop: "%A Coruña%"}
-// lop
-// :
-// "cw_location"
-// op
-// :
-// "LIKE"
-// rop
-// :
-// "%A Coruña%"
+// rgba(226, 28, 0, 0.7)
+// rgba(198, 56, 0, 0.7)
+// rgba(170, 85, 0, 0.7)
+// rgba(141, 113, 0, 0.7)
+// rgba(113, 141, 0, 0.7)
+// rgba(85, 170, 0, 0.7)
+// rgba(56, 198, 0, 0.7)
+// rgba(28, 226, 0, 0.7)
+// rgba(0, 255, 0, 0.7)

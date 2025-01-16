@@ -6,7 +6,7 @@
    MAIN CONTAINER
    ========================= */
 .main-container {
-  max-width: 1200px;
+  max-width: 1350px;
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -15,19 +15,19 @@
    HERO
    ========================= */
 .hero {
-  min-height: 50vh;
+  min-height: 60vh;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("https://picsum.photos/1920/1080");
+  background-image: url("../../assets/images/fondo-landing-slider.jpg");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  align-items: flex-end;
+  justify-content: left;
+  text-align: left;
   color: white;
   padding: 2rem 0;
 
@@ -41,11 +41,6 @@
       height: 50px;
       width: auto;
       filter: brightness(0) invert(1);
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: scale(1.05);
-      }
     }
   }
 
@@ -72,19 +67,16 @@
     &:hover {
       background-color: $blanco;
       color: $verdeBoton;
-      transform: translateY(-2px);
     }
   }
 
   .hero-content {
-    width: 90%;
-    max-width: 800px;
     padding: 2rem;
     position: relative;
     z-index: 2;
 
     h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: 5rem;
       margin-bottom: 1rem;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       line-height: 1.2;
@@ -92,7 +84,7 @@
 
     p {
       font-size: clamp(1rem, 2vw, 1.2rem);
-      margin-bottom: 2rem;
+      margin-bottom: 5rem;
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
       line-height: 1.5;
     }
@@ -105,11 +97,9 @@
       border-radius: $borderRadiusButton;
       font-size: clamp(1rem, 1.5vw, 1.1rem);
       cursor: pointer;
-      transition: all 0.3s ease;
 
       &:hover {
         background-color: darken($primary, 10%);
-        transform: translateY(-2px);
       }
     }
   }

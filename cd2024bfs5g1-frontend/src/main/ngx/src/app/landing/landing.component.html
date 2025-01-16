@@ -72,6 +72,11 @@
         <h3>{{ "L_FEATURES_TITLE_3" | oTranslate }}</h3>
         <p>{{ "L_FEATURES_CONTENT_3" | oTranslate }}</p>
       </div>
+      <div class="feature-card">
+        <span class="icon">📈</span>
+        <h3>{{ "L_FEATURES_TITLE_3" | oTranslate }}</h3>
+        <p>{{ "L_FEATURES_CONTENT_3" | oTranslate }}</p>
+      </div>
     </div>
   </section>
   <!-- Spaces Preview & Work Anywhere Section -->
@@ -111,11 +116,14 @@
     <div class="work-anywhere">
       <div class="content">
         <h2>
-          {{ "L_WORK_ANYWHERE_TITLE" | oTranslate }}</h2>
+          {{ "L_WORK_ANYWHERE_TITLE" | oTranslate }}
+        </h2>
         <p>
-          {{"L_WORK_ANYWHERE_CONTENT" | oTranslate }}
+          {{ "L_WORK_ANYWHERE_CONTENT" | oTranslate }}
         </p>
-        <button class="btn-primary" (click)="registerUser()">{{ "L_REGISTER" | oTranslate }}</button>
+        <button class="btn-primary" (click)="registerUser()">
+          {{ "L_REGISTER" | oTranslate }}
+        </button>
       </div>
     </div>
   </section>
@@ -226,4 +234,3 @@
     </div>
   </footer>
 </div>
-

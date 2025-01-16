@@ -281,7 +281,7 @@
   "NO_DATA_GRAPHIC": "No data for graphic, select a coworking and a month.",
   "AWAITING_DATA": "Requesting data, please wait a moment",
   "QR_ACCESS": "Access",
-  "QR_DOWNLOAD": "Download Qr",
+  "QR_DOWNLOAD": "Download QR",
   "BOOKING_QR": "Booking on",
   "START": "Start",
   "END": "End",
@@ -295,10 +295,8 @@
   "BOOKING_PENDING": "Booking in coworking pending",
   "BOOKING_INPROGRESS": "Booking in coworking in progress",
   "MY_UBICATION": "Your position",
-  "LEGEND": "Map legend",
   "EVENT_UPDATED": "Event updated",
   "EVENT_WITH_BOOKINGS": "It is not possible to reduce the capacity as there are bookings for this event",
   "MAXIMUM_PRICE_SLIDER": "Maximum price: ",
-  "QR_INFO_MESSAGE": "Show this QR code at the entrance of the coworking",
   "ENTRY": "ENTRY"
 }

@@ -2,7 +2,7 @@
   fxLayout="column"
   fxLayoutAlign="center center"
   style="padding: 24px"
-  class="qr-dialog-content"
+  class="qr-dialog-content events-details"
 >
   <h2 class="dialog-title">{{ "ENTRY" | oTranslate }}</h2>
   <div class="info-message">
@@ -15,7 +15,10 @@
     [width]="300"
     (qrCodeURL)="onChangeURL($event)"
   ></qrcode>
-
+<button
+mat-raised-button
+color="primary"
+class="download-button">
   <a
     *ngIf="qrCodeDownloadLink"
     [href]="qrCodeDownloadLink"
@@ -24,4 +27,5 @@
   >
     {{ "QR_DOWNLOAD" | oTranslate }}
   </a>
+</button>
 </div>

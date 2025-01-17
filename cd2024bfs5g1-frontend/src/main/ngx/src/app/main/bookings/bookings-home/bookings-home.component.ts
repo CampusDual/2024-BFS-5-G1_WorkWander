@@ -129,17 +129,17 @@ export class BookingsHomeComponent {
     }
   }
 
-  inicializarMapa(lat, lon, id, name): void {
-    this.updateMapAndMarker(lat, lon, 6, id, name);
-  }
 
   protected updateMapAndMarker(
     lat: number,
     lon: number,
-    zoom: number,
     id: number,
-    markerLabel: string | null
+    markerLabel: string | null,
+    zoom: number
   ) {
+
+    this.leafletMap = this.coworking_map.getMapService().getMap();
+
     this.leafletMap.setView([lat, lon], zoom);
 
     const marker = L.marker([lat, lon], {
@@ -176,6 +176,7 @@ export class BookingsHomeComponent {
 
     if (!this.mapVisible) {
       this.dates = [];
+      return;
     }
 
     const filter = {
@@ -194,7 +195,6 @@ export class BookingsHomeComponent {
     this.service.configureService(conf);
 
     this.service.query(filter, columns, "datesByBooking").subscribe((resp) => {
-      this.leafletMap = this.coworking_map.getMapService().getMap();
 
       for (let index = 0; index < resp.data.length; index++) {
         if (
@@ -203,11 +203,12 @@ export class BookingsHomeComponent {
         ) {
           this.dates.unshift(resp.data[index]);
 
-          this.inicializarMapa(
+          this.updateMapAndMarker(
             resp.data[index]["cw_lat"],
             resp.data[index]["cw_lon"],
             resp.data[index]["cw_id"],
-            resp.data[index]["cw_name"]
+            resp.data[index]["cw_name"],
+            6
           );
         }
       }

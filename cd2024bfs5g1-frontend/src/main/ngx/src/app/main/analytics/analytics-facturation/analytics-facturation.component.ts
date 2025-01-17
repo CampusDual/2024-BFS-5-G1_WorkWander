@@ -38,6 +38,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   selectedCoworkings: string[] = [];
   numberOfMonths: number[] = [];
   selectedMonths: number[] = [];
+  oldSelectedMonths: number[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
   translateServiceSubscription: Subscription;
@@ -124,6 +125,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
       this.selectedCoworkings.push(data[0]['cw_id']);
       this.selectedMonths.push(this.listOfMonths[0]);
       this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']]);
+      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
     })
 
   }
@@ -164,10 +166,10 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama en caso de seleccionar uno o varios coworkings
    * @param selectedNames
    */
-  onCoworkingChange(selectedNames: OValueChangeEvent) {
+  onCoworkingChange(selectedNames: any) {
     if (selectedNames.type === 0) {
       this.selectedCoworkings = selectedNames.newValue;
-      this.setMonth(this.comboMonthInput.getSelectedItems());
+      this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
     }
   }
 
@@ -228,19 +230,20 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama desde el onInit y en el combo de meses
    * @param selectMonths
    */
-  setMonth(selectMonths?: any) {
+  setMonth(selectMonths?: any, selectCoworkings?:any) {
+    this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
     if(!this.languageChoose){
       this.efects();
-      if (this.comboMonthInput.getSelectedItems().length == 0 || this.selectedCoworkings.length == 0) {
-        this.resolveData=false
-        this.isGraph=false
-        return
-      } else if(this.comboMonthInput.getSelectedItems()[0]==0){
+      if (this.comboMonthInput.getSelectedItems()[0]==0 && this.comboCoworkingInput.getSelectedItems().length > 0) {
         this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
-        selectMonths.newValue = this.selectedMonths;
-        this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
+        selectMonths = this.selectedMonths;
+        this.requestDataMonths(selectMonths, this.comboCoworkingInput.getSelectedItems());
+      } else if(this.comboMonthInput.getSelectedItems().length > 0 && this.comboCoworkingInput.getSelectedItems().length>0){
+          this.requestDataMonths(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
       } else {
-          this.requestDataMonths(selectMonths.newValue, this.selectedCoworkings);
+          this.resolveData=false
+          this.isGraph=false
+          return
       }
     }else{
       this.languageChoose = false;

@@ -1,4 +1,3 @@
-import { DomSanitizer } from "@angular/platform-browser";
 import {
   AfterViewInit,
   Component,
@@ -11,12 +10,13 @@ import {
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
+import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   AuthService,
   NavigationService,
-  ServiceResponse,
   OUserInfoService,
+  ServiceResponse,
 } from "ontimize-web-ngx";
 import { Observable } from "rxjs";
 import { MainService } from "../shared/services/main.service";

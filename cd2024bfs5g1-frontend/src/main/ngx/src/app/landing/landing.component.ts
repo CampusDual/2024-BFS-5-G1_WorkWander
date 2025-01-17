@@ -48,13 +48,13 @@ export class LandingComponent {
       icon: "🤝", // Apretón de manos para networking
       title: this.translate.get("L_FEATURES_TITLE_2"),
       description:
-      this.translate.get("L_FEATURES_CONTENT_2"),
+        this.translate.get("L_FEATURES_CONTENT_2"),
     },
     {
       icon: "📈", // Gráfico ascendente para métricas
       title: this.translate.get("L_FEATURES_TITLE_3"),
       description:
-      this.translate.get("L_FEATURES_CONTENT_3"),
+        this.translate.get("L_FEATURES_CONTENT_3"),
     },
   ];
   testimonials = [
@@ -101,11 +101,23 @@ export class LandingComponent {
     },
     {
       image:
-        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80",
+        "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Tech Meetup",
       location: "Sevilla Digital Hub",
       date: "25/02/2025",
     },
+    {
+      image: "https://images.unsplash.com/photo-1553390774-b4822481c894?q=80&w=1944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Conferencia de Desarrollo Web",
+      location: "Online 🌎",
+      date: "09/03/2025",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1555077292-22a4489e5897?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Taller de Marketing Digital",
+      location: "Online 🌎",
+      date: "09/02/2025",
+    }
   ];
 
   responsiveOptions = [
@@ -129,7 +141,7 @@ export class LandingComponent {
   constructor(
     private router: Router,
     private translate: OTranslateService
-  ) {}
+  ) { }
 
   entradaSinLogin() {
     this.router.navigate([" "]);

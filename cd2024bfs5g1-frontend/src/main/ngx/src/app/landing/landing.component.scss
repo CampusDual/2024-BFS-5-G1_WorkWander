@@ -28,7 +28,7 @@
   align-items: flex-end;
   justify-content: left;
   text-align: left;
-  color: white;
+  color: $blanco;
   padding: 2rem 0;
 
   .logo-container {
@@ -76,7 +76,7 @@
     z-index: 2;
 
     .o-language-selector-text {
-      color: white;
+      color: $blanco;
     }
 
     h1 {
@@ -96,9 +96,10 @@
     .btn-primary {
       background-color: $primary;
       color: $blanco;
-      padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 3vw, 2.4rem);
+      padding: 0.8rem 1.5rem;
       border: none;
       border-radius: $borderRadiusButton;
+      min-width: 300px;
       font-size: clamp(1rem, 1.5vw, 1.1rem);
       cursor: pointer;
 
@@ -131,9 +132,11 @@
    TESTIMONIALS
    ========================= */
 .testimonials {
-  width: 100%;
-  margin: 4rem auto;
-  padding: 0 1rem;
+  width: 100vw;
+  padding: 2rem 1rem;
+  
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 
   h2 {
     text-align: center;
@@ -143,6 +146,7 @@
   }
 
   .testimonial-cards {
+
     display: flex;
     gap: 2rem;
     justify-content: center;
@@ -150,34 +154,29 @@
     padding: 1rem;
 
     .testimonial-card {
-      background: rgba($accent, 0.5);
+      background: $primary;
       padding: 1.5rem;
       border-radius: $borderRadius;
       box-shadow: 0 4px 6px rgba($primary, 0.1);
       flex: 1;
       min-width: 280px;
       max-width: 350px;
-      transition: transform 0.3s ease;
-
-      &:hover {
-        transform: translateY(-5px);
-      }
 
       h3 {
-        color: $verdeBoton;
+        color: $blanco;
         font-size: clamp(1rem, 1.5vw, 1.25rem);
-        margin-bottom: 1rem;
         font-weight: bold;
+        margin-bottom: 0;
+      }
+
+      .starts{
+        margin-top:0px;
       }
 
       p {
         color: $verdeBoton;
         font-size: clamp(0.9rem, 1.2vw, 1rem);
         line-height: 1.6;
-
-        br {
-          margin: 0.5rem 0;
-        }
       }
     }
   }
@@ -298,7 +297,7 @@
 
         .space-card {
           margin: 0.5rem;
-          background: white;
+          background: $blanco;
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -390,13 +389,12 @@
         color: $verdeBoton;
         border: none;
         padding: 12px 24px;
-        border-radius: 25px;
+        border-radius: $borderRadiusButton;
         font-weight: bold;
         transition: all 0.3s ease;
 
         &:hover {
           background-color: darken($amarillo, 10%);
-          transform: translateY(-2px);
         }
       }
     }
@@ -551,7 +549,7 @@
 
         .space-card {
           margin: 0.5rem;
-          background: white;
+          background: $blanco;
           border-radius: 8px;
           overflow: hidden;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -617,10 +615,8 @@
   display: flex;
   gap: 2rem;
   padding: 2rem 0;
-  align-items: flex-start;
+  align-items: center;
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-  url("../../assets/images/fondo-landing-parallax.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -633,27 +629,25 @@
 
     img {
       border-radius: 8px;
-      margin-top: 6rem;
+      height: 400px;
     }
   }
 
   .expand-your-business {
     flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    min-height: 240px;
-    padding: 4rem;
+    min-height: 400px;
     background: $primary;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 6rem;
-    margin-left: 4rem;
-
+    
     .content {
       text-align: center;
       align-items: center;
       display: flex;
       flex-direction: column;
+      gap: 17px;
+      padding: 20px;
+}
 
       h2 {
         font-size: 1.5rem;
@@ -673,19 +667,19 @@
         color: $verdeBoton;
         border: none;
         padding: 12px 24px;
-        border-radius: 25px;
+        border-radius: $borderRadiusButton;
         font-weight: bold;
         transition: all 0.3s ease;
 
         &:hover {
           background-color: darken($amarillo, 10%);
-          transform: translateY(-2px);
         }
       }
     }
   }
 
   @media (max-width: 1024px) {
+    .main-container{
     flex-direction: column;
 
     .business-container {
@@ -704,9 +698,8 @@
     url("../../assets/images/fondo-landing-footer.jpg");
     background-size: cover;
     background-position: center;
-    color: white;
+    color: $blanco;
     padding: 4rem 0 1rem;
-    margin-top: 4rem;
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
     width: 100vw;
@@ -736,7 +729,7 @@
         padding: 0;
 
         li a {
-          color: white;
+          color: $blanco;
           text-decoration: none;
           transition: color 0.3s;
 

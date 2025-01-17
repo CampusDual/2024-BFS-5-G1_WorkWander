@@ -6,9 +6,8 @@
    MAIN CONTAINER
    ========================= */
 .main-container {
-  //max-width: 80vw;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0;
 }
 
 /* =========================
@@ -16,9 +15,6 @@
    ========================= */
 .hero {
   min-height: 60vh;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
   position: relative;
   background-size: cover;
   background-position: center;
@@ -28,7 +24,6 @@
   justify-content: left;
   text-align: left;
   color: $blanco;
-  padding: 2rem 0;
 
   .logo-container {
     position: absolute;
@@ -131,11 +126,7 @@
    TESTIMONIALS
    ========================= */
 .testimonials {
-  width: 100vw;
   padding: 2rem 1rem;
-  
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
 
   h2 {
     text-align: center;
@@ -607,27 +598,23 @@
 .company-section {
   display: flex;
   gap: 2rem;
-  padding: 2rem 0;
-  align-items: center;
+  padding: 7rem 1rem;
+  align-items: stretch;
   position: relative;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding: 4rem calc((100vw - 1200px) / 2);
+  justify-content: center;
+  
 
   .business-container {
-    flex: 2;
-
     img {
       border-radius: 8px;
-      height: 400px;
+      width: 50vw;
     }
   }
 
   .expand-your-business {
-    flex: 1;
     min-height: 400px;
     background: $primary;
     border-radius: 8px;
@@ -640,7 +627,9 @@
       flex-direction: column;
       gap: 17px;
       padding: 20px;
-}
+      height: 100%;
+      justify-content: center;
+    }
 
       h2 {
         font-size: 1.5rem;
@@ -690,23 +679,20 @@
     background-size: cover;
     background-position: center;
     color: $blanco;
-    padding: 4rem 0 1rem;
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    width: 100vw;
+    padding: 2rem 0 2rem;
 
   .footer-content {
-    max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row;
     gap: 2rem;
     padding: 0 2rem;
+    justify-content: space-between;
+    align-items: center;
 
     .footer-logo {
-      width: 200px;
+      width: 100px;
       filter: brightness(0) invert(1);
-      margin-bottom: 1rem;
     }
 
     .footer-links {
@@ -718,6 +704,9 @@
       ul {
         list-style: none;
         padding: 0;
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
 
         li a {
           color: $blanco;
@@ -734,11 +723,7 @@
 
   .footer-bottom {
     text-align: center;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
-
 
     @media (max-width: 768px) {
       .footer-content {

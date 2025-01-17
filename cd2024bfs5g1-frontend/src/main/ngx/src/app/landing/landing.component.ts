@@ -117,6 +117,42 @@ export class LandingComponent {
       title: "Taller de Marketing Digital",
       location: "Online 🌎",
       date: "09/02/2025",
+    },
+    {
+      image: "https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Taller de IA",
+      location: "Online 🌎",
+      date: "09/02/2025",
+    },
+    {
+      image: "https://plus.unsplash.com/premium_photo-1677269465314-d5d2247a0b0c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aWF8ZW58MHx8MHx8fDA%3D",
+      title: "Obradoiro de Marketing Digital",
+      location: "Presencial 🌎",
+      date: "09/02/2025",
+    },
+    {
+      image: "https://plus.unsplash.com/premium_photo-1661963183692-e9a7afee10e0?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Paintball on time",
+      location: "Presencial 🌎",
+      date: "09/02/2025",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1601830976337-e32f60eba315?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "The witch blair project",
+      location: "Presencial 🌎",
+      date: "09/02/2025",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Movie session",
+      location: "Presencial 🌎",
+      date: "19/02/2025",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "Gaming session",
+      location: "Online 🌎",
+      date: "10/02/2025",
     }
   ];
 

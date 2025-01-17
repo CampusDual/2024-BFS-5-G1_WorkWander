@@ -5,9 +5,12 @@ import { LandingComponent } from "./landing.component";
 import { LandingRoutingModule } from "./landing-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { CarouselModule } from "primeng/carousel";
+import { LandingLegalComponent } from './landing-legal/landing-legal.component';
+import { LandingPrivacyComponent } from './landing-privacy/landing-privacy.component';
+import { LandingCookiesComponent } from './landing-cookies/landing-cookies.component';
 
 @NgModule({
-  declarations: [LandingComponent],
+  declarations: [LandingComponent, LandingLegalComponent, LandingPrivacyComponent, LandingCookiesComponent],
   imports: [
     CommonModule,
     OntimizeWebModule,

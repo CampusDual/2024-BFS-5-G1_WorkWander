@@ -1,17 +1,18 @@
-import { DecimalPipe, Location } from "@angular/common";
+import { Location } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import {
+  AfterViewInit,
   Component,
   Inject,
   OnInit,
   ViewChild,
-  AfterViewInit,
 } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   AuthService,
   DialogService,
-  OButtonComponent,
+  ODateRangeInputComponent,
   OFormComponent,
   OIntegerInputComponent,
   OntimizeService,
@@ -20,12 +21,10 @@ import {
   OTextInputComponent,
   OTranslateService,
   SnackBarService,
-  Util,
-  ODateRangeInputComponent,
+  Util
 } from "ontimize-web-ngx";
-import { UtilsService } from "src/app/shared/services/utils.service";
 import { OMapComponent } from "ontimize-web-ngx-map";
-import { HttpClient } from "@angular/common/http";
+import { UtilsService } from "src/app/shared/services/utils.service";
 
 @Component({
   selector: "app-coworkings-detail",
@@ -33,7 +32,7 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./coworkings-detail.component.css"],
 })
 export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
-  buttonBooking!:boolean
+  buttonBooking!: boolean
   constructor(
     private service: OntimizeService,
     private activeRoute: ActivatedRoute,
@@ -257,7 +256,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
   }
 
   setDates() {
-    this.buttonBooking=false;
+    this.buttonBooking = false;
     const startDate = new Date(
       (this.bookingDate as any).value.value.startDate
     ).toLocaleString("en-CA");
@@ -290,7 +289,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             .map(([fecha]) => new Date(fecha));
           this.dateArray = fechasDisponibles;
           this.showAvailableToast(this.translate.get("PLAZAS_DISPONIBLES"));
-          this.buttonBooking=true;
+          this.buttonBooking = true;
         } else {
           const fechasNoDisponibles = Object.entries(data)
             .filter(([fecha, disponible]) => disponible === false)
@@ -304,7 +303,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
             "NO_PLAZAS_DISPONIBLES"
           )}:\n - ${fechasFormateadas.join("\n - ")}`;
           this.showAvailableToast(mensaje);
-          this.buttonBooking=false;
+          this.buttonBooking = false;
         }
       },
       (error) => {

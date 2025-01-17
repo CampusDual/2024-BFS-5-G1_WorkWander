@@ -1659,40 +1659,28 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
-      o-combo.halfSize {
-        max-width: 33.5%;
-        width: 33.5%;
-        min-width: 33.5%;
+      o-combo.halfSize.edit {
+        max-width: 233px;
+        width:  233px;
+        min-width: 233px;
       }
 
-      o-text-input.halfSize {
-        max-width: 63%;
-        width: 63%;
-        min-width: 63%;
+      o-text-input.halfSize.edit{
+        max-width: 446px;
+        width: 446px;
+        min-width: 446px;
       }
+    
 
-      o-date-input,
-      o-integer-input,
-      o-real-input,
-      o-hour-input {
-        max-width: 47%;
-        width: 47%;
-        min-width: 47%;
-      }
-
-      o-date-input,
-      o-hour-input.inline {
-        max-width: 15%;
-        width: 15%;
-        min-width: 15%;
-      }
-
-      o-integer-input,
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
       o-real-input.inline {
-        max-width: 19%;
-        width: 19%;
-        min-width: 19%;
+        max-width: 101px;
+        width: 101px;
+        min-width: 101px;
       }
+      
     }
   }
 }

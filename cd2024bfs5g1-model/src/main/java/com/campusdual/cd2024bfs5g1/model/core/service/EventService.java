@@ -96,7 +96,7 @@ public class EventService implements IEventService {
 
     @Override
     public AdvancedEntityResult homeEventsPaginationQuery(final Map<String, Object> keyMap, final List<String> attrList,
-                                                          final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+            final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         return this.daoHelper.paginationQuery(this.eventDao, keyMap, attrList, recordNumber, startIndex,
                 orderBy, this.eventDao.HOMEEVENTS_QUERY);
     }
@@ -107,6 +107,30 @@ public class EventService implements IEventService {
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingEventDao.BKE_USR_ID, userId);
         return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.MYEVENTSCALENDAR_QUERY);
+    }
+
+    @Override
+    public EntityResult myEventUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
+
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        attrMap.put(EventDao.USR_ID, userId);
+
+        //Para convertir de String a Timestamp, ya que desde el front llega String y la base de datos acepta otro
+        // formato
+        if (attrMap.containsKey("hour_event")) {
+            final String hourEventStr = (String) attrMap.get("hour_event");
+
+            try {
+                final Timestamp timestamp = Timestamp.valueOf("1970-01-01 " + hourEventStr);
+                attrMap.put("hour_event", timestamp);
+            } catch (final DateTimeParseException e) {
+                throw new OntimizeJEERuntimeException("Formato de hora incorrecto para hour_event: " + hourEventStr, e);
+            }
+        }
+
+
+        return this.daoHelper.update(this.eventDao, attrMap, keyMap);
     }
 
     @Override

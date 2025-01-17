@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <o-form-layout-manager
   attr="myEvents"
   title="{{ 'MYEVENTS' | oTranslate }}"
@@ -6,6 +14,7 @@
   label-columns="name"
 >
   <o-table
+    #table
     delete-button="no"
     insert-button="no"
     refresh-button="yes"
@@ -16,9 +25,7 @@
     columns="id_event;name;description;date_event;hour_event;address;location;bookings;usr_id"
     visible-columns="name;location;date_event;hour_event"
     query-rows="15"
-    detail-mode="none"
     auto-adjust="true"
-    (onClick)="openDetail($event)"
   >
     <!-- Columna para mostrar la fecha del evento -->
     <o-table-column
@@ -49,6 +56,14 @@
     ></o-table-column>
 
     <!-- Columna para la localidad del evento -->
+    <o-table-column
+      attr="location"
+      fxFlex
+      title="locality"
+      width="25%"
+    ></o-table-column>
+
+    <!-- Columna para editar  evento-->
     <o-table-column
       attr="location"
       fxFlex

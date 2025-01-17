@@ -1,0 +1,10 @@
+<ng-template #qrTemplate let-cellvalue="cellvalue" let-rowvalue="rowvalue">
+  <span (click)="$event.stopPropagation()">
+    <mat-icon
+      [ngClass]="isBookingActive(rowvalue) ? 'qrEnable' : 'qrDisable'"
+      (click)="isBookingActive(rowvalue) && showQRDialog(rowvalue)"
+    >
+      qr_code
+    </mat-icon>
+  </span>
+</ng-template>

@@ -693,7 +693,7 @@ o-column {
   border-radius: $borderRadius;
 
   .form-section {
-    min-width: 500px;
+    /*min-width: 500px;*/
     flex-wrap: wrap;
   }
 
@@ -1245,6 +1245,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
+    width: 100%;  /*Asegura que el texto se ajuste al contenedor*/
+    overflow: hidden;  /*Oculta el contenido que se desborda*/
   }
 
   .fecha-evento {
@@ -1292,7 +1294,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .p-carousel-indicators {
     overflow: hidden;
     flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
+    justify-content: center;
     margin-block-start: 0;
     margin-block-end: 0;
 

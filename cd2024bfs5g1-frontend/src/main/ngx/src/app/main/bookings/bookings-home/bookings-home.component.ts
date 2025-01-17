@@ -152,9 +152,12 @@ export class BookingsHomeComponent {
       direction: "top", // Ubica el tooltip encima del marcador
     });
     // Añadir evento click para redirección
-    marker.on("click", () => {
-      window.location.href = `/coworkings/${id}?isdetail=true">${markerLabel}`;
+    marker.on('click', () => {
+      this.router.navigate(['/coworkings', id], {
+        queryParams: { isdetail: true }
+      });
     });
+
     // Añadir marcador al mapa
     marker.addTo(this.leafletMap);
   }
@@ -171,6 +174,7 @@ export class BookingsHomeComponent {
   async delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+
   showHideMap() {
     this.mapVisible = !this.mapVisible;
 
@@ -214,6 +218,7 @@ export class BookingsHomeComponent {
       }
     });
   }
+
   deleteLoader() {
     const borrar = document.querySelector('#borrar') as HTMLDivElement;
     if (borrar) {

@@ -115,7 +115,6 @@ export class EventsEditComponent {
         } else {
           this.showWarningToast('EVENT_WITH_BOOKINGS');
         }
-
       });
   }
 

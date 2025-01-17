@@ -144,8 +144,8 @@
 			        LEFT JOIN booking on booking.bk_cw_id = coworking.cw_id
 			        JOIN booking_date on booking_date.bk_id = booking.bk_id
 				    #WHERE#
-					GROUP BY coworking_name, date_part('month', booking_date.date), coworking.cw_daily_price
-				    ORDER BY coworking_name, m ASC;
+					GROUP BY date_part('month', booking_date.date), coworking_name, coworking.cw_daily_price
+				    ORDER BY m, coworking_name ASC;
                 ]]>
             </Sentence>
         </Query>

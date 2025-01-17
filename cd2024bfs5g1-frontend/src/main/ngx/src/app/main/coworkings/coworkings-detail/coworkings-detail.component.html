@@ -329,13 +329,21 @@
                   <div class="event-item-content">
                     <div>
                       <img
+                        *ngIf="event.image_event; else defaultImage"
                         [src]="getImageSrc(event.image_event)"
                         alt="{{ event.name }}"
                         class="event-image"
                       />
+                      <ng-template #defaultImage>
+                        <img
+                          src="assets/images/event-default.jpg"
+                          alt="Imagen"
+                          class="event-image"
+                        />
+                      </ng-template>
                     </div>
                     <div>
-                      <span class="nombre-evento">{{ event.name }}</span>
+                      <span class="nombre-evento" title="{{ event.name }}">{{ event.name }}</span>
                       <br />
                       <!-- <mat-icon>calendar_month</mat-icon> //-->
                       <span class="fecha-evento">{{

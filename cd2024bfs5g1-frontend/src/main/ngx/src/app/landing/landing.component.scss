@@ -447,17 +447,15 @@
    ========================= */
 
 .events-section {
-  display: flex;
+  
   gap: 2rem;
-  padding: 2rem 0;
+  padding: 2rem 50px;
   align-items: flex-start;
   position: relative;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  //margin-left: calc(-50vw + 50%);
-  //margin-right: calc(-50vw + 50%);
-  //padding: 0 calc((100vw - 1200px) / 2) 5%;
+  
 
   .spaces-container {
     flex: 1;

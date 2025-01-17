@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
@@ -9,10 +10,12 @@ import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
+import com.ontimize.jee.common.security.PermissionsProviderSecured;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -200,7 +203,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -215,7 +218,7 @@ public class CoworkingService implements ICoworkingService {
 
         final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
                 this.coworkingDao.CW_QUERY_DATES);
-        if(filteredResults.calculateRecordNumber() == 0){
+        if (filteredResults.calculateRecordNumber() == 0) {
             return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber, startIndex,
                     orderBy, this.coworkingDao.CW_QUERY_DATES);
         }
@@ -277,4 +280,19 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
     }
 
+    @Override
+    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_DAY_QUERY);
+    }
+
+    @Override
+    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_MONTH_QUERY);
+    }
 }

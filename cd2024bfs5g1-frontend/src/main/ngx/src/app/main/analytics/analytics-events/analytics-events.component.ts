@@ -20,6 +20,7 @@ import {
   SnackBarService,
   FilterExpressionUtils,
   Expression,
+  OSnackBarConfig,
 } from "ontimize-web-ngx";
 import { Subscription } from "rxjs";
 import { UtilsService } from "src/app/shared/services/utils.service";
@@ -45,13 +46,13 @@ export class AnalyticsEventsComponent implements OnInit {
   service: OntimizeService;
   date = DayPilot.Date.today();
   backColor: string;
-  percentage: number;
   private translateServiceSubscription: Subscription;
   selectedCoworking: number;
   coworkingLocation: string = "";
   @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("calendar") calendar: DayPilot.Month;
+
   constructor(
     private translate: OTranslateService,
     private utils: UtilsService,
@@ -85,19 +86,40 @@ export class AnalyticsEventsComponent implements OnInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
+    showToolTip: true,
+
     onBeforeCellRender: (args) => {
+      if (!this.selectedCoworking || this.bookingsDataArray.length === 0) {
+        // Si no hay coworking seleccionado, deja las celdas en blanco
+        args.cell.properties.backColor = "white";
+        return;
+      }
+      //Se adiciona el tooltip del porcentaje de ocupacion
+      args.cell.properties.html =
+      `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+      title="Sin reservas">
+      </div>`; 
+      let color = "rgba(226, 28, 0, 0.7)";
       // Normalizar la fecha de la celda eliminando la hora
       const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
-      if (this.bookingsDataArray.length > 0) {
+      if (this.bookingsDataArray && this.bookingsDataArray.length > 0) {
         const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
-        let color = "rgba(226, 28, 0, 0.7)"
+        //Color de la celda por defecto si no hay ocupacion
+        console.log("CELLDATA-OUT", cellData);
         if (cellData) {
+          console.log("CELLDATA-IN", cellData);
           const percentage =
             (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
           color = this.getColorForPercentage(percentage);
+          args.cell.properties.html =
+          `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+           title="Ocupación: ${percentage.toFixed(2)}%">
+          </div>`;      
         }
-        args.cell.properties.backColor = color;
       }
+      //Se adiciona el color de la celda según el porcentaje de ocupacion
+      args.cell.properties.backColor = color;
+      
     },
   };
   /**
@@ -105,7 +127,7 @@ export class AnalyticsEventsComponent implements OnInit {
    * @param percentage es el porcentaje de ocupacion del coworking en un dia
    */
   getColorForPercentage(percentage: number) {
-    let r, g, b;
+    let r: number, g: number, b: number;
 
     if (percentage <= 50) {
       // De rojo (255, 0, 0) a amarillo (255, 255, 0)
@@ -120,35 +142,39 @@ export class AnalyticsEventsComponent implements OnInit {
     }
 
     return `rgba(${r}, ${g}, ${b}, 0.7)`;
-  }
-
+}
   configNavigator: DayPilot.NavigatorConfig = {
     showMonths: 3,
     cellWidth: 25,
     cellHeight: 25,
     onTimeRangeSelected: (args) => {
       this.date = args.start;
-      this.bookingsDataArray = this.getOccupationByMonth();
       this.getCoworkingEventsData();
     }
   };
+  async onCoworkingChange(selectedNames: OValueChangeEvent) {
+    if (selectedNames.type === 0) {
+      this.selectedCoworking = selectedNames.newValue;
+      await this.getOccupationByMonth();
+      this.getCoworkingEventsData();
+    }
+  }
 
   configureService(serviceName: string) {
     const conf = this.service.getDefaultServiceConfiguration(serviceName);
     this.service.configureService(conf);
   }
+  
   /**
    * @notices Obtiene los eventos en la misma localidad de un coworking
    */
   getCoworkingEventsData() {
-    console.log("Month-DATE", this.date);
     if (this.selectedCoworking == undefined || this.selectedCoworking == null)
       return;
     this.events = [];
     const filter = { cw_id: this.selectedCoworking };
     const columns = ["name", "date_event", "hour_event", "duration"];
     this.configureService("events");
-
     this.service
       .query(filter, columns, "eventsNearCoworking")
       .subscribe((response) => {
@@ -167,7 +193,7 @@ export class AnalyticsEventsComponent implements OnInit {
             };
             this.events.push(object);
           }
-        }
+        } 
       });
   }
 
@@ -226,14 +252,6 @@ export class AnalyticsEventsComponent implements OnInit {
     this.configMonth.startDate = date;
   }
 
-  onCoworkingChange(selectedNames: OValueChangeEvent) {
-    if (selectedNames.type === 0) {
-      this.bookingsDataArray = [];
-      this.selectedCoworking = selectedNames.newValue;
-      this.bookingsDataArray = this.getOccupationByMonth();
-      this.getCoworkingEventsData();
-    }
-  }
   /**
    * @notice Función para construir la expresión de filtrado
    * @param values es un array de objetos para los filtros avanzados
@@ -246,19 +264,6 @@ export class AnalyticsEventsComponent implements OnInit {
         if (fil.attr === "cw_id") {
           coworkingExpressions.push(
             FilterExpressionUtils.buildExpressionEquals(fil.attr, fil.value)
-          );
-        } else if (fil.attr == "date") {
-          daterangeExpressions.push(
-            FilterExpressionUtils.buildExpressionMoreEqual(
-              fil.attr,
-              fil.value.startDate
-            )
-          );
-          daterangeExpressions.push(
-            FilterExpressionUtils.buildExpressionLessEqual(
-              fil.attr,
-              fil.value.endDate
-            )
           );
         }
       }
@@ -303,79 +308,50 @@ export class AnalyticsEventsComponent implements OnInit {
     }
     return combinedExpression;
   }
-  /**
+    /**
    * @notices Obtiene la ocupacion de los coworkings para todos los dias de un mes
    */
-  getOccupationByMonth() {
-    let occupationByDate: DateData[] = [];
-    const year = this.date.getYear();
-    const month = this.date.getMonth();
-    // Obtener el primer día del mes
-    const firstDay = new Date(year, month, 1);
-    // Obtener el último día del mes
-    const lastDay = new Date(year, month + 1, 0);
-    const filterValues = [
-      {
-        attr: "cw_id",
-        value: this.selectedCoworking,
-      },
-      {
-        attr: "date",
-        value: { startDate: firstDay.toLocaleDateString("en-Ca"), endDate: lastDay },
-      },
-    ];
+    getOccupationByMonth(): Promise<DateData[]> {
+      this.bookingsDataArray = [];
+      return new Promise((resolve, reject) => {
+      let occupationByDate: DateData[] = [];
+      const year = this.date.getYear();
+      const month = this.date.getMonth();
+      // Obtener el primer día del mes
+      const firstDay = new Date(year, month, 1);
+      // Obtener el último día del mes
+      const lastDay = new Date(year, month + 1, 0);
 
-    const resp_data = [
-      {
-        cw_capacity: 40,
-        date: "2025-01-13",
-        plazasOcupadas: 1,
-      },
-      {
-        cw_capacity: 40,
-        date: "2025-01-14",
-        plazasOcupadas: 1,
-      },
-      {
-        cw_capacity: 40,
-        date: "2025-01-15",
-        plazasOcupadas: 1,
-      },
-      {
-        cw_capacity: 40,
-        date: "2025-01-16",
-        plazasOcupadas: 1,
-      },
-    ];
+      const filterValues = [
+        {
+          attr: "cw_id",
+          value: this.selectedCoworking,
+        },
+        {
+          attr: "date",
+          value: { startDate: firstDay.toLocaleDateString("en-Ca"), endDate: lastDay },
+        },
+      ];
+      const filter = { "@basic_expression": this.createFilter(filterValues) };
+      const sqlTypes = { date: 91 };
+      this.configureService("coworkings");
+      const columns = ["cw_capacity", "date", "plazasOcupadas"];
 
-    const filter = { "@basic_expression": this.createFilter(filterValues) };
-    const sqlTypes = { date: 91 };
-    this.configureService("bookings");
-    const columns = ["cw_capacity", "date", "plazasOcupadas"];
-    // Realiza la consulta al backend con el rango de fechas
-    this.service.query(filter, columns, "bookingsByMonth", sqlTypes).subscribe(
-      (resp) => {
-        if (resp.data || resp_data) {
-          console.log("getOccupationByMonth-Resp.data: ", resp.data);
-          occupationByDate = resp.data;
-          this.bookingsDataArray = resp.data;
-          // **Aquí forzamos la actualización del calendario una vez los datos están listos**
-          if (this.calendar) {
-            console.log("Actualizando el calendario después de obtener datos");
-            this.calendar.update();
+      // Realiza la consulta al backend con el rango de fechas
+      this.service.query(filter, columns, "bookingsByMonth", sqlTypes).subscribe(
+        (resp) => {
+          if (resp) {
+            this.bookingsDataArray = resp.data;
+            resolve(resp.data);
+          } else {
+            resolve([]);
           }
-          return resp.data;
-        } else {
-          return null;
+        },
+        (error) => {
+          console.error(this.translate.get("COWORKING_EVENTS_SELECTION_ERROR"), error);
+          reject(error);
         }
-      },
-      (error) => {
-        console.error(
-          this.translate.get("COWORKING_EVENTS_SELECTION_ERROR"),
-          error
-        );
-      }
-    );
-    return occupationByDate;
+      );
+    });
   }
 }

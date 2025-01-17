@@ -259,15 +259,4 @@ public class BookingService implements IBookingService {
         }
         return dates;
     }
-
-    @Override
-    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_DAY_QUERY);
-    }
-
-    @Override
-    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        return this.daoHelper.query(this.bookingDao, keyMap, attrList, this.bookingDao.BOOKINGS_BY_MONTH_QUERY);
-    }
-
 }

@@ -11,7 +11,7 @@
     <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
       #navigator></daypilot-navigator>
     <div class="content">
-      <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>
+      <daypilot-month [config]="configMonth" [events]="events" #month ></daypilot-month>
       <div id="legend"><div class="legend-container">
           <div class="gradient-bar"></div>
           <div class="legend-texts">
@@ -23,4 +23,5 @@
       </div>
     </div>
   </main>
+</div>
 </div>

@@ -38,7 +38,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
     id: "analytics", name: "ANALYTICS", icon: "query_stats",
     items: [
       { id: "occupation", name: "OCCUPATION", route: "/main/analytics/occupation", icon: "show_chart" },
-      { id: "events", name: "EVENTS", route: "/main/analytics/events", icon: "calendar_month" },
+      { id: "events", name: "EVENTS INFLUENCE", route: "/main/analytics/events", icon: "calendar_month" },
     ],
     
   },

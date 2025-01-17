@@ -11,13 +11,12 @@ public interface IBookingService {
     public EntityResult bookingQuery(Map<String, Object> keyMap, List<String> attrList);
 
 
-
     EntityResult coworkingsWithBookingsQuery(Map<String, Object> keyMap, List<String> attrList);
 
     EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList);
 
     AdvancedEntityResult datesByBookingPaginationQuery(Map<String, Object> keyMap, List<?> attrList,
-            int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException;
+                                                       int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException;
 
     public EntityResult myBookingQuery(Map<String, Object> keyMap, List<String> attrList);
 
@@ -36,9 +35,4 @@ public interface IBookingService {
     public EntityResult occupationLinearChartQuery(final Map<String, Object> keyMapB, final List<String> attrList);
 
     public EntityResult occupationByDateQuery(Map<String, Object> keyMap, List<String> attrList);
-
-    public EntityResult bookingsByDayQuery(Map<String, Object> keyMap, List<String> attrList);
-
-    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException;
-
 }

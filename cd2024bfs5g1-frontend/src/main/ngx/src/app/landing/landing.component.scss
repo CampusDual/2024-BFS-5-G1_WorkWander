@@ -20,7 +20,6 @@
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   position: relative;
-  background-image: url("../../assets/images/fondo-landing-slider.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -203,8 +202,6 @@
   padding: 2rem 0;
   align-items: flex-start;
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-  url("../../assets/images/fondo-landing-parallax.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -455,8 +452,6 @@
   padding: 2rem 0;
   align-items: flex-start;
   position: relative;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("../../assets/images/fondo-landing-parallax.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -694,8 +689,6 @@
 }
 
   .footer {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("../../assets/images/fondo-landing-footer.jpg");
     background-size: cover;
     background-position: center;
     color: $blanco;

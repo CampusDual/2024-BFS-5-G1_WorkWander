@@ -156,8 +156,12 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.languageChoose = true;
     this.locale=this.translate.getCurrentLang();
     this.allMonths();
+    let viejo = []
+    this.oldSelectedMonths.forEach(e=>{
+      viejo.push(e)
+    });
     this.comboMonthInput.data = this.listOfMonths;
-    this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']])
+    this.comboMonthInput.setSelectedItems(viejo);
     this.adaptResult(this.chartData, true);
     this.configureChart();
   }

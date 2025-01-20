@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="grid-container">
   <!-- Grid que muestra los datos de los events -->
   <o-grid
@@ -35,27 +43,27 @@
           <p class="event-date">{{ formatDate(data.date_event) }}</p>
           <p class="event-hour">{{ formatTime(data.hour_event) }}</p>
           <div
-            class="last-tickets-container"
+            class="last-tickets-tag-container"
             *ngIf="
               getAvailability(data.reserved, data.bookings) >= 0.9 &&
               getAvailability(data.reserved, data.bookings) < 1
             "
           >
-            <span class="last-tickets">{{ "LAST_CHANCES" | oTranslate }}</span>
+            <span class="last-tickets-tag">{{
+              "LAST_CHANCES" | oTranslate
+            }}</span>
           </div>
         </div>
-        <div class="capacity-price-container">
-          <div class="price-container">
-            <div
-              class="event-free"
-              *ngIf="!data.price || data.price == 0; else priceValue"
-            >
-              {{ "FREE_EVENT" | oTranslate }}
-            </div>
-            <ng-template #priceValue>
-              <div class="price" [innerHTML]="formatPrice(data.price)"></div>
-            </ng-template>
+        <div class="price-container">
+          <div
+            class="event-free"
+            *ngIf="!data.price || data.price == 0; else priceValue"
+          >
+            {{ "FREE_EVENT" | oTranslate }}
           </div>
+          <ng-template #priceValue>
+            <div class="price" [innerHTML]="formatPrice(data.price)"></div>
+          </ng-template>
         </div>
       </div>
     </o-grid-item>

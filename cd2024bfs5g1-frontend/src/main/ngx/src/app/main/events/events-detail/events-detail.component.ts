@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { DialogService, AuthService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTextInputComponent, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
-import { UtilsService } from "src/app/shared/services/utils.service";
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService, DialogService, OFormComponent, OIntegerInputComponent, OntimizeService, OPermissions, OSnackBarConfig, OTranslateService, SnackBarService, Util } from "ontimize-web-ngx";
+import { UtilsService } from "src/app/shared/services/utils.service";
 
 
 @Component({
@@ -12,6 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EventsDetailComponent implements OnInit {
+
+  buttonBooking!: boolean;
   bookingEvents: any = [];
   literalNumeroPlazas: string;
   numeroPlazas: string;
@@ -21,6 +23,7 @@ export class EventsDetailComponent implements OnInit {
   @ViewChild("bookingButton") reservationButton: OFormComponent;
   @ViewChild("id_event") id_event: OIntegerInputComponent;
 
+  public hasImage: boolean = true;
 
   constructor(
     private service: OntimizeService,
@@ -35,7 +38,9 @@ export class EventsDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.buttonBooking = true;
     this.checkBookingEvent();
+    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   formatDate(rawDate: number): string {
@@ -43,6 +48,10 @@ export class EventsDetailComponent implements OnInit {
       return this.utils.formatDate(rawDate);
     }
   }
+  public initializeForm() {
+    this.hasImage = this.form.getFieldValue('image_event') ? true : false;
+  }
+
 
   formatTime(time: string): string {
     if (time != null || time != undefined) {
@@ -80,7 +89,9 @@ export class EventsDetailComponent implements OnInit {
     return !this.auth.isLoggedIn();
   }
 
-
+  isInvalidButton() {
+    return !this.buttonBooking;
+  }
 
   showConfirm() {
     if (this.auth.isLoggedIn()) {
@@ -157,7 +168,7 @@ export class EventsDetailComponent implements OnInit {
           this.bookingEvents = resp.data;
           console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
           if (this.bookingEvents.totalEventBookings > 0) {
-
+            this.buttonBooking = true;
             cantidadPlazasLibres = this.bookingEvents.availableEventBookings / this.bookingEvents.totalEventBookings;
             this.literalNumeroPlazas = "BOOKINGS_LEFT"
             this.numeroPlazas = this.bookingEvents.availableEventBookings;
@@ -179,6 +190,7 @@ export class EventsDetailComponent implements OnInit {
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_00";
                 break;
               case (cantidadPlazasLibres == 0):
+                this.buttonBooking = false;
                 this.literalPlazas = "EVENT_DISPONIBILITY_EQ_00";
                 break;
             }
@@ -186,9 +198,16 @@ export class EventsDetailComponent implements OnInit {
           return this.translate.get("SLOTS") + ": " + <string>this.bookingEvents.availableEventBookings;
 
         } else {
+          this.buttonBooking = false;
           return this.translate.get("NO_BOOKING_ENABLED")
         }
       });
+  }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }
 

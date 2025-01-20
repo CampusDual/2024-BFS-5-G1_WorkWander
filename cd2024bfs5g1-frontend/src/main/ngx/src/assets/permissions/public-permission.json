@@ -129,6 +129,14 @@
       {
         "permissionId": "analytics-occupation",
         "enabled": false
+      },
+      {
+        "permissionId": "analyticsFacturation",
+        "enabled": false
+      },
+      {
+        "permissionId": "analyticsEvents",
+        "enabled": false
       }
     ]
   }

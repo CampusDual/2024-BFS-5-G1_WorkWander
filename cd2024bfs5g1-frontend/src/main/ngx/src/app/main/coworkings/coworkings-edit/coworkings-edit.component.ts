@@ -158,6 +158,7 @@ export class CoworkingsEditComponent {
       cw_lon: this.mapLon,
       services: this.arrayServices
     }
+
     //Llamamos a la función para actualizar, enviando el objeto
     this.update(coworking);
     this.showUpdated();

@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 import { BookingsRoutingModule } from './bookings-routing.module';
 import { BookingsHomeComponent } from './bookings-home/bookings-home.component';
@@ -10,7 +10,10 @@ import { BookingsRateRenderComponent } from './bookings-home/bookings-rate-rende
 import { RatingModule } from 'primeng/rating';
 import { BookingRateComponent } from './booking-rate/booking-rate.component';
 import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-render/bookings-cancel-render.component';
-
+import { BookingsAccessQrComponent } from "./bookings-home/bookings-access-qr/bookings-access-qr.component";
+import { QRCodeModule } from "angularx-qrcode";
+import { QrDialogComponent } from "./bookings-home/qr-dialog/qr-dialog.component";
+import { OMapModule } from 'ontimize-web-ngx-map';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-r
     BookingsStateRenderComponent,
     BookingsRateRenderComponent,
     BookingRateComponent,
-    BookingsCancelRenderComponent
+    BookingsCancelRenderComponent,
+    BookingsAccessQrComponent,
+    QrDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +31,9 @@ import { BookingsCancelRenderComponent } from './bookings-home/bookings-cancel-r
     OntimizeWebModule,
     OPermissionsModule,
     SharedModule,
-    RatingModule
-  ]
+    RatingModule,
+    OMapModule,
+    QRCodeModule,
+  ],
 })
 export class BookingsModule { }

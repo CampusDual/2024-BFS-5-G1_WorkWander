@@ -6,9 +6,12 @@ import { AnalyticsOccupationComponent } from "./analytics-occupation/analytics-o
 import { OChartModule } from "ontimize-web-ngx-charts";
 import { MatTabsModule } from "@angular/material/tabs";
 import { ODateRangeInputModule, OntimizeWebModule } from "ontimize-web-ngx";
+import { AnalyticsFacturationComponent } from './analytics-facturation/analytics-facturation.component';
+import { AnalyticsEventsComponent } from './analytics-events/analytics-events.component';
+import { DayPilotModule } from "@daypilot/daypilot-lite-angular";
 
 @NgModule({
-  declarations: [AnalyticsOccupationComponent],
+  declarations: [AnalyticsOccupationComponent, AnalyticsFacturationComponent, AnalyticsEventsComponent],
   imports: [
     CommonModule,
     AnalyticsRoutingModule,
@@ -16,6 +19,7 @@ import { ODateRangeInputModule, OntimizeWebModule } from "ontimize-web-ngx";
     MatTabsModule,
     OntimizeWebModule,
     ODateRangeInputModule,
+    DayPilotModule
   ],
 })
 export class AnalyticsModule {}

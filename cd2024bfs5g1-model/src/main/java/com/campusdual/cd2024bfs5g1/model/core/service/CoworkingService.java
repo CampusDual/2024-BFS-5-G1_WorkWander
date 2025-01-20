@@ -1,6 +1,7 @@
 package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.api.core.service.ICoworkingService;
+import com.campusdual.cd2024bfs5g1.model.core.dao.BookingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.CwServiceDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
@@ -16,6 +17,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -37,6 +45,9 @@ public class CoworkingService implements ICoworkingService {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private BookingDao bookingDao;
 
     /**
      * Consulta los registros de coworking según los criterios proporcionados.
@@ -76,6 +87,14 @@ public class CoworkingService implements ICoworkingService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_resized_image", cwResizedImage);
+
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
@@ -103,6 +122,14 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_image_resized", cwResizedImage);
         // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
         // Borrado de los servicios
@@ -141,6 +168,24 @@ public class CoworkingService implements ICoworkingService {
             noResult.setMessage("NO_DELETE");
             return noResult;
         }
+    }
+
+    static String resizeImage(final String base64Image) throws IOException {
+        BufferedImage image = null;
+        try {
+            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(outputImage, "png", baos);
+        final byte[] imageBytes = baos.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
     /**
@@ -200,7 +245,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -215,8 +260,9 @@ public class CoworkingService implements ICoworkingService {
 
         final EntityResult filteredResults = this.daoHelper.query(this.coworkingDao, keysValues, datesAttributes,
                 this.coworkingDao.CW_QUERY_DATES);
-        if(filteredResults.calculateRecordNumber() == 0){
-            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber, startIndex,
+        if (filteredResults.calculateRecordNumber() == 0) {
+            return this.daoHelper.paginationQuery(this.coworkingDao, keysValues, datesAttributes, recordNumber,
+                    startIndex,
                     orderBy, this.coworkingDao.CW_QUERY_DATES);
         }
 
@@ -277,4 +323,97 @@ public class CoworkingService implements ICoworkingService {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NAME_BY_NAME);
     }
 
+    @Override
+    public EntityResult coworkingNearbyQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NEARBY);
+    }
+
+    /**
+     * Obtiene la info para generar el gráfico de facturación
+     *
+     * @param keyMap
+     * @param attrList
+     * @return response
+     */
+    @Override
+    public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList) {
+        final ArrayList<Integer> arrayCw_id = new ArrayList<>((ArrayList<Integer>) keyMap.remove("cw_id"));
+        ArrayList<Integer> months = null;
+        final List<Map> listaCoworkings = new ArrayList<>();
+        int year = 0;
+        year = (int) keyMap.remove("year");
+        months = new ArrayList<>((ArrayList<Integer>) keyMap.remove("month"));
+        for (int i = 0; i < arrayCw_id.size(); i++) {
+            final int cw = arrayCw_id.get(i);
+            keyMap.put(CoworkingDao.CW_ID, cw);
+            keyMap.put(BookingDao.BK_STATE, true);
+            keyMap.put("date_part('year',booking_date.date)", year);
+            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, months);
+            if (dataMonths != null) {
+                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, months));
+            }
+        }
+        final EntityResult response = new EntityResultMapImpl();
+        response.setCode(0);
+        response.put("data", (List.of(listaCoworkings)));
+        return response;
+    }
+
+    /**
+     * Devuelve un Map de String Object con la info de los meses
+     *
+     * @param keys,
+     * @param attrList,
+     * @param months
+     * @return coworkingMap
+     */
+    public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
+                                             final ArrayList<Integer> months) {
+        final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+        List<String> coworkingName = new ArrayList<>();
+        final List<Map> monthsList = new ArrayList<>();
+        Map<String, Object> m = null;
+        EntityResult er = null;
+        for (int j = 0; j < months.size(); j++) {
+            List<Integer> month = new ArrayList<>();
+            List<Integer> in = new ArrayList<>();
+            List<Double> account = new ArrayList<>();
+            m = new HashMap<>(); //mapa del mes y del importe
+            keys.put("date_part('month',booking_date.date)", months.get(j));
+            er = this.daoHelper.query(this.coworkingDao, keys, attrList,
+                    this.coworkingDao.CW_QUERY_FACTURATION_BY_MONTH);
+            month = (List<Integer>) er.get("m");
+            in = (List<Integer>) er.get("m");
+            account = (List<Double>) er.get("account");
+            if (month != null) {
+                m.put("i", in.get(0));
+                m.put("name", month.get(0));
+                m.put("value", account.get(0));
+                monthsList.add(m);
+                coworkingName = (List<String>) er.get("coworking_name");
+                coworkingMap.put("name", coworkingName.get(0));
+                coworkingMap.put("series", monthsList);
+            }
+        }
+        if (!coworkingMap.isEmpty()) {
+            return coworkingMap;
+        } else {
+            return null;
+        }
+    }
+    @Override
+    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_DAY_QUERY);
+    }
+
+    @Override
+    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_MONTH_QUERY);
+    }
 }

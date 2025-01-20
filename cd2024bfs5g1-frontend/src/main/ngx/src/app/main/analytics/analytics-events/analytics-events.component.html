@@ -1,0 +1,27 @@
+<div class="analytics-event-container">
+  <div class="selector-container">
+    <o-form show-header="false" class="selector">
+      <o-combo class="input-selector" #comboCoworkingInput attr="cw_name" service="coworkings" entity="coworkingByUser"
+        label="{{ 'SELECT_COWORKING_EVENT_INFLUENCE' | oTranslate }}" value-column="cw_id" columns="cw_name"
+        visible-columns="cw_name" required="yes" formControlName="coworking" (onValueChange)="onCoworkingChange($event)"
+        searchable="true" (onSelectionChange)="onCoworkingChange($event)" multiple-trigger-label="true">
+      </o-combo>
+    </o-form>
+  <main class="container">
+    <daypilot-navigator [config]="configNavigator" [events]="events" [(date)]="date" (dateChange)="changeDate($event)"
+      #navigator></daypilot-navigator>
+    <div class="content">
+      <daypilot-month [config]="configMonth" [events]="events" #month ></daypilot-month>
+      <div id="legend"><div class="legend-container">
+          <div class="gradient-bar"></div>
+          <div class="legend-texts">
+            <p>{{ "LOW_OCCUPATION" | oTranslate }}</p>
+            <p>{{ "MEDIUM_OCCUPATION" | oTranslate }}</p>
+            <p>{{ "HIGH_OCCUPATION" | oTranslate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</div>

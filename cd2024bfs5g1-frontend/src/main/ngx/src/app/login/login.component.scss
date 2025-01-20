@@ -125,6 +125,29 @@
     }
   }
 }
+
+.back-button {
+  position: absolute;
+  top: 32px;
+  left: 28px;
+  z-index: 2;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  img {
+    height: 100px;
+    width: auto;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .noLogin {
   text-align: center;
   justify-content: center;

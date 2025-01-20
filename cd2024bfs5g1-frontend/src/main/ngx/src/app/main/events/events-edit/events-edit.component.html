@@ -53,7 +53,7 @@
         value-type="date"
         icon="event"
         required="yes"
-        class="inline"
+        class="inline edit"
       ></o-date-input>
       <!-- Hora -->
       <o-hour-input
@@ -64,13 +64,12 @@
       ></o-hour-input>
       <!-- Duración -->
       <o-integer-input
-        fxFlex="30"
         attr="duration"
         icon="hourglass_empty"
         min="0"
         step="1"
         max="999"
-        class="inline"
+        class="inline edit"
       ></o-integer-input>
       <!-- Plazas -->
       <o-integer-input
@@ -80,7 +79,7 @@
         icon="event_seat"
         thousand-separator="."
         required="yes"
-        class="inline"
+        class="inline edit"
       ></o-integer-input>
       <!-- Precio -->
       <o-real-input
@@ -90,7 +89,7 @@
         max="1000"
         placeholder="0"
         decimal-digits="2"
-        class="inline"
+        class="inline edit"
       ></o-real-input>
       <!-- Localidad -->
       <o-combo
@@ -109,7 +108,7 @@
         searchable="true"
         sort="ASC"
         appearance="fill"
-        class="halfSize"
+        class="halfSize edit"
       >
       </o-combo>
       <!-- Dirección -->
@@ -117,7 +116,7 @@
         attr="address"
         icon="place"
         required="yes"
-        class="halfSize"
+        class="halfSize edit"
       ></o-text-input>
       <o-integer-input oHidden #reserved attr="reserved"></o-integer-input>
       <div>

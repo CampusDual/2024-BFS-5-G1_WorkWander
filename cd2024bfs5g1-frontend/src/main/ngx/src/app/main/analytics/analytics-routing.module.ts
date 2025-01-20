@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalyticsOccupationComponent } from './analytics-occupation/analytics-occupation.component';
 import { AnalyticsFacturationComponent } from './analytics-facturation/analytics-facturation.component';
+import { AnalyticsEventsComponent } from './analytics-events/analytics-events.component';
 
 const routes: Routes = [
     {
@@ -20,6 +21,16 @@ const routes: Routes = [
       data: {
             oPermission: {
               permissionId: "analyticsFacturation",
+              restrictedPermissionsRedirect: "403",
+            },
+          },
+    },
+    {
+      path: "events",
+      component: AnalyticsEventsComponent,
+      data: {
+            oPermission: {
+              permissionId: "analyticsEvents",
               restrictedPermissionsRedirect: "403",
             },
           },

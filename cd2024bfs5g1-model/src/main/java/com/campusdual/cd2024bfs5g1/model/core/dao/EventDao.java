@@ -28,6 +28,7 @@ public class EventDao extends OntimizeJdbcDaoSupport {
     public static final String MYEVENTS_QUERY = "myEvents";
     public static final String HOMEEVENTS_QUERY = "homeEvents";
     public static final String MYEVENTSCALENDAR_QUERY = "myEventsCalendar";
+    public static final String EVENTSNEARCOWORKING_QUERY = "eventsNearCoworking";
 
     public EventDao() {
         super();

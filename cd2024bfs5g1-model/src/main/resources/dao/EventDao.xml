@@ -120,5 +120,27 @@
                 ]]>
             </Sentence>
         </Query>
+        <Query id="eventsNearCoworking">
+            <Sentence>
+                <![CDATA[
+                WITH temp_table AS(
+                    SELECT
+                        public.coworking.cw_id as cw_id,
+                        public.event.name as name,
+                        public.event.date_event as date_event,
+                        public.event.duration as duration,
+                        public.event.hour_event as hour_event,
+                        public.coworking.cw_name
+                    FROM public.event
+                    JOIN public.coworking ON public.event.locality = public.coworking.cw_location
+                    GROUP BY public.event.name, public.event.date_event, public.event.duration, public.event.hour_event, public.coworking.cw_name, cw_id
+                    ORDER BY public.event.date_event)
+                 SELECT
+                    #COLUMNS#
+                    FROM temp_table
+                    #WHERE#
+                ]]>
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

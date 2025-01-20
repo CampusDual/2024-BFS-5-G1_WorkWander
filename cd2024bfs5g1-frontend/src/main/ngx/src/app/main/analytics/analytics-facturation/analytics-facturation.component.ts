@@ -36,33 +36,35 @@ import moment, { locale } from "moment";
 })
 export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   selectedCoworkings: string[] = [];
-  allCowork: number[] = [];
+  numberOfMonths: number[] = [];
   selectedMonths: number[] = [];
+  oldSelectedMonths: number[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
   translateServiceSubscription: Subscription;
   listOfMonths: any[] = [];
-  dateArray = [];
   year:number;
-  typeData:string;
   languageChoose = false;
+  typeData:string;
   resolveData = true;
   locale:string;
   points:string;
+  colors:string[]=[
+    "#9ACD32",
+    "#6B8E23",
+    "#556B2F",
+    "#8FBC8F",
+    "#32CD32",
+    "#3CB371",
+    "#2E8B57",
+    "#228B22",
+    "#00FF00",
+    "#006400",
+    "#66CDAA",
+    "#20B2AA"
+  ]
   colorScheme = {
-    domain: [
-    "#A49377",
-    "#66477B",
-    "#92CCD1",
-    "#80000B",
-    "#6A9A32",
-    "#B1925D",
-    "#FABCB1",
-    "#FF6700",
-    "#D3DBF2",
-    " #1C2A34",
-    "#7E1617",
-    "#BABEC9"],
+    domain: [],
   };
 
   chartParameters: PieChartConfiguration;
@@ -110,10 +112,10 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.translateServiceSubscription.unsubscribe();
   }
   ngOnInit(): void {
+    this.typeData="MONTHS"
     let date = new Date();
     this.year = date.getFullYear();
     this.selectedMonths = [];
-    this.typeData ="MONTHS"
     this.allMonths();
     this.points = "...";
     this.locale=this.translate.getCurrentLang();
@@ -121,7 +123,9 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
       const data = this.comboCoworkingInput.getDataArray()
       this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']])
       this.selectedCoworkings.push(data[0]['cw_id']);
-      this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']])
+      this.selectedMonths.push(this.listOfMonths[0]);
+      this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']]);
+      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
     })
 
   }
@@ -152,7 +156,12 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.languageChoose = true;
     this.locale=this.translate.getCurrentLang();
     this.allMonths();
+    let viejo = []
+    this.oldSelectedMonths.forEach(e=>{
+      viejo.push(e)
+    });
     this.comboMonthInput.data = this.listOfMonths;
+    this.comboMonthInput.setSelectedItems(viejo);
     this.adaptResult(this.chartData, true);
     this.configureChart();
   }
@@ -161,9 +170,10 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama en caso de seleccionar uno o varios coworkings
    * @param selectedNames
    */
-  onCoworkingChange(selectedNames: OValueChangeEvent) {
+  onCoworkingChange(selectedNames: any) {
     if (selectedNames.type === 0) {
       this.selectedCoworkings = selectedNames.newValue;
+      this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
     }
   }
 
@@ -173,14 +183,14 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   efects(){
     let elements = document.getElementsByClassName("txt-rotate");
     for (let ir = 0; ir < elements.length; ir++) {
-        let toRotate = this.points;
-        if (toRotate) {
-            let period = 1000;
-            let loopNumber = 0;
-            let txt = "";
-            let isDeleting = false;
-            this.tick(loopNumber, txt, toRotate, isDeleting, elements[ir], period);
-        }
+      let toRotate = this.points;
+      if (toRotate) {
+          let period = 1000;
+          let loopNumber = 0;
+          let txt = "";
+          let isDeleting = false;
+          this.tick(loopNumber, txt, toRotate, isDeleting, elements[ir], period);
+      }
     }
   }
 
@@ -224,18 +234,20 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * Se llama desde el onInit y en el combo de meses
    * @param selectMonths
    */
-  setMonth(selectMonths?: OValueChangeEvent) {
+  setMonth(selectMonths?: any, selectCoworkings?:any) {
+    this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
     if(!this.languageChoose){
       this.efects();
-      if((selectMonths == undefined || selectMonths.newValue == 0 || this.selectedMonths.length == 0) && (this.selectedCoworkings.length > 0)){
-        this.selectedMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        this.requestDataMonths(this.selectedMonths, this.selectedCoworkings);
-      }else if((this.selectedMonths.length > 0 || selectMonths.newValue >= 0 )  && this.selectedCoworkings.length == 0 ){
-        this.selectedMonths = selectMonths.newValue;
-        this.requestDataMonths(this.selectedMonths, this.allCowork);
-      }else if(selectMonths.type === 0 && this.selectedCoworkings.length > 0){
-        this.selectedMonths = selectMonths.newValue;
-        this.requestDataMonths(this.selectedMonths, this.selectedCoworkings);
+      if (this.comboMonthInput.getSelectedItems()[0]==0 && this.comboCoworkingInput.getSelectedItems().length > 0) {
+        this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
+        selectMonths = this.selectedMonths;
+        this.requestDataMonths(selectMonths, this.comboCoworkingInput.getSelectedItems());
+      } else if(this.comboMonthInput.getSelectedItems().length > 0 && this.comboCoworkingInput.getSelectedItems().length>0){
+          this.requestDataMonths(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+      } else {
+          this.resolveData=false
+          this.isGraph=false
+          return
       }
     }else{
       this.languageChoose = false;
@@ -266,11 +278,11 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
         .subscribe((response) => {
           this.resolveData = false;
           if (response.code == 0 && response.data[0]["data"].length > 0) {
-            this.typeData="MONTHS";
             this.languageChoose = false;
             this.isGraph = true;
             this.chartData = [];
             this.chartData = response.data[0]["data"];
+            this.numberOfMonths=[];
             this.adaptResult(this.chartData, false);
             this.showData();
           } else {
@@ -293,21 +305,28 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
  * Muestra el nombre de los meses en la leyenda
  * @param data
  */
-  adaptResult(data?: Array<any>, translation?:boolean){
-    for (let i = 0; i < data.length; i++) {
-      for (let x = 0; x < data[i].series.length; x++) {
-        if (translation) {
-          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
-          const element = this.elementRef.nativeElement;
-          let legend = element.querySelectorAll('.legend-label-text');
-          for (let i = 0; i < legend.length; i++) {
-            legend[i].innerText = data[i].series[x].name;
+  adaptResult(data?:Array<any>, translation?:boolean){
+    const element = this.elementRef.nativeElement;
+    let legend = element.querySelectorAll('.legend-label-text');
+    if (translation) {
+      legend.forEach((item, index) => {
+        legend[index].innerText = this.translate.get(this.listOfMonths[this.numberOfMonths[index]].name);
+      });
+    }else{
+      this.numberOfMonths = []
+      for (let i = 0; i < data.length; i++) {
+        for (let x = 0; x < data[i].series.length; x++) {
+          if (!this.numberOfMonths.includes(data[i].series[x].i)) {
+            this.numberOfMonths.push(data[i].series[x].i);
           }
-        }else{
-          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].name].name);
-
-        }
+          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
+          }
       }
+      this.numberOfMonths.sort(function(a, b){return a - b});
+      this.colorScheme.domain=[];
+      this.numberOfMonths.forEach((e,i)=>{
+        this.colorScheme.domain[i]=this.colors[e-1];
+      })
     }
   }
 

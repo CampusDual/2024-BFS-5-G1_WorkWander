@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="card-detalle">
   <div class="button-back">
     <o-button
@@ -53,7 +61,7 @@
         </div>
         <div class="image-container">
           <!-- Campo para mostrar la imagen de coworking -->
-          <div [ngClass]="{ hidden: !form.getFieldValue('cw_image') }">
+          <div [ngClass]="{ hidden: !hasImage }">
             <!-- Ocultaremos el div cuando no exista "cw_image" -->
             <!-- Necesitamos el o-image para que se carge la imagen en el campo cw_image del form, sino no existiría el cw_image -->
             <o-image
@@ -65,7 +73,7 @@
           </div>
           <!-- En el caso de que no exista, cargaremos la imagen por defecto y se ocultará el div anterior -->
           <img
-            *ngIf="!form.getFieldValue('cw_image')"
+            *ngIf="!hasImage"
             src="assets/images/coworking-default.jpg"
             alt="Imagen predeterminada"
           />
@@ -177,14 +185,7 @@
             </section>
           </div>
           <div class="detail-container">
-            <div
-              style="
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-              "
-            >
+            <div class="capacity-price-container">
               <o-text-input
                 #sites
                 oHidden
@@ -197,23 +198,21 @@
                 {{ form.getFieldValue("cw_capacity") }}
                 {{ "SEATS" | oTranslate }}
               </p>
-              <div class="price-container">
-                <o-text-input
-                  #dailyPrice
-                  type="text"
-                  oHidden
-                  attr="cw_daily_price"
-                  fxFlex
-                  label="DAILY_PRICE"
-                ></o-text-input>
-                <div class="price">
-                  <span
-                    [innerHTML]="
-                      formatPrice(form.getFieldValue('cw_daily_price'))
-                    "
-                  ></span>
-                  <strong>/{{ "DAILY_PRICE" | oTranslate }} </strong>
-                </div>
+              <o-text-input
+                #dailyPrice
+                type="text"
+                oHidden
+                attr="cw_daily_price"
+                fxFlex
+                label="DAILY_PRICE"
+              ></o-text-input>
+              <div class="price">
+                <span
+                  [innerHTML]="
+                    formatPrice(form.getFieldValue('cw_daily_price'))
+                  "
+                ></span>
+                <strong>/{{ "DAILY_PRICE" | oTranslate }} </strong>
               </div>
             </div>
             <div class="bloque-reserva">
@@ -246,15 +245,16 @@
                 class="reservation-button"
                 *ngIf="parsePermissions('bookingButton')"
               >
-                <o-button
+                <button
+                  mat-raised-button
                   #bookingButton
+                  [disabled]="isInvalidButton()"
                   attr="bookingButton"
-                  label="{{ 'BOOKING' | oTranslate }}"
-                  type="raised"
                   color="primary"
                   (click)="showConfirm($event)"
-                  enabled="FALSE"
-                ></o-button>
+                >
+                  {{ "BOOKING" | oTranslate }}
+                </button>
               </div>
             </div>
           </div>
@@ -325,14 +325,22 @@
                 <h3>{{ "NEAR_EVENTS" | oTranslate }}</h3>
               </ng-template>
               <ng-template let-event pTemplate="item">
-                <div class="event-item" (click)="goEvent(event.id_event)">
+                <div class="event-item" (click)="goEvent(event.id_event)" title="{{ event.name }}">
                   <div class="event-item-content">
                     <div>
                       <img
+                        *ngIf="event.image_event; else defaultImage"
                         [src]="getImageSrc(event.image_event)"
                         alt="{{ event.name }}"
                         class="event-image"
                       />
+                      <ng-template #defaultImage>
+                        <img
+                          src="assets/images/event-default.jpg"
+                          alt="Imagen"
+                          class="event-image"
+                        />
+                      </ng-template>
                     </div>
                     <div>
                       <span class="nombre-evento">{{ event.name }}</span>
@@ -395,7 +403,7 @@
       >
         <o-grid-item *ngFor="let rate of coworkingValoration.dataArray">
           <div layout-padding class="review-container">
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+            <div fxLayout="row" fxLayoutAlign="start" fxLayoutGap="20px">
               <p class="login-name">{{ rate.usr_login }}</p>
               <p-rating
                 [(ngModel)]="rate.bkr_ratio"

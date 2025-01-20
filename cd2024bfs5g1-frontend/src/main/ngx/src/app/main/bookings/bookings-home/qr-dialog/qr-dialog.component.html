@@ -1,4 +1,10 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="padding: 24px">
+<div
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  style="padding: 24px"
+  class="qr-dialog-content"
+>
+  <h2 class="dialog-title">{{ "ENTRY" | oTranslate }}</h2>
   <div class="info-message">
     {{ "QR_INFO_MESSAGE" | oTranslate }}
   </div>
@@ -9,13 +15,14 @@
     [width]="300"
     (qrCodeURL)="onChangeURL($event)"
   ></qrcode>
-
-  <a
-    *ngIf="qrCodeDownloadLink"
-    [href]="qrCodeDownloadLink"
-    [download]="'qr_booking_' + data.bk_id + '.png'"
-    class="download-link"
-  >
-    {{ "QR_DOWNLOAD" | oTranslate }}
-  </a>
+  <button mat-raised-button color="primary" class="download-button">
+    <a
+      *ngIf="qrCodeDownloadLink"
+      [href]="qrCodeDownloadLink"
+      [download]="getFileName() + '.png'"
+      class="download-link"
+    >
+      {{ "QR_DOWNLOAD" | oTranslate }}
+    </a>
+  </button>
 </div>

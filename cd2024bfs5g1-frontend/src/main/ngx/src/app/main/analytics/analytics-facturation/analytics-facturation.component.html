@@ -22,6 +22,7 @@
       (onSelectionChange)="onCoworkingChange($event)"
       selected="allCoworkNames"
       multiple-trigger-label="true"
+      required="yes"
     >
     </o-combo>
 
@@ -42,6 +43,7 @@
       [multiple]="true"
       multiple-trigger-label="true"
       fxFlex="25"
+      required="yes"
     >
     </o-combo>
     <o-integer-input
@@ -55,14 +57,16 @@
     min="1"
     step="1"
     max="9999"
+    (onValueChange)="setMonth($event)"
+    (onSelectionChange)="setMonth($event)"
     required="yes"
     data="{{ year }}"
     thousand-separator=""
   ></o-integer-input>
   </div>
   <ng-container *ngIf="resolveData; else chart">
-    <article class="noResults">
-      {{ "AWAITING_DATA" | oTranslate }}<span id="txt-rotate" class="txt-rotate" data-period="2000"></span>
+    <article id="txt-rotate" class="noResults">
+      {{ "AWAITING_DATA" | oTranslate }}<span class="txt-rotate" data-period="2000"></span>
     </article>
   </ng-container>
   <ng-template #chart>

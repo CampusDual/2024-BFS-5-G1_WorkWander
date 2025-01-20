@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <div class="card-detalle">
   <div class="button-back">
     <o-button
@@ -16,11 +24,12 @@
     show-header-navigation="no"
     ignore-default-navigation="yes"
     editable-detail="no"
-    columns="id_event;name;bookings;date_event;hour_event;location;address;description;price"
+    columns="id_event;name;image_event;bookings;date_event;hour_event;location;address;description;price"
     show-header="false"
     layout-direction="row"
     stay-in-record-after-insert="true"
     fxFlex
+    (onDataLoaded)="initializeForm()"
   >
     <div fxLayout="column" class="events-details">
       <div fxLayout="row">
@@ -29,7 +38,7 @@
       <div fxLayout="row" fxLayoutGap="16px">
         <div fxLayout="column" class="event-detail-container">
           <div class="image-container image-container-details">
-            <div [ngClass]="{ hidden: !form.getFieldValue('image_event') }">
+            <div [ngClass]="{ hidden: !hasImage }">
               <o-image
                 attr="image_event"
                 show-controls="no"
@@ -40,9 +49,8 @@
               ></o-image>
             </div>
             <img
-              *ngIf="!form.getFieldValue('image_event')"
+              *ngIf="!hasImage"
               src="assets/images/event-default.jpg"
-              alt="Imagen predeterminada"
               height="480px"
               width="450px"
             />
@@ -127,15 +135,16 @@
             class="reservation-button"
             *ngIf="parsePermissions('bookingButton')"
           >
-            <o-button
+            <button
+              mat-raised-button
               #bookingButton
+              [disabled]="isInvalidButton()"
               attr="bookingButton"
-              label="{{ 'BOOKING' | oTranslate }}"
-              type="raised"
               color="primary"
               (click)="showConfirm()"
-              style="margin-left: 100px"
-            ></o-button>
+            >
+              {{ "BOOKING" | oTranslate }}
+            </button>
           </div>
         </div>
       </div>

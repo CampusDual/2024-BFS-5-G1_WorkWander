@@ -52,7 +52,7 @@ public class BookingService implements IBookingService {
 
     @Override
     public AdvancedEntityResult datesByBookingPaginationQuery(final Map<String, Object> keyMap,
-            final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                              final List<?> attrList, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
         keyMap.put(BookingDao.BK_USR_ID, userId);
@@ -225,7 +225,7 @@ public class BookingService implements IBookingService {
             final EntityResult coworkingNameER = this.cs.coworkingNameByIdQuery(keyMap, attrList);
             final List<String> coworkingName = (List<String>) coworkingNameER.get("cw_name");
 
-            coworkingMap.put("name", coworkingName.get(0) + ". Max. " + capacidadDisponible + "p");
+            coworkingMap.put("name", coworkingName.get(0) + " (max " + capacidadDisponible + "p.)");
             coworkingMap.put("series", listaFechas);
             listaCoworkings.add(coworkingMap);
         }
@@ -259,5 +259,4 @@ public class BookingService implements IBookingService {
         }
         return dates;
     }
-
 }

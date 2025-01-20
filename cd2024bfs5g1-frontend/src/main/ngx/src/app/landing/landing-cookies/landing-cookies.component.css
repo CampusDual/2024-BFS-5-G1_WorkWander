@@ -1,0 +1,12 @@
+.video-container {
+    width: 100%;
+  }
+  
+  .text-container {
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .text-container h1 {
+    font-size: 2em;
+  }

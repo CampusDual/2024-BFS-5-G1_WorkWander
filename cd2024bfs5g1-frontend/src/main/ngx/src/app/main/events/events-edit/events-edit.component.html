@@ -1,0 +1,161 @@
+<o-form
+  #form
+  attr="eventEdit"
+  service="events"
+  entity="event"
+  keys="id_event"
+  header-actions="R;U"
+  show-header="no"
+  show-header-navigation="no"
+  class="form-section"
+  ignore-default-navigation="yes"
+  fxFlex
+  columns="id_event;name;description;date_event;hour_event;address;duration;image_event;price;reserved"
+  visible-columns="name;description;date_event;hour_event;address;duration;image_event;price"
+  (onInsert)="onInsertSuccess(); $event.stopPropagation()"
+>
+  <div
+    class="form-section form-new-event no-margin-top edit-event"
+    fxLayout="row"
+    fxLayoutGap="24px"
+    fxLayoutAlign="left start"
+  >
+    <o-integer-input oHidden attr="id_event"></o-integer-input>
+    <!-- Información General -->
+    <o-column
+      fxFlex
+      class="form-section form-new-event form-edit-modal"
+      title="EDIT_EVENT"
+      fxLayoutGap="24px"
+    >
+      <!-- Nombre -->
+      <o-text-input
+        #nameInput
+        attr="name"
+        icon="business"
+        required="yes"
+      ></o-text-input>
+      <o-textarea-input
+        fxFlex
+        attr="description"
+        fxFlex
+        label="DESCRIPTION"
+        required="yes"
+        icon="description"
+        max-length="250"
+        icon="description"
+      ></o-textarea-input>
+      <!-- Fecha -->
+      <o-date-input
+        #dateInput
+        attr="date_event"
+        [min]="currentDate()"
+        value-type="date"
+        icon="event"
+        required="yes"
+        class="inline edit"
+      ></o-date-input>
+      <!-- Hora -->
+      <o-hour-input
+        attr="hour_event"
+        icon="schedule"
+        required="yes"
+        class="inline"
+      ></o-hour-input>
+      <!-- Duración -->
+      <o-integer-input
+        attr="duration"
+        icon="hourglass_empty"
+        min="0"
+        step="1"
+        max="999"
+        class="inline edit"
+      ></o-integer-input>
+      <!-- Plazas -->
+      <o-integer-input
+        attr="bookings"
+        min="0"
+        step="1"
+        icon="event_seat"
+        thousand-separator="."
+        required="yes"
+        class="inline edit"
+      ></o-integer-input>
+      <!-- Precio -->
+      <o-real-input
+        attr="price"
+        required="no"
+        min="0"
+        max="1000"
+        placeholder="0"
+        decimal-digits="2"
+        class="inline edit"
+      ></o-real-input>
+      <!-- Localidad -->
+      <o-combo
+        #combo
+        attr="locality"
+        service="cities"
+        entity="city"
+        keys="id_city"
+        value-column="id_city"
+        columns="id_city;city"
+        visible-columns="city"
+        null-selection="no"
+        required="yes"
+        label="LOCALITY"
+        translate="yes"
+        searchable="true"
+        sort="ASC"
+        appearance="fill"
+        class="halfSize edit"
+      >
+      </o-combo>
+      <!-- Dirección -->
+      <o-text-input
+        attr="address"
+        icon="place"
+        required="yes"
+        class="halfSize edit"
+      ></o-text-input>
+      <o-integer-input oHidden #reserved attr="reserved"></o-integer-input>
+      <div>
+        <strong>
+          <span>{{ "USED_BOOKINGS" | oTranslate }}: </span>
+          {{ form.getFieldValue("reserved") }}
+        </strong>
+      </div>
+    </o-column>
+    <o-column
+      fxFlex
+      class="form-section form-new-event"
+      title=""
+      fxLayoutGap="24px"
+      style="padding: 0 15px"
+      fxLayoutAlign="space-between center"
+      class="image"
+    >
+      <!-- Imagen -->
+      <o-image
+        attr="image_event"
+        sql-type="OTHER"
+        max-file-size="1048576"
+        height="250px"
+        style="padding-top: 20px"
+      ></o-image>
+      <div fxLayout="row" fxLayoutGap="24px" class="form-row" fxFlex>
+        <div class="buttons" style="justify-content: end">
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="isInvalidForm()"
+            attr="save"
+            (click)="save()"
+          >
+            {{ "save" | oTranslate }}
+          </button>
+        </div>
+      </div>
+    </o-column>
+  </div>
+</o-form>

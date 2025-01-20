@@ -39,6 +39,7 @@ export const MENU_CONFIG: MenuRootItem[] = [
     items: [
       { id: "occupation", name: "OCCUPATION", route: "/main/analytics/occupation", icon: "show_chart" },
       { id: "analyticsFacturation", name: "FACTURATION", route: "/main/analytics/facturation", icon: "savings" },
+      { id: "events", name: "EVENTS_INFLUENCE", route: "/main/analytics/events", icon: "calendar_month" },
     ],
   },
   { id: 'logout', name: 'LOGOUT', route: '/login', icon: 'power_settings_new', confirm: 'yes' },

@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { OntimizeWebModule } from 'ontimize-web-ngx';
+import { NgModule } from "@angular/core";
+import { MatIconModule } from "@angular/material/icon";
+import { OntimizeWebModule } from "ontimize-web-ngx";
 
-import { SharedModule } from '../shared/shared.module';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
+import { SharedModule } from "../shared/shared.module";
+import { LoginRoutingModule } from "./login-routing.module";
+import { LoginComponent } from "./login.component";
 
 @NgModule({
   imports: [
     SharedModule,
     OntimizeWebModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    MatIconModule, // Añadir si no está incluido en SharedModule
   ],
-  declarations: [
-    LoginComponent
-  ]
+  declarations: [LoginComponent],
 })
-export class LoginModule { }
+export class LoginModule {}

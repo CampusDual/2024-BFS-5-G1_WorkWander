@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardService, PermissionsGuardService } from "ontimize-web-ngx";
 
+import { CoworkingsDetailComponent } from "./coworkings/coworkings-detail/coworkings-detail.component";
 import { MainComponent } from "./main.component";
 import { ProfileComponent } from "./profile/profile.component";
 
@@ -57,10 +58,14 @@ export const routes: Routes = [
         loadChildren: () =>
           import("./bookings/bookings.module").then((m) => m.BookingsModule),
       },
-    { path: "analytics", loadChildren: () => import("./analytics/analytics.module").then((m) => m.AnalyticsModule), }
-
+      {
+        path: "analytics",
+        loadChildren: () =>
+          import("./analytics/analytics.module").then((m) => m.AnalyticsModule),
+      },
     ],
   },
+  { path: 'coworkings/:cw_id', component: CoworkingsDetailComponent },
 ];
 
 @NgModule({

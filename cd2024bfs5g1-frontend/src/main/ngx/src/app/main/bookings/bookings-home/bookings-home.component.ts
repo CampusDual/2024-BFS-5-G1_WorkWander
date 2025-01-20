@@ -9,6 +9,7 @@ import {
   OTranslateService,
   SnackBarService,
 } from "ontimize-web-ngx";
+import * as L from "leaflet";
 import { UtilsService } from "src/app/shared/services/utils.service";
 import { BookingRateComponent } from "../booking-rate/booking-rate.component";
 import { OMapComponent } from "ontimize-web-ngx-map";
@@ -39,6 +40,10 @@ export class BookingsHomeComponent {
     private snackBarService: SnackBarService,
     protected dialog: MatDialog
   ) { }
+
+  ngOnInit() {
+    setTimeout(() => { this.deleteLoader() }, 250);
+  }
 
   toCoworkingDetail(event) {
     console.log(event);
@@ -124,66 +129,76 @@ export class BookingsHomeComponent {
     }
   }
 
-  inicializarMapa(lat, lon, name): void {
-    // this.leafletMap = this.coworking_map.getMapService().getMap();
-    let mapLat = lat;
-    let mapLon = lon;
-
-    if (mapLat && mapLon) {
-      this.updateMapAndMarker(`${lat};${lon}`, 6, name);
-      return;
-    }
-  }
 
   protected updateMapAndMarker(
-    coordinates: string,
-    zoom: number,
-    markerLabel: string | null
+    lat: number,
+    lon: number,
+    id: number,
+    markerLabel: string | null,
+    zoom: number
   ) {
-    const [lat, lon] = coordinates.split(";").map(Number);
-    this.leafletMap.setView([+lat, +lon], zoom);
-    if (markerLabel) {
-      this.coworking_map.addMarker(
-        markerLabel, // id
-        lat, // latitude
-        lon, // longitude
-        {}, // options
-        markerLabel, // popup
-        false, // hidden
-        true, // showInMenu
-        markerLabel // menuLabel
-      );
-    }
+
+    this.leafletMap = this.coworking_map.getMapService().getMap();
+
+    this.leafletMap.setView([lat, lon], zoom);
+
+    const marker = L.marker([lat, lon], {
+      draggable: false, // El marcador no se puede arrastrar
+    })
+
+    // Añadir tooltip para mostrar información al pasar el ratón
+    marker.bindTooltip(markerLabel, {
+      permanent: false, // Muestra solo al pasar el ratón
+      direction: "top", // Ubica el tooltip encima del marcador
+    });
+    // Añadir evento click para redirección
+    marker.on('click', () => {
+      this.router.navigate(['/coworkings', id], {
+        queryParams: { isdetail: true }
+      });
+    });
+
+    // Añadir marcador al mapa
+    marker.addTo(this.leafletMap);
   }
 
   async acercar(data) {
+    this.coworking_map.getMapService().setZoom(16);
+
+    await this.delay(300);
     this.coworking_map
       .getMapService()
       .setCenter(data["cw_lat"], data["cw_lon"]);
-    await this.delay(300);
-    this.coworking_map.getMapService().setZoom(16);
   }
 
   async delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
+
   showHideMap() {
     this.mapVisible = !this.mapVisible;
 
     if (!this.mapVisible) {
       this.dates = [];
+      return;
     }
 
     const filter = {
       bk_state: true,
     };
-    const columns = ["cw_name", "cw_lat", "cw_lon", "bk_state", "dates"];
+    const columns = [
+      "cw_id",
+      "cw_name",
+      "cw_lat",
+      "cw_lon",
+      "bk_state",
+      "dates",
+    ];
 
     const conf = this.service.getDefaultServiceConfiguration("bookings");
     this.service.configureService(conf);
 
     this.service.query(filter, columns, "datesByBooking").subscribe((resp) => {
-      this.leafletMap = this.coworking_map.getMapService().getMap();
 
       for (let index = 0; index < resp.data.length; index++) {
         if (
@@ -192,14 +207,22 @@ export class BookingsHomeComponent {
         ) {
           this.dates.unshift(resp.data[index]);
 
-          this.inicializarMapa(
+          this.updateMapAndMarker(
             resp.data[index]["cw_lat"],
             resp.data[index]["cw_lon"],
-            resp.data[index]["cw_name"]
+            resp.data[index]["cw_id"],
+            resp.data[index]["cw_name"],
+            6
           );
         }
       }
-      // this.dates.reverse();
     });
+  }
+
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
   }
 }

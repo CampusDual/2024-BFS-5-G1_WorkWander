@@ -11,13 +11,12 @@ public interface IBookingService {
     public EntityResult bookingQuery(Map<String, Object> keyMap, List<String> attrList);
 
 
-
     EntityResult coworkingsWithBookingsQuery(Map<String, Object> keyMap, List<String> attrList);
 
     EntityResult totalBookingsByDateQuery(Map<String, Object> keyMap, List<String> attrList);
 
     AdvancedEntityResult datesByBookingPaginationQuery(Map<String, Object> keyMap, List<?> attrList,
-            int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException;
+                                                       int recordNumber, int startIndex, List<?> orderBy) throws OntimizeJEERuntimeException;
 
     public EntityResult myBookingQuery(Map<String, Object> keyMap, List<String> attrList);
 

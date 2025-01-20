@@ -42,7 +42,6 @@ export class MyCalendarHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageChange();
-    this.configureService();
     this.viewMonth();
   }
 
@@ -212,6 +211,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewDay(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Day";
     this.configDay.visible = true;
     this.configWeek.visible = false;
@@ -220,6 +220,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewWeek(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Week";
     this.configDay.visible = false;
     this.configWeek.visible = true;
@@ -228,6 +229,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewMonth(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Month";
     this.configDay.visible = false;
     this.configWeek.visible = false;

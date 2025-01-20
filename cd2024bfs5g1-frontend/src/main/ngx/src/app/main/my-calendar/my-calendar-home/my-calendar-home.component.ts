@@ -71,6 +71,7 @@ export class MyCalendarHomeComponent implements OnInit {
         args.cell.properties.backColor = "#f3f3cc"
       }
     },
+    eventClickHandling: "Disabled"
   };
 
   configWeek: DayPilot.CalendarConfig = {
@@ -78,7 +79,8 @@ export class MyCalendarHomeComponent implements OnInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
-    viewType: "Week"
+    viewType: "Week",
+    eventClickHandling: "Disabled"
   };
 
   configDay: DayPilot.CalendarConfig = {
@@ -86,7 +88,8 @@ export class MyCalendarHomeComponent implements OnInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
-    viewType: "Day"
+    viewType: "Day",
+    eventClickHandling: "Disabled"
   };
 
   configNavigator: DayPilot.NavigatorConfig = {

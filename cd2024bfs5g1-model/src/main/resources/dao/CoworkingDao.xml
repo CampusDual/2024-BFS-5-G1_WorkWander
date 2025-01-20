@@ -64,7 +64,7 @@
                         public.coworking.cw_image as cw_image,
                         public.coworking.cw_lat as cw_lat,
                         public.coworking.cw_lon as cw_lon,
-                        public.coworking.cw_image_resized as cw_image_resized
+                        public.coworking.cw_image_resized as cw_image_resized,
                         public.coworking.cw_start_date as cw_start_date
                     FROM coworking
                     LEFT JOIN city on city.id_city = coworking.cw_location

@@ -96,9 +96,9 @@ export class AnalyticsEventsComponent implements OnInit {
       }
       //Se adiciona el tooltip del porcentaje de ocupacion
       args.cell.properties.html =
-      `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+      `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;"
       title="Sin reservas">
-      </div>`; 
+      </div>`;
       let color = "rgba(226, 28, 0, 0.7)";
       // Normalizar la fecha de la celda eliminando la hora
       const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
@@ -110,14 +110,14 @@ export class AnalyticsEventsComponent implements OnInit {
             (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
           color = this.getColorForPercentage(percentage);
           args.cell.properties.html =
-          `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+          `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;"
            title="Ocupación: ${percentage.toFixed(2)}%">
-          </div>`;      
+          </div>`;
         }
       }
       //Se adiciona el color de la celda según el porcentaje de ocupacion
       args.cell.properties.backColor = color;
-      
+
     },
   };
   /**
@@ -162,7 +162,7 @@ export class AnalyticsEventsComponent implements OnInit {
     const conf = this.service.getDefaultServiceConfiguration(serviceName);
     this.service.configureService(conf);
   }
-  
+
   /**
    * @notices Obtiene los eventos en la misma localidad de un coworking
    */
@@ -191,7 +191,7 @@ export class AnalyticsEventsComponent implements OnInit {
             };
             this.events.push(object);
           }
-        } 
+        }
       });
   }
 

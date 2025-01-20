@@ -162,17 +162,14 @@ export class CoworkingsNewComponent implements OnInit {
     const address = this.address.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
-    console.log(cityName, address);
     if (!cityName || !address) {
       this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
 
     const addressComplete = address ? `${address}, ${cityName}` : `${cityName}, ${cityName}`;
-    console.log(addressComplete);
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
-        console.log(results + "esto ");
         let [lat, lon] = results.split(';')
         this.mapLat = lat;
         this.mapLon = lon;
@@ -232,17 +229,14 @@ export class CoworkingsNewComponent implements OnInit {
 
   //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
   private async getCoordinatesForCity(location: string): Promise<string | null> {
-    console.log(location);
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
-      console.log(response);
 
       if (response?.length > 0) {
         const { lat, lon } = response[response.length - 1];
         this.mapLat = lat;
         this.mapLon = lon;
-        console.log(`${lat};${lon}`);
         return `${lat};${lon}`;
       }
     } catch (error) {

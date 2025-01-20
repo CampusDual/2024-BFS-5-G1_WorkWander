@@ -19,5 +19,7 @@ public interface IEventService {
 
     public EntityResult myEventsCalendarQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 
-    EntityResult myEventUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
+    public EntityResult myEventUpdate(Map<String, Object> attrMap, Map<String, Object> keyMap);
+
+    public EntityResult eventsNearCoworkingQuery(Map<String, Object> keyMap, List<String> attrList) throws OntimizeJEERuntimeException;
 }

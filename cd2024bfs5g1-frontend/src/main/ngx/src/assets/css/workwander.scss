@@ -78,6 +78,7 @@ ngx-material-timepicker-container
   font-size: $fontSize20;
   font-weight: $fontBold;
 }
+
 /*   Video home page  */
 #background-video {
   width: 100vw;
@@ -111,6 +112,7 @@ ngx-material-timepicker-container
     }
   }
 }
+
 /*  Barra de navegación lateral  */
 .navMenu {
   background-color: $primary;
@@ -866,7 +868,6 @@ o-column {
     max-width: 35%;
   }
 }
-
 .lblSeatsText {
   font-size: $fontSize18;
   font-weight: $fontSemiBold;
@@ -1291,7 +1292,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
-  p-rating {
+  p-rating{
     color: $amarillo;
     margin: -3px 0px 7px 0px;
   }
@@ -1799,7 +1800,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     .price-container {
       min-width: 70px;
     }
-
     .material-icons {
       font-size: $fontSize14;
     }
@@ -1911,6 +1911,13 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 
 .button-c:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selector-container {
+  .selector {
+    width: 30%;
+    margin-bottom: 15px;
+  }
 }
 
 .price_range {

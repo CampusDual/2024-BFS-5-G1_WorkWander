@@ -19,8 +19,8 @@ import { UtilsService } from "src/app/shared/services/utils.service";
 export class MyCalendarHomeComponent implements OnInit {
   @ViewChild("month") month!: DayPilotMonthComponent;
   @ViewChild("navigator") navigator!: DayPilotNavigatorComponent;
-  @ViewChild("month") day!: DayPilotMonthComponent;
-  @ViewChild("month") week!: DayPilotMonthComponent;
+  @ViewChild("day") day!: DayPilotMonthComponent;
+  @ViewChild("week") week!: DayPilotMonthComponent;
   events: DayPilot.EventData[] = [];
 
   service: OntimizeService;

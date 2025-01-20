@@ -17,6 +17,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 /**
@@ -80,6 +87,14 @@ public class CoworkingService implements ICoworkingService {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_resized_image", cwResizedImage);
+
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
 
@@ -107,6 +122,14 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingUpdate(final Map<String, Object> attrMap, final Map<String, Object> keyMap) {
         // Recuperación de los servicios
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
+
+        String cwResizedImage = null;
+        try {
+            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        attrMap.put("cw_image_resized", cwResizedImage);
         // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
         // Borrado de los servicios
@@ -145,6 +168,24 @@ public class CoworkingService implements ICoworkingService {
             noResult.setMessage("NO_DELETE");
             return noResult;
         }
+    }
+
+    static String resizeImage(final String base64Image) throws IOException {
+        BufferedImage image = null;
+        try {
+            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
+        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(outputImage, "png", baos);
+        final byte[] imageBytes = baos.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
     }
 
     /**

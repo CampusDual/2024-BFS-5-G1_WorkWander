@@ -90,21 +90,21 @@ export class LandingComponent {
         "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80",
       title: "Workshop: Emprendimiento Digital",
       location: "Barcelona Innovation Center",
-      date: "25/02/2025",
+      date: "27/02/2025",
     },
     {
       image:
         "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80",
       title: "Startup Weekend",
       location: "Valencia Coworking Space",
-      date: "25/02/2025",
+      date: "01/03/2025",
     },
     {
       image:
         "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Tech Meetup",
       location: "Sevilla Digital Hub",
-      date: "25/02/2025",
+      date: "05/03/2025",
     },
     {
       image: "https://images.unsplash.com/photo-1553390774-b4822481c894?q=80&w=1944&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -115,44 +115,44 @@ export class LandingComponent {
     {
       image: "https://images.unsplash.com/photo-1555077292-22a4489e5897?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Taller de Marketing Digital",
-      location: "Online 🌎",
-      date: "09/02/2025",
+      location: "A Coruña",
+      date: "09/03/2025",
     },
     {
       image: "https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Taller de IA",
-      location: "Online 🌎",
-      date: "09/02/2025",
+      location: "Ourense",
+      date: "09/03/2025",
     },
     {
       image: "https://plus.unsplash.com/premium_photo-1677269465314-d5d2247a0b0c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8aWF8ZW58MHx8MHx8fDA%3D",
       title: "Obradoiro de Marketing Digital",
-      location: "Presencial 🌎",
-      date: "09/02/2025",
+      location: "Lugo",
+      date: "15/03/2025",
     },
     {
       image: "https://plus.unsplash.com/premium_photo-1661963183692-e9a7afee10e0?q=80&w=2673&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Paintball on time",
-      location: "Presencial 🌎",
-      date: "09/02/2025",
+      location: "Vigo",
+      date: "18/03/2025",
     },
     {
       image: "https://images.unsplash.com/photo-1601830976337-e32f60eba315?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "The witch blair project",
-      location: "Presencial 🌎",
-      date: "09/02/2025",
+      location: "Santiago de Compostela",
+      date: "19/03/2025",
     },
     {
       image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Movie session",
-      location: "Presencial 🌎",
-      date: "19/02/2025",
+      location: "En línea",
+      date: "25/03/2025",
     },
     {
       image: "https://images.unsplash.com/photo-1486572788966-cfd3df1f5b42?q=80&w=2672&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       title: "Gaming session",
       location: "Online 🌎",
-      date: "10/02/2025",
+      date: "30/03/2025",
     }
   ];
 

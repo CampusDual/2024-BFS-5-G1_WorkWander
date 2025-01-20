@@ -1,7 +1,7 @@
 @use "sass:map";
 @import "src/assets/css/custom_color.scss";
 @import "./custom_font.scss";
-//@import "src/assets/css/workwander.scss";
+
 
 /* =========================
    MAIN CONTAINER
@@ -38,7 +38,7 @@
       filter: brightness(0) invert(1);
     }
   }
-  
+
   .o-language-selector{
     position: absolute;
     top: 2.5rem;
@@ -48,7 +48,7 @@
     border-radius: 25px;
     padding-right: 6px;
   }
-  
+
   .login-button {
     position: absolute;
     top: 2rem;
@@ -451,7 +451,7 @@
    ========================= */
 
 .events-section {
-  
+
   gap: 2rem;
   padding: 2rem 50px;
   align-items: flex-start;
@@ -459,7 +459,7 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  
+
 
   .spaces-container {
     flex: 1;
@@ -619,7 +619,7 @@
   background-position: center;
   background-attachment: fixed;
   justify-content: center;
-  
+
 
   .business-container {
     img {
@@ -633,7 +633,7 @@
     background: $primary;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
     .content {
       text-align: center;
       align-items: center;

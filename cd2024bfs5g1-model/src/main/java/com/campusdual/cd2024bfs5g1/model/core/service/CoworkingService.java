@@ -10,12 +10,10 @@ import com.ontimize.jee.common.db.SQLStatementBuilder;
 import com.ontimize.jee.common.dto.EntityResult;
 import com.ontimize.jee.common.dto.EntityResultMapImpl;
 import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
-import com.ontimize.jee.common.security.PermissionsProviderSecured;
 import com.ontimize.jee.common.services.user.UserInformation;
 import com.ontimize.jee.server.dao.DefaultOntimizeDaoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -206,7 +204,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -288,22 +286,6 @@ public class CoworkingService implements ICoworkingService {
     public EntityResult coworkingNearbyQuery(final Map<String, Object> keyMap, final List<String> attrList) {
         return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.COWORKINGS_NEARBY);
     }
-    @Override
-    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        keyMap.put(CoworkingDao.CW_USER_ID, userId);
-        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_DAY_QUERY);
-    }
-
-    @Override
-    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
-        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
-        keyMap.put(CoworkingDao.CW_USER_ID, userId);
-        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_MONTH_QUERY);
-    }
-}
 
     /**
      * Obtiene la info para generar el gráfico de facturación
@@ -345,7 +327,7 @@ public class CoworkingService implements ICoworkingService {
      * @return coworkingMap
      */
     public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
-            final ArrayList<Integer> months) {
+                                             final ArrayList<Integer> months) {
         final Map<String, Object> coworkingMap = new LinkedHashMap<>();
         List<String> coworkingName = new ArrayList<>();
         final List<Map> monthsList = new ArrayList<>();
@@ -377,5 +359,20 @@ public class CoworkingService implements ICoworkingService {
         } else {
             return null;
         }
+    }
+    @Override
+    public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_DAY_QUERY);
+    }
+
+    @Override
+    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
+        keyMap.put(CoworkingDao.CW_USER_ID, userId);
+        return this.daoHelper.query(this.coworkingDao, keyMap, attrList, this.coworkingDao.BOOKINGS_BY_MONTH_QUERY);
     }
 }

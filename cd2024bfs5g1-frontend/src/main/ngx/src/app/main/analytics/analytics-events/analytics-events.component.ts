@@ -312,7 +312,6 @@ export class AnalyticsEventsComponent implements OnInit {
     getOccupationByMonth(): Promise<DateData[]> {
       this.bookingsDataArray = [];
       return new Promise((resolve, reject) => {
-      let occupationByDate: DateData[] = [];
       const year = this.date.getYear();
       const month = this.date.getMonth();
       // Obtener el primer día del mes

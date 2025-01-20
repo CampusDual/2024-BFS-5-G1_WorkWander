@@ -248,6 +248,7 @@
   "EVENT_CREATE": "¡Evento creado!",
   "SEARCH": "Buscar ubicación",
   "INVALID_LOCATION_CONFIRM": "¿Guardar dirección no localizada?",
+  "INVALID_LOCATION_ADDRESS": "Dirección no encontrada, se guardará la localidad",
   "CONFIRM2": "Confirmar dirección",
   "CANCELLED": "Cancelada",
   "FINISHED": "Finalizada",
@@ -296,7 +297,7 @@
   "NO_REVIEWS": "No hay reseñas, sé el primero en escribir una",
   "SEARCH_FILTERS": "Buscar",
   "CLEAR_FILTERS": "Limpiar",
-  "RATING_FILTER":"Búsqueda por valoración mínima",
+  "RATING_FILTER": "Búsqueda por valoración mínima",
   "BOOKING_FINISHED": "Reservas en coworking finalizada",
   "BOOKING_PENDING": "Reservas en coworking pendiente",
   "BOOKING_INPROGRESS": "Reservas en coworking en proceso",
@@ -332,5 +333,4 @@
   "LEGAL_POLICY": "Aviso Legal",
   "PRIVACY_POLICY": "Política de privacidad",
   "TERMS_OF_USE": "Cookies"
-
 }

@@ -42,7 +42,6 @@ export class MyCalendarHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageChange();
-    this.configureService();
     this.viewMonth();
   }
 
@@ -72,6 +71,7 @@ export class MyCalendarHomeComponent implements OnInit {
         args.cell.properties.backColor = "#f3f3cc"
       }
     },
+    eventClickHandling: "Disabled"
   };
 
   configWeek: DayPilot.CalendarConfig = {
@@ -79,7 +79,8 @@ export class MyCalendarHomeComponent implements OnInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
-    viewType: "Week"
+    viewType: "Week",
+    eventClickHandling: "Disabled"
   };
 
   configDay: DayPilot.CalendarConfig = {
@@ -87,7 +88,8 @@ export class MyCalendarHomeComponent implements OnInit {
     eventMoveHandling: "Disabled",
     eventResizeHandling: "Disabled",
     startDate: DayPilot.Date.today(),
-    viewType: "Day"
+    viewType: "Day",
+    eventClickHandling: "Disabled"
   };
 
   configNavigator: DayPilot.NavigatorConfig = {
@@ -212,6 +214,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewDay(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Day";
     this.configDay.visible = true;
     this.configWeek.visible = false;
@@ -220,6 +223,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewWeek(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Week";
     this.configDay.visible = false;
     this.configWeek.visible = true;
@@ -228,6 +232,7 @@ export class MyCalendarHomeComponent implements OnInit {
   }
 
   viewMonth(): void {
+    this.configureService();
     this.configNavigator.selectMode = "Month";
     this.configDay.visible = false;
     this.configWeek.visible = false;

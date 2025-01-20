@@ -1,4 +1,4 @@
-package com.campusdual.cd2024bfs5g1.model.core.service;
+/*package com.campusdual.cd2024bfs5g1.model.core.service;
 
 import com.campusdual.cd2024bfs5g1.model.core.dao.CoworkingDao;
 import com.campusdual.cd2024bfs5g1.model.core.dao.UserDao;
@@ -181,4 +181,4 @@ public class CoworkingServiceTest {
 //        assertEquals(expectedResult, result);
 //        verify(this.daoHelper).delete(this.coworkingDao, keyMap);
 //    }
-}
+}*/

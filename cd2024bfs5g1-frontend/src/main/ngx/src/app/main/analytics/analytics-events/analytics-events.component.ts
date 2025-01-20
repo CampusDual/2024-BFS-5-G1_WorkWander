@@ -103,7 +103,8 @@ export class AnalyticsEventsComponent implements OnInit {
       // Normalizar la fecha de la celda eliminando la hora
       const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
       if (this.bookingsDataArray && this.bookingsDataArray.length > 0) {
-        const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
+        // const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
+        const cellData = this.bookingsDataArray.find((item) => new Date(item.date).setHours(0, 0, 0, 0) === cellDate);
         //Color de la celda por defecto si no hay ocupacion
         console.log("CELLDATA-OUT", cellData);
         if (cellData) {

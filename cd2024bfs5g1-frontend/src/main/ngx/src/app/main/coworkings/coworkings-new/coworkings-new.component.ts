@@ -162,15 +162,17 @@ export class CoworkingsNewComponent implements OnInit {
     const address = this.address.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
     const cityName = cityObject ? cityObject.city : null;
-
+    console.log(cityName, address);
     if (!cityName || !address) {
       this.snackBar(this.translate.get("INVALID_LOCATION"));
       return;
     }
 
-    const addressComplete = address ? `${address}, ${cityName}` : cityName;
+    const addressComplete = address ? `${address}, ${cityName}` : `${cityName}, ${cityName}`;
+    console.log(addressComplete);
     this.getCoordinatesForCity(addressComplete).then((results) => {
       if (results) {
+        console.log(results + "esto ");
         let [lat, lon] = results.split(';')
         this.mapLat = lat;
         this.mapLon = lon;
@@ -194,20 +196,48 @@ export class CoworkingsNewComponent implements OnInit {
           true,                      // showInMenu
           this.translate.get("COWORKING_MARKER")   // menuLabel
         );
+
       } else {
-        //Si se ingresa una direccion que la api no reconoce -> Reseteo de la vista a Madrid y zoom 6
-        this.snackBar(this.translate.get("ADDRESS_NOT_FOUND"));
-        this.leafletMap.setView([40.416775, -3.703790], 6);
-      }
+        this.snackBar(this.translate.get("INVALID_LOCATION_ADDRESS"));
+        this.getCoordinatesForCity(cityName).then((results) => {
+          let [lat, lon] = results.split(';')
+          this.mapLat = lat;
+          this.mapLon = lon;
+          if (this.coworking_map && this.coworking_map.getMapService()) {
+            if (this.leafletMap) {
+              this.leafletMap.setView([+lat, +lon], 16);
+            } else {
+              console.error('El mapa no está inicializado.');
+            }
+          } else {
+            console.error('El servicio del mapa no está disponible.');
+          }
+          this.validAddress = true;
+          this.coworking_map.addMarker(
+            'coworking_marker',           // id
+            lat,                 // latitude
+            lon,                 // longitude
+            { draggable: true },       // options
+            this.translate.get("COWORKING_MARKER"),     // popup
+            false,                     // hidden
+            true,                      // showInMenu
+            this.translate.get("COWORKING_MARKER")   // menuLabel
+          );
+        })
+      };
     });
   }
 
+
+
   //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
   private async getCoordinatesForCity(location: string): Promise<string | null> {
+    console.log(location);
     try {
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
       const response = await this.http.get<any>(url).toPromise();
       console.log(response);
+
       if (response?.length > 0) {
         const { lat, lon } = response[response.length - 1];
         this.mapLat = lat;

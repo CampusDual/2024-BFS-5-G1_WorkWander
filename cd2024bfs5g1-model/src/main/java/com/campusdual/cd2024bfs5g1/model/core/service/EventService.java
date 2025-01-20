@@ -132,5 +132,11 @@ public class EventService implements IEventService {
 
         return this.daoHelper.update(this.eventDao, attrMap, keyMap);
     }
+
+    @Override
+    public EntityResult eventsNearCoworkingQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
+        final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return this.daoHelper.query(this.eventDao, keyMap, attrList, this.eventDao.EVENTSNEARCOWORKING_QUERY);
+    }
 }
 

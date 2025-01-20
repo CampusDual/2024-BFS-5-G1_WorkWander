@@ -2,6 +2,7 @@ package com.campusdual.cd2024bfs5g1.api.core.service;
 
 import com.ontimize.jee.common.db.AdvancedEntityResult;
 import com.ontimize.jee.common.dto.EntityResult;
+import com.ontimize.jee.common.exceptions.OntimizeJEERuntimeException;
 
 import java.util.List;
 import java.util.Map;
@@ -31,4 +32,8 @@ public interface ICoworkingService {
     public EntityResult coworkingFacturationChartQuery(final Map<String, Object> keyMap, final List<String> attrList);
 
     public EntityResult coworkingNearbyQuery(Map<String, Object> keyMap, List<String> attrList);
+
+    public EntityResult bookingsByDayQuery(Map<String, Object> keyMap, List<String> attrList);
+
+    public EntityResult bookingsByMonthQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException;
 }

@@ -1,3 +1,4 @@
+import { Moment } from 'moment';
 import { Component, ViewEncapsulation, ViewChild, OnInit } from "@angular/core";
 import {
   OComboComponent,
@@ -8,6 +9,8 @@ import {
   OTranslateService,
   ODateRangeInputComponent,
 } from "ontimize-web-ngx";
+import { UtilsService } from "src/app/shared/services/utils.service";
+import moment from 'moment';
 
 @Component({
   selector: "app-analytics-occupation",
@@ -22,6 +25,8 @@ export class AnalyticsOccupationComponent implements OnInit {
   isGraph: boolean = false;
   maxSelection = 3;
   chartParameters: any;
+  initDates = {}
+  moment:Moment;
   colorScheme = {
     domain: [
     "#5D8736",
@@ -38,19 +43,29 @@ export class AnalyticsOccupationComponent implements OnInit {
   constructor(
     private service: OntimizeService,
     private snackBarService: SnackBarService,
-    private translate: OTranslateService
+    private translate: OTranslateService,
+    protected utils: UtilsService,
   ) {}
 
   ngOnInit(): void {
     this.comboCoworkingInput.onDataLoaded.subscribe(() => {
-      const data = this.comboCoworkingInput.getDataArray()
-      this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']])
-    })
-    console.log(this.bookingDate)
+      const data = this.comboCoworkingInput.getDataArray();
+      this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']]);
+    });
+    let date = new Date();
+    let d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    let c = new Date();
+    c.setDate(d.getDate() - 7);
+    let init = d.getFullYear()+"-"+d.getMonth()+1+"-"+c.getDate()+'T00:00Z';
+    let end = d.getFullYear()+"-"+d.getMonth()+1+"-"+d.getDate()+'T00:00Z';
+    this.initDates = {
+      startDate: moment(init),
+      endDate: moment(end)
     }
+  }
 
-  selectFirstCoworking(event:any){
-    console.log(event);
+  dateInitEnd(){
+    return this.initDates;
   }
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {

@@ -1,4 +1,4 @@
-<o-form show-header="false" class="chart-container" (onDataLoaded)="selectFirstCoworking($event)">
+<o-form show-header="false" class="chart-container">
   <!-- Añadir el título aquí -->
   <div class="title">
     <h1>{{ "OCCUPANCY_PERCENTAGE_TITLE" | oTranslate }}</h1>
@@ -38,7 +38,11 @@
       read-only="no"
       required="no"
       (onValueChange)="setDates()"
+      startKey="startDate"
+      endKey="endDate"
       value-type="date"
+      [data]="dateInitEnd()"
+      required="yes"
     ></o-daterange-input>
   </div>
 

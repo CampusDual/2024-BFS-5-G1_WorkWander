@@ -208,7 +208,7 @@
   "DAY": "Día",
   "WEEK": "Semana",
   "MONTH": "Mes",
-  "EVENT_DISPONIBILITY_GT_90": "Parece que este evento genera interés",
+  "EVENT_DISPONIBILITY_GT_90": "Este evento genera poco interés",
   "EVENT_DISPONIBILITY_GT_65": "Apúntate que esto empieza a llenarse",
   "EVENT_DISPONIBILITY_GT_50": "Asistir o no asistir, esta es la cuestión",
   "EVENT_DISPONIBILITY_GT_30": "No esperes más, casi está lleno",

@@ -68,18 +68,23 @@
     <div
       fxLayout="column"
       fxLayoutGap="16px"
+      class="buttons"
       style="max-height: 500px; overflow-y: auto"
     >
       <button
+        mat-raised-button
+        color="primary"
+        style="display: flex; flex: 1 1 100%; place-content: stretch flex-start"
         *ngFor="let item of dates"
         (click)="acercar(item)"
-        class="button-filter button btn-outline-light custom-button btn-bookings-map"
       >
+        <strong style="font-size: 1.2em">
+          {{ item.cw_name }}
+        </strong>
+        <span>|</span>
         {{ utils.formatShortDate(item.dates[0]) }}
         <span>-</span>
         {{ utils.formatShortDate(item.dates[item.dates.length - 1]) }}
-        <span>|</span>
-        {{ item.cw_name }}
       </button>
     </div>
   </div>

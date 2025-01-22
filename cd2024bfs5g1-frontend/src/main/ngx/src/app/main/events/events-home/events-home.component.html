@@ -23,6 +23,7 @@
     [cols]="gridCols"
     gutter-size="40px"
     pageable="yes"
+    (onDataLoaded)="deleteLoader()"
   >
     <o-grid-item
       *ngFor="let data of eventsGrid.dataArray"

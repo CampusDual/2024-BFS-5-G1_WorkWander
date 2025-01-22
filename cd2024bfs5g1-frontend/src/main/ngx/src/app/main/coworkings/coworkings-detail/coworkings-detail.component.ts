@@ -131,6 +131,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         this.coworkingName.getValue()
       );
     }
+    this.deleteLoader();
   }
 
   currentDate() {

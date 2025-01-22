@@ -172,7 +172,6 @@ export class EventsDetailComponent implements OnInit {
             this.literalNumeroPlazas = "BOOKINGS_LEFT"
             this.numeroPlazas = this.bookingEvents.availableEventBookings;
             switch (true) {
-
               case (cantidadPlazasLibres > 0.9):
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";
                 break;

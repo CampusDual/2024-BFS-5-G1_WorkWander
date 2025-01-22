@@ -16,7 +16,7 @@
 }
 
 .responsive-button:hover {
-  background-color: rgba(123, 165, 135, 0.5);
+  background-color: rgb(185, 206, 191);
 }
 
 @media (max-width: 1430px) {

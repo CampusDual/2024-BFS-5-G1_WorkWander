@@ -16,15 +16,16 @@ export class MainComponent implements OnInit {
   }
 
   onAppLayoutClick(event: MouseEvent): void {
-    const element = event.target as HTMLElement;
-    if (element && element.tagName === "IMG") {
-      const imageSrc = (element as HTMLImageElement).src || "";
-      if (
-        imageSrc.includes("sidenav-closed.png") ||
-        imageSrc.includes("sidenav-opened.png")
-      ) {
-        this.goToLanding();
-      }
+    const targetElement = event.target as HTMLElement;
+    const SIDENAV_IMAGES = ["sidenav-closed.png", "sidenav-opened.png"];
+
+    if (!(targetElement?.tagName === "IMG")) return;
+
+    const imageElement = targetElement as HTMLImageElement;
+    const imageSrc = imageElement.src || "";
+
+    if (SIDENAV_IMAGES.some((image) => imageSrc.includes(image))) {
+      this.goToLanding();
     }
   }
 }

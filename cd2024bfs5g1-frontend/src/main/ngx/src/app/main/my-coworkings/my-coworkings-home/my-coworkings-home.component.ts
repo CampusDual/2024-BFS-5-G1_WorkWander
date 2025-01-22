@@ -74,5 +74,11 @@ export class MyCoworkingsHomeComponent {
     };
     this.snackBarService.open(availableMessage, configuration);
   }
-
+  
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
+  }
 }

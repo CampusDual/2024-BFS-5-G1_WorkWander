@@ -40,7 +40,6 @@ export class EventsDetailComponent implements OnInit {
   ngOnInit() {
     this.buttonBooking = true;
     this.checkBookingEvent();
-    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   formatDate(rawDate: number): string {
@@ -209,5 +208,11 @@ export class EventsDetailComponent implements OnInit {
       borrar.textContent = "";
     }
   }
+
+  dataLoadedFunc() {
+    this.deleteLoader();
+    this.initializeForm();
+  }
+
 }
 

@@ -1560,6 +1560,23 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
+.responsive-button {
+  white-space: nowrap;
+  text-align: center;
+  padding: 8px 16px;
+  display: inline-block;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .responsive-button {
+    min-width: 90%;
+    margin: 0 auto;
+  }
+}
+
 // leyenda calendario
 .leyenda {
   margin-bottom: 10px;

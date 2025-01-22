@@ -68,13 +68,17 @@
     <div
       fxLayout="column"
       fxLayoutGap="16px"
-      class="buttons"
-      style="max-height: 500px; overflow-y: auto"
+      style="
+        max-height: 500px;
+        overflow-y: auto;
+        width: 40%;
+        overflow-x: hidden;
+      "
     >
       <button
         mat-raised-button
         color="primary"
-        style="display: flex; flex: 1 1 100%; place-content: stretch flex-start"
+        class="responsive-button"
         *ngFor="let item of dates"
         (click)="acercar(item)"
       >

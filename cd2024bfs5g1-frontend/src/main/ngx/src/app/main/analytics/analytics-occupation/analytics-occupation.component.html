@@ -1,4 +1,4 @@
-<o-form show-header="false" class="chart-container">
+<o-form show-header="false" class="chart-container" (onDataLoaded)="selectFirstCoworking($event)">
   <!-- Añadir el título aquí -->
   <div class="title">
     <h1>{{ "OCCUPANCY_PERCENTAGE_TITLE" | oTranslate }}</h1>
@@ -20,8 +20,8 @@
       required="yes"
       formControlName="coworking"
       (onValueChange)="onCoworkingChange($event)"
-      searchable="true"
       [multiple]="true"
+      selected="allCoworkNames"
       (onSelectionChange)="onCoworkingChange($event)"
       multiple-trigger-label="true"
     >

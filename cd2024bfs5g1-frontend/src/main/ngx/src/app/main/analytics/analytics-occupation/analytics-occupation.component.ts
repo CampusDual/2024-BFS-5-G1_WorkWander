@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ViewChild } from "@angular/core";
+import { Component, ViewEncapsulation, ViewChild, OnInit } from "@angular/core";
 import {
   OComboComponent,
   OntimizeService,
@@ -16,7 +16,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   host: { "[class.custom-chart]": "true" },
 })
-export class AnalyticsOccupationComponent {
+export class AnalyticsOccupationComponent implements OnInit {
   selectedCoworkings: string[] = [];
   chartData: any[] = [];
   isGraph: boolean = false;
@@ -30,8 +30,8 @@ export class AnalyticsOccupationComponent {
     ],
   };
 
-  @ViewChild("comboCoworkingInput") comboCoworkingInput: OComboComponent;
-  @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
+  @ViewChild("comboCoworkingInput", {static:true}) comboCoworkingInput: OComboComponent;
+  @ViewChild("daterange", {static:true}) bookingDate: ODateRangeInputComponent;
 
   public dateArray = [];
 
@@ -40,6 +40,18 @@ export class AnalyticsOccupationComponent {
     private snackBarService: SnackBarService,
     private translate: OTranslateService
   ) {}
+
+  ngOnInit(): void {
+    this.comboCoworkingInput.onDataLoaded.subscribe(() => {
+      const data = this.comboCoworkingInput.getDataArray()
+      this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']])
+    })
+    console.log(this.bookingDate)
+    }
+
+  selectFirstCoworking(event:any){
+    console.log(event);
+  }
 
   onCoworkingChange(selectedNames: OValueChangeEvent) {
     if (selectedNames.type === 0) {

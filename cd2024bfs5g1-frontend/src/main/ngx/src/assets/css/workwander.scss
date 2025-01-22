@@ -1151,7 +1151,8 @@ o-snackbar .o-snackbar-message {
   justify-content: center;
   background-color: $verdeBoton;
   height: 20%;
-  border-radius: 35px 8px 35px 8px;
+  // border-radius: 35px 8px 35px 8px;
+  border-radius: $borderRadius;
 
   .price {
     // Estilo del precio

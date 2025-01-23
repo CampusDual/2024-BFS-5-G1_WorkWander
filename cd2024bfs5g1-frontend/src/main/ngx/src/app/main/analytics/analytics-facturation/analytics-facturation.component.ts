@@ -283,6 +283,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
             this.chartData = [];
             this.chartData = response.data[0]["data"];
             this.numberOfMonths=[];
+            console.log(this.chartData);
             this.adaptResult(this.chartData, false);
             this.showData();
           } else {
@@ -306,27 +307,26 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
  * @param data
  */
   adaptResult(data?:Array<any>, translation?:boolean){
+    console.log("l 310",data[0].series);
     const element = this.elementRef.nativeElement;
-    let legend = element.querySelectorAll('.legend-label-text');
+    let legend = element.querySelectorAll('.ng-star-inserted');
     if (translation) {
       legend.forEach((item, index) => {
         legend[index].innerText = this.translate.get(this.listOfMonths[this.numberOfMonths[index]].name);
       });
     }else{
+      for(let i=0;i<data.length;i++){
+        for(let x=0;x<data[i].series.length;x++){
+          this.colorScheme.domain[x]=this.colors[x];
+        }
+      }
       this.numberOfMonths = []
       for (let i = 0; i < data.length; i++) {
-        for (let x = 0; x < data[i].series.length; x++) {
-          if (!this.numberOfMonths.includes(data[i].series[x].i)) {
-            this.numberOfMonths.push(data[i].series[x].i);
-          }
-          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
-          }
+        if (!this.numberOfMonths.includes(data[i].i)) {
+          this.numberOfMonths.push(data[i].i);
+        }
+        data[i].name = this.translate.get(this.listOfMonths[data[i].i].name);
       }
-      this.numberOfMonths.sort(function(a, b){return a - b});
-      this.colorScheme.domain=[];
-      this.numberOfMonths.forEach((e,i)=>{
-        this.colorScheme.domain[i]=this.colors[e-1];
-      })
     }
   }
 

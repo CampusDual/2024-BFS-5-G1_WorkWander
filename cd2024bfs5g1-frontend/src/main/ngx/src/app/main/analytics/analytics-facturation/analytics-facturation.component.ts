@@ -309,7 +309,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   adaptResult(data?:Array<any>, translation?:boolean){
     console.log("l 310",data[0].series);
     const element = this.elementRef.nativeElement;
-    let legend = element.querySelectorAll('.ng-star-inserted');
+    let legend = element.querySelectorAll('.legend-label-text');
     if (translation) {
       legend.forEach((item, index) => {
         legend[index].innerText = this.translate.get(this.listOfMonths[this.numberOfMonths[index]].name);

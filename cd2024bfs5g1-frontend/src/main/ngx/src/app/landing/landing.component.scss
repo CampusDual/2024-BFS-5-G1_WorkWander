@@ -2,7 +2,6 @@
 @import "src/assets/css/custom_color.scss";
 @import "./custom_font.scss";
 
-
 /* =========================
    MAIN CONTAINER
    ========================= */
@@ -39,7 +38,7 @@
     }
   }
 
-  .o-language-selector{
+  .o-language-selector {
     position: absolute;
     top: 2.5rem;
     right: 14rem;
@@ -149,7 +148,6 @@
   }
 
   .testimonial-cards {
-
     display: flex;
     gap: 2rem;
     justify-content: center;
@@ -172,8 +170,8 @@
         margin-bottom: 0;
       }
 
-      .starts{
-        margin-top:0px;
+      .starts {
+        margin-top: 0px;
       }
 
       p {
@@ -220,7 +218,8 @@
       color: #fff;
     }
 
-    #carousel, #carousel-eventos {
+    #carousel,
+    #carousel-eventos {
       padding-top: 18px;
 
       ::ng-deep {
@@ -451,7 +450,6 @@
    ========================= */
 
 .events-section {
-
   gap: 2rem;
   padding: 2rem 50px;
   align-items: flex-start;
@@ -459,7 +457,6 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-
 
   .spaces-container {
     flex: 1;
@@ -620,7 +617,6 @@
   background-attachment: fixed;
   justify-content: center;
 
-
   .business-container {
     img {
       border-radius: 8px;
@@ -645,37 +641,37 @@
       justify-content: center;
     }
 
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: $blanco;
-      }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: $blanco;
+    }
 
-      p {
-        margin-bottom: 1.5rem;
-        color: $blanco;
-        line-height: 1.7em;
-      }
+    p {
+      margin-bottom: 1.5rem;
+      color: $blanco;
+      line-height: 1.7em;
+    }
 
-      .btn-primary {
-        width: 50%;
-        background-color: $amarillo;
-        color: $verdeBoton;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 25px;
-        font-weight: bold;
-        transition: all 0.3s ease;
+    .btn-primary {
+      width: 50%;
+      background-color: $amarillo;
+      color: $verdeBoton;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: all 0.3s ease;
 
-        &:hover {
-          background-color: darken($amarillo, 10%);
-        }
+      &:hover {
+        background-color: darken($amarillo, 10%);
       }
     }
   }
+}
 
-  @media (max-width: 1024px) {
-    .main-container{
+@media (max-width: 1024px) {
+  .main-container {
     flex-direction: column;
 
     .business-container {
@@ -689,11 +685,11 @@
   }
 }
 
-  .footer {
-    background-size: cover;
-    background-position: center;
-    color: $blanco;
-    padding: 2rem 0 2rem;
+.footer {
+  background-size: cover;
+  background-position: center;
+  color: $blanco;
+  padding: 2rem 0 2rem;
 
   .footer-content {
     margin: 0 auto;
@@ -739,19 +735,22 @@
     text-align: center;
   }
 
-    @media (max-width: 768px) {
-      .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .features-cards {
-        display: flex;
-        flex-direction: column;
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .features-cards {
+      display: flex;
+      flex-direction: column;
 
-        .feature-card {
-          max-width: 100%;
-        }
+      .feature-card {
+        max-width: 100%;
       }
     }
   }
+}
 
+:host ::ng-deep img[src*="sidenav-opened.png"] {
+  cursor: default !important;
+}

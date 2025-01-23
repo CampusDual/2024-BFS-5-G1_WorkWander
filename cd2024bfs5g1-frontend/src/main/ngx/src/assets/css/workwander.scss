@@ -1293,7 +1293,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 }
 //reviews
 .review {
-  p-rating{
+  p-rating {
     color: $amarillo;
     margin: -3px 0px 7px 0px;
   }
@@ -1735,7 +1735,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         min-width: 446px;
       }
 
-
       o-date-input.inline,
       o-hour-input.inline,
       o-integer-input.inline,
@@ -1744,7 +1743,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         width: 101px;
         min-width: 101px;
       }
-
     }
   }
 }
@@ -2069,10 +2067,18 @@ button.mat-primary.mat-stroked-button {
   margin-bottom: 7px;
 }
 
-.valoracion{
+.valoracion {
   margin-bottom: 7px;
-  font-size:14px;
-  display:flex;
+  font-size: 14px;
+  display: flex;
   align-items: center;
   font-weight: 300;
+}
+
+img[src*="sidenav-closed.png"] {
+  cursor: pointer;
+}
+
+img[src*="sidenav-opened.png"] {
+  cursor: pointer;
 }

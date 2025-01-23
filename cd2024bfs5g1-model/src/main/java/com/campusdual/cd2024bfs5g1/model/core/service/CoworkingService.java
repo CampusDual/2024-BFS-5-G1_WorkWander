@@ -88,12 +88,14 @@ public class CoworkingService implements ICoworkingService {
         final int userId = (int) ((UserInformation) user).getOtherData().get(UserDao.USR_ID);
 
         String cwResizedImage = null;
-        try {
-            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        if (attrMap.get("cw_image") != null) {
+            try {
+                cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+            attrMap.put("cw_image_resized", cwResizedImage);
         }
-        attrMap.put("cw_resized_image", cwResizedImage);
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
@@ -124,12 +126,14 @@ public class CoworkingService implements ICoworkingService {
         final ArrayList<Map<String, Integer>> services = (ArrayList<Map<String, Integer>>) attrMap.remove("services");
 
         String cwResizedImage = null;
-        try {
-            cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        if (attrMap.get("cw_image") != null) {
+            try {
+                cwResizedImage = resizeImage((String) attrMap.get("cw_image"));
+            } catch (final IOException e) {
+                throw new RuntimeException(e);
+            }
+            attrMap.put("cw_image_resized", cwResizedImage);
         }
-        attrMap.put("cw_image_resized", cwResizedImage);
         // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
         // Borrado de los servicios

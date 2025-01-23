@@ -40,7 +40,6 @@ export class EventsDetailComponent implements OnInit {
   ngOnInit() {
     this.buttonBooking = true;
     this.checkBookingEvent();
-    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   formatDate(rawDate: number): string {
@@ -173,7 +172,6 @@ export class EventsDetailComponent implements OnInit {
             this.literalNumeroPlazas = "BOOKINGS_LEFT"
             this.numeroPlazas = this.bookingEvents.availableEventBookings;
             switch (true) {
-
               case (cantidadPlazasLibres > 0.9):
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";
                 break;
@@ -209,5 +207,11 @@ export class EventsDetailComponent implements OnInit {
       borrar.textContent = "";
     }
   }
+
+  dataLoadedFunc() {
+    this.deleteLoader();
+    this.initializeForm();
+  }
+
 }
 

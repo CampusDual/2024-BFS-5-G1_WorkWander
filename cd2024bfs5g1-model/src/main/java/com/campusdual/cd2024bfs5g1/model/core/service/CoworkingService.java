@@ -178,8 +178,8 @@ public class CoworkingService implements ICoworkingService {
 
         BufferedImage image = null;
         try {
-            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            try (final ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
                 image = ImageIO.read(bis);
             }
 
@@ -187,8 +187,12 @@ public class CoworkingService implements ICoworkingService {
                 throw new IOException("No se pudo leer la imagen");
             }
 
-            BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
-            Graphics2D image2D = outputImage.createGraphics();
+            int ancho = image.getWidth();
+            int alto = image.getHeight();
+            int nuevoAlto = 110 * alto / ancho;
+
+            final BufferedImage outputImage = new BufferedImage(110, nuevoAlto, BufferedImage.TYPE_INT_RGB);
+            final Graphics2D image2D = outputImage.createGraphics();
 
             // Configurar la calidad del renderizado
             image2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
@@ -196,15 +200,15 @@ public class CoworkingService implements ICoworkingService {
             image2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             // Dibujar la imagen
-            image2D.drawImage(image, 0, 0, 110, 110, null);
+            image2D.drawImage(image, 0, 0, 110, nuevoAlto, null);
             image2D.dispose();
 
             // Convertir a PNG y codificar en Base64
-            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 ImageIO.write(outputImage, "png", baos);
                 return Base64.getEncoder().encodeToString(baos.toByteArray());
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IOException("Error al procesar la imagen: " + e.getMessage());
         }
     }

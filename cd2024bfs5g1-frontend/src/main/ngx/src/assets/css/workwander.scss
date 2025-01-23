@@ -300,72 +300,144 @@ form {
   background-color: $accent !important;
 }
 
-.mat-drawer-closed nav.ng-star-inserted:nth-last-child(2) {
-  margin: unset;
-  min-width: 40px !important;
-  width: 40px !important;
-  height: 40px;
-  margin: 0% 1.5% 0% 1.5%;
+.o-app-sidenav[ng-reflect-show-user-info='false']  {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1){
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px;
+    margin: 0% 1.5% 0% 1.5%;
 
-  a {
-    line-height: 40px !important;
-    margin: 0% 0% 15% 0%;
+    a {
+      line-height: 40px !important;
+      // margin: 0% 0% 15% 0%;
+    }
+  }
+
+
+  /* Boton salir */
+    nav.ng-star-inserted:nth-last-child(1){
+    background-color: $verdeBoton;
+    position: absolute;
+    border-radius: 25px;
+    border-left: 0px solid $primary !important;
+    margin: 0% 10% 0% 10%;
+    transition: all 0.2s;
+    top: unset;
+    bottom: 25px;
+    right: 0;
+    width: 80%;
+
+      span.o-app-sidenav-menuitem-title {
+        color: $blanco;
+      }
+
+      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+        color: $blanco;
+      }
+
+      .o-app-sidenav-menu-group a,
+      .o-app-sidenav-menu-item a {
+        padding-left: 4px;
+        padding-right: 4px !important;
+        border-left: 0px solid transparent !important;
+        color: $accent;
+      }
+
+    :hover {
+      border-left: 0px solid $accent !important;
+
+      //cambio de color del icono y del tex
+      span.o-app-sidenav-menuitem-title {
+        color: black;
+      }
+
+      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+        color: black;
+      }
+    }
+
+    .mdc-button__label > div {
+      justify-content: center !important;
+    }
+
+    .o-app-sidenav-menu-item:not([disabled="true"]) a:hover {
+      border-radius: 25px !important;
+      border-left: 0px solid $accent;
+      transition: none;
+    }
+    .mat-mdc-button > .mat-icon {
+      margin-left: 0;
+      margin-right: 0px;
+    }
   }
 }
 
-/* Boton salir */
-nav.ng-star-inserted:nth-last-child(2) {
-  background-color: $verdeBoton;
-  position: absolute;
-  border-radius: 25px;
-  border-left: 0px solid $primary !important;
-  margin: 0% 10% 0% 10%;
-  transition: all 0.2s;
-  top: unset;
-  bottom: 25px;
-  right: 0;
-  width: 80%;
+.o-app-sidenav[ng-reflect-show-user-info='true']  {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2){
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px;
+    margin: 0% 1.5% 0% 1.5%;
 
-  span.o-app-sidenav-menuitem-title {
-    color: $blanco;
-  }
-
-  mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-    color: $blanco;
-  }
-
-  .o-app-sidenav-menu-group a,
-  .o-app-sidenav-menu-item a {
-    padding-left: 4px;
-    padding-right: 4px !important;
-    border-left: 0px solid transparent !important;
-    color: $accent;
-  }
-
-  :hover {
-    border-left: 0px solid $accent !important;
-
-    //cambio de color del icono y del tex
-    span.o-app-sidenav-menuitem-title {
-      color: black;
-    }
-
-    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-      color: black;
+    a {
+      line-height: 40px !important;
+      // margin: 0% 0% 15% 0%;
     }
   }
-  .mdc-button__label > div {
-    justify-content: center !important;
-  }
+  nav.ng-star-inserted:nth-last-child(2){
+    background-color: $verdeBoton;
+    position: absolute;
+    border-radius: 25px;
+    border-left: 0px solid $primary !important;
+    margin: 0% 10% 0% 10%;
+    transition: all 0.2s;
+    top: unset;
+    bottom: 25px;
+    right: 0;
+    width: 80%;
 
-  .o-app-sidenav-menu-item:not([disabled="true"]) a:hover {
-    border-radius: 25px !important;
-    border-left: 0px solid $accent;
-    transition: none;
-  }
-  .mat-mdc-button > .mat-icon {
-    margin-left: 0;
-    margin-right: 0px;
+      span.o-app-sidenav-menuitem-title {
+        color: $blanco;
+      }
+
+      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+        color: $blanco;
+      }
+
+      .o-app-sidenav-menu-group a,
+      .o-app-sidenav-menu-item a {
+        padding-left: 4px;
+        padding-right: 4px !important;
+        border-left: 0px solid transparent !important;
+        color: $accent;
+      }
+
+    :hover {
+      border-left: 0px solid $accent !important;
+
+      //cambio de color del icono y del tex
+      span.o-app-sidenav-menuitem-title {
+        color: black;
+      }
+
+      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+        color: black;
+      }
+    }
+
+    .mdc-button__label > div {
+      justify-content: center !important;
+    }
+
+    .o-app-sidenav-menu-item:not([disabled="true"]) a:hover {
+      border-radius: 25px !important;
+      border-left: 0px solid $accent;
+      transition: none;
+    }
+    .mat-mdc-button > .mat-icon {
+      margin-left: 0;
+      margin-right: 0px;
+    }
   }
 }
 
@@ -1388,8 +1460,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
-    width: 100%;  /*Asegura que el texto se ajuste al contenedor*/
-    overflow: hidden;  /*Oculta el contenido que se desborda*/
+    width: 100%; /*Asegura que el texto se ajuste al contenedor*/
+    overflow: hidden; /*Oculta el contenido que se desborda*/
   }
 
   .fecha-evento {
@@ -1561,17 +1633,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
-.btn-bookings-map {
-  border: none;
-  text-align: left;
-  padding: 4px;
-  background-color: transparent;
-}
-
-.btn-bookings-map:hover {
-  background-color: $primaryClaro;
-}
-
 // leyenda calendario
 .leyenda {
   margin-bottom: 10px;
@@ -1725,11 +1786,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     o-row.o-row:not(.service-column) {
       o-combo.halfSize.edit {
         max-width: 228px;
-        width:  228px;
+        width: 228px;
         min-width: 228px;
       }
 
-      o-text-input.halfSize.edit{
+      o-text-input.halfSize.edit {
         max-width: 446px;
         width: 446px;
         min-width: 446px;

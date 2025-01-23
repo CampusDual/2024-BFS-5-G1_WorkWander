@@ -111,6 +111,7 @@ public class CoworkingService implements ICoworkingService {
         return cwResult;
     }
 
+
     /**
      * Actualiza los registros de coworking que coinciden con las claves proporcionadas.
      *
@@ -178,9 +179,16 @@ public class CoworkingService implements ICoworkingService {
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
+
         final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
-        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
+        final Graphics2D image2D = outputImage.createGraphics();
+        image2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        image2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        image2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        image2D.drawImage(image, 0, 0, 110, 110, null);
+        image2D.dispose();
+
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(outputImage, "png", baos);
@@ -401,6 +409,7 @@ public class CoworkingService implements ICoworkingService {
             return null;
         }
     }
+
     @Override
     public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

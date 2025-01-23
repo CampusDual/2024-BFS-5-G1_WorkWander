@@ -47,6 +47,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   languageChoose = false;
   typeData:string;
   resolveData = true;
+  maxSelection = 5;
   locale:string;
   points:string;
   colors:string[]=[
@@ -174,6 +175,19 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     if (selectedNames.type === 0) {
       this.selectedCoworkings = selectedNames.newValue;
       this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+    }
+    if (selectedNames.type === 0) {
+      if (selectedNames.newValue.length <= this.maxSelection) {
+        this.selectedCoworkings = selectedNames.newValue;
+      } else {
+        this.comboCoworkingInput.setValue(selectedNames.oldValue);
+        this.showAvailableToast(
+          this.translate.get("COWORKING_CHART_SELECTION_LIMIT") +
+            this.maxSelection +
+            " coworkings."
+        );
+        return;
+      }
     }
   }
 

@@ -1388,8 +1388,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     font-size: $fontSize18;
     font-weight: 800;
     height: 23px;
-    width: 100%;  /*Asegura que el texto se ajuste al contenedor*/
-    overflow: hidden;  /*Oculta el contenido que se desborda*/
+    width: 100%; /*Asegura que el texto se ajuste al contenedor*/
+    overflow: hidden; /*Oculta el contenido que se desborda*/
   }
 
   .fecha-evento {
@@ -1561,17 +1561,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
-.btn-bookings-map {
-  border: none;
-  text-align: left;
-  padding: 4px;
-  background-color: transparent;
-}
-
-.btn-bookings-map:hover {
-  background-color: $primaryClaro;
-}
-
 // leyenda calendario
 .leyenda {
   margin-bottom: 10px;
@@ -1725,11 +1714,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     o-row.o-row:not(.service-column) {
       o-combo.halfSize.edit {
         max-width: 228px;
-        width:  228px;
+        width: 228px;
         min-width: 228px;
       }
 
-      o-text-input.halfSize.edit{
+      o-text-input.halfSize.edit {
         max-width: 446px;
         width: 446px;
         min-width: 446px;

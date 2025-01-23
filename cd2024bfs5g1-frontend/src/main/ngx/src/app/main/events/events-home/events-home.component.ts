@@ -66,7 +66,7 @@ export class EventsHomeComponent implements OnInit {
       if (decimalPart == "") {
         decimalPart = "00";
       }
-      return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+      return `${integerPart},${decimalPart} €`;
     } else {
       return this.translate.get("FREE");
     }

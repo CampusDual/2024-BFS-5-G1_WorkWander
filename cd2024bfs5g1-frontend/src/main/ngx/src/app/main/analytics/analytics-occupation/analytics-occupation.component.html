@@ -1,4 +1,4 @@
-<o-form show-header="false" class="chart-container">
+<o-form show-header="false" class="chart-container" (onLoadData)="firstRequest()">
   <!-- Añadir el título aquí -->
   <div class="title">
     <h1>{{ "OCCUPANCY_PERCENTAGE_TITLE" | oTranslate }}</h1>
@@ -43,6 +43,8 @@
       value-type="date"
       [data]="dateInitEnd()"
       required="yes"
+      locale="locale"
+      format="L"
     ></o-daterange-input>
   </div>
 

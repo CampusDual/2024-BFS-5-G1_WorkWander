@@ -509,6 +509,7 @@ div#innerCol {
           color: $blanco;
           padding: 10px 20px;
           margin: 0px;
+          border-radius: 25px 5px 25px 5px;
 
           .decimal {
             font-size: $fontSize18; /* Tamaño reducido para decimales */
@@ -1151,8 +1152,7 @@ o-snackbar .o-snackbar-message {
   justify-content: center;
   background-color: $verdeBoton;
   height: 20%;
-  // border-radius: 35px 8px 35px 8px;
-  border-radius: $borderRadius;
+  border-radius: 35px 8px 35px 8px;
 
   .price {
     // Estilo del precio

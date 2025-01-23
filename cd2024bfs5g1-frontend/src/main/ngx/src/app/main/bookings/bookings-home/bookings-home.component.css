@@ -12,6 +12,7 @@
   margin-right: 16px;
   line-height: normal;
   min-height: 60px;
+  max-height: 60px;
   line-height: 0.7em !important;
 }
 

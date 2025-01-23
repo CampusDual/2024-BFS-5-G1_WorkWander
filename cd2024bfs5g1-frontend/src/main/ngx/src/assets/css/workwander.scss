@@ -1786,23 +1786,23 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
       o-combo.halfSize.edit {
-        max-width: 228px;
-        width: 228px;
-        min-width: 228px;
+        max-width: 264px;
+        width: 264;
+        min-width: 264px;
       }
 
       o-text-input.halfSize.edit {
-        max-width: 446px;
-        width: 446px;
-        min-width: 446px;
+        max-width: 408px;
+        width: 408px;
+        min-width: 400px;
       }
 
       o-date-input.inline,
       o-hour-input.inline,
       o-integer-input.inline,
       o-real-input.inline {
-        max-width: 101px;
-        width: 101px;
+        max-width: 119px;
+        width: 119px;
         min-width: 101px;
       }
     }

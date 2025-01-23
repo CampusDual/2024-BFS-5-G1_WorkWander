@@ -78,6 +78,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     } else {
       this.authService.clearSessionData();
     }
+    setTimeout(() => {
+      this.deleteLoader();
+    }, 250);
   }
 
   public login() {
@@ -155,4 +158,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
       );
     }
   }
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
+  }
+
 }

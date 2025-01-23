@@ -111,6 +111,7 @@
     detail-mode="none"
     refresh-button="yes"
     show-buttons-text="no"
+    (onDataLoaded)="deleteLoader()"
   >
     <o-table-columns-filter
       columns="cw_name;date_start;date_end"

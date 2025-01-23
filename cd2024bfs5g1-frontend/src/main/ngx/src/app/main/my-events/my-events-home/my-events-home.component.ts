@@ -19,7 +19,6 @@ export class MyEventsHomeComponent {
 
   }
   ngOnInit() {
-    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   deleteLoader() {

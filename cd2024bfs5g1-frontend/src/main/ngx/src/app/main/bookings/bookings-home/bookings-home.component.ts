@@ -42,7 +42,6 @@ export class BookingsHomeComponent {
   ) { }
 
   ngOnInit() {
-    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   toCoworkingDetail(event) {

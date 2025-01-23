@@ -300,7 +300,8 @@ form {
   background-color: $accent !important;
 }
 
-.o-app-sidenav[ng-reflect-show-user-info='false']  {
+.o-app-sidenav[ng-reflect-show-user-info='false'],
+.o-app-sidenav[ng-reflect-show-user-info='no']   {
   .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1){
     min-width: 40px !important;
     width: 40px !important;
@@ -309,7 +310,6 @@ form {
 
     a {
       line-height: 40px !important;
-      // margin: 0% 0% 15% 0%;
     }
   }
 
@@ -372,7 +372,8 @@ form {
   }
 }
 
-.o-app-sidenav[ng-reflect-show-user-info='true']  {
+.o-app-sidenav[ng-reflect-show-user-info='true'] ,
+.o-app-sidenav[ng-reflect-show-user-info='yes']  {
   .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2){
     min-width: 40px !important;
     width: 40px !important;
@@ -381,7 +382,7 @@ form {
 
     a {
       line-height: 40px !important;
-      // margin: 0% 0% 15% 0%;
+
     }
   }
   nav.ng-star-inserted:nth-last-child(2){

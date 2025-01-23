@@ -93,7 +93,7 @@ public class CoworkingService implements ICoworkingService {
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-        attrMap.put("cw_resized_image", cwResizedImage);
+        attrMap.put("cw_image_resized", cwResizedImage); // Cambiar a cw_image_resized para consistencia
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
@@ -130,7 +130,7 @@ public class CoworkingService implements ICoworkingService {
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
-        attrMap.put("cw_image_resized", cwResizedImage);
+        attrMap.put("cw_image_resized", cwResizedImage); // Ya está correcto, mantener cw_image_resized
         // Ejecutar el update usando el daoHelper
         final EntityResult cwResult = this.daoHelper.update(this.coworkingDao, attrMap, keyMap);
         // Borrado de los servicios
@@ -172,28 +172,41 @@ public class CoworkingService implements ICoworkingService {
     }
 
     static String resizeImage(final String base64Image) throws IOException {
-        BufferedImage image = null;
-        try {
-            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        if (base64Image == null || base64Image.isEmpty()) {
+            return null;
         }
 
-        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
-        final Graphics2D image2D = outputImage.createGraphics();
-        image2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        image2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        image2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        BufferedImage image = null;
+        try {
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+                image = ImageIO.read(bis);
+            }
 
-        image2D.drawImage(image, 0, 0, 110, 110, null);
-        image2D.dispose();
+            if (image == null) {
+                throw new IOException("No se pudo leer la imagen");
+            }
 
+            BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
+            Graphics2D image2D = outputImage.createGraphics();
 
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(outputImage, "png", baos);
-        final byte[] imageBytes = baos.toByteArray();
-        return Base64.getEncoder().encodeToString(imageBytes);
+            // Configurar la calidad del renderizado
+            image2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            image2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            image2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Dibujar la imagen
+            image2D.drawImage(image, 0, 0, 110, 110, null);
+            image2D.dispose();
+
+            // Convertir a PNG y codificar en Base64
+            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                ImageIO.write(outputImage, "png", baos);
+                return Base64.getEncoder().encodeToString(baos.toByteArray());
+            }
+        } catch (IOException e) {
+            throw new IOException("Error al procesar la imagen: " + e.getMessage());
+        }
     }
 
     /**

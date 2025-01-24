@@ -17,7 +17,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -171,53 +176,70 @@ public class CoworkingService implements ICoworkingService {
         }
     }
 
-    static String resizeImage(final String base64Image) throws IOException {
-        if (base64Image == null || base64Image.isEmpty()) {
-            return null;
-        }
-
-        try {
-            // Decodificar imagen Base64
-            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            BufferedImage originalImage;
-
-            try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
-                originalImage = ImageIO.read(bis);
-                if (originalImage == null) {
-                    throw new IOException("No se pudo leer la imagen");
-                }
-            }
-
-            // Calcular nueva altura manteniendo proporción
-            final int TARGET_WIDTH = 110; // Ancho fijo deseado
-            double ratio = (double) originalImage.getHeight() / originalImage.getWidth();
-            int newHeight = (int) (TARGET_WIDTH * ratio);
-
-            // Crear imagen escalada con calidad
-            Image scaledImage = originalImage.getScaledInstance(TARGET_WIDTH, newHeight, Image.SCALE_SMOOTH);
-            BufferedImage outputImage = new BufferedImage(TARGET_WIDTH, newHeight, BufferedImage.TYPE_INT_ARGB);
-
-            Graphics2D g2d = outputImage.createGraphics();
-            // Configuración para máxima calidad
-            g2d.setComposite(AlphaComposite.Src);
-            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-
-            // Dibujar con fondo transparente
-            g2d.drawImage(scaledImage, 0, 0, null);
-            g2d.dispose();
-
-            // Convertir a PNG con transparencia
-            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-                ImageIO.write(outputImage, "png", baos);
-                return Base64.getEncoder().encodeToString(baos.toByteArray());
-            }
-        } catch (IOException e) {
-            throw new IOException("Error al procesar la imagen: " + e.getMessage());
-        }
+static String resizeImage(final String base64Image) throws IOException {
+    if (base64Image == null || base64Image.isEmpty()) {
+        return null;
     }
+
+    try {
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        BufferedImage originalImage;
+
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+            originalImage = ImageIO.read(bis);
+            if (originalImage == null) {
+                throw new IOException("No se pudo leer la imagen");
+            }
+        }
+
+        final int TARGET_WIDTH = 320;
+        double ratio = (double) originalImage.getHeight() / originalImage.getWidth();
+        int newHeight = (int) (TARGET_WIDTH * ratio);
+
+        // Detectar si la imagen necesita transparencia
+        boolean hasTransparency = originalImage.getColorModel().hasAlpha();
+
+        // Elegir formato basado en contenido
+        String formatoSalida = hasTransparency ? "png" : "jpeg";
+        int imageType = hasTransparency ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
+
+        BufferedImage outputImage = new BufferedImage(TARGET_WIDTH, newHeight, imageType);
+        Graphics2D g2d = outputImage.createGraphics();
+
+        // Configuración optimizada
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        if (!hasTransparency) {
+            g2d.setBackground(Color.WHITE);
+            g2d.clearRect(0, 0, TARGET_WIDTH, newHeight);
+        }
+
+        g2d.drawImage(originalImage, 0, 0, TARGET_WIDTH, newHeight, null);
+        g2d.dispose();
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            if ("jpeg".equals(formatoSalida)) {
+                // Configuración JPEG
+                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+                ImageWriteParam param = writer.getDefaultWriteParam();
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.8f);
+
+                ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+                writer.setOutput(ios);
+                writer.write(null, new IIOImage(outputImage, null, null), param);
+                writer.dispose();
+                ios.close();
+            } else {
+                // PNG para imágenes con transparencia
+                ImageIO.write(outputImage, "png", baos);
+            }
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
+        }
+    } catch (IOException e) {
+        throw new IOException("Error al procesar la imagen: " + e.getMessage());
+    }
+}
 
     /**
      * Calcula la capacidad que tiene el coworking

@@ -228,6 +228,8 @@ export class CoworkingsNewComponent implements OnInit {
           const position = marker.getLatLng();
           this.mapLat = position.lat;
           this.mapLon = position.lng;
+          this.coworkingForm.getFieldReference('cw_lat').setValue(position.lat);
+          this.coworkingForm.getFieldReference('cw_lon').setValue(position.lng);
         });
   }
 

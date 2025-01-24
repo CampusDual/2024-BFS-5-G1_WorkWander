@@ -325,7 +325,11 @@
                 <h3>{{ "NEAR_EVENTS" | oTranslate }}</h3>
               </ng-template>
               <ng-template let-event pTemplate="item">
-                <div class="event-item" (click)="goEvent(event.id_event)" title="{{ event.name }}">
+                <div
+                  class="event-item"
+                  (click)="goEvent(event.id_event)"
+                  title="{{ event.name }}"
+                >
                   <div class="event-item-content">
                     <div>
                       <img

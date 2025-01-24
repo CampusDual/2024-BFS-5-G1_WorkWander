@@ -29,9 +29,4 @@ export class BookingsCancelRenderComponent extends OBaseTableCellRenderer {
     }
     return estadoBoolean;
   }
-
-  pasarAlHome(){
-    console.log("hola")
-  }
-
 }

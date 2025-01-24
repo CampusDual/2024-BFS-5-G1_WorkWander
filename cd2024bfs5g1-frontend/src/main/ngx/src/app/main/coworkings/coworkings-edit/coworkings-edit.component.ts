@@ -50,7 +50,7 @@ export class CoworkingsEditComponent {
     this.leafletMap = this.coworking_map.getMapService().getMap();
     let mapLat = lat;
     let mapLon = lon;
-    
+
 
     if (!mapLat && !mapLon) {
       mapLat = this.coworkingForm.getFieldValue('cw_lat');
@@ -59,7 +59,6 @@ export class CoworkingsEditComponent {
 
     if (mapLat && mapLon) {
       this.updateMapAndMarker(`${lat};${lon}`, 16);
-      console.log('Direccion por cooords');
       return;
     }
 
@@ -77,7 +76,6 @@ export class CoworkingsEditComponent {
         }
 
         this.mapaShow(cityName, address);
-        console.log('Direccion por combo');
 
       })
       .catch((error) => {
@@ -91,7 +89,6 @@ export class CoworkingsEditComponent {
   }
 
   public onInsertSuccess(): void {
-    console.log("Test");
     this.router.navigateByUrl("/main/mycoworkings")
   }
 
@@ -173,7 +170,7 @@ export class CoworkingsEditComponent {
     const conf = this.service.getDefaultServiceConfiguration('coworkings');
     this.service.configureService(conf);
     this.service.update(keyMap, coworking, 'coworking').subscribe(data => {
-      console.log(data);
+
     });
   }
 
@@ -241,7 +238,7 @@ export class CoworkingsEditComponent {
         this.validAddress = true;
         return;
       }
-      console.log("Dirección no válida, intentando con la ciudad seleccionada...");
+
       const cityResults = await this.mapService.getCityCoordinates(selectedCity);
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 12);

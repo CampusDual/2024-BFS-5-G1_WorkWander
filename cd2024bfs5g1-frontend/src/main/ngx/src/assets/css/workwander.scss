@@ -1985,6 +1985,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 @media (max-width: 1500px) {
   /*  Coworking */
   .coworking-card {
+    max-width: 800px;
+
     // Estilo general de la tarjeta de coworking
     .image-container {
       // Contenedor de la imagen
@@ -2014,6 +2016,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
   .dos-columnas {
     flex-direction: column !important;
+  }
+
+  /*  Event */
+  .event-card {
+    max-width: 800px;
   }
 }
 

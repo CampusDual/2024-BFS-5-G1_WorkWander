@@ -297,7 +297,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
             this.chartData = [];
             this.chartData = response.data[0]["data"];
             this.numberOfMonths=[];
-            console.log(this.chartData);
             this.adaptResult(this.chartData, false);
             this.showData();
           } else {
@@ -321,7 +320,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
  * @param data
  */
   adaptResult(data?:Array<any>, translation?:boolean){
-    console.log("l 310",data[0].series);
     const element = this.elementRef.nativeElement;
     let legend = element.querySelectorAll('.legend-label-text');
     if (translation) {

@@ -33,7 +33,6 @@ export class EventsEditComponent {
   }
 
   public onInsertSuccess(): void {
-    console.log("Test");
     this.router.navigateByUrl("/main/myEvents")
   }
 

@@ -165,7 +165,6 @@ export class AnalyticsOccupationComponent implements OnInit {
         if (resp.data && resp.data.length > 0) {
           this.chartData = resp.data[0].data;
           this.isGraph = this.chartData.length > 0;
-          console.log(resp.data)
         } else {
             this.isGraph = false;
         }

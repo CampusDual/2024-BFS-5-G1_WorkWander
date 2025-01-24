@@ -300,9 +300,9 @@ form {
   background-color: $accent !important;
 }
 
-o-app-layout[show-user-info='false'] ,
-o-app-layout[show-user-info='no'] {
-  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1){
+o-app-layout[show-user-info="false"],
+o-app-layout[show-user-info="no"] {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1) {
     min-width: 40px !important;
     width: 40px !important;
     height: 40px;
@@ -313,9 +313,8 @@ o-app-layout[show-user-info='no'] {
     }
   }
 
-
   /* Boton salir */
-    nav.ng-star-inserted:nth-last-child(1){
+  nav.ng-star-inserted:nth-last-child(1) {
     background-color: $verdeBoton;
     position: absolute;
     border-radius: 25px;
@@ -327,21 +326,21 @@ o-app-layout[show-user-info='no'] {
     right: 0;
     width: 80%;
 
-      span.o-app-sidenav-menuitem-title {
-        color: $blanco;
-      }
+    span.o-app-sidenav-menuitem-title {
+      color: $blanco;
+    }
 
-      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-        color: $blanco;
-      }
+    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+      color: $blanco;
+    }
 
-      .o-app-sidenav-menu-group a,
-      .o-app-sidenav-menu-item a {
-        padding-left: 4px;
-        padding-right: 4px !important;
-        border-left: 0px solid transparent !important;
-        color: $accent;
-      }
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
     :hover {
       border-left: 0px solid $accent !important;
@@ -372,9 +371,9 @@ o-app-layout[show-user-info='no'] {
   }
 }
 
-o-app-layout[show-user-info='true'] ,
-o-app-layout[show-user-info='yes']  {
-  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2){
+o-app-layout[show-user-info="true"],
+o-app-layout[show-user-info="yes"] {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2) {
     min-width: 40px !important;
     width: 40px !important;
     height: 40px;
@@ -382,10 +381,9 @@ o-app-layout[show-user-info='yes']  {
 
     a {
       line-height: 40px !important;
-
     }
   }
-  nav.ng-star-inserted:nth-last-child(2){
+  nav.ng-star-inserted:nth-last-child(2) {
     background-color: $verdeBoton;
     position: absolute;
     border-radius: 25px;
@@ -397,21 +395,21 @@ o-app-layout[show-user-info='yes']  {
     right: 0;
     width: 80%;
 
-      span.o-app-sidenav-menuitem-title {
-        color: $blanco;
-      }
+    span.o-app-sidenav-menuitem-title {
+      color: $blanco;
+    }
 
-      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-        color: $blanco;
-      }
+    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+      color: $blanco;
+    }
 
-      .o-app-sidenav-menu-group a,
-      .o-app-sidenav-menu-item a {
-        padding-left: 4px;
-        padding-right: 4px !important;
-        border-left: 0px solid transparent !important;
-        color: $accent;
-      }
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
     :hover {
       border-left: 0px solid $accent !important;
@@ -935,7 +933,6 @@ o-column {
   }
   .buttons.modal-form {
     background-color: transparent;
-    margin-top: -50px;
   }
   //columna imagen
   .image {
@@ -1634,45 +1631,96 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
-// leyenda calendario
-.leyenda {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  margin-left: 230px;
+.btn-bookings-map {
+  border: none;
+  text-align: left;
+  padding: 4px;
+  background-color: transparent;
 }
 
-.leyenda h3 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
+.btn-bookings-map:hover {
+  background-color: $primaryClaro;
 }
 
-.leyenda span {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
+// leyenda calendario bookings
+.container {
+  max-width: 82%;
+  display: grid;
+  gap: 4%;
 
-.tipo1-color {
-  background-color: #4d4d4d;
-}
+  .verde_cell .verde_cell_inner {
+    margin: 2px;
+    border-radius: 5px;
+  }
 
-.tipo2-color {
-  background-color: #9b5278;
-}
+  .verde_cell_header {
+    padding-left: 3px;
+    padding-top: 2px;
+    font-weight: bold;
+  }
 
-.tipo3-color {
-  background-color: #da954b;
-}
+  .verde_event_inner {
+    width: 90%;
+    margin: auto;
+    font-weight: bold;
+    font-size: 15px;
+  }
 
-.tipo4-color {
-  background-color: #7ba587;
+  .verde_header_inner {
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 3px;
+    margin-top: 3px;
+  }
+
+  .verde_event_bar {
+    visibility: hidden;
+  }
+
+  .legend-calendar-bookings {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 12px;
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .lblBooking1 {
+    margin-left: 10px;
+  }
+
+  .lblBooking4 {
+    margin-right: 40px;
+  }
+
+  .legend-calendar-bookings span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    vertical-align: bottom;
+  }
+
+  .tipo1-color {
+    background-color: #4d4d4d;
+  }
+
+  .tipo2-color {
+    background-color: #9b5278;
+  }
+
+  .tipo3-color {
+    background-color: #da954b;
+  }
+
+  .tipo4-color {
+    background-color: #7ba587;
+  }
 }
 
 //Calendario influencia de eventos
@@ -1689,93 +1737,103 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .verde_cell .verde_cell_inner {
-      margin: 2px;
-      border-radius: 5px;
+    margin: 2px;
+    border-radius: 5px;
   }
 
   .legend-container {
-      width: 100%;
-      margin-top: 28px;
+    width: 100%;
+    margin-top: 28px;
   }
 
   .gradient-bar {
-      width: 100%;
-      height: 30px;
-      background: linear-gradient(to right, rgba(226, 28, 0, 0.7), rgba(255, 255, 0, 0.7), rgba(28, 226, 0, 0.7));
-      border-radius: 15px;
-      margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(
+      to right,
+      rgba(226, 28, 0, 0.7),
+      rgba(255, 255, 0, 0.7),
+      rgba(28, 226, 0, 0.7)
+    );
+    border-radius: 15px;
+    margin-top: 10px;
   }
 
   .legend-texts {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      font-size: 17px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 17px;
   }
 
   .verde_cell_header {
-      padding-left: 3px;
-      padding-top: 2px;
-      font-weight: bold;
+    padding-left: 3px;
+    padding-top: 2px;
+    font-weight: bold;
   }
 
   .verde_event_inner {
-      width: 90%;
-      margin: auto;
-      font-weight: bold;
-      font-size: 15px;
-      background-color: rgba(26,25,27,0.8)
+    width: 90%;
+    margin: auto;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: rgba(26, 25, 27, 0.8);
   }
 
   .verde_event_bar {
-      visibility: hidden;
+    visibility: hidden;
   }
 
-  .verde_header_inner{
-      font-weight: bold;
-      font-size: 15px;
+  .verde_header_inner {
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 3px;
+    margin-top: 3px;
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1280px) {
   .form-new-event {
     margin-top: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
+      o-text-input {
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+      o-textarea-input {
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+
       o-combo.halfSize {
-        max-width: 29.5%;
-        width: 29.5%;
-        min-width: 29.5%;
+        max-width: 38.03%;
+        width: 38.03%;
+        min-width: 38.03%;
       }
 
       o-text-input.halfSize {
-        max-width: 68%;
-        width: 68%;
-        min-width: 68%;
+        max-width: 58.5%;
+        width: 58.5%;
+        min-width: 58.5%;
       }
 
-      o-date-input,
-      o-integer-input,
-      o-real-input,
-      o-hour-input {
-        max-width: 47%;
-        width: 47%;
-        min-width: 47%;
+      o-integer-input {
+        max-width: 17.75%;
+        width: 17.75%;
+        min-width: 147px;
       }
 
-      o-date-input,
-      o-hour-input.inline {
-        max-width: 13.5%;
-        width: 13.5%;
-        min-width: 13.5%;
-      }
-
-      o-integer-input,
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
       o-real-input.inline {
-        max-width: 21%;
-        width: 21%;
-        min-width: 21%;
+        max-width: 17.75%;
+        width: 17.75%;
+        min-width: 147px;
       }
     }
   }
@@ -1808,6 +1866,106 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
+
+@media (min-width: 2000px) {
+  .form-new-event {
+    margin-top: 70px;
+
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-text-input {
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+      o-textarea-input {
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+
+      o-combo.halfSize {
+        max-width: 38.03%;
+        width: 38.03%;
+        min-width: 38.03%;
+      }
+
+      o-text-input.halfSize {
+        max-width: 58.5%;
+        width: 58.5%;
+        min-width: 58.5%;
+      }
+
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
+      o-real-input.inline {
+        max-width: 18%;
+        width: 18%;
+        min-width: 18%;
+      }
+    }
+  }
+
+  .edit-event {
+    margin-top: 70px;
+
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-combo.halfSize.edit {
+        max-width: 37.7%;
+        width: 37.7%;
+        min-width: 37.7%;
+      }
+
+      o-text-input.halfSize.edit {
+        max-width: 57.8%;
+        width: 57.8%;
+        min-width: 57.8%;
+      }
+
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
+      o-real-input.inline {
+        max-width: 17.3%;
+        width: 17.3%;
+        min-width: 17.3%;
+      }
+    }
+  }
+}
+
+@media (min-width: 2300px) {
+  .edit-event {
+    margin-top: 70px;
+
+    o-column.o-column:not(.service-column),
+    o-row.o-row:not(.service-column) {
+      o-combo.halfSize.edit {
+        max-width: 37.9%;
+        width: 37.9%;
+        min-width: 37.9%;
+      }
+
+      o-text-input.halfSize.edit {
+        max-width: 57.8%;
+        width: 57.8%;
+        min-width: 57.8%;
+      }
+
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
+      o-real-input.inline {
+        max-width: 17.5%;
+        width: 17.5%;
+        min-width: 17.5%;
+      }
+    }
+  }
+}
+
 .form-new-event.form-coworking-detail,
 .form-new-event.form-edit-modal {
   margin-top: 0;
@@ -1932,6 +2090,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
 @media (max-width: 1500px) {
   /*  Coworking */
   .coworking-card {
+    max-width: 800px;
+
     // Estilo general de la tarjeta de coworking
     .image-container {
       // Contenedor de la imagen
@@ -1962,12 +2122,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .dos-columnas {
     flex-direction: column !important;
   }
-}
 
-.container {
-  max-width: 1200px;
-  display: grid;
-  gap: 3rem;
+  /*  Event */
+  .event-card {
+    max-width: 800px;
+  }
 }
 
 @media (min-width: 600px) {

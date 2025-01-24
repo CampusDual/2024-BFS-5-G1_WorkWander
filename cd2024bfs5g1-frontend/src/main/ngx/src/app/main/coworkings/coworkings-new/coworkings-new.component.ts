@@ -60,9 +60,7 @@ export class CoworkingsNewComponent implements OnInit {
     // Usa un timeout para asegurarte de que el mapa esté listo
     setTimeout(() => {
       this.leafletMap = this.coworking_map.getMapService().getMap();
-      if (this.leafletMap) {
-        console.log('Mapa inicializado correctamente:', this.leafletMap);
-      } else {
+      if (!this.leafletMap) {
         console.error('El mapa aún no está listo.');
       }
     }, 500);
@@ -191,7 +189,6 @@ export class CoworkingsNewComponent implements OnInit {
           console.error('El servicio del mapa no está disponible.');
         }
         this.validAddress = true;
-        console.log("validAddress: ", this.validAddress);
         this.addMarker(+lat, +lon);
       } else {
         this.snackBar(this.translate.get("INVALID_LOCATION_ADDRESS"));
@@ -209,7 +206,6 @@ export class CoworkingsNewComponent implements OnInit {
             console.error('El servicio del mapa no está disponible.');
           }
           this.validAddress = true;
-          console.log("validAddress: ", this.validAddress);
           this.addMarker(+lat, +lon);
         })
       };
@@ -220,7 +216,7 @@ export class CoworkingsNewComponent implements OnInit {
     if(this.marker != null){
       this.leafletMap.removeLayer(this.marker);
       this.marker = null;
-    } 
+    }
     this.marker = L.marker([this.mapLat, this.mapLon], { draggable: true }).addTo(this.leafletMap);
     // Escuchar el evento de movimiento del marcador
       this.marker.on('dragend', (event: any) => {
@@ -228,6 +224,8 @@ export class CoworkingsNewComponent implements OnInit {
           const position = marker.getLatLng();
           this.mapLat = position.lat;
           this.mapLon = position.lng;
+          this.coworkingForm.getFieldReference('cw_lat').setValue(position.lat);
+          this.coworkingForm.getFieldReference('cw_lon').setValue(position.lng);
         });
   }
 

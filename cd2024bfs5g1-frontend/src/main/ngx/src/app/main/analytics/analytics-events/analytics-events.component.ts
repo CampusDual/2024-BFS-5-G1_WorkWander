@@ -96,30 +96,28 @@ export class AnalyticsEventsComponent implements OnInit {
       }
       //Se adiciona el tooltip del porcentaje de ocupacion
       args.cell.properties.html =
-      `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+      `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;"
       title="Sin reservas">
-      </div>`; 
+      </div>`;
       let color = "rgba(226, 28, 0, 0.7)";
       // Normalizar la fecha de la celda eliminando la hora
       const cellDate = new Date(args.cell.start.toString()).setHours(0, 0, 0, 0);
       if (this.bookingsDataArray && this.bookingsDataArray.length > 0) {
-        const cellData = this.bookingsDataArray.find((item) => item.date === cellDate);
+        const cellData = this.bookingsDataArray.find((item) => new Date(item.date).setHours(0, 0, 0, 0) === cellDate);
         //Color de la celda por defecto si no hay ocupacion
-        console.log("CELLDATA-OUT", cellData);
         if (cellData) {
-          console.log("CELLDATA-IN", cellData);
           const percentage =
             (cellData.plazasOcupadas / cellData.cw_capacity) * 100;
           color = this.getColorForPercentage(percentage);
           args.cell.properties.html =
-          `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;" 
+          `<div style="position:absolute;right:2px;bottom:2px;font-size:8pt;color:#666;width:100%;height:100%;"
            title="Ocupación: ${percentage.toFixed(2)}%">
-          </div>`;      
+          </div>`;
         }
       }
       //Se adiciona el color de la celda según el porcentaje de ocupacion
       args.cell.properties.backColor = color;
-      
+
     },
   };
   /**
@@ -164,7 +162,7 @@ export class AnalyticsEventsComponent implements OnInit {
     const conf = this.service.getDefaultServiceConfiguration(serviceName);
     this.service.configureService(conf);
   }
-  
+
   /**
    * @notices Obtiene los eventos en la misma localidad de un coworking
    */
@@ -193,7 +191,7 @@ export class AnalyticsEventsComponent implements OnInit {
             };
             this.events.push(object);
           }
-        } 
+        }
       });
   }
 
@@ -314,7 +312,6 @@ export class AnalyticsEventsComponent implements OnInit {
     getOccupationByMonth(): Promise<DateData[]> {
       this.bookingsDataArray = [];
       return new Promise((resolve, reject) => {
-      let occupationByDate: DateData[] = [];
       const year = this.date.getYear();
       const month = this.date.getMonth();
       // Obtener el primer día del mes

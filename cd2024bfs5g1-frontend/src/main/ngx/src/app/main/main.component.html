@@ -4,6 +4,7 @@
   show-user-info="true"
   closed-sidenav-image="assets/images/sidenav-closed.png"
   show-language-selector="yes"
+  (click)="onAppLayoutClick($event)"
 >
   <o-user-info-configuration show-settings="no"></o-user-info-configuration>
   <router-outlet></router-outlet>

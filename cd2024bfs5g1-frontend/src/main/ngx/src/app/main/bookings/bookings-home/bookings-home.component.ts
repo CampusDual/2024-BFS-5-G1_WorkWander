@@ -42,11 +42,9 @@ export class BookingsHomeComponent {
   ) { }
 
   ngOnInit() {
-    setTimeout(() => { this.deleteLoader() }, 250);
   }
 
   toCoworkingDetail(event) {
-    console.log(event);
     if (event.columnName == "rate") {
       this.openValoration(event);
     } else if (event.columnName == "cancelCWbooking") {

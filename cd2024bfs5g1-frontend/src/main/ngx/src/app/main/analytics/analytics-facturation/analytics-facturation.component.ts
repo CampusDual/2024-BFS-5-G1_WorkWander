@@ -47,6 +47,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   languageChoose = false;
   typeData:string;
   resolveData = true;
+  maxSelection = 5;
   locale:string;
   points:string;
   colors:string[]=[
@@ -172,8 +173,21 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    */
   onCoworkingChange(selectedNames: any) {
     if (selectedNames.type === 0) {
-      this.selectedCoworkings = selectedNames.newValue;
-      this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+      if (selectedNames.newValue.length <= this.maxSelection) {
+        this.selectedCoworkings = selectedNames.newValue;
+        if (selectedNames.type === 0) {
+          this.selectedCoworkings = selectedNames.newValue;
+          this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+        }
+      } else {
+        this.comboCoworkingInput.setValue(selectedNames.oldValue);
+        this.showAvailableToast(
+          this.translate.get("COWORKING_CHART_SELECTION_LIMIT") +
+            this.maxSelection +
+            " coworkings."
+        );
+        return;
+      }
     }
   }
 
@@ -313,20 +327,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
         legend[index].innerText = this.translate.get(this.listOfMonths[this.numberOfMonths[index]].name);
       });
     }else{
+      for(let i=0;i<data.length;i++){
+        for(let x=0;x<data[i].series.length;x++){
+          this.colorScheme.domain[x]=this.colors[x];
+        }
+      }
       this.numberOfMonths = []
       for (let i = 0; i < data.length; i++) {
-        for (let x = 0; x < data[i].series.length; x++) {
-          if (!this.numberOfMonths.includes(data[i].series[x].i)) {
-            this.numberOfMonths.push(data[i].series[x].i);
-          }
-          data[i].series[x].name = this.translate.get(this.listOfMonths[data[i].series[x].i].name);
-          }
+        if (!this.numberOfMonths.includes(data[i].i)) {
+          this.numberOfMonths.push(data[i].i);
+        }
+        data[i].name = this.translate.get(this.listOfMonths[data[i].i].name);
       }
-      this.numberOfMonths.sort(function(a, b){return a - b});
-      this.colorScheme.domain=[];
-      this.numberOfMonths.forEach((e,i)=>{
-        this.colorScheme.domain[i]=this.colors[e-1];
-      })
     }
   }
 

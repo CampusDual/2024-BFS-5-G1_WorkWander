@@ -1,3 +1,11 @@
+<!-- Loader -->
+<div id="borrar">
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+  </div>
+</div>
 <o-form-layout-manager
   attr="myCoworkingsHome"
   title="{{ 'MYCOWORKINGS' | oTranslate }}"
@@ -17,12 +25,11 @@
     visible-columns="cw_name;cw_address;cw_location;cw_capacity;cw_daily_price;deleteCoworking"
     query-rows="15"
     auto-adjust="true"
+    refresh-button="yes"
+    show-buttons-text="no"
+    (onDataLoaded)="deleteLoader()"
   >
-    <o-table-column
-      attr="cw_name"
-      title="cw_name"
-      width="27%"
-      ></o-table-column>
+    <o-table-column attr="cw_name" title="cw_name" width="27%"></o-table-column>
     <o-table-column
       attr="cw_address"
       title="cw_address"

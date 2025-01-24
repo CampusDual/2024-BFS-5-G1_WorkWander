@@ -1,0 +1,28 @@
+.responsive-button {
+  white-space: normal !important;
+  text-align: center;
+  padding: 16px !important;
+  display: inline-flex !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 8px !important;
+  flex-grow: 1 !important;
+  box-shadow: none !important;
+  margin-right: 16px;
+  line-height: normal;
+  min-height: 60px;
+  max-height: 60px;
+  line-height: 0.7em !important;
+}
+
+.responsive-button:hover {
+  background-color: rgb(185, 206, 191);
+}
+
+@media (max-width: 1430px) {
+  .responsive-button {
+    min-width: 100% !important;
+    line-height: 1.2em !important;
+  }
+}

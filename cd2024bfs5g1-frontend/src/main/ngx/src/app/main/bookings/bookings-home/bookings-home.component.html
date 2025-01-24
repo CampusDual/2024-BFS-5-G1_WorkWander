@@ -46,7 +46,7 @@
     *ngIf="mapVisible"
     title=""
     fxLayout="row"
-    fxLayoutGap="16px"
+    fxLayoutGap="8px"
     class="columna-imagen-mapa"
     style="margin-left: 15px"
   >
@@ -67,19 +67,30 @@
     </div>
     <div
       fxLayout="column"
-      fxLayoutGap="16px"
-      style="max-height: 500px; overflow-y: auto"
+      fxLayoutGap="8px"
+      style="
+        max-height: 550px;
+        overflow-y: auto;
+        width: 26.5%;
+        overflow-x: hidden;
+      "
     >
       <button
+        mat-raised-button
+        class="responsive-button"
         *ngFor="let item of dates"
         (click)="acercar(item)"
-        class="button-filter button btn-outline-light custom-button btn-bookings-map"
       >
-        {{ utils.formatShortDate(item.dates[0]) }}
-        <span>-</span>
-        {{ utils.formatShortDate(item.dates[item.dates.length - 1]) }}
-        <span>|</span>
-        {{ item.cw_name }}
+        <p>
+          <strong style="font-size: 1.2em">
+            {{ item.cw_name }}
+          </strong>
+        </p>
+        <p>
+          {{ utils.formatShortDate(item.dates[0]) }}
+          <span>-</span>
+          {{ utils.formatShortDate(item.dates[item.dates.length - 1]) }}
+        </p>
       </button>
     </div>
   </div>
@@ -98,6 +109,9 @@
     auto-adjust="true"
     (onClick)="toCoworkingDetail($event)"
     detail-mode="none"
+    refresh-button="yes"
+    show-buttons-text="no"
+    (onDataLoaded)="deleteLoader()"
   >
     <o-table-columns-filter
       columns="cw_name;date_start;date_end"

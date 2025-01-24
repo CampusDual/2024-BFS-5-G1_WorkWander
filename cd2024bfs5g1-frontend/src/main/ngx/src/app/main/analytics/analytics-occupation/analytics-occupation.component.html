@@ -1,4 +1,4 @@
-<o-form show-header="false" class="chart-container">
+<o-form show-header="false" class="chart-container" (onLoadData)="firstRequest()">
   <!-- Añadir el título aquí -->
   <div class="title">
     <h1>{{ "OCCUPANCY_PERCENTAGE_TITLE" | oTranslate }}</h1>
@@ -20,8 +20,8 @@
       required="yes"
       formControlName="coworking"
       (onValueChange)="onCoworkingChange($event)"
-      searchable="true"
       [multiple]="true"
+      selected="allCoworkNames"
       (onSelectionChange)="onCoworkingChange($event)"
       multiple-trigger-label="true"
     >
@@ -38,7 +38,13 @@
       read-only="no"
       required="no"
       (onValueChange)="setDates()"
+      startKey="startDate"
+      endKey="endDate"
       value-type="date"
+      [data]="dateInitEnd()"
+      required="yes"
+      locale="locale"
+      format="L"
     ></o-daterange-input>
   </div>
 
@@ -58,7 +64,7 @@
         show-x-axis-label="true"
         show-y-axis-label="true"
         legend-position="below"
-        legend-title="Legend"
+        legend-title="Coworkings"
         show-grid-lines="false"
       ></o-chart>
     </ng-container>

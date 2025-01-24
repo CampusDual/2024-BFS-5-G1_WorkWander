@@ -72,7 +72,6 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-    setTimeout(() => { this.deleteLoader() }, 500);
     this.leafletMap = this.coworking_map.getMapService().getMap();
 
   }
@@ -284,7 +283,7 @@ export class CoworkingsHomeComponent implements OnInit {
     if (decimalPart == "") {
       decimalPart = "00";
     }
-    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+    return `${integerPart},${decimalPart} €`;
   }
 
   currentDate() {

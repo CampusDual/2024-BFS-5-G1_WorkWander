@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="grid-container">
-  <o-form class="filters" show-header="no">
+  <o-form class="filters" show-header="no" (onDataLoaded)="deleteLoader()">
     <o-column-collapsible
       class="collapsible-container"
       attr="container"
@@ -101,7 +101,6 @@
           <span>{{ "PRICE_RANGE" | oTranslate }}</span>
         </div>
         <div class="slider">
-
           <o-slider
             id="slider"
             #cw_daily_price
@@ -119,7 +118,7 @@
           ></o-slider>
         </div>
         <div class="valoracion">
-        <span >{{ 'RATING_TITLE' | oTranslate }} </span>
+          <span>{{ "RATING_TITLE" | oTranslate }} </span>
         </div>
         <p-rating
           class="rate"

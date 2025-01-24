@@ -36,7 +36,6 @@ export class EventsHomeComponent implements OnInit {
   ngOnInit() {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
-    setTimeout(() => { this.deleteLoader() }, 250);
     this.configureService();
     //this.setFormatPrice();
   }
@@ -67,7 +66,7 @@ export class EventsHomeComponent implements OnInit {
       if (decimalPart == "") {
         decimalPart = "00";
       }
-      return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+      return `${integerPart},${decimalPart} €`;
     } else {
       return this.translate.get("FREE");
     }

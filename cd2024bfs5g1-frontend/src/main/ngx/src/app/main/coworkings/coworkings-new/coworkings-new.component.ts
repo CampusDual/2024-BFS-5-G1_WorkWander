@@ -12,6 +12,8 @@ import {
   SnackBarService,
 } from "ontimize-web-ngx";
 import { OMapComponent } from "ontimize-web-ngx-map";
+import * as L from 'leaflet';
+import { CustomMapService } from "src/app/shared/services/custom-map.service";
 
 @Component({
   selector: "app-coworking-new",
@@ -27,7 +29,8 @@ export class CoworkingsNewComponent implements OnInit {
   public selectedServices: number = 0;
   protected service: OntimizeService;
   leafletMap: any;
-  protected validAddress: boolean;
+  marker: L.marker = null;
+  protected validAddress: boolean = false;
   protected mapLat: string = ""; //Latitud
   protected mapLon: string = ""; //Longitud
   protected coords = this.mapLat + ";" + this.mapLon; //Coordenadas a guardar en la DB a futuro
@@ -44,6 +47,7 @@ export class CoworkingsNewComponent implements OnInit {
     private translate: OTranslateService,
     protected injector: Injector,
     protected snackBarService: SnackBarService,
+    private mapService: CustomMapService,
     protected dialogService: DialogService,
     private http: HttpClient
   ) {
@@ -105,7 +109,12 @@ export class CoworkingsNewComponent implements OnInit {
   }
 
   public async save() {
-    if (!this.validAddress) {
+
+    if(this.marker == null){
+    await this.onAddressBlur();
+    }
+
+    if (this.validAddress == false) {
       const confirmSave = await this.showConfirm();
       if (!confirmSave) {
         return;
@@ -142,7 +151,7 @@ export class CoworkingsNewComponent implements OnInit {
   }
 
   isInvalidForm(): boolean {
-    return !this.coworkingForm || this.coworkingForm.formGroup.invalid;
+    return !this.coworkingForm || this.coworkingForm.formGroup.invalid || this.marker == null;
   }
 
   public showConfigured() {
@@ -157,7 +166,7 @@ export class CoworkingsNewComponent implements OnInit {
   }
 
   // ---------------------- MAPA ----------------------
-  onAddressBlur(): void {
+  public onAddressBlur(): void {
     const selectedCityId = this.combo.getValue();
     const address = this.address.getValue();
     const cityObject = this.combo.dataArray.find(city => city.id_city === selectedCityId);
@@ -167,8 +176,7 @@ export class CoworkingsNewComponent implements OnInit {
       return;
     }
 
-    const addressComplete = address ? `${address}, ${cityName}` : `${cityName}, ${cityName}`;
-    this.getCoordinatesForCity(addressComplete).then((results) => {
+    this.mapService.getCoordinates(cityName,address).then((results) => {
       if (results) {
         let [lat, lon] = results.split(';')
         this.mapLat = lat;
@@ -183,26 +191,17 @@ export class CoworkingsNewComponent implements OnInit {
           console.error('El servicio del mapa no está disponible.');
         }
         this.validAddress = true;
-        this.coworking_map.addMarker(
-          'coworking_marker',           // id
-          lat,                 // latitude
-          lon,                 // longitude
-          { draggable: true },       // options
-          this.translate.get("COWORKING_MARKER"),     // popup
-          false,                     // hidden
-          true,                      // showInMenu
-          this.translate.get("COWORKING_MARKER")   // menuLabel
-        );
-
+        console.log("validAddress: ", this.validAddress);
+        this.addMarker(+lat, +lon);
       } else {
         this.snackBar(this.translate.get("INVALID_LOCATION_ADDRESS"));
-        this.getCoordinatesForCity(cityName).then((results) => {
+        this.mapService.getCityCoordinates(cityName).then((results) => {
           let [lat, lon] = results.split(';')
           this.mapLat = lat;
           this.mapLon = lon;
           if (this.coworking_map && this.coworking_map.getMapService()) {
             if (this.leafletMap) {
-              this.leafletMap.setView([+lat, +lon], 16);
+              this.leafletMap.setView([+lat, +lon], 12);
             } else {
               console.error('El mapa no está inicializado.');
             }
@@ -210,39 +209,28 @@ export class CoworkingsNewComponent implements OnInit {
             console.error('El servicio del mapa no está disponible.');
           }
           this.validAddress = true;
-          this.coworking_map.addMarker(
-            'coworking_marker',           // id
-            lat,                 // latitude
-            lon,                 // longitude
-            { draggable: true },       // options
-            this.translate.get("COWORKING_MARKER"),     // popup
-            false,                     // hidden
-            true,                      // showInMenu
-            this.translate.get("COWORKING_MARKER")   // menuLabel
-          );
+          console.log("validAddress: ", this.validAddress);
+          this.addMarker(+lat, +lon);
         })
       };
     });
   }
 
-
-
-  //Es async porque realiza una solicitud HTTP para obtener datos de una API externa. responde = await porque se espera a que la solicitud HTTP se complete y devuelva una respuesta.
-  private async getCoordinatesForCity(location: string): Promise<string | null> {
-    try {
-      const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&countrycodes=es&format=json`;
-      const response = await this.http.get<any>(url).toPromise();
-
-      if (response?.length > 0) {
-        const { lat, lon } = response[response.length - 1];
-        this.mapLat = lat;
-        this.mapLon = lon;
-        return `${lat};${lon}`;
-      }
-    } catch (error) {
-      this.snackBar(this.translate.get("API_ERROR") + error);
-    }
-    return null;
+  private addMarker(lat: number, lon: number): void {
+    if(this.marker != null){
+      this.leafletMap.removeLayer(this.marker);
+      this.marker = null;
+    } 
+    this.marker = L.marker([this.mapLat, this.mapLon], { draggable: true }).addTo(this.leafletMap);
+    // Escuchar el evento de movimiento del marcador
+      this.marker.on('dragend', (event: any) => {
+          const marker = event.target;
+          const position = marker.getLatLng();
+          this.mapLat = position.lat;
+          this.mapLon = position.lng;
+          this.coworkingForm.getFieldReference('cw_lat').setValue(position.lat);
+          this.coworkingForm.getFieldReference('cw_lon').setValue(position.lng);
+        });
   }
 
   private snackBar(message: string): void {

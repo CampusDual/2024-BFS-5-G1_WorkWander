@@ -347,14 +347,14 @@ public class CoworkingService implements ICoworkingService {
         int year = 0;
         year = (int) keyMap.remove("year");
         months = new ArrayList<>((ArrayList<Integer>) keyMap.remove("month"));
-        for (int i = 0; i < arrayCw_id.size(); i++) {
-            final int cw = arrayCw_id.get(i);
-            keyMap.put(CoworkingDao.CW_ID, cw);
+        for (int i = 0; i < months.size(); i++) {
+            final int mes = months.get(i);
+            keyMap.put("date_part('month',booking_date.date)", mes);
             keyMap.put(BookingDao.BK_STATE, true);
             keyMap.put("date_part('year',booking_date.date)", year);
-            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, months);
+            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, arrayCw_id);
             if (dataMonths != null) {
-                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, months));
+                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, arrayCw_id));
             }
         }
         final EntityResult response = new EntityResultMapImpl();
@@ -368,39 +368,39 @@ public class CoworkingService implements ICoworkingService {
      *
      * @param keys,
      * @param attrList,
-     * @param months
+     * @param coworkings
      * @return coworkingMap
      */
     public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
-                                             final ArrayList<Integer> months) {
-        final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+                                             final ArrayList<Integer> coworkings) {
+        final Map<String, Object> monthsMap = new LinkedHashMap<>();
         List<String> coworkingName = new ArrayList<>();
-        final List<Map> monthsList = new ArrayList<>();
-        Map<String, Object> m = null;
+        final List<Map> coworkingsList = new ArrayList<>();
+        Map<String, Object> c = null;
         EntityResult er = null;
-        for (int j = 0; j < months.size(); j++) {
-            List<Integer> month = new ArrayList<>();
+        for (int j = 0; j < coworkings.size(); j++) {
+            List<String> coworking = new ArrayList<>();
             List<Integer> in = new ArrayList<>();
             List<Double> account = new ArrayList<>();
-            m = new HashMap<>(); //mapa del mes y del importe
-            keys.put("date_part('month',booking_date.date)", months.get(j));
+            c = new HashMap<>(); //mapa del coworking y del importe
+            keys.put("cw_id", coworkings.get(j));
             er = this.daoHelper.query(this.coworkingDao, keys, attrList,
                     this.coworkingDao.CW_QUERY_FACTURATION_BY_MONTH);
-            month = (List<Integer>) er.get("m");
+            coworking = (List<String>) er.get("coworking_name");
             in = (List<Integer>) er.get("m");
             account = (List<Double>) er.get("account");
-            if (month != null) {
-                m.put("i", in.get(0));
-                m.put("name", month.get(0));
-                m.put("value", account.get(0));
-                monthsList.add(m);
+            if (coworking != null) {
+                c.put("name", coworking.get(0));
+                c.put("value", account.get(0));
+                coworkingsList.add(c);
                 coworkingName = (List<String>) er.get("coworking_name");
-                coworkingMap.put("name", coworkingName.get(0));
-                coworkingMap.put("series", monthsList);
+                monthsMap.put("name", keys.get("date_part('month',booking_date.date)"));
+                monthsMap.put("i", in.get(0));
+                monthsMap.put("series", coworkingsList);
             }
         }
-        if (!coworkingMap.isEmpty()) {
-            return coworkingMap;
+        if (!monthsMap.isEmpty()) {
+            return monthsMap;
         } else {
             return null;
         }

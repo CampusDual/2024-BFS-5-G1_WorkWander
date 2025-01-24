@@ -1664,45 +1664,45 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 }
 
-@media (min-width: 768px) {
+
+
+@media (min-width: 1110px)  {
   .form-new-event {
     margin-top: 70px;
 
     o-column.o-column:not(.service-column),
     o-row.o-row:not(.service-column) {
+
+      o-text-input{
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+      o-textarea-input{
+        max-width: 99%;
+        width: 99%;
+        min-width: 99%;
+      }
+
       o-combo.halfSize {
-        max-width: 29.5%;
-        width: 29.5%;
-        min-width: 29.5%;
+        max-width: 31.52%;
+        width: 31.52%;
+        min-width: 31.52%;
       }
 
       o-text-input.halfSize {
-        max-width: 68%;
-        width: 68%;
-        min-width: 68%;
+        max-width: 65.03%;
+        width: 65.03%;
+        min-width: 65.03%;
       }
 
-      o-date-input,
-      o-integer-input,
-      o-real-input,
-      o-hour-input {
-        max-width: 47%;
-        width: 47%;
-        min-width: 47%;
-      }
-
-      o-date-input,
-      o-hour-input.inline {
-        max-width: 13.5%;
-        width: 13.5%;
-        min-width: 13.5%;
-      }
-
-      o-integer-input,
+      o-date-input.inline,
+      o-hour-input.inline,
+      o-integer-input.inline,
       o-real-input.inline {
-        max-width: 21%;
-        width: 21%;
-        min-width: 21%;
+        max-width: 17.93%;
+        width: 17.93%;
+        min-width: 149px;
       }
     }
   }
@@ -1735,6 +1735,7 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     }
   }
 }
+
 .form-new-event.form-coworking-detail,
 .form-new-event.form-edit-modal {
   margin-top: 0;

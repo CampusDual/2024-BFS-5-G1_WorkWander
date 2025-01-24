@@ -176,39 +176,45 @@ public class CoworkingService implements ICoworkingService {
             return null;
         }
 
-        BufferedImage image = null;
         try {
-            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            try (final ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
-                image = ImageIO.read(bis);
+            // Decodificar imagen Base64
+            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+            BufferedImage originalImage;
+
+            try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+                originalImage = ImageIO.read(bis);
+                if (originalImage == null) {
+                    throw new IOException("No se pudo leer la imagen");
+                }
             }
 
-            if (image == null) {
-                throw new IOException("No se pudo leer la imagen");
-            }
+            // Calcular nueva altura manteniendo proporción
+            final int TARGET_WIDTH = 110; // Ancho fijo deseado
+            double ratio = (double) originalImage.getHeight() / originalImage.getWidth();
+            int newHeight = (int) (TARGET_WIDTH * ratio);
 
-            int ancho = image.getWidth();
-            int alto = image.getHeight();
-            int nuevoAlto = 110 * alto / ancho;
+            // Crear imagen escalada con calidad
+            Image scaledImage = originalImage.getScaledInstance(TARGET_WIDTH, newHeight, Image.SCALE_SMOOTH);
+            BufferedImage outputImage = new BufferedImage(TARGET_WIDTH, newHeight, BufferedImage.TYPE_INT_ARGB);
 
-            final BufferedImage outputImage = new BufferedImage(110, nuevoAlto, BufferedImage.TYPE_INT_RGB);
-            final Graphics2D image2D = outputImage.createGraphics();
+            Graphics2D g2d = outputImage.createGraphics();
+            // Configuración para máxima calidad
+            g2d.setComposite(AlphaComposite.Src);
+            g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 
-            // Configurar la calidad del renderizado
-            image2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-            image2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            image2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            // Dibujar con fondo transparente
+            g2d.drawImage(scaledImage, 0, 0, null);
+            g2d.dispose();
 
-            // Dibujar la imagen
-            image2D.drawImage(image, 0, 0, 110, nuevoAlto, null);
-            image2D.dispose();
-
-            // Convertir a PNG y codificar en Base64
-            try (final ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            // Convertir a PNG con transparencia
+            try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 ImageIO.write(outputImage, "png", baos);
                 return Base64.getEncoder().encodeToString(baos.toByteArray());
             }
-        } catch (final IOException e) {
+        } catch (IOException e) {
             throw new IOException("Error al procesar la imagen: " + e.getMessage());
         }
     }

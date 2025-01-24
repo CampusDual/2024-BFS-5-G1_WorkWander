@@ -1572,45 +1572,85 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   background-color: $primaryClaro;
 }
 
-// leyenda calendario
-.leyenda {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  margin-left: 230px;
-}
+// leyenda calendario bookings
+.container {
+  max-width: 82%;
+  display: grid;
+  gap: 4%;
 
-.leyenda h3 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #333;
-}
+  .verde_cell .verde_cell_inner {
+    margin: 2px;
+    border-radius: 5px;
+  }
 
-.leyenda span {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
+  .verde_cell_header {
+      padding-left: 3px;
+      padding-top: 2px;
+      font-weight: bold;
+  }
 
-.tipo1-color {
-  background-color: #4d4d4d;
-}
+  .verde_event_inner {
+      width: 90%;
+      margin: auto;
+      font-weight: bold;
+      font-size: 15px;
+  }
 
-.tipo2-color {
-  background-color: #9b5278;
-}
+  .verde_header_inner{
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 3px;
+    margin-top: 3px;
+  }
 
-.tipo3-color {
-  background-color: #da954b;
-}
+  .verde_event_bar {
+    visibility: hidden;
+  }
 
-.tipo4-color {
-  background-color: #7ba587;
+  .legend-calendar-bookings {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 12px;
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .lblBooking1{
+    margin-left: 10px;
+  }
+
+  .lblBooking4{
+    margin-right: 40px;
+  }
+
+  .legend-calendar-bookings span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    vertical-align: bottom;
+  }
+
+  .tipo1-color {
+    background-color: #4d4d4d;
+  }
+
+  .tipo2-color {
+    background-color: #9b5278;
+  }
+
+  .tipo3-color {
+    background-color: #da954b;
+  }
+
+  .tipo4-color {
+    background-color: #7ba587;
+  }
 }
 
 //Calendario influencia de eventos
@@ -1672,6 +1712,8 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .verde_header_inner{
       font-weight: bold;
       font-size: 15px;
+      margin-left: 3px;
+      margin-top: 3px;
   }
 }
 
@@ -1902,12 +1944,6 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   .dos-columnas {
     flex-direction: column !important;
   }
-}
-
-.container {
-  max-width: 1200px;
-  display: grid;
-  gap: 3rem;
 }
 
 @media (min-width: 600px) {

@@ -75,6 +75,7 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   @ViewChild("daterange") bookingDate: ODateRangeInputComponent;
   @ViewChild("inputYear") inputYear: OIntegerInputComponent;
   @ViewChild("multiBarChart") multiBarChart:OChartComponent;
+  @ViewChild("comboYearsInput", {static: true}) comboYearsInput: OComboComponent;
 
   constructor(
     private service: OntimizeService,
@@ -113,9 +114,8 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.translateServiceSubscription.unsubscribe();
   }
   ngOnInit(): void {
-    this.typeData="MONTHS"
-    let date = new Date();
-    this.year = date.getFullYear();
+    this.typeData="MONTHS"        
+    
     this.selectedMonths = [];
     this.allMonths();
     this.points = "...";
@@ -126,8 +126,12 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
       this.selectedCoworkings.push(data[0]['cw_id']);
       this.selectedMonths.push(this.listOfMonths[0]);
       this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']]);
-      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
+      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems(); 
+        
+    
     })
+   
+
 
   }
 
@@ -250,14 +254,18 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    */
   setMonth(selectMonths?: any, selectCoworkings?:any) {
     this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
+    this.year = this.comboYearsInput.getFirstSelectedValue()[0]
+    console.log(this.year)
     if(!this.languageChoose){
       this.efects();
-      if (this.comboMonthInput.getSelectedItems()[0]==0 && this.comboCoworkingInput.getSelectedItems().length > 0) {
+      if (this.comboMonthInput.getSelectedItems()[0]==0 && this.comboCoworkingInput.getSelectedItems().length > 0
+          && this.year!=undefined) {  
         this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
         selectMonths = this.selectedMonths;
-        this.requestDataMonths(selectMonths, this.comboCoworkingInput.getSelectedItems());
-      } else if(this.comboMonthInput.getSelectedItems().length > 0 && this.comboCoworkingInput.getSelectedItems().length>0){
-          this.requestDataMonths(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+        this.requestDataMonths(selectMonths, this.comboCoworkingInput.getSelectedItems(), this.year);
+      } else if(this.comboMonthInput.getSelectedItems().length > 0 && this.comboCoworkingInput.getSelectedItems().length>0
+          && this.year!=undefined) { 
+          this.requestDataMonths(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems(), this.year);
       } else {
           this.resolveData=false
           this.isGraph=false
@@ -273,11 +281,12 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    * @param months
    * @param coworkings
    */
-  requestDataMonths(months?: Array<number>, coworkings?: Array<any>) {
+  requestDataMonths(months?: Array<number>, coworkings?: Array<any>, years?: number) {
     this.resolveData = true;
+    this.year=years;
     if((this.year != undefined || this.year > 0)){
       this.configureChart();
-      this.year = this.inputYear.getValue();
+      //this.year = this.comboYearsInput.getFirstSelectedValue()
       let filter = {
         "cw_id": coworkings,
         "month": months,

@@ -46,23 +46,24 @@
       required="yes"
     >
     </o-combo>
-    <o-integer-input
-    fxFlex="10"
-    #inputYear
-    attr="inputYear"
-    icon="hourglass_empty"
-    label="{{ 'YEAR' | oTranslate }}"
-    value="year"
-    class="inline"
-    min="1"
-    step="1"
-    max="9999"
-    (onValueChange)="setMonth($event)"
-    (onSelectionChange)="setMonth($event)"
-    required="yes"
-    data="{{ year }}"
-    thousand-separator=""
-  ></o-integer-input>
+    
+    <o-combo 
+      class="input-selector"
+      #comboYearsInput
+      attr="comboYearsInput"
+      label="{{ 'SELECT_YEARS' | oTranslate }}"
+      service="bookings"
+      entity="yearsWithBookings"
+      value-column="y"
+      columns="y"
+      visible-columns="y"
+      (onValueChange)="setMonth($event)"
+      (onSelectionChange)="setMonth($event)"
+      fxFlex="25"
+      required="yes"
+      >
+      
+    </o-combo>
   </div>
   <ng-container *ngIf="resolveData; else chart">
     <article id="txt-rotate" class="noResults">

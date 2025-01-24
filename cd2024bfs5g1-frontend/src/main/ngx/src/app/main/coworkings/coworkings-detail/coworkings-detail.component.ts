@@ -476,9 +476,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         return;
       }
 
-      console.log(
-        "Dirección no válida, intentando con la ciudad seleccionada..."
-      );
       const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 14, null);

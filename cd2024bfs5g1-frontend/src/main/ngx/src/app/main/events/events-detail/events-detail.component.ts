@@ -165,12 +165,13 @@ export class EventsDetailComponent implements OnInit {
       .subscribe((resp) => {
         if (resp.code === 0) {
           this.bookingEvents = resp.data;
-          console.log(this.translate.get("SLOTS"), this.bookingEvents.availableEventBookings);
+
           if (this.bookingEvents.totalEventBookings > 0) {
             this.buttonBooking = true;
             cantidadPlazasLibres = this.bookingEvents.availableEventBookings / this.bookingEvents.totalEventBookings;
             this.literalNumeroPlazas = "BOOKINGS_LEFT"
             this.numeroPlazas = this.bookingEvents.availableEventBookings;
+
             switch (true) {
               case (cantidadPlazasLibres > 0.9):
                 this.literalPlazas = "EVENT_DISPONIBILITY_GT_90";

@@ -300,9 +300,9 @@ form {
   background-color: $accent !important;
 }
 
-o-app-layout[show-user-info='false'] ,
-o-app-layout[show-user-info='no'] {
-  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1){
+o-app-layout[show-user-info="false"],
+o-app-layout[show-user-info="no"] {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(1) {
     min-width: 40px !important;
     width: 40px !important;
     height: 40px;
@@ -313,9 +313,8 @@ o-app-layout[show-user-info='no'] {
     }
   }
 
-
   /* Boton salir */
-    nav.ng-star-inserted:nth-last-child(1){
+  nav.ng-star-inserted:nth-last-child(1) {
     background-color: $verdeBoton;
     position: absolute;
     border-radius: 25px;
@@ -327,21 +326,21 @@ o-app-layout[show-user-info='no'] {
     right: 0;
     width: 80%;
 
-      span.o-app-sidenav-menuitem-title {
-        color: $blanco;
-      }
+    span.o-app-sidenav-menuitem-title {
+      color: $blanco;
+    }
 
-      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-        color: $blanco;
-      }
+    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+      color: $blanco;
+    }
 
-      .o-app-sidenav-menu-group a,
-      .o-app-sidenav-menu-item a {
-        padding-left: 4px;
-        padding-right: 4px !important;
-        border-left: 0px solid transparent !important;
-        color: $accent;
-      }
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
     :hover {
       border-left: 0px solid $accent !important;
@@ -372,9 +371,9 @@ o-app-layout[show-user-info='no'] {
   }
 }
 
-o-app-layout[show-user-info='true'] ,
-o-app-layout[show-user-info='yes']  {
-  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2){
+o-app-layout[show-user-info="true"],
+o-app-layout[show-user-info="yes"] {
+  .mat-drawer-closed nav.ng-star-inserted:nth-last-child(2) {
     min-width: 40px !important;
     width: 40px !important;
     height: 40px;
@@ -382,10 +381,9 @@ o-app-layout[show-user-info='yes']  {
 
     a {
       line-height: 40px !important;
-
     }
   }
-  nav.ng-star-inserted:nth-last-child(2){
+  nav.ng-star-inserted:nth-last-child(2) {
     background-color: $verdeBoton;
     position: absolute;
     border-radius: 25px;
@@ -397,21 +395,21 @@ o-app-layout[show-user-info='yes']  {
     right: 0;
     width: 80%;
 
-      span.o-app-sidenav-menuitem-title {
-        color: $blanco;
-      }
+    span.o-app-sidenav-menuitem-title {
+      color: $blanco;
+    }
 
-      mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
-        color: $blanco;
-      }
+    mat-icon.mat-icon.notranslate.material-icons.mat-ligature-font.mat-icon-no-color.ng-star-inserted {
+      color: $blanco;
+    }
 
-      .o-app-sidenav-menu-group a,
-      .o-app-sidenav-menu-item a {
-        padding-left: 4px;
-        padding-right: 4px !important;
-        border-left: 0px solid transparent !important;
-        color: $accent;
-      }
+    .o-app-sidenav-menu-group a,
+    .o-app-sidenav-menu-item a {
+      padding-left: 4px;
+      padding-right: 4px !important;
+      border-left: 0px solid transparent !important;
+      color: $accent;
+    }
 
     :hover {
       border-left: 0px solid $accent !important;
@@ -1656,19 +1654,19 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .verde_cell_header {
-      padding-left: 3px;
-      padding-top: 2px;
-      font-weight: bold;
+    padding-left: 3px;
+    padding-top: 2px;
+    font-weight: bold;
   }
 
   .verde_event_inner {
-      width: 90%;
-      margin: auto;
-      font-weight: bold;
-      font-size: 15px;
+    width: 90%;
+    margin: auto;
+    font-weight: bold;
+    font-size: 15px;
   }
 
-  .verde_header_inner{
+  .verde_header_inner {
     font-weight: bold;
     font-size: 15px;
     margin-left: 3px;
@@ -1690,11 +1688,11 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
     display: flex;
   }
 
-  .lblBooking1{
+  .lblBooking1 {
     margin-left: 10px;
   }
 
-  .lblBooking4{
+  .lblBooking4 {
     margin-right: 40px;
   }
 
@@ -1749,43 +1747,48 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
   }
 
   .gradient-bar {
-      width: 100%;
-      height: 30px;
-      background: linear-gradient(to right, rgba(226, 28, 0, 0.7), rgba(255, 255, 0, 0.7), rgba(28, 226, 0, 0.7));
-      border-radius: 15px;
-      margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(
+      to right,
+      rgba(226, 28, 0, 0.7),
+      rgba(255, 255, 0, 0.7),
+      rgba(28, 226, 0, 0.7)
+    );
+    border-radius: 15px;
+    margin-top: 10px;
   }
 
   .legend-texts {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      font-size: 17px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-size: 17px;
   }
 
   .verde_cell_header {
-      padding-left: 3px;
-      padding-top: 2px;
-      font-weight: bold;
+    padding-left: 3px;
+    padding-top: 2px;
+    font-weight: bold;
   }
 
   .verde_event_inner {
-      width: 90%;
-      margin: auto;
-      font-weight: bold;
-      font-size: 15px;
-      background-color: rgba(26,25,27,0.8)
+    width: 90%;
+    margin: auto;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: rgba(26, 25, 27, 0.8);
   }
 
   .verde_event_bar {
     visibility: hidden;
   }
 
-  .verde_header_inner{
-      font-weight: bold;
-      font-size: 15px;
-      margin-left: 3px;
-      margin-top: 3px;
+  .verde_header_inner {
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 3px;
+    margin-top: 3px;
   }
 }
 
@@ -1816,6 +1819,12 @@ td.cdk-column-deleteCoworking.mat-column-deleteCoworking {
         max-width: 58.5%;
         width: 58.5%;
         min-width: 58.5%;
+      }
+
+      o-integer-input {
+        max-width: 17.75%;
+        width: 17.75%;
+        min-width: 147px;
       }
 
       o-date-input.inline,

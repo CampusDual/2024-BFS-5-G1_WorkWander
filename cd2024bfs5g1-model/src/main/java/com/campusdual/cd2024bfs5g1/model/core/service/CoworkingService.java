@@ -301,7 +301,7 @@ static String resizeImage(final String base64Image) throws IOException {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -424,7 +424,7 @@ static String resizeImage(final String base64Image) throws IOException {
      * @return coworkingMap
      */
     public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
-                                             final ArrayList<Integer> coworkings) {
+            final ArrayList<Integer> coworkings) {
         final Map<String, Object> monthsMap = new LinkedHashMap<>();
         List<String> coworkingName = new ArrayList<>();
         final List<Map> coworkingsList = new ArrayList<>();

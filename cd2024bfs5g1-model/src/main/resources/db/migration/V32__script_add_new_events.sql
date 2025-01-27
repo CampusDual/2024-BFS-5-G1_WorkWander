@@ -44,5 +44,4 @@ BEGIN
 	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 3, true);
 
 
-
 END $$;

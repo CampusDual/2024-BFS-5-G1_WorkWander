@@ -17,7 +17,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -96,6 +101,7 @@ public class CoworkingService implements ICoworkingService {
             }
             attrMap.put("cw_image_resized", cwResizedImage);
         }
+        attrMap.put("cw_image_resized", cwResizedImage); // Cambiar a cw_image_resized para consistencia
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
@@ -174,24 +180,70 @@ public class CoworkingService implements ICoworkingService {
         }
     }
 
-    static String resizeImage(final String base64Image) throws IOException {
-        BufferedImage image = null;
-        try {
-            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
-        }
-        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
-        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
-        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(outputImage, "png", baos);
-        final byte[] imageBytes = baos.toByteArray();
-        return Base64.getEncoder().encodeToString(imageBytes);
+static String resizeImage(final String base64Image) throws IOException {
+    if (base64Image == null || base64Image.isEmpty()) {
+        return null;
     }
 
+    try {
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        BufferedImage originalImage;
+
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+            originalImage = ImageIO.read(bis);
+            if (originalImage == null) {
+                throw new IOException("No se pudo leer la imagen");
+            }
+        }
+
+        final int TARGET_WIDTH = 320;
+        double ratio = (double) originalImage.getHeight() / originalImage.getWidth();
+        int newHeight = (int) (TARGET_WIDTH * ratio);
+
+        // Detectar si la imagen necesita transparencia
+        boolean hasTransparency = originalImage.getColorModel().hasAlpha();
+
+        // Elegir formato basado en contenido
+        String formatoSalida = hasTransparency ? "png" : "jpeg";
+        int imageType = hasTransparency ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
+
+        BufferedImage outputImage = new BufferedImage(TARGET_WIDTH, newHeight, imageType);
+        Graphics2D g2d = outputImage.createGraphics();
+
+        // Configuración optimizada
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        if (!hasTransparency) {
+            g2d.setBackground(Color.WHITE);
+            g2d.clearRect(0, 0, TARGET_WIDTH, newHeight);
+        }
+
+        g2d.drawImage(originalImage, 0, 0, TARGET_WIDTH, newHeight, null);
+        g2d.dispose();
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            if ("jpeg".equals(formatoSalida)) {
+                // Configuración JPEG
+                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+                ImageWriteParam param = writer.getDefaultWriteParam();
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.8f);
+
+                ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+                writer.setOutput(ios);
+                writer.write(null, new IIOImage(outputImage, null, null), param);
+                writer.dispose();
+                ios.close();
+            } else {
+                // PNG para imágenes con transparencia
+                ImageIO.write(outputImage, "png", baos);
+            }
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
+        }
+    } catch (IOException e) {
+        throw new IOException("Error al procesar la imagen: " + e.getMessage());
+    }
+}
     /**
      * Calcula la capacidad que tiene el coworking
      *
@@ -405,7 +457,6 @@ public class CoworkingService implements ICoworkingService {
             return null;
         }
     }
-
     @Override
     public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

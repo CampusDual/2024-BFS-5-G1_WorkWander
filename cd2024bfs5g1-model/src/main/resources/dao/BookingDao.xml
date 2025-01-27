@@ -72,5 +72,16 @@
                 #WHERE_CONCAT#
             </Sentence>
         </Query>
+        <Query id="yearsWithBookings">
+            <Sentence>
+                SELECT EXTRACT(YEAR FROM bd.date) as y,
+                EXTRACT(YEAR FROM bd.date) as year
+                FROM ${mainschema}.booking b
+                INNER JOIN ${mainschema}.booking_date bd on bd.bk_id = b.bk_id
+                #WHERE#
+                GROUP BY y, year
+                ORDER BY y, year
+            </Sentence>
+        </Query>
     </Queries>
 </JdbcEntitySetup>

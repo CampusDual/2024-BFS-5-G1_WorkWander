@@ -74,12 +74,13 @@
         </Query>
         <Query id="yearsWithBookings">
             <Sentence>
-                SELECT EXTRACT(YEAR FROM public.booking_date.date) as y
-                FROM public.booking
-                INNER JOIN public.booking_date on public.booking_date.bk_id = public.booking.bk_id
+                SELECT EXTRACT(YEAR FROM bd.date) as y,
+                EXTRACT(YEAR FROM bd.date) as year
+                FROM ${mainschema}.booking b
+                INNER JOIN ${mainschema}.booking_date bd on bd.bk_id = b.bk_id
                 #WHERE#
-                GROUP BY EXTRACT(YEAR from public.booking_date.date), public.booking.bk_state
-                ORDER BY EXTRACT(YEAR from public.booking_date.date);
+                GROUP BY y, year
+                ORDER BY y, year
             </Sentence>
         </Query>
     </Queries>

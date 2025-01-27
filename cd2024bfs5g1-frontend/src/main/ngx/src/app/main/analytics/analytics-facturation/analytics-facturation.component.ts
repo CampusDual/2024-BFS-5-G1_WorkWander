@@ -17,7 +17,7 @@ import {
   ODateRangeInputComponent,
   OIntegerInputComponent,
 } from "ontimize-web-ngx";
-import { Subscription, map } from 'rxjs';
+import { Subscription, concatMap, map } from 'rxjs';
 import {
   ChartService,
   OChartComponent,
@@ -50,19 +50,13 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   maxSelection = 5;
   locale:string;
   points:string;
+  yearsData: any[]=[];
   colors:string[]=[
     "#9ACD32",
     "#6B8E23",
     "#556B2F",
     "#8FBC8F",
-    "#32CD32",
-    "#3CB371",
-    "#2E8B57",
-    "#228B22",
-    "#00FF00",
-    "#006400",
-    "#66CDAA",
-    "#20B2AA"
+    "#2E8B57"
   ]
   colorScheme = {
     domain: [],
@@ -113,26 +107,22 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.translateServiceSubscription.unsubscribe();
   }
+
   ngOnInit(): void {
-    this.typeData="MONTHS"        
-    
+    this.typeData="MONTHS"
     this.selectedMonths = [];
+    this.getYears();
     this.allMonths();
     this.points = "...";
     this.locale=this.translate.getCurrentLang();
     this.comboCoworkingInput.onDataLoaded.subscribe((rest: any) => {
-      const data = this.comboCoworkingInput.getDataArray()
-      this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']])
+      const data = this.comboCoworkingInput.getDataArray();
+      this.comboCoworkingInput.setSelectedItems([data[0]['cw_id']]);
       this.selectedCoworkings.push(data[0]['cw_id']);
       this.selectedMonths.push(this.listOfMonths[0]);
       this.comboMonthInput.setSelectedItems([this.listOfMonths[0]['id']]);
-      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems(); 
-        
-    
-    })
-   
-
-
+      this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
+    });
   }
 
   /**
@@ -152,6 +142,23 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.listOfMonths[10] = {id: 10, name: this.translate.get("OCTOBER")};
     this.listOfMonths[11] = {id: 11, name: this.translate.get("NOVEMBER")};
     this.listOfMonths[12] = {id: 12, name: this.translate.get("DECEMBER")};
+  }
+
+  getYears(){
+    const filter = {};
+    const columns = ["y"];
+    let configurationService = this.service.getDefaultServiceConfiguration("bookings");
+    this.service.configureService(configurationService);
+    this.service.query(filter, columns, "yearsWithBookings").subscribe((response) => {
+      if (response.code == 0 && response.data.length > 0) {
+        for (let i = 0; i < response.data.length; i++) {
+          let years = {y:response.data[i]['y'], year:response.data[i]['year']};
+          this.yearsData[i]=years;
+        }
+        this.year = this.yearsData[0]['y'];
+        this.comboYearsInput.setValue(this.yearsData[0]['y']);
+      }
+    });
   }
 
   /**
@@ -254,17 +261,16 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    */
   setMonth(selectMonths?: any, selectCoworkings?:any) {
     this.oldSelectedMonths=this.comboMonthInput.getSelectedItems();
-    this.year = this.comboYearsInput.getFirstSelectedValue()[0]
-    console.log(this.year)
+    this.year = this.comboYearsInput.getValue()
     if(!this.languageChoose){
       this.efects();
       if (this.comboMonthInput.getSelectedItems()[0]==0 && this.comboCoworkingInput.getSelectedItems().length > 0
-          && this.year!=undefined) {  
+          && this.year!=undefined) {
         this.selectedMonths = [1,2,3,4,5,6,7,8,9,10,11,12]
         selectMonths = this.selectedMonths;
         this.requestDataMonths(selectMonths, this.comboCoworkingInput.getSelectedItems(), this.year);
       } else if(this.comboMonthInput.getSelectedItems().length > 0 && this.comboCoworkingInput.getSelectedItems().length>0
-          && this.year!=undefined) { 
+          && this.year!=undefined) {
           this.requestDataMonths(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems(), this.year);
       } else {
           this.resolveData=false
@@ -286,7 +292,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
     this.year=years;
     if((this.year != undefined || this.year > 0)){
       this.configureChart();
-      //this.year = this.comboYearsInput.getFirstSelectedValue()
       let filter = {
         "cw_id": coworkings,
         "month": months,
@@ -306,7 +311,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
             this.chartData = [];
             this.chartData = response.data[0]["data"];
             this.numberOfMonths=[];
-            console.log(this.chartData);
             this.adaptResult(this.chartData, false);
             this.showData();
           } else {
@@ -330,7 +334,6 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
  * @param data
  */
   adaptResult(data?:Array<any>, translation?:boolean){
-    console.log("l 310",data[0].series);
     const element = this.elementRef.nativeElement;
     let legend = element.querySelectorAll('.legend-label-text');
     if (translation) {

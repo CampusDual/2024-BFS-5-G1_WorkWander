@@ -46,23 +46,24 @@
       required="yes"
     >
     </o-combo>
-    
-    <o-combo 
+
+    <o-combo
       class="input-selector"
       #comboYearsInput
       attr="comboYearsInput"
       label="{{ 'SELECT_YEARS' | oTranslate }}"
-      service="bookings"
-      entity="yearsWithBookings"
+      [static-data]="yearsData"
+      [data]="year"
       value-column="y"
-      columns="y"
-      visible-columns="y"
+      columns="y;year"
+      visible-columns="year"
       (onValueChange)="setMonth($event)"
-      (onSelectionChange)="setMonth($event)"
-      fxFlex="25"
+      (onSelectionChange)="setMonth($event)"            
+      null-selection="no"
+      fxFlex="15"
       required="yes"
       >
-      
+
     </o-combo>
   </div>
   <ng-container *ngIf="resolveData; else chart">

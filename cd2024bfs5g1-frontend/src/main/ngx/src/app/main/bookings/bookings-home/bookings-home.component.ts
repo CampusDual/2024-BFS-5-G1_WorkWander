@@ -45,7 +45,6 @@ export class BookingsHomeComponent {
   }
 
   toCoworkingDetail(event) {
-    console.log(event);
     if (event.columnName == "rate") {
       this.openValoration(event);
     } else if (event.columnName == "cancelCWbooking") {

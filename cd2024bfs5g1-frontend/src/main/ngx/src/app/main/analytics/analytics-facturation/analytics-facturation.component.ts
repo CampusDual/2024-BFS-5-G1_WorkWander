@@ -184,12 +184,12 @@ export class AnalyticsFacturationComponent implements OnInit, OnDestroy {
    */
   onCoworkingChange(selectedNames: any) {
     if (selectedNames.type === 0) {
-      this.selectedCoworkings = selectedNames.newValue;
-      this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
-    }
-    if (selectedNames.type === 0) {
       if (selectedNames.newValue.length <= this.maxSelection) {
         this.selectedCoworkings = selectedNames.newValue;
+        if (selectedNames.type === 0) {
+          this.selectedCoworkings = selectedNames.newValue;
+          this.setMonth(this.comboMonthInput.getSelectedItems(), this.comboCoworkingInput.getSelectedItems());
+        }
       } else {
         this.comboCoworkingInput.setValue(selectedNames.oldValue);
         this.showAvailableToast(

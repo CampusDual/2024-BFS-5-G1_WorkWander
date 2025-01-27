@@ -31,7 +31,7 @@ BEGIN
 */
 
 	/*	Asignamos los valores del coworking que vamos a crear	*/
-	SELECT 'Palas de Rey','Calle de la Paz, 2', 'Palas', 'Coworking Palas de Rei' INTO my_city, my_address, my_name, my_description;
+	SELECT 'Palas de Rei','Calle de la Paz, 2', 'Palas', 'Coworking Palas de Rei' INTO my_city, my_address, my_name, my_description;
 
 	/*	Recuperamos el código de ciudad para que recupere el valor de la ciudad	*/
   	SELECT id_city INTO my_location FROM city where city =  my_city;
@@ -67,7 +67,7 @@ BEGIN
 */
 
 	/*	Asignamos los valores del coworking que vamos a crear	*/
-	SELECT 'Palas de Rey','Avenida compostela, 4', 'Palas Camiño', 'Coworking O Camiño servicios para autónomos que hacen el Camino' INTO my_city, my_address, my_name, my_description;
+	SELECT 'Palas de Rei','Avenida compostela, 4', 'Palas Camiño', 'Coworking O Camiño servicios para autónomos que hacen el Camino' INTO my_city, my_address, my_name, my_description;
 
 	/*	Recuperamos el código de ciudad para que recupere el valor de la ciudad	*/
   	SELECT id_city INTO my_location FROM city where city =  my_city;
@@ -106,7 +106,7 @@ BEGIN
 */
 
 	/*	Asignamos los valores del coworking que vamos a crear	*/
-	SELECT 'Palas de Rey','Coworking Benilde, un lugar para crear los frutos de tu inspiración', 'Benilde', 'Coworking Benilde, un lugar para crear los frutos de tu inspiración' INTO my_city, my_address, my_name, my_description;
+	SELECT 'Palas de Rei','Rúa do Mercado, 2', 'Benilde', 'Coworking Benilde, un lugar para crear los frutos de tu inspiración' INTO my_city, my_address, my_name, my_description;
 
 	/*	Recuperamos el código de ciudad para que recupere el valor de la ciudad	*/
   	SELECT id_city INTO my_location FROM city where city =  my_city;

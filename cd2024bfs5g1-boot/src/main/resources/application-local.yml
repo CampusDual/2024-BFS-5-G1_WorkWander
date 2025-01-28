@@ -4,6 +4,6 @@ spring:
     username: testuser
     password: testuser
   flyway:
-    enabled: false
+    enabled: true
 environment:
   profile: local

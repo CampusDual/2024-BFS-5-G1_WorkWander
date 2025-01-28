@@ -16,6 +16,8 @@ DECLARE
 
    	my_location coworking.cw_location%TYPE;
 
+   	my_date	TIMESTAMP;
+
 BEGIN
     /*  Recuperamos la población del evento */
 
@@ -36,11 +38,11 @@ BEGIN
 
 	/*	Creamos eventos para el usuario creado	*/
 	INSERT INTO public."event" (id_event, "name", description, date_event, hour_event, address, bookings, usr_id, duration, image_event, locality, price)
-	VALUES(nextval('event_id_event_seq'::regclass), my_event_name, my_event_description, my_event_date_event, my_event_hour_event, my_event_address, my_event_bookings, 3, my_event_image_event,  my_location, my_event_price)
+	VALUES(nextval('event_id_event_seq'::regclass), my_event_name, my_event_description, my_event_date_event, my_event_hour_event, my_event_address, my_event_bookings, 3, 120, my_event_image_event,  my_location, my_event_price)
 	RETURNING id_event into my_event_id;
 
 	/*	Asignamos algunas reservas para el evento creado	*/
-	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 4, true);
+	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 2, true);
 	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 3, true);
 
 

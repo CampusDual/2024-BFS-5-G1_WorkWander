@@ -1,150 +1,47 @@
 DO $$
 DECLARE
-my_date	TIMESTAMP;
-	my_user usr_user.usr_id%TYPE;
-	my_cw_id coworking.cw_id%TYPE;
-	my_bk_id booking.bk_id%TYPE;
+my_date TIMESTAMP;
+    my_user usr_user.usr_id%TYPE := 2; -- ID del usuario que realiza las reservas
+    my_cw_id coworking.cw_id%TYPE;
+    my_bk_id booking.bk_id%TYPE;
+    coworkings TEXT[] := ARRAY['Via Lactea', 'Palas Camiño', 'A Ponte', 'CoLab Zone'];  /* AÑADIR LOS COWORKINGS ELEGIDOS*/
+    num_days INT;
+    i INT;
 
 BEGIN
+    -- Bucle para cada coworking en el array
+FOR i IN 1..array_length(coworkings, 1) LOOP
+        -- Seleccionar el coworking actual
+SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = coworkings[i] LIMIT 1;
 
-/*	Asignamos la fecha de partida de los datos actuales	*/
+-- Fechas pasadas
 SELECT CURRENT_DATE - INTERVAL '1 month' INTO my_date;
+num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
+INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
+VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
+    RETURNING bk_id INTO my_bk_id;
+FOR j IN 1..num_days LOOP
+            INSERT INTO public.booking_date (bk_id, "date") VALUES (my_bk_id, my_date + INTERVAL '1 day' * j);
+END LOOP;
 
-/*	Recuperamos el código de usuario para que genere los coworking	*/
-SELECT 2 INTO my_user;
+        -- Fechas presentes
+SELECT CURRENT_DATE INTO my_date;
+num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
+INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
+VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
+    RETURNING bk_id INTO my_bk_id;
+FOR j IN 1..num_days LOOP
+            INSERT INTO public.booking_date (bk_id, "date") VALUES (my_bk_id, my_date + INTERVAL '1 day' * j);
+END LOOP;
 
-/* ---> Seleccionamos el coworking Buen Camino*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Buen Camino' LIMIT 1;
-
-/*	Insertamos una reserva para el coworking creado*/
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-/*	Creamos la reserva para 4 días diferentes	*/
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '1 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '2 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-
-/*	---> Seleccionamos el coworking Sarria Collaborative*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Sarria Collaborative' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '6 day');
-/*	---> Seleccionamos el coworking O Galo Cowork*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'O Galo Cowork' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-
-/*	---> Seleccionamos el coworking Ferreiros Creative Suite*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Ferreiros Creative Suite' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '10 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '11 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '12 day');
-
-
-/*----------RESERVAS EN EL MES ACTUAL---------*/
-SELECT CURRENT_DATE - INTERVAL '1 DAY' INTO my_date;
-SELECT 2 INTO my_user;
-/* ---> Seleccionamos el coworking Buen Camino*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Buen Camino' LIMIT 1;
-
-/*	Insertamos una reserva para el coworking creado*/
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-/*	Creamos la reserva para 4 días diferentes	*/
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '1 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '2 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-
-/*	---> Seleccionamos el coworking Sarria Collaborative*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Sarria Collaborative' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '6 day');
-/*	---> Seleccionamos el coworking O Galo Cowork*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'O Galo Cowork' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-
-/*	---> Seleccionamos el coworking Ferreiros Creative Suite*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Ferreiros Creative Suite' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '10 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '11 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '12 day');
-
-
-/*----------RESERVAS EN EL MES FUTRO---------*/
-SELECT CURRENT_DATE + INTERVAL '20 DAY' INTO my_date;
-SELECT 2 INTO my_user;
-/* ---> Seleccionamos el coworking Buen Camino*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Buen Camino' LIMIT 1;
-
-/*	Insertamos una reserva para el coworking creado*/
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-/*	Creamos la reserva para 4 días diferentes	*/
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '1 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '2 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-
-/*	---> Seleccionamos el coworking Sarria Collaborative*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Sarria Collaborative' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '6 day');
-/*	---> Seleccionamos el coworking O Galo Cowork*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'O Galo Cowork' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '3 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '4 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '5 day');
-
-/*	---> Seleccionamos el coworking Ferreiros Creative Suite*/
-SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = 'Ferreiros Creative Suite' LIMIT 1;
-
-INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state) VALUES(nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
-    returning bk_id INTO my_bk_id;
-
-
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '10 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '11 day');
-INSERT INTO public.booking_date (bk_id, "date") VALUES(my_bk_id, my_date + INTERVAL '12 day');
-
-
+        -- Fechas futuras
+SELECT CURRENT_DATE + INTERVAL '1 month' INTO my_date;
+num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
+INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
+VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
+    RETURNING bk_id INTO my_bk_id;
+FOR j IN 1..num_days LOOP
+            INSERT INTO public.booking_date (bk_id, "date") VALUES (my_bk_id, my_date + INTERVAL '1 day' * j);
+END LOOP;
+END LOOP;
 END $$;

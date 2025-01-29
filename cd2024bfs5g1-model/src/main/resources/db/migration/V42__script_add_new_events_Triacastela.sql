@@ -47,7 +47,7 @@ BEGIN
 
 /*  Recuperamos la población del evento 2*/
 
-    SELECT id_city INTO my_location FROM city where city =  'Arzúa';
+    SELECT id_city INTO my_location FROM city where city =  'Triacastela';
 
 	/*	Asignamos la fecha de partida de los datos actuales	*/
 	SELECT CURRENT_DATE - INTERVAL '1 month' INTO my_date;
@@ -73,7 +73,7 @@ BEGIN
 
 /*  Recuperamos la población del evento 3*/
 
-    SELECT id_city INTO my_location FROM city where city =  'Arzúa';
+    SELECT id_city INTO my_location FROM city where city =  'Triacastela';
 
 	/*	Asignamos la fecha de partida de los datos actuales	*/
 	SELECT CURRENT_DATE - INTERVAL '1 month' INTO my_date;

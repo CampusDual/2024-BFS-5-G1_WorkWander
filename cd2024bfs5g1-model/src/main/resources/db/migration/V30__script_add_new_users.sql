@@ -17,7 +17,7 @@ BEGIN
 
     /*	Asignamos los valores de usuario que vamos a crear	*/
     SELECT
-        'company',
+        'cotecme',
         'company@mail.com',
         'Cotecme',
         '$2a$12$F0b201nBwTw7xkvtvYyAsOGGmBoPgKPuIxOU86dY5W484U.BiofAG',

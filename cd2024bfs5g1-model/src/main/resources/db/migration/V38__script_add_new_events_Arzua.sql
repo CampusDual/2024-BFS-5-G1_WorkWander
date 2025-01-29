@@ -16,6 +16,8 @@ DECLARE
 
    	my_location coworking.cw_location%TYPE;
 
+   	my_date	TIMESTAMP;
+
 BEGIN
     /*  Recuperamos la población del evento 1*/
 
@@ -40,7 +42,7 @@ BEGIN
 	RETURNING id_event into my_event_id;
 
 	/*	Asignamos algunas reservas para el evento creado	*/
-	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 4, true);
+	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 2, true);
 	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 3, true);
 
 /*  Recuperamos la población del evento 2*/
@@ -66,7 +68,7 @@ BEGIN
 	RETURNING id_event into my_event_id;
 
 	/*	Asignamos algunas reservas para el evento creado	*/
-	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 4, true);
+	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 2, true);
 	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 3, true);
 
 /*  Recuperamos la población del evento 3*/
@@ -92,7 +94,7 @@ BEGIN
 	RETURNING id_event into my_event_id;
 
 	/*	Asignamos algunas reservas para el evento creado	*/
-	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 4, true);
+	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 2, true);
 	INSERT INTO public.booking_event (bke_event_id, bke_id_event, bke_usr_id, bke_event_state) VALUES(nextval('booking_event_bke_event_id_seq'::regclass), my_event_id, 3, true);
 
 END $$;

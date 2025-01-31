@@ -19,11 +19,11 @@ DECLARE
     num_users INT := 18; -- Número de usuarios a crear
 
     user_names TEXT[] := ARRAY[
-        'Adela', 'Juan', 'Ana', 'Hugo','Miguel', 'David', 'Julian', 'Alberto', 'Javier', 'Orlando', 'Bryan', 'Lucas', 'Alejandro', 'Tania', 'Sergio', 'Julio', 'Beatriz', 'Nataly'
+        'Adela', 'Alberto', 'Ana', 'Beatriz', 'Nataly'
     ];
 
     /*  Creación de Reservas */
-	coworkings TEXT[] := ARRAY['Via Lactea', 'Palas Camiño', 'A Ponte', 'CoLab Zone'];  /* AÑADIR LOS COWORKINGS ELEGIDOS*/
+	coworkings TEXT[] := ARRAY['Via Lactea', 'Palas Camiño', 'A Ponte', 'Casa Ribeira Sacra'];  /* AÑADIR LOS COWORKINGS ELEGIDOS*/
 
 	/*  Creación de reseñas */
     my_user_id usr_user.usr_id%TYPE;

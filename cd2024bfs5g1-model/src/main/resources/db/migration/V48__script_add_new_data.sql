@@ -59,7 +59,7 @@ BEGIN
         my_user_password := '$2a$12$Kz66GrY8iYy65pZkr8sH.OQxbWABgMGbJ7va6X3b0/Y01vVeAlsk2';
 
         -- Insertar el nuevo usuario en la tabla usr_user
-        INSERT INTO usr_user (usr_id, usr_login, usr_name, usr_email, usr_password)
+        INSERT INTO usr_user (usr_login, usr_name, usr_email, usr_password)
         VALUES (my_user_usr_login, my_user_usr_name, my_user_mail, my_user_password)
         RETURNING usr_id INTO my_user;
 

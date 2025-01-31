@@ -44,6 +44,8 @@ BEGIN
 
     SELECT rol_id INTO my_user_role FROM usr_role where rol_name =  'user';
 
+    SELECT CURRENT_DATE  - INTERVAL '1 month'  INTO my_date;
+
     -- Crear usuarios en la tabla usr_user
     FOR i IN 1..num_users LOOP
         -- Obtener el usr_login del array
@@ -57,7 +59,7 @@ BEGIN
         my_user_password := '$2a$12$Kz66GrY8iYy65pZkr8sH.OQxbWABgMGbJ7va6X3b0/Y01vVeAlsk2';
 
         -- Insertar el nuevo usuario en la tabla usr_user
-        INSERT INTO usr_user (usr_login, usr_name, usr_email, usr_password)
+        INSERT INTO usr_user (usr_id, usr_login, usr_name, usr_email, usr_password)
         VALUES (my_user_usr_login, my_user_usr_name, my_user_mail, my_user_password)
         RETURNING usr_id INTO my_user;
 
@@ -72,7 +74,7 @@ BEGIN
             SELECT cw_id INTO my_cw_id FROM coworking WHERE cw_name = coworkings[i] LIMIT 1;
 
             -- Fechas pasadas
-            SELECT CURRENT_DATE - INTERVAL '1 month' INTO my_date;
+            SELECT my_date - INTERVAL '1 month' INTO my_date;
             num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
             INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
             VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
@@ -83,7 +85,7 @@ BEGIN
             END LOOP;
 
             -- Fechas presentes
-            SELECT CURRENT_DATE INTO my_date;
+            SELECT my_date + INTERVAL '1 month'  INTO my_date;
             num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
             INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
             VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)
@@ -94,7 +96,7 @@ BEGIN
             END LOOP;
 
             -- Fechas futuras
-            SELECT CURRENT_DATE + INTERVAL '1 month' INTO my_date;
+            SELECT my_date + INTERVAL '2 month' INTO my_date;
             num_days := floor(random() * 4 + 2); -- Número de días de reserva entre 2 y 5
             INSERT INTO public.booking (bk_id, bk_usr_id, bk_cw_id, bk_state)
             VALUES (nextval('booking_bk_id_seq'::regclass), my_user, my_cw_id, true)

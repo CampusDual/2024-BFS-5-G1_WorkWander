@@ -48,7 +48,7 @@ END IF;
                 review_ratio := floor(random() * 4 + 2);
 
                 -- Insertar la reseña en la tabla Booking_rate
-INSERT INTO booking_rate (id_bkr, bk_description, bkr_ratio, cw_id, usr_id)
+INSERT INTO booking_rate (id_bkr, bkr_description, bkr_ratio, cw_id, usr_id)
 VALUES (my_bk_id, review_description, review_ratio, my_cw_id, my_user_id);
 
 -- Agregar el bk_id al array de procesados

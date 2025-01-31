@@ -26,9 +26,6 @@ DECLARE
 	coworkings TEXT[] := ARRAY['Via Lactea', 'Palas Camiño', 'A Ponte', 'CoLab Zone'];  /* AÑADIR LOS COWORKINGS ELEGIDOS*/
 
 	/*  Creación de reseñas */
-    my_bk_id booking_date.bk_id%TYPE;
-    my_date booking_date.date%TYPE;
-    my_cw_id coworking.cw_id%TYPE;
     my_user_id usr_user.usr_id%TYPE;
     review_descriptions TEXT[] := ARRAY[
         'Excelente experiencia, muy recomendable.',
@@ -136,7 +133,7 @@ BEGIN
                 review_ratio := floor(random() * 4 + 2);
 
                 -- Insertar la reseña en la tabla Booking_rate
-                INSERT INTO booking_rate (id_bkr, bk_description, bkr_ratio, cw_id, usr_id)
+                INSERT INTO booking_rate (id_bkr, bkr_description, bkr_ratio, cw_id, usr_id)
                 VALUES (my_bk_id, review_description, review_ratio, my_cw_id, my_user_id);
 
                 -- Agregar el bk_id al array de procesados

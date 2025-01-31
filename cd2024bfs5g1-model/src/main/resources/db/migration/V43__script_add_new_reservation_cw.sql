@@ -1,7 +1,15 @@
 DO $$
 DECLARE
 my_date TIMESTAMP;
-    my_user usr_user.usr_id%TYPE;
+
+	/*	Información del usuario	*/
+	my_user usr_user.usr_id%TYPE;
+	my_user_usr_login usr_user.usr_login%TYPE;
+	my_user_usr_name usr_user.usr_name%TYPE;
+	my_user_mail usr_user.usr_email%TYPE;
+	my_user_password usr_user.usr_password%TYPE;
+
+
     my_cw_id coworking.cw_id%TYPE;
     my_bk_id booking.bk_id%TYPE;
     coworkings TEXT[] := ARRAY['Via Lactea', 'O Galo Cowork', 'A Ponte', 'CoLab Zone'];  /* AÑADIR LOS COWORKINGS ELEGIDOS*/
@@ -20,7 +28,7 @@ BEGIN
     my_user_password := '$2a$12$Kz66GrY8iYy65pZkr8sH.OQxbWABgMGbJ7va6X3b0/Y01vVeAlsk2';
 
     -- Insertar el nuevo usuario en la tabla usr_user
-    INSERT INTO usr_user (usr_id, usr_login, usr_name, usr_email, usr_password)
+    INSERT INTO usr_user (usr_login, usr_name, usr_email, usr_password)
     VALUES (my_user_usr_login, my_user_usr_name, my_user_mail, my_user_password)
     RETURNING usr_id INTO my_user;
 

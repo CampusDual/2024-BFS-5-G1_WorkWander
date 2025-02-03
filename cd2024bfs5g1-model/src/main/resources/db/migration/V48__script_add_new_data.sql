@@ -16,7 +16,6 @@ DECLARE
 	/*  Datos de creación de usuarios */
 	num_days INT;
 	i INT;
-    num_users INT := 18; -- Número de usuarios a crear
 
     user_names TEXT[] := ARRAY[
         'Adela', 'Alberto', 'Ana', 'Beatriz', 'Nataly'
@@ -47,7 +46,7 @@ BEGIN
     SELECT CURRENT_DATE  - INTERVAL '1 month'  INTO my_date;
 
     -- Crear usuarios en la tabla usr_user
-    FOR i IN 1..num_users LOOP
+    FOR i IN 1..array_length(user_names, 1) LOOP
         -- Obtener el usr_login del array
         my_user_usr_login := lower(user_names[i]);
 

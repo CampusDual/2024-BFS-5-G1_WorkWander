@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit, ViewChild } from "@angular/core";
+import { Component, HostListener, Injector, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Router } from "@angular/router";
 import {
@@ -36,14 +36,19 @@ export class EventsHomeComponent implements OnInit {
   ngOnInit() {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
-    setTimeout(() => { this.deleteLoader() }, 250);
     this.configureService();
     //this.setFormatPrice();
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
   setGridCols(width: number) {
-    this.gridCols = width < 1000 ? 1 : 2;
+    this.gridCols = width < 1500 ? 1 : 2;
+  }
+
+  // Listener para que cuando se cambie el tamaño de la ventana, llamar al evento y la funcion setGridCols
+  @HostListener("window:resize", ["$event"])
+  onResize(event: Event) {
+    this.setGridCols((event.target as Window).innerWidth);
   }
 
   // Función para convertir la imagen desde la base de datos
@@ -67,7 +72,7 @@ export class EventsHomeComponent implements OnInit {
       if (decimalPart == "") {
         decimalPart = "00";
       }
-      return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+      return `${integerPart},${decimalPart} €`;
     } else {
       return this.translate.get("FREE");
     }

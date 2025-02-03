@@ -44,7 +44,6 @@ export class MyCoworkingsHomeComponent {
     this.service.configureService(conf);
     this.service.delete(filter, "coworking").subscribe((res) => {
 
-      console.log(res);
       if (res.message == "") {
         this.showInfoToast("COWORKING_DELETED");
         // window.location.reload();
@@ -75,4 +74,10 @@ export class MyCoworkingsHomeComponent {
     this.snackBarService.open(availableMessage, configuration);
   }
 
+  deleteLoader() {
+    const borrar = document.querySelector('#borrar') as HTMLDivElement;
+    if (borrar) {
+      borrar.textContent = "";
+    }
+  }
 }

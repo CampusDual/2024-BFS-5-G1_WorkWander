@@ -72,14 +72,13 @@ export class CoworkingsHomeComponent implements OnInit {
     // Al cargar, obtendremos al ancho de pantalla, para posteriormente pasarselo como parámetro a la funcion setGridCols
     this.setGridCols(window.innerWidth);
     this.configureService();
-    setTimeout(() => { this.deleteLoader() }, 500);
     this.leafletMap = this.coworking_map.getMapService().getMap();
 
   }
 
   // Función que cambiará el número de columnas a 1 si el ancho de ventana es menor de 1000
   setGridCols(width: number) {
-    this.gridCols = width < 1000 ? 1 : 2;
+    this.gridCols = width < 1500 ? 1 : 2;
   }
 
   // Listener para que cuando se cambie el tamaño de la ventana, llamar al evento y la funcion setGridCols
@@ -284,7 +283,7 @@ export class CoworkingsHomeComponent implements OnInit {
     if (decimalPart == "") {
       decimalPart = "00";
     }
-    return `${integerPart},<span class="decimal">${decimalPart}</span> €`;
+    return `${integerPart},${decimalPart} €`;
   }
 
   currentDate() {

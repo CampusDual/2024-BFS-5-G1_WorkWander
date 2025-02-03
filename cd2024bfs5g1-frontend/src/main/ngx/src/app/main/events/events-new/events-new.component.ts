@@ -78,7 +78,7 @@ export class EventsNewComponent {
       bookings: this.formCtrl.getFieldValue("bookings"),
       price: this.formCtrl.getFieldValue("price") ?? 0,
     };
-    console.log("Event: ", event);
+
     this.insert(event, sqlTypes);
     this.formCtrl.clearData();
     this.router.navigateByUrl("/main/myevents");
@@ -87,7 +87,6 @@ export class EventsNewComponent {
   //Inserta el evento creado
   public insert(event: any, sqlTypes: any) {
     this.service.insert(event, "event", sqlTypes).subscribe((data) => {
-      console.log(data);
       this.showConfigured();
     });
   }

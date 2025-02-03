@@ -1,0 +1,59 @@
+@use "sass:map";
+@import "src/assets/css/workwander.scss";
+
+.qr-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.qr-dialog-content {
+  padding: 24px;
+  background-color: $blanco;
+}
+
+.dialog-title {
+  font-family: $typography;
+  font-size: $fontSize25;
+  color: $primary;
+  margin-bottom: 24px;
+  text-align: center;
+  font-weight: $fontBold;
+}
+
+.info-message {
+  font-family: $typography;
+  margin-bottom: 32px;
+  color: $verdeBoton;
+  font-size: $fontSize18;
+  text-align: center;
+  font-weight: $fontSemiBold;
+}
+
+qrcode {
+  margin-bottom: 32px;
+  padding: 16px;
+  background-color: $blanco;
+  border-radius: $borderRadius;
+  box-shadow: 0 4px 6px rgba($primary, 0.2);
+}
+.download-button:focus {
+  display: contents;
+}
+.download-button {
+  background-color: rgba(105, 142, 116, 0.6);
+  height: 32px;
+  width: 150px;
+  box-shadow: unset;
+  &:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    background-color: rgba(105, 142, 116, 0.6);
+  }
+}
+.download-link {
+  text-decoration: none;
+  font-family: "Noto-Sans";
+  text-align: center;
+  color: black;
+}

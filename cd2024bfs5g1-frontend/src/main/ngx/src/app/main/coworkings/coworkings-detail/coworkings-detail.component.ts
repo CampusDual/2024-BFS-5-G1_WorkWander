@@ -107,7 +107,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.buttonBooking = false;
-    setTimeout(() => { this.deleteLoader() }, 250);
     this.leafletMap = this.coworking_map.getMapService().getMap();
   }
 
@@ -132,6 +131,7 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         this.coworkingName.getValue()
       );
     }
+    this.deleteLoader();
   }
 
   currentDate() {
@@ -476,9 +476,6 @@ export class CoworkingsDetailComponent implements OnInit, AfterViewInit {
         return;
       }
 
-      console.log(
-        "Dirección no válida, intentando con la ciudad seleccionada..."
-      );
       const cityResults = await this.getCoordinates(selectedCity);
       if (cityResults) {
         this.updateMapAndMarker(cityResults, 14, null);

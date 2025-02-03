@@ -17,7 +17,12 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -96,6 +101,7 @@ public class CoworkingService implements ICoworkingService {
             }
             attrMap.put("cw_image_resized", cwResizedImage);
         }
+        attrMap.put("cw_image_resized", cwResizedImage); // Cambiar a cw_image_resized para consistencia
 
         // Añadir el ID del usuario al mapa de atributos para el insert
         attrMap.put(CoworkingDao.CW_USER_ID, userId);
@@ -174,24 +180,70 @@ public class CoworkingService implements ICoworkingService {
         }
     }
 
-    static String resizeImage(final String base64Image) throws IOException {
-        BufferedImage image = null;
-        try {
-            final byte[] imageBytes = Base64.getDecoder().decode(base64Image);
-            image = ImageIO.read(new ByteArrayInputStream(imageBytes));
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
-        }
-        final Image resultingImage = image.getScaledInstance(110, 110, Image.SCALE_DEFAULT);
-        final BufferedImage outputImage = new BufferedImage(110, 110, BufferedImage.TYPE_INT_RGB);
-        outputImage.getGraphics().drawImage(resultingImage, 0, 0, null);
-
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(outputImage, "png", baos);
-        final byte[] imageBytes = baos.toByteArray();
-        return Base64.getEncoder().encodeToString(imageBytes);
+static String resizeImage(final String base64Image) throws IOException {
+    if (base64Image == null || base64Image.isEmpty()) {
+        return null;
     }
 
+    try {
+        byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+        BufferedImage originalImage;
+
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes)) {
+            originalImage = ImageIO.read(bis);
+            if (originalImage == null) {
+                throw new IOException("No se pudo leer la imagen");
+            }
+        }
+
+        final int TARGET_WIDTH = 320;
+        double ratio = (double) originalImage.getHeight() / originalImage.getWidth();
+        int newHeight = (int) (TARGET_WIDTH * ratio);
+
+        // Detectar si la imagen necesita transparencia
+        boolean hasTransparency = originalImage.getColorModel().hasAlpha();
+
+        // Elegir formato basado en contenido
+        String formatoSalida = hasTransparency ? "png" : "jpeg";
+        int imageType = hasTransparency ? BufferedImage.TYPE_INT_ARGB : BufferedImage.TYPE_INT_RGB;
+
+        BufferedImage outputImage = new BufferedImage(TARGET_WIDTH, newHeight, imageType);
+        Graphics2D g2d = outputImage.createGraphics();
+
+        // Configuración optimizada
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        if (!hasTransparency) {
+            g2d.setBackground(Color.WHITE);
+            g2d.clearRect(0, 0, TARGET_WIDTH, newHeight);
+        }
+
+        g2d.drawImage(originalImage, 0, 0, TARGET_WIDTH, newHeight, null);
+        g2d.dispose();
+
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            if ("jpeg".equals(formatoSalida)) {
+                // Configuración JPEG
+                ImageWriter writer = ImageIO.getImageWritersByFormatName("jpeg").next();
+                ImageWriteParam param = writer.getDefaultWriteParam();
+                param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                param.setCompressionQuality(0.8f);
+
+                ImageOutputStream ios = ImageIO.createImageOutputStream(baos);
+                writer.setOutput(ios);
+                writer.write(null, new IIOImage(outputImage, null, null), param);
+                writer.dispose();
+                ios.close();
+            } else {
+                // PNG para imágenes con transparencia
+                ImageIO.write(outputImage, "png", baos);
+            }
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
+        }
+    } catch (IOException e) {
+        throw new IOException("Error al procesar la imagen: " + e.getMessage());
+    }
+}
     /**
      * Calcula la capacidad que tiene el coworking
      *
@@ -249,7 +301,7 @@ public class CoworkingService implements ICoworkingService {
 
     @Override
     public AdvancedEntityResult serviceCoworkingPaginationQuery(final Map<String, Object> keysValues,
-                                                                final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
+            final List<?> attributes, final int recordNumber, final int startIndex, final List<?> orderBy) throws OntimizeJEERuntimeException {
         final SQLStatementBuilder.BasicExpression basicExpression =
                 (SQLStatementBuilder.BasicExpression) keysValues.get(SQLStatementBuilder.ExtendedSQLConditionValuesProcessor.EXPRESSION_KEY);
         final boolean hasDate = basicExpression == null ? false : dateCheckInFilters(basicExpression);
@@ -347,14 +399,14 @@ public class CoworkingService implements ICoworkingService {
         int year = 0;
         year = (int) keyMap.remove("year");
         months = new ArrayList<>((ArrayList<Integer>) keyMap.remove("month"));
-        for (int i = 0; i < arrayCw_id.size(); i++) {
-            final int cw = arrayCw_id.get(i);
-            keyMap.put(CoworkingDao.CW_ID, cw);
+        for (int i = 0; i < months.size(); i++) {
+            final int mes = months.get(i);
+            keyMap.put("date_part('month',booking_date.date)", mes);
             keyMap.put(BookingDao.BK_STATE, true);
             keyMap.put("date_part('year',booking_date.date)", year);
-            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, months);
+            final Map<String, Object> dataMonths = this.monthsGraphic(keyMap, attrList, arrayCw_id);
             if (dataMonths != null) {
-                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, months));
+                listaCoworkings.add(this.monthsGraphic(keyMap, attrList, arrayCw_id));
             }
         }
         final EntityResult response = new EntityResultMapImpl();
@@ -368,44 +420,43 @@ public class CoworkingService implements ICoworkingService {
      *
      * @param keys,
      * @param attrList,
-     * @param months
+     * @param coworkings
      * @return coworkingMap
      */
     public Map<String, Object> monthsGraphic(final Map<String, Object> keys, final List<String> attrList,
-                                             final ArrayList<Integer> months) {
-        final Map<String, Object> coworkingMap = new LinkedHashMap<>();
+            final ArrayList<Integer> coworkings) {
+        final Map<String, Object> monthsMap = new LinkedHashMap<>();
         List<String> coworkingName = new ArrayList<>();
-        final List<Map> monthsList = new ArrayList<>();
-        Map<String, Object> m = null;
+        final List<Map> coworkingsList = new ArrayList<>();
+        Map<String, Object> c = null;
         EntityResult er = null;
-        for (int j = 0; j < months.size(); j++) {
-            List<Integer> month = new ArrayList<>();
+        for (int j = 0; j < coworkings.size(); j++) {
+            List<String> coworking = new ArrayList<>();
             List<Integer> in = new ArrayList<>();
             List<Double> account = new ArrayList<>();
-            m = new HashMap<>(); //mapa del mes y del importe
-            keys.put("date_part('month',booking_date.date)", months.get(j));
+            c = new HashMap<>(); //mapa del coworking y del importe
+            keys.put("cw_id", coworkings.get(j));
             er = this.daoHelper.query(this.coworkingDao, keys, attrList,
                     this.coworkingDao.CW_QUERY_FACTURATION_BY_MONTH);
-            month = (List<Integer>) er.get("m");
+            coworking = (List<String>) er.get("coworking_name");
             in = (List<Integer>) er.get("m");
             account = (List<Double>) er.get("account");
-            if (month != null) {
-                m.put("i", in.get(0));
-                m.put("name", month.get(0));
-                m.put("value", account.get(0));
-                monthsList.add(m);
+            if (coworking != null) {
+                c.put("name", coworking.get(0));
+                c.put("value", account.get(0));
+                coworkingsList.add(c);
                 coworkingName = (List<String>) er.get("coworking_name");
-                coworkingMap.put("name", coworkingName.get(0));
-                coworkingMap.put("series", monthsList);
+                monthsMap.put("name", keys.get("date_part('month',booking_date.date)"));
+                monthsMap.put("i", in.get(0));
+                monthsMap.put("series", coworkingsList);
             }
         }
-        if (!coworkingMap.isEmpty()) {
-            return coworkingMap;
+        if (!monthsMap.isEmpty()) {
+            return monthsMap;
         } else {
             return null;
         }
     }
-
     @Override
     public EntityResult bookingsByDayQuery(final Map<String, Object> keyMap, final List<String> attrList) throws OntimizeJEERuntimeException {
         final Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

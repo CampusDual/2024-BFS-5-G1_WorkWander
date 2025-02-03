@@ -46,23 +46,25 @@
       required="yes"
     >
     </o-combo>
-    <o-integer-input
-    fxFlex="10"
-    #inputYear
-    attr="inputYear"
-    icon="hourglass_empty"
-    label="{{ 'YEAR' | oTranslate }}"
-    value="year"
-    class="inline"
-    min="1"
-    step="1"
-    max="9999"
-    (onValueChange)="setMonth($event)"
-    (onSelectionChange)="setMonth($event)"
-    required="yes"
-    data="{{ year }}"
-    thousand-separator=""
-  ></o-integer-input>
+
+    <o-combo
+      class="input-selector"
+      #comboYearsInput
+      attr="comboYearsInput"
+      label="{{ 'SELECT_YEARS' | oTranslate }}"
+      [static-data]="yearsData"
+      [data]="year"
+      value-column="y"
+      columns="y;year"
+      visible-columns="year"
+      (onValueChange)="setMonth($event)"
+      (onSelectionChange)="setMonth($event)"            
+      null-selection="no"
+      fxFlex="15"
+      required="yes"
+      >
+
+    </o-combo>
   </div>
   <ng-container *ngIf="resolveData; else chart">
     <article id="txt-rotate" class="noResults">
@@ -79,7 +81,7 @@
           [data]="showData()"
           x-data-type="string"
           y-data-type="string"
-          x-label="{{ 'X-AXIS-COWORKING' | oTranslate }}"
+          x-label="{{ 'X-AXIS-MONTH' | oTranslate }}"
           y-label="{{ 'Y-AXIS-AMOUNT' | oTranslate }}"
           [chart-parameters]="configureChart()"
           [color]="colorScheme"
@@ -87,7 +89,7 @@
           show-y-axis-label="true"
           show-legend="true"
           legend-position="below"
-          legend-title="{{ typeData | oTranslate }}"
+          legend-title="{{ 'COWORKINGS' | oTranslate }}"
         >
         </o-chart>
       </div>

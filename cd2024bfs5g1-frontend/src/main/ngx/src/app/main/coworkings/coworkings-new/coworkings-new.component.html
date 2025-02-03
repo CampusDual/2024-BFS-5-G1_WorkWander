@@ -147,12 +147,7 @@
       </div>
       <!-- Imagen Information -->
       <!-- Imagen -->
-      <o-image
-        attr="cw_image"
-        sql-type="OTHER"
-        max-file-size="1048576"
-        class="imagen-mapa"
-      ></o-image>
+      <o-image attr="cw_image" sql-type="OTHER" class="imagen-mapa" max-file-size="2650000"></o-image>
     </o-column>
     <o-column
       fxFlex
@@ -193,7 +188,6 @@
             max-length="50"
             min-length="3"
             (keyup.enter)="onAddressBlur()"
-            (onBlur)="onAddressBlur()"
             style="width: calc(100% - 100px)"
           ></o-text-input>
         </div>

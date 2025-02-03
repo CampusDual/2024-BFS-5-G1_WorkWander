@@ -16,7 +16,7 @@ BEGIN
     SELECT rol_id INTO my_user_role FROM usr_role where rol_name =  'company';
 
     /*	Asignamos los valores de usuario que vamos a crear	*/
-    SELECT
+    /*SELECT
         'company',
         'company@mail.com',
         'Cotecme',
@@ -27,18 +27,18 @@ BEGIN
         my_user_mail,
         my_user_usr_name,
         my_user_password,
-        my_user_cif;
+        my_user_cif;*/
 
     /* Creamos el usuario */
-    INSERT INTO public.usr_user
+    /*INSERT INTO public.usr_user
         (usr_id, usr_login, usr_name, usr_email, usr_password, usr_cif)
     VALUES
         (nextval('usr_user_usr_id_seq'::regclass), my_user_usr_login, my_user_usr_name, my_user_mail, my_user_password, my_user_cif)
-    RETURNING usr_id INTO my_user;
+    RETURNING usr_id INTO my_user;*/
 
     /* Asignamos el rol de empresa */
-    INSERT INTO public.usr_user_role
+    /*INSERT INTO public.usr_user_role
     (uro_id, usr_id, rol_id) VALUES(nextval('usr_user_role_uro_id_seq'::regclass), my_user, my_user_role);
-
+*/
 
 END $$;

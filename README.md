@@ -1,146 +1,292 @@
-## DESCRIPTION
+<div align="center"><img src="./cd2024bfs5g1-frontend/src/main/ngx/src/assets/images/sidenav-closed-verde.png" alt="WorkWander"/></div>
 
-Application template based in Ontimize Web and Ontimize Boot (java 11).
+# **WORKWANDER**
 
-Use this template to generate an application with a standard structure and a predefined Ontimize configuration for Ontimize authentication and a unique database, using PostgreSQL.
+# **Índice** 📑
 
-Take a look at application.yml and [Ontimize Boot](https://ontimize.github.io/docs/) documentation to customize as needed.
+1. [Descripción](#id1)
+2. [Estado](#id2)
+3. [Funcionalidades](#id3)
+   * [Coworkings](#id4)
+     * [Datos de coworking](#id5)
+   * [Eventos](#id6)
+     * [Datos de evento](#id7)
+   * [Mi espacio](#id8)
+     * [Mi calendario](#id9)
+     * [Mis reservas](#id10)
+         * [Editar reserva](#id11)
+   * [Gestionar coworkings](#id12)
+     * [Nuevo coworking](#id13)
+     * [Mis coworkings](#id14)
+       * [Editar coworking](#id15)
+   * [Gestionar eventos](#id16)
+     * [Nuevo evento](#id17)
+     * [Mis eventos](#id18)
+       * [Editar evento](#id19)
+   * [Análisis](#id20)
+     * [Ocupación](#id21)
+     * [Facturación](#id22)
+     * [Influencia de eventos](#id23)
+4. [Despliegue en Cloud](#id24)
+5. [Despliegue con Docker](#id25)
+6. [Despliegue local](#id26)
+7. [Acceso a la aplicación](#id27)
+   * [Usuarios predeterminados](#id28)
+   * [Cómo lanzar la aplicación](#id29)
+8. [Tecnologías usadas](#id30)
+   * [Backend](#id31)
+   * [Frontend](#id32)<span id="v32"></span>
+   * [Bases de datos](#id33)
+   * [IDE'S](#id34)
+   * [Control de código](#id35)
+   * [Pruebas unitarias](#id36)
+9. [Autoría](#id37)
 
-Several Spring Boot configuration files are provided. It is recommended to use environment variables in Spring configuration files for configuration values that depend on the environment.
+---
 
-For K8s environment it is recommended that Spring actuator is configured in a different port than the application. (see application-staging.yml)
+## <div id="id1">1. Descripción&nbsp;👀</div>
 
-### CLOUD DEPLOYMENT
+Esta aplicación está construida para permitir que los nómadas digitales puedan encontrar espacios de coworking y eventos cercanos a los primeros, durante sus desplazamientos en cualquier parte del mundo. Va orientada también a empresas y profesionales del sector coworking para que desde ella gestionen sus espacios y así ofrecer a los coworkers viajeros un lugar donde poder trabajar y reunirse. 
 
-This application is ready to be deployed in a Kubernetes Cluster, using provided Helm charts (in ./charts folder).
+La plantilla de la aplicación está basada en Ontimize Web y Ontimize Boot (java 11).
 
-Other files provided:
+Utiliza esta plantilla para generar una aplicación con una estructura estándar y una configuración de Ontimize predefinida para la autenticación de Ontimize y una base de datos única, utilizando PostgreSQL.
 
-		./Dockerfile: Provided as is. Adapt as needed.
+Echa un vistazo a la documentación de application.yml y [Ontimize Boot](https://ontimize.github.io/docs/) para personalizarla según sea necesario.
 
-		./.git/workflows/maven-build-docker-ecr.yaml: Adapt as needed. Provided setup is:
+Se proporcionan varios archivos de configuración de Spring Boot. Se recomienda utilizar variables de entorno en los archivos de configuración de Spring para los valores de configuración que dependen del entorno.
+
+Para el entorno K8, se recomienda que el starter de Spring esté configurado en un puerto diferente al de la aplicación. (ver application-staging.yml)
+
+---
+
+## <div id="id2">2. Estado&nbsp;🏁</div>
+
+La aplicación está finalizada, a no ser por alguna implementación que se pueda incorporar a mayores.
+Es un proyecto con licencia OpenSource.
+
+---
+
+## <div id="id3">3. Funcionalidades&nbsp;🛠</div>
+
+### ***<div id="id4">Coworkings</div>***
+Listado de coworkings en forma de grid al que puede acceder cualquier usuario, registrado o no. Se muestra una foto del coworking, junto con su nombre, precio, etiquetas que indican si el coworking es nuevo y servicios que posee. Este listado permite efectuar varios filtros: ***Localización mediante mapa***, ***Localidad***, ***Servicios ofrecidos***, ***Fecha de creación*** y ***Precio***
+
+#### ***<div id="id5">Datos de coworkings</div>***
+Formulario al que puede acceder cualquier usuario registrado o no. Aquí se muestra desde el nombre del coworking, descripción, plazas, precio, fotografía, localidad, dirección y mapa de ubicación. Se permite la reserva del coworking a usuarios registrados siempre y cuando existan plazas libres.
+Figuran las reseñas dadas al coworking, en caso de haberlas y un carrusel con los eventos del día y futuros que haya en la misma localidad del coworking.
+
+
+### ***<div id="id6">Eventos</div>***
+Listado de eventos en forma de grid al que puede acceder cualquier usuario, registrado o no. Se muestra una foto del evento, junto con su nombre, precio, en caso de que sea gratuito, se muestra una etiqueta. Este listado permite filtrar por ***Nombre de evento***.
+
+#### ***<div id="id7">Datos de eventos</div>***
+Formulario al que puede acceder cualquier usuario registrado o no. Aquí se muestra desde el nombre del evento, descripción, plazas, precio, fotografía, localidad, dirección y mapa de ubicación. Se permite la reserva del evento a usuarios registrados siempre y cuando existan plazas libres.
+
+### ***<div id="id8">Mi espacio</div>***
+
+
+#### ***<div id="id9">Mi calendario</div>***
+
+
+#### ***<div id="id10">Mis reservas</div>***
+
+
+##### ***<div id="id11">Editar reserva</div>***
+
+
+### ***<div id="id12">Gestionar coworkings</div>***
+
+
+#### ***<div id="id13">Nuevo coworking</div>***
+
+
+#### ***<div id="id14">Mis coworkings</div>***
+
+
+##### ***<div id="id15">Editar coworking</div>***
+
+
+### ***<div id="id16">Gestionar eventos</div>***
+
+
+#### ***<div id="id17">Nuevo evento</div>***
+
+
+#### ***<div id="id18">Mis eventos</div>***
+
+
+##### ***<div id="id19">Editar evento</div>***
+
+
+### ***<div id="id20">Análisis</div>***
+
+
+#### ***<div id="id21">Ocupación</div>***
+
+
+#### ***<div id="id22">Facturación</div>***
+
+
+#### ***<div id="id23">Influencia de eventos</div>***
+
+---
+
+## <div id="id24">4. Despliegue en Cloud&nbsp;🌐</div>
+
+Esta aplicación está preparada para ser desplegada en un Cluster de Kubernetes, usando Helm Charts proporcionados en ./charts folder.
+
+Otros ficheros proporcionados:
+
+		./Dockerfile: Proporcionado tal cual. Adáptalo como necesites.
+
+		./.git/workflows/maven-build-docker-ecr.yaml: Adáptalo como necesites. El setup proporcionado es:
 
 			- Fires on push in develop branch
-			- Performs maven verify
-			- Builds docker image
-			- Extracts project version from pom.xml
-			- Updates version in ./charts/xxx/Chart.yaml
-			- Pushes docker image to Amazon AWS ECR (login, repository, etc. are automatically done. Credentials are not needed if repository organization is imatia-innovation).
+			- Realiza la verificación de maven
+			- Contruye la imagen docker
+			- Extracta la versión del proyecto desde pom.xml
+			- Actualiza la versión en ./charts/xxx/Chart.yaml
+			- Haz un push de la imagen de Docker a Amazon AWS ECR (login, repositorio, etc. están hechos automáticamente. Las credenciales no son necesarias si la organización del repositorio es  imatia-innovation).
 
-		Note: Amazon AWS ECR can be customized depending on infrastructure needs and setup. Provided configuration is standard and should work in most cases.
+		Postdata: Amazon AWS ECR puede ser customizado dependiendo de la infraestructura necesaria y el setup. LA configuración proporcionada es estándar y debería funcionar en muchos casos.
 
-### DOCKER-COMPOSE DEPLOYMENT
+---
 
-This application is ready to be deployed on a local machine, using provided docker compose files (in ./ folder):
+## <div id="id25">5. Despliegue con Docker Compose&nbsp;🖥</div>
 
-		./docker-compose.yaml: Adapt as needed. Provided setup is:
+Esta aplicación está preparada para ser desplegada en una máquina local, usando los ficheros docker compose proporcionados en ./ folder:
 
-			- Builds docker image
-			- Runs database (Defined in docker-compose-services.yaml)
-			- Runs application
+		./docker-compose.yaml: Adáptalo como necesites. El setup proporcionado es:
 
-		./docker-compose-services.yaml: Adapt as needed. Provided setup is:
+			- Construye la imagen de Docker
+			- Ejecuta la base de datos (Definida en docker-compose-services.yaml)
+			- Ejecuta la aplicación
 
-			- Runs database
+		./docker-compose-services.yaml: Adáptalo como necesites. El setup proporcionado es:
 
-The services required to run the application, such as the database, are provided in a separate file to allow to run the services only and to be able to launch the application from an IDE.
+			- Ejecuta la base de datos
 
- - Go to the application folder
+Los servicios necesarios para ejecutar la aplicación, como la base de datos, se proporcionan en un archivo separado para permitir ejecutar solo los servicios y poder iniciar la aplicación desde un IDE.
+
+ - Ve a la carpeta de la aplicación
 
 		cd cd2024bfs5g1
 
- - With docker privileges run the following command to start the deployment:
+ - Con privilegios de Docker, ejecuta el siguiente comando para iniciar la implementación:
 
 		docker compose up
 
-The application is deployed as a docker container in the url: [http://localhost:8080](http://localhost:8080)
+La aplicación se implementa como un contenedor de Docker en la url: [http://localhost:8080](http://localhost:8080)
 
- - List the pods:
+ - Lista los pods:
 
 		docker ps
 
- - Show the logs of each container:
+ - Muestra los logs de cada contenedor:
 
 		docker logs -f id_container
 
- - Access the console of the container:
+ - Accede a la consola del contenedor:
 
 		docker exec -it id_container sh
 
- - Stop the deployment:
+ - Para el despliegue:
 
 		docker compose down
 		docker volume prune
 
-### LOCAL DEPLOYMENT
+---
 
-The parameters in the application-local.yaml file must match the values of the development services, such as the database. By default, the parameters match the values in the docker files.
+## <div id="id26">6. Despliegue local&nbsp;🏠</div>
 
- - Go to the application folder
+Los parámetros del fichero application-local.yaml deben coincidir con los valores de los servicios de desarrollo, como la base de datos. De forma predeterminada, los parámetros coinciden con los valores exitentes en los ficheros Docker.
+
+ - Ve a la carpeta de la aplicación.
 
 		cd cd2024bfs5g1
 
- - If a deployment of a development services are not available, run the provided docker compose file to start the services:
+ - Si un despliegue de servicios de desarrollo no está disponible, ejecuta el archivo de de Docker Compose proporcionado para iniciar los servicios:
 
 		docker compose -f docker-compose-services.yaml up
 
- - Compile and deploy the application with the following commands:
+ - Compila y despliega la aplicación con los siguientes comandos:
 
 		mvn clean install -Plocal
 		java -jar cd2024bfs5g1-boot/target/cd2024bfs5g1-boot.jar --spring.profiles.active=local
 
- - The application is accessible using the url: [http://localhost:8080](http://localhost:8080)
+ - La aplicación está accesible usando la siguiente url: [http://localhost:8080](http://localhost:8080)
 
-## ADDITIONAL INFORMATION
+---
 
-## Default application users
+## <div id="id27">7. Acceso a la aplicación&nbsp;🚀</div>
 
-By default the application provides two users. Adapt as needed:
+### ***<div id="id28">Usuarios predeterminados</div>***
 
- - Admin:
-    - Role: `Administrator`
-    - Username: `admin`
-    - Password: `adminuser`
+De forma predeterminada, la aplicación proporciona tres usuarios. Adáptalo según sea necesario:
+
+- Admin:
+    - Rol: `Administrator`
+    - Nombre de usuario: `admin`
+    - Contraseña: `adminuser`
 
  - Demo:
-    - Role: `User`
-    - Username: `demo`
-    - Password: `demouser`
+    - Rol: `User`
+    - Nombre de usuario: `demo`
+    - Contraseña: `demouser`
+  
+ - Company:
+   - Rol: `Company`
+   - Nombre de usuario: `company`
+   - `democompany`
 
-## Ontimize Boot
+### ***<div id="id29">Cómo lanzar la aplicación</div>***
 
-- Go to the application folder and run an install:
+### Ontimize Boot
+
+- Ve a la carpeta de la aplicación y ejecuta una instalación:
 
 		mvn clean install -Plocal
 
-### Start only the server:
+#### Inicia solo el servidor:
 
- - Go to the `cd2024bfs5g1-boot` folder and run the command
+ - Ve a la carpeta `cd2024bfs5g1-boot` y ejecuta el comando:
 
 		mvn spring-boot:run -Dspring-boot.run.profiles=local
 
-### Run the client alone, outside the spring-boot server
+#### Ejecuta el cliente solo, fuera del servidor spring-boot
 
- - Go to the `frontend/src/main/ngx` folder, if you have node and npm installed on your system run the following commands:
+ - Ve a la carpeta `frontend/src/main/ngx`, Si está node y npm instalados en el sistema, ejecuta los siguientes comandos:
 
 		npm install
 		npm run start-local
 
-Use the following URL to access the application: [http://localhost:4299](http://localhost:4299)
+Usa la siguiente URL para acceder a la aplicación: [http://localhost:4299](http://localhost:4299)
 
-### Deploy and run client and server together
+#### Desplegar y ejecutar cliente y servidor juntos
 
- - Go to the `cd2024bfs5g1-boot/target` folder and run the command
+ - Ve a la carpeta `cd2024bfs5g1-boot/target` y ejecuta el comando:
 
 		java -jar cd2024bfs5g1-boot/target/cd2024bfs5g1-boot.jar --spring.profiles.active=local
 
-Use the following URL to access the application: [http://localhost:8080](http://localhost:8080)
+Usa la siguiente URL para acceder a la aplicación: [http://localhost:8080](http://localhost:8080)
 
-## API-First and Swagger UI
+---
 
-The application adopts the API-first approach using the [OpenAPI](http://www.openapis.org/what-is-openapi) specification.
+## <div id="id30">8. Tecnologías usadas&nbsp;💾</div>
 
-The REST API is defined using yaml files and, in compile time, the [Ontimize OpenAPI](http://www.ontimize.com/xwiki/bin/view/Ontimize+Boot/OpenAPI+plugin) plugin generates the models and the controller interfaces that must be implemented on the application.
+La aplicación ha sido desarrollada usando las tecnologías y dependencias que se describen a continuación.
 
-The Ontimize OpenAPI plugin also provides the Swagger user interface and it will be available for local and compose environments at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).
+### <div id="id31">Backend</div>
+![jdk-11.0.24.8-hotspot](https://img.shields.io/badge/Java%20-%20orange?style=for-the-badge&labelColor=orange&color=orange&link=https%3A%2F%2Fwww.oracle.com%2Fjava%2F) Lenguaje de programación multiplataforma orientado a objetos que se ejecuta en miles de millones de dispositivos de todo el mundo, se usa principalmente para desarrollar aplicaciones del lado del backend.
 
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot%20-%20green?style=for-the-badge&logo=springboot&logoColor=green&link=https%3A%2F%2Fspring.io%2Fprojects%2Fspring-boot) Es una herramienta que acelera y simplifica el desarrollo de microservicios y aplicaciones web.
+
+![JPA (Java Persistence API)](https://img.shields.io/badge/JPA%20(Java%20Persistence%20API)-%20%232A2D94?style=for-the-badge&link=https%3A%2F%2Fjakarta.ee%2Fspecifications%2Fpersistence%2F) Permite la persistencia de los datos, facilitando así el trabajo con la Base de Datos.
+
+![Maven](https://img.shields.io/badge/Apache%20Maven%20-%20red?style=for-the-badge&logo=apachemaven&logoColor=white&link=https%3A%2F%2Fmaven.apache.org%2F) Apache Maven es una herramienta de comprensión y gestión de proyectos de software. Basado en el concepto de modelo de objetos de proyecto (**POM**), Maven puede gestionar la construcción, los informes y la documentación de un proyecto desde una pieza de información central.
+
+![Ontimize Boot](https://img.shields.io/badge/Ontimize%20Boot%20-%20%23F2D936?style=for-the-badge&labelColor=black&link=https%3A%2F%2Fontimize.github.io%2Fontimize-boot%2F) Ontimize Boot usa la tecnología de Spring Boot para simplificar aún más un servidor basado en servicios o microservicios, usando el sistema de comunicación API REST.
+
+### <div id="id32">Frontend</div>
+![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white&link=https://angular.dev/) Angular es una plataforma y un framework para crear aplicaciones de una sola página (SPA) en el lado del cliente usando HTML y TypeScript. <span>[🔝](#v32)</span>

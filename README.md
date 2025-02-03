@@ -2,7 +2,7 @@
 
 # **WORKWANDER**
 
-# **Índice** 📑
+# <div id="1">**Índice** 📑</Div>
 
 1. [Descripción](#id1)
 2. [Estado](#id2)
@@ -62,6 +62,7 @@ archivos de configuración de Spring para los valores de configuración que depe
 Para el entorno K8, se recomienda que el starter de Spring esté configurado en un puerto diferente al de la
 aplicación. (ver application-staging.yml)
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id2">2. Estado&nbsp;🏁</div>
@@ -69,6 +70,7 @@ aplicación. (ver application-staging.yml)
 La aplicación está finalizada, a no ser por alguna implementación que se pueda incorporar a mayores.
 Es un proyecto con licencia OpenSource.
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id3">3. Funcionalidades&nbsp;🛠</div>
@@ -165,7 +167,7 @@ Semáforo de actividad aplicado a un calendario en el cual se representa el porc
 función de los eventos que están programados en su área cercana. La ocupación baja se muestra de color rojo, las
 intermedias de tonos anaranjados y las altas de color verde.
 
-
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id24">4. Despliegue en Cloud&nbsp;🌐</div>
@@ -188,6 +190,7 @@ Otros ficheros proporcionados:
 
 		Postdata: Amazon AWS ECR puede ser customizado dependiendo de la infraestructura necesaria y el setup. LA configuración proporcionada es estándar y debería funcionar en muchos casos.
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id25">5. Despliegue con Docker Compose&nbsp;🖥</div>
@@ -235,6 +238,7 @@ La aplicación se implementa como un contenedor de Docker en la url: [http://loc
   	docker compose down
   	docker volume prune
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id26">6. Despliegue local&nbsp;🏠</div>
@@ -258,6 +262,7 @@ la base de datos. De forma predeterminada, los parámetros coinciden con los val
 
 - La aplicación está accesible usando la siguiente url: [http://localhost:8080](http://localhost:8080)
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id27">7. Acceso a la aplicación&nbsp;🚀</div>
@@ -307,6 +312,7 @@ Usa la siguiente URL para acceder a la aplicación: [http://localhost:4299](http
 
 Usa la siguiente URL para acceder a la aplicación: [http://localhost:8080](http://localhost:8080)
 
+<span>[🔝](#workwander)</span>
 ---
 
 ## <div id="id30">8. Tecnologías usadas&nbsp;💾</div>
@@ -376,6 +382,8 @@ almacenamiento y gestión de control de versiones utilizado para gestionar el c�
 ![JUnit](https://img.shields.io/badge/JUnit-%23A020F0.svg?style=flat&logo=java&logoColor=white) [JUnit](https://junit.org/junit5/):
 Framework para pruebas unitarias en Java, utilizado para garantizar la calidad del código.
 
+<span>[🔝](#workwander)</span>
+
 ## <div id="id37">9. Autoría</div>
 
 🚀 Estudiantes del Bootcamp de Desarrollo Fullstack
@@ -404,5 +412,5 @@ Framework para pruebas unitarias en Java, utilizado para garantizar la calidad d
 | Diego Alonso | Carcamo          | Gutierrez        |
 | Miguel Ángel | Rama             | Martínez         |
 
-<span>[🔝](#v32)</span>
+<span>[🔝](#workwander)</span>
 

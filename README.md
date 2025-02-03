@@ -390,27 +390,27 @@ Framework para pruebas unitarias en Java, utilizado para garantizar la calidad d
 
 | Nombre       | Apellido 1       | Apellido 2       |
 |--------------|------------------|------------------|
-| Juan         | Fuente           | Torrado          |
-| Juan Jesús   | Tenreiro         | Rodriguez        |
-| Bryan        | Quintas          | Lareo            |
-| Alberto      | Salvado          | Fernández        |
-| Hugo         | Rodriguez        | Marcelino        |
-| Diego        | Miras            | Curras           |
-| Ana          | Martinez         | Puga             |
 | Adela        | Santalla         | Ruiz de Cortázar |
-| Lucas        | González-Redondo | Rodríguez        |
-| Julián       | Ramiro           | Sánchez          |
-| David        | Acha             | Olivera          |
+| Alberto      | Salvado          | Fernández        |
 | Alejandro    | González         | López            |
-| Tania        | Pacio            | Rivas            |
-| Orlando José | Garcés           | Casal            |
-| Javier       | Noguer           | Fernández        |
+| Ana          | Martínez         | Puga             |
 | Beatriz      | Faro             | Carrera          |
-| Sergio       | Sanmiguel        | Vázquez          |
+| Bryan        | Quintas          | Lareo            |
+| David        | Acha             | Olivera          |
+| Diego        | Miras            | Currás           |
+| Diego Alonso | Carcamo          | Gutiérrez        |
+| Hugo         | Rodriguez        | Marcelino        |
+| Javier       | Noguer           | Fernández        |
+| Juan Antonio | Fuente           | Torrado          |
+| Juan Jesús   | Tenreiro         | Rodríguez        |
+| Julián       | Ramiro           | Sánchez          |
 | Julio        | Díaz             | López            |
-| Nataly Laura | Alvarado         | Luján            |
-| Diego Alonso | Carcamo          | Gutierrez        |
+| Lucas        | González-Redondo | Rodríguez        |
 | Miguel Ángel | Rama             | Martínez         |
+| Nataly Laura | Alvarado         | Luján            |
+| Orlando José | Garcés           | Casal            |
+| Sergio       | San Miguel       | Vázquez          |
+| Tania        | Pacio            | Rivas            |
 
 <span>[🔝](#workwander)</span>
 

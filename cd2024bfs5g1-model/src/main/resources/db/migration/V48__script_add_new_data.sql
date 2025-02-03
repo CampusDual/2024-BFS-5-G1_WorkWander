@@ -18,7 +18,7 @@ DECLARE
 	i INT;
 
     user_names TEXT[] := ARRAY[
-        'Adela', 'Alberto', 'Ana', 'Beatriz', 'Nataly'
+        /*'Adela',*/ 'Alberto', 'Ana', 'Beatriz', 'Nataly'
     ];
 
     /*  Creación de Reservas */

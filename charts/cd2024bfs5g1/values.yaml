@@ -5,8 +5,8 @@ replicaCount: 1
 image:
   pullPolicy: IfNotPresent
   ## provided as basic setup. replace as needed
-  repository: ghcr.io/campusdual/cd2024bfs5g1
-  version: proca1013b
+  repository: ghcr.io/campusdual/2024-bfs-5-g1_workwander
+  version: pro07dc383
 imagePullSecrets: 
   - name: "github-ecr-cred" 
 nameOverride: ""

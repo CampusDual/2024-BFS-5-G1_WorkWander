@@ -16,7 +16,7 @@ BEGIN
     SELECT rol_id INTO my_user_role FROM usr_role where rol_name =  'company';
 
     /*	Asignamos los valores de usuario que vamos a crear	*/
-    /*SELECT
+    SELECT
         'company',
         'company@mail.com',
         'Cotecme',
@@ -27,7 +27,7 @@ BEGIN
         my_user_mail,
         my_user_usr_name,
         my_user_password,
-        my_user_cif;*/
+        my_user_cif;
 
     /* Creamos el usuario */
     /*INSERT INTO public.usr_user
